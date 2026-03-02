@@ -2,10 +2,11 @@
 **Classification:** Confidential — Internal Strategic Document
 **Role:** Single source of truth for architecture, phases, and constraints
 **Date:** 2026-03-02
-**Version:** 1.0
+**Version:** 1.1
 **Basis:** Strategic Charter v5 (active design) + v4 audit (authoritative corrections)
 **Supersedes:** v2, v3, v4, v5 as the document a reader must consult to understand current state
 **Freeze period:** 6 months from issue date, or earlier if a kill criterion fires
+**v1.1 change summary:** Controlled architectural evolution. Added Growth Layer module (Section E), Growth Layer & Efficiency Metrics (Section J1), Risk Budget Escalation Protocol (Section J2). Surgical updates to Phase 0, 1, 2 monitoring requirements. Section B (Frozen Non-Negotiables), all kill criteria, all phase exit criteria, and all metric thresholds are unchanged.
 
 ---
 
@@ -233,6 +234,43 @@ Regime labels applied to historical OOS windows are frozen at evaluation time. A
 - Key risk: CCA route into live portfolio → systematic regime misclassification amplified across all skill routing (failure mode worse than absence)
 - Gating: Era 4 minimum; requires ≥300 resolved InsightHypothesis objects with verified outcomes before any live portfolio influence; currently dashboard/research only
 
+**Growth Layer (Locked by Default)**
+- **Status:** Locked. All outputs are monitoring-only. No Growth Layer output influences portfolio decisions or triggers automatic actions until an RBE step is formally activated via charter-level review and preregistration in the trial registry.
+- **Purpose:** Monitor execution efficiency, diversification quality, and capital utilization as structural performance levers. Enable the RBE protocol as a gated escalation path after empirical stability is demonstrated.
+
+*Submodule 1 — Cost & Execution Monitor*
+- Purpose: Detect slippage drift and cost drag before they accumulate to Sharpe-significant levels.
+- Inputs: Fill log (SimBroker and paper), trade log, gross P&L streams (a)+(b)+(c), rolling 30-day window.
+- Outputs: Slippage drift indicator (30d rolling deviation from SimBroker estimate); Cost Drag (% NAV/year, annualized); Turnover per skill (round-trips/month); CRR = total friction / gross P&L (rolling 30d).
+- Monitoring cadence: Weekly update; monthly report.
+- Policy (not tunable): CRR > 0.35 for 2 consecutive months → mandatory cost review before any phase transition is assessed. This is a review trigger, not a kill criterion.
+- Tunable: Rolling window length (20–60 days); reporting frequency.
+
+*Submodule 2 — Diversification Controller*
+- Purpose: Optimize N_eff as a diversification quality metric via allocation adjustments only. Signal entry/exit modifications are not permitted under this submodule.
+- Inputs: Skill P&L streams, rolling pairwise correlation matrix (20-day default), cluster detection output, N_eff estimate.
+- Outputs: Cluster membership assignments; allocation cap per correlated cluster; N_eff trend (weekly series).
+- Monitoring cadence: Daily correlation update; weekly allocation review.
+- Policy (not tunable): N_eff optimization target ≥ 3.0 (aligned with Phase 1 K3 threshold). Maximum gross exposure per correlated cluster = 40% of total gross. Allocation adjustments that increase N_eff without modifying signals are permitted without preregistration, subject to Rule GE-2 (Section J1). Signal modifications require preregistration per Rule GE-3 regardless of stated rationale.
+- Tunable: Cluster detection method (hierarchical or k-means); correlation window (15–30 days); cluster cap (35–50%, within documented bounds).
+
+*Submodule 3 — Capital Utilization Monitor*
+- Purpose: Track idle capital to inform treasury activation eligibility and identify structural underdeployment.
+- Inputs: Daily position log (gross exposure as % NAV), cash balance.
+- Outputs: Idle capital % (daily); Average utilization (rolling 90-day); Utilization band compliance flag.
+- Monitoring cadence: Daily update; monthly report.
+- Policy (not tunable): Target utilization band = 40–70% gross exposure (Phase 1 long-only baseline). Below 40% for ≥30 consecutive days → flag for review. Phase 5 treasury eligibility check uses the 90-day average. Above 70% is constrained by existing position-sizing rules; not a Growth Layer alert condition.
+- Tunable: Utilization band thresholds adjustable ±5 percentage points with logged rationale; no preregistration required if adjustment stays within ±5 pp of policy band.
+
+*Submodule 4 — Risk Budget Escalator (RBE)*
+- **Status: Locked.** All RBE step activations require charter-level review and preregistration as a policy experiment in the trial registry.
+- Purpose: Define and govern a gated, reversible escalation path for risk expansion after structural stability is empirically demonstrated.
+- Inputs: Rolling 12-month net Sharpe; rolling 12-month max DD; N_eff trend (Submodule 2); Cost Drag trend (Submodule 1); RBE activation log.
+- Outputs: Current RBE step (0–4); activation and rollback event log; preregistration confirmation per step.
+- Monitoring cadence: Quarterly RBE step review; continuous stop-condition monitoring when Step 2+ is active.
+- Policy (not tunable): Step 0 is always active. Steps cannot be skipped. Rollback is automatic when stop conditions trigger. Step 4 is prohibited during the current freeze period (see Section J2).
+- Tunable: None. RBE is fully policy-governed.
+
 ---
 
 ## F. Main Track Phases (0 → 5)
@@ -249,6 +287,12 @@ Regime labels applied to historical OOS windows are frozen at evaluation time. A
 - Do not begin paper trading the Acceleration Track until the trial registry is operational
 - Do not tune cost model parameters to match a specific desired output
 - Do not defer the leakage audit — it must pass before Phase 1 can claim OOS results
+
+**Growth Layer build requirements (Phase 0 addition):**
+- Implement Cost & Execution Monitor (Submodule 1) as part of SimBroker instrumentation. The fill log schema must support CRR computation from day one: every fill records estimated slippage, actual slippage, and cost component breakdown.
+- Implement Capital Utilization Monitor (Submodule 3) before Phase 1 begins. Target utilization band (40–70%) is established as policy before any Phase 1 trading commences.
+- Implement Diversification Controller (Submodule 2) with daily correlation update before Phase 1 begins. N_eff baseline computed over the first 30 days of Phase 1 paper trading.
+- These are build requirements verified by the leakage audit. They do not add exit criteria to Phase 0; they add instrumentation requirements that must be operationally confirmed before Phase 1 is declared started.
 
 **Exit criteria (all required):**
 - [ ] Walk-forward harness passes leakage audit: zero forward-looking features verified by temporal shuffling test
@@ -269,13 +313,14 @@ Regime labels applied to historical OOS windows are frozen at evaluation time. A
 **Objective:** Establish a net Sharpe baseline for 5–6 base skills. This is the control benchmark all subsequent phases must beat.
 
 **Frozen:** Skill count (max 6; expansion requires OOS marginal Sharpe contribution > 0.05); evaluation methodology; cost model; trial registry discipline
-**Can change:** Individual skill parameters within pre-registered bounds; portfolio construction weights within portfolio layer framework
+**Can change:** Individual skill parameters within pre-registered bounds; portfolio construction weights within portfolio layer framework; allocation-based diversification adjustments via Growth Layer Submodule 2 (N_eff optimization without signal modification) do not require preregistration and are permitted. Any modification to signal entry conditions, exit conditions, feature definitions, or look-back parameters — regardless of stated rationale — requires preregistration (Rule GE-3, Section J1).
 
 **What NOT to do in this phase:**
 - Do not add skills beyond 6 without demonstrated OOS marginal contribution > 0.05
 - Do not begin 1W overlay or short positions
 - Do not report AT results as OOS
 - Do not optimize regime thresholds (P1–P4) for Sharpe — they are policy parameters, not tunable knobs
+- Do not modify signal entry/exit conditions, feature definitions, or look-back parameters under the label of "efficiency improvement" — such modifications require preregistration as AT experiments regardless of framing (Rule GE-3)
 - Do not deploy capital
 
 **Required sample:**
@@ -292,6 +337,10 @@ Regime labels applied to historical OOS windows are frozen at evaluation time. A
 | Factor N_eff | ≥ 3 after DR + correlation clustering | K3: N_eff ≤ 2 for 2 consecutive months |
 | Harvey-Liu deflated Sharpe | Reported alongside raw; haircut < 0.05 | Flag if haircut > 0.08 |
 | SimBroker cost accuracy | Within 15% of paper fills | Flag if > 15% for 2 consecutive months |
+| CRR (Cost-to-Return Ratio) | < 0.35 (rolling 30d) | Flag if > 0.35 for 1 month; mandatory cost review if > 0.35 for 2 consecutive months |
+| CER (Capital Efficiency Ratio) | Reported quarterly; trend tracked | Flag if declining for 2 consecutive quarters with stable or rising Sharpe |
+| Capital Utilization % | 40–70% (90d average) | Flag if < 40% for ≥30 consecutive days |
+| N_eff trend | Stable or improving (weekly) | Flag if declining ≥ 0.5 units over 60 days without a logged allocation change |
 
 Note: At 15 months OOS, CI on net Sharpe ≈ ±0.15–0.20 (68%). The point estimate is informative, not final.
 
@@ -340,6 +389,8 @@ Note: At 15 months OOS, CI on net Sharpe ≈ ±0.15–0.20 (68%). The point esti
 | False-trigger reduction | ≥ 20% reduction in P3 events reversed within 5 business days | Flag if < 10% |
 | Turnover impact | Phase 2 RT/month ≤ Phase 1 RT/month | Kill if turnover increases |
 | Empirical ρ(4H,1W) | < 0.60 | Do not advance Phase 2 if > 0.65 |
+| CER | ≥ Phase 1 CER baseline | Flag if Phase 2 CER < Phase 1 CER for 2 consecutive months; overlay adds overhead without capital efficiency gain |
+| CRR | ≤ Phase 1 CRR baseline | Flag if 1W overlay increases cost-to-return ratio; investigate turnover interaction |
 
 **Kill criteria:**
 - **P2K1:** Turnover increases with 1W overlay → retire overlay; return to Phase 1 baseline
@@ -624,6 +675,177 @@ The following questions are open and appropriate for external review. A definiti
 
 ---
 
+## J1. Growth Layer & Efficiency Metrics
+
+### Metric Definitions
+
+| Metric | Definition | Unit | Cadence |
+|---|---|---|---|
+| **Cost Drag** | Total friction (commissions + slippage + borrow cost + funding cost) / NAV, annualized | % NAV/year | Monthly |
+| **Turnover per skill** | Completed round-trips per month per active skill instance | RT/skill/month | Monthly |
+| **CRR (Cost-to-Return Ratio)** | Total friction (rolling 30d) / Gross P&L (rolling 30d, streams a+b+c) | Dimensionless | Monthly |
+| **CER (Capital Efficiency Ratio)** | Realized net return (streams a+b+c) / Allocated capital (avg gross exposure × NAV, quarterly) | % return / % capital | Quarterly |
+| **Capital Utilization %** | Average gross exposure as % NAV over rolling 90 days | % | Monthly |
+| **N_eff** | Effective number of independent factors: k / (1 + (k−1) × ρ_avg), where k = active skill count, ρ_avg = mean pairwise skill P&L correlation | Count | Weekly |
+
+### Interpretation Rules
+
+**Rule GE-1: Suspicious Improvement**
+A reported Sharpe improvement accompanied by simultaneously rising Cost Drag AND rising Turnover per skill must be flagged before acceptance. The improvement may reflect cost misaccounting rather than alpha. Mandatory action: decompose P&L via four-stream attribution and verify CRR is not deteriorating before attributing the improvement to skill.
+
+**Rule GE-2: Allocation-Based Diversification Permitted Without Preregistration**
+Adjustments to allocation weights that improve N_eff are permitted without preregistration, provided:
+- Signal entry/exit logic is unchanged for all skills
+- Gross leverage remains ≤ 1.0 (NN-1)
+- The allocation change is logged with N_eff before/after values and the date
+
+**Rule GE-3: Signal Modification Always Requires Preregistration**
+Any modification to signal entry conditions, exit conditions, feature definitions, or look-back parameters — regardless of whether it is framed as a "diversification improvement," "efficiency fix," or "parameter correction" — requires preregistration in the trial registry as a full AT experiment or Phase experiment before any related data is examined. The Growth Layer does not create an exemption from multiplicity controls.
+
+**Rule GE-4: CRR Thresholds**
+
+| CRR Range | Status | Required Action |
+|---|---|---|
+| < 0.20 | Healthy | No action |
+| 0.20–0.35 | Monitor | Review cost model at next monthly report |
+| > 0.35 for 1 month | Warning | Cost review mandatory before next phase transition assessment |
+| > 0.35 for 2 consecutive months | Flag | Potential K2 input; compare against infrastructure cost threshold; log in RBE transition log |
+
+**Rule GE-5: N_eff as Allocation Optimization Target**
+N_eff optimization via allocation rebalancing is allowed and is the primary use case of Submodule 2. N_eff improvement via signal proliferation (adding skills beyond the Phase 1 cap of 6 without OOS marginal Sharpe > 0.05) is prohibited. The distinction is structural: allocation changes the weight of existing signals; signal addition changes the signal set and requires full OOS justification.
+
+**Rule GE-6: CER Trend Interpretation**
+CER declining while net Sharpe is stable or rising indicates capital is being increasingly tied up without proportional return. This may reflect rising idle capital, concentration in lower-return allocations, or inefficient position sizing. A declining CER trend for 2 consecutive quarters with stable Sharpe is a mandatory review trigger, not a kill criterion.
+
+---
+
+## J2. Risk Budget Escalation Protocol (RBE — Locked)
+
+### Status and Governance
+
+This protocol is **locked by default**. During the current freeze period (until 2026-09-02), no RBE step transition above Step 0 may occur without charter-level review. All RBE step activations above Step 0 are policy experiments and must be preregistered in the trial registry before activation.
+
+Rollback is automatic and non-negotiable when stop conditions trigger. A rolled-back step cannot be re-activated for a minimum of 3 calendar months from the rollback date, regardless of subsequent metric recovery.
+
+---
+
+### Step 0 — Base Regime (Always Active)
+
+**Definition:** The operating state for all phases without RBE activation. Permanent floor; cannot be exited.
+
+| Parameter | Value |
+|---|---|
+| Gross leverage | ≤ 1.0 (NN-1; not an RBE parameter) |
+| Maximum drawdown target | ≤ 20% |
+| Volatility target | As calibrated in Phase 1 baseline |
+| Capital utilization target | 40–70% gross (monitored, not enforced by circuit breaker) |
+
+**Entry conditions:** Automatic from Phase 0 onward.
+**Monitoring cadence:** Continuous.
+**Stop/rollback:** N/A — Step 0 cannot be exited. Extensions via higher steps are additive.
+**Documentation required:** None beyond standard P&L reporting.
+
+---
+
+### Step 1 — Efficiency Expansion (No Risk Increase)
+
+**Definition:** Structural improvements that reduce friction or improve diversification quality without increasing gross volatility or position sizing.
+
+**Permitted actions under Step 1:**
+- Cost compression: renegotiate execution routes, reduce turnover through better exit timing, consolidate redundant fills
+- Diversification optimization: allocation rebalancing via Submodule 2 per Rule GE-2
+- Capital utilization improvement: reduce idle capital toward target band (40–70%) without gross exceeding 70%
+- Exit refinement: via AT promotion only (pre-registered, matched baseline required)
+
+**Prohibited under Step 1:**
+- Any increase in gross volatility target
+- Any increase in position sizing beyond current Phase 1 calibration
+- Any signal modification without preregistration
+
+**Entry conditions:** Step 0 active; no active kill criteria (K1–K6 and phase-specific kill criteria all clear). Available from Phase 1 onward.
+**Monitoring cadence:** Monthly CRR + N_eff review.
+**Stop/rollback:** If CRR increases ≥ 0.05 from the pre-activation baseline within 60 days of Step 1 activation → revert Step 1 changes; document failure cause in RBE transition log.
+**Documentation required:** Log each efficiency action with before/after CRR and N_eff values. Entry into RBE transition log mandatory.
+
+---
+
+### Step 2 — Volatility Expansion (No Leverage)
+
+**Definition:** Increase portfolio volatility target within the ≤20% DD constraint and ≤1.0 gross leverage constraint, using allocation adjustment only. No new leverage is introduced.
+
+**Entry conditions (all required before preregistration):**
+- [ ] Phase 1 exit criteria fully met
+- [ ] Rolling 12-month Net Sharpe ≥ 0.35
+- [ ] Rolling 12-month Max DD < 12% (significant headroom below 20% ceiling)
+- [ ] N_eff ≥ 3.0 for ≥3 consecutive months (stable)
+- [ ] CRR < 0.25 for ≥3 consecutive months (cost regime stable)
+- [ ] Preregistration in trial registry: step activation logged as policy experiment before any vol target change is made
+
+**Implementation rules:**
+- Vol target increase: +1 percentage point per activation increment (e.g., 10% → 11%)
+- Minimum evaluation interval between increments: 60 trading days
+- Vol target ceiling under Step 2: constrained by DD ≤ 20% hard limit at all realized volatility levels
+
+**Automatic rollback trigger:** Rolling 30-day realized DD accelerates by ≥ 3 percentage points within any single 30-day window → immediately revert vol target to Step 0 baseline.
+**Monitoring cadence:** Weekly DD and realized vol measurement; formal evaluation at each 60-day interval.
+**Stop/rollback moratorium:** ≥ 3 calendar months from rollback date before re-activation attempt.
+**Documentation required:** Pre-activation snapshot of all entry condition metrics; weekly log during active Step 2 period.
+
+---
+
+### Step 3 — DD Constraint Micro-Adjustment (Optional)
+
+**Definition:** A minor upward adjustment to the maximum drawdown policy target (20% → up to 22%). This does not affect NN-1 (leverage) and does not override the P1 hard circuit breaker logic. The P1 trigger (≥ 12% from HWM) is not a function of the DD policy target and is not adjusted here.
+
+**Scope constraint:** Maximum adjustment = +2 percentage points (20% → 22%). Any larger adjustment requires a full charter revision and is outside the scope of this protocol.
+
+**Entry conditions (all required):**
+- [ ] Step 2 active and stable for ≥ 6 months
+- [ ] Rolling 18-month Net Sharpe ≥ 0.38
+- [ ] Zero DD breaches of the 20% target during the entire Step 2 period
+- [ ] N_eff ≥ 3.5 for ≥ 6 consecutive months
+- [ ] Formal written review document produced, covering: current regime state, cost state, N_eff trend, rationale for adjustment, and explicit rollback conditions
+- [ ] Preregistration in trial registry with rollback conditions specified before any adjustment is applied
+
+**Rollback conditions:**
+- Realized DD exceeds 20% at any point during Step 3 → immediately rollback to 20% target; 6-month moratorium on Step 3 re-activation
+- Rolling 12-month Net Sharpe falls below 0.30 → mandatory review; rollback to 20% target if Sharpe falls below 0.28
+
+**Monitoring cadence:** Weekly.
+**Documentation required:** Written review document at activation; weekly log during Step 3 period; formal post-period review report.
+
+---
+
+### Step 4 — Leverage (Future Era Only — Explicitly Prohibited During Freeze)
+
+**Status: NOT PERMITTED during the current freeze period (through 2026-09-02).**
+
+Step 4 exists in this protocol for structural completeness only. Its presence does not constitute approval, intent, or planning authorization. The following constraints are in force until explicitly superseded by a new charter:
+
+- Step 4 cannot override NN-1 (Gross Leverage ≤ 1.0) during the freeze period or current era
+- Step 4 requires Era 3 minimum before eligibility review
+- Step 4 requires a charter-level written review with a documented risk model for levered operation
+- Step 4 cannot be preregistered as a policy experiment during the current era
+
+Any discussion of Step 4 activation must occur at a scheduled charter review. Inline or informal escalation to Step 4 is not permitted.
+
+---
+
+### RBE Transition Log (Permanent Record)
+
+Every RBE step transition — activation or rollback — must be logged immediately with:
+
+1. Date and RBE step before and after transition
+2. All entry condition metric values at the moment of activation
+3. Trial registry preregistration ID (activation only; not required for automatic rollbacks)
+4. Expected monitoring horizon and next evaluation date
+5. Rollback trigger conditions (explicitly restated per step rules)
+6. Actual trigger condition if a rollback event (with date and metric value)
+
+The RBE transition log is a permanent project record. Retroactive modification is not permitted.
+
+---
+
 ## K. Versioning and Freeze Policy
 
 ### Freeze Period
@@ -632,8 +854,10 @@ This document is frozen for **6 months** from issue date (until 2026-09-02), or 
 ### What "Frozen" Means
 - Non-Negotiables (Section B) cannot be modified under any circumstances during the freeze period
 - Phase exit criteria, kill criteria, and metric thresholds cannot be adjusted
-- New modules cannot be added
+- New modules cannot be added without charter-level review and written justification
 - The kill criterion thresholds and statistical framework cannot be recalibrated to accommodate poor results
+
+**v1.1 controlled evolution note:** The Growth Layer module (Section E), Growth Layer & Efficiency Metrics (Section J1), and Risk Budget Escalation Protocol (Section J2) were added via charter-level review constituting this v1.1 update. These additions are monitoring infrastructure and a locked escalation protocol. They do not modify any Frozen Non-Negotiable, kill criterion, phase exit criterion, or metric threshold. The Growth Layer's internal monitoring thresholds (CRR warning band, utilization band, N_eff target) are tunable within their specified bounds per the module's own policy/tunable classification. They are not freeze-governed parameters.
 
 ### Change Control Rules
 During the freeze period, permitted changes:
@@ -679,7 +903,8 @@ End of Phase 0 (evaluation engine and SimBroker complete).
 
 ---
 
-*Document Version: 1.0 | Date: 2026-03-02*
+*Document Version: 1.1 | Base: 2026-03-02 | v1.1 update: 2026-03-02*
 *Supersedes: Strategic Architecture Review v2, v3, v4; Strategic Charter v5 (all replaced by this document as reader entry point)*
 *Classification: Confidential — Internal Strategic Document*
 *Freeze expires: 2026-09-02 or at first kill criterion event*
+*v1.1 additions: Growth Layer (E), Growth Metrics (J1), RBE Protocol (J2), Phase 0/1/2 monitoring updates. Section B unchanged.*
