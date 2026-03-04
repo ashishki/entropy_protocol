@@ -2,7 +2,7 @@
 
 **Classification:** Confidential — Internal Governance Document
 **Filename:** `docs/audit/AUDIT_INDEX.md`
-**Version:** 1.0
+**Version:** 1.1
 **Date:** 2026-03-04
 **Owner:** Spec Owner / Staff-Level Systems Architect
 
@@ -29,6 +29,20 @@ Canonical filenames are always overwritten with the latest output from the most 
 | Drift Report | `docs/audit/DRIFT_REPORT.md` | Step 4 |
 | Adversarial Review | `docs/audit/ADVERSARIAL_REVIEW.md` | Step 5 |
 | Consolidated Review | `docs/audit/REVIEW_REPORT.md` | Step 6 |
+
+### Orchestration artifacts (current cycle)
+
+These files are produced by the Meta Orchestration step and provide stable entrypoints for each pipeline run:
+
+| Artifact | Canonical Filename | Role |
+|---|---|---|
+| Cycle Entrypoint | `docs/audit/PROMPT_0_META.md` | State snapshot + risk surface register; load first each cycle |
+| Step 2 Prompt | `docs/audit/PROMPT_1_ARCH_REVIEW.md` | Agent prompt for Architecture Review |
+| Step 3 Prompt | `docs/audit/PROMPT_2_INVARIANTS.md` | Agent prompt for Invariant Extraction |
+| Step 4 Prompt | `docs/audit/PROMPT_3_DRIFT_GUARD.md` | Agent prompt for Drift Guard |
+| Step 5 Prompt | `docs/audit/PROMPT_4_ADVERSARIAL.md` | Agent prompt for Adversarial Review |
+| Step 6 Prompt | `docs/audit/PROMPT_5_CONSOLIDATED.md` | Agent prompt for Consolidated Review |
+| Research Questions | `docs/audit/QUESTION_POOL.md` | Deep research question pool for spec development |
 
 ### Versioned snapshot filenames
 
@@ -71,6 +85,8 @@ Status transitions:
 
 The following canonical files represent the **current accepted state** of each audit artifact:
 
+### Pipeline Execution Artifacts
+
 | Artifact | File | Status | Date | Cycle |
 |---|---|---|---|---|
 | Meta Investigation | `docs/audit/META_ANALYSIS.md` | — | Not yet run | — |
@@ -79,13 +95,71 @@ The following canonical files represent the **current accepted state** of each a
 | Drift Assertions | `docs/audit/DRIFT_ASSERTIONS.md` | — | Not yet run | — |
 | Drift Report | `docs/audit/DRIFT_REPORT.md` | — | Not yet run | — |
 | Adversarial Review | `docs/audit/ADVERSARIAL_REVIEW.md` | — | Not yet run | — |
-| Consolidated Review | `docs/audit/REVIEW_REPORT.md` | **Draft** | 2026-03-04 | Phase 0 baseline |
+| Consolidated Review | `docs/audit/REVIEW_REPORT.md` | Draft | 2026-03-04 | Phase 0 baseline (Cycle 0) |
 
-Note: `REVIEW_REPORT.md` was produced as a baseline consolidation from `docs/AUDIT_v1.md` before the pipeline's Step 1–5 artifacts were generated. Steps 1–5 artifacts are pending the first full formal pipeline run. See History section.
+### Orchestration Artifacts (current)
+
+| Artifact | File | Status | Date | Cycle |
+|---|---|---|---|---|
+| Cycle Entrypoint | `docs/audit/PROMPT_0_META.md` | Draft | 2026-03-04 | Cycle 1 |
+| Step 2 Prompt | `docs/audit/PROMPT_1_ARCH_REVIEW.md` | Draft | 2026-03-04 | Cycle 1 |
+| Step 3 Prompt | `docs/audit/PROMPT_2_INVARIANTS.md` | Draft | 2026-03-04 | Cycle 1 |
+| Step 4 Prompt | `docs/audit/PROMPT_3_DRIFT_GUARD.md` | Draft | 2026-03-04 | Cycle 1 |
+| Step 5 Prompt | `docs/audit/PROMPT_4_ADVERSARIAL.md` | Draft | 2026-03-04 | Cycle 1 |
+| Step 6 Prompt | `docs/audit/PROMPT_5_CONSOLIDATED.md` | Draft | 2026-03-04 | Cycle 1 |
+| Research Questions | `docs/audit/QUESTION_POOL.md` | Draft | 2026-03-04 | Cycle 1 |
+
+Note: `REVIEW_REPORT.md` was produced as a baseline consolidation from `docs/AUDIT_v1.md` before the pipeline's Step 1–5 artifacts were generated. Steps 1–5 artifacts are pending the first full formal pipeline run (Cycle 1). All orchestration prompts are produced and ready for Cycle 1 execution.
 
 ---
 
 ## History
+
+### Cycle 1 — Phase 0, First Formal Run Setup (2026-03-04)
+
+**Trigger:** Meta Orchestration run to prepare Cycle 1 pipeline prompts and question pool. Spec-of-record: PROTOCOL_SPEC.md v1.2 (added RDL + Growth Layer since Cycle 0 source audit). All 21 Cycle 0 findings remain Open.
+**Type:** Orchestration setup (pre-execution). Steps 1–6 not yet executed.
+**Pipeline version:** v1.0
+**Spec context:** PROTOCOL_SPEC.md v1.2 (Growth Layer added v1.1; RDL added v1.2; both post-date AUDIT_v1.md)
+
+| Artifact | Versioned File (intended) | Status | Notes |
+|---|---|---|---|
+| Cycle Entrypoint | `2026-03-04_phase0_PROMPT_0_META_v1.md` | Draft | State snapshot; 18 risk surfaces identified |
+| Step 2 Prompt | `2026-03-04_phase0_PROMPT_1_ARCH_REVIEW_v1.md` | Draft | Ready for execution |
+| Step 3 Prompt | `2026-03-04_phase0_PROMPT_2_INVARIANTS_v1.md` | Draft | Ready for execution |
+| Step 4 Prompt | `2026-03-04_phase0_PROMPT_3_DRIFT_GUARD_v1.md` | Draft | Ready for execution |
+| Step 5 Prompt | `2026-03-04_phase0_PROMPT_4_ADVERSARIAL_v1.md` | Draft | Ready for execution |
+| Step 6 Prompt | `2026-03-04_phase0_PROMPT_5_CONSOLIDATED_v1.md` | Draft | Ready for execution |
+| Research Questions | `2026-03-04_phase0_QUESTION_POOL_v1.md` | Draft | 25 top-priority + 25 secondary questions |
+
+**Pipeline artifacts (pending execution):**
+
+When Cycle 1 pipeline runs complete, the Step 6 agent will register these versioned snapshot filenames:
+
+| Artifact | Versioned File (intended) | Status |
+|---|---|---|
+| Meta Investigation | `2026-03-04_phase0_META_ANALYSIS_v2.md` | Pending Step 1 execution |
+| Architecture Review | `2026-03-04_phase0_ARCH_MODEL_v2.md` | Pending Step 2 execution |
+| Invariant Extraction | `2026-03-04_phase0_INVARIANTS_v2.md` | Pending Step 3 execution |
+| Drift Assertions | `2026-03-04_phase0_DRIFT_ASSERTIONS_v2.md` | Pending Step 4 execution |
+| Drift Report | `2026-03-04_phase0_DRIFT_REPORT_v2.md` | Pending Step 4 execution |
+| Adversarial Review | `2026-03-04_phase0_ADVERSARIAL_REVIEW_v2.md` | Pending Step 5 execution |
+| Consolidated Review | `2026-03-04_phase0_REVIEW_REPORT_v2.md` | Pending Step 6 execution |
+
+(v2 because Cycle 0 produced REVIEW_REPORT_v1; other artifacts are first-time outputs in this phase but use v2 for phase-consistent numbering.)
+
+**New risk surfaces identified this cycle (not in AUDIT_v1.md):**
+- RS-11: Growth Layer RBE activation pathway unaudited
+- RS-12: RDL trial budget inflation (trial counting from submission)
+- RS-13: RDL phase boundary auditability gap
+- RS-14: New modules vs. frozen non-negotiables (NN-1 through NN-6)
+- RS-15: RBE + kill criteria interaction
+
+**Spec Owner sign-off:** Pending.
+
+**Next action:** Execute Cycle 1 pipeline Steps 1–6 in order. Begin with Step 1 (META_ANALYSIS.md) before executing PROMPT_1_ARCH_REVIEW.md.
+
+---
 
 ### Cycle 0 — Phase 0 Baseline (2026-03-04)
 
@@ -96,11 +170,11 @@ Note: `REVIEW_REPORT.md` was produced as a baseline consolidation from `docs/AUD
 | Artifact | Versioned File | Status | Notes |
 |---|---|---|---|
 | Consolidated Review | `2026-03-04_phase0_REVIEW_REPORT_v1.md` | Draft | Baseline from AUDIT_v1.md. Steps 1–5 outputs pending. |
-| Source Audit | `docs/AUDIT_v1.md` | Accepted | Primary input for baseline REVIEW_REPORT. External auditor document. |
+| Source Audit | `docs/AUDIT_v1.md` | Accepted | Primary input for baseline REVIEW_REPORT. External auditor document. 21 findings, all Open. |
 
 **Spec Owner sign-off:** Pending.
 
-**Next full-pipeline run:** Before Phase 0 → Phase 1 gate. All six steps must run in sequence.
+**Next full-pipeline run:** Before Phase 0 → Phase 1 gate. All six steps must run in sequence. Orchestration prompts now available in Cycle 1 artifacts.
 
 ---
 
@@ -133,7 +207,8 @@ Note: `REVIEW_REPORT.md` was produced as a baseline consolidation from `docs/AUD
 4. A new phase cannot begin (phase gate) until the REVIEW_REPORT for the current phase is Accepted.
 5. Partial-run artifacts do not supersede canonical artifacts; they are addenda until Step 6 is re-run.
 6. This index must be updated by the Step 6 agent as part of every pipeline run.
+7. Orchestration prompts (PROMPT_0 through PROMPT_5, QUESTION_POOL) must be regenerated at the start of each new cycle if: (a) the spec-of-record has changed, or (b) new risk surfaces have been identified since the last orchestration run.
 
 ---
 
-*Version: 1.0 | Date: 2026-03-04*
+*Version: 1.1 | Date: 2026-03-04 | Updated: Added Cycle 1 orchestration artifacts; added orchestration artifacts table to Latest Artifacts section*
