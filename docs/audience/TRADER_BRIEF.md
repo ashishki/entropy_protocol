@@ -1,9 +1,10 @@
-# Entropy Protocol — Trader Review v1.0
-**Classification:** Confidential — External Review Document
+# Entropy Protocol — Practitioner Brief
+**Classification:** Confidential — External Contributor Document
+**Filename:** `audience/TRADER_BRIEF.md` (stable)
 **Audience:** Trader / Crypto / Onchain practitioner
-**Date:** 2026-03-02
 **Version:** 1.0
-**Purpose:** Explain the framework, show where external signal ideas can plug in, and collect structured feedback through a question set
+**Date:** 2026-03-02
+**Purpose:** Explain the framework, show where external signal ideas can plug in as pre-registered hypotheses, and describe the structured contribution process.
 
 ---
 

@@ -1,10 +1,11 @@
-# Strategic Charter v5 + Project Stages v5 — Entropy Protocol
+# Entropy Protocol — Project Charter
 **Classification:** Confidential — Internal Strategic Document
-**Author role:** Staff-Level Quant Architect / Spec Owner
-**Date:** 2026-03-02
+**Filename:** `CHARTER.md` (stable; no version in filename — version tracked in header)
 **Version:** 5.0
-**Basis:** v2.0 findings, v3.0 extensions, v4.0 audit (authoritative), + user constraints
-**Mode:** Evolution (strict). No redesign. No marketing language.
+**Date:** 2026-03-02
+**Basis:** v2.0 findings, v3.0 extensions, v4.0 audit (authoritative corrections applied)
+**Supersedes:** `strategic_charter_v5.md` (archived)
+**Next review:** End of Phase 0 (evaluation engine complete)
 
 ---
 

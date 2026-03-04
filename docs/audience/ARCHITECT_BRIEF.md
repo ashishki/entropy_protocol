@@ -1,9 +1,10 @@
-# Entropy Protocol — Architecture Review v1.0
-**Classification:** Confidential — External Review Document
-**Audience:** CTO / Senior Systems Architect
-**Date:** 2026-03-02
+# Entropy Protocol — Architect Brief
+**Classification:** Confidential — Onboarding Document
+**Filename:** `audience/ARCHITECT_BRIEF.md` (stable)
+**Audience:** Senior Systems Architect / CTO
 **Version:** 1.0
-**Purpose:** Enable an experienced architect to stress-test system design, evaluation integrity, and operational viability
+**Date:** 2026-03-02
+**Purpose:** Enable an experienced architect to understand system design, evaluation integrity, and operational viability. Read this before `PROTOCOL_SPEC.md`. Then read `EVOLUTION.md` for design decision history.
 
 This document assumes familiarity with systematic trading concepts at the level of someone who has built or overseen production quant systems. Heavy quant notation is used where precise — trading intuition explanations are omitted.
 

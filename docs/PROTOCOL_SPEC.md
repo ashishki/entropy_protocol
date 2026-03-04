@@ -1,12 +1,13 @@
-# Entropy Protocol — Master Specification v1.0
+# Entropy Protocol — Protocol Specification
 **Classification:** Confidential — Internal Strategic Document
-**Role:** Single source of truth for architecture, phases, and constraints
-**Date:** 2026-03-02
+**Filename:** `PROTOCOL_SPEC.md` (stable; no version in filename — version tracked in header)
+**Role:** Engineering specification: rules, thresholds, phase structure, exit criteria
 **Version:** 1.1
-**Basis:** Strategic Charter v5 (active design) + v4 audit (authoritative corrections)
-**Supersedes:** v2, v3, v4, v5 as the document a reader must consult to understand current state
+**Date:** 2026-03-02
+**Basis:** `CHARTER.md` v5.0 (strategic constraints) + v4 audit (authoritative corrections applied)
+**Supersedes:** `entropy_protocol_master_spec_v1.md` (archived)
 **Freeze period:** 6 months from issue date, or earlier if a kill criterion fires
-**v1.1 change summary:** Controlled architectural evolution. Added Growth Layer module (Section E), Growth Layer & Efficiency Metrics (Section J1), Risk Budget Escalation Protocol (Section J2). Surgical updates to Phase 0, 1, 2 monitoring requirements. Section B (Frozen Non-Negotiables), all kill criteria, all phase exit criteria, and all metric thresholds are unchanged.
+**v1.1 change summary:** Added Growth Layer module (Section E), Growth Layer & Efficiency Metrics (Section J1), Risk Budget Escalation Protocol (Section J2). Surgical updates to Phase 0, 1, 2 monitoring requirements. Section B (Frozen Non-Negotiables), all kill criteria, all phase exit criteria, and all metric thresholds are unchanged.
 
 ---
 
