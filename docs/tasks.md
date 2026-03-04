@@ -2,7 +2,7 @@
 
 **Classification:** Confidential — Internal Development Document
 **Filename:** `docs/tasks.md`
-**Version:** 1.0
+**Version:** 1.1
 **Date:** 2026-03-04
 **Owner:** Spec Owner / Staff-Level Systems Architect
 
@@ -28,7 +28,11 @@ This document is the authoritative task registry for the Entropy Protocol. It tr
 
 ## Audit Findings Backlog
 
-All entries below were sourced from `docs/AUDIT_v1.md` (v1.0, 2026-03-04), the baseline audit produced by a Staff-Level Quantitative Research Systems Architect. No findings were marked as resolved in the source document; all are treated as **Open** unless otherwise noted.
+Entries below are sourced from:
+- `docs/AUDIT_v1.md` (baseline findings F-1..F-21)
+- `docs/audit/REVIEW_REPORT.md` Cycle 1 (new findings F-22..F-32)
+
+No findings are marked as resolved; all are treated as **Open** unless otherwise noted.
 
 Finding IDs match the source audit exactly (F-1 through F-21). Task IDs are prefixed `TASK-AF-` (Audit Finding).
 
@@ -80,6 +84,22 @@ Finding IDs match the source audit exactly (F-1 through F-21). Task IDs are pref
 | TASK-AF-020 | F-20 | P2 | Open | `docs/AUDIT_v1.md` | K5 measurement period ambiguous: "any 12-month period" — rolling vs. calendar year vs. fixed windows from treasury activation date unspecified. | CHARTER.md and PROTOCOL_SPEC.md Section J specify K5 measurement as rolling (evaluated monthly) or calendar-year with explicit cutoff rule. | — |
 | TASK-AF-021 | F-21 | P2 | Open | `docs/AUDIT_v1.md` | Phase 0 P1 circuit breaker verification criterion is untestable as stated. "Tested with synthetic data and verified" has no minimum test suite. Developer self-certifies against undefined protocol. | Phase 0 exit criteria list minimum required test scenarios for P1 circuit breaker: at least simultaneous P1+P3 firing, P1 recovery with P3 still active, restart mid-suspension, partial position reduction. Test cases enumerated, not implied. | — |
 
+### Cycle 1 Additions (F-22..F-32)
+
+| Task ID | Finding ID | Severity | Status | Source Audit | Summary | Acceptance Criterion | ADR/PR |
+|---|---|---|---|---|---|---|---|
+| TASK-AF-022 | F-22 | P1 | Open | `docs/audit/REVIEW_REPORT.md` | Net Sharpe stream wording drifts (`a+b+c` vs `a+c`) across docs/tables. | All references to net Sharpe stream composition use identical definition `(a+b+c)`. | — |
+| TASK-AF-023 | F-23 | P0 | Open | `docs/audit/REVIEW_REPORT.md` | RDL operational boundary conflict: "Phase 2+" vs "after Phase 2 exit criteria". | PROTOCOL_SPEC/workflow/GLOSSARY express one canonical boundary rule with no contradiction. | — |
+| TASK-AF-024 | F-24 | P0 | Open | `docs/audit/REVIEW_REPORT.md` | RDL submission-time trial-count rule exists only in PROTOCOL_SPEC. | Rule appears in all canonical governance references (at minimum PROTOCOL_SPEC + GLOSSARY + workflow policy). | — |
+| TASK-AF-025 | F-25 | P0 | Open | `docs/audit/REVIEW_REPORT.md` | RDL->RBE non-interaction control is not propagated outside module text. | Governance checklist includes explicit non-interaction verifier and evidence pointer. | — |
+| TASK-AF-026 | F-26 | P1 | Open | `docs/audit/REVIEW_REPORT.md` | "Charter-level review" for RBE has no operational definition/authority schema. | Every RBE activation has a compliant review artifact (role, format, storage, approval fields). | — |
+| TASK-AF-027 | F-27 | P2 | Open | `docs/audit/REVIEW_REPORT.md` | Explicit 4->5 gate topology missing; Phase 5 prerequisites skip direct dependency expression. | Phase transition map is unambiguous for optional Phase 4 bypass and treasury activation path. | — |
+| TASK-AF-028 | F-28 | P2 | Open | `docs/audit/REVIEW_REPORT.md` | No machine-checkable RDL dormancy attestation artifact pre-Phase-2. | Pre-Phase-2 RDL mode attestation is machine-checkable and auditable by third party. | — |
+| TASK-AF-029 | F-29 | P1 | Open | `docs/audit/REVIEW_REPORT.md` | K3 verdict can flip by N_eff estimator choice for heterogeneous clusters. | K3 estimator and boundary behavior are locked so same inputs produce same verdict across tools. | — |
+| TASK-AF-030 | F-30 | P0 | Open | `docs/audit/REVIEW_REPORT.md` | Phase-2 activation behavior for scaffolded RDL hypotheses is unspecified. | Promotion queue and batch-limit policy make Phase-2 trial-count transition deterministic. | — |
+| TASK-AF-031 | F-31 | P0 | Open | `docs/audit/REVIEW_REPORT.md` | RBE/kill-criteria interaction windows undefined during risk-budget changes. | K1-K6 evaluation windows remain auditable and continuous through RBE transitions. | — |
+| TASK-AF-032 | F-32 | P1 | Open | `docs/audit/REVIEW_REPORT.md` | GE-2/GE-3 can be exploited to suppress trial counting via zero-weight framing. | Zero-weight persistence is explicitly GE-3 and trial-counted deterministically. | — |
+
 ---
 
 ## Development Backlog
@@ -105,6 +125,6 @@ Finding IDs match the source audit exactly (F-1 through F-21). Task IDs are pref
 
 ---
 
-*Version: 1.0 | Date: 2026-03-04*
-*Audit source: `docs/AUDIT_v1.md` v1.0*
+*Version: 1.1 | Date: 2026-03-04*
+*Audit sources: `docs/AUDIT_v1.md` v1.0; `docs/audit/REVIEW_REPORT.md` Cycle 1*
 *See also: `docs/audit/REVIEW_REPORT.md` (consolidated findings), `docs/audit/AUDIT_INDEX.md` (artifact registry)*

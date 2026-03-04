@@ -2,7 +2,7 @@
 
 **Classification:** Confidential — Internal Governance Document
 **Filename:** `docs/audit/AUDIT_INDEX.md`
-**Version:** 1.2
+**Version:** 1.3
 **Date:** 2026-03-04
 **Owner:** Spec Owner / Staff-Level Systems Architect
 
@@ -134,7 +134,8 @@ Note: Cycle 1 full pipeline artifacts are now generated in canonical form and re
 
 **Open findings from this cycle:** 32 total (P0: 10, P1: 10, P2: 12) — see `docs/audit/REVIEW_REPORT.md`.  
 **Spec Owner sign-off:** Pending.  
-**Next action:** Spec Owner acceptance, then targeted remediation and partial reruns (Step 3+4+5+6) after each P0/P1 clarification set.
+**Next action:** Spec Owner acceptance, then targeted remediation and partial reruns (Step 3+4+5+6) after each P0/P1 clarification set.  
+**Mandatory remediation set linkage:** `docs/tasks.md` must include and track `TASK-AF-022` through `TASK-AF-032` (Cycle 1 additions from `REVIEW_REPORT.md`) before phase-gate readiness review.
 
 ### Cycle 1 — Phase 0, First Formal Run Setup (2026-03-04)
 
@@ -232,4 +233,4 @@ When Cycle 1 pipeline runs complete, the Step 6 agent will register these versio
 
 ---
 
-*Version: 1.2 | Date: 2026-03-04 | Updated: Registered Cycle 1 full-pipeline run artifacts; updated Latest Artifacts to Cycle 1 outputs; added Cycle 1 full-run history entry*
+*Version: 1.3 | Date: 2026-03-04 | Updated: Registered Cycle 1 full-pipeline run artifacts; updated Latest Artifacts to Cycle 1 outputs; added Cycle 1 full-run history entry; added explicit linkage to Cycle 1 mandatory remediation set (`TASK-AF-022..032`)*

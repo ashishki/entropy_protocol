@@ -121,7 +121,9 @@ Cycle 0 provided a baseline consolidation of `AUDIT_v1.md` with 21 open findings
 
 ---
 
-## Proposed tasks.md additions (do not auto-apply)
+## Proposed tasks.md additions (historical reference)
+
+Status update (2026-03-04): `docs/tasks.md` has been synchronized and now includes `TASK-AF-022` through `TASK-AF-032` (version 1.1).
 
 | Proposed Task ID | Finding | Sev | Summary | Acceptance criterion | Dependencies |
 |---|---|---|---|---|---|
@@ -138,4 +140,3 @@ Cycle 0 provided a baseline consolidation of `AUDIT_v1.md` with 21 open findings
 | TASK-AF-032 | F-32 | P1 | Close zero-weight GE-2/GE-3 governance loophole | Zero-weight persistence is explicitly GE-3 and trial-counted | TASK-AF-018 |
 
 ---
-

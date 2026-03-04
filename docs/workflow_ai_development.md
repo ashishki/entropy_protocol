@@ -2,7 +2,7 @@
 
 **Classification:** Confidential — Internal Governance Document
 **Filename:** `docs/workflow_ai_development.md`
-**Version:** 1.0
+**Version:** 1.2
 **Date:** 2026-03-04
 **Owner:** Spec Owner / Staff-Level Systems Architect
 
@@ -59,6 +59,10 @@ Every **P0** and **P1** finding must:
 
 No P0 finding may be in status Open when a phase gate is evaluated. A phase gate evaluation with any Open P0 finding is invalid.
 
+**Current mandatory remediation set (Cycle 1):**
+- In addition to baseline findings, remediation planning must explicitly include `TASK-AF-022` through `TASK-AF-032` from `docs/tasks.md` (sourced from `docs/audit/REVIEW_REPORT.md`, Cycle 1).
+- For phase-gate readiness, these items are treated under the same governance rules as other P0/P1 findings in this section.
+
 ### 5. No Spec Change Without Audit/ADR Reference
 
 **Policy statement:** No change to `PROTOCOL_SPEC.md`, `CHARTER.md`, or `GLOSSARY.md` is accepted without one of the following:
@@ -114,8 +118,9 @@ Audit artifacts produced by AI models (Claude or equivalent) are subject to the 
 |---|---|---|
 | 1.0 | 2026-03-04 | Initial creation. Audit Governance Policy (Sections 1–8). |
 | 1.1 | 2026-03-04 | Section 6: added cross-reference to PROTOCOL_SPEC.md Section E for RDL dormancy definition. |
+| 1.2 | 2026-03-04 | Section 4: added explicit Cycle 1 mandatory remediation set reference (`TASK-AF-022..032`). |
 
 ---
 
-*Version: 1.0 | Date: 2026-03-04*
+*Version: 1.2 | Date: 2026-03-04*
 *See also: `docs/AI_ENGINEERING_FRAMEWORK.md` (AI model roles, context loading), `docs/audit/review_pipeline.md` (pipeline execution), `docs/audit/AUDIT_INDEX.md` (artifact registry)*

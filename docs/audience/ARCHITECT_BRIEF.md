@@ -2,8 +2,8 @@
 **Classification:** Confidential — Onboarding Document
 **Filename:** `audience/ARCHITECT_BRIEF.md` (stable)
 **Audience:** Senior Systems Architect / CTO
-**Version:** 1.0
-**Date:** 2026-03-02
+**Version:** 1.1
+**Date:** 2026-03-04
 **Purpose:** Enable an experienced architect to understand system design, evaluation integrity, and operational viability. Read this before `PROTOCOL_SPEC.md`. Then read `EVOLUTION.md` for design decision history.
 
 This document assumes familiarity with systematic trading concepts at the level of someone who has built or overseen production quant systems. Heavy quant notation is used where precise — trading intuition explanations are omitted.
@@ -336,6 +336,26 @@ These questions are intended for a structured review session. They are not rheto
 
 ---
 
+## H. Current Review Focus (Cycle 1, In Progress)
+
+These high-impact issues are actively being reviewed now and are expected to be resolved in the near-term remediation window:
+
+- P4 algorithm formalization and reproducibility contract (Q-ID `A-01`, finding `F-4`)
+- P3 trigger population + deterministic reduction selection (Q-ID `A-02`)
+- RDL boundary unification and dormancy attestation model (Q-ID `B-02`, finding `F-23`)
+- Harvey-Liu variant + trial aggregation canon (Q-ID `B-01`, findings `F-1`, `F-24`)
+- Charter-level review operational schema for RBE activation (Q-ID `B-03`, finding `F-26`)
+- RBE to kill-criteria interaction windows and RDL->RBE separation enforcement (Q-ID `B-04`, finding `F-31`)
+- Net Sharpe composition consistency `(a+b+c)` across all artifacts (Q-ID `E-01`, finding `F-22`)
+- K3 estimator and temporal wording lock (Q-ID `C-02`, `E-02`, finding `F-29`)
+- GE-2/GE-3 zero-weight classification hard rule (Q-ID `B-05`, finding `F-32`)
+
+Traceability:
+- Question set: `docs/audit/QUESTION_POOL.md`
+- Finding inventory and acceptance criteria: `docs/audit/REVIEW_REPORT.md`
+
+---
+
 ## Next Actions (1–2 Weeks)
 
 For a structured architecture review session:
@@ -351,7 +371,7 @@ For the project owner:
 
 ---
 
-*Document Version: 1.0 | Date: 2026-03-02*
+*Document Version: 1.1 | Date: 2026-03-04*
 *Classification: Confidential — External Review Document*
 *For: CTO / Senior Systems Architect reviewer*
 *Companion documents: entropy_protocol_master_spec_v1.md (full spec), entropy_protocol_trader_review_v1.md (trader version)*
