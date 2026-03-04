@@ -2,12 +2,16 @@
 
 **Classification:** Confidential — Internal Audit Document  
 **Filename:** `docs/audit/DRIFT_ASSERTIONS.md`  
-**Audit Cycle:** Cycle 1 — Phase 0 (Pre-Development)  
+**Audit Cycle:** Cycle 1 — Phase 0 (Partial Rerun Delta after Spec v1.4)  
 **Pipeline Step:** Step 4 — Protocol Drift Guard  
 **Pipeline Version:** v1.0  
 **Date:** 2026-03-04  
 **Status:** Draft — Awaiting Spec Owner Acceptance  
-**Prior drift artifacts:** None (Cycle 1 first formal run)
+**Prior drift artifacts:** Cycle 1 full run (same date)
+
+Partial rerun delta note:
+- `PROTOCOL_SPEC.md` v1.3 clarifications were synchronized with `CHARTER.md` v5.1 and `GLOSSARY.md` v1.1.
+- This pass upgrades assertion verdicts where deterministic governance wording is now aligned across canonical docs.
 
 ---
 
@@ -21,7 +25,7 @@
 | INV-A-06 | NN-6 Asset-specific stops | PASS | PROTOCOL_SPEC B NN-6; CHARTER NN-6 + Correction 3; GLOSSARY Cost Model | N/A | No |
 | INV-B-K1 | K1 Sharpe kill threshold | AMBIGUOUS | PROTOCOL_SPEC F/J K1; CHARTER Phase 1 K1; GLOSSARY Kill Criteria + Net Sharpe CI inconsistency | N/A | No |
 | INV-B-K2 | K2 Cost burden kill | PASS | PROTOCOL_SPEC F/J K2; CHARTER Phase 1 K2; GLOSSARY Kill Criteria K2 | N/A | No |
-| INV-B-K3 | K3 N_eff kill condition | FAIL | CHARTER Phase 1 metrics table ("2 consecutive months") vs CHARTER/PROTOCOL_SPEC/GLOSSARY kill text ("after 3+ months" only) | N/A | No |
+| INV-B-K3 | K3 N_eff kill condition | PASS | CHARTER Phase 1 metrics + K3 text; PROTOCOL_SPEC C/K3 temporal grammar; GLOSSARY K3 timing | N/A | No |
 | INV-B-K4 | K4 Short t-stat kill | AMBIGUOUS | PROTOCOL_SPEC F/J K4; CHARTER Correction 2 + K4; formula for t-stat not defined in any doc | N/A | No |
 | INV-B-K5 | K5 Treasury dominance | AMBIGUOUS | PROTOCOL_SPEC F/J K5; CHARTER K5; GLOSSARY K5 (window protocol not formalized) | N/A | No |
 | INV-B-K6 | K6 SimBroker short-cost kill | PASS | PROTOCOL_SPEC F/J K6; CHARTER K6; GLOSSARY K6 | N/A | No |
@@ -36,7 +40,7 @@
 | INV-C-05 | Gate 0->1 P4 3-year labels | AMBIGUOUS | PROTOCOL_SPEC/CHARTER Phase 0 exits require output; no P4 algorithm in any loaded doc | N/A | No |
 | INV-C-06 | Gate 0->1 P1 synthetic test suite | AMBIGUOUS | PROTOCOL_SPEC F and CHARTER Phase 0 exits mention test; ARCHITECT_BRIEF known gap on recovery sequencing | N/A | No |
 | INV-C-07 | Gate 1->2 15mo + 2 regimes | AMBIGUOUS | PROTOCOL_SPEC F Phase 1 exit; CHARTER Phase 1 exit; depends on unresolved P4 label validity | N/A | No |
-| INV-C-08 | Gate 1->2 Sharpe >=0.28 | AMBIGUOUS | PROTOCOL_SPEC/CHARTER/GLOSSARY Net Sharpe + CI claim arithmetically inconsistent | N/A | No |
+| INV-C-08 | Gate 1->2 Sharpe >=0.28 | PASS | PROTOCOL_SPEC F; CHARTER Phase 1; GLOSSARY Net Sharpe definition aligned | N/A | No |
 | INV-C-09 | Gate 1->2 HL/K1-K3 consistency | AMBIGUOUS | PROTOCOL_SPEC F/J; CHARTER Phase 1; GLOSSARY (HL and K3 formula incompleteness) | N/A | No |
 | INV-C-10 | Gate 2->3 Phase 2 criteria | AMBIGUOUS | PROTOCOL_SPEC F Phase 2; CHARTER Phase 2; false-trigger and P4 definitions incomplete | N/A | No |
 | INV-C-11 | Gate 3->4 Phase 3 criteria | AMBIGUOUS | PROTOCOL_SPEC F Phase 3; CHARTER Phase 3; K4 formula unspecified | N/A | No |
@@ -44,55 +48,54 @@
 | INV-C-13 | Phase 5 prerequisite protocol | AMBIGUOUS | PROTOCOL_SPEC F Phase 5; CHARTER Phase 5 (live-capital measurement protocol not formalized) | N/A | No |
 | INV-D-P1 | P1 DD circuit breaker | AMBIGUOUS | PROTOCOL_SPEC D; CHARTER D; ARCHITECT_BRIEF D (HWM specifics not formalized) | N/A | No |
 | INV-D-P2 | P2 funding exit | PASS | PROTOCOL_SPEC D; CHARTER D; GLOSSARY Regime hierarchy | N/A | No |
-| INV-D-P3 | P3 correlation trigger | AMBIGUOUS | PROTOCOL_SPEC D; CHARTER D; GLOSSARY Regime hierarchy (population undefined) | N/A | No |
+| INV-D-P3 | P3 correlation trigger | PASS | PROTOCOL_SPEC D deterministic P3 protocol; CHARTER D deterministic P3 protocol; GLOSSARY deterministic P3 block | N/A | No |
 | INV-D-P4 | P4 weekly overlay | AMBIGUOUS | PROTOCOL_SPEC D/E/F requires outcomes; no algorithm in PROTOCOL_SPEC/CHARTER/GLOSSARY/EVOLUTION | N/A | No |
 | INV-D-CR-01 | Priority override rule | PASS | PROTOCOL_SPEC D conflict rules; CHARTER D conflict rules; ARCHITECT_BRIEF C | N/A | No |
 | INV-D-CR-02 | Non-multiplicative combination | PASS | PROTOCOL_SPEC D rule 2; CHARTER D rule 2 | N/A | No |
-| INV-D-CR-03 | Regime label immutability | AMBIGUOUS | PROTOCOL_SPEC D immutability; CHARTER D immutability; vintage handling absent | N/A | No |
-| INV-D-U1 | Undefined P1 recover while P3 active | FAIL | ARCHITECT_BRIEF C known gap; absent explicit state rule in PROTOCOL_SPEC D / CHARTER D | N/A | No |
-| INV-D-U2 | Undefined P3 trigger during P1 suspension | FAIL | ARCHITECT_BRIEF C known gap; absent explicit state rule in PROTOCOL_SPEC D / CHARTER D | N/A | No |
-| INV-D-U3 | Undefined P3 ramp interrupted by P1 | FAIL | ARCHITECT_BRIEF C known gap; absent explicit state rule in PROTOCOL_SPEC D / CHARTER D | N/A | No |
-| INV-D-U4 | Undefined P4 change during P1 active hold | FAIL | ARCHITECT_BRIEF C known gap; absent explicit state rule in PROTOCOL_SPEC D / CHARTER D | N/A | No |
-| INV-E-01 | Net Sharpe stream composition | FAIL | PROTOCOL_SPEC/CHARTER NN-2 define a+b+c; Phase 1 metric rows use "a+c" in multiple docs | N/A | No |
-| INV-E-02 | Net Sharpe CI arithmetic | FAIL | CHARTER C; PROTOCOL_SPEC C/F; GLOSSARY Net Sharpe repeat +/-0.15-0.20 claim; REVIEW_REPORT F-2 derivation conflict | N/A | No |
+| INV-D-CR-03 | Regime label immutability | PASS | PROTOCOL_SPEC D immutability + label vintage artifact; CHARTER D immutability + vintage artifact | N/A | No |
+| INV-D-U1 | Undefined P1 recover while P3 active | PASS | PROTOCOL_SPEC D concurrent transition semantics; CHARTER D concurrent transition semantics | N/A | No |
+| INV-D-U2 | Undefined P3 trigger during P1 suspension | PASS | PROTOCOL_SPEC D concurrent transition semantics; CHARTER D concurrent transition semantics | N/A | No |
+| INV-D-U3 | Undefined P3 ramp interrupted by P1 | PASS | PROTOCOL_SPEC D concurrent transition semantics; CHARTER D concurrent transition semantics | N/A | No |
+| INV-D-U4 | Undefined P4 change during P1 active hold | PASS | PROTOCOL_SPEC D concurrent transition semantics; CHARTER D concurrent transition semantics | N/A | No |
+| INV-E-01 | Net Sharpe stream composition | PASS | PROTOCOL_SPEC NN-2 + Phase tables; CHARTER NN-2 + Phase tables; GLOSSARY P&L attribution all aligned to a+b+c | N/A | No |
+| INV-E-02 | Net Sharpe CI arithmetic | AMBIGUOUS | CI method aligned (`CI-SR-ACF-v1`) but full derivation artifact and validation examples remain pending | N/A | No |
 | INV-E-03 | Harvey-Liu formula spec completeness | AMBIGUOUS | PROTOCOL_SPEC B/F/J; CHARTER NN-5; GLOSSARY Deflated Sharpe (formula absent everywhere) | N/A | No |
 | INV-E-04 | IC_long prior + suspect policy | AMBIGUOUS | GLOSSARY IC section; PROTOCOL_SPEC I Q1; no suspect threshold counterpart to IC_short | N/A | No |
 | INV-E-05 | IC_short prior + suspect threshold | PASS | PROTOCOL_SPEC Phase 3; CHARTER correction language; GLOSSARY IC rules | N/A | No |
 | INV-E-06 | N_eff formula selection | FAIL | PROTOCOL_SPEC J1 gives explicit formula; elsewhere DR+clustering language lacks locked estimator | N/A | No |
 | INV-E-07 | FLAM marginal formula + BR inputs | FAIL | CHARTER/GLOSSARY BR_long expression arithmetic inconsistency (5x2x12=120 vs stated 240); PROTOCOL_SPEC/REVIEW_REPORT unresolved | N/A | No |
 | INV-E-08 | K4 t-stat formula definition | AMBIGUOUS | K4 threshold exists in PROTOCOL_SPEC/CHARTER/GLOSSARY; no explicit t-stat computation variant | N/A | No |
-| INV-E-09 | P3 rho metric protocol | AMBIGUOUS | Threshold in PROTOCOL_SPEC/CHARTER/GLOSSARY; return interval/population not specified | N/A | No |
+| INV-E-09 | P3 rho metric protocol | PASS | PROTOCOL_SPEC D deterministic protocol; CHARTER D deterministic protocol; GLOSSARY deterministic protocol | N/A | No |
 | INV-E-10 | K5 denominator/window protocol | AMBIGUOUS | "any 12-month period" present; rolling/calendar and denominator conventions unspecified | N/A | No |
 | INV-E-11 | Funding-drag annualization protocol | AMBIGUOUS | P4K1 threshold present; estimator details scattered and incomplete | N/A | No |
 | INV-E-12 | Sharpe-delta uncertainty protocol | AMBIGUOUS | Delta thresholds in P2/P4; no general SE/confidence method for rolling-window delta tests | N/A | No |
 | INV-F-01 | Registry prereg before data | PASS | PROTOCOL_SPEC B/E/G/J1; CHARTER NN-5; workflow_ai_development policy | N/A | No |
 | INV-F-02 | GE-1 suspicious improvement control | PASS | PROTOCOL_SPEC J1 Rule GE-1 (no contradiction elsewhere) | N/A | No |
-| INV-F-03 | GE-2 allocation-only exemption boundary | AMBIGUOUS | PROTOCOL_SPEC J1 GE-2 + E Submodule2; edge-case boundaries not formally specified | N/A | No |
+| INV-F-03 | GE-2 allocation-only exemption boundary | PASS | PROTOCOL_SPEC GE-2 + GE-7 bright-line; CHARTER/REVIEW references aligned to zero-weight GE-3 treatment | N/A | No |
 | INV-F-04 | GE-3 signal mods always prereg | PASS | PROTOCOL_SPEC J1 GE-3; F phase rules; workflow policy alignment | N/A | No |
 | INV-F-05 | GE-4 CRR threshold actions | PASS | PROTOCOL_SPEC J1 GE-4; Growth Layer E Submodule1 | N/A | No |
 | INV-F-06 | GE-5 N_eff optimization scope | PASS | PROTOCOL_SPEC J1 GE-5; F phase freeze constraints | N/A | No |
 | INV-F-07 | GE-6 CER deterioration review | PASS | PROTOCOL_SPEC J1 GE-6 | N/A | No |
-| INV-F-08 | RDL dormancy phase boundary | FAIL | PROTOCOL_SPEC E says "operational from Phase 2+" but also "Phase 2 exit criteria met before routing influence"; workflow_ai_development Section 6 says Phase 2+ operational boundary | N/A | No |
+| INV-F-08 | RDL dormancy phase boundary | PASS | PROTOCOL_SPEC E boundary matrix; workflow_ai_development Section 6 phase-sliced boundary; GLOSSARY RDL boundary matrix | N/A | No |
 | INV-F-09 | Growth locked until RBE activation | AMBIGUOUS | PROTOCOL_SPEC E/J2 enforce lock; no independent definition of "charter-level review" | N/A | No |
-| INV-F-10 | RDL submission-time trial counting | FAIL | Present in PROTOCOL_SPEC E only; absent in GLOSSARY and other governance docs | N/A | No |
-| INV-F-11 | RDL non-interaction with RBE | FAIL | Present in PROTOCOL_SPEC E; not mirrored in workflow governance policy or glossary | N/A | No |
+| INV-F-10 | RDL submission-time trial counting | PASS | PROTOCOL_SPEC E; workflow_ai_development Section 6 multiplicity accounting; GLOSSARY RDL submission-time counting | N/A | No |
+| INV-F-11 | RDL non-interaction with RBE | PASS | PROTOCOL_SPEC E; workflow_ai_development Section 6 evidence requirements; GLOSSARY RDL->RBE non-interaction | N/A | No |
 | INV-F-12 | Four-stream blending prohibition | PASS | PROTOCOL_SPEC B/C/F; CHARTER B/C; GLOSSARY P&L attribution | N/A | No |
 | INV-F-13 | RBE transition log immutability | PASS | PROTOCOL_SPEC J2 RBE Transition Log (no contradiction elsewhere) | N/A | No |
 | INV-F-14 | Finding lifecycle closure governance | PASS | workflow_ai_development Section 3; review_pipeline + PROMPT_0 hard constraints | N/A | No |
 | INV-G-GL-01 | Growth lock default | AMBIGUOUS | PROTOCOL_SPEC E/J2 states lock; no cross-doc enforcement artifact | N/A | No |
-| INV-G-GL-02 | RBE charter-review prerequisite | FAIL | PROTOCOL_SPEC E/J2 uses term; no operational definition in CHARTER/EVOLUTION/workflow | N/A | No |
+| INV-G-GL-02 | RBE charter-review prerequisite | PASS | PROTOCOL_SPEC J2 `RBE Activation Packet`; workflow_ai_development Section 9 packet schema + storage/authority rules | N/A | No |
 | INV-G-GL-03 | RBE Step 4 freeze prohibition | PASS | PROTOCOL_SPEC J2 Step 4 prohibition + freeze policy K | N/A | No |
 | INV-G-GL-04 | Step sequence + rollback moratorium | AMBIGUOUS | PROTOCOL_SPEC J2 defines rule but stop-condition specificity uneven across steps | N/A | No |
 | INV-G-GL-05 | Step 1 no risk increase | AMBIGUOUS | PROTOCOL_SPEC J2 Step 1 with GE-2/GE-3 interaction boundary not bright-line in edge cases | N/A | No |
 | INV-G-GL-06 | Step 2 entry condition formulas | AMBIGUOUS | PROTOCOL_SPEC J2 Step 2 conditions defined; metric estimator methods incomplete | N/A | No |
 | INV-G-GL-07 | Step 3 DD micro-adjustment constraints | AMBIGUOUS | PROTOCOL_SPEC J2 Step 3 constraints present; interaction with kill framework not codified elsewhere | N/A | No |
 | INV-G-GL-08 | RBE cannot override NN-1 | PASS | PROTOCOL_SPEC J2 Step 0/Step4 constraints; NN-1 preserved in B/K | N/A | No |
-| INV-G-RDL-01 | RDL dormancy (scaffolding-only pre-2) | AMBIGUOUS | PROTOCOL_SPEC E + workflow Section 6 aligned generally, but auditable state flag absent | N/A | No |
-| INV-G-RDL-02 | RDL submission-count budget rule | FAIL | Rule appears in PROTOCOL_SPEC E; absent in GLOSSARY and registry governance references | N/A | No |
-| INV-G-RDL-03 | RDL routing influence phase gate | AMBIGUOUS | PROTOCOL_SPEC E uses "Phase 2 exit criteria met"; workflow states operational starts at Phase 2+ | N/A | No |
-| INV-G-RDL-04 | RDL never feeds RBE triggers | FAIL | Explicit in PROTOCOL_SPEC E only; no corroborating governance rule outside spec | N/A | No |
+| INV-G-RDL-01 | RDL dormancy (scaffolding-only pre-2) | PASS | PROTOCOL_SPEC E + workflow Section 6 + GLOSSARY boundary/attestation terms | N/A | No |
+| INV-G-RDL-02 | RDL submission-count budget rule | PASS | PROTOCOL_SPEC E + workflow Section 6 + GLOSSARY submission-time counting | N/A | No |
+| INV-G-RDL-03 | RDL routing influence phase gate | PASS | PROTOCOL_SPEC E boundary matrix + workflow Section 6 + GLOSSARY boundary matrix | N/A | No |
+| INV-G-RDL-04 | RDL never feeds RBE triggers | PASS | PROTOCOL_SPEC E + workflow Section 6 + GLOSSARY non-interaction rule | N/A | No |
 | INV-G-RDL-05 | RDL-2 depends on P4 prereg spec | FAIL | PROTOCOL_SPEC E references missing P4 prereg spec; absent everywhere else | N/A | No |
 | INV-G-RDL-06 | RDL-3 new version requires new registry entry | PASS | PROTOCOL_SPEC E RDL-3 + GE-3 cross-reference consistent | N/A | No |
 | INV-G-RDL-07 | RDL-4 pre-Phase-2 logging-only constraint | AMBIGUOUS | PROTOCOL_SPEC E states constraint; timestamp convention controls not defined in glossary/governance docs | N/A | No |
-| TOTAL | — | PASS: 30 / FAIL: 17 / AMBIGUOUS: 34 | — | — | Regressions: 0 |
-
+| TOTAL | — | PASS: 48 / FAIL: 6 / AMBIGUOUS: 27 | — | — | Regressions: 0 |

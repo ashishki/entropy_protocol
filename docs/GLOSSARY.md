@@ -1,6 +1,6 @@
 # Entropy Protocol — Glossary
 
-**Version:** 1.0
+**Version:** 1.2
 **Last updated:** 2026-03-04
 **Purpose:** Reference definitions for developers and AI models. All terms used in PROTOCOL_SPEC.md and CHARTER.md are defined here.
 
@@ -14,10 +14,12 @@ Net Sharpe = mean(annual returns, active trading book) / stdev(annual returns, a
 ```
 Active trading book = streams (a) + (b) + (c) only. Treasury stream (d) excluded.
 Annualized using 252 trading days. 4H bars: 6 bars/day.
-Always reported with 68% confidence interval. At 15 months OOS, CI ≈ ±0.15–0.20 for a 0.30-Sharpe system.
+Always reported with 68% confidence interval using canonical method `CI-SR-ACF-v1` (autocorrelation-consistent). CI is mandatory uncertainty disclosure and does not override frozen kill thresholds.
 
 **Deflated Sharpe (Harvey-Liu)**
 Net Sharpe with a haircut applied to account for the number of strategies tested in the trial registry. Mandatory when net Sharpe < 0.40. Reported alongside raw Sharpe in all evaluation outputs.
+- Canonical method ID: `HL-HB-v1`.
+- Trial-count scope (`M_total`): cross-namespace `Main + AT + RDL-*`, counted at submission time in Trial Registry.
 
 **Calmar Ratio**
 ```
@@ -51,7 +53,7 @@ Do NOT use the isolated short-only formula for marginal contribution calculation
 **N_eff (Effective Factor Count)**
 Effective number of independent risk factors in the portfolio. Computed via dimensionality reduction (DR) + correlation clustering.
 - Target: ≥ 3 after controls
-- K3 kill criterion: N_eff ≤ 2 for 2+ consecutive months
+- K3 kill criterion timing: after >=3 months DR monitoring precondition, N_eff <= 2 for 2 consecutive monthly checkpoints.
 
 ---
 
@@ -118,6 +120,19 @@ Recovery thresholds (hysteresis):
 - P3: 20-day ρ < 0.45 (not 0.55 — 0.10 hysteresis band)
 - P4: updates at weekly close
 
+Deterministic P3 protocol:
+- Population: active Phase universe assets with valid returns at decision timestamp.
+- Returns: daily close-to-close log returns.
+- Estimator: Pearson correlation over 20-day window (minimum 15 valid observations).
+- Aggregation: mean of upper-triangle pairwise correlations.
+- Mapping: `0.55 < rho_avg <= 0.65` => 35% reduction; `rho_avg > 0.65` => 50% reduction.
+- Ramp: linear over 3 business days.
+
+Concurrent transition semantics:
+- P1 activation during P3 ramp pauses ramp.
+- P1 clear while P3 active resumes paused ramp.
+- P4 updates while P1 active are track-only.
+
 ---
 
 ## Phase Labels
@@ -148,6 +163,40 @@ Recovery thresholds (hysteresis):
 | P2K2 | False-trigger reduction < 10% after 6mo | Retire 1W overlay | Phase 2 |
 | P4K1 | Trailing 3-month funding drag > 2.5% NAV annualized | Pause crypto shorts | Phase 4 |
 | P4K2 | Combined short Sharpe delta < 0 for 2 consecutive 6-month windows | Retire crypto shorts | Phase 4 |
+
+---
+
+## RDL Governance Terms
+
+**RDL Boundary Matrix**
+- Phase 0-1: scaffolding only.
+- Phase 2 start: preregistered RDL hypothesis generation + Trial Registry submission + harness evaluation allowed.
+- Before Phase 2 exit: portfolio/routing influence prohibited.
+- After Phase 2 exit: routing influence only via explicit phase-gated policy path.
+
+**RDL Submission-Time Counting**
+`RDL-*` hypotheses are included in Harvey-Liu multiplicity budget at submission time, not promotion time.
+
+**RDL -> RBE Non-Interaction**
+RDL outputs must never be used for RBE activation or stop-condition evaluation.
+
+**RDL Dormancy Attestation**
+Runtime mode flag `RDL_MODE` must be one of:
+- `scaffold_only`
+- `eval_enabled`
+- `portfolio_disabled`
+- `portfolio_enabled`
+Pre-Phase-2 certification query `pre_phase2_rdl_portfolio_reads` must return empty.
+
+**RDL Promotion Queue Policy**
+- Default ordering: FIFO by Trial Registry submission timestamp.
+- Rate limit: max 3 new `RDL-*` promotions/month into active evaluation.
+- Shock-control pause: if `M_total` grows by >10 in rolling 30 days, pause new promotions until haircut-impact note is logged.
+
+**Evaluation Epoch ID (Reporting-Only)**
+Tag used in K1-K6 reports to preserve comparability across RBE transitions:
+`evaluation_epoch_id = {phase_id, rbe_step, policy_hash}`.
+This tag does not change frozen kill-window logic or thresholds.
 
 ---
 

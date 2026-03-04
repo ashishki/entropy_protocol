@@ -2,7 +2,7 @@
 
 **Classification:** Confidential — Internal Governance Document
 **Filename:** `docs/workflow_ai_development.md`
-**Version:** 1.2
+**Version:** 1.4
 **Date:** 2026-03-04
 **Owner:** Spec Owner / Staff-Level Systems Architect
 
@@ -78,7 +78,12 @@ This policy applies to all changes regardless of whether the change was AI-gener
 
 ### 6. RDL Operational Gating
 
-**Operational RDL usage starts at Phase 2+. During Phase 0 and Phase 1, only scaffolding is permitted.** RDL is dormant until Phase 2 as defined in `PROTOCOL_SPEC.md` Section E.
+RDL boundary is phase-sliced and machine-checkable (see `PROTOCOL_SPEC.md` Section E):
+- **Phase 0-1:** scaffolding only.
+- **Phase 2 start:** pre-registered RDL hypothesis generation, Trial Registry submission, and harness evaluation permitted.
+- **Before Phase 2 exit:** portfolio/routing influence remains prohibited.
+- **After Phase 2 exit:** routing influence can be enabled only through explicit phase-gated policy path.
+- **Multiplicity accounting:** `RDL-*` entries are counted in the Harvey-Liu trial budget at submission time, not promotion time.
 
 Permitted in Phase 0–1:
 - Defining RDL contracts (interfaces, schemas, data types)
@@ -92,6 +97,16 @@ Not permitted in Phase 0–1:
 - Any kill criterion evaluation using RDL outputs instead of SimBroker outputs
 
 Any audit finding that identifies Phase 0–1 code making routing decisions or OOS claims via RDL is automatically classified **P0** and blocks Phase 1 entry.
+
+Mandatory attestation and evidence:
+- Runtime mode flag `RDL_MODE` must be present (`scaffold_only`, `eval_enabled`, `portfolio_disabled`, `portfolio_enabled`).
+- Certification query `pre_phase2_rdl_portfolio_reads` must return empty for pre-Phase-2 gates.
+- Any attempted RDL read from Portfolio/RBE code paths in prohibited phases must emit a structured audit event.
+
+Phase 2 RDL promotion governance:
+- Promotion order defaults to FIFO by Trial Registry submission timestamp.
+- Monthly cap: max 3 new `RDL-*` promotions into active evaluation per calendar month.
+- Shock-control: if `M_total` grows by >10 over rolling 30 days, pause new promotions until haircut-impact note is logged.
 
 ### 7. Audit Pipeline Execution
 
@@ -110,6 +125,23 @@ Audit artifacts produced by AI models (Claude or equivalent) are subject to the 
 - AI models must not self-certify findings as Closed. Closure requires a subsequent pipeline step.
 - If an AI model identifies a contradiction with a frozen non-negotiable, it must flag the contradiction and halt — not attempt to resolve it unilaterally.
 
+### 9. Charter-Level Review Artifact (RBE Activations)
+
+For any RBE activation above Step 0, a mandatory `RBE Activation Packet` is required before activation:
+- proposer
+- approver(s)
+- requested step
+- preregistration ID
+- metric snapshot
+- expected impact
+- rollback conditions
+- effective date
+
+Storage rule:
+- Packet is written to append-only governance storage.
+- Packet hash is referenced in the linked Trial Registry entry.
+- Approver cannot be the sole proposer for the same activation.
+
 ---
 
 ## Change Log
@@ -119,8 +151,10 @@ Audit artifacts produced by AI models (Claude or equivalent) are subject to the 
 | 1.0 | 2026-03-04 | Initial creation. Audit Governance Policy (Sections 1–8). |
 | 1.1 | 2026-03-04 | Section 6: added cross-reference to PROTOCOL_SPEC.md Section E for RDL dormancy definition. |
 | 1.2 | 2026-03-04 | Section 4: added explicit Cycle 1 mandatory remediation set reference (`TASK-AF-022..032`). |
+| 1.3 | 2026-03-04 | Section 6 boundary matrix + machine-checkable RDL attestation; Section 9 adds mandatory RBE Activation Packet policy. |
+| 1.4 | 2026-03-04 | Section 6: added Phase-2 RDL promotion governance baseline (FIFO/cap/shock-control). |
 
 ---
 
-*Version: 1.2 | Date: 2026-03-04*
+*Version: 1.4 | Date: 2026-03-04*
 *See also: `docs/AI_ENGINEERING_FRAMEWORK.md` (AI model roles, context loading), `docs/audit/review_pipeline.md` (pipeline execution), `docs/audit/AUDIT_INDEX.md` (artifact registry)*

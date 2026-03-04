@@ -2,11 +2,20 @@
 **Classification:** Confidential — Onboarding Document
 **Filename:** `audience/ARCHITECT_BRIEF.md` (stable)
 **Audience:** Senior Systems Architect / CTO
-**Version:** 1.1
+**Version:** 1.2
 **Date:** 2026-03-04
 **Purpose:** Enable an experienced architect to understand system design, evaluation integrity, and operational viability. Read this before `PROTOCOL_SPEC.md`. Then read `EVOLUTION.md` for design decision history.
 
 This document assumes familiarity with systematic trading concepts at the level of someone who has built or overseen production quant systems. Heavy quant notation is used where precise — trading intuition explanations are omitted.
+
+### Current Hardening Focus (v1.3 Alignment)
+
+The near-term objective is to reduce governance ambiguity, not to expand feature surface:
+- deterministic P3 trigger and explicit P1/P3/P4 transition semantics;
+- explicit RDL boundary matrix with attestation hooks;
+- normalized net Sharpe definition `(a+b+c)` across all reporting tables;
+- GE-2/GE-3 bright-line for persistent near-zero weights;
+- operational definition of RBE charter-level approval artifact.
 
 ---
 
@@ -132,8 +141,8 @@ Net Sharpe = (a)+(b)+(c) only. Stream (d) excluded from all primary metrics. Ble
 ### CI Reporting
 
 - Net Sharpe always reported with 68% confidence interval
-- At 15 months OOS: CI ≈ ±0.15–0.20 for a ~0.30-Sharpe system
-- Point estimate alone is insufficient; trend across sequential 6-month windows is a secondary indicator
+- CI is computed via canonical method `CI-SR-ACF-v1` with autocorrelation-consistent adjustment
+- CI is mandatory uncertainty disclosure; frozen kill thresholds remain unchanged
 
 ---
 
@@ -165,9 +174,12 @@ Net Sharpe = (a)+(b)+(c) only. Stream (d) excluded from all primary metrics. Ble
 
 Regime labels applied to historical OOS windows are frozen at evaluation time. A recalibration of the 1W signal in Phase 2 does not retroactively change Phase 1 regime labels. All performance reports reference the signal version active at evaluation time. This prevents retroactive improvement of reported performance through regime relabeling — a common implicit failure mode in iterative systems.
 
-### What Is Not Addressed (Known Gap)
+### Concurrent State Semantics (Now Explicit)
 
-The precedence hierarchy resolves simultaneous firing. It does not address: what happens if P1 fires, recovers, then P3 fires in the recovery window. The recovery from P3 that occurs while P1 recovery criteria are also pending should be explicitly handled in the harness implementation. The current spec is silent on nested recovery sequencing.
+Nested transitions are now defined at policy level:
+- if P1 activates during a P3 ramp, the P3 ramp is paused and resumed after P1 clears;
+- P4 updates during P1-active windows are track-only (logged, no exposure effect);
+- transition logs must include state before/after and policy hash.
 
 ---
 
@@ -371,7 +383,7 @@ For the project owner:
 
 ---
 
-*Document Version: 1.1 | Date: 2026-03-04*
+*Document Version: 1.2 | Date: 2026-03-04*
 *Classification: Confidential — External Review Document*
 *For: CTO / Senior Systems Architect reviewer*
 *Companion documents: entropy_protocol_master_spec_v1.md (full spec), entropy_protocol_trader_review_v1.md (trader version)*

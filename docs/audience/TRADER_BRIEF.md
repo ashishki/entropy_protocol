@@ -2,13 +2,26 @@
 **Classification:** Confidential — External Contributor Document
 **Filename:** `audience/TRADER_BRIEF.md` (stable)
 **Audience:** Trader / Crypto / Onchain practitioner
-**Version:** 1.0
-**Date:** 2026-03-02
+**Version:** 1.1
+**Date:** 2026-03-04
 **Purpose:** Explain the framework, show where external signal ideas can plug in as pre-registered hypotheses, and describe the structured contribution process.
 
 ---
 
 ## A. What This Framework Is (and Is Not)
+
+### What We Are Tightening Right Now (Plain Language)
+
+To reduce complexity risk, we are tightening rules before adding new strategy surface:
+- Regime actions are being made deterministic (`P3/P4`): less room for "manual interpretation."
+- RDL now has a strict boundary: before Phase 2 it is scaffolding only; after Phase 2 start it can generate research candidates, but cannot steer live routing before Phase 2 exit.
+- Net Sharpe language is normalized everywhere to `(a+b+c)` so reports cannot hide short/funding impact.
+- Persistent near-zero skill weight is treated as a strategy change (must be preregistered), not a casual rebalance.
+
+Why this helps you as a contributor:
+- Clearer pass/fail criteria for your hypotheses.
+- Lower chance that governance drift invalidates your test after the fact.
+- Faster feedback loops with fewer ambiguous edge cases.
 
 ### What It Is
 
@@ -313,7 +326,7 @@ For the question list:
 
 ---
 
-*Document Version: 1.0 | Date: 2026-03-02*
+*Document Version: 1.1 | Date: 2026-03-04*
 *Classification: Confidential — External Review Document*
 *For: Trader / Crypto / Onchain reviewer*
 *Companion documents: entropy_protocol_master_spec_v1.md (full spec), entropy_protocol_architecture_review_v1.md (CTO version)*

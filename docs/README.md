@@ -100,20 +100,24 @@ No signal receives an OOS evaluation label until Phase 0 exit criteria are met. 
 
 ---
 
-## Active Review Questions (Near-Term Resolution)
+## Current Stabilization Plan (What and Why)
 
-The following items are currently under active review and targeted for near-term specification closure (Cycle 1 remediation set):
+The system is intentionally large. Current work is focused on reducing ambiguity, not adding new complexity.
 
-1. **P4 algorithm formalization (A-01 / F-4):** complete reproducible regime-labeling specification (inputs, thresholds/model, calibration, versioning).
-2. **P3 trigger determinism (A-02):** lock population/interval definition and deterministic 35–50% reduction rule.
-3. **RDL operational boundary unification (B-02 / F-23):** resolve `"Phase 2+"` vs `"after Phase 2 exit"` language across spec/governance docs.
-4. **Harvey-Liu canonical variant and trial aggregation (B-01 / F-1, F-24):** define formula and cross-namespace counting (`Main`, `AT`, `RDL-*`).
-5. **RBE governance object (B-03 / F-26):** define authority, required artifact, and storage for "charter-level review".
-6. **RBE interaction controls (B-04 / F-31):** specify kill-window continuity and enforce RDL->RBE non-interaction.
-7. **Net Sharpe stream composition consistency (E-01 / F-22):** normalize all references to `(a+b+c)` and remove `(a+c)` drift.
-8. **K3 deterministic definition (C-02, E-02 / F-29):** lock `N_eff` estimator and temporal trigger wording.
-9. **GE-2 vs GE-3 zero-weight boundary (B-05 / F-32):** close trial-count suppression loophole.
+What we are doing now:
+1. Make regime control deterministic (`P3/P4`): same inputs must produce same risk action.
+2. Lock RDL boundaries: Phase 0-1 scaffolding only; Phase 2 enables research operations; routing influence only after Phase 2 exit.
+3. Make audit evidence machine-checkable: add mode flags, attestation queries, and structured transition logs.
+4. Normalize core metrics language: net Sharpe is always `(a+b+c)` in every table and report.
+5. Close governance loopholes: persistent near-zero skill weight is treated as strategy modification (GE-3), not discretionary reweighting.
+6. Formalize RBE approval artifact: "charter-level review" now maps to a required packet schema.
+
+Why this matters:
+- Phase gates become auditable and reproducible.
+- Fewer "interpretation" paths during stress periods.
+- Lower risk of accidental policy bypass.
+- Better operator confidence: clear rules before adding new modules.
 
 Tracking sources:
 - `docs/audit/REVIEW_REPORT.md` (Cycle 1 findings F-22..F-32)
-- `docs/audit/QUESTION_POOL.md` (Q-ID A-01..F-03)
+- `docs/tasks.md` (Audit Findings Backlog + Implementation Notes)

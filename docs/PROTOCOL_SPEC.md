@@ -2,13 +2,15 @@
 **Classification:** Confidential — Internal Strategic Document
 **Filename:** `PROTOCOL_SPEC.md` (stable; no version in filename — version tracked in header)
 **Role:** Engineering specification: rules, thresholds, phase structure, exit criteria
-**Version:** 1.2
+**Version:** 1.4
 **Date:** 2026-03-04
-**Basis:** `CHARTER.md` v5.0 (strategic constraints) + v4 audit (authoritative corrections applied)
+**Basis:** `CHARTER.md` v5.1 (strategic constraints) + v4 audit (authoritative corrections applied)
 **Supersedes:** `entropy_protocol_master_spec_v1.md` (archived)
 **Freeze period:** 6 months from issue date, or earlier if a kill criterion fires
 **v1.1 change summary:** Added Growth Layer module (Section E), Growth Layer & Efficiency Metrics (Section J1), Risk Budget Escalation Protocol (Section J2). Surgical updates to Phase 0, 1, 2 monitoring requirements. Section B (Frozen Non-Negotiables), all kill criteria, all phase exit criteria, and all metric thresholds are unchanged.
 **v1.2 change summary:** Added Research Discovery Layer (RDL) module (Section E). RDL is research-only, dormant until Phase 2; before Phase 2 only scaffolding (contracts/datasets/logging) is permitted — no signal generation, no OOS claims, no portfolio routing, no RBE interaction. Section B (Frozen Non-Negotiables), all kill criteria, all phase exit criteria, and all metric thresholds are unchanged.
+**v1.3 change summary:** Clarified deterministic governance for P3/P4/K3 and RDL boundary semantics; added CI interpretation rule, RDL attestation contract, GE-2/GE-3 zero-weight bright-line, and RBE charter-review packet schema. No Frozen Non-Negotiable, kill criterion threshold, phase exit criterion threshold, or freeze-policy logic was changed.
+**v1.4 change summary:** Added deterministic RDL Phase-2 promotion queue policy (FIFO, monthly cap, shock-control) and freeze-safe RBE reporting transparency via `evaluation_epoch_id` tags. No kill logic, thresholds, or phase-exit threshold rules were modified.
 
 ---
 
@@ -40,7 +42,7 @@ Build a systematic, multi-asset portfolio intelligence system that:
 - Phase 3: Equity short positions, paper-first (after Phase 2)
 - Phase 4: Crypto perpetual shorts (after Phase 3; base plan = bypassed)
 - Phase 5: Treasury activation (after Phase 1 exit + 3mo live capital)
-- Research Discovery Layer (RDL): scaffolding only in Phase 0–1 (contracts, dataset collection, logging); operational (signal generation, Trial Registry routing) from Phase 2+
+- Research Discovery Layer (RDL): scaffolding only in Phase 0–1; from Phase 2 start may generate and submit pre-registered research candidates to Trial Registry; portfolio/routing influence remains prohibited until Phase 2 exit is satisfied
 
 ### Out of Scope Until Explicitly Unlocked
 - CCA as live portfolio influencer (deferred to Era 4 minimum)
@@ -122,7 +124,10 @@ Net Sharpe = mean(annual returns, active trading book) / stdev(annual returns, a
 - Costs included: transaction fees, borrow costs, crypto funding costs, stop-loss turnover costs
 - Costs excluded: infrastructure costs, LLM/API costs, developer time (tracked separately for K2)
 - Annualization: 252 trading days regardless of timeframe; 4H bars use 6 bars/day
-- Always include 68% confidence interval. At 15 months OOS, CI ≈ ±0.15–0.20 for a ~0.30-Sharpe system.
+- Always include 68% confidence interval using method `CI-SR-ACF-v1`:
+  - base estimator: annualized Sharpe standard error on bar-level returns,
+  - serial-correlation adjustment: autocorrelation-consistent (lag window fixed in preregistration),
+  - reporting intent: informational uncertainty bound; CI does not override frozen kill thresholds.
 
 ### "OOS (Out-of-Sample)"
 Chronologically after the last training/calibration window, with strict enforcement:
@@ -138,6 +143,19 @@ A market state classification produced by the authoritative signal hierarchy (Se
 
 ### "Net Sharpe Delta (from an extension)"
 The improvement in net Sharpe (streams a+b+c) computed on matched observations against a pre-defined baseline. Never computed by comparing different evaluation windows.
+
+### "Harvey-Liu Haircut Method (canonical)"
+Method ID: `HL-HB-v1` (Holm-Bonferroni deflation workflow).
+- Inputs: `{raw_sharpe, sample_length, M_total, return_frequency, method_id}`.
+- `M_total` scope is cross-namespace: `Main + AT + RDL-*`, counted at submission time in Trial Registry.
+- Outputs: `{deflated_sharpe, haircut_units, method_id, code_hash}`.
+- Reporting rule: all phase reports must include raw and deflated values with `M_total`.
+
+### "K3 Temporal Grammar"
+K3 uses a two-stage clock:
+- Monitoring precondition: at least 3 months of DR monitoring must exist.
+- Trigger window: after precondition is met, `N_eff ≤ 2` for 2 consecutive monthly checkpoints triggers K3.
+This clarifies timing without changing K3 threshold or action.
 
 ### Cost Model Components (explicit)
 
@@ -172,9 +190,29 @@ Four regime-adjacent signals operate on incompatible time horizons and require e
 2. Signals do not combine multiplicatively. P3 fires (reduce 35–50%) → P4 routing applies within the reduced book, not against original sizing.
 3. Recovery conditions are defined above per signal. A signal does not clear just because the trigger condition is no longer met — the hysteresis window must close.
 
+### Deterministic P3 Protocol (normative)
+- Correlation population: active Phase universe assets with valid returns at decision timestamp.
+- Return interval: daily close-to-close log returns, computed at the portfolio decision close timestamp.
+- Estimator: Pearson correlation on 20-day window; minimum 15 valid observations required.
+- Aggregation: simple mean of upper-triangle pairwise correlations.
+- Action mapping:
+  - if `0.55 < rho_avg <= 0.65` then target gross reduction is 35%;
+  - if `rho_avg > 0.65` then target gross reduction is 50%.
+- Ramp rule: linear ramp over 3 business days; ramp state is logged each day.
+
+### Concurrent Transition Semantics (P1/P3/P4)
+Canonical state vector: `{p1_active, p3_active, p3_ramp_progress, p4_state, state_version}`.
+- If P1 becomes active during a P3 ramp: pause the ramp and freeze `p3_ramp_progress`.
+- If P1 clears while P3 remains active: resume the paused P3 ramp from frozen progress.
+- While P1 is active, P4 updates are track-only (logged) and do not alter effective exposure.
+- Every transition must log `{event_ts, prior_state, next_state, reason_code, policy_hash}`.
+
 ### Regime Label Immutability
 
 Regime labels applied to historical OOS windows are frozen at evaluation time. A recalibration of the 1W signal in Phase 2 does not retroactively update Phase 1 regime labels. Performance reports reference the signal version active at evaluation time.
+
+P4 label-vintage artifact is mandatory for every reported window:
+`{p4_version, p4_param_hash, calibration_end_ts, label_generation_ts, dataset_hash}`.
 
 ---
 
@@ -242,8 +280,19 @@ Regime labels applied to historical OOS windows are frozen at evaluation time. A
 - **Status: Research-only. Dormant until Phase 2.** Before Phase 2, only scaffolding is permitted: schema/contract definitions, dataset collection setup, and object logging infrastructure. No signal generation, no OOS claims, no portfolio routing, and no RBE interaction are permitted before Phase 2. This constraint is non-negotiable and is enforced by the audit pipeline (any Phase 0–1 RDL routing or OOS claim is automatically P0).
 - **Purpose:** Structured research pipeline for generating, labeling, and feature-engineering candidate hypotheses. Before Phase 2, outputs are scaffolding artifacts (schemas, logged objects) only. After Phase 2 activation, RDL outputs feed the Trial Registry as pre-registered candidates; they do not bypass preregistration or multiplicity controls.
 - **Governance:** All RDL hypotheses must be pre-registered in the Trial Registry before any evaluation window data is examined. Namespace: `RDL-*`. RDL hypothesis IDs are counted in the Harvey-Liu trial budget from the moment they are submitted to the Trial Registry — not from the moment they are promoted to Phase evaluation. RDL does not create an exemption from Rule GE-3 (Section J1). Feature modifications generated by RDL submodules are subject to preregistration in full.
+- **Boundary matrix (authoritative):**
+  - Phase 0–1: scaffolding/logging only.
+  - Phase 2 start: pre-registered RDL hypothesis generation + Trial Registry submission + harness evaluation permitted.
+  - Before Phase 2 exit: portfolio routing/sizing influence prohibited.
+  - After Phase 2 exit: routing/sizing influence may be enabled only via explicit phase-gated policy path.
 - **Gating:** Phase 2 exit criteria met before any RDL output influences portfolio routing, skill signal selection, or exposure sizing.
 - **RBE interaction:** RDL outputs must never feed into RBE step activation or stop-condition evaluation. The RBE is governed by realized P&L and structural metrics only (Section J2).
+- **Dormancy attestation (required pre-Phase-2):** runtime flag `RDL_MODE` must be one of `{scaffold_only, eval_enabled, portfolio_disabled, portfolio_enabled}` with phase constraints. Certification query `pre_phase2_rdl_portfolio_reads` must return empty.
+- **Phase 2 promotion queue policy (deterministic):**
+  - Queue order: FIFO by `trial_registry_submission_ts` (oldest first).
+  - Rate limit: max 3 new `RDL-*` submissions per calendar month entering active evaluation.
+  - Shock-control: if `M_total` increases by more than 10 within any rolling 30-day window, pause new RDL promotions until updated haircut impact is logged.
+  - Override path: non-FIFO promotion requires explicit governance note linked to Trial Registry ID.
 
 *Submodule RDL-1 — Hypothesis Generator*
 - Purpose: Structure candidate hypotheses as `CandidateHypothesis` objects with pre-specified entry condition, metric, threshold, and minimum sample. Output is a pre-registration record ready for Trial Registry submission.
@@ -362,7 +411,7 @@ Regime labels applied to historical OOS windows are frozen at evaluation time. A
 
 | Metric | Target | Kill / Flag |
 |---|---|---|
-| Net Sharpe (streams a+c) | ≥ 0.28 point estimate | K1: < 0.28 after 15mo/2 regimes |
+| Net Sharpe (streams a+b+c) | ≥ 0.28 point estimate | K1: < 0.28 after 15mo/2 regimes |
 | Calmar ratio | ≥ 0.25 | Flag if < 0.15 for 2 consecutive quarters |
 | Maximum DD | < 20% any calendar quarter | Kill if breached |
 | Factor N_eff | ≥ 3 after DR + correlation clustering | K3: N_eff ≤ 2 for 2 consecutive months |
@@ -373,7 +422,7 @@ Regime labels applied to historical OOS windows are frozen at evaluation time. A
 | Capital Utilization % | 40–70% (90d average) | Flag if < 40% for ≥30 consecutive days |
 | N_eff trend | Stable or improving (weekly) | Flag if declining ≥ 0.5 units over 60 days without a logged allocation change |
 
-Note: At 15 months OOS, CI on net Sharpe ≈ ±0.15–0.20 (68%). The point estimate is informative, not final.
+Note: At 15 months OOS, report 68% CI using `CI-SR-ACF-v1`. CI is mandatory for uncertainty disclosure and does not alter frozen K1 threshold logic.
 
 **Kill criteria:**
 - **K1:** Net OOS Sharpe < 0.28 (point estimate) after 15 months spanning ≥2 regimes → project kill review
@@ -411,6 +460,12 @@ Note: At 15 months OOS, CI on net Sharpe ≈ ±0.15–0.20 (68%). The point esti
 - ≥6 months paper comparison vs Phase 1 benchmark (same entry signals; parallel baseline and overlay)
 - ≥80 comparable trade pairs (same entry signal, different overlay state)
 - Note: at 80 pairs, CI on Sharpe delta ≈ ±0.12. Phase 2 screens for plausibility, not confirmation.
+
+**Matched-pair protocol (canonical):**
+- Pair unit: `{asset_id, entry_signal_id, entry_ts}` from the baseline stream.
+- Overlay-suppressed entries are retained as valid pairs with explicit `suppressed_by_overlay = true`.
+- Exit-time mismatch handling is preregistered and deterministic (time-aligned P&L horizon).
+- Reports must include `pairing_rule_version` and dropped-pair counts with reasons.
 
 **Metrics and thresholds:**
 
@@ -729,6 +784,7 @@ Adjustments to allocation weights that improve N_eff are permitted without prere
 - Signal entry/exit logic is unchanged for all skills
 - Gross leverage remains ≤ 1.0 (NN-1)
 - The allocation change is logged with N_eff before/after values and the date
+- No active skill is set below 1% target weight for a persistent window (see GE-7)
 
 **Rule GE-3: Signal Modification Always Requires Preregistration**
 Any modification to signal entry conditions, exit conditions, feature definitions, or look-back parameters — regardless of whether it is framed as a "diversification improvement," "efficiency fix," or "parameter correction" — requires preregistration in the trial registry as a full AT experiment or Phase experiment before any related data is examined. The Growth Layer does not create an exemption from multiplicity controls.
@@ -748,6 +804,9 @@ N_eff optimization via allocation rebalancing is allowed and is the primary use 
 **Rule GE-6: CER Trend Interpretation**
 CER declining while net Sharpe is stable or rising indicates capital is being increasingly tied up without proportional return. This may reflect rising idle capital, concentration in lower-return allocations, or inefficient position sizing. A declining CER trend for 2 consecutive quarters with stable Sharpe is a mandatory review trigger, not a kill criterion.
 
+**Rule GE-7: Zero-Weight Bright-Line (GE-2 vs GE-3)**
+If a previously active skill is set below 1% target gross weight for one full rebalance cycle (or for 3 consecutive rebalances), classification is GE-3 and preregistration is mandatory. This is treated as a structural strategy modification (de-facto skill deactivation), not a GE-2 allocation tweak.
+
 ---
 
 ## J2. Risk Budget Escalation Protocol (RBE — Locked)
@@ -755,6 +814,16 @@ CER declining while net Sharpe is stable or rising indicates capital is being in
 ### Status and Governance
 
 This protocol is **locked by default**. During the current freeze period (until 2026-09-02), no RBE step transition above Step 0 may occur without charter-level review. All RBE step activations above Step 0 are policy experiments and must be preregistered in the trial registry before activation.
+
+Charter-level review is operationalized via mandatory `RBE Activation Packet`:
+- required fields: proposer, approver(s), step requested, preregistration ID, metric snapshot, expected impact, rollback conditions, effective date;
+- storage: append-only governance log, hash referenced from Trial Registry entry;
+- authority separation: approver cannot be the sole proposer for the same activation.
+
+Freeze-safe reporting rule for kill-window transparency:
+- RBE transitions must annotate all K1-K6 reports with `evaluation_epoch_id = {phase_id, rbe_step, policy_hash}`.
+- This is a reporting-only tag. It does not reset, pause, or alter frozen kill criteria windows or thresholds.
+- Any report that spans multiple epoch IDs must explicitly show per-epoch metric slices before presenting aggregated values.
 
 Rollback is automatic and non-negotiable when stop conditions trigger. A rolled-back step cannot be re-activated for a minimum of 3 calendar months from the rollback date, regardless of subsequent metric recovery.
 
@@ -934,8 +1003,10 @@ End of Phase 0 (evaluation engine and SimBroker complete).
 
 ---
 
-*Document Version: 1.2 | Base: 2026-03-02 | v1.1 update: 2026-03-02 | v1.2 update: 2026-03-04*
+*Document Version: 1.4 | Base: 2026-03-02 | v1.1 update: 2026-03-02 | v1.2 update: 2026-03-04 | v1.3 update: 2026-03-04 | v1.4 update: 2026-03-04*
 *Supersedes: Strategic Architecture Review v2, v3, v4; Strategic Charter v5 (all replaced by this document as reader entry point)*
 *Classification: Confidential — Internal Strategic Document*
 *Freeze expires: 2026-09-02 or at first kill criterion event*
 *v1.1 additions: Growth Layer (E), Growth Metrics (J1), RBE Protocol (J2), Phase 0/1/2 monitoring updates. Section B unchanged.*
+*v1.3 clarifications: deterministic P3/P4/K3 governance, RDL boundary matrix + attestation, GE-2/GE-3 bright-line, and RBE review packet schema. Frozen sections unchanged.*
+*v1.4 clarifications: deterministic RDL promotion queue policy and reporting-only epoch tags for RBE transparency. Frozen logic unchanged.*

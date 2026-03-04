@@ -1,8 +1,8 @@
 # Entropy Protocol — Project Charter
 **Classification:** Confidential — Internal Strategic Document
 **Filename:** `CHARTER.md` (stable; no version in filename — version tracked in header)
-**Version:** 5.0
-**Date:** 2026-03-02
+**Version:** 5.1
+**Date:** 2026-03-04
 **Basis:** v2.0 findings, v3.0 extensions, v4.0 audit (authoritative corrections applied)
 **Supersedes:** `strategic_charter_v5.md` (archived)
 **Next review:** End of Phase 0 (evaluation engine complete)
@@ -142,7 +142,7 @@ Where:
 - *Costs included*: transaction fees, borrow costs, crypto funding costs, stop-loss turnover costs
 - *Costs excluded*: infrastructure costs, LLM/API costs, developer time (tracked separately for K2)
 - *Annualization*: 252 trading days regardless of timeframe. 4H bars use 6 bars/day.
-- *Reporting*: always include 68% confidence interval. At 15 months OOS, CI ≈ ±0.15–0.20 for a 0.30-Sharpe system.
+- *Reporting*: always include 68% confidence interval using canonical method `CI-SR-ACF-v1` (autocorrelation-consistent). CI is mandatory uncertainty disclosure and does not override frozen kill thresholds.
 
 **"OOS (Out-of-Sample)":**
 Chronologically after the last training/calibration window, with strict enforcement:
@@ -196,8 +196,26 @@ A market state classification produced by the authoritative signal hierarchy (Se
    - P3 recovery: 20-day ρ < 0.45 (hysteresis band = 0.10; not the same as trigger threshold)
    - P4 state: changes on weekly close; no recovery period
 
+**Deterministic P3 protocol (normative):**
+- Correlation population: active Phase universe assets with valid returns at decision timestamp.
+- Return interval: daily close-to-close log returns.
+- Estimator: Pearson correlation on 20-day window; minimum 15 valid observations.
+- Aggregation: simple mean of upper-triangle pairwise correlations.
+- Action mapping:
+  - if `0.55 < rho_avg <= 0.65` -> gross reduction 35%;
+  - if `rho_avg > 0.65` -> gross reduction 50%.
+- Ramp rule: linear over 3 business days; ramp progress logged each day.
+
+**Concurrent transition semantics (P1/P3/P4):**
+- If P1 activates during a P3 ramp, pause the ramp and freeze progress.
+- If P1 clears while P3 is still active, resume paused P3 ramp from frozen progress.
+- While P1 is active, P4 updates are track-only (logged) and do not alter effective exposure.
+- Transition logs must include prior state, next state, reason code, and policy hash.
+
 **Regime label immutability:**
 Regime labels applied to historical OOS windows are frozen at evaluation time. A recalibration of the 1W signal in Phase 2 does not retroactively update Phase 1 regime labels. Performance reports reference the signal version active at evaluation time.
+For each reported window, store label vintage artifact:
+`{p4_version, p4_param_hash, calibration_end_ts, label_generation_ts, dataset_hash}`.
 
 ---
 
@@ -236,16 +254,16 @@ Regime labels applied to historical OOS windows are frozen at evaluation time. A
 **Required sample size:**
 - Primary: ≥15 months walk-forward OOS spanning ≥2 distinct regime instances (≥8 weeks each)
 - Secondary: ≥250 completed trades through the evaluation engine for per-trade MAE/MFE analysis
-- Context: at 15 months, CI on net Sharpe ≈ ±0.15–0.20 (68%). The point estimate is informative, not final. Report it with the CI.
+- Context: at 15 months, report 68% CI via `CI-SR-ACF-v1`. Point estimate remains informative, not final.
 
 **Metrics and thresholds:**
 
 | Metric | Target | Kill / Flag |
 |---|---|---|
-| Net Sharpe (streams a+c) | ≥ 0.28 point estimate | K1: < 0.28 after 15 mo / 2 regimes |
+| Net Sharpe (streams a+b+c) | ≥ 0.28 point estimate | K1: < 0.28 after 15 mo / 2 regimes |
 | Calmar ratio (Sharpe / max DD) | ≥ 0.25 | Flag if < 0.15 for 2 consecutive quarters |
 | Maximum DD | < 20% in any calendar quarter | Kill if breached |
-| Factor N_eff | ≥ 3 after DR + correlation clustering | K3: N_eff ≤ 2 for 2 consecutive months |
+| Factor N_eff | ≥ 3 after DR + correlation clustering | K3: N_eff ≤ 2 after 3+ months DR precondition and 2 consecutive monthly checkpoints |
 | Harvey-Liu deflated Sharpe | Reported alongside raw; haircut < 0.05 | Flag if haircut > 0.08 |
 | SimBroker cost accuracy | Within 15% of paper fills | Flag if > 15% for 2 consecutive months |
 
@@ -670,6 +688,6 @@ The full Predictive Skill / Tradability Skill / Regime Timing Skill scoring fram
 
 ---
 
-*Document Version: 5.0 | Date: 2026-03-02 | Supersedes: v3.0 (extensions), v4.0 (audit findings incorporated)*
+*Document Version: 5.1 | Date: 2026-03-04 | Supersedes: v3.0 (extensions), v4.0 (audit findings incorporated)*
 *Next scheduled review: End of Phase 0 (evaluation engine complete)*
 *Classification: Confidential — Internal Strategic Document*

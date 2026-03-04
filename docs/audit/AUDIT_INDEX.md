@@ -2,7 +2,7 @@
 
 **Classification:** Confidential — Internal Governance Document
 **Filename:** `docs/audit/AUDIT_INDEX.md`
-**Version:** 1.3
+**Version:** 1.4
 **Date:** 2026-03-04
 **Owner:** Spec Owner / Staff-Level Systems Architect
 
@@ -114,6 +114,22 @@ Note: Cycle 1 full pipeline artifacts are now generated in canonical form and re
 ---
 
 ## History
+
+### Cycle 1 — Phase 0 Partial Rerun (2026-03-04, post-spec v1.4)
+
+**Trigger:** Partial rerun after remediation batch in `PROTOCOL_SPEC.md` v1.4 and governance doc synchronization (`workflow_ai_development.md`, `review_pipeline.md`, `tasks.md`, audience briefs, README).  
+**Type:** Partial pipeline run (Step 3+4+5+6 review delta; no Step 1/2 regeneration).  
+**Pipeline version:** v1.0  
+**Spec context:** PROTOCOL_SPEC.md v1.4; CHARTER.md v5.1
+
+| Artifact | File | Status | Notes |
+|---|---|---|---|
+| Consolidated Review (delta) | `docs/audit/REVIEW_REPORT.md` | Draft | Updated with partial rerun delta section; blockers remain |
+
+**Outcome summary:**  
+- Determinism and governance clarifications integrated in spec/workflow/pipeline docs, with CHARTER/GLOSSARY synchronized.  
+- Added v1.4 policy baseline for RDL promotion queue and reporting-only epoch tags for RBE transparency.  
+- P0 blockers remain open for unresolved formula-level artifacts and runtime evidence (HL full package, P4 annex reproducibility, queue telemetry, epoch-tag coverage).  
 
 ### Cycle 1 — Phase 0 Full Pipeline Run (2026-03-04)
 
@@ -233,4 +249,4 @@ When Cycle 1 pipeline runs complete, the Step 6 agent will register these versio
 
 ---
 
-*Version: 1.3 | Date: 2026-03-04 | Updated: Registered Cycle 1 full-pipeline run artifacts; updated Latest Artifacts to Cycle 1 outputs; added Cycle 1 full-run history entry; added explicit linkage to Cycle 1 mandatory remediation set (`TASK-AF-022..032`)*
+*Version: 1.4 | Date: 2026-03-04 | Updated: Added Cycle 1 partial-rerun (post-spec v1.4) entry and synchronized outcome summary to current remediation state.*

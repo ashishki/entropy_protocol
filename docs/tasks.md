@@ -2,7 +2,7 @@
 
 **Classification:** Confidential — Internal Development Document
 **Filename:** `docs/tasks.md`
-**Version:** 1.1
+**Version:** 1.3
 **Date:** 2026-03-04
 **Owner:** Spec Owner / Staff-Level Systems Architect
 
@@ -96,8 +96,8 @@ Finding IDs match the source audit exactly (F-1 through F-21). Task IDs are pref
 | TASK-AF-027 | F-27 | P2 | Open | `docs/audit/REVIEW_REPORT.md` | Explicit 4->5 gate topology missing; Phase 5 prerequisites skip direct dependency expression. | Phase transition map is unambiguous for optional Phase 4 bypass and treasury activation path. | — |
 | TASK-AF-028 | F-28 | P2 | Open | `docs/audit/REVIEW_REPORT.md` | No machine-checkable RDL dormancy attestation artifact pre-Phase-2. | Pre-Phase-2 RDL mode attestation is machine-checkable and auditable by third party. | — |
 | TASK-AF-029 | F-29 | P1 | Open | `docs/audit/REVIEW_REPORT.md` | K3 verdict can flip by N_eff estimator choice for heterogeneous clusters. | K3 estimator and boundary behavior are locked so same inputs produce same verdict across tools. | — |
-| TASK-AF-030 | F-30 | P0 | Open | `docs/audit/REVIEW_REPORT.md` | Phase-2 activation behavior for scaffolded RDL hypotheses is unspecified. | Promotion queue and batch-limit policy make Phase-2 trial-count transition deterministic. | — |
-| TASK-AF-031 | F-31 | P0 | Open | `docs/audit/REVIEW_REPORT.md` | RBE/kill-criteria interaction windows undefined during risk-budget changes. | K1-K6 evaluation windows remain auditable and continuous through RBE transitions. | — |
+| TASK-AF-030 | F-30 | P0 | Open | `docs/audit/REVIEW_REPORT.md` | Baseline Phase-2 RDL queue policy is now specified (FIFO/cap/shock-control), but runtime telemetry evidence is still missing. | FIFO/cap/shock-control behavior is demonstrated in audit evidence and phase-transition logs. | — |
+| TASK-AF-031 | F-31 | P0 | Open | `docs/audit/REVIEW_REPORT.md` | Freeze-safe reporting-only epoch tagging is specified, but K-report coverage evidence is still missing. | All K1-K6 reports include epoch tags and per-epoch slices when mixed; no kill/exit logic changes under freeze. | — |
 | TASK-AF-032 | F-32 | P1 | Open | `docs/audit/REVIEW_REPORT.md` | GE-2/GE-3 can be exploited to suppress trial counting via zero-weight framing. | Zero-weight persistence is explicitly GE-3 and trial-counted deterministically. | — |
 
 ---
@@ -123,8 +123,24 @@ Finding IDs match the source audit exactly (F-1 through F-21). Task IDs are pref
 - **TASK-AF-007** (vintage contamination) must be resolved before Phase 0 P4 calibration begins, as the answer determines the calibration procedure.
 - **TASK-AF-012** (embargo length) is a prerequisite for TASK-DEV-004 (evaluation engine) passing the Phase 0 leakage audit.
 
+## Implementation Notes (Spec v1.3, pending audit re-verification)
+
+The following remediations were integrated into `PROTOCOL_SPEC.md` v1.3 and governance docs, but remain **Open** until pipeline verification updates status:
+- Deterministic P3 protocol and concurrent P1/P3/P4 transition semantics (`TASK-AF-003`, `TASK-AF-010`, `TASK-AF-013`)
+- RDL boundary matrix + dormancy attestation + non-interaction evidence requirements (`TASK-AF-023`, `TASK-AF-025`, `TASK-AF-028`)
+- Net Sharpe stream wording normalization to `(a+b+c)` (`TASK-AF-022`)
+- K3 temporal grammar lock (`TASK-AF-029`)
+- GE-2 vs GE-3 zero-weight bright-line (`TASK-AF-032`, `TASK-AF-018`)
+- Charter-level review packet schema for RBE (`TASK-AF-026`)
+- Phase 2 matched-pair protocol baseline (`TASK-AF-016`)
+- Phase 2 RDL promotion queue policy baseline (`TASK-AF-030`)
+- Freeze-safe RBE transparency rule via reporting-only epoch tags (`TASK-AF-031`, no kill-window logic change)
+
+Status transition rule reminder:
+- No item in this section may move to `Mitigated` or `Closed` without the required audit pipeline step evidence.
+
 ---
 
-*Version: 1.1 | Date: 2026-03-04*
+*Version: 1.3 | Date: 2026-03-04*
 *Audit sources: `docs/AUDIT_v1.md` v1.0; `docs/audit/REVIEW_REPORT.md` Cycle 1*
 *See also: `docs/audit/REVIEW_REPORT.md` (consolidated findings), `docs/audit/AUDIT_INDEX.md` (artifact registry)*

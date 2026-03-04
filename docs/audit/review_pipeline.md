@@ -220,9 +220,19 @@ If re-running only Step 5 (Adversarial Review) after a finding is resolved:
 
 ### RDL operational boundary
 
-**Operational RDL routing starts at Phase 2+. During Phase 0–1, only scaffolding is permitted (contracts, datasets, logging). No OOS claims, no routing decisions, no shortcut evaluation paths using RDL.**
+RDL boundary must be verified as phase-sliced:
+- Phase 0-1: scaffolding only (contracts, datasets, logging).
+- Phase 2 start: preregistered RDL generation + Trial Registry submission + harness evaluation allowed.
+- Before Phase 2 exit: no portfolio/routing influence.
+- After Phase 2 exit: routing influence only via explicit phase-gated rule.
 
 Audit steps must verify this boundary is respected: any audit finding that identifies Phase 0–1 code making routing decisions or OOS claims via RDL is automatically classified P0.
+
+Machine-checkable evidence requirements:
+- Runtime `RDL_MODE` flag must exist and match phase policy.
+- Certification query `pre_phase2_rdl_portfolio_reads` must return empty for pre-Phase-2 gates.
+- Any prohibited RDL read attempt in Portfolio/RBE paths must emit a structured audit event.
+- Promotion-policy checks must verify FIFO ordering, monthly cap, and shock-control pause logging.
 
 ---
 
