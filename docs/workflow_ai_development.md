@@ -74,7 +74,7 @@ This policy applies to all changes regardless of whether the change was AI-gener
 
 ### 6. RDL Operational Gating
 
-**Operational RDL usage starts at Phase 2+. During Phase 0 and Phase 1, only scaffolding is permitted.**
+**Operational RDL usage starts at Phase 2+. During Phase 0 and Phase 1, only scaffolding is permitted.** RDL is dormant until Phase 2 as defined in `PROTOCOL_SPEC.md` Section E.
 
 Permitted in Phase 0–1:
 - Defining RDL contracts (interfaces, schemas, data types)
@@ -113,6 +113,7 @@ Audit artifacts produced by AI models (Claude or equivalent) are subject to the 
 | Version | Date | Change |
 |---|---|---|
 | 1.0 | 2026-03-04 | Initial creation. Audit Governance Policy (Sections 1–8). |
+| 1.1 | 2026-03-04 | Section 6: added cross-reference to PROTOCOL_SPEC.md Section E for RDL dormancy definition. |
 
 ---
 
