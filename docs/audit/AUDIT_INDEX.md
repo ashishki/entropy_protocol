@@ -2,7 +2,7 @@
 
 **Classification:** Confidential — Internal Governance Document
 **Filename:** `docs/audit/AUDIT_INDEX.md`
-**Version:** 1.1
+**Version:** 1.2
 **Date:** 2026-03-04
 **Owner:** Spec Owner / Staff-Level Systems Architect
 
@@ -89,13 +89,13 @@ The following canonical files represent the **current accepted state** of each a
 
 | Artifact | File | Status | Date | Cycle |
 |---|---|---|---|---|
-| Meta Investigation | `docs/audit/META_ANALYSIS.md` | — | Not yet run | — |
-| Architecture Review | `docs/audit/ARCH_MODEL.md` | — | Not yet run | — |
-| Invariant Extraction | `docs/audit/INVARIANTS.md` | — | Not yet run | — |
-| Drift Assertions | `docs/audit/DRIFT_ASSERTIONS.md` | — | Not yet run | — |
-| Drift Report | `docs/audit/DRIFT_REPORT.md` | — | Not yet run | — |
-| Adversarial Review | `docs/audit/ADVERSARIAL_REVIEW.md` | — | Not yet run | — |
-| Consolidated Review | `docs/audit/REVIEW_REPORT.md` | Draft | 2026-03-04 | Phase 0 baseline (Cycle 0) |
+| Meta Investigation | `docs/audit/META_ANALYSIS.md` | Draft | 2026-03-04 | Cycle 1, Phase 0 |
+| Architecture Review | `docs/audit/ARCH_MODEL.md` | Draft | 2026-03-04 | Cycle 1, Phase 0 |
+| Invariant Extraction | `docs/audit/INVARIANTS.md` | Draft | 2026-03-04 | Cycle 1, Phase 0 |
+| Drift Assertions | `docs/audit/DRIFT_ASSERTIONS.md` | Draft | 2026-03-04 | Cycle 1, Phase 0 |
+| Drift Report | `docs/audit/DRIFT_REPORT.md` | Draft | 2026-03-04 | Cycle 1, Phase 0 |
+| Adversarial Review | `docs/audit/ADVERSARIAL_REVIEW.md` | Draft | 2026-03-04 | Cycle 1, Phase 0 |
+| Consolidated Review | `docs/audit/REVIEW_REPORT.md` | Draft | 2026-03-04 | Cycle 1, Phase 0 |
 
 ### Orchestration Artifacts (current)
 
@@ -109,11 +109,32 @@ The following canonical files represent the **current accepted state** of each a
 | Step 6 Prompt | `docs/audit/PROMPT_5_CONSOLIDATED.md` | Draft | 2026-03-04 | Cycle 1 |
 | Research Questions | `docs/audit/QUESTION_POOL.md` | Draft | 2026-03-04 | Cycle 1 |
 
-Note: `REVIEW_REPORT.md` was produced as a baseline consolidation from `docs/AUDIT_v1.md` before the pipeline's Step 1–5 artifacts were generated. Steps 1–5 artifacts are pending the first full formal pipeline run (Cycle 1). All orchestration prompts are produced and ready for Cycle 1 execution.
+Note: Cycle 1 full pipeline artifacts are now generated in canonical form and remain Draft pending Spec Owner acceptance.
 
 ---
 
 ## History
+
+### Cycle 1 — Phase 0 Full Pipeline Run (2026-03-04)
+
+**Trigger:** First formal full-pipeline run in pre-development Phase 0 (after orchestration setup).  
+**Type:** Full pipeline run (Steps 1–6 completed).  
+**Pipeline version:** v1.0  
+**Spec context:** PROTOCOL_SPEC.md v1.2; CHARTER.md v5.0
+
+| Artifact | Versioned File (intended) | Status |
+|---|---|---|
+| Meta Investigation | `2026-03-04_phase0_META_ANALYSIS_v2.md` | Draft |
+| Architecture Review | `2026-03-04_phase0_ARCH_MODEL_v2.md` | Draft |
+| Invariant Extraction | `2026-03-04_phase0_INVARIANTS_v2.md` | Draft |
+| Drift Assertions | `2026-03-04_phase0_DRIFT_ASSERTIONS_v2.md` | Draft |
+| Drift Report | `2026-03-04_phase0_DRIFT_REPORT_v2.md` | Draft |
+| Adversarial Review | `2026-03-04_phase0_ADVERSARIAL_REVIEW_v2.md` | Draft |
+| Consolidated Review | `2026-03-04_phase0_REVIEW_REPORT_v2.md` | Draft |
+
+**Open findings from this cycle:** 32 total (P0: 10, P1: 10, P2: 12) — see `docs/audit/REVIEW_REPORT.md`.  
+**Spec Owner sign-off:** Pending.  
+**Next action:** Spec Owner acceptance, then targeted remediation and partial reruns (Step 3+4+5+6) after each P0/P1 clarification set.
 
 ### Cycle 1 — Phase 0, First Formal Run Setup (2026-03-04)
 
@@ -211,4 +232,4 @@ When Cycle 1 pipeline runs complete, the Step 6 agent will register these versio
 
 ---
 
-*Version: 1.1 | Date: 2026-03-04 | Updated: Added Cycle 1 orchestration artifacts; added orchestration artifacts table to Latest Artifacts section*
+*Version: 1.2 | Date: 2026-03-04 | Updated: Registered Cycle 1 full-pipeline run artifacts; updated Latest Artifacts to Cycle 1 outputs; added Cycle 1 full-run history entry*
