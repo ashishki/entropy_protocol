@@ -1,16 +1,42 @@
 # Entropy Protocol — AI Development Workflow
 
 **Classification:** Confidential — Internal Governance Document
-**Filename:** `docs/workflow_ai_development.md`
-**Version:** 1.4
-**Date:** 2026-03-04
+**Filename:** `docs/architecture/workflow_ai_development.md`
+**Version:** 1.5
+**Date:** 2026-03-16
 **Owner:** Spec Owner / Staff-Level Systems Architect
 
 ---
 
 ## Purpose
 
-This document defines development workflow policies for the Entropy Protocol, with a focus on governance, audit integration, and AI-assisted development constraints. It complements `docs/AI_ENGINEERING_FRAMEWORK.md`, which covers AI model roles and context-loading protocols.
+This document defines development workflow policies for the Entropy Protocol, with a focus on governance, audit integration, and AI-assisted development constraints. It complements `docs/architecture/AI_ENGINEERING_FRAMEWORK.md`, which covers AI model roles and context-loading protocols.
+
+---
+
+## AI Research Pipeline
+
+The AI-assisted research pipeline is:
+
+Market Observation
+↓
+Hypothesis Generation
+↓
+Adversarial Review
+↓
+Experiment Proposal
+↓
+Human Registration
+↓
+Trial Registry
+↓
+Evaluation Engine
+
+Rules:
+- AI discovery output remains research-only until human registration occurs.
+- The Research Firewall blocks direct entry from AI discovery into evaluation.
+- The Experiment Readiness Gate must pass before registration.
+- Hypothesis family and budget rules apply before activation.
 
 ---
 
@@ -55,7 +81,7 @@ Every **P0** and **P1** finding must:
 1. Have a corresponding entry in `docs/tasks.md` (Audit Findings Backlog section) within 48 hours of the REVIEW_REPORT being marked Draft.
 2. Link to the source finding in `docs/audit/REVIEW_REPORT.md` (or the versioned snapshot that introduced it).
 3. Have an objective acceptance criterion — a statement that can be verified by a third party without access to the developer's judgment.
-4. Reference an ADR (Architectural Decision Record) or PR if the remediation involves a spec change. If no ADR mechanism is in place, a dated comment in `docs/EVOLUTION.md` serves as the ADR reference.
+4. Reference an ADR (Architectural Decision Record) or PR if the remediation involves a spec change. If no ADR mechanism is in place, a dated comment in `docs/core/EVOLUTION.md` serves as the ADR reference.
 
 No P0 finding may be in status Open when a phase gate is evaluated. A phase gate evaluation with any Open P0 finding is invalid.
 
@@ -65,10 +91,10 @@ No P0 finding may be in status Open when a phase gate is evaluated. A phase gate
 
 ### 5. No Spec Change Without Audit/ADR Reference
 
-**Policy statement:** No change to `PROTOCOL_SPEC.md`, `CHARTER.md`, or `GLOSSARY.md` is accepted without one of the following:
+**Policy statement:** No change to `docs/core/PROTOCOL_SPEC.md`, `docs/core/CHARTER.md`, or `docs/core/GLOSSARY.md` is accepted without one of the following:
 
 - A reference to an open audit finding (by finding ID, e.g., "Resolves F-1") that the change addresses, OR
-- A new ADR entry in `docs/EVOLUTION.md` (for architectural decisions) or an equivalent dated record
+- A new ADR entry in `docs/core/EVOLUTION.md` (for architectural decisions) or an equivalent dated record
 
 Changes that affect frozen non-negotiables (Sections B, kill criteria, phase exit criteria, metric thresholds) additionally require:
 
@@ -78,7 +104,7 @@ This policy applies to all changes regardless of whether the change was AI-gener
 
 ### 6. RDL Operational Gating
 
-RDL boundary is phase-sliced and machine-checkable (see `PROTOCOL_SPEC.md` Section E):
+RDL boundary is phase-sliced and machine-checkable (see `docs/core/PROTOCOL_SPEC.md` Section E):
 - **Phase 0-1:** scaffolding only.
 - **Phase 2 start:** pre-registered RDL hypothesis generation, Trial Registry submission, and harness evaluation permitted.
 - **Before Phase 2 exit:** portfolio/routing influence remains prohibited.
@@ -107,6 +133,12 @@ Phase 2 RDL promotion governance:
 - Promotion order defaults to FIFO by Trial Registry submission timestamp.
 - Monthly cap: max 3 new `RDL-*` promotions into active evaluation per calendar month.
 - Shock-control: if `M_total` grows by >10 over rolling 30 days, pause new promotions until haircut-impact note is logged.
+
+Research governance controls:
+- The Research Firewall requires explicit human registration before any AI-generated research artifact enters evaluation.
+- The Experiment Readiness Gate blocks incomplete proposals from entering the Trial Registry.
+- Hypothesis family assignment is mandatory before registration.
+- Baseline hypothesis budget is max 3 new hypotheses per week and max 1 active hypothesis per family.
 
 ### 7. Audit Pipeline Execution
 
@@ -153,8 +185,9 @@ Storage rule:
 | 1.2 | 2026-03-04 | Section 4: added explicit Cycle 1 mandatory remediation set reference (`TASK-AF-022..032`). |
 | 1.3 | 2026-03-04 | Section 6 boundary matrix + machine-checkable RDL attestation; Section 9 adds mandatory RBE Activation Packet policy. |
 | 1.4 | 2026-03-04 | Section 6: added Phase-2 RDL promotion governance baseline (FIFO/cap/shock-control). |
+| 1.5 | 2026-03-16 | Added AI research pipeline and explicit Research Firewall / readiness gate / hypothesis budget references. |
 
 ---
 
-*Version: 1.4 | Date: 2026-03-04*
-*See also: `docs/AI_ENGINEERING_FRAMEWORK.md` (AI model roles, context loading), `docs/audit/review_pipeline.md` (pipeline execution), `docs/audit/AUDIT_INDEX.md` (artifact registry)*
+*Version: 1.5 | Date: 2026-03-16*
+*See also: `docs/architecture/AI_ENGINEERING_FRAMEWORK.md` (AI model roles, context loading), `docs/audit/review_pipeline.md` (pipeline execution), `docs/audit/AUDIT_INDEX.md` (artifact registry)*

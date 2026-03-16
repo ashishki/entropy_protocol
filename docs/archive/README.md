@@ -2,9 +2,9 @@
 
 **Purpose:** Preserved reasoning documents from the iterative design process (v1–v4). These are NOT active specifications.
 
-These documents explain why current constraints exist. They are not superseded in the sense of being wrong — they are superseded in the sense that their conclusions have been incorporated into `CHARTER.md` and `PROTOCOL_SPEC.md`.
+These documents explain why current constraints exist. They are not superseded in the sense of being wrong; they are superseded in the sense that their conclusions have been incorporated into `docs/core/CHARTER.md` and `docs/core/PROTOCOL_SPEC.md`.
 
-**Do not use archived documents as context for implementation or specification work.** Use `docs/EVOLUTION.md` instead, which summarizes the key decisions and their rationale in a single navigable document.
+**Do not use archived documents as context for implementation or specification work.** Use `docs/core/EVOLUTION.md` instead, which summarizes the key decisions and their rationale in a single navigable document.
 
 ---
 
@@ -22,7 +22,7 @@ These documents explain why current constraints exist. They are not superseded i
 
 ## Notes on v4
 
-`strategic_architecture_review_v4.md` is the most important archive document. It contains the specific numerical derivations and adversarial challenges that produced the three mandatory corrections in `CHARTER.md`. If a future review challenges the FLAM derivation, stop-loss cost model, or K4 definition, read v4 Section 1.3, 4.3, and 5.3 respectively before responding.
+`strategic_architecture_review_v4.md` is the most important archive document. It contains the specific numerical derivations and adversarial challenges that produced the three mandatory corrections in `docs/core/CHARTER.md`. If a future review challenges the FLAM derivation, stop-loss cost model, or K4 definition, read v4 Section 1.3, 4.3, and 5.3 respectively before responding.
 
 ---
 

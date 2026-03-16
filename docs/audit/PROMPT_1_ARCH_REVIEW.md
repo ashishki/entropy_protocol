@@ -29,9 +29,9 @@ Run Step 1 (Meta Investigation) per docs/audit/review_pipeline.md and commit MET
 
 If META_ANALYSIS.md is present, continue loading:
 
-5. `docs/PROTOCOL_SPEC.md` (especially Sections A, B, D, E, F, H, J, J1, J2)
-6. `docs/CHARTER.md` (especially Sections B, D, Kill Criteria Appendix, Phase roadmap)
-7. `docs/GLOSSARY.md`
+5. `docs/core/PROTOCOL_SPEC.md` (especially Sections A, B, D, E, F, H, J, J1, J2)
+6. `docs/core/CHARTER.md` (especially Sections B, D, Kill Criteria Appendix, Phase roadmap)
+7. `docs/core/GLOSSARY.md`
 8. `docs/audit/REVIEW_REPORT.md` (Cycle 0 baseline — prior findings context)
 
 ---

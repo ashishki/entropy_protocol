@@ -19,7 +19,7 @@ This file is the mandatory starting context for every audit pipeline run. It con
 
 Before running any downstream prompt, load:
 1. `docs/README.md`
-2. `docs/GLOSSARY.md`
+2. `docs/core/GLOSSARY.md`
 3. `docs/audit/review_pipeline.md`
 4. `docs/audit/AUDIT_INDEX.md`
 5. This file (`docs/audit/PROMPT_0_META.md`)
@@ -35,10 +35,10 @@ Each step must complete and write its artifact before the next step begins.
 
 | Document | Version | Date | Status |
 |---|---|---|---|
-| `docs/PROTOCOL_SPEC.md` | v1.2 | 2026-03-04 | Active; freeze period active (6mo from issue) |
-| `docs/CHARTER.md` | v5.0 | 2026-03-04 | Active |
-| `docs/GLOSSARY.md` | — | 2026-03-04 | Active |
-| `docs/EVOLUTION.md` | — | 2026-03-04 | Active |
+| `docs/core/PROTOCOL_SPEC.md` | v1.2 | 2026-03-04 | Active; freeze period active (6mo from issue) |
+| `docs/core/CHARTER.md` | v5.0 | 2026-03-04 | Active |
+| `docs/core/GLOSSARY.md` | — | 2026-03-04 | Active |
+| `docs/core/EVOLUTION.md` | — | 2026-03-04 | Active |
 | `docs/audit/review_pipeline.md` | v1.0 | 2026-03-04 | Active |
 
 PROTOCOL_SPEC.md v1.2 is the canonical engineering specification. It supersedes `entropy_protocol_master_spec_v1.md` (archived). The v1.1 and v1.2 changes added the Growth Layer and Research Discovery Layer (RDL) respectively. **Neither addition was included in the source audit (AUDIT_v1.md v1.0), which was authored against the pre-v1.1 spec.** These two modules represent unaudited additions to the specification.
@@ -47,7 +47,7 @@ PROTOCOL_SPEC.md v1.2 is the canonical engineering specification. It supersedes 
 
 | Artifact | File | Status | Notes |
 |---|---|---|---|
-| Source Audit | `docs/AUDIT_v1.md` | Accepted | 21 findings; all Open. Basis for Cycle 0. |
+| Source Audit | `docs/audit/AUDIT_v1.md` | Accepted | 21 findings; all Open. Basis for Cycle 0. |
 | Consolidated Review (baseline) | `docs/audit/REVIEW_REPORT.md` | Draft | Cycle 0 baseline; Steps 1–5 never executed. |
 | Meta Investigation | `docs/audit/META_ANALYSIS.md` | Not yet run | — |
 | Architecture Review | `docs/audit/ARCH_MODEL.md` | Not yet run | — |
@@ -139,7 +139,7 @@ The following risk surfaces are ranked by immediacy and severity. Use this list 
 
 **RS-13 — RDL-Phase Boundary Auditability Gap**
 - Why now: The RDL "dormant until Phase 2" constraint is stated in policy (PROTOCOL_SPEC.md Section E, workflow_ai_development.md Section 6), and the audit pipeline auto-classifies Phase 0–1 RDL routing as P0. But there is no defined test or verification mechanism that a neutral third party could use to confirm that RDL submodules are operating in scaffolding-only mode during Phase 0–1. The constraint exists in specification but lacks an enforcement artifact.
-- Evidence: PROTOCOL_SPEC.md Section E (RDL); docs/workflow_ai_development.md Section 6
+- Evidence: PROTOCOL_SPEC.md Section E (RDL); docs/architecture/workflow_ai_development.md Section 6
 
 **RS-14 — Growth Layer + RDL Interaction With Frozen Non-Negotiables**
 - Why now: Both new modules introduce indirect paths to portfolio influence (Growth Layer via RBE activation; RDL via Trial Registry hypothesis promotion). Neither module's interaction with the four frozen non-negotiables (NN-1 through NN-6) has been formally reviewed. Specifically: (a) Can a Growth Layer escalation change gross leverage in ways that might approach the NN-1 limit? (b) Can RDL hypothesis promotion bypass NN-3 (Evaluation Engine First) if promoted before Phase 2 walk-forward harness integration?

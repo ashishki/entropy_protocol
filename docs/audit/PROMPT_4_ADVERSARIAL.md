@@ -31,10 +31,10 @@ Missing: [list missing files]
 
 Continue loading:
 
-6. `docs/PROTOCOL_SPEC.md`
-7. `docs/CHARTER.md`
-8. `docs/GLOSSARY.md`
-9. `docs/EVOLUTION.md`
+6. `docs/core/PROTOCOL_SPEC.md`
+7. `docs/core/CHARTER.md`
+8. `docs/core/GLOSSARY.md`
+9. `docs/core/EVOLUTION.md`
 10. `docs/audience/ARCHITECT_BRIEF.md`
 11. `docs/audit/REVIEW_REPORT.md` (Cycle 0 — prior findings)
 12. Prior `docs/audit/ADVERSARIAL_REVIEW.md` if present (check; none expected for Cycle 1)
@@ -196,7 +196,7 @@ K5 fires if treasury > 60% total return in "any 12-month period." Rolling vs. ca
 
 ### Challenge F — Open Question Resolution Review
 
-Review each open question from `docs/AUDIT_v1.md` (Q1–Q10 minimum) and ARCHITECT_BRIEF.md:
+Review each open question from `docs/audit/AUDIT_v1.md` (Q1–Q10 minimum) and ARCHITECT_BRIEF.md:
 1. Is the question addressed anywhere in the current spec (PROTOCOL_SPEC.md v1.2)?
 2. If addressed: is the answer complete and formula-level, or partial?
 3. If unresolved: does the question directly block a phase gate decision?

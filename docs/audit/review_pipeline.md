@@ -197,7 +197,7 @@ Each step is run as a **separate agent session**. This prevents context window c
 
 Load the following context before the step-specific documents:
 1. `docs/README.md`
-2. `docs/GLOSSARY.md`
+2. `docs/core/GLOSSARY.md`
 3. `docs/audit/review_pipeline.md` (this document)
 4. `docs/audit/AUDIT_INDEX.md`
 

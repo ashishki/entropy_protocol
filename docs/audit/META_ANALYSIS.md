@@ -25,16 +25,16 @@ This artifact is the output of Step 1 (Meta Investigation) of the audit pipeline
 | Document | Version | Date | Status | Supersedes | Author / Source |
 |---|---|---|---|---|---|
 | `docs/README.md` | — (no version header) | 2026-03-04 | Active | — | Internal |
-| `docs/CHARTER.md` | 5.0 | 2026-03-02 | Active | `strategic_charter_v5.md` (claimed archived) | Internal |
-| `docs/PROTOCOL_SPEC.md` | 1.2 | 2026-03-04 | Active | `entropy_protocol_master_spec_v1.md` (claimed archived) | Internal |
-| `docs/GLOSSARY.md` | 1.0 | 2026-03-04 | Active | — | Internal |
-| `docs/EVOLUTION.md` | 1.0 | 2026-03-04 | Active | — | Internal |
-| `docs/AI_ENGINEERING_FRAMEWORK.md` | 1.0 | 2026-03-04 | Active | — | Internal |
-| `docs/workflow_ai_development.md` | 1.0 (header) / 1.1 (change log) | 2026-03-04 | Active | — | Internal |
+| `docs/core/CHARTER.md` | 5.0 | 2026-03-02 | Active | `strategic_charter_v5.md` (claimed archived) | Internal |
+| `docs/core/PROTOCOL_SPEC.md` | 1.2 | 2026-03-04 | Active | `entropy_protocol_master_spec_v1.md` (claimed archived) | Internal |
+| `docs/core/GLOSSARY.md` | 1.0 | 2026-03-04 | Active | — | Internal |
+| `docs/core/EVOLUTION.md` | 1.0 | 2026-03-04 | Active | — | Internal |
+| `docs/architecture/AI_ENGINEERING_FRAMEWORK.md` | 1.0 | 2026-03-04 | Active | — | Internal |
+| `docs/architecture/workflow_ai_development.md` | 1.0 (header) / 1.1 (change log) | 2026-03-04 | Active | — | Internal |
 | `docs/tasks.md` | 1.0 | 2026-03-04 | Active | — | Internal |
 | `docs/audience/ARCHITECT_BRIEF.md` | 1.0 | 2026-03-02 | Active | — | Internal |
 | `docs/audience/TRADER_BRIEF.md` | 1.0 | 2026-03-02 | Active | — | Internal |
-| `docs/AUDIT_v1.md` | 1.0 | 2026-03-04 | Accepted (external audit) | — | External auditor |
+| `docs/audit/AUDIT_v1.md` | 1.0 | 2026-03-04 | Accepted (external audit) | — | External auditor |
 
 ### 1.2 Active Audit Documents
 
@@ -120,7 +120,7 @@ This is the most significant structural gap in the document set.
 | EVOLUTION.md Section 7 current rule pointer | EVOLUTION.md | "PROTOCOL_SPEC.md Phase 3, K4 definition" | ✓ Yes | Present |
 | GLOSSARY.md "all terms in PROTOCOL_SPEC and CHARTER are defined here" | GLOSSARY.md header | All terms in active specs | **✗ INCOMPLETE** | Multiple terms missing (see Section 5.4) |
 | CHARTER.md Section D references "v2 single authoritative regime signal principle" | CHARTER.md | EVOLUTION.md Section 5 | ✓ Yes | EVOLUTION.md Section 5 documents this decision |
-| AUDIT_INDEX.md references `docs/AUDIT_v1.md` | AUDIT_INDEX.md | `docs/AUDIT_v1.md` | ✓ Yes | File present |
+| AUDIT_INDEX.md references `docs/audit/AUDIT_v1.md` | AUDIT_INDEX.md | `docs/audit/AUDIT_v1.md` | ✓ Yes | File present |
 | review_pipeline.md "Next full-pipeline run trigger: Phase 0 → Phase 1 gate" | review_pipeline.md | Cycle 1 pipeline (this run) | Note | Being executed now |
 
 ### 4.2 Intra-Document Section References Verified
@@ -175,7 +175,7 @@ This is the most significant structural gap in the document set.
 
 **MS-01 — ARCHITECT_BRIEF.md Footer References Superseded Filenames**
 - Severity: P2
-- Detail: Footer states "*Companion documents: entropy_protocol_master_spec_v1.md (full spec), entropy_protocol_trader_review_v1.md (trader version)*". Both are superseded. Canonical documents are `docs/PROTOCOL_SPEC.md` and `docs/audience/TRADER_BRIEF.md`. An architect reading the brief and attempting to locate these companion documents will fail.
+- Detail: Footer states "*Companion documents: entropy_protocol_master_spec_v1.md (full spec), entropy_protocol_trader_review_v1.md (trader version)*". Both are superseded. Canonical documents are `docs/core/PROTOCOL_SPEC.md` and `docs/audience/TRADER_BRIEF.md`. An architect reading the brief and attempting to locate these companion documents will fail.
 - Evidence: ARCHITECT_BRIEF.md last line.
 
 **MS-02 — AI_ENGINEERING_FRAMEWORK.md Context Loading Shortcut References v1.1**

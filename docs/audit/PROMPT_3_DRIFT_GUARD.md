@@ -27,10 +27,10 @@ Complete Step 3 and commit INVARIANTS.md before resuming.
 
 Continue loading:
 
-4. `docs/PROTOCOL_SPEC.md`
-5. `docs/CHARTER.md`
-6. `docs/GLOSSARY.md`
-7. `docs/EVOLUTION.md`
+4. `docs/core/PROTOCOL_SPEC.md`
+5. `docs/core/CHARTER.md`
+6. `docs/core/GLOSSARY.md`
+7. `docs/core/EVOLUTION.md`
 8. `docs/audience/ARCHITECT_BRIEF.md`
 9. `docs/audience/TRADER_BRIEF.md`
 10. `docs/audit/ARCH_MODEL.md`
@@ -68,7 +68,7 @@ Pay special attention to:
 - Sharpe CI: "±0.15–0.20" claim (CHARTER.md, PROTOCOL_SPEC.md, GLOSSARY.md — must all agree; also must be arithmetically correct)
 - Harvey-Liu deflation: mandatory condition (net Sharpe < 0.40), formula specification, trial count rule (CHARTER.md NN-5, PROTOCOL_SPEC.md NN-5 + Phase 1 metrics, GLOSSARY.md)
 - NN-1 through NN-6: compare CHARTER.md Section B vs. PROTOCOL_SPEC.md Section B
-- RDL constraints: compare PROTOCOL_SPEC.md Section E vs. docs/workflow_ai_development.md Section 6
+- RDL constraints: compare PROTOCOL_SPEC.md Section E vs. docs/architecture/workflow_ai_development.md Section 6
 
 ### Check 2 — Formula Completeness
 
@@ -90,7 +90,7 @@ The Growth Layer and RDL were added after the source audit. Check specifically:
 **RDL drift:**
 - Does the RDL trial counting rule ("counted from submission") appear consistently in PROTOCOL_SPEC.md Section E and GLOSSARY.md?
 - Is the "RDL-* namespace" defined in GLOSSARY.md and Trial Registry section?
-- Does the "RDL outputs must never feed into RBE" constraint appear in docs/workflow_ai_development.md or any governance document, or only in PROTOCOL_SPEC.md?
+- Does the "RDL outputs must never feed into RBE" constraint appear in docs/architecture/workflow_ai_development.md or any governance document, or only in PROTOCOL_SPEC.md?
 - Do RDL-3 FeatureSpec versioning rules cross-reference or contradict the purge/embargo rules (F-12 / TASK-AF-012)?
 
 ### Check 4 — Regression Detection (vs. Cycle 0 findings)

@@ -27,9 +27,9 @@ Complete Step 2 and commit ARCH_MODEL.md before resuming.
 
 Continue loading:
 
-4. `docs/PROTOCOL_SPEC.md` — especially Sections B, D, F, J, J1, J2
-5. `docs/CHARTER.md` — especially Sections B, D, Kill Criteria Appendix, Phase exit criteria
-6. `docs/GLOSSARY.md`
+4. `docs/core/PROTOCOL_SPEC.md` — especially Sections B, D, F, J, J1, J2
+5. `docs/core/CHARTER.md` — especially Sections B, D, Kill Criteria Appendix, Phase exit criteria
+6. `docs/core/GLOSSARY.md`
 7. `docs/audit/REVIEW_REPORT.md` (Cycle 0 — prior findings for context)
 
 ---

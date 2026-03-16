@@ -6,7 +6,7 @@
 **Pipeline Version:** v1.0  
 **Date:** 2026-03-04  
 **Status:** Draft — Awaiting Spec Owner Acceptance  
-**Spec-of-record:** `docs/PROTOCOL_SPEC.md` v1.4, `docs/CHARTER.md` v5.1  
+**Spec-of-record:** `docs/core/PROTOCOL_SPEC.md` v1.4, `docs/core/CHARTER.md` v5.1  
 **Step completion:** Partial rerun of Step 3/4/5/6 against v1.4 remediation set
 
 ---

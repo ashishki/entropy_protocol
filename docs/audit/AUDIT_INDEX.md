@@ -201,14 +201,14 @@ When Cycle 1 pipeline runs complete, the Step 6 agent will register these versio
 
 ### Cycle 0 — Phase 0 Baseline (2026-03-04)
 
-**Trigger:** Initial governance setup — baseline consolidation of `docs/AUDIT_v1.md`.
+**Trigger:** Initial governance setup — baseline consolidation of `docs/audit/AUDIT_v1.md`.
 **Type:** Baseline (pre-pipeline). Steps 1–5 not yet executed.
 **Pipeline version:** v1.0
 
 | Artifact | Versioned File | Status | Notes |
 |---|---|---|---|
 | Consolidated Review | `2026-03-04_phase0_REVIEW_REPORT_v1.md` | Draft | Baseline from AUDIT_v1.md. Steps 1–5 outputs pending. |
-| Source Audit | `docs/AUDIT_v1.md` | Accepted | Primary input for baseline REVIEW_REPORT. External auditor document. 21 findings, all Open. |
+| Source Audit | `docs/audit/AUDIT_v1.md` | Accepted | Primary input for baseline REVIEW_REPORT. External auditor document. 21 findings, all Open. |
 
 **Spec Owner sign-off:** Pending.
 
