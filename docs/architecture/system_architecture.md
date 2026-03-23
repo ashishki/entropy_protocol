@@ -70,12 +70,23 @@ Primary components:
 - experiment readiness gate
 - hypothesis family registry
 - hypothesis budget controls
+- research portfolio monitor
 - audit pipeline
 
 Role:
 - control admissibility
 - control multiplicity exposure
 - prevent research outputs from bypassing evaluation discipline
+- surface factual state of the research portfolio without prescribing action
+
+**Research Portfolio Monitor (RPM) — constraints:**
+- Read-only. No write access to any protocol document or the Trial Registry.
+- No decision authority. Produces no priority rankings, composite scores, or recommendations.
+- No admissible evidence. RPM outputs cannot be cited in phase-gate evaluations or kill criterion assessments.
+- Attention signals (Class ATT) are human-preregistered conditions evaluated mechanically. The RPM does not generate conditions.
+- Session comparison (Class SC) is manual, point-in-time only, limited to one saved snapshot. No trend tracking.
+- Derived metrics (Class DM) always show both numerator and denominator. No percentages without visible denominators.
+- Full specification: `docs/governance/research_portfolio_monitor.md`.
 
 ---
 

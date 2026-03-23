@@ -76,3 +76,13 @@ Family tags are used to:
 - detect repeated testing of near-equivalent ideas
 - support Harvey-Liu-aware multiplicity review
 - keep the RDL and main evaluation protocol aligned on what kind of evidence is being generated
+
+---
+
+## Canonical Family Names as Authoritative Scope References
+
+The five canonical family names defined above are the authoritative identifiers used as `scope` values in Research Portfolio Monitor (RPM) Attention Signal (ATT) conditions and in the RPM family status table. RPM displays are organized by these names.
+
+Any change to a canonical family name requires a corresponding update to all ATT condition entries in the RPM configuration document. Family definitions here govern; the RPM inherits from them.
+
+See: `docs/governance/research_portfolio_monitor.md`

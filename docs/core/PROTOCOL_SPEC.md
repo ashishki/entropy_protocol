@@ -2,8 +2,8 @@
 **Classification:** Confidential — Internal Strategic Document
 **Filename:** `PROTOCOL_SPEC.md` (stable; no version in filename — version tracked in header)
 **Role:** Engineering specification: rules, thresholds, phase structure, exit criteria
-**Version:** 1.5
-**Date:** 2026-03-16
+**Version:** 1.6
+**Date:** 2026-03-23
 **Basis:** `CHARTER.md` v5.1 (strategic constraints) + v4 audit (authoritative corrections applied)
 **Supersedes:** `entropy_protocol_master_spec_v1.md` (archived)
 **Freeze period:** 6 months from issue date, or earlier if a kill criterion fires
@@ -12,6 +12,7 @@
 **v1.3 change summary:** Clarified deterministic governance for P3/P4/K3 and RDL boundary semantics; added CI interpretation rule, RDL attestation contract, GE-2/GE-3 zero-weight bright-line, and RBE charter-review packet schema. No Frozen Non-Negotiable, kill criterion threshold, phase exit criterion threshold, or freeze-policy logic was changed.
 **v1.4 change summary:** Added deterministic RDL Phase-2 promotion queue policy (FIFO, monthly cap, shock-control) and freeze-safe RBE reporting transparency via `evaluation_epoch_id` tags. No kill logic, thresholds, or phase-exit threshold rules were modified.
 **v1.5 change summary:** Added explicit references to the documentation governance layer for research admissibility: Research Firewall, Experiment Readiness Gate, and Hypothesis Families. No Frozen Non-Negotiable, kill criterion, evaluation protocol, risk-escalation rule, or phase-exit threshold was modified.
+**v1.6 change summary:** Added Research Portfolio Monitor (RPM) to the Research Governance Interfaces section (Section E). RPM is a read-only governance dashboard in the Governance Layer. It introduces three governed signal extensions: Class ATT (Attention Signals — human-preregistered conditions evaluated mechanically), Class DM (Derived Metrics — X-of-Y counts and means with mandatory basis counts), and Class SC (Session Comparison — manual point-in-time diff against a single named snapshot). Two new forbidden output classes are defined: F-6 (trend inference) and F-7 (denominator-collapsed ratios). No Frozen Non-Negotiable, kill criterion, evaluation protocol, phase-exit threshold, or risk-escalation rule was modified. The RPM has no write access to the Trial Registry and produces no admissible evidence.
 
 ---
 
@@ -302,6 +303,7 @@ P4 label-vintage artifact is mandatory for every reported window:
 - **Hypothesis Families:** each registered experiment must declare a primary family so multiplicity risk can be monitored across related ideas rather than treated as an unstructured pool.
 - **Hypothesis Budget:** governance baseline is max 3 new hypotheses per week and max 1 active hypothesis per family unless an explicit exception is logged.
 - **Research Knowledge Graph:** structured metadata layer for hypotheses, experiments, results, datasets, features, and regimes. It supports research memory and traceability but is not admissible evidence by itself.
+- **Research Portfolio Monitor (RPM):** read-only governance dashboard that displays the factual state of the research portfolio by hypothesis family. RPM is part of the Governance Layer. It has no write access to the Trial Registry and produces no admissible evidence. It introduces three governed signal classes: Class ATT (Attention Signals — human-preregistered conditions evaluated mechanically against current registry data, displayed as factual state reports of the form "The state of [X] is [Y]"); Class DM (Derived Metrics — X-of-Y counts and means with mandatory basis counts; percentages without visible denominators are prohibited); Class SC (Session Comparison — manual point-in-time diff between current state and a single named snapshot, expressed as signed integer deltas with no directional framing). Two forbidden output classes apply: F-6 (trend inference — moving averages, rate-of-change, improving/declining labels) and F-7 (denominator-collapsed ratios — any percentage without visible denominator). The RPM produces no priority rankings, composite scores, or recommendations. All decisions informed by RPM output require a named human sponsor. Full specification: `docs/governance/research_portfolio_monitor.md`.
 
 *Submodule RDL-1 — Hypothesis Generator*
 - Purpose: Structure candidate hypotheses as `CandidateHypothesis` objects with pre-specified entry condition, metric, threshold, and minimum sample. Output is a pre-registration record ready for Trial Registry submission.

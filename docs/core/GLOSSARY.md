@@ -103,6 +103,18 @@ Research dashboard only. Aggregates InsightHypothesis objects and narrative cont
 **InsightHypothesis**
 A structured hypothesis object in the Insight Layer. Tracks: source, claim, resolution, Brier score. Schema must be locked before ingestion begins (deferred to Era 4).
 
+**Research Portfolio Monitor (RPM)**
+A read-only governance dashboard in the Governance Layer. Displays the factual state of the research portfolio by hypothesis family. Has no write access to the Trial Registry. Produces no admissible evidence, no priority rankings, no composite scores, and no recommendations. All RPM outputs are factual state observations of the form "The state of [X] is [Y]." Governed by three permitted signal extensions (ATT, DM, SC) and two additional forbidden output classes (F-6, F-7). Full specification: `docs/governance/research_portfolio_monitor.md`.
+
+**Attention Signal (ATT)**
+A permitted RPM output class. Fires when a human-preregistered condition is mechanically satisfied by current registry data. The condition is defined entirely by the human before any session in which it is active. The system evaluates the condition and reports the factual state; it adds no inference, no action prescription, and no severity framing. Both triggered (`[MET]`) and untriggered conditions are always displayed with equal visual weight, in alphabetical order. Forbidden condition fields include composite scores, cross-family comparisons, trend-derived values, and AI-generated assessments.
+
+**Derived Metric (DM)**
+A permitted RPM output class. A mechanical transformation of raw registry data that shows all inputs necessary for interpretation. The denominator is always visible — percentages without visible denominators are prohibited (F-7). Cross-family comparisons and composite aggregations are prohibited. Permitted forms: X of Y resolution counts (DM-1), mean resolution time with basis count (DM-2), outcome triplet counts (DM-3), budget headroom as remaining capacity (DM-4), consecutive outcome count as raw integer (DM-5), mean days per submission interval with basis count (DM-6).
+
+**Session Comparison (SC)**
+A permitted RPM output class, invoked on manual trigger only. Displays a point-in-time diff between the current registry state and a single human-named, timestamped snapshot. One snapshot is retained at a time; saving a new snapshot overwrites the prior one, preventing time-series construction from accumulated diffs. The delta is a signed integer; both prior and current values are shown. No directional arrows, directional language, or percentage change are permitted. Applies to State (A) and Pace (B) signals only.
+
 ---
 
 ## Regime Signal Hierarchy (P1–P4)
