@@ -305,6 +305,19 @@ P4 label-vintage artifact is mandatory for every reported window:
 - **Research Knowledge Graph:** structured metadata layer for hypotheses, experiments, results, datasets, features, and regimes. It supports research memory and traceability but is not admissible evidence by itself.
 - **Research Portfolio Monitor (RPM):** read-only governance dashboard that displays the factual state of the research portfolio by hypothesis family. RPM is part of the Governance Layer. It has no write access to the Trial Registry and produces no admissible evidence. It introduces three governed signal classes: Class ATT (Attention Signals — human-preregistered conditions evaluated mechanically against current registry data, displayed as factual state reports of the form "The state of [X] is [Y]"); Class DM (Derived Metrics — X-of-Y counts and means with mandatory basis counts; percentages without visible denominators are prohibited); Class SC (Session Comparison — manual point-in-time diff between current state and a single named snapshot, expressed as signed integer deltas with no directional framing). Two forbidden output classes apply: F-6 (trend inference — moving averages, rate-of-change, improving/declining labels) and F-7 (denominator-collapsed ratios — any percentage without visible denominator). The RPM produces no priority rankings, composite scores, or recommendations. All decisions informed by RPM output require a named human sponsor. Full specification: `docs/governance/research_portfolio_monitor.md`.
 
+**System Evolution Control — Governor**
+
+All proposed changes to system architecture, governance mechanisms, documentation structure, or protocol interfaces must pass Governor evaluation before integration.
+
+- **Mandatory gate:** No architectural change, new governance mechanism, or documentation modification may be integrated without a completed Governor evaluation. Bypassing the Governor is a protocol violation.
+- **Enforcement scope:** The Governor enforces existing protocol invariants (NN-1 through NN-6), evaluation pipeline integrity, multiplicity controls, AI authority boundaries, and phase-gate logic. It does not create new rules.
+- **Ruling format:** ACCEPT / ACCEPT WITH CONSTRAINTS / DEFER / REJECT. ACCEPT WITH CONSTRAINTS rulings include explicit constraint definitions that the Builder must implement exactly.
+- **Human confirmation required:** A Governor ruling is not final until confirmed by a named human sponsor. An AI model may produce the evaluation; a human must approve integration before the Builder proceeds.
+- **Scope limitation:** The Governor evaluates system-level changes only. Research hypotheses are governed by the Trial Registry, Research Firewall, and Experiment Readiness Gate — not by the Governor.
+- **No protocol modification authority:** The Governor cannot modify frozen non-negotiables, kill criteria thresholds, or phase exit criteria. Its authority is enforcement, not creation.
+- **Conservative default:** When a feature is weak or benefit-to-risk is unclear, the Governor prefers rejection over complexity addition.
+- Full specification: `docs/governance/governor.md`.
+
 *Submodule RDL-1 — Hypothesis Generator*
 - Purpose: Structure candidate hypotheses as `CandidateHypothesis` objects with pre-specified entry condition, metric, threshold, and minimum sample. Output is a pre-registration record ready for Trial Registry submission.
 - Inputs: Text ingestion feeds (manual or structured), AT promotion candidates, open questions from external review (Section I).

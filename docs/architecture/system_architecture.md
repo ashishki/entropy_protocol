@@ -71,6 +71,7 @@ Primary components:
 - hypothesis family registry
 - hypothesis budget controls
 - research portfolio monitor
+- governor
 - audit pipeline
 
 Role:
@@ -78,6 +79,7 @@ Role:
 - control multiplicity exposure
 - prevent research outputs from bypassing evaluation discipline
 - surface factual state of the research portfolio without prescribing action
+- gate all system-level changes through structured protocol evaluation
 
 **Research Portfolio Monitor (RPM) — constraints:**
 - Read-only. No write access to any protocol document or the Trial Registry.
@@ -90,11 +92,44 @@ Role:
 
 ---
 
+## System Evolution Flow
+
+All proposed changes to system architecture, governance mechanisms, or protocol documentation pass through the following sequence before integration:
+
+```
+Strategist
+    │  proposes change
+    ▼
+Governor  ──── ACCEPT / ACCEPT WITH CONSTRAINTS / DEFER / REJECT
+    │
+    │  human sponsor confirms ruling
+    ▼
+Builder
+    │  implements exactly as constrained by ruling
+    ▼
+Reviewer (Auditor)
+    │  verifies implementation matches ruling; no undocumented deviations
+    ▼
+Integration complete
+```
+
+**Governor constraints (summary):**
+- Evaluates system-level changes only — not research hypotheses
+- Enforces existing invariants (NN-1 through NN-6); cannot create new protocol rules
+- Cannot modify kill criteria, phase exit criteria, or frozen non-negotiables
+- No portfolio or trading authority of any kind
+- No write access to Trial Registry
+- Ruling is advisory until confirmed by a named human sponsor
+- Full specification: `docs/governance/governor.md`
+
+---
+
 ## Authority Boundaries
 
 - The core protocol defines what is allowed.
 - The architecture documents explain how layers fit together.
 - Governance documents define when research outputs are admissible.
+- The Governor gates all system-level changes before integration.
 - Audit artifacts verify whether the documented rules remain coherent and enforceable.
 
 No architecture document overrides the core protocol.

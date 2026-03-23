@@ -60,6 +60,7 @@ Conditional destination: **Capital Allocation Framework** (Era 3+, after Phase 1
 | [`governance/experiment_readiness_gate.md`](./governance/experiment_readiness_gate.md) | Checklist for experiment admission to the Trial Registry | Developers, researchers |
 | [`governance/hypothesis_families.md`](./governance/hypothesis_families.md) | Canonical family tags for experiment classification | Developers, researchers |
 | [`governance/research_portfolio_monitor.md`](./governance/research_portfolio_monitor.md) | Read-only dashboard: factual state of research portfolio by family | Developers, researchers |
+| [`governance/governor.md`](./governance/governor.md) | Protocol Governor: mandatory gate for all system-level changes | Architects, spec owner |
 
 ## Research
 
