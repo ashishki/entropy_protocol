@@ -1,6 +1,6 @@
 # Entropy Protocol — Documentation
 
-**Last updated:** 2026-03-16
+**Last updated:** 2026-03-23
 **Status:** Active
 
 ---
@@ -59,6 +59,7 @@ Conditional destination: **Capital Allocation Framework** (Era 3+, after Phase 1
 | [`governance/research_firewall.md`](./governance/research_firewall.md) | Separation between discovery and admissible evaluation | Developers, AI models |
 | [`governance/experiment_readiness_gate.md`](./governance/experiment_readiness_gate.md) | Checklist for experiment admission to the Trial Registry | Developers, researchers |
 | [`governance/hypothesis_families.md`](./governance/hypothesis_families.md) | Canonical family tags for experiment classification | Developers, researchers |
+| [`governance/research_portfolio_monitor.md`](./governance/research_portfolio_monitor.md) | Read-only dashboard: factual state of research portfolio by family | Developers, researchers |
 
 ## Research
 
@@ -149,3 +150,36 @@ Why this matters:
 Tracking sources:
 - `docs/audit/REVIEW_REPORT.md` (Cycle 1 findings F-22..F-32)
 - `docs/tasks.md` (Audit Findings Backlog + Implementation Notes)
+
+---
+
+## Recent Addition — Research Portfolio Monitor (2026-03-23)
+
+### What was added
+
+`governance/research_portfolio_monitor.md` — a new governance document defining the **Research Portfolio Monitor (RPM)**: a read-only dashboard that displays the factual state of the research portfolio by hypothesis family.
+
+The RPM introduces three governed signal classes:
+
+- **Class ATT (Attention Signals)** — human-preregistered conditions evaluated mechanically against Trial Registry data. When a condition is met, the system reports: "The state of [X] is [Y]." No inference is added. The human defines the condition; the system checks it.
+- **Class DM (Derived Metrics)** — factual metrics computed from registry data with all inputs visible: X-of-Y counts, means with mandatory basis counts, budget headroom. Percentages without visible denominators are prohibited.
+- **Class SC (Session Comparison)** — a manual point-in-time diff between the current state and one named, timestamped snapshot. Output is a signed integer delta. No directional framing, no trend inference, no accumulated history.
+
+Two output types are newly formally prohibited (F-6, F-7):
+
+- **F-6: trend inference** — moving averages, rate-of-change indicators, "improving/declining" language
+- **F-7: denominator-collapsed ratios** — any percentage without a visible denominator
+
+`PROTOCOL_SPEC.md` updated to v1.6. GLOSSARY, system_architecture, and hypothesis_families updated with corresponding cross-references.
+
+### Why it was added
+
+Two gaps existed that the existing governance controls did not address:
+
+1. **No cross-family evidence review.** The hypothesis budget (max 3/week, 1 active/family) controls the rate of new experiments but provides no view of what has actually been learned across families. A researcher has no structured way to see which families have accumulated results, which are stale, and where the multiplicity budget is being consumed.
+
+2. **No redundancy detection.** Nothing in the existing pipeline detects when a candidate hypothesis is semantically near-duplicate to an already-registered trial. Redundant hypotheses consume multiplicity budget without producing new information.
+
+### What the RPM explicitly does not do
+
+The RPM produces no recommendations, no priority rankings, no composite quality scores, and no AI-generated assessments. It has no write access to the Trial Registry. Its outputs cannot be cited as admissible evidence in phase gates or kill criterion evaluations. All decisions informed by RPM output require a named human sponsor. The human interprets the data; the system only surfaces it.
