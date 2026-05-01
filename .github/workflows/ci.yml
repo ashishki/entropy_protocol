@@ -1,0 +1,87 @@
+# CI — Entropy Protocol
+# Runs on push to main/master and on pull requests.
+# Requires PostgreSQL 16 service for integration tests.
+
+name: "CI — Entropy Protocol"
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+
+# Environment variables required by the application.
+# DATABASE_URL points at the PostgreSQL service defined below.
+# ENTROPY_DATA_DIR and ENTROPY_REGISTRY_DIR use ephemeral temp directories.
+# LOG_LEVEL is set to WARNING to suppress info-level noise in CI output.
+env:
+  DATABASE_URL: postgresql://entropy:entropy_test@localhost:5432/entropy_test
+  ENTROPY_DATA_DIR: /tmp/entropy_test_data
+  ENTROPY_REGISTRY_DIR: /tmp/entropy_test_registry
+  LOG_LEVEL: WARNING
+
+jobs:
+  ci:
+    name: "Lint, type-check, and test"
+    runs-on: ubuntu-latest
+
+    # PostgreSQL 16 service container.
+    # The application expects this database to be available before tests run.
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: entropy_test
+          POSTGRES_USER: entropy
+          POSTGRES_PASSWORD: entropy_test
+        ports:
+          - 5432:5432
+        # Wait until PostgreSQL is accepting connections before proceeding.
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      # Step 1: Check out the repository.
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Step 2: Set up Python 3.12.
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # Step 3: Install uv and then install the project with dev dependencies.
+      # uv is the package manager declared in pyproject.toml.
+      # Falls back to plain pip install if uv is unavailable.
+      - name: Install uv
+        run: pip install uv
+
+      - name: Install project dependencies
+        run: uv pip install --system -e ".[dev]"
+
+      # Step 4: Ruff lint check.
+      # Zero warnings required — any ruff error fails the build.
+      - name: Ruff lint check
+        run: ruff check entropy/ tests/
+
+      # Step 5: Ruff format check.
+      # All source files must be formatted; the build fails on any diff.
+      - name: Ruff format check
+        run: ruff format --check entropy/ tests/
+
+      # Step 6: Pyright type check.
+      # Strict type checking on the entropy/ package.
+      - name: Pyright type check
+        run: pyright entropy/
+
+      # Step 7: Run pytest with short tracebacks.
+      # Creates temp directories for test data and registry artifacts.
+      - name: Run tests
+        run: |
+          mkdir -p /tmp/entropy_test_data /tmp/entropy_test_registry
+          pytest tests/ -q --tb=short
