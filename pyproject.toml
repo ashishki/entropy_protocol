@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "entropy-protocol"
+version = "0.1.0"
+description = "Entropy Protocol project skeleton."
+readme = "docs/ARCHITECTURE.md"
+requires-python = ">=3.10"
+dependencies = [
+    "alembic",
+    "duckdb",
+    "opentelemetry-api",
+    "polars",
+    "pyarrow",
+    "pydantic>=2.0",
+    "rich",
+    "sqlalchemy>=2.0",
+    "structlog",
+    "typer",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pyright",
+    "pytest",
+    "ruff",
+]
+
+[project.scripts]
+entropy = "entropy.cli:main"
+
+[tool.setuptools]
+include-package-data = false
+
+[tool.setuptools.packages.find]
+include = ["entropy*"]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+
+[tool.ruff.format]
+quote-style = "double"
