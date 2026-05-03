@@ -2,8 +2,8 @@
 
 **Classification:** Confidential — Internal Governance Document
 **Filename:** `docs/audit/AUDIT_INDEX.md`
-**Version:** 1.4
-**Date:** 2026-03-04
+**Version:** 1.5
+**Date:** 2026-05-03
 **Owner:** Spec Owner / Staff-Level Systems Architect
 
 ---
@@ -96,6 +96,13 @@ The following canonical files represent the **current accepted state** of each a
 | Drift Report | `docs/audit/DRIFT_REPORT.md` | Draft | 2026-03-04 | Cycle 1, Phase 0 |
 | Adversarial Review | `docs/audit/ADVERSARIAL_REVIEW.md` | Draft | 2026-03-04 | Cycle 1, Phase 0 |
 | Consolidated Review | `docs/audit/REVIEW_REPORT.md` | Draft | 2026-03-04 | Cycle 1, Phase 0 |
+| Phase 2 Boundary Review | `docs/audit/PHASE2_REVIEW.md` | Draft | 2026-05-03 | Phase 2 Boundary |
+| Phase 3 Boundary Review | `docs/audit/PHASE3_REVIEW.md` | Draft | 2026-05-03 | Phase 3 Boundary |
+| Phase 4 Boundary Review | `docs/audit/PHASE4_REVIEW.md` | Draft | 2026-05-03 | Phase 4 Boundary |
+| Phase 5 Boundary Review | `docs/audit/PHASE5_REVIEW.md` | Draft | 2026-05-03 | Phase 5 Boundary |
+| Phase 6 Boundary Review | `docs/audit/PHASE6_REVIEW.md` | Draft | 2026-05-03 | Phase 6 Boundary |
+| Phase 7 Boundary Review | `docs/audit/PHASE7_REVIEW.md` | Draft | 2026-05-03 | Phase 7 Boundary |
+| T21 Formula-Governance Disposition | `docs/audit/T21_FORMULA_GOVERNANCE_DISPOSITION.md` | Draft | 2026-05-03 | Phase 8 Entry |
 
 ### Orchestration Artifacts (current)
 
@@ -114,6 +121,126 @@ Note: Cycle 1 full pipeline artifacts are now generated in canonical form and re
 ---
 
 ## History
+
+### Phase 2 Boundary Review (2026-05-03)
+
+**Trigger:** Completion of Phase 2 core domain model tasks T04-T06.
+**Type:** Scoped phase-boundary review.
+**Pipeline version:** Orchestrator v2.0 scoped review.
+
+| Artifact | File | Status | Notes |
+|---|---|---|---|
+| Strategy Review | `docs/audit/STRATEGY_NOTE.md` | Draft | Proceed to T07; D-010 blocks T08 |
+| Architecture Review | `docs/audit/ARCH_REPORT.md` | Draft | No new architecture findings |
+| Consolidated Review | `docs/audit/REVIEW_REPORT.md` | Draft | No P0/P1; no new P2 |
+| Archived Phase Review | `docs/audit/PHASE2_REVIEW.md` | Draft | Phase 2 boundary archive |
+
+**Outcome summary:**
+- Phase 2 domain models completed and verified locally.
+- P2-03 closed by correcting `get_tracer()` return type.
+- T07 may proceed. T08 remains blocked by D-010 until the named protocol-level P0 findings are closed or waived.
+
+### Phase 3 Boundary Review (2026-05-03)
+
+**Trigger:** Completion of Phase 3 database schema and hashing tasks T07-T08.
+**Type:** Scoped phase-boundary review.
+**Pipeline version:** Orchestrator v2.0 scoped review.
+
+| Artifact | File | Status | Notes |
+|---|---|---|---|
+| Strategy Review | `docs/audit/STRATEGY_NOTE.md` | Draft | Proceed to T09 |
+| Architecture Review | `docs/audit/ARCH_REPORT.md` | Draft | No new architecture findings |
+| Consolidated Review | `docs/audit/REVIEW_REPORT.md` | Draft | No P0/P1; no new P2 |
+| Archived Phase Review | `docs/audit/PHASE3_REVIEW.md` | Draft | Phase 3 boundary archive |
+
+**Outcome summary:**
+- Phase 3 schema and hashing infrastructure completed and verified locally.
+- T08 completed under D-011 narrow waiver as non-formula infrastructure.
+- T09 may proceed. D-010 remains active for formula-bearing future tasks T15, T21, T22, and T23.
+
+### Phase 4 Boundary Review (2026-05-03)
+
+**Trigger:** Completion of Phase 4 Trial Registry tasks T09-T11.
+**Type:** Scoped phase-boundary review.
+**Pipeline version:** Orchestrator v2.0 scoped review.
+
+| Artifact | File | Status | Notes |
+|---|---|---|---|
+| Strategy Review | `docs/audit/STRATEGY_NOTE.md` | Draft | Proceed to T12 |
+| Architecture Review | `docs/audit/ARCH_REPORT.md` | Draft | No new architecture findings |
+| Consolidated Review | `docs/audit/REVIEW_REPORT.md` | Draft | No P0/P1; no new P2 |
+| Archived Phase Review | `docs/audit/PHASE4_REVIEW.md` | Draft | Phase 4 boundary archive |
+
+**Outcome summary:**
+- Phase 4 registry write/read/gate paths completed and verified locally.
+- T12 may proceed. D-010 remains active for formula-bearing future tasks T15, T21, T22, and T23.
+
+### Phase 5 Boundary Review (2026-05-03)
+
+**Trigger:** Completion of Phase 5 Data Pipeline tasks T12-T14.
+**Type:** Scoped phase-boundary review.
+**Pipeline version:** Orchestrator v2.0 scoped review.
+
+| Artifact | File | Status | Notes |
+|---|---|---|---|
+| Strategy Review | `docs/audit/STRATEGY_NOTE.md` | Draft | T15 blocked by D-010 |
+| Architecture Review | `docs/audit/ARCH_REPORT.md` | Draft | No new architecture findings |
+| Consolidated Review | `docs/audit/REVIEW_REPORT.md` | Draft | No P0/P1; no new P2 |
+| Archived Phase Review | `docs/audit/PHASE5_REVIEW.md` | Draft | Phase 5 boundary archive |
+
+**Outcome summary:**
+- Phase 5 provider boundary, local fixture adapter, Parquet store, provenance table, and data quality checks completed and verified locally.
+- T15 is formula-bearing and remains blocked by D-010 until the named protocol-level P0 findings are closed or an explicit T15 waiver is recorded.
+
+### Phase 6 Boundary Review (2026-05-03)
+
+**Trigger:** Completion of Phase 6 SimBroker tasks T15-T17.
+**Type:** Scoped phase-boundary review.
+**Pipeline version:** Orchestrator v2.0 scoped review.
+
+| Artifact | File | Status | Notes |
+|---|---|---|---|
+| Archived Phase Review | `docs/audit/PHASE6_REVIEW.md` | Draft | Phase 6 boundary archive |
+
+**Outcome summary:**
+- Phase 6 cost model, fill engine, and calibration interface completed and verified locally.
+- No new open P0/P1/P2 findings.
+- F-30/F-31 remain future real-evidence gates and were not closed synthetically.
+
+### Phase 7 Boundary Review (2026-05-03)
+
+**Trigger:** Completion of Phase 7 walk-forward tasks T18-T20 and user-requested gap review for phases without prior deep review.
+**Type:** Scoped phase-boundary review with remediation.
+**Pipeline version:** Orchestrator v2.0 scoped review.
+
+| Artifact | File | Status | Notes |
+|---|---|---|---|
+| Strategy Review | `docs/audit/STRATEGY_NOTE.md` | Draft | T21 governance disposition required |
+| Architecture Review | `docs/audit/ARCH_REPORT.md` | Draft | One P1 review issue remediated |
+| Consolidated Review | `docs/audit/REVIEW_REPORT.md` | Draft | Stop-ship for direct T21 implementation |
+| Archived Phase Review | `docs/audit/PHASE7_REVIEW.md` | Draft | Phase 7 boundary archive |
+
+**Outcome summary:**
+- Phase 7 splitter, leakage checklist, and runner completed and verified locally.
+- Review found WF-P1-01: omitted T19 detectors could return PASS and allow a formal leakage gate without detector-backed evidence.
+- WF-P1-01 was remediated during review; missing detectors now FAIL and T20 blocks failed checks before OOS.
+- Baseline after remediation: 112 passed with PostgreSQL 16; ruff and pyright pass.
+- T21 remains stopped until a T21-specific formula-governance disposition is recorded.
+
+### T21 Formula-Governance Disposition (2026-05-03)
+
+**Trigger:** User approval to proceed with the next governance step after Phase 7 review stop-shipped direct T21 implementation.
+**Type:** Task-specific formula-governance disposition.
+**Pipeline version:** Orchestrator v2.0 scoped disposition.
+
+| Artifact | File | Status | Notes |
+|---|---|---|---|
+| Formula-Governance Disposition | `docs/audit/T21_FORMULA_GOVERNANCE_DISPOSITION.md` | Draft | D-017 |
+
+**Outcome summary:**
+- T21 may proceed under D-017's narrow scope.
+- T21 must not implement Sharpe CI, Harvey-Liu, N_eff/K3, IC/BR, P4, K-report, RDL promotion, phase-exit logic, or OOS performance-claim artifacts.
+- TASK-AF-022/F-22 is closed for current canonical implementation scope.
 
 ### Cycle 1 — Phase 0 Partial Rerun (2026-03-04, post-spec v1.4)
 

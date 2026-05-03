@@ -1,27 +1,36 @@
----
-# STRATEGY_NOTE — Phase 2 Review
-_Date: 2026-05-03 · Reviewing: Phase 2 (T04–T06)_
+# STRATEGY_NOTE — Phase 7 Boundary Review
+_Date: 2026-05-03 · Reviewing: Phase 7 completion before Phase 8/T21_
 
-## Recommendation: Proceed
+## Strategic Assessment
 
-## Check Results
+Phase 6 and Phase 7 now have scoped boundary reviews. Existing review coverage
+before this session already included Phase 1 audit artifacts and Phase 2-5
+boundary reviews. The missing implementation-phase reviews were Phase 6
+(`docs/audit/PHASE6_REVIEW.md`) and Phase 7 (`docs/audit/PHASE7_REVIEW.md`).
 
-| Check | Verdict | Notes |
-|-------|---------|-------|
-| Phase coherence | COHERENT | T04–T06 implement the three Pydantic v2 domain model files (market, registry, performance) declared as the Phase 2 objective "Core Domain Models"; all tasks are scoped to entropy/models/ and tests/unit/test_models.py with no out-of-phase work |
-| Open findings gate | CLEAR | Fix Queue is empty; Open Findings section states "none"; no P0/P1 items exist |
-| Architectural drift | ALIGNED | Completed tasks (T01–T03) produced the project skeleton, CI, and smoke tests exactly as specified in ARCHITECTURE.md §File Layout and §Tech Stack; no new components introduced outside the declared component table |
-| Solution shape / governance / runtime drift | ALIGNED | All tasks remain deterministic Python; no LLM paths introduced; no agent loops; runtime tier T1 unchanged; governance level Standard unchanged; no privileged actions added |
-| ADR compliance | N/A | No ADRs exist in docs/adr/ (directory is empty); no decisions to audit |
-| Capability Profile gate | N/A — all profiles OFF | Per PROMPT_S_STRATEGY.md check 6 note: skip entirely |
+Phase 7 materially improves the evaluation infrastructure: strict IS/OOS
+splitting, detector-level leakage reports, and a runner that blocks OOS
+evaluation before the T19 checklist passes. During review, a P1 weakness was
+found and fixed: omitted leakage detectors can no longer produce an overall PASS.
 
-## Findings / Blockers
+## Recommendation
 
-_None. Recommendation is Proceed._
+- Proceed past Phase 7 only as far as T21 governance disposition.
+- Do not start T21 implementation until D-010 is closed for T21 or a
+  T21-specific waiver/disposition is recorded.
+- Treat D-012's first profiling gate as reached. Performance work may collect
+  Python profiling evidence, but no language/runtime escalation is approved.
 
-## Warnings
+## Strategic Risks
 
-- No ADRs have been written yet. As the project matures through Phase 3+ (DB schema, hashing, SimBroker, walk-forward), decisions about append-only enforcement, hash algorithm selection, and IS/OOS leakage boundary implementation are architecture-shaping. The Orchestrator should consider opening ADRs for decisions that are already implicit in ARCHITECTURE.md (e.g., append-only registry enforcement, SHA-256 hash schema, CI-SR-ACF-v1 method selection) before Phase 3 begins, so ADR compliance can be tracked in future strategy reviews.
-- CODEX_PROMPT.md records "Last CI run: not yet configured" even though ci.yml was created as part of T02. The Orchestrator should verify that the first real CI run against the GitHub repo has passed before Phase 3 begins, since PostgreSQL-dependent integration tests (T07+) will require it.
-- T06 (Performance Models) depends on T04 and T05, making it the only sequencing constraint within Phase 2. T04 and T05 are independent and can be implemented in parallel if desired.
----
+| Risk | Status | Disposition |
+|------|--------|-------------|
+| Formula-bearing T21 starts without governance disposition | Active | Stop-ship before T21 implementation |
+| Leakage gate becomes formal rather than detector-backed | Remediated | Missing T19 detectors now FAIL |
+| Synthetic tests are misused as real evidence | Active | F-30/F-31 remain future real-evidence gates |
+| High-load performance assumptions remain unmeasured | Active | D-012 profiling gate reached; evidence required before escalation or scale claims |
+
+## Next Action
+
+Record an explicit T21 formula-governance disposition before implementing the
+P&L Attribution Engine.
