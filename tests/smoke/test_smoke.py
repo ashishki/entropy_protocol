@@ -7,6 +7,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+import duckdb
+
 try:
     import tomllib
 except ModuleNotFoundError:  # pragma: no cover - Python <3.11 fallback
@@ -80,9 +82,28 @@ def test_cli_help_exits_zero() -> None:
 
 
 def test_all_subpackages_importable() -> None:
+    from entropy import cli
+    from entropy.models import market, performance, registry
+
+    assert cli is not None
+    assert market is not None
+    assert registry is not None
+    assert performance is not None
+
     for module_name in SUBPACKAGES:
         module = importlib.import_module(module_name)
         assert module is not None
+
+
+def test_postgres_connection_fixture(postgres_connection) -> None:
+    assert postgres_connection.closed is False
+
+
+def test_duckdb_embedded_query() -> None:
+    result = duckdb.execute("SELECT 42 AS answer").fetchone()
+
+    assert result is not None
+    assert result[0] == 42
 
 
 def test_pyproject_declares_required_deps() -> None:
