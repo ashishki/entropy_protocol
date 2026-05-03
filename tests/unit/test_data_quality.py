@@ -70,7 +70,7 @@ class PlaceholderFixtureProvider(ConcreteProvider):
 
 def test_data_provider_is_abstract() -> None:
     with pytest.raises(TypeError):
-        DataProvider()
+        DataProvider()  # pyright: ignore[reportAbstractUsage]
 
 
 def test_concrete_provider_instantiates() -> None:
@@ -82,7 +82,7 @@ def test_concrete_provider_instantiates() -> None:
 
 def test_provider_missing_method_raises_type_error() -> None:
     with pytest.raises(TypeError, match="check_health"):
-        MissingHealthProvider()
+        MissingHealthProvider()  # pyright: ignore[reportAbstractUsage]
 
 
 def test_provider_registry_get_and_not_found() -> None:

@@ -12,7 +12,7 @@ import duckdb
 try:
     import tomllib
 except ModuleNotFoundError:  # pragma: no cover - Python <3.11 fallback
-    import tomli as tomllib
+    import tomli as tomllib  # pyright: ignore[reportMissingImports]
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 PYPROJECT_PATH = PROJECT_ROOT / "pyproject.toml"

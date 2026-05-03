@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from collections.abc import Sequence
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 
@@ -26,6 +27,7 @@ from entropy.walkforward import (
     run_walk_forward,
     split,
 )
+from entropy.walkforward.splitter import BarLike
 
 
 @dataclass(frozen=True)
@@ -51,10 +53,10 @@ class RecordingStrategy:
         self.is_timestamps: tuple[datetime, ...] = ()
         self.oos_timestamps: tuple[datetime, ...] = ()
 
-    def run_is(self, window: tuple[FeatureBar, ...]) -> None:
+    def run_is(self, window: Sequence[BarLike]) -> None:
         self.is_timestamps = tuple(bar.timestamp for bar in window)
 
-    def run_oos(self, window: tuple[FeatureBar, ...]) -> None:
+    def run_oos(self, window: Sequence[BarLike]) -> None:
         self.oos_timestamps = tuple(bar.timestamp for bar in window)
 
 
@@ -80,8 +82,8 @@ def count_runs(session: Session) -> int:
 
 
 def passing_leakage_check(
-    is_window: tuple[FeatureBar, ...],
-    oos_window: tuple[FeatureBar, ...],
+    is_window: Sequence[BarLike],
+    oos_window: Sequence[BarLike],
 ) -> LeakageReport:
     return run_checklist(
         is_window,
@@ -106,8 +108,8 @@ def passing_leakage_check(
 
 
 def failing_leakage_check(
-    is_window: tuple[FeatureBar, ...],
-    oos_window: tuple[FeatureBar, ...],
+    is_window: Sequence[BarLike],
+    oos_window: Sequence[BarLike],
 ) -> LeakageReport:
     return run_checklist(is_window, oos_window)
 

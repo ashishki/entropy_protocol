@@ -174,14 +174,16 @@ def test_trial_spec_requires_all_hash_fields() -> None:
             make_trial_spec(**{field_name: ""})
 
     with pytest.raises(ValidationError):
-        TrialSpec(
-            trial_id="trial-001",
-            family_tag="mean-reversion",
-            hypothesis="Mean reversion after large one-hour moves.",
-            dataset_hash="dataset-sha",
-            code_hash="code-sha",
-            parameter_lock={"lookback": 24},
-            registered_at=UTC_TS,
+        TrialSpec.model_validate(
+            {
+                "trial_id": "trial-001",
+                "family_tag": "mean-reversion",
+                "hypothesis": "Mean reversion after large one-hour moves.",
+                "dataset_hash": "dataset-sha",
+                "code_hash": "code-sha",
+                "parameter_lock": {"lookback": 24},
+                "registered_at": UTC_TS,
+            }
         )
 
 
@@ -255,13 +257,15 @@ def test_governance_event_validates_event_type() -> None:
     assert [event_type.value for event_type in GovernanceEventType] == valid_event_values
 
     with pytest.raises(ValidationError):
-        GovernanceEvent(
-            event_type="UNKNOWN",
-            timestamp=UTC_TS,
-            trial_id="trial-001",
-            actor="operator",
-            reason="Invalid event.",
-            policy_hash="policy-sha",
+        GovernanceEvent.model_validate(
+            {
+                "event_type": "UNKNOWN",
+                "timestamp": UTC_TS,
+                "trial_id": "trial-001",
+                "actor": "operator",
+                "reason": "Invalid event.",
+                "policy_hash": "policy-sha",
+            }
         )
 
 

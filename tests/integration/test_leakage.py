@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from collections.abc import Sequence
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 
@@ -13,6 +14,7 @@ from entropy.walkforward import (
     UniverseSelectionAudit,
     run_checklist,
 )
+from entropy.walkforward.splitter import BarLike
 
 
 @dataclass(frozen=True)
@@ -35,8 +37,8 @@ def make_windows() -> tuple[tuple[AuditBar, ...], tuple[AuditBar, ...]]:
 
 
 def normalize_on_full_series(
-    is_window: tuple[AuditBar, ...],
-    oos_window: tuple[AuditBar, ...],
+    is_window: Sequence[BarLike],
+    oos_window: Sequence[BarLike],
 ) -> FeatureAudit:
     return FeatureAudit(
         computed_through=oos_window[-1].timestamp,
@@ -45,8 +47,8 @@ def normalize_on_full_series(
 
 
 def normalize_on_is_only(
-    is_window: tuple[AuditBar, ...],
-    oos_window: tuple[AuditBar, ...],
+    is_window: Sequence[BarLike],
+    oos_window: Sequence[BarLike],
 ) -> FeatureAudit:
     return FeatureAudit(
         computed_through=is_window[-1].timestamp,
@@ -55,8 +57,8 @@ def normalize_on_is_only(
 
 
 def label_using_post_oos_data(
-    is_window: tuple[AuditBar, ...],
-    oos_window: tuple[AuditBar, ...],
+    is_window: Sequence[BarLike],
+    oos_window: Sequence[BarLike],
 ) -> RegimeLabelAudit:
     return RegimeLabelAudit(
         data_through=oos_window[1].timestamp,
@@ -65,8 +67,8 @@ def label_using_post_oos_data(
 
 
 def label_using_is_only(
-    is_window: tuple[AuditBar, ...],
-    oos_window: tuple[AuditBar, ...],
+    is_window: Sequence[BarLike],
+    oos_window: Sequence[BarLike],
 ) -> RegimeLabelAudit:
     return RegimeLabelAudit(
         data_through=is_window[-1].timestamp,
@@ -75,8 +77,8 @@ def label_using_is_only(
 
 
 def select_using_oos_returns(
-    is_window: tuple[AuditBar, ...],
-    oos_window: tuple[AuditBar, ...],
+    is_window: Sequence[BarLike],
+    oos_window: Sequence[BarLike],
 ) -> UniverseSelectionAudit:
     return UniverseSelectionAudit(
         used_oos_returns=True,
@@ -85,8 +87,8 @@ def select_using_oos_returns(
 
 
 def select_without_oos_returns(
-    is_window: tuple[AuditBar, ...],
-    oos_window: tuple[AuditBar, ...],
+    is_window: Sequence[BarLike],
+    oos_window: Sequence[BarLike],
 ) -> UniverseSelectionAudit:
     return UniverseSelectionAudit(
         used_oos_returns=False,
@@ -95,8 +97,8 @@ def select_without_oos_returns(
 
 
 def refit_inside_oos(
-    is_window: tuple[AuditBar, ...],
-    oos_window: tuple[AuditBar, ...],
+    is_window: Sequence[BarLike],
+    oos_window: Sequence[BarLike],
 ) -> OptimizationAudit:
     return OptimizationAudit(
         refit_timestamps=(oos_window[0].timestamp,),
@@ -105,8 +107,8 @@ def refit_inside_oos(
 
 
 def fit_before_oos(
-    is_window: tuple[AuditBar, ...],
-    oos_window: tuple[AuditBar, ...],
+    is_window: Sequence[BarLike],
+    oos_window: Sequence[BarLike],
 ) -> OptimizationAudit:
     return OptimizationAudit(
         refit_timestamps=(is_window[-1].timestamp,),

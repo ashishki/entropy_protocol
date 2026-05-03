@@ -259,9 +259,11 @@ def test_read_by_status_filters_correctly() -> None:
     pending_session = QueueReadSession([ExecuteResult(rows=[make_registry_row(status="PENDING")])])
     ready_session = QueueReadSession([ExecuteResult(rows=[make_registry_row(status="READY")])])
 
-    assert [entry.status.value for entry in get_by_status(pending_session, "PENDING")] == [
-        "PENDING"
-    ]  # type: ignore[arg-type]
+    pending_entries = get_by_status(
+        pending_session,  # pyright: ignore[reportArgumentType]
+        "PENDING",
+    )
+    assert [entry.status.value for entry in pending_entries] == ["PENDING"]
     assert [entry.status.value for entry in get_by_status(ready_session, "READY")] == ["READY"]  # type: ignore[arg-type]
 
 

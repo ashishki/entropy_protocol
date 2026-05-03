@@ -15,7 +15,10 @@ class LeakageError(ValueError):
 class BarLike(Protocol):
     """Minimal bar contract required by the splitter."""
 
-    timestamp: datetime
+    @property
+    def timestamp(self) -> datetime:
+        """UTC timestamp for the bar."""
+        ...
 
 
 TBar = TypeVar("TBar", bound=BarLike)
