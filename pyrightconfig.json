@@ -1,0 +1,11 @@
+{
+  "pythonVersion": "3.12",
+  "executionEnvironments": [
+    {
+      "root": ".",
+      "extraPaths": [
+        ".venv/lib/python3.12/site-packages"
+      ]
+    }
+  ]
+}
