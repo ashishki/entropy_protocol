@@ -1,7 +1,7 @@
 # CODEX_PROMPT.md
 
-Version: 1.0
-Date: 2026-05-01
+Version: 1.1
+Date: 2026-05-03
 Phase: 1
 
 <!--
@@ -18,10 +18,10 @@ Never delete history from this file. Append; do not replace.
 ## Current State
 
 - **Phase:** 1
-- **Baseline:** 0 passing tests (pre-implementation)
-- **Ruff:** not yet configured
-- **Last CI run:** not yet configured
-- **Last updated:** 2026-05-01
+- **Baseline:** 9 passing tests (1 skipped — postgres, requires CI)
+- **Ruff:** configured (pyproject.toml)
+- **Last CI run:** not yet configured (ci.yml created)
+- **Last updated:** 2026-05-03 (v1.1 — Cycle 2 review patch: Fix Queue, Open Findings, version bump)
 - **Session tokens (approx):** not yet tracked
 - **Cumulative phase tokens (approx):** not yet tracked
 
@@ -38,7 +38,7 @@ Never delete history from this file. Append; do not replace.
 
 ## Next Task
 
-**T01: Project Skeleton**
+**T04: Market Data Models**
 
 Before implementation, the orchestrator should hand Codex a narrow task digest inline:
 
@@ -54,7 +54,10 @@ Only send Codex to full documents when the task is architecture-shaping, securit
 
 ## Fix Queue
 
-empty
+─── Fix Queue (resolve before Phase 1 queue proceeds past T-GOV-1) ────────────────────────
+
+FIX-1 [P1] — ARCH-3: Phase Gate Inconsistency — Spec Owner Disposition Required
+  File: docs/DECISION_LOG.md · Change: add disposition entry choosing scope-separation (a) or resolution-gate (b) for protocol-level P0 findings · Test: grep 'ARCH-3' docs/DECISION_LOG.md non-empty; grep 'ARCH-3' docs/CODEX_PROMPT.md non-empty
 
 <!--
 The Fix Queue contains items that must be addressed before the next phase gate,
@@ -68,7 +71,20 @@ but that were deferred from the current task. Format:
 
 ## Open Findings
 
-none
+### P1 Findings (block next phase gate)
+
+- P1-01: [CYCLE-2] ARCH-3 — Phase gate inconsistency: Phase 1 implementation active while protocol-level P0 findings (F-1, F-2, F-4, F-5, F-30, F-31) remain Inherited-Open or Partial-Mitigation from Cycle 1 REVIEW_REPORT. No formal scope-separation decision or Spec Owner waiver documented. File: docs/DECISION_LOG.md (entry required). Must be resolved (Spec Owner disposition written) before T04 proceeds. Opened: 2026-05-03. Task: T-GOV-1.
+
+### P2 Findings (must resolve within 3 cycles)
+
+- P2-01: [CYCLE-2] ARCH-1 / CODE-3 — `entropy health` CLI command absent; OBS-3 contract unmet. File: entropy/cli.py. Opened: 2026-05-03. Age: 0 cycles. Task: T-OBS-1.
+- P2-02: [CYCLE-2] CODE-1 — No unit tests for entropy/tracing.py and entropy/metrics.py; get_tracer(), increment_counter(), record_histogram() have zero test coverage. File: entropy/tracing.py:8-10, entropy/metrics.py:7-21. Opened: 2026-05-03. Age: 0 cycles. Task: T-OBS-2.
+- P2-03: [CYCLE-2] CODE-2 — get_tracer() annotated as -> NoOpTracer instead of -> opentelemetry.trace.Tracer; type drift risk when OBS profile activated. File: entropy/tracing.py:8. Opened: 2026-05-03. Age: 0 cycles. Task: T-OBS-2.
+- P2-04: [CYCLE-2] CODE-4 — postgres_connection fixture lacks transaction rollback; future INSERT tests will contaminate DB state across runs. File: tests/conftest.py:13-27. Opened: 2026-05-03. Age: 0 cycles. Task: T-DB-1.
+- P2-05: [CYCLE-2] ARCH-2 — docs/adr/ directory absent; ADR governance path declared but not bootstrapped. Opened: 2026-05-03. Age: 0 cycles.
+- P2-06: [CYCLE-2] ARCH-4 — docs/ARCHITECTURE.md Component Table omits RDL, Research Firewall, ERG, RPM, Governor; enforcement mapping to implementation modules missing. File: docs/ARCHITECTURE.md:113-128. Opened: 2026-05-03. Age: 0 cycles.
+- P2-07: [CYCLE-2] ARCH-5 — docs/core/ERA0_SPEC.md authority status undefined; not referenced in any canonical document. Spec Owner disposition required. Opened: 2026-05-03. Age: 0 cycles.
+- P2-08: [CYCLE-2] ARCH-6 — docs/README.md states "Phase 0 (active)"; docs/ARCHITECTURE.md and docs/spec.md absent from Documentation Map. File: docs/README.md. Opened: 2026-05-03. Age: 0 cycles.
 
 <!--
 Open findings from review cycles. Format:
@@ -178,7 +194,9 @@ none
 
 ## Completed Tasks
 
-none
+- T01: Project Skeleton — completed 2026-05-03. Baseline after: 4 tests.
+- T02: CI Setup — completed 2026-05-03. Baseline after: 8 tests.
+- T03: Smoke Tests — completed 2026-05-03. Baseline after: 9 pass, 1 skip.
 
 <!--
 Append completed tasks here. Format:

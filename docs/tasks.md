@@ -13,7 +13,7 @@ Status legend:
 
 ## Phase 1 — Foundation
 
-### T01: Project Skeleton
+### [x] T01: Project Skeleton
 
 Owner:      codex
 Phase:      1
@@ -69,7 +69,7 @@ Context-Refs:
 
 ---
 
-## T02: CI Setup
+## [x] T02: CI Setup
 
 Owner:      codex
 Phase:      1
@@ -103,7 +103,7 @@ Context-Refs:
 
 ---
 
-## T03: Smoke Tests
+## [x] T03: Smoke Tests
 
 Owner:      codex
 Phase:      1
@@ -1100,3 +1100,154 @@ Context-Refs:
   - docs/spec.md §Phase Gate Evidence
   - docs/EVIDENCE_INDEX.md §Phase Gate Evidence
   - docs/IMPLEMENTATION_CONTRACT.md §Phase Gate Human Approval
+
+---
+
+## Cycle 2 Review Findings — Remediation Tasks
+
+### T-GOV-1: Spec Owner Phase Gate Disposition (ARCH-3 / P1-1)
+
+Owner:      human (Spec Owner)
+Phase:      1 (pre-T04 gate)
+Type:       governance
+Depends-On: none
+Review-Source: REVIEW_REPORT Cycle 2, P1-1 / ARCH-3 / META_ANALYSIS MG-06
+
+Objective: |
+  Record a formal written disposition in docs/DECISION_LOG.md that resolves the
+  phase gate inconsistency identified in ARCH-3: Phase 1 implementation is active
+  while protocol-level P0 findings (F-1, F-2, F-4, F-5, F-30, F-31) from Cycle 1
+  REVIEW_REPORT remain Inherited-Open or Partial-Mitigation. The disposition must
+  choose and document one of: (a) scope separation — PHASE1_AUDIT.md scope is
+  formally accepted as sufficient for Phase 1 engineering start; protocol P0
+  findings are a parallel non-blocking track; or (b) resolution gate — list which
+  protocol P0 findings must be closed before formula-encoding tasks (T08, T15,
+  T21, T22, T23) may begin. This task does NOT require code changes.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "docs/DECISION_LOG.md contains a new entry with date 2026-05-03 or later referencing ARCH-3 and explicitly choosing disposition (a) or (b) with rationale."
+    test: "grep -i 'ARCH-3' docs/DECISION_LOG.md returns non-empty"
+  - id: AC-2
+    description: "docs/CODEX_PROMPT.md §Open Findings records ARCH-3 with disposition status (open pending Spec Owner sign-off, or closed with reference to DECISION_LOG entry)."
+    test: "grep 'ARCH-3' docs/CODEX_PROMPT.md returns non-empty"
+
+Files:
+  - docs/DECISION_LOG.md
+  - docs/CODEX_PROMPT.md
+
+Context-Refs:
+  - docs/audit/REVIEW_REPORT.md §P1 Issues §P1-1
+  - docs/audit/ARCH_REPORT.md §ARCH-3
+  - docs/audit/META_ANALYSIS.md §MG-06
+
+---
+
+### T-OBS-1: `entropy health` CLI Command (ARCH-1 / CODE-3)
+
+Owner:      codex
+Phase:      1 (before Phase 0 exit gate)
+Type:       none
+Depends-On: T01
+Review-Source: REVIEW_REPORT Cycle 2, CODE-3 / ARCH-1
+
+Objective: |
+  Implement the `entropy health` CLI command in entropy/cli.py as required by
+  docs/ARCHITECTURE.md §Observability and docs/IMPLEMENTATION_CONTRACT.md §OBS-3.
+  The command must perform: (1) PostgreSQL connectivity check (attempt SELECT 1;
+  catch and report failure), (2) DuckDB availability check (attempt in-memory
+  query). Return JSON {"status": "ok"} on success or
+  {"status": "degraded", "checks": [{"name": "...", "status": "fail", "error": "..."}]}
+  on any failure. Exit code 0 on ok, 1 on degraded.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`entropy health` command exists in entropy/cli.py and exits 0 when PostgreSQL and DuckDB are available, printing JSON with status=ok."
+    test: "tests/unit/test_cli.py::test_health_command_ok"
+  - id: AC-2
+    description: "`entropy health` exits 1 and prints JSON with status=degraded when DATABASE_URL is unset or PostgreSQL connection fails."
+    test: "tests/unit/test_cli.py::test_health_command_degraded_no_postgres"
+  - id: AC-3
+    description: "The JSON output is valid JSON parseable by json.loads(); the top-level key is 'status'."
+    test: "tests/unit/test_cli.py::test_health_command_output_is_valid_json"
+
+Files:
+  - entropy/cli.py
+  - tests/unit/test_cli.py
+
+Context-Refs:
+  - docs/ARCHITECTURE.md §Observability
+  - docs/IMPLEMENTATION_CONTRACT.md §OBS-3
+
+---
+
+### T-OBS-2: Unit Tests for `entropy/tracing.py` and `entropy/metrics.py` (CODE-1 / CODE-2)
+
+Owner:      codex
+Phase:      1 (before Phase 0 exit gate)
+Type:       none
+Depends-On: T01
+Review-Source: REVIEW_REPORT Cycle 2, CODE-1 and CODE-2
+
+Objective: |
+  Add unit tests for the shared observability helpers. Also fix the return type
+  annotation on get_tracer() (CODE-2): change `-> NoOpTracer` to
+  `-> opentelemetry.trace.Tracer` so the public API is typed against the interface,
+  not the concrete noop. Tests must assert: get_tracer() does not raise and returns
+  an object; increment_counter() does not raise; record_histogram() does not raise.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "get_tracer() called with a module name string does not raise and returns a non-None object."
+    test: "tests/unit/test_observability.py::test_get_tracer_does_not_raise"
+  - id: AC-2
+    description: "increment_counter() called with a counter name and integer value does not raise."
+    test: "tests/unit/test_observability.py::test_increment_counter_does_not_raise"
+  - id: AC-3
+    description: "record_histogram() called with a metric name and float value does not raise."
+    test: "tests/unit/test_observability.py::test_record_histogram_does_not_raise"
+  - id: AC-4
+    description: "entropy/tracing.py get_tracer() return annotation is `opentelemetry.trace.Tracer` (not NoOpTracer); verified by ast.parse or grep check."
+    test: "tests/unit/test_observability.py::test_get_tracer_return_annotation_is_tracer_interface"
+
+Files:
+  - entropy/tracing.py
+  - tests/unit/test_observability.py
+
+Context-Refs:
+  - docs/audit/REVIEW_REPORT.md §P2 Issues (CODE-1, CODE-2)
+  - docs/IMPLEMENTATION_CONTRACT.md §Shared Tracing Module
+
+---
+
+### T-DB-1: `postgres_connection` Fixture Transaction Rollback (CODE-4)
+
+Owner:      codex
+Phase:      1 (before T07 integration tests begin)
+Type:       none
+Depends-On: T03
+Review-Source: REVIEW_REPORT Cycle 2, CODE-4
+
+Objective: |
+  Fix the `postgres_connection` fixture in tests/conftest.py to wrap the yielded
+  connection in an explicit transaction that is rolled back in the finally block.
+  This ensures that any INSERT or other write performed inside a test using this
+  fixture does not persist to the database after the test completes, preventing
+  test contamination across runs. The current fixture only closes the connection
+  without rolling back.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "A test that INSERTs a row using the postgres_connection fixture finds zero rows with that value in the same table when the next test runs (rollback isolation confirmed)."
+    test: "tests/integration/test_fixture_isolation.py::test_postgres_fixture_rolls_back_on_teardown"
+  - id: AC-2
+    description: "The fixture still skips cleanly (pytest.skip) when DATABASE_URL is unset."
+    test: "tests/smoke/test_smoke.py::test_postgres_connection_fixture (existing test must still pass)"
+
+Files:
+  - tests/conftest.py
+  - tests/integration/test_fixture_isolation.py
+
+Context-Refs:
+  - docs/audit/REVIEW_REPORT.md §P2 Issues (CODE-4)
+  - docs/IMPLEMENTATION_CONTRACT.md §SQL Safety
