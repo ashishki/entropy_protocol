@@ -126,6 +126,11 @@ ALL subproblems are deterministic. There is no LLM in the application runtime pa
 | CLI | entropy/cli/ | Typer/rich CLI entry point; commands for registry, ingestion, walk-forward, reporting |
 | Models | entropy/models/ | Pydantic v2 domain models: market, registry, performance |
 | Hashing | entropy/hashing/ | Deterministic SHA-256 hashing for datasets, runs, policies |
+| Experiment Readiness Gate (ERG) | entropy/registry/gate.py | Deterministic pre-admission validation for registered trials; no DB writes |
+| Research Firewall | docs/governance/research_firewall.md; entropy/registry/ | Governance boundary preventing discovery artifacts from becoming admissible evaluation without preregistration |
+| Research Portfolio Monitor (RPM) | docs/governance/research_portfolio_monitor.md | Read-only governance dashboard specification; no runtime module in Phase 0 implementation yet |
+| Protocol Governor | docs/governance/governor.md; entropy/governance/ | Governance gate for system-level changes and phase approvals |
+| Research Discovery Layer (RDL) | docs/architecture/research_discovery_layer.md | Dormant/scaffolding-only through Phase 0-1; no application runtime module until an approved future phase |
 
 ---
 
@@ -183,6 +188,14 @@ Introducing any non-Python language requires all of the following before code is
 4. Human approval recorded before implementation begins.
 
 No task may introduce Rust, Go, C, C++, FFI, native extensions, or a second runtime service as an incidental implementation detail.
+
+### Performance Profiling Gates
+
+Phase 0 stays Python-first until measured evidence proves otherwise. The first real profiling gate occurs after T20 Walk-Forward Runner because the system then has a representative end-to-end path: local fixture ingestion, deterministic dataset storage, Trial Registry, readiness gate, SimBroker surface, and walk-forward orchestration. Earlier micro-benchmarks may be used to debug a local regression, but they are not sufficient to justify a new implementation language.
+
+The post-T20 profiling artifact must record the input dataset, command, Python/Polars/DuckDB baseline, runtime and memory target, observed bottleneck, and optimization attempted inside the Python stack. If the optimized Python stack misses an explicit target, a language-escalation ADR is required before any Rust, Go, C, C++, FFI, native extension, or second runtime service is introduced.
+
+A second profiling gate occurs after the formula-bearing numerical tasks are implemented or explicitly waived, because T21/T23-style statistical and performance calculations may expose different hot paths than the walk-forward runner. This second gate follows the same benchmark and ADR requirements.
 
 ---
 

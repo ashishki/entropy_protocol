@@ -1,6 +1,6 @@
 # Entropy Protocol — Documentation
 
-**Last updated:** 2026-03-23
+**Last updated:** 2026-05-03
 **Status:** Active
 
 ---
@@ -26,6 +26,9 @@ Conditional destination: **Capital Allocation Framework** (Era 3+, after Phase 1
 ## Documentation Map
 
 - [`core/`](./core/) -> protocol and system principles
+- [`ARCHITECTURE.md`](./ARCHITECTURE.md) -> active implementation architecture
+- [`spec.md`](./spec.md) -> active implementation feature specification
+- [`tasks.md`](./tasks.md) -> implementation task graph and remediation tasks
 - [`architecture/`](./architecture/) -> engineering architecture
 - [`governance/`](./governance/) -> research discipline
 - [`research/`](./research/) -> research reports
@@ -41,11 +44,15 @@ Conditional destination: **Capital Allocation Framework** (Era 3+, after Phase 1
 | [`core/PROTOCOL_SPEC.md`](./core/PROTOCOL_SPEC.md) | Engineering specification: rules, thresholds, exit criteria | Developers, AI models |
 | [`core/GLOSSARY.md`](./core/GLOSSARY.md) | Terms, formulas, abbreviations | AI models, new team members |
 | [`core/EVOLUTION.md`](./core/EVOLUTION.md) | Design decision history: why constraints exist (v1->v5) | Architects, AI models |
+| [`core/ERA0_SPEC.md`](./core/ERA0_SPEC.md) | Proposed hardening package for unresolved protocol blockers; non-canonical until approved and merged | Spec owner, architects |
 
 ## Architecture
 
 | Document | Purpose | Audience |
 |---|---|---|
+| [`ARCHITECTURE.md`](./ARCHITECTURE.md) | Active implementation architecture for the Python package and CI/runtime boundaries | Developers, AI models |
+| [`spec.md`](./spec.md) | Active implementation feature specification for Phase 0 infrastructure | Developers, AI models |
+| [`tasks.md`](./tasks.md) | Task graph, acceptance criteria, and remediation queue | Developers, orchestrator |
 | [`architecture/AI_ENGINEERING_FRAMEWORK.md`](./architecture/AI_ENGINEERING_FRAMEWORK.md) | How AI-assisted development works in this project | Developers, AI models |
 | [`architecture/workflow_ai_development.md`](./architecture/workflow_ai_development.md) | Development workflow and audit governance | Developers, spec owner |
 | [`architecture/system_architecture.md`](./architecture/system_architecture.md) | Layered system overview and authority boundaries | Architects, developers |
@@ -123,7 +130,8 @@ Conditional destination: **Capital Allocation Framework** (Era 3+, after Phase 1
 
 ## Current Phase
 
-**Phase 0 (active):** Evaluation engine + SimBroker construction.
+**Protocol Phase 0 (active):** Evaluation engine + SimBroker construction.
+**Implementation task phase (active):** Phase 3 — Database Schema + Hashing. T08 is gated by D-010 until protocol-level P0 findings are closed or explicitly waived.
 **Parallel:** Hypothesis Acceleration Track (paper-only).
 
 No signal receives an OOS evaluation label until Phase 0 exit criteria are met. See `core/PROTOCOL_SPEC.md` Phase 0 for criteria.
@@ -171,7 +179,7 @@ Two output types are newly formally prohibited (F-6, F-7):
 - **F-6: trend inference** — moving averages, rate-of-change indicators, "improving/declining" language
 - **F-7: denominator-collapsed ratios** — any percentage without a visible denominator
 
-`PROTOCOL_SPEC.md` updated to v1.6. GLOSSARY, system_architecture, and hypothesis_families updated with corresponding cross-references.
+`PROTOCOL_SPEC.md` updated to v1.7. `CHARTER.md` updated to v5.2 and `GLOSSARY.md` updated to v1.3 for D-010 formula-bearing implementation mitigations. The v1.6 RPM update remains active.
 
 ### Why it was added
 

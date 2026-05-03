@@ -1,8 +1,8 @@
 # CODEX_PROMPT.md
 
-Version: 1.1
+Version: 1.35
 Date: 2026-05-03
-Phase: 1
+Phase: 8
 
 <!--
 This file is the single source of truth for session state.
@@ -17,11 +17,11 @@ Never delete history from this file. Append; do not replace.
 
 ## Current State
 
-- **Phase:** 1
-- **Baseline:** 9 passing tests (1 skipped — postgres, requires CI)
+- **Phase:** 8
+- **Baseline:** 117 passing tests with PostgreSQL 16 Docker container
 - **Ruff:** configured (pyproject.toml)
 - **Last CI run:** not yet configured (ci.yml created)
-- **Last updated:** 2026-05-03 (v1.1 — Cycle 2 review patch: Fix Queue, Open Findings, version bump)
+- **Last updated:** 2026-05-03 (v1.35 — T21 complete; T22 governance stop before implementation)
 - **Session tokens (approx):** not yet tracked
 - **Cumulative phase tokens (approx):** not yet tracked
 
@@ -38,7 +38,35 @@ Never delete history from this file. Append; do not replace.
 
 ## Next Task
 
-**T04: Market Data Models**
+**T22 governance disposition before P1/P3 State Machine implementation**
+
+Boundary note: Phase 5 review is archived at `docs/audit/PHASE5_REVIEW.md`; Phase 6 review is archived at `docs/audit/PHASE6_REVIEW.md`; Phase 7 review is archived at `docs/audit/PHASE7_REVIEW.md`. D-017 records the T21-specific formula-governance disposition in `docs/audit/T21_FORMULA_GOVERNANCE_DISPOSITION.md`. T15, T16, T17, T18, T19, T20, and T21 are complete.
+
+Performance note: D-012's first real language-escalation profiling gate is now reached after T20 Walk-Forward Runner. No non-Python implementation, FFI, native extension, or runtime-service escalation is allowed without measured bottleneck evidence, ADR, CI/task updates, and explicit human approval. The second profiling gate remains after formula-bearing numerical tasks are implemented or explicitly waived.
+
+D-014/D-016 note: `docs/audit/D010_CLOSURE_PACKET.md` has been applied and focused audit is recorded in `docs/audit/D010_FOCUSED_AUDIT_F1_F2_F4_F5.md`. Canonical docs are now `docs/core/PROTOCOL_SPEC.md` v1.8, `docs/core/CHARTER.md` v5.3, and `docs/core/GLOSSARY.md` v1.4.
+
+D-015 note: F-30 and F-31 remain In Progress and must be closed only with real generated telemetry/K-report evidence later. They are future hard gates for RDL promotion, K-report generation, phase-exit evidence, and any code path that emits those artifacts; they do not block T15. No synthetic evidence may close them.
+
+T21 scope guard: implement only the D-017 allowed subset. T21 may implement four-stream attribution, stream (d) exclusion from Net Sharpe, raw point-estimate Net Sharpe over supplied returns, drawdown worked examples, and `PerformanceMetrics` assembly with explicit stub reason code. Do not implement Sharpe CI, bootstrap CI, Harvey-Liu, N_eff/K3, IC/BR, P4, K-report, RDL promotion, phase-exit logic, or OOS performance-claim artifacts. If a `NetSharpe` object is constructed, its confidence interval must be caller/test supplied; T21 must not derive CI internally because T23 owns that statistical helper.
+
+D-017 note: TASK-AF-022/F-22 is closed for current canonical implementation scope. Current source-of-truth docs define Net Sharpe as streams (a)+(b)+(c) and exclude stream (d). Historical audit artifacts that mention prior drift are retained as history, not current protocol definitions.
+
+T21 note: attribution engine lives in `entropy/attribution/engine.py`; it computes per-observation streams, enforces Net Sharpe through `PnLStreams`, treats `FillLog.borrow_rate`/`funding_rate` as realized SimBroker cost components, preserves caller-supplied CI and Calmar values, and leaves `n_eff`/`harvey_liu_deflated_sharpe` as `None` with reason code `stub_pending_formula_verification`. T21 AC-3 was corrected from final `+5%` to `+8%` because `+5%` does not recover the prior compounded peak.
+
+T22 governance stop: do not implement `entropy/governance/state_machine.py` yet. T22 encodes P1/P3 threshold and reset rules and remains covered by D-010 unless a T22-specific disposition/waiver is recorded or the relevant D-010 blockers are explicitly closed for T22.
+
+Review remediation note: Phase 7 deep review found WF-P1-01, where omitted T19 detector callbacks could return PASS. This was remediated during review: missing detector callbacks now FAIL, and T20 tests verify both missing and failed leakage checks block OOS before `strategy.run_oos()`.
+
+T20 note: walk-forward runner lives in `entropy/walkforward/runner.py`. It requires a `leakage_check` callback, calls strategy `run_is()` on IS only, blocks before `run_oos()` if the leakage check is missing or non-PASS, and persists complete `RunRecord` metadata with INSERT-only ORM behavior when a SQLAlchemy session is supplied.
+
+T19 note: leakage checklist lives in `entropy/walkforward/leakage.py` and returns `LeakageReport` with four PASS/FAIL checks: normalization leakage, regime label look-ahead, universe selection bias, and within-window optimization. T19 tests use injected synthetic violations only to verify detectors; this does not close F-30/F-31 real-evidence gates.
+
+T18 note: IS/OOS splitter lives in `entropy/walkforward/splitter.py`. It uses the documented temporary embargo assumption `embargo_bars = N consecutive bars immediately preceding the first OOS bar`. The purge/embargo formula blocker remains incomplete until canonical derivation is resolved; T18 did not close that formula debt.
+
+T13 note: LocalFixtureAdapter writes validated local fixture data to deterministic Parquet under `ENTROPY_DATA_DIR/market/{symbol}/{timeframe}/{hash}.parquet` and records provenance in `market_datasets`.
+
+T14 note: Data quality helpers live in `entropy/data/quality.py` and export timestamp, gap, OHLCV sanity, and aggregate report checks.
 
 Before implementation, the orchestrator should hand Codex a narrow task digest inline:
 
@@ -54,10 +82,9 @@ Only send Codex to full documents when the task is architecture-shaping, securit
 
 ## Fix Queue
 
-─── Fix Queue (resolve before Phase 1 queue proceeds past T-GOV-1) ────────────────────────
+empty
 
-FIX-1 [P1] — ARCH-3: Phase Gate Inconsistency — Spec Owner Disposition Required
-  File: docs/DECISION_LOG.md · Change: add disposition entry choosing scope-separation (a) or resolution-gate (b) for protocol-level P0 findings · Test: grep 'ARCH-3' docs/DECISION_LOG.md non-empty; grep 'ARCH-3' docs/CODEX_PROMPT.md non-empty
+Closed FIX-1 [P1] — ARCH-3: Phase Gate Inconsistency — resolved by D-010 resolution gate on 2026-05-03. Phase 2 engineering may proceed for non-formula tasks. D-015 narrowed T15's remaining blocker scope to focused audit verification of F-1, F-2, F-4, and F-5; D-016 passed that focused audit. F-30 and F-31 remain future real-evidence gates, not T15 blockers.
 
 <!--
 The Fix Queue contains items that must be addressed before the next phase gate,
@@ -73,18 +100,27 @@ but that were deferred from the current task. Format:
 
 ### P1 Findings (block next phase gate)
 
-- P1-01: [CYCLE-2] ARCH-3 — Phase gate inconsistency: Phase 1 implementation active while protocol-level P0 findings (F-1, F-2, F-4, F-5, F-30, F-31) remain Inherited-Open or Partial-Mitigation from Cycle 1 REVIEW_REPORT. No formal scope-separation decision or Spec Owner waiver documented. File: docs/DECISION_LOG.md (entry required). Must be resolved (Spec Owner disposition written) before T04 proceeds. Opened: 2026-05-03. Task: T-GOV-1.
+none
+
+### Closed P1 Findings
+
+- P1-01: [CYCLE-2] ARCH-3 — Phase gate inconsistency closed 2026-05-03 by D-010 in docs/DECISION_LOG.md. Disposition: resolution gate (b). D-015 narrowed T15's remaining blocker scope to focused audit verification of F-1, F-2, F-4, and F-5; D-016 passed that audit. F-30 and F-31 remain future real-evidence gates.
+- WF-P1-01: [PHASE-7-REVIEW] T19 omitted detector callbacks returned PASS, allowing T20 to pass a formal leakage gate without detector-backed checks. Closed 2026-05-03 by making omitted detectors FAIL and adding tests `test_full_leakage_checklist_requires_all_checks` and `test_runner_blocks_oos_when_leakage_check_fails`.
 
 ### P2 Findings (must resolve within 3 cycles)
 
-- P2-01: [CYCLE-2] ARCH-1 / CODE-3 — `entropy health` CLI command absent; OBS-3 contract unmet. File: entropy/cli.py. Opened: 2026-05-03. Age: 0 cycles. Task: T-OBS-1.
-- P2-02: [CYCLE-2] CODE-1 — No unit tests for entropy/tracing.py and entropy/metrics.py; get_tracer(), increment_counter(), record_histogram() have zero test coverage. File: entropy/tracing.py:8-10, entropy/metrics.py:7-21. Opened: 2026-05-03. Age: 0 cycles. Task: T-OBS-2.
-- P2-03: [CYCLE-2] CODE-2 — get_tracer() annotated as -> NoOpTracer instead of -> opentelemetry.trace.Tracer; type drift risk when OBS profile activated. File: entropy/tracing.py:8. Opened: 2026-05-03. Age: 0 cycles. Task: T-OBS-2.
-- P2-04: [CYCLE-2] CODE-4 — postgres_connection fixture lacks transaction rollback; future INSERT tests will contaminate DB state across runs. File: tests/conftest.py:13-27. Opened: 2026-05-03. Age: 0 cycles. Task: T-DB-1.
-- P2-05: [CYCLE-2] ARCH-2 — docs/adr/ directory absent; ADR governance path declared but not bootstrapped. Opened: 2026-05-03. Age: 0 cycles.
-- P2-06: [CYCLE-2] ARCH-4 — docs/ARCHITECTURE.md Component Table omits RDL, Research Firewall, ERG, RPM, Governor; enforcement mapping to implementation modules missing. File: docs/ARCHITECTURE.md:113-128. Opened: 2026-05-03. Age: 0 cycles.
-- P2-07: [CYCLE-2] ARCH-5 — docs/core/ERA0_SPEC.md authority status undefined; not referenced in any canonical document. Spec Owner disposition required. Opened: 2026-05-03. Age: 0 cycles.
-- P2-08: [CYCLE-2] ARCH-6 — docs/README.md states "Phase 0 (active)"; docs/ARCHITECTURE.md and docs/spec.md absent from Documentation Map. File: docs/README.md. Opened: 2026-05-03. Age: 0 cycles.
+none
+
+### Closed P2 Findings
+
+- P2-03: [CYCLE-2] CODE-2 — get_tracer() return annotation corrected from NoOpTracer to opentelemetry.trace.Tracer in entropy/tracing.py on 2026-05-03. Verified by `pyright --pythonpath .venv/bin/python entropy/`.
+- P2-04: [CYCLE-2] CODE-4 — postgres_connection fixture now wraps yielded connections in a rollback-only transaction; verified by tests/integration/test_fixture_isolation.py on 2026-05-03.
+- P2-02: [CYCLE-2] CODE-1 — tracing and metrics helper tests added in tests/unit/test_observability.py on 2026-05-03.
+- P2-01: [CYCLE-2] ARCH-1 / CODE-3 — `entropy health` CLI command implemented in entropy/cli.py; verified by tests/unit/test_cli.py and manual CLI checks on 2026-05-03.
+- P2-05: [CYCLE-2] ARCH-2 — docs/adr/ bootstrapped with docs/adr/README.md on 2026-05-03.
+- P2-06: [CYCLE-2] ARCH-4 — docs/ARCHITECTURE.md Component Table updated with ERG, Research Firewall, RPM, Governor, and RDL rows on 2026-05-03.
+- P2-07: [CYCLE-2] ARCH-5 — docs/core/ERA0_SPEC.md authority status clarified as proposed/non-canonical until human approval and merge on 2026-05-03.
+- P2-08: [CYCLE-2] ARCH-6 — docs/README.md Documentation Map and Current Phase updated on 2026-05-03.
 
 <!--
 Open findings from review cycles. Format:
@@ -197,6 +233,31 @@ none
 - T01: Project Skeleton — completed 2026-05-03. Baseline after: 4 tests.
 - T02: CI Setup — completed 2026-05-03. Baseline after: 8 tests.
 - T03: Smoke Tests — completed 2026-05-03. Baseline after: 9 pass, 1 skip.
+- T-GOV-1: Spec Owner Phase Gate Disposition — completed 2026-05-03. Baseline after: not run locally; pytest/ruff unavailable in PATH; grep verification passed.
+- T04: Market Data Models — completed 2026-05-03. Baseline after: not run locally; pytest/ruff/pydantic unavailable in PATH; py_compile passed.
+- T05: Registry and Run Models — completed 2026-05-03. Baseline after: 19 pass, 1 skip; ruff and pyright pass locally.
+- T06: Performance Models — completed 2026-05-03. Baseline after: 23 pass, 1 skip; ruff and pyright pass locally.
+- T07: Database Schema + Alembic Migrations — completed 2026-05-03. Baseline after: 29 pass with PostgreSQL 16 Docker container; ruff and pyright pass locally.
+- T-DB-1: postgres_connection Fixture Transaction Rollback — completed 2026-05-03. Baseline after: 30 pass with PostgreSQL 16 Docker container; ruff and pyright pass locally.
+- T-OBS-2: Observability Helper Unit Tests — completed 2026-05-03. Baseline after: 34 pass with PostgreSQL 16 Docker container; ruff and pyright pass locally.
+- T-OBS-1: entropy health CLI Command — completed 2026-05-03. Baseline after: 37 pass with PostgreSQL 16 Docker container; ruff and pyright pass locally.
+- T08: Deterministic Hashing — completed 2026-05-03 under D-011 narrow waiver. Baseline after: 42 pass with PostgreSQL 16 Docker container; ruff and pyright pass locally.
+- T09: Trial Registry Write Path — completed 2026-05-03. Baseline after: 47 pass with PostgreSQL 16 Docker container; ruff and pyright pass locally.
+- T10: Experiment Readiness Gate — completed 2026-05-03. Baseline after: 52 pass with PostgreSQL 16 Docker container; ruff and pyright pass locally.
+- T11: Trial Registry Read Path — completed 2026-05-03. Baseline after: 57 pass with PostgreSQL 16 Docker container; ruff and pyright pass locally.
+- T12: Data Ingestion Interface — completed 2026-05-03. Baseline after: 52 pass, 10 skip without DATABASE_URL; ruff and pyright pass locally.
+- T13: Local Fixture Adapter + Parquet Store — completed 2026-05-03. Baseline after: 68 pass with PostgreSQL 16 Docker container; ruff and pyright pass locally.
+- T14: Data Quality Checks — completed 2026-05-03. Baseline after: 74 pass with PostgreSQL 16 Docker container; ruff and pyright pass locally.
+- T-GOV-2: Focused D-010 Audit Verification — completed 2026-05-03. Baseline after: not run; documentation/governance only.
+- T15: SimBroker Cost Model — completed 2026-05-03. Baseline after: 67 pass, 13 skip without DATABASE_URL; ruff and pyright pass locally.
+- T16: SimBroker Fill Engine — completed 2026-05-03. Baseline after: 87 pass with PostgreSQL 16 Docker container; ruff and pyright pass locally.
+- T17: SimBroker Calibration Interface — completed 2026-05-03. Baseline after: 91 pass with PostgreSQL 16 Docker container; ruff and pyright pass locally.
+- T18: IS/OOS Splitter — completed 2026-05-03. Baseline after: 97 pass with PostgreSQL 16 Docker container; ruff and pyright pass locally.
+- T19: Leakage Detection Checklist — completed 2026-05-03. Baseline after: 106 pass with PostgreSQL 16 Docker container; ruff and pyright pass locally.
+- T20: Walk-Forward Runner — completed 2026-05-03. Baseline after: 110 pass with PostgreSQL 16 Docker container; ruff and pyright pass locally.
+- Phase 6/7 Deep Audit Review — completed 2026-05-03. Baseline after remediation: 112 pass with PostgreSQL 16 Docker container; ruff and pyright pass locally.
+- D-017: T21 Formula-Governance Disposition — completed 2026-05-03. T21 may proceed under the narrow D-017 scope; baseline unchanged at 112 pass.
+- T21: P&L Attribution Engine — completed 2026-05-03 under D-017 narrow scope. Baseline after: 117 pass with PostgreSQL 16 Docker container; ruff and pyright pass locally. T22 remains governance-blocked before implementation.
 
 <!--
 Append completed tasks here. Format:
@@ -208,6 +269,47 @@ Append completed tasks here. Format:
 ---
 
 ## Phase History
+
+### Phase 2 — Core Domain Models
+Closed: 2026-05-03
+Baseline at gate: 23 pass, 1 skip
+Tasks: T04, T05, T06
+Review cycle: Phase 2 boundary review (see docs/audit/PHASE2_REVIEW.md)
+P1s resolved: 0
+P2s open: 7
+Gate approved by: local orchestrator review; human approval still required for formal project governance gates
+
+### Phase 3 — Database Schema + Hashing
+Closed: 2026-05-03
+Baseline at gate: 42 pass
+Tasks: T07, T08
+Review cycle: Phase 3 boundary review (see docs/audit/PHASE3_REVIEW.md)
+P1s resolved: 0
+P2s open: 0
+Gate approved by: local orchestrator review under D-011 for T08; human approval still required for formal project governance gates
+
+### Phase 4 — Trial Registry
+Closed: 2026-05-03
+Baseline at gate: 57 pass
+Tasks: T09, T10, T11
+Review cycle: Phase 4 boundary review (see docs/audit/PHASE4_REVIEW.md)
+P1s resolved: 0
+P2s open: 0
+Gate approved by: local orchestrator review; human approval still required for formal project governance gates
+
+### Phase 5 — Data Pipeline
+Closed: 2026-05-03
+Baseline at gate: 74 pass
+Tasks: T12, T13, T14
+Review cycle: Phase 5 boundary review (see docs/audit/PHASE5_REVIEW.md)
+P1s resolved: 0
+P2s open: 0
+Gate approved by: local orchestrator review; T15 was blocked by D-010 until D-016 focused audit passed on 2026-05-03
+
+### T15 Waiver Disposition
+Date: 2026-05-03
+Decision: D-013 denies a T15-specific waiver.
+Result: Superseded by D-015 and D-016 for T15 entry. T15 is now unblocked for cost-model implementation only; F-30/F-31 remain future real-evidence gates.
 
 <!--
 Append phase summaries here at each phase gate. Format:

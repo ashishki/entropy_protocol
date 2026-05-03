@@ -40,3 +40,1027 @@ _Append-only. One entry per session or significant decision. Each entry must ref
 **What the next agent must know:**
 - Do not introduce non-Python files or toolchains during T01-T24 as an incidental implementation detail.
 - If performance becomes a real blocker, first produce the benchmark evidence and ADR required by `docs/ARCHITECTURE.md §Language Escalation Policy` and `docs/IMPLEMENTATION_CONTRACT.md §Language Escalation Control`.
+
+---
+
+## 2026-05-03 — ARCH-3 Phase Gate Disposition
+
+**What happened:** Closed the Cycle 2 P1 governance blocker ARCH-3 with a conservative resolution-gate disposition recorded as D-010.
+
+**Key decision made this session:**
+- Phase 2 engineering may proceed for non-formula tasks such as T04 and T05.
+- Protocol-level P0 findings F-1, F-2, F-4, F-5, F-30, and F-31 remain blocking for formula-encoding tasks T08, T15, T21, T22, and T23 unless they are closed or explicitly waived before implementation.
+
+**What the next agent must know:**
+- Do not implement formula-bearing protocol logic from unresolved Cycle 1 findings until D-010's gate condition is satisfied.
+- T04 Market Data Models is not formula-bearing and may proceed after the orchestrator verifies the Fix Queue is clear.
+
+**Later update:** D-015 narrows the T15-specific blocker scope to F-1, F-2, F-4,
+and F-5 focused audit verification. F-30 and F-31 remain In Progress future
+real-evidence gates and are not closed.
+
+---
+
+## 2026-05-03 — T05 Registry and Run Models
+
+**What happened:** Restored the local `.venv` into a self-contained environment, removed a local `.pth` that leaked two unrelated project site-packages into this environment, and implemented T05 registry/run domain models.
+
+**Files changed:**
+- `entropy/models/registry.py`
+- `tests/unit/test_models.py`
+- `entropy/tracing.py`
+- `docs/tasks.md`
+- `docs/CODEX_PROMPT.md`
+- `docs/EVIDENCE_INDEX.md`
+- `docs/IMPLEMENTATION_JOURNAL.md`
+
+**Verification run:**
+- `.venv/bin/python -m pytest -q` -> 19 passed, 1 skipped
+- `.venv/bin/ruff check entropy/ tests/` -> pass
+- `.venv/bin/ruff format --check entropy/ tests/` -> pass
+- `.venv/bin/pyright --pythonpath .venv/bin/python entropy/` -> 0 errors
+
+**Follow-ups:**
+- Continue with T06 Performance Models.
+- `pyright entropy/` without `--pythonpath` still depends on pyright's environment discovery; CI installs with `uv pip install --system -e ".[dev]"`, so the CI command should resolve system-installed dependencies.
+
+---
+
+## 2026-05-03 — T06 Performance Models
+
+**What happened:** Implemented Phase 2 performance domain models, including explicit four-stream P&L containers, canonical Net Sharpe metadata, drawdown records, and Phase 0 stub metric reason codes.
+
+**Files changed:**
+- `entropy/models/performance.py`
+- `tests/unit/test_models.py`
+- `docs/tasks.md`
+- `docs/CODEX_PROMPT.md`
+- `docs/EVIDENCE_INDEX.md`
+- `docs/IMPLEMENTATION_JOURNAL.md`
+
+**Verification run:**
+- `.venv/bin/python -m pytest -q` -> 23 passed, 1 skipped
+- `.venv/bin/ruff check entropy/ tests/` -> pass
+- `.venv/bin/ruff format --check entropy/ tests/` -> pass
+- `.venv/bin/pyright --pythonpath .venv/bin/python entropy/` -> 0 errors
+
+**Follow-ups:**
+- Phase 2 is complete; run phase-boundary strategy/deep review before T07.
+
+---
+
+## 2026-05-03 — Phase 2 Boundary Review
+
+**What happened:** Ran a scoped phase-boundary strategy, architecture, and consolidated review after T04-T06 completion.
+
+**Artifacts written:**
+- `docs/audit/STRATEGY_NOTE.md`
+- `docs/audit/ARCH_REPORT.md`
+- `docs/audit/REVIEW_REPORT.md`
+- `docs/audit/PHASE2_REVIEW.md`
+- `docs/audit/AUDIT_INDEX.md`
+- `docs/CODEX_PROMPT.md`
+- `docs/EVIDENCE_INDEX.md`
+
+**Review result:**
+- Proceed to T07.
+- No new P0, P1, or P2 findings.
+- P2-03 remains closed.
+- D-010 remains active and blocks T08 until the named protocol-level P0 findings are closed or waived.
+
+---
+
+## 2026-05-03 — T07 Database Schema + Alembic Migrations
+
+**What happened:** Implemented SQLAlchemy 2.x table models, Alembic config/env, initial migration, and PostgreSQL schema integration tests for `trial_registry`, `runs`, `fill_logs`, and `governance_events`.
+
+**Files changed:**
+- `pyproject.toml`
+- `entropy/db/models.py`
+- `entropy/db/session.py`
+- `migrations/alembic.ini`
+- `migrations/env.py`
+- `migrations/versions/0001_initial_schema.py`
+- `tests/integration/test_registry_db.py`
+- `docs/tasks.md`
+- `docs/CODEX_PROMPT.md`
+- `docs/EVIDENCE_INDEX.md`
+- `docs/IMPLEMENTATION_JOURNAL.md`
+
+**Verification run:**
+- `DATABASE_URL=postgresql://entropy:entropy_test@localhost:55432/entropy_test .venv/bin/python -m pytest -q` -> 29 passed
+- `.venv/bin/ruff check entropy/ tests/ migrations/` -> pass
+- `.venv/bin/ruff format --check entropy/ tests/ migrations/` -> pass
+- `.venv/bin/pyright --pythonpath .venv/bin/python entropy/ migrations/` -> 0 errors
+
+**Follow-ups:**
+- T08 remains blocked by D-010.
+- T-DB-1 is now the next actionable remediation because it was intended before/around DB integration test work and P2-04 remains open.
+
+---
+
+## 2026-05-03 — T-DB-1 PostgreSQL Fixture Rollback
+
+**What happened:** Updated `postgres_connection` to yield connections inside a rollback-only transaction and added a PostgreSQL integration test proving fixture writes do not persist after teardown.
+
+**Files changed:**
+- `tests/conftest.py`
+- `tests/integration/test_fixture_isolation.py`
+- `docs/tasks.md`
+- `docs/CODEX_PROMPT.md`
+- `docs/EVIDENCE_INDEX.md`
+- `docs/IMPLEMENTATION_JOURNAL.md`
+
+**Verification run:**
+- `DATABASE_URL=postgresql://entropy:entropy_test@localhost:55432/entropy_test .venv/bin/python -m pytest -q` -> 30 passed
+- `.venv/bin/ruff check entropy/ tests/ migrations/` -> pass
+- `.venv/bin/ruff format --check entropy/ tests/ migrations/` -> pass
+- `.venv/bin/pyright --pythonpath .venv/bin/python entropy/ migrations/` -> 0 errors
+
+**Follow-ups:**
+- T08 remains blocked by D-010.
+- T-OBS-2 is the next actionable remediation.
+
+---
+
+## 2026-05-03 — T-OBS-2 Observability Helper Tests
+
+**What happened:** Added unit tests for tracing and metrics stubs, and extended `get_tracer()` to accept an optional tracer name while retaining the `opentelemetry.trace.Tracer` return type.
+
+**Files changed:**
+- `entropy/tracing.py`
+- `tests/unit/test_observability.py`
+- `docs/tasks.md`
+- `docs/CODEX_PROMPT.md`
+- `docs/EVIDENCE_INDEX.md`
+- `docs/IMPLEMENTATION_JOURNAL.md`
+
+**Verification run:**
+- `DATABASE_URL=postgresql://entropy:entropy_test@localhost:55432/entropy_test .venv/bin/python -m pytest -q` -> 34 passed
+- `.venv/bin/ruff check entropy/ tests/ migrations/` -> pass
+- `.venv/bin/ruff format --check entropy/ tests/ migrations/` -> pass
+- `.venv/bin/pyright --pythonpath .venv/bin/python entropy/ migrations/` -> 0 errors
+
+**Follow-ups:**
+- T08 remains blocked by D-010.
+- T-OBS-1 is the next actionable remediation.
+
+---
+
+## 2026-05-03 — T-OBS-1 Health CLI
+
+**What happened:** Implemented `entropy health` with PostgreSQL and DuckDB checks, JSON output, and correct ok/degraded exit codes.
+
+**Files changed:**
+- `entropy/cli.py`
+- `tests/unit/test_cli.py`
+- `docs/tasks.md`
+- `docs/CODEX_PROMPT.md`
+- `docs/EVIDENCE_INDEX.md`
+- `docs/IMPLEMENTATION_JOURNAL.md`
+
+**Verification run:**
+- `DATABASE_URL=postgresql://entropy:entropy_test@localhost:55432/entropy_test .venv/bin/python -m pytest -q` -> 37 passed
+- `.venv/bin/ruff check entropy/ tests/ migrations/` -> pass
+- `.venv/bin/ruff format --check entropy/ tests/ migrations/` -> pass
+- `.venv/bin/pyright --pythonpath .venv/bin/python entropy/ migrations/` -> 0 errors
+- `DATABASE_URL=postgresql://entropy:entropy_test@localhost:55432/entropy_test .venv/bin/entropy health` -> `{"status": "ok"}`
+- `env -u DATABASE_URL .venv/bin/entropy health` -> degraded JSON, exit 1
+
+**Follow-ups:**
+- T08 remains blocked by D-010.
+- Remaining open P2 findings are documentation/governance cleanup items P2-05 through P2-08.
+
+---
+
+## 2026-05-03 — Documentation P2 Cleanup
+
+**What happened:** Closed remaining documentation/governance P2 findings from Cycle 2.
+
+**Files changed:**
+- `docs/adr/README.md`
+- `docs/ARCHITECTURE.md`
+- `docs/core/ERA0_SPEC.md`
+- `docs/README.md`
+- `docs/CODEX_PROMPT.md`
+- `docs/EVIDENCE_INDEX.md`
+- `docs/IMPLEMENTATION_JOURNAL.md`
+
+**Findings closed:**
+- P2-05: ADR directory bootstrapped.
+- P2-06: Component Table now covers ERG, Research Firewall, RPM, Governor, and RDL.
+- P2-07: ERA0 authority status clarified as proposed/non-canonical until human approval and canonical merge.
+- P2-08: README Documentation Map and Current Phase updated.
+
+**Follow-ups:**
+- No P1/P2 Cycle 2 findings remain open in CODEX_PROMPT.
+- T08 remains blocked by D-010 and requires human/spec-owner resolution or waiver for the named protocol-level P0 findings.
+
+---
+
+## 2026-05-03 — D-011 T08 Narrow Waiver
+
+**What happened:** Spec Owner authorized T08 to proceed as non-formula infrastructure work.
+
+**Decision recorded:**
+- D-011 in `docs/DECISION_LOG.md`.
+- T08 may implement deterministic SHA-256 hashing and serialization boundaries.
+- T08 must not encode Harvey-Liu, Sharpe CI, P3/P4, N_eff, or other unresolved protocol formulas.
+- D-010 remains active for formula-bearing tasks T15, T21, T22, and T23 unless separately closed or waived.
+
+---
+
+## 2026-05-03 — T08 Deterministic Hashing
+
+**What happened:** Implemented deterministic SHA-256 hashing for Parquet datasets, run identity triples, and policy configs under D-011. The implementation only covers hashing/serialization infrastructure and does not encode unresolved protocol formulas.
+
+**Files changed:**
+- `entropy/hashing/hashing.py`
+- `entropy/hashing/__init__.py`
+- `tests/unit/test_hashing.py`
+- `docs/tasks.md`
+- `docs/CODEX_PROMPT.md`
+- `docs/EVIDENCE_INDEX.md`
+- `docs/IMPLEMENTATION_JOURNAL.md`
+
+**Verification run:**
+- `DATABASE_URL=postgresql://entropy:entropy_test@localhost:55432/entropy_test .venv/bin/python -m pytest -q` -> 42 passed
+- `.venv/bin/ruff check entropy/ tests/ migrations/` -> pass
+- `.venv/bin/ruff format --check entropy/ tests/ migrations/` -> pass
+- `.venv/bin/pyright --pythonpath .venv/bin/python entropy/ migrations/` -> 0 errors
+
+**Follow-ups:**
+- Phase 3 is complete; run phase-boundary review before T09.
+- D-010 remains active for T15, T21, T22, and T23.
+
+---
+
+## 2026-05-03 — Phase 3 Boundary Review
+
+**What happened:** Ran a scoped phase-boundary strategy, architecture, and consolidated review after T07-T08 completion.
+
+**Artifacts written:**
+- `docs/audit/STRATEGY_NOTE.md`
+- `docs/audit/ARCH_REPORT.md`
+- `docs/audit/REVIEW_REPORT.md`
+- `docs/audit/PHASE3_REVIEW.md`
+- `docs/audit/AUDIT_INDEX.md`
+- `docs/CODEX_PROMPT.md`
+- `docs/EVIDENCE_INDEX.md`
+
+**Review result:**
+- Proceed to T09.
+- No new P0, P1, or P2 findings.
+- D-010 remains active for formula-bearing tasks T15, T21, T22, and T23.
+
+---
+
+## 2026-05-03 — T09 Trial Registry Write Path
+
+**What happened:** Implemented append-only Trial Registry preregistration write path with structured errors for missing hashes and duplicate trial IDs.
+
+**Files changed:**
+- `entropy/registry/write.py`
+- `entropy/registry/__init__.py`
+- `tests/unit/test_registry.py`
+- `tests/integration/test_registry_db.py`
+- `docs/tasks.md`
+- `docs/CODEX_PROMPT.md`
+- `docs/EVIDENCE_INDEX.md`
+- `docs/IMPLEMENTATION_JOURNAL.md`
+
+**Verification run:**
+- `DATABASE_URL=postgresql://entropy:entropy_test@localhost:55432/entropy_test .venv/bin/python -m pytest -q` -> 47 passed
+- `.venv/bin/ruff check entropy/ tests/ migrations/` -> pass
+- `.venv/bin/ruff format --check entropy/ tests/ migrations/` -> pass
+- `.venv/bin/pyright --pythonpath .venv/bin/python entropy/ migrations/` -> 0 errors
+
+**Follow-ups:**
+- Continue with T10 Experiment Readiness Gate.
+
+---
+
+## 2026-05-03 — T10 Experiment Readiness Gate
+
+**What happened:** Implemented pure read/validation Experiment Readiness Gate with READY/NOT_READY results and structured failures.
+
+**Files changed:**
+- `entropy/registry/gate.py`
+- `entropy/registry/__init__.py`
+- `tests/unit/test_registry.py`
+- `docs/tasks.md`
+- `docs/CODEX_PROMPT.md`
+- `docs/EVIDENCE_INDEX.md`
+- `docs/IMPLEMENTATION_JOURNAL.md`
+
+**Verification run:**
+- `DATABASE_URL=postgresql://entropy:entropy_test@localhost:55432/entropy_test .venv/bin/python -m pytest -q` -> 52 passed
+- `.venv/bin/ruff check entropy/ tests/ migrations/` -> pass
+- `.venv/bin/ruff format --check entropy/ tests/ migrations/` -> pass
+- `.venv/bin/pyright --pythonpath .venv/bin/python entropy/ migrations/` -> 0 errors
+
+**Follow-ups:**
+- Continue with T11 Trial Registry Read Path.
+
+---
+
+## 2026-05-03 — T11 Trial Registry Read Path
+
+**What happened:** Implemented read-only Trial Registry queries by trial ID, family tag, status, and family count.
+
+**Files changed:**
+- `entropy/registry/read.py`
+- `entropy/registry/__init__.py`
+- `tests/unit/test_registry.py`
+- `docs/tasks.md`
+- `docs/CODEX_PROMPT.md`
+- `docs/EVIDENCE_INDEX.md`
+- `docs/IMPLEMENTATION_JOURNAL.md`
+
+**Verification run:**
+- `DATABASE_URL=postgresql://entropy:entropy_test@localhost:55432/entropy_test .venv/bin/python -m pytest -q` -> 57 passed
+- `.venv/bin/ruff check entropy/ tests/ migrations/` -> pass
+- `.venv/bin/ruff format --check entropy/ tests/ migrations/` -> pass
+- `.venv/bin/pyright --pythonpath .venv/bin/python entropy/ migrations/` -> 0 errors
+
+**Follow-ups:**
+- Phase 4 is complete; run phase-boundary review before T12.
+
+---
+
+## 2026-05-03 — Phase 4 Boundary Review
+
+**What happened:** Ran a scoped phase-boundary strategy, architecture, and consolidated review after T09-T11 completion.
+
+**Artifacts written:**
+- `docs/audit/STRATEGY_NOTE.md`
+- `docs/audit/ARCH_REPORT.md`
+- `docs/audit/REVIEW_REPORT.md`
+- `docs/audit/PHASE4_REVIEW.md`
+- `docs/audit/AUDIT_INDEX.md`
+- `docs/CODEX_PROMPT.md`
+- `docs/EVIDENCE_INDEX.md`
+
+**Review result:**
+- Proceed to T12.
+- No new P0, P1, or P2 findings.
+- D-010 remains active for formula-bearing tasks T15, T21, T22, and T23.
+
+---
+
+## 2026-05-03 — T12 Data Ingestion Interface
+
+**What happened:** Implemented the DataProvider abstract interface, provider health status, provider registry, and data ingestion error hierarchy.
+
+**Files changed:**
+- `entropy/data/provider.py`
+- `entropy/data/__init__.py`
+- `tests/unit/test_data_quality.py`
+- `docs/tasks.md`
+- `docs/CODEX_PROMPT.md`
+- `docs/EVIDENCE_INDEX.md`
+- `docs/IMPLEMENTATION_JOURNAL.md`
+
+**Verification run:**
+- `env -u DATABASE_URL .venv/bin/python -m pytest -q` -> 52 passed, 10 skipped
+- `.venv/bin/ruff check entropy/ tests/ migrations/` -> pass
+- `.venv/bin/ruff format --check entropy/ tests/ migrations/` -> pass
+- `.venv/bin/pyright --pythonpath .venv/bin/python entropy/ migrations/` -> 0 errors
+
+**Follow-ups:**
+- Continue with T13 Local Fixture Adapter + Parquet Store.
+
+## 2026-05-03 — Phase 5 Boundary Review
+
+**What happened:** Ran a scoped phase-boundary strategy, architecture, and consolidated review after T12-T14 completion.
+
+**Artifacts written:**
+- `docs/audit/STRATEGY_NOTE.md`
+- `docs/audit/ARCH_REPORT.md`
+- `docs/audit/REVIEW_REPORT.md`
+- `docs/audit/PHASE5_REVIEW.md`
+- `docs/audit/AUDIT_INDEX.md`
+- `docs/CODEX_PROMPT.md`
+- `docs/EVIDENCE_INDEX.md`
+
+**Review result:**
+- Phase 5 is complete.
+- No new P0, P1, or P2 findings.
+- T15 is blocked by D-010 until the named protocol-level P0 findings are closed or T15 receives an explicit waiver.
+
+---
+
+## 2026-05-03 — T13 Local Fixture Adapter + Parquet Store
+
+**What happened:** Implemented local CSV/Parquet fixture ingestion, OHLCVBar validation, deterministic Parquet persistence, dataset hashing, and DB provenance recording.
+
+**Schema note:**
+- Added `market_datasets` to the initial migration and ORM model because T13 requires dataset hash plus provenance to be recorded in PostgreSQL.
+
+**Files changed:**
+- `entropy/data/fixture_adapter.py`
+- `entropy/data/__init__.py`
+- `entropy/db/models.py`
+- `migrations/versions/0001_initial_schema.py`
+- `tests/unit/test_data_quality.py`
+- `tests/integration/test_registry_db.py`
+- `docs/tasks.md`
+- `docs/CODEX_PROMPT.md`
+- `docs/EVIDENCE_INDEX.md`
+- `docs/IMPLEMENTATION_JOURNAL.md`
+
+**Verification run:**
+- `DATABASE_URL=postgresql://entropy:entropy_test@localhost:55432/entropy_test .venv/bin/python -m pytest tests/unit/test_data_quality.py tests/integration/test_registry_db.py -q` -> 19 passed
+- `DATABASE_URL=postgresql://entropy:entropy_test@localhost:55432/entropy_test .venv/bin/python -m pytest -q` -> 68 passed
+- `.venv/bin/ruff check entropy/ tests/ migrations/` -> pass
+- `.venv/bin/ruff format --check entropy/ tests/ migrations/` -> pass
+- `.venv/bin/pyright --pythonpath .venv/bin/python entropy/ migrations/` -> 0 errors
+
+**Follow-ups:**
+- Continue with T14 Data Quality Checks.
+
+---
+
+## 2026-05-03 — T14 Data Quality Checks
+
+**What happened:** Implemented timestamp, gap, OHLCV sanity, and aggregate data quality report helpers.
+
+**Files changed:**
+- `entropy/data/quality.py`
+- `entropy/data/__init__.py`
+- `tests/unit/test_data_quality.py`
+- `pyrightconfig.json`
+- `docs/tasks.md`
+- `docs/CODEX_PROMPT.md`
+- `docs/EVIDENCE_INDEX.md`
+- `docs/IMPLEMENTATION_JOURNAL.md`
+
+**Verification run:**
+- `.venv/bin/python -m pytest tests/unit/test_data_quality.py -q` -> 14 passed
+- `DATABASE_URL=postgresql://entropy:entropy_test@localhost:55432/entropy_test .venv/bin/python -m pytest -q` -> 74 passed
+- `.venv/bin/ruff check entropy/ tests/ migrations/` -> pass
+- `.venv/bin/ruff format --check entropy/ tests/ migrations/` -> pass
+- `.venv/bin/pyright entropy/ migrations/` -> 0 errors
+
+**Runtime note:**
+- Recreated `entropy-protocol-test-pg` PostgreSQL 16 Docker container because it was absent when DB tests were rerun.
+
+**Follow-ups:**
+- Run Phase 5 boundary review.
+- T15 remains blocked by D-010 unless explicitly closed or waived.
+
+---
+
+## 2026-05-03 — Local DB Test Baseline Restored
+
+**What happened:** Started local PostgreSQL 16 in Docker for DB-backed development and reran the full test suite with `DATABASE_URL`.
+
+**Runtime:**
+- Container: `entropy-protocol-test-pg`
+- URL: `postgresql://entropy:entropy_test@localhost:55432/entropy_test`
+
+**Verification run:**
+- `DATABASE_URL=postgresql://entropy:entropy_test@localhost:55432/entropy_test .venv/bin/python -m pytest -q` -> 62 passed
+- `.venv/bin/ruff check entropy/ tests/ migrations/` -> pass
+- `.venv/bin/ruff format --check entropy/ tests/ migrations/` -> pass
+- `.venv/bin/pyright --pythonpath .venv/bin/python entropy/ migrations/` -> 0 errors
+
+---
+
+## 2026-05-03 — Performance Profiling Gate Timing
+
+**What happened:** Documented the profiling and ADR plan for language escalation.
+
+**Decision recorded:**
+- D-012: first real language-escalation profiling gate after T20 Walk-Forward Runner.
+- Second profiling gate after formula-bearing numerical tasks are implemented or explicitly waived.
+- Pre-T20 profiling may guide Python optimization only; it does not authorize Rust, Go, C/C++, FFI, native extensions, or another runtime service.
+
+**Files changed:**
+- `docs/ARCHITECTURE.md`
+- `docs/IMPLEMENTATION_CONTRACT.md`
+- `docs/DECISION_LOG.md`
+- `docs/CODEX_PROMPT.md`
+- `docs/IMPLEMENTATION_JOURNAL.md`
+
+**Follow-ups:**
+- Continue with T13 Local Fixture Adapter + Parquet Store.
+
+---
+
+## 2026-05-03 — T15 Waiver Disposition
+
+**What happened:** Reviewed the Phase 5 stop-ship state and recorded that no T15-specific waiver is granted.
+
+**Decision recorded:**
+- D-013: T15 SimBroker Cost Model remains blocked by D-010 until protocol-level P0 findings F-1, F-2, F-4, F-5, F-30, and F-31 are closed by audit evidence.
+
+**Files changed:**
+- `docs/DECISION_LOG.md`
+- `docs/CODEX_PROMPT.md`
+- `docs/tasks.md`
+- `docs/IMPLEMENTATION_JOURNAL.md`
+
+**Verification run:**
+- `rg -n "D-013|T-GOV-2|T15 waiver|T15-specific waiver|D-010" docs/DECISION_LOG.md docs/CODEX_PROMPT.md docs/tasks.md`
+
+**Follow-ups:**
+- Execute T-GOV-2 before implementing T15.
+
+**Later update:** D-015 supersedes the T15 blocker scope in this entry. T15 still
+requires audit verification, but only for F-1, F-2, F-4, and F-5. F-30/F-31
+must not be synthetically closed.
+
+---
+
+## 2026-05-03 — T-GOV-2 D-010 Closure Packet Draft
+
+**What happened:** Drafted the D-010 closure packet for the six protocol P0 blockers that prevent T15.
+
+**Artifact written:**
+- `docs/audit/D010_CLOSURE_PACKET.md`
+
+**Important status:**
+- This is a draft decision/evidence packet, not closure evidence.
+- D-010 remains active.
+- T15 remains blocked.
+- F-30 and F-31 are explicitly not closable by documentation alone; they require runtime/audit evidence for telemetry and K-report epoch coverage.
+
+**Files changed:**
+- `docs/audit/D010_CLOSURE_PACKET.md`
+- `docs/EVIDENCE_INDEX.md`
+- `docs/CODEX_PROMPT.md`
+- `docs/IMPLEMENTATION_JOURNAL.md`
+
+**Verification run:**
+- `rg -n "D010 Closure Packet|T-GOV-2 / D-010|D010_CLOSURE_PACKET|T-GOV-2 note" docs/audit/D010_CLOSURE_PACKET.md docs/EVIDENCE_INDEX.md docs/CODEX_PROMPT.md docs/IMPLEMENTATION_JOURNAL.md`
+- `git diff --check -- docs/audit/D010_CLOSURE_PACKET.md docs/EVIDENCE_INDEX.md docs/CODEX_PROMPT.md docs/IMPLEMENTATION_JOURNAL.md`
+
+**Follow-ups:**
+- Spec Owner review of `docs/audit/D010_CLOSURE_PACKET.md`.
+- If approved, patch canonical protocol docs and run the audit pipeline before T15.
+
+---
+
+## 2026-05-03 — D-014 Canonical Protocol Mitigations
+
+**What happened:** Applied the D-010 closure packet to canonical protocol documents after user approval.
+
+**Decision recorded:**
+- D-014: canonical docs now contain mitigations for F-1, F-2, F-4, and F-5, plus evidence contracts for F-30 and F-31.
+
+**Files changed:**
+- `docs/core/PROTOCOL_SPEC.md`
+- `docs/core/CHARTER.md`
+- `docs/core/GLOSSARY.md`
+- `docs/audit_task_registry.md`
+- `docs/audit/D010_CLOSURE_PACKET.md`
+- `docs/DECISION_LOG.md`
+- `docs/CODEX_PROMPT.md`
+- `docs/EVIDENCE_INDEX.md`
+- `docs/IMPLEMENTATION_JOURNAL.md`
+
+**Status:**
+- F-1, F-2, F-4, F-5, F-30, and F-31 remain In Progress in `docs/audit_task_registry.md`; the registry must not move to Mitigated/Closed until audit pipeline evidence permits it.
+- F-30 and F-31 remain evidence-blocked; documentation now defines the evidence contract, but generated telemetry and K-report artifacts still do not exist.
+- D-010 remains active.
+- At D-014 time, T15 remained blocked until audit rerun confirmed closure; D-015
+  later narrowed that T15 blocker scope to F-1/F-2/F-4/F-5 focused verification.
+
+**Verification run:**
+- `rg -n "HL-HB-v1|CI-SR-ACF-v1|P4-RBL-v1|BR_eff_long|rdl_fifo_check|k_report_epoch_presence_check|D-014" docs/core/PROTOCOL_SPEC.md docs/core/CHARTER.md docs/core/GLOSSARY.md docs/audit_task_registry.md docs/DECISION_LOG.md`
+- `git diff --check -- docs/core/PROTOCOL_SPEC.md docs/core/CHARTER.md docs/core/GLOSSARY.md docs/audit_task_registry.md docs/audit/D010_CLOSURE_PACKET.md docs/DECISION_LOG.md docs/CODEX_PROMPT.md docs/EVIDENCE_INDEX.md docs/IMPLEMENTATION_JOURNAL.md`
+
+**Follow-ups:**
+- Run a focused audit verification pass for F-1, F-2, F-4, and F-5.
+- Preserve F-30/F-31 as future hard gates that close only on real generated telemetry/K-report evidence.
+
+---
+
+## 2026-05-03 — D-015 T15 Blocker Scope Reclassification
+
+**What happened:** Recorded user-approved option 2: do not synthesize evidence for
+F-30/F-31 and do not keep T15 blocked on evidence that cannot honestly exist until
+future RDL/K-report events are generated.
+
+**Decision recorded:**
+- D-015: F-30 and F-31 remain In Progress future real-evidence gates.
+- They no longer block T15 because they are not SimBroker cost-model formula blockers.
+- T15 remains blocked until focused audit verifies F-1, F-2, F-4, and F-5.
+- No synthetic evidence may close F-30/F-31.
+
+**Files changed:**
+- `docs/DECISION_LOG.md`
+- `docs/CODEX_PROMPT.md`
+- `docs/tasks.md`
+- `docs/audit/D010_CLOSURE_PACKET.md`
+- `docs/audit_task_registry.md`
+- `docs/EVIDENCE_INDEX.md`
+- `docs/IMPLEMENTATION_JOURNAL.md`
+
+**Status:**
+- Current next task remains T-GOV-2, now focused on audit verification of F-1/F-2/F-4/F-5.
+- F-30/F-31 are future hard gates before RDL promotion telemetry, K-report generation, phase-exit evidence, or code paths that emit those artifacts.
+
+**Follow-ups:**
+- Produce a focused audit review artifact for F-1, F-2, F-4, and F-5.
+- If that review passes, update `docs/CODEX_PROMPT.md` to name T15 as next task.
+
+---
+
+## 2026-05-03 — D-016 Focused D-010 Audit Pass
+
+**What happened:** Completed the focused T15 entry audit for F-1, F-2, F-4, and F-5.
+During review, P4 was tightened with deterministic computational conventions for
+weekly resampling, volatility, percentile rank, and zero-denominator handling.
+
+**Decision recorded:**
+- D-016: focused audit passed for T15 entry.
+- TASK-AF-001/F-1, TASK-AF-002/F-2, TASK-AF-004/F-4, and TASK-AF-005/F-5 are closed.
+- T15 SimBroker Cost Model may proceed, limited to deterministic cost-model formulas and worked-example tests.
+- F-30 and F-31 remain In Progress future real-evidence gates under D-015.
+
+**Files changed:**
+- `docs/audit/D010_FOCUSED_AUDIT_F1_F2_F4_F5.md`
+- `docs/core/PROTOCOL_SPEC.md`
+- `docs/core/CHARTER.md`
+- `docs/core/GLOSSARY.md`
+- `docs/DECISION_LOG.md`
+- `docs/CODEX_PROMPT.md`
+- `docs/tasks.md`
+- `docs/audit_task_registry.md`
+- `docs/EVIDENCE_INDEX.md`
+- `docs/IMPLEMENTATION_JOURNAL.md`
+
+**Verification run:**
+- `rg -n "D-016|D010_FOCUSED_AUDIT|TASK-AF-001|TASK-AF-002|TASK-AF-004|TASK-AF-005|T15: SimBroker Cost Model" docs/`
+- `git diff --check -- docs/audit/D010_FOCUSED_AUDIT_F1_F2_F4_F5.md docs/core/PROTOCOL_SPEC.md docs/core/CHARTER.md docs/core/GLOSSARY.md docs/DECISION_LOG.md docs/CODEX_PROMPT.md docs/tasks.md docs/audit_task_registry.md docs/EVIDENCE_INDEX.md docs/IMPLEMENTATION_JOURNAL.md`
+
+**Follow-ups:**
+- Implement T15 only within its cost-model scope.
+- Do not implement P4, Harvey-Liu, Sharpe CI, IC/BR, RDL, K-report, phase-exit, or fill-engine logic in T15.
+
+---
+
+## 2026-05-03 — T15 SimBroker Cost Model
+
+**What happened:** Implemented the deterministic SimBroker cost model with explicit
+per-fill cost decomposition and focused worked-example tests.
+
+**Scope guard honored:**
+- Implemented only T15 cost-model logic.
+- Did not implement fill-engine behavior, P4, Harvey-Liu, Sharpe CI, IC/BR, RDL,
+  K-report, or phase-exit logic.
+
+**Files changed:**
+- `entropy/simbroker/costs.py`
+- `entropy/simbroker/__init__.py`
+- `tests/unit/test_simbroker.py`
+- `docs/tasks.md`
+- `docs/CODEX_PROMPT.md`
+- `docs/EVIDENCE_INDEX.md`
+- `docs/IMPLEMENTATION_JOURNAL.md`
+
+**Verification run:**
+- `.venv/bin/python -m pytest tests/unit/test_simbroker.py -q` -> 6 passed
+- `.venv/bin/python -m pytest -q` -> 67 passed, 13 skipped without `DATABASE_URL`
+- `.venv/bin/ruff check entropy/ tests/ migrations/` -> pass
+- `.venv/bin/ruff format --check entropy/ tests/ migrations/` -> pass
+- `.venv/bin/pyright entropy/ migrations/` -> 0 errors
+
+**Follow-ups:**
+- Continue with T16 SimBroker Fill Engine.
+- T16 should reuse `CostModelConfig` and `compute_cost`; it should not change T15
+  cost arithmetic except for a direct integration bug.
+
+---
+
+## 2026-05-03 — T16 SimBroker Fill Engine
+
+**What happened:** Implemented the deterministic SimBroker fill engine that converts
+a strategy fill signal plus one OHLCV bar and a `CostModelConfig` into a `FillLog`.
+
+**Scope guard honored:**
+- Reused T15 `compute_cost` without changing cost arithmetic.
+- Used only the current bar's timestamp/high/low for fill processing.
+- Did not implement live broker integration, order routing, partial fills, P4,
+  Harvey-Liu, Sharpe CI, IC/BR, RDL, K-report, or phase-exit logic.
+
+**Files changed:**
+- `entropy/simbroker/fills.py`
+- `entropy/simbroker/__init__.py`
+- `entropy/models/registry.py`
+- `entropy/db/models.py`
+- `migrations/versions/0001_initial_schema.py`
+- `tests/unit/test_simbroker.py`
+- `tests/integration/test_registry_db.py`
+- `docs/spec.md`
+- `docs/tasks.md`
+- `docs/CODEX_PROMPT.md`
+- `docs/EVIDENCE_INDEX.md`
+- `docs/IMPLEMENTATION_JOURNAL.md`
+
+**Verification run:**
+- `.venv/bin/python -m pytest tests/unit/test_simbroker.py tests/unit/test_models.py::test_fill_log_cost_fields_nonnegative tests/integration/test_registry_db.py::test_fill_logs_schema -q` -> 13 passed, 1 skipped without `DATABASE_URL`
+- `DATABASE_URL=postgresql://entropy:entropy_test@localhost:55432/entropy_test .venv/bin/python -m pytest tests/integration/test_registry_db.py::test_fill_logs_schema -q` -> 1 passed
+- `DATABASE_URL=postgresql://entropy:entropy_test@localhost:55432/entropy_test .venv/bin/python -m pytest -q` -> 87 passed
+- `.venv/bin/ruff check entropy/ tests/ migrations/` -> pass
+- `.venv/bin/ruff format --check entropy/ tests/ migrations/` -> pass
+- `.venv/bin/pyright entropy/ migrations/` -> 0 errors
+
+**Follow-ups:**
+- Continue with T17 SimBroker Calibration Interface.
+- T17 should not change T15/T16 behavior except for a direct integration bug.
+
+---
+
+## 2026-05-03 — T17 SimBroker Calibration Interface
+
+**What happened:** Implemented the `BidAskProvider` abstract boundary,
+`NoOpBidAskProvider`, and `BidAskQuote` validation as the Phase 0 placeholder
+for future broker calibration.
+
+**Scope guard honored:**
+- No live broker API integration.
+- No order routing, partial fills, cost arithmetic changes, fill-engine behavior
+  changes, P4, Harvey-Liu, Sharpe CI, IC/BR, RDL, K-report, or phase-exit logic.
+
+**Files changed:**
+- `entropy/simbroker/calibration.py`
+- `entropy/simbroker/__init__.py`
+- `tests/unit/test_simbroker.py`
+- `docs/tasks.md`
+- `docs/CODEX_PROMPT.md`
+- `docs/EVIDENCE_INDEX.md`
+- `docs/IMPLEMENTATION_JOURNAL.md`
+
+**Verification run:**
+- `.venv/bin/python -m pytest tests/unit/test_simbroker.py -q` -> 16 passed
+- `DATABASE_URL=postgresql://entropy:entropy_test@localhost:55432/entropy_test .venv/bin/python -m pytest -q` -> 91 passed
+- `.venv/bin/ruff check entropy/ tests/ migrations/` -> pass
+- `.venv/bin/ruff format --check entropy/ tests/ migrations/` -> pass
+- `.venv/bin/pyright entropy/ migrations/` -> 0 errors
+
+**Follow-ups:**
+- Continue with T18 IS/OOS Splitter.
+- T18 should not change T15/T16/T17 behavior except for a direct integration bug.
+
+---
+
+## 2026-05-03 — T18 IS/OOS Splitter
+
+**What happened:** Implemented strict IS/OOS splitting with a configurable
+pre-OOS embargo band and feature metadata leakage validation.
+
+**Scope guard honored:**
+- Implemented only T18 splitter behavior.
+- Did not change T15 cost arithmetic, T16 fill-engine behavior, or T17
+  calibration interface.
+- Did not implement live broker integration, order routing, partial fills, P4,
+  Harvey-Liu, Sharpe CI, IC/BR, RDL, K-report, phase-exit logic, or OOS
+  performance-claim artifacts.
+
+**Formula caveat:**
+- T18 documents and implements the temporary assumption
+  `embargo_bars = N consecutive bars immediately preceding the first OOS bar`.
+- The canonical purge/embargo formula debt remains incomplete and is not closed
+  by this implementation.
+
+**Files changed:**
+- `entropy/walkforward/splitter.py`
+- `entropy/walkforward/__init__.py`
+- `tests/integration/test_walk_forward.py`
+- `docs/tasks.md`
+- `docs/CODEX_PROMPT.md`
+- `docs/EVIDENCE_INDEX.md`
+- `docs/IMPLEMENTATION_JOURNAL.md`
+
+**Verification run:**
+- `.venv/bin/python -m pytest tests/integration/test_walk_forward.py -q` -> 6 passed
+- `DATABASE_URL=postgresql://entropy:entropy_test@localhost:55432/entropy_test .venv/bin/python -m pytest -q` -> 97 passed
+- `.venv/bin/ruff check entropy/ tests/ migrations/` -> pass
+- `.venv/bin/ruff format --check entropy/ tests/ migrations/` -> pass
+- `.venv/bin/pyright entropy/ migrations/` -> 0 errors
+
+**Follow-ups:**
+- Continue with T19 Leakage Detection Checklist.
+- T19 may use injected synthetic violations to test detectors, but it must not
+  close F-30/F-31 or emit real-evidence, K-report, RDL promotion, phase-exit, or
+  OOS performance-claim artifacts.
+
+---
+
+## 2026-05-03 — T19 Leakage Detection Checklist
+
+**What happened:** Implemented the four-check leakage audit with explicit
+callback evidence contracts and a `LeakageReport` carrying PASS/FAIL verdicts,
+descriptions, total check count, and overall status.
+
+**Scope guard honored:**
+- Implemented only T19 leakage checklist behavior.
+- Did not change T15 cost arithmetic, T16 fill-engine behavior, T17 calibration
+  interface, or T18 split semantics.
+- Did not implement P&L attribution, governance state machine, P4, Harvey-Liu,
+  Sharpe CI, IC/BR, RDL, K-report, phase-exit logic, or OOS performance-claim
+  artifacts.
+
+**Evidence caveat:**
+- T19 tests use injected synthetic violations to verify detector behavior.
+- This does not close F-30/F-31 real-evidence gates and does not create real
+  telemetry, K-report, RDL promotion, or phase-exit evidence.
+
+**Files changed:**
+- `entropy/walkforward/leakage.py`
+- `entropy/walkforward/__init__.py`
+- `tests/integration/test_leakage.py`
+- `docs/tasks.md`
+- `docs/CODEX_PROMPT.md`
+- `docs/EVIDENCE_INDEX.md`
+- `docs/IMPLEMENTATION_JOURNAL.md`
+
+**Verification run:**
+- `.venv/bin/python -m pytest tests/integration/test_leakage.py tests/integration/test_walk_forward.py -q` -> 15 passed
+- `DATABASE_URL=postgresql://entropy:entropy_test@localhost:55432/entropy_test .venv/bin/python -m pytest -q` -> 106 passed
+- `.venv/bin/ruff check entropy/ tests/ migrations/` -> pass
+- `.venv/bin/ruff format --check entropy/ tests/ migrations/` -> pass
+- `.venv/bin/pyright entropy/ migrations/` -> 0 errors
+
+**Follow-ups:**
+- Continue with T20 Walk-Forward Runner.
+- T20 must block OOS evaluation until the T19 checklist has run and passed.
+
+---
+
+## 2026-05-03 — T20 Walk-Forward Runner
+
+**What happened:** Implemented the walk-forward runner that applies the T18
+splitter, runs IS strategy computation, invokes the T19 leakage check before any
+OOS evaluation, blocks non-PASS leakage paths, and writes complete `RunRecord`
+metadata to PostgreSQL when a session is supplied.
+
+**Scope guard honored:**
+- Implemented only T20 runner behavior.
+- Did not change T15 cost arithmetic, T16 fill-engine behavior, T17 calibration
+  interface, T18 split semantics, or T19 leakage-check verdict semantics.
+- Did not implement P&L attribution, governance state machine, P4, Harvey-Liu,
+  Sharpe CI, IC/BR, RDL, K-report, phase-exit logic, or OOS performance-claim
+  artifacts.
+
+**Protocol notes:**
+- `run_walk_forward()` requires a `leakage_check` callback and raises
+  `LeakageBlockError` before `strategy.run_oos()` if the check is missing or
+  non-PASS.
+- `IncompleteRunRecordError` is raised before any DB write when required
+  reproducibility fields are missing.
+- D-012's first profiling gate is now reached after T20, but language
+  escalation still requires measured bottleneck evidence, ADR, CI/task updates,
+  and explicit human approval.
+
+**Files changed:**
+- `entropy/walkforward/runner.py`
+- `entropy/walkforward/__init__.py`
+- `tests/integration/test_walk_forward.py`
+- `docs/tasks.md`
+- `docs/CODEX_PROMPT.md`
+- `docs/EVIDENCE_INDEX.md`
+- `docs/IMPLEMENTATION_JOURNAL.md`
+
+**Verification run:**
+- `DATABASE_URL=postgresql://entropy:entropy_test@localhost:55432/entropy_test .venv/bin/python -m pytest tests/integration/test_walk_forward.py tests/integration/test_leakage.py -q` -> 19 passed
+- `DATABASE_URL=postgresql://entropy:entropy_test@localhost:55432/entropy_test .venv/bin/python -m pytest -q` -> 110 passed
+- `.venv/bin/ruff check entropy/ tests/ migrations/` -> pass
+- `.venv/bin/ruff format --check entropy/ tests/ migrations/` -> pass
+- `.venv/bin/pyright entropy/ migrations/` -> 0 errors
+
+**Follow-ups:**
+- Run a scoped Phase 7 boundary review before T21.
+- T21 should not start until T18-T20 review confirms no blocking findings.
+
+---
+
+## 2026-05-03 — Phase 6/7 Deep Audit Review
+
+**What happened:** Performed the requested audit-protocol gap review. Existing
+coverage already included Phase 1 audit artifacts and Phase 2-5 boundary
+reviews, so this session added Phase 6 and Phase 7 review artifacts.
+
+**Review artifacts:**
+- `docs/audit/PHASE6_REVIEW.md`
+- `docs/audit/PHASE7_REVIEW.md`
+- `docs/audit/STRATEGY_NOTE.md`
+- `docs/audit/ARCH_REPORT.md`
+- `docs/audit/REVIEW_REPORT.md`
+- `docs/audit/AUDIT_INDEX.md`
+
+**Remediated finding:**
+- WF-P1-01: T19 returned PASS when detector callbacks were omitted, which could
+  allow T20 to pass a formal leakage gate without detector-backed evidence.
+- Resolution: missing T19 detector callbacks now return FAIL; T20 tests now pass
+  explicit clean detectors and verify failed checks block OOS before
+  `strategy.run_oos()`.
+
+**Verification run:**
+- `DATABASE_URL=postgresql://entropy:entropy_test@localhost:55432/entropy_test .venv/bin/python -m pytest tests/integration/test_leakage.py tests/integration/test_walk_forward.py -q` -> 21 passed
+- `DATABASE_URL=postgresql://entropy:entropy_test@localhost:55432/entropy_test .venv/bin/python -m pytest -q` -> 112 passed
+- `.venv/bin/ruff check entropy/ tests/ migrations/` -> pass
+- `.venv/bin/ruff format --check entropy/ tests/ migrations/` -> pass
+- `.venv/bin/pyright entropy/ migrations/` -> 0 errors
+
+**Follow-ups:**
+- Do not implement T21 directly.
+- Record a T21-specific formula-governance disposition or close D-010 for T21
+  before starting P&L attribution formulas.
+
+---
+
+## 2026-05-03 — D-017 T21 Formula-Governance Disposition
+
+**What happened:** Recorded a T21-specific formula-governance disposition after
+the Phase 7 review stop-shipped direct T21 implementation.
+
+**Decision:**
+- T21 may proceed under the narrow D-017 scope in
+  `docs/audit/T21_FORMULA_GOVERNANCE_DISPOSITION.md`.
+- T21 may implement four-stream attribution, stream (d) exclusion from Net
+  Sharpe, raw point-estimate Net Sharpe over supplied returns, drawdown worked
+  examples, and `PerformanceMetrics` assembly with explicit stub reason code.
+- T21 must not implement Sharpe CI, bootstrap CI, Harvey-Liu, N_eff/K3, IC/BR,
+  P4, K-report, RDL promotion, phase-exit logic, or OOS performance-claim
+  artifacts.
+
+**Related closure:**
+- TASK-AF-022/F-22 is closed for current canonical implementation scope because
+  source-of-truth implementation docs now define Net Sharpe as streams
+  (a)+(b)+(c), excluding stream (d).
+
+**Files changed:**
+- `docs/audit/T21_FORMULA_GOVERNANCE_DISPOSITION.md`
+- `docs/DECISION_LOG.md`
+- `docs/audit_task_registry.md`
+- `docs/tasks.md`
+- `docs/CODEX_PROMPT.md`
+- `docs/EVIDENCE_INDEX.md`
+- `docs/audit/AUDIT_INDEX.md`
+- `docs/IMPLEMENTATION_JOURNAL.md`
+
+**Verification run:**
+- Documentation-only disposition; no code changes in this step.
+- Prior post-remediation baseline remains: 112 passed with PostgreSQL 16 Docker
+  container; ruff and pyright pass locally.
+
+**Follow-ups:**
+- Continue with T21 P&L Attribution Engine under D-017 constraints.
+
+---
+
+## 2026-05-03 — T21 P&L Attribution Engine
+
+**What happened:** Implemented the D-017-bounded P&L attribution engine. The
+engine computes four per-observation streams from realized `FillLog` records,
+enforces Net Sharpe through the `PnLStreams` boundary, generates deterministic
+drawdown records, and assembles `PerformanceMetrics` with unresolved
+statistical fields explicitly stubbed.
+
+**Scope guard honored:**
+- Implemented only four-stream attribution, stream (d) exclusion, raw sample
+  Net Sharpe over supplied active returns, drawdown records, and
+  `PerformanceMetrics` stub assembly.
+- Did not implement Sharpe CI derivation, bootstrap CI, Harvey-Liu, N_eff/K3,
+  IC/BR, P4, K-report, RDL promotion, phase-exit logic, or OOS
+  performance-claim artifacts.
+- `compute_net_sharpe()` requires caller-supplied `confidence_interval_68` and
+  does not derive confidence intervals internally.
+
+**Protocol notes:**
+- `FillLog.borrow_rate` and `FillLog.funding_rate` are treated as realized cost
+  components because SimBroker writes `cost.borrow` and `cost.funding` into
+  those fields.
+- `compute_performance_metrics()` preserves caller-supplied `calmar_ratio`
+  rather than deriving a Calmar formula inside T21.
+- T21 AC-3 was corrected from `+5%` final return to `+8%` because `+5%` does
+  not recover the prior compounded equity peak after `[+1%, +2%, -4%, -3%]`.
+- T22 remains blocked by D-010 until a T22-specific governance disposition or
+  waiver is recorded.
+
+**Files changed:**
+- `entropy/attribution/engine.py`
+- `entropy/attribution/__init__.py`
+- `entropy/models/performance.py`
+- `tests/unit/test_attribution.py`
+- `tests/unit/test_models.py`
+- `docs/tasks.md`
+- `docs/CODEX_PROMPT.md`
+- `docs/EVIDENCE_INDEX.md`
+- `docs/IMPLEMENTATION_JOURNAL.md`
+
+**Verification run:**
+- `.venv/bin/python -m pytest tests/unit/test_models.py::test_pnl_streams_net_sharpe_excludes_stream_d tests/unit/test_attribution.py -q` -> 6 passed
+- `DATABASE_URL=postgresql://entropy:entropy_test@localhost:55432/entropy_test .venv/bin/python -m pytest -q` -> 117 passed
+- `.venv/bin/ruff check entropy/ tests/ migrations/` -> pass
+- `.venv/bin/ruff format --check entropy/ tests/ migrations/` -> pass
+- `.venv/bin/pyright entropy/ migrations/` -> 0 errors
+
+**Follow-ups:**
+- Do not implement T22 directly.
+- Record a T22-specific formula/governance disposition, or close the relevant
+  D-010 blockers for P1/P3 state machine rules, before coding T22.

@@ -138,7 +138,7 @@ Context-Refs:
 
 ## Phase 2 — Core Domain Models
 
-### T04: Market Data Models
+### [x] T04: Market Data Models
 
 Owner:      codex
 Phase:      2
@@ -177,7 +177,7 @@ Context-Refs:
 
 ---
 
-## T05: Registry and Run Models
+## [x] T05: Registry and Run Models
 
 Owner:      codex
 Phase:      2
@@ -220,7 +220,7 @@ Context-Refs:
 
 ---
 
-## T06: Performance Models
+## [x] T06: Performance Models
 
 Owner:      codex
 Phase:      2
@@ -261,7 +261,7 @@ Context-Refs:
 
 ## Phase 3 — Database Schema + Hashing
 
-### T07: Database Schema + Alembic Migrations
+### [x] T07: Database Schema + Alembic Migrations
 
 Owner:      codex
 Phase:      3
@@ -306,7 +306,7 @@ Context-Refs:
 
 ---
 
-## T08: Deterministic Hashing
+## [x] T08: Deterministic Hashing
 
 Owner:      codex
 Phase:      3
@@ -349,7 +349,7 @@ Context-Refs:
 
 ## Phase 4 — Trial Registry
 
-### T09: Trial Registry Write Path
+### [x] T09: Trial Registry Write Path
 
 Owner:      codex
 Phase:      4
@@ -390,7 +390,7 @@ Context-Refs:
 
 ---
 
-## T10: Experiment Readiness Gate
+## [x] T10: Experiment Readiness Gate
 
 Owner:      codex
 Phase:      4
@@ -431,7 +431,7 @@ Context-Refs:
 
 ---
 
-## T11: Trial Registry Read Path
+## [x] T11: Trial Registry Read Path
 
 Owner:      codex
 Phase:      4
@@ -472,7 +472,7 @@ Context-Refs:
 
 ## Phase 5 — Data Pipeline
 
-### T12: Data Ingestion Interface
+### [x] T12: Data Ingestion Interface
 
 Owner:      codex
 Phase:      5
@@ -514,7 +514,7 @@ Context-Refs:
 
 ---
 
-## T13: Local Fixture Adapter + Parquet Store
+## [x] T13: Local Fixture Adapter + Parquet Store
 
 Owner:      codex
 Phase:      5
@@ -556,7 +556,7 @@ Context-Refs:
 
 ---
 
-## T14: Data Quality Checks
+## [x] T14: Data Quality Checks
 
 Owner:      codex
 Phase:      5
@@ -601,7 +601,7 @@ Context-Refs:
 
 ## Phase 6 — SimBroker
 
-### T15: SimBroker Cost Model
+### [x] T15: SimBroker Cost Model
 
 Owner:      codex
 Phase:      6
@@ -642,7 +642,7 @@ Context-Refs:
 
 ---
 
-## T16: SimBroker Fill Engine
+## [x] T16: SimBroker Fill Engine
 
 Owner:      codex
 Phase:      6
@@ -696,7 +696,7 @@ Context-Refs:
 
 ---
 
-## T17: SimBroker Calibration Interface
+## [x] T17: SimBroker Calibration Interface
 
 Owner:      codex
 Phase:      6
@@ -742,7 +742,7 @@ Context-Refs:
 
 ## Phase 7 — Walk-Forward Harness
 
-### T18: IS/OOS Splitter
+### [x] T18: IS/OOS Splitter
 
 Owner:      codex
 Phase:      7
@@ -800,7 +800,7 @@ Notes: |
 
 ---
 
-## T19: Leakage Detection Checklist
+## [x] T19: Leakage Detection Checklist
 
 Owner:      codex
 Phase:      7
@@ -856,7 +856,7 @@ Context-Refs:
 
 ---
 
-## T20: Walk-Forward Runner
+## [x] T20: Walk-Forward Runner
 
 Owner:      codex
 Phase:      7
@@ -905,12 +905,13 @@ Context-Refs:
 
 ## Phase 8 — P&L Attribution + Governance State Machine
 
-### T21: P&L Attribution Engine
+### [x] T21: P&L Attribution Engine
 
 Owner:      codex
 Phase:      8
 Type:       none
 Depends-On: T05, T06, T16
+Governance-Disposition: D-017 (`docs/audit/T21_FORMULA_GOVERNANCE_DISPOSITION.md`)
 
 Execution-Mode: heavy
 Evidence:
@@ -936,7 +937,7 @@ Acceptance-Criteria:
     description: "compute_net_sharpe(pnl_streams) uses only pnl_streams.stream_a + pnl_streams.stream_b + pnl_streams.stream_c; passing stream_d to the computation raises StreamBoundaryError."
     test: "tests/unit/test_attribution.py::test_net_sharpe_excludes_stream_d"
   - id: AC-3
-    description: "compute_drawdown_records returns a DrawdownRecord for a return sequence [+1%, +2%, -4%, -3%, +5%] where the drawdown peak is at index 1 (cumulative ~3%), trough at index 3 (approximately -6.9% from peak), and recovery at index 4."
+    description: "compute_drawdown_records returns a DrawdownRecord for a return sequence [+1%, +2%, -4%, -3%, +8%] where the drawdown peak is at index 1 (cumulative ~3%), trough at index 3 (approximately -6.9% from peak), and recovery at index 4."
     test: "tests/unit/test_attribution.py::test_drawdown_record_worked_example"
   - id: AC-4
     description: "Net Sharpe computed from [+0.5%, +0.3%, -0.2%, +0.4%, +0.1%] annual returns matches the manually computed value (mean/stdev annualized) within 1e-6 tolerance."
@@ -954,14 +955,22 @@ Context-Refs:
   - docs/core/PROTOCOL_SPEC.md §NN-2
   - docs/EVIDENCE_INDEX.md §Heavy Task Evidence
 
+Notes: |
+  T21 is unblocked only under D-017. Do not implement Sharpe CI, Harvey-Liu,
+  N_eff, IC/BR, P4, K-report, RDL promotion, phase-exit logic, or OOS
+  performance-claim artifacts. If a NetSharpe object is constructed, its
+  confidence interval must be caller/test supplied; T21 must not derive CI
+  internally because T23 owns that statistical helper.
+
 ---
 
-## T22: P1/P3 Governance State Machine
+## [!] T22: P1/P3 Governance State Machine
 
 Owner:      codex
 Phase:      8
 Type:       none
 Depends-On: T05, T07
+Governance-Blocker: D-010 requires explicit T22 disposition or waiver before implementation.
 
 Execution-Mode: heavy
 Evidence:
@@ -1105,7 +1114,7 @@ Context-Refs:
 
 ## Cycle 2 Review Findings — Remediation Tasks
 
-### T-GOV-1: Spec Owner Phase Gate Disposition (ARCH-3 / P1-1)
+### [x] T-GOV-1: Spec Owner Phase Gate Disposition (ARCH-3 / P1-1)
 
 Owner:      human (Spec Owner)
 Phase:      1 (pre-T04 gate)
@@ -1143,7 +1152,58 @@ Context-Refs:
 
 ---
 
-### T-OBS-1: `entropy health` CLI Command (ARCH-1 / CODE-3)
+### [x] T-GOV-2: Focused D-010 Audit Verification
+
+Owner:      human (Spec Owner) + review agents
+Phase:      6 (pre-T15 gate)
+Type:       governance
+Depends-On: T-GOV-1
+Review-Source: D-010 / D-013 / D-014 / D-015 / D-016 / PHASE5_REVIEW Gate Warning
+Progress:    Completed by D-016 and `docs/audit/D010_FOCUSED_AUDIT_F1_F2_F4_F5.md`. F-1/F-2/F-4/F-5 are closed for T15 entry. F-30/F-31 remain In Progress future real-evidence gates and do not block T15.
+
+Objective: |
+  Resolve the remaining T15 stop-ship without falsely closing findings that need
+  future runtime evidence. D-013 denies a T15-specific waiver. D-015 narrows the
+  T15 blocker to focused audit verification of canonical mitigations for formula
+  blockers F-1, F-2, F-4, and F-5. F-30 and F-31 must stay In Progress until real
+  generated RDL telemetry and K-report epoch evidence exists; no synthetic evidence
+  may close them. D-016 records that the focused audit passed. This task is
+  governance/audit work only; it did not add SimBroker cost-model code.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "docs/DECISION_LOG.md contains D-013 and D-015, documenting both the no-waiver decision and the narrowed T15 blocker scope."
+    test: "grep 'D-013' docs/DECISION_LOG.md && grep 'D-015' docs/DECISION_LOG.md"
+  - id: AC-2
+    description: "A focused review artifact verifies or rejects the F-1, F-2, F-4, and F-5 mitigations in PROTOCOL_SPEC.md, CHARTER.md, and GLOSSARY.md."
+    test: "manual audit review; no grep-only closure allowed"
+  - id: AC-3
+    description: "The same review artifact explicitly records that F-30 and F-31 are not closed, are not T15 blockers under D-015, and remain future hard gates requiring real generated evidence."
+    test: "manual audit review; must cite the confirming review artifact"
+  - id: AC-4
+    description: "docs/CODEX_PROMPT.md names T15 as next task only after AC-2 passes for F-1/F-2/F-4/F-5 and AC-3 records F-30/F-31 future-gate status."
+    test: "manual review of docs/CODEX_PROMPT.md and cited audit evidence"
+
+Files:
+  - docs/DECISION_LOG.md
+  - docs/CODEX_PROMPT.md
+  - docs/audit_task_registry.md
+  - docs/audit/REVIEW_REPORT.md or successor review artifact
+  - docs/core/PROTOCOL_SPEC.md
+  - docs/core/CHARTER.md
+  - docs/core/GLOSSARY.md
+  - docs/audit/D010_FOCUSED_AUDIT_F1_F2_F4_F5.md
+
+Context-Refs:
+  - docs/DECISION_LOG.md D-010, D-013, D-014, D-015, D-016
+  - docs/audit/PHASE5_REVIEW.md §Gate Warning
+  - docs/audit/D010_FOCUSED_AUDIT_F1_F2_F4_F5.md
+  - docs/audit_task_registry.md §P0 Findings
+  - docs/IMPLEMENTATION_CONTRACT.md §Review Cycle Integrity
+
+---
+
+### [x] T-OBS-1: `entropy health` CLI Command (ARCH-1 / CODE-3)
 
 Owner:      codex
 Phase:      1 (before Phase 0 exit gate)
@@ -1181,7 +1241,7 @@ Context-Refs:
 
 ---
 
-### T-OBS-2: Unit Tests for `entropy/tracing.py` and `entropy/metrics.py` (CODE-1 / CODE-2)
+### [x] T-OBS-2: Unit Tests for `entropy/tracing.py` and `entropy/metrics.py` (CODE-1 / CODE-2)
 
 Owner:      codex
 Phase:      1 (before Phase 0 exit gate)
@@ -1220,7 +1280,7 @@ Context-Refs:
 
 ---
 
-### T-DB-1: `postgres_connection` Fixture Transaction Rollback (CODE-4)
+### [x] T-DB-1: `postgres_connection` Fixture Transaction Rollback (CODE-4)
 
 Owner:      codex
 Phase:      1 (before T07 integration tests begin)
