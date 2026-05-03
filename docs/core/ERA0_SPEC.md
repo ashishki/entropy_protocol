@@ -4,6 +4,14 @@
 **Addresses:** Audit findings F-1, F-2, F-4
 **Blocks:** Phase 0 exit certification; Phase 1 evaluation
 
+## Authority Status
+
+This document is a proposed specification-hardening package, not an implementation authority.
+It may be used as continuity context for the unresolved protocol-level blockers F-1, F-2, and F-4.
+No formula, threshold, or algorithm in this file is canonical until a named human sponsor approves it
+and the approved content is merged into `docs/core/PROTOCOL_SPEC.md`, `docs/core/GLOSSARY.md`,
+`docs/core/CHARTER.md`, and `docs/core/EVOLUTION.md`.
+
 ---
 
 ## Context

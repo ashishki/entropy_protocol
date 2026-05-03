@@ -1,7 +1,7 @@
 # Entropy Protocol — Glossary
 
-**Version:** 1.2
-**Last updated:** 2026-03-04
+**Version:** 1.4
+**Last updated:** 2026-05-03
 **Purpose:** Reference definitions for developers and AI models. All terms used in PROTOCOL_SPEC.md and CHARTER.md are defined here.
 
 ---
@@ -15,11 +15,17 @@ Net Sharpe = mean(annual returns, active trading book) / stdev(annual returns, a
 Active trading book = streams (a) + (b) + (c) only. Treasury stream (d) excluded.
 Annualized using 252 trading days. 4H bars: 6 bars/day.
 Always reported with 68% confidence interval using canonical method `CI-SR-ACF-v1` (autocorrelation-consistent). CI is mandatory uncertainty disclosure and does not override frozen kill thresholds.
+- `CI-SR-ACF-v1` base approximation: `SE(SR_annual) = sqrt((1 + SR_annual^2 / 2) / T_eff_years)`.
+- `T_eff_years` is computed from bar count after autocorrelation adjustment with preregistered lag `L` and Bartlett weights.
+- At 15 months OOS, a 0.30-Sharpe system has a zero-autocorrelation 68% CI half-width near 0.91, not 0.15-0.20. K1 is a policy screen, not a powered statistical proof at that horizon.
 
 **Deflated Sharpe (Harvey-Liu)**
 Net Sharpe with a haircut applied to account for the number of strategies tested in the trial registry. Mandatory when net Sharpe < 0.40. Reported alongside raw Sharpe in all evaluation outputs.
-- Canonical method ID: `HL-HB-v1`.
+- Canonical method ID: `HL-HB-v1`, a Holm-Bonferroni family-wise error-rate workflow for phase-gate decisions.
 - Trial-count scope (`M_total`): cross-namespace `Main + AT + RDL-*`, counted at submission time in Trial Registry.
+- Inputs: `trial_id`, `family_tag`, `raw_sharpe_annual`, `se_sharpe_annual`, `sample_length`, `M_total`, `return_frequency`, `method_id`, `code_hash`, `policy_hash`.
+- Computation: `z_i = raw_sharpe_annual_i / se_sharpe_annual_i`; `p_i = 1 - Phi(z_i)`; sort p-values ascending within family; `p_holm_j = max_{k<=j} min(1, (M_total-k+1) * p_(k))`; `deflated_sharpe_j = Phi_inverse(1-p_holm_j) * se_sharpe_annual_j`; `haircut_units_j = raw_sharpe_annual_j - deflated_sharpe_j`.
+- Reports show `M_total`, family membership, raw p-value, adjusted p-value, raw Sharpe, deflated Sharpe, and haircut units. Do not floor deflated Sharpe at zero.
 
 **Calmar Ratio**
 ```
@@ -29,13 +35,17 @@ Target ≥ 0.25. Flag if < 0.15 for 2 consecutive quarters.
 
 **IC (Information Coefficient)**
 Rank correlation between a signal's predictions and subsequent realized returns. Used to estimate strategy edge.
-- IC_long: 0.03–0.05 assumed for long-side skills (moderate; not verified until Phase 1)
+- IC_long: 0.03–0.05 planning prior for long-side skills, not gate evidence.
+- IC_long < 0.03 in walk-forward OOS raises `LOW_EDGE_FLAG`.
+- IC_long > 0.05 in walk-forward OOS raises `HIGH_IC_SUSPECT_FLAG`; reports must also show `IC_long_haircuted = IC_long_observed - 0.015`.
 - IC_short: 0.02–0.03 working prior for equity shorts (conservative; never default to IC_long)
 - IC_short > 0.04: treat as suspect; apply 0.015 haircut before reporting
 
 **BR (Breadth)**
 Number of independent bets per year.
-- BR_long ≈ 240/year (5 skills × 2 timeframes × 12 months, approximate)
+- BR_raw_long planning default = `skill_count * timeframe_count * 12`; with 5 skills and 2 timeframes, this is 120/year, not 240/year.
+- BR_eff_long = `BR_raw_long * min(1, N_eff_signal / K_signal)` once the K3 estimator is audit-locked.
+- Until K3 estimator closure, FLAM planning uses conservative placeholder `BR_eff_long = 0.40 * BR_raw_long` and marks the result provisional.
 - BR_short ≈ 60/year (5 short positions/month × 12 months)
 
 **FLAM (Fundamental Law of Active Management)**
@@ -46,9 +56,7 @@ For marginal contribution of short positions to an existing long portfolio:
 ```
 Delta_IR = IC_short × [sqrt(BR_long + BR_short) - sqrt(BR_long)]
 ```
-With IC_short = 0.025, BR_long = 240, BR_short = 60:
-Delta_IR ≈ +0.046 gross. After costs: net delta +0.01–0.05.
-Do NOT use the isolated short-only formula for marginal contribution calculations.
+Use correlation-adjusted `BR_eff_long` where available; otherwise mark FLAM planning provisional. Do NOT use the isolated short-only formula for marginal contribution calculations.
 
 **N_eff (Effective Factor Count)**
 Effective number of independent risk factors in the portfolio. Computed via dimensionality reduction (DR) + correlation clustering.
@@ -145,6 +153,17 @@ Concurrent transition semantics:
 - P1 clear while P3 active resumes paused ramp.
 - P4 updates while P1 active are track-only.
 
+Deterministic P4 protocol:
+- Method ID: `P4-RBL-v1`.
+- Rule-based weekly labeler with no fitted parameters.
+- Inputs: UTC daily OHLCV bars resampled to locked weekly bars.
+- Features: 4-week return, 13-week return, 26-week drawdown, 13-week annualized volatility, trailing 156-week volatility percentile, and 13-week efficiency ratio.
+- No label is valid until 156 completed weekly bars exist; warmup windows are `UNLABELED`.
+- Priority: `stress` first, then `trending`, otherwise `mean_reverting`.
+- Weekly resampling uses `p4_weekly_resample_v1`: `weekday` datasets use complete ISO Monday-Friday weeks; `continuous` datasets use complete ISO Monday-Sunday weeks. Weekly bars use first open, max high, min low, last close, and sum volume.
+- `vol_13w` uses sample standard deviation with `ddof=1`; `vol_pct_156w` uses weak percentile rank `count(x <= current) / count(x)` over computable trailing values in completed weeks `t-155..t`; zero efficiency-ratio denominators map to `eff_13w = 0`.
+- Every label stores `symbol`, `calendar_profile`, `week_close_ts`, `p4_state`, `p4_version`, `p4_param_hash`, `label_generation_ts`, `dataset_hash`, and `p4_weekly_resample_version`.
+
 ---
 
 ## Phase Labels
@@ -204,11 +223,15 @@ Pre-Phase-2 certification query `pre_phase2_rdl_portfolio_reads` must return emp
 - Default ordering: FIFO by Trial Registry submission timestamp.
 - Rate limit: max 3 new `RDL-*` promotions/month into active evaluation.
 - Shock-control pause: if `M_total` grows by >10 in rolling 30 days, pause new promotions until haircut-impact note is logged.
+- Promotion telemetry must log promotion ID, trial ID, family, submission timestamp, promotion timestamp/month, queue ranks, FIFO exception ID, `M_total` before/after, rolling 30-day `M_total` delta, shock-control state, haircut-impact note hash, actor, and policy hash.
+- Required audit checks: `rdl_fifo_check`, `rdl_monthly_cap_check`, `rdl_shock_control_check`.
 
 **Evaluation Epoch ID (Reporting-Only)**
 Tag used in K1-K6 reports to preserve comparability across RBE transitions:
 `evaluation_epoch_id = {phase_id, rbe_step, policy_hash}`.
 This tag does not change frozen kill-window logic or thresholds.
+Every K1-K6 report must include epoch IDs, aggregate metric/sample count, per-epoch slices, policy hash, code hash, dataset hash, and generation timestamp. Mixed-epoch reports must show per-epoch slices before the aggregate metric.
+Required audit checks: `k_report_epoch_presence_check`, `mixed_epoch_slice_check`, `no_epoch_reset_check`.
 
 ---
 

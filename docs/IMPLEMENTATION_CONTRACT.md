@@ -154,6 +154,12 @@ Required before adding any non-Python implementation:
 
 Prohibited without escalation: Rust crates, Go modules, C/C++ sources, FFI bindings, native extension build systems, second runtime services, or package manager/toolchain additions outside the Python stack.
 
+Profiling gate timing:
+
+- The first language-escalation profiling gate is after T20 Walk-Forward Runner, when a representative Phase 0 execution path exists.
+- The second profiling gate is after formula-bearing numerical tasks are implemented or explicitly waived, because those tasks may introduce a different compute profile.
+- Profiling before T20 may guide Python optimization only; it does not authorize another implementation language by itself.
+
 Violation: P1.
 
 ---

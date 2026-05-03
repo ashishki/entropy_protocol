@@ -1,11 +1,14 @@
 # Entropy Protocol — Project Charter
 **Classification:** Confidential — Internal Strategic Document
 **Filename:** `CHARTER.md` (stable; no version in filename — version tracked in header)
-**Version:** 5.1
-**Date:** 2026-03-04
+**Version:** 5.3
+**Date:** 2026-05-03
 **Basis:** v2.0 findings, v3.0 extensions, v4.0 audit (authoritative corrections applied)
 **Supersedes:** `strategic_charter_v5.md` (archived)
 **Next review:** End of Phase 0 (evaluation engine complete)
+
+**v5.2 change summary:** Applied D-010 closure-packet mitigations for formula-bearing implementation blockers: corrected long-side breadth arithmetic, clarified `CI-SR-ACF-v1` interpretation, locked `HL-HB-v1` as the multiplicity control for gates, added IC_long controls, and summarized deterministic `P4-RBL-v1`. No kill threshold or phase-exit threshold was changed.
+**v5.3 change summary:** Clarified deterministic `P4-RBL-v1` computational conventions for weekly resampling, volatility, percentile rank, efficiency-ratio zero handling, and label artifacts. No P4 threshold, kill threshold, phase-exit threshold, or cost-model rule was changed.
 
 ---
 
@@ -25,19 +28,19 @@ Delta_IR = IC_short × [sqrt(BR_long + BR_short) - sqrt(BR_long)]
 ```
 
 **With explicit inputs:**
-- BR_long ≈ 240 bets/year (5 skills × 2 timeframes × 12 months, approximate)
+- BR_long raw prior = 120 bets/year (5 skills × 2 timeframes × 12 months)
 - BR_short ≈ 60 bets/year (5 short positions/month × 12 months)
 - IC_short = 0.02–0.03 (conservative; liquid assets with squeeze noise; v4 Section 4.1 — NOT 0.04 which was the unsupported v3 assumption)
 
 ```
-Delta_IR = 0.025 × [sqrt(300) - sqrt(240)] = 0.025 × 1.83 ≈ +0.046 gross
+Delta_IR = 0.025 × [sqrt(180) - sqrt(120)] = 0.025 × 2.46 ≈ +0.062 gross
 ```
 
 After costs (funding drag, borrow, stop-loss turnover at corrected stop model):
 
 **Corrected net Sharpe delta from short positions: +0.01–0.05**
 
-The v3 lower bound of +0.04 is revised to +0.01. The +0.31 intermediate step is voided. All downstream planning that assumed +0.04 as a floor must be updated.
+The v3 lower bound of +0.04 is revised to +0.01. The +0.31 intermediate step is voided. All downstream planning that assumed +0.04 as a floor must be updated. Any FLAM planning must show raw breadth and correlation-adjusted breadth; unadjusted `BR_long = 240` is void unless later empirical trade-count evidence proves it.
 
 ---
 
@@ -143,6 +146,13 @@ Where:
 - *Costs excluded*: infrastructure costs, LLM/API costs, developer time (tracked separately for K2)
 - *Annualization*: 252 trading days regardless of timeframe. 4H bars use 6 bars/day.
 - *Reporting*: always include 68% confidence interval using canonical method `CI-SR-ACF-v1` (autocorrelation-consistent). CI is mandatory uncertainty disclosure and does not override frozen kill thresholds.
+- *CI interpretation*: at 15 months OOS, a 0.30-Sharpe system has a zero-autocorrelation 68% CI half-width near 0.91, not 0.15–0.20. K1 is a policy screen, not a powered statistical proof at this horizon.
+
+**"Harvey-Liu deflation":**
+Canonical method ID is `HL-HB-v1`, a Holm-Bonferroni family-wise error-rate workflow for phase-gate decisions. Main Track, Acceleration Track, and `RDL-*` trials count in the same family budget at Trial Registry submission time. Reports must include `M_total`, family membership, raw p-value, adjusted p-value, raw Sharpe, deflated Sharpe, and haircut units. DSR-style or BHY/FDR-style values may be reported as secondary diagnostics only.
+
+**"IC_long and breadth controls":**
+IC_long = 0.03–0.05 is a planning prior only, not gate evidence. Observed WFO `IC_long < 0.03` raises `LOW_EDGE_FLAG`; observed WFO `IC_long > 0.05` raises `HIGH_IC_SUSPECT_FLAG` and requires a 0.015 IC haircut view. Planning default `BR_raw_long = skill_count × timeframe_count × 12`, so 5 skills × 2 timeframes × 12 = 120. FLAM reports must also show `BR_eff_long = BR_raw_long × min(1, N_eff_signal / K_signal)` once the K3 estimator is audit-locked; until then they must use conservative placeholder `BR_eff_long = 0.40 × BR_raw_long`.
 
 **"OOS (Out-of-Sample)":**
 Chronologically after the last training/calibration window, with strict enforcement:
@@ -217,6 +227,14 @@ Regime labels applied to historical OOS windows are frozen at evaluation time. A
 For each reported window, store label vintage artifact:
 `{p4_version, p4_param_hash, calibration_end_ts, label_generation_ts, dataset_hash}`.
 
+**Deterministic P4 protocol:**
+Canonical P4 method ID is `P4-RBL-v1`: a rule-based weekly labeler with no fitted parameters. Labels are assigned from UTC daily OHLCV resampled to locked weekly bars, using only data available at or before the weekly close. No label is valid until 156 completed weekly bars exist; warmup windows are `UNLABELED` and do not count toward regime-spanning evidence. The three labels are assigned by priority:
+1. `stress` if 4-week return <= -8%, 26-week drawdown <= -15%, or trailing 13-week volatility percentile >= 80% with 4-week return < -3%.
+2. `trending` if not stress and abs(13-week return) >= 8% and 13-week efficiency ratio >= 0.35.
+3. `mean_reverting` otherwise.
+Weekly resampling uses `p4_weekly_resample_v1`: `weekday` datasets use complete ISO Monday-Friday weeks; `continuous` datasets use complete ISO Monday-Sunday weeks. Weekly bars use first open, max high, min low, last close, and sum volume. `vol_13w` uses sample standard deviation with `ddof=1`; volatility percentile uses weak percentile rank `count(x <= current) / count(x)` over computable trailing values in completed weeks `t-155..t`; zero efficiency-ratio denominators map to `eff_13w = 0`.
+The parameter set is hashed as `p4_param_hash`; `calibration_end_ts = null` because no fitting is performed. Every label artifact includes the calendar profile and `p4_weekly_resample_version`.
+
 ---
 
 ## DELIVERABLE 2: PROJECT STAGES v5 (Main Track)
@@ -254,7 +272,7 @@ For each reported window, store label vintage artifact:
 **Required sample size:**
 - Primary: ≥15 months walk-forward OOS spanning ≥2 distinct regime instances (≥8 weeks each)
 - Secondary: ≥250 completed trades through the evaluation engine for per-trade MAE/MFE analysis
-- Context: at 15 months, report 68% CI via `CI-SR-ACF-v1`. Point estimate remains informative, not final.
+- Context: at 15 months, report 68% CI via `CI-SR-ACF-v1`. Point estimate remains informative, not final; K1 is a policy screen and is not statistically well-powered at this horizon.
 
 **Metrics and thresholds:**
 
@@ -688,6 +706,6 @@ The full Predictive Skill / Tradability Skill / Regime Timing Skill scoring fram
 
 ---
 
-*Document Version: 5.1 | Date: 2026-03-04 | Supersedes: v3.0 (extensions), v4.0 (audit findings incorporated)*
+*Document Version: 5.3 | Date: 2026-05-03 | Supersedes: v3.0 (extensions), v4.0 (audit findings incorporated); v5.2 applies D-010 formula-bearing implementation mitigations; v5.3 applies deterministic P4 computational conventions*
 *Next scheduled review: End of Phase 0 (evaluation engine complete)*
 *Classification: Confidential — Internal Strategic Document*

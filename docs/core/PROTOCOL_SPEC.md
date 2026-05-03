@@ -2,9 +2,9 @@
 **Classification:** Confidential — Internal Strategic Document
 **Filename:** `PROTOCOL_SPEC.md` (stable; no version in filename — version tracked in header)
 **Role:** Engineering specification: rules, thresholds, phase structure, exit criteria
-**Version:** 1.6
-**Date:** 2026-03-23
-**Basis:** `CHARTER.md` v5.1 (strategic constraints) + v4 audit (authoritative corrections applied)
+**Version:** 1.8
+**Date:** 2026-05-03
+**Basis:** `CHARTER.md` v5.3 (strategic constraints) + v4 audit (authoritative corrections applied)
 **Supersedes:** `entropy_protocol_master_spec_v1.md` (archived)
 **Freeze period:** 6 months from issue date, or earlier if a kill criterion fires
 **v1.1 change summary:** Added Growth Layer module (Section E), Growth Layer & Efficiency Metrics (Section J1), Risk Budget Escalation Protocol (Section J2). Surgical updates to Phase 0, 1, 2 monitoring requirements. Section B (Frozen Non-Negotiables), all kill criteria, all phase exit criteria, and all metric thresholds are unchanged.
@@ -13,6 +13,8 @@
 **v1.4 change summary:** Added deterministic RDL Phase-2 promotion queue policy (FIFO, monthly cap, shock-control) and freeze-safe RBE reporting transparency via `evaluation_epoch_id` tags. No kill logic, thresholds, or phase-exit threshold rules were modified.
 **v1.5 change summary:** Added explicit references to the documentation governance layer for research admissibility: Research Firewall, Experiment Readiness Gate, and Hypothesis Families. No Frozen Non-Negotiable, kill criterion, evaluation protocol, risk-escalation rule, or phase-exit threshold was modified.
 **v1.6 change summary:** Added Research Portfolio Monitor (RPM) to the Research Governance Interfaces section (Section E). RPM is a read-only governance dashboard in the Governance Layer. It introduces three governed signal extensions: Class ATT (Attention Signals — human-preregistered conditions evaluated mechanically), Class DM (Derived Metrics — X-of-Y counts and means with mandatory basis counts), and Class SC (Session Comparison — manual point-in-time diff against a single named snapshot). Two new forbidden output classes are defined: F-6 (trend inference) and F-7 (denominator-collapsed ratios). No Frozen Non-Negotiable, kill criterion, evaluation protocol, phase-exit threshold, or risk-escalation rule was modified. The RPM has no write access to the Trial Registry and produces no admissible evidence.
+**v1.7 change summary:** Applied D-010 closure-packet mitigations for formula-bearing implementation blockers: completed `HL-HB-v1` multiplicity workflow, corrected `CI-SR-ACF-v1` interpretation and reporting fields, specified deterministic `P4-RBL-v1`, corrected long-side breadth/IC controls, and added evidence contracts for RDL promotion telemetry and K-report epoch coverage. No kill threshold or phase-exit threshold was changed; F-30/F-31 remain evidence-pending until generated audit artifacts exist.
+**v1.8 change summary:** Clarified deterministic computational conventions for `P4-RBL-v1` weekly resampling, volatility, percentile rank, efficiency-ratio zero handling, and required label artifact fields. No P4 threshold, kill threshold, phase-exit threshold, or cost-model rule was changed.
 
 ---
 
@@ -105,6 +107,14 @@ The Acceleration Track runs in parallel with Phase 0 only. It is paper-only and 
 
 Every signal specification tested must be pre-registered before any data from the evaluation window is examined. Harvey-Liu deflation is mandatory when net Sharpe < 0.40. Deflated Sharpe is reported alongside raw Sharpe. Trial count is visible in the evaluation log at all times.
 
+Canonical method ID: `HL-HB-v1`. This is a Holm-Bonferroni family-wise error-rate workflow for phase-gate decisions. DSR-style or BHY/FDR-style values may be reported as secondary research diagnostics only; they do not decide a phase gate unless separately approved by charter-level review.
+
+Trial-count scope:
+- Main Track, Acceleration Track, and `RDL-*` trials count in the same multiplicity budget.
+- Trials count at Trial Registry submission time, not promotion time.
+- The family is `family_tag` unless the Spec Owner declares a broader gate family before evaluation.
+- Partial or failed runs still count once registered if they inspected evaluation-window data or produced a reportable result.
+
 ### NN-6: Asset-Class-Specific Stop-Loss Parameters
 
 | Asset class | Daily vol range | Hard stop | Expected holds/month/position |
@@ -131,6 +141,20 @@ Net Sharpe = mean(annual returns, active trading book) / stdev(annual returns, a
   - serial-correlation adjustment: autocorrelation-consistent (lag window fixed in preregistration),
   - reporting intent: informational uncertainty bound; CI does not override frozen kill thresholds.
 
+`CI-SR-ACF-v1` base approximation:
+`SE(SR_annual) = sqrt((1 + SR_annual^2 / 2) / T_eff_years)`.
+
+Autocorrelation adjustment:
+1. Compute bar-level return autocorrelations through preregistered lag `L`.
+2. Use Bartlett weights `w_l = 1 - l/(L+1)`.
+3. Estimate effective sample size: `n_eff = n / (1 + 2 * sum_{l=1..L}(w_l * rho_l))`.
+4. Convert to effective years: `T_eff_years = n_eff / annualization_factor`.
+5. Report `CI_68 = raw_sharpe_annual +/- SE(SR_annual)`.
+
+Required CI report fields: return frequency, annualization factor, `n`, `L`, autocorrelation vector or hash, `n_eff`, `T_eff_years`, raw Sharpe, Sharpe SE, CI lower/upper, method ID, and policy hash.
+
+At 15 months OOS, a 0.30 Sharpe system has a zero-autocorrelation 68% CI half-width near 0.91, not 0.15-0.20. K1 remains a policy screen, not a powered statistical proof at this horizon.
+
 ### "OOS (Out-of-Sample)"
 Chronologically after the last training/calibration window, with strict enforcement:
 - Walk-forward test windows do not overlap calibration windows for any parameter
@@ -148,10 +172,34 @@ The improvement in net Sharpe (streams a+b+c) computed on matched observations a
 
 ### "Harvey-Liu Haircut Method (canonical)"
 Method ID: `HL-HB-v1` (Holm-Bonferroni deflation workflow).
-- Inputs: `{raw_sharpe, sample_length, M_total, return_frequency, method_id}`.
+- Inputs: `{trial_id, family_tag, raw_sharpe_annual, se_sharpe_annual, sample_length, M_total, return_frequency, method_id, code_hash, policy_hash}`.
 - `M_total` scope is cross-namespace: `Main + AT + RDL-*`, counted at submission time in Trial Registry.
-- Outputs: `{deflated_sharpe, haircut_units, method_id, code_hash}`.
-- Reporting rule: all phase reports must include raw and deflated values with `M_total`.
+- Computation:
+  1. `z_i = raw_sharpe_annual_i / se_sharpe_annual_i`.
+  2. `p_i = 1 - Phi(z_i)`, where `Phi` is the standard normal CDF.
+  3. Sort p-values ascending within the declared family.
+  4. For sorted rank `j`, `p_holm_j = max_{k<=j} min(1, (M_total - k + 1) * p_(k))`.
+  5. `z_deflated_j = Phi_inverse(1 - p_holm_j)`.
+  6. `deflated_sharpe_j = z_deflated_j * se_sharpe_annual_j`.
+  7. `haircut_units_j = raw_sharpe_annual_j - deflated_sharpe_j`.
+- Outputs: `{deflated_sharpe, haircut_units, p_raw, p_holm, M_total, family_membership, method_id, code_hash, policy_hash}`.
+- Reporting rule: all phase reports must include raw and deflated values with `M_total`. Do not floor deflated Sharpe at zero. If any required family p-value is unavailable, the phase gate cannot claim a valid Harvey-Liu haircut.
+
+### "IC_long and Breadth Controls"
+`IC_long` is a planning prior until verified by walk-forward OOS evidence.
+- Prior range: 0.03-0.05 for planning only; it cannot pass a gate.
+- If observed WFO `IC_long < 0.03`, report `LOW_EDGE_FLAG`.
+- If observed WFO `IC_long > 0.05`, report `HIGH_IC_SUSPECT_FLAG`.
+- While `HIGH_IC_SUSPECT_FLAG` is active, reports must include `IC_long_haircuted = IC_long_observed - 0.015` and show both observed and haircuted FLAM calculations.
+
+Breadth definitions:
+- `K_signal = count(active skill-timeframe streams)`.
+- `BR_raw_long = count(completed independent long-side bets per year)`.
+- Pre-observation planning default: `BR_raw_long_prior = skill_count * timeframe_count * 12`.
+- With 5 skills and 2 timeframes, the default is 120, not 240.
+- Once the canonical K3 estimator is available, `BR_eff_long = BR_raw_long * min(1, N_eff_signal / K_signal)`.
+- Until the K3 estimator is audit-locked, FLAM planning must use conservative placeholder `BR_eff_long = 0.40 * BR_raw_long` and mark the result provisional.
+- FLAM reporting formula: `IR_long_planning = IC_long_used * sqrt(BR_eff_long)`.
 
 ### "K3 Temporal Grammar"
 K3 uses a two-stage clock:
@@ -201,6 +249,56 @@ Four regime-adjacent signals operate on incompatible time horizons and require e
   - if `0.55 < rho_avg <= 0.65` then target gross reduction is 35%;
   - if `rho_avg > 0.65` then target gross reduction is 50%.
 - Ramp rule: linear ramp over 3 business days; ramp state is logged each day.
+
+### Deterministic P4 Protocol (normative)
+Method ID: `P4-RBL-v1`. P4 is a rule-based weekly labeler with no fitted parameters. P4 thresholds are policy constants, not Sharpe-optimized knobs.
+
+Input data:
+- UTC daily OHLCV bars.
+- Weekly bars are built from complete calendar-profile weeks using the locked
+  `p4_weekly_resample_v1` rule.
+- A label at week `t` may use only data with timestamp `<= weekly_close_t`.
+
+Weekly resampling conventions:
+- Each dataset declares `calendar_profile` as `weekday` or `continuous`.
+- `weekday` weeks use ISO Monday-Friday daily bars; `continuous` weeks use ISO
+  Monday-Sunday daily bars. Incomplete weeks are not labelable.
+- `weekly_open` is the first daily open in the week, `weekly_high` is max daily
+  high, `weekly_low` is min daily low, `weekly_close` is the last daily close, and
+  `weekly_volume` is sum daily volume.
+- `week_close_ts` is the timestamp of the last daily bar used by that weekly bar.
+
+Features at week `t`:
+- `r_4w = log(close_t / close_{t-4})`
+- `r_13w = log(close_t / close_{t-13})`
+- `dd_26w = close_t / max(close_{t-25..t}) - 1`
+- `vol_13w = sample_stdev(weekly_log_returns_{t-12..t}, ddof=1) * sqrt(52)`
+- `vol_pct_156w = weak_percentile_rank(current vol_13w within computable
+  vol_13w values from completed weeks t-155..t)`, where
+  `weak_percentile_rank = count(x <= current) / count(x)`.
+- `eff_13w = abs(r_13w) / sum(abs(weekly_log_returns_{t-12..t}))`; if the
+  denominator is zero, `eff_13w = 0`.
+
+Warmup:
+- No P4 label is valid until 156 completed weekly bars exist.
+- Warmup windows are `UNLABELED` and do not count toward regime-spanning evidence.
+
+Priority assignment:
+1. `stress` if any condition is true:
+   - `r_4w <= -0.08`
+   - `dd_26w <= -0.15`
+   - `vol_pct_156w >= 0.80 and r_4w < -0.03`
+2. `trending` if not stress and both conditions are true:
+   - `abs(r_13w) >= 0.08`
+   - `eff_13w >= 0.35`
+3. `mean_reverting` otherwise.
+
+Versioning:
+- The parameter set above is hashed as `p4_param_hash`.
+- `calibration_end_ts = null` because no fitting is performed.
+- Every label stores `{symbol, calendar_profile, week_close_ts, p4_state,
+  p4_version, p4_param_hash, label_generation_ts, dataset_hash,
+  p4_weekly_resample_version}`.
 
 ### Concurrent Transition Semantics (P1/P3/P4)
 Canonical state vector: `{p1_active, p3_active, p3_ramp_progress, p4_state, state_version}`.
@@ -296,6 +394,8 @@ P4 label-vintage artifact is mandatory for every reported window:
   - Rate limit: max 3 new `RDL-*` submissions per calendar month entering active evaluation.
   - Shock-control: if `M_total` increases by more than 10 within any rolling 30-day window, pause new RDL promotions until updated haircut impact is logged.
   - Override path: non-FIFO promotion requires explicit governance note linked to Trial Registry ID.
+- **Promotion telemetry contract:** every RDL promotion event logs `{promotion_event_id, rdl_trial_id, family_tag, trial_registry_submission_ts, promotion_ts, promotion_month, queue_rank_before_promotion, selected_rank, fifo_exception_id, M_total_before, M_total_after, rolling_30d_M_total_delta, shock_control_state, haircut_impact_note_hash, actor, policy_hash}`.
+- **Required RDL audit checks:** `rdl_fifo_check`, `rdl_monthly_cap_check`, and `rdl_shock_control_check`. F-30 cannot close until these checks have generated evidence.
 
 **Research Governance Interfaces**
 - **Research Firewall:** separates RDL discovery activity from the main evaluation protocol. Discovery artifacts are not evidence until formally registered.
@@ -854,6 +954,12 @@ Freeze-safe reporting rule for kill-window transparency:
 - This is a reporting-only tag. It does not reset, pause, or alter frozen kill criteria windows or thresholds.
 - Any report that spans multiple epoch IDs must explicitly show per-epoch metric slices before presenting aggregated values.
 
+K-report evidence contract:
+- Every K1-K6 report includes `{report_id, kill_id, window_start_ts, window_end_ts, evaluation_epoch_ids, aggregate_metric, aggregate_sample_count, per_epoch_slices, policy_hash, code_hash, dataset_hash, generated_at}`.
+- Every per-epoch slice includes `{evaluation_epoch_id, slice_start_ts, slice_end_ts, metric_value, sample_count, policy_hash}`.
+- Required audit checks: `k_report_epoch_presence_check`, `mixed_epoch_slice_check`, and `no_epoch_reset_check`.
+- F-31 cannot close until generated K-report evidence demonstrates epoch presence and mixed-epoch slices.
+
 Rollback is automatic and non-negotiable when stop conditions trigger. A rolled-back step cannot be re-activated for a minimum of 3 calendar months from the rollback date, regardless of subsequent metric recovery.
 
 ---
@@ -1032,10 +1138,12 @@ End of Phase 0 (evaluation engine and SimBroker complete).
 
 ---
 
-*Document Version: 1.4 | Base: 2026-03-02 | v1.1 update: 2026-03-02 | v1.2 update: 2026-03-04 | v1.3 update: 2026-03-04 | v1.4 update: 2026-03-04*
+*Document Version: 1.8 | Base: 2026-03-02 | v1.1 update: 2026-03-02 | v1.2 update: 2026-03-04 | v1.3 update: 2026-03-04 | v1.4 update: 2026-03-04 | v1.5 update: 2026-03-04 | v1.6 update: 2026-03-23 | v1.7 update: 2026-05-03 | v1.8 update: 2026-05-03*
 *Supersedes: Strategic Architecture Review v2, v3, v4; Strategic Charter v5 (all replaced by this document as reader entry point)*
 *Classification: Confidential — Internal Strategic Document*
 *Freeze expires: 2026-09-02 or at first kill criterion event*
 *v1.1 additions: Growth Layer (E), Growth Metrics (J1), RBE Protocol (J2), Phase 0/1/2 monitoring updates. Section B unchanged.*
 *v1.3 clarifications: deterministic P3/P4/K3 governance, RDL boundary matrix + attestation, GE-2/GE-3 bright-line, and RBE review packet schema. Frozen sections unchanged.*
 *v1.4 clarifications: deterministic RDL promotion queue policy and reporting-only epoch tags for RBE transparency. Frozen logic unchanged.*
+*v1.7 clarifications: D-010 formula-bearing implementation mitigations for HL-HB-v1, CI-SR-ACF-v1, P4-RBL-v1, IC_long/BR_eff, RDL promotion telemetry, and K-report epoch coverage. Frozen thresholds unchanged.*
+*v1.8 clarifications: deterministic P4-RBL-v1 computational conventions for weekly resampling, volatility, percentile rank, zero efficiency denominators, and label artifact fields. Frozen thresholds unchanged.*

@@ -89,7 +89,7 @@ SimBroker is a deterministic execution simulation engine. Given a strategy signa
 1. The cost model computes the total fill cost as the sum of: fixed commission + percentage commission + slippage (linear model) + square-root market impact; given the same inputs, the output is identical across any number of invocations.
 2. Given a worked example with known parameters (commission=0.08%, slippage=0.02%, impact=0.02%, fill price within bar range), the computed total cost matches the expected value within floating-point tolerance.
 3. The fill engine rejects a fill where the proposed fill price is outside the bar's [low, high] range; the fill is constrained to the bar boundary and a FillLog is produced with `constrained=True`.
-4. The fill engine produces a FillLog entry for every accepted fill; the FillLog includes: timestamp, symbol, side, quantity, fill_price, commission, slippage, market_impact, borrow_rate, funding_rate, total_cost.
+4. The fill engine produces a FillLog entry for every accepted fill; the FillLog includes: timestamp, symbol, side, quantity, fill_price, commission, slippage, market_impact, borrow_rate, funding_rate, total_cost, constrained.
 5. Given the same signal, OHLCV bar, and cost model configuration, the fill engine produces byte-identical FillLog output on two separate invocations (determinism test).
 6. The borrow/funding rate hooks accept a rate of zero (no borrow/funding) and a positive rate; both produce valid FillLog entries with the correct cost component.
 7. The BidAskProvider stub implements the abstract interface; its no-op mock returns None for all methods and passes all unit tests.
