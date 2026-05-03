@@ -17,8 +17,8 @@ on:
 # LOG_LEVEL is set to WARNING to suppress info-level noise in CI output.
 env:
   DATABASE_URL: postgresql://entropy:entropy_test@localhost:5432/entropy_test
-  ENTROPY_DATA_DIR: /tmp/entropy_test_data
-  ENTROPY_REGISTRY_DIR: /tmp/entropy_test_registry
+  ENTROPY_DATA_DIR: /tmp/entropy_data
+  ENTROPY_REGISTRY_DIR: /tmp/entropy_registry
   LOG_LEVEL: WARNING
 
 jobs:
@@ -83,5 +83,5 @@ jobs:
       # Creates temp directories for test data and registry artifacts.
       - name: Run tests
         run: |
-          mkdir -p /tmp/entropy_test_data /tmp/entropy_test_registry
-          pytest tests/ -q --tb=short
+          mkdir -p /tmp/entropy_data /tmp/entropy_registry
+          python3 -m pytest tests/ -q --tb=short
