@@ -3808,3 +3808,110 @@ skill stubs, and mechanics-only synthetic benchmark.
 - `.venv/bin/ruff check entropy tests` -> passed.
 - `.venv/bin/pyright --pythonpath .venv/bin/python entropy tests/unit/test_phase1b_baseline_surface.py tests/unit/test_phase1b_baseline_readiness.py` -> 0 errors.
 - `.venv/bin/pytest -q` -> 232 passed, 20 skipped.
+
+---
+
+## 2026-05-05 — P1B-HUMAN-001 / Phase 1C Plan
+
+**What happened:** Closed the Phase 1B code block at planning level and opened
+Phase 1C as an explicit evaluation-readiness preflight block before any more
+code work.
+
+**Artifacts updated:**
+- `docs/tasks.md`
+- `docs/CODEX_PROMPT.md`
+- `docs/DECISION_LOG.md`
+- `docs/EVIDENCE_INDEX.md`
+- `docs/audit/AUDIT_INDEX.md`
+- `docs/audit/README.md`
+- `docs/audit/POST_PHASE1A_OPERATIONS_PLAN.md`
+- `docs/README.md`
+- `docs/IMPLEMENTATION_JOURNAL.md`
+
+**Result:**
+- D-047 records `Phase 1C — Evaluation Readiness Preflight`.
+- Phase 1C task graph is ordered as contract, checklist model, holdout/claim
+  guard, no-claim readiness payload, then human closure review.
+- Phase 1C remains preflight/no-claim only and does not approve evaluation,
+  trading, validation/holdout reads, live feeds, Growth/RDL/RBE activation,
+  runtime escalation, OOS/performance claims, production labels, or
+  capital-ready labels.
+- Next task: P1C-001 Evaluation Readiness Contract.
+
+**Verification run:**
+- Documentation-only planning update.
+
+---
+
+## 2026-05-05 — P1C-001..P1C-004 Evaluation Readiness Preflight
+
+**What happened:** Implemented the Phase 1C preflight code block after the
+planning gate: readiness contract, metadata checklist, holdout/claim guard, and
+deterministic no-claim readiness payload/hash.
+
+**Artifacts updated:**
+- `entropy/baseline/__init__.py`
+- `entropy/baseline/readiness.py`
+- `tests/unit/test_phase1c_readiness.py`
+- `docs/tasks.md`
+- `docs/DECISION_LOG.md`
+- `docs/EVIDENCE_INDEX.md`
+- `docs/CODEX_PROMPT.md`
+- `docs/audit/AUDIT_INDEX.md`
+- `docs/audit/README.md`
+- `docs/audit/POST_PHASE1A_OPERATIONS_PLAN.md`
+- `docs/README.md`
+- `docs/IMPLEMENTATION_JOURNAL.md`
+
+**Result:**
+- D-048 records `PHASE1C-EVALUATION-READINESS-CONTRACT-v1`,
+  `PHASE1C-PREFLIGHT-CHECKLIST-v1`, `PHASE1C-HOLDOUT-CLAIM-GUARD-v1`, and
+  `PHASE1C-NO-CLAIM-READINESS-PAYLOAD-v1`.
+- Readiness contract records required Phase 1A/1B metadata and denied
+  validation/holdout splits without reading market data.
+- Preflight checklist returns `READY_FOR_HUMAN_REVIEW` or `BLOCKED` over
+  metadata-only prerequisites.
+- Guard rejects validation/holdout access, OOS/performance labels, live/broker
+  requests, Growth/RDL/RBE activation, runtime escalation, Phase 1 evaluation
+  requests, and holdout unlock requests.
+- No-claim payload/hash is deterministic and explicitly not phase-gate
+  evidence.
+- Next task: P1C-HUMAN-001 Phase 1C Closure Review.
+
+**Verification run:**
+- `.venv/bin/pytest tests/unit/test_phase1c_readiness.py -q` -> 9 passed.
+- `.venv/bin/pytest tests/unit/test_phase1a_freeze.py tests/unit/test_phase1a_scaffold.py tests/unit/test_phase1a_registration.py tests/unit/test_phase1a_baseline.py tests/unit/test_phase1a_scaffold_probe.py tests/unit/test_phase1b_baseline_surface.py tests/unit/test_phase1b_baseline_readiness.py tests/unit/test_phase1c_readiness.py -q` -> 49 passed.
+- `.venv/bin/ruff check entropy tests` -> passed.
+- `.venv/bin/pyright --pythonpath .venv/bin/python entropy tests/unit/test_phase1c_readiness.py` -> 0 errors.
+- `.venv/bin/pytest -q` -> 241 passed, 20 skipped.
+
+---
+
+## 2026-05-05 — P1C-HUMAN-001 / Phase 1D Plan
+
+**What happened:** Recorded Spec Owner approval to close the Phase 1C preflight
+block and opened Phase 1D implementation planning as the next bounded block.
+
+**Artifacts updated:**
+- `docs/tasks.md`
+- `docs/CODEX_PROMPT.md`
+- `docs/DECISION_LOG.md`
+- `docs/EVIDENCE_INDEX.md`
+- `docs/audit/AUDIT_INDEX.md`
+- `docs/audit/README.md`
+- `docs/audit/POST_PHASE1A_OPERATIONS_PLAN.md`
+- `docs/README.md`
+- `docs/IMPLEMENTATION_JOURNAL.md`
+
+**Result:**
+- D-049 records `Phase 1D — Bounded Long-Only Baseline Implementation
+  Planning`.
+- Phase 1D starts with `P1D-001 Long-Only Implementation Contract`.
+- Executable baseline logic remains blocked until a separate approval after the
+  implementation contract.
+- Phase 1 evaluation/trading, validation/holdout reads, live feeds,
+  Growth/RDL/RBE activation, runtime escalation, OOS/performance claims,
+  production labels, and capital-ready labels remain blocked.
+
+**Verification run:**
+- Documentation-only closure/planning update.

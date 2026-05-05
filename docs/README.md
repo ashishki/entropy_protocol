@@ -132,14 +132,14 @@ semantics.
 
 ## Current Phase
 
-**Current work:** P1B-HUMAN-001 Phase 1B Code Closure Review.
+**Current work:** P1D-001 Long-Only Implementation Contract.
 
-**Next task:** review the completed Phase 1B readiness code block before
-opening any next bounded block.
+**Next task:** define the bounded long-only implementation contract before any
+transition from schema-only stubs to executable baseline logic.
 
-**Approved scope:** Phase 1B readiness/code closure only. This is part of the
-Phase 1 workstream, but no Phase 1 evaluation/trading step is approved by
-default.
+**Approved scope:** Phase 1D implementation planning only. This is part of the
+Phase 1 workstream, but no executable baseline logic or Phase 1
+evaluation/trading step is approved by default.
 
 **Not approved:** full Phase 1 evaluation/trading, live/streaming feeds, broker
 integration, live capital, archive holdout reads, portfolio/backtest evaluation,

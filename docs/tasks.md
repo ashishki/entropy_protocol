@@ -1787,7 +1787,7 @@ Result:
   - Full verification baseline is `232 passed, 20 skipped`.
   - Next task: P1B-HUMAN-001 Phase 1B Code Closure Review.
 
-### [ ] P1B-HUMAN-001: Phase 1B Code Closure Review
+### [x] P1B-HUMAN-001: Phase 1B Code Closure Review
 
 Objective: |
   Spec Owner reviews the completed Phase 1B readiness code block and decides
@@ -1799,6 +1799,245 @@ Boundary:
     portfolio/backtest evaluation, Growth/RDL/RBE activation, runtime
     escalation, OOS/performance claims, production labels, or capital-ready
     labels.
+
+Result:
+  - Phase 1B readiness code block is accepted for closure review.
+  - The next bounded block is `Phase 1C — Evaluation Readiness Preflight`.
+  - Phase 1C is a preflight/gate layer only; it does not approve evaluation,
+    trading, validation/holdout reads, portfolio/backtest evaluation, strategy
+    performance metrics, or OOS/performance claims.
+  - Next task: P1C-001 Evaluation Readiness Contract.
+
+## Phase 1C — Evaluation Readiness Preflight
+
+Phase 1C defines and implements the preflight layer required before any future
+Phase 1 evaluation work. It checks prerequisites and emits no-claim readiness
+facts only. It is not evaluation/trading and does not open validation or holdout
+access.
+
+Boundary:
+  - Preflight contracts, checklist models, gate guards, and no-claim readiness
+    payloads only.
+  - No alpha execution, portfolio allocation, backtest/evaluation, strategy
+    performance metrics, validation/holdout reads, live feeds, Growth/RDL/RBE
+    activation, non-Python runtime/toolchain introduction, OOS/performance
+    claims, production labels, or capital-ready labels.
+
+### [x] P1C-001: Evaluation Readiness Contract
+
+Objective: |
+  Define the machine-readable contract for future evaluation readiness checks:
+  required Phase 1A/1B artifacts, forbidden claim fields, denied split labels,
+  required human gates, and explicit non-evaluation semantics.
+
+Boundary:
+  - Contract/schema only.
+  - No dataset reads, alpha logic, portfolio/backtest evaluation, performance
+    metrics, validation/holdout access, or phase-gate approval.
+
+Files:
+  - entropy/baseline/readiness.py
+  - entropy/baseline/__init__.py
+  - tests/unit/test_phase1c_readiness.py
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Readiness contract records required Phase 1A/1B artifact identifiers and hashes without reading market data."
+    test: "tests/unit/test_phase1c_readiness.py"
+  - id: AC-2
+    description: "Contract explicitly denies validation and holdout split labels."
+    test: "tests/unit/test_phase1c_readiness.py"
+  - id: AC-3
+    description: "Contract forbids alpha, score, weight, PnL, return, Sharpe, drawdown, OOS, performance, and gate-claim fields."
+    test: "tests/unit/test_phase1c_readiness.py"
+
+Result:
+  - Added `PHASE1C-EVALUATION-READINESS-CONTRACT-v1`.
+  - Contract records required Phase 1B surface, feature contract, formation
+    adapter, skill stub, mechanics benchmark, denied splits, forbidden fields,
+    required human gates, and no-claim labels.
+  - Next task: P1C-002 Preflight Checklist Model.
+
+### [x] P1C-002: Preflight Checklist Model
+
+Objective: |
+  Implement a deterministic checklist result model that reports READY/BLOCKED
+  prerequisites for future evaluation without running evaluation.
+
+Boundary:
+  - Checklist evaluation over metadata objects only.
+  - No strategy execution, portfolio allocation, backtest/evaluation,
+    validation/holdout reads, or performance claims.
+
+Files:
+  - entropy/baseline/readiness.py
+  - tests/unit/test_phase1c_readiness.py
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Checklist returns BLOCKED when any required artifact is missing or mismatched."
+    test: "tests/unit/test_phase1c_readiness.py"
+  - id: AC-2
+    description: "Checklist returns READY_FOR_HUMAN_REVIEW only when all metadata prerequisites are present and no forbidden claim is requested."
+    test: "tests/unit/test_phase1c_readiness.py"
+  - id: AC-3
+    description: "Checklist output keeps evaluation_allowed and gate_claim_allowed false."
+    test: "tests/unit/test_phase1c_readiness.py"
+
+Result:
+  - Added `PHASE1C-PREFLIGHT-CHECKLIST-v1`.
+  - Checklist returns `READY_FOR_HUMAN_REVIEW` only when all metadata
+    prerequisites match and request guard passes.
+  - Checklist returns `BLOCKED` with stable reason codes for missing or
+    mismatched artifacts.
+  - Next task: P1C-003 Holdout And Claim Guard.
+
+### [x] P1C-003: Holdout And Claim Guard
+
+Objective: |
+  Implement explicit guard functions that reject validation/holdout access,
+  strategy-performance claims, runtime escalation, and capital-ready labels for
+  Phase 1C requests.
+
+Boundary:
+  - Guard logic only.
+  - No unlocking, reading, evaluating, or approving evaluation/trading.
+
+Files:
+  - entropy/baseline/readiness.py
+  - tests/unit/test_phase1c_readiness.py
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Holdout and validation split requests are denied with stable reason codes."
+    test: "tests/unit/test_phase1c_readiness.py"
+  - id: AC-2
+    description: "OOS/performance, production, capital-ready, live, broker, Growth/RDL/RBE, and runtime-escalation requests are denied."
+    test: "tests/unit/test_phase1c_readiness.py"
+  - id: AC-3
+    description: "Formation-only metadata preflight requests are allowed only as no-claim readiness checks."
+    test: "tests/unit/test_phase1c_readiness.py"
+
+Result:
+  - Added `PHASE1C-HOLDOUT-CLAIM-GUARD-v1`.
+  - Guard denies validation/holdout split labels, forbidden fields, forbidden
+    labels, live/broker requests, Growth/RDL/RBE activation, runtime
+    escalation, Phase 1 evaluation requests, and holdout unlock requests.
+  - Formation-only metadata preflight requests remain allowed as no-claim
+    readiness checks.
+  - Next task: P1C-004 No-Claim Readiness Payload.
+
+### [x] P1C-004: No-Claim Readiness Payload
+
+Objective: |
+  Produce deterministic no-claim readiness payloads and hashes for audit/replay
+  without creating phase-gate evidence or performance reports.
+
+Boundary:
+  - Metadata payload/hash only.
+  - No evaluation report, OOS claim, holdout read, or phase-exit evidence.
+
+Files:
+  - entropy/baseline/readiness.py
+  - tests/unit/test_phase1c_readiness.py
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Payload hash is deterministic across replay."
+    test: "tests/unit/test_phase1c_readiness.py"
+  - id: AC-2
+    description: "Payload includes no-claim labels and excludes performance/gate fields."
+    test: "tests/unit/test_phase1c_readiness.py"
+  - id: AC-3
+    description: "Readiness payload is explicitly marked not phase-gate evidence."
+    test: "tests/unit/test_phase1c_readiness.py"
+
+Result:
+  - Added `PHASE1C-NO-CLAIM-READINESS-PAYLOAD-v1`.
+  - Payload includes deterministic checklist items, required human gates,
+    denied split labels, no-claim labels, and replay hash.
+  - Payload keeps `evaluation_allowed`, `gate_claim_allowed`, and
+    `phase_gate_evidence` false.
+  - Full verification baseline is `241 passed, 20 skipped`.
+  - Next task: P1C-HUMAN-001 Phase 1C Closure Review.
+
+### [x] P1C-HUMAN-001: Phase 1C Closure Review
+
+Objective: |
+  Spec Owner reviews the completed Phase 1C preflight block and decides whether
+  to open any future Phase 1 implementation/evaluation block.
+
+Boundary:
+  - Human/strategic review only.
+  - Does not approve Phase 1 evaluation/trading, holdout reads, live feeds,
+    portfolio/backtest evaluation, Growth/RDL/RBE activation, runtime
+    escalation, OOS/performance claims, production labels, or capital-ready
+    labels.
+
+Result:
+  - Phase 1C preflight code block is accepted for closure review.
+  - The next bounded block is `Phase 1D — Bounded Long-Only Baseline
+    Implementation Planning`.
+  - Phase 1D may plan the transition from schema-only stubs to bounded
+    implementation, but it does not approve evaluation/trading, validation or
+    holdout reads, portfolio/backtest evaluation, strategy performance metrics,
+    live feeds, Growth/RDL/RBE activation, runtime escalation, OOS/performance
+    claims, production labels, or capital-ready labels.
+  - Next task: P1D-001 Long-Only Implementation Contract.
+
+## Phase 1D — Bounded Long-Only Baseline Implementation Planning
+
+Phase 1D prepares the next implementation step after the Phase 1C preflight
+guard. It must define the exact implementation contract before any transition
+from schema-only stubs to executable baseline logic.
+
+Boundary:
+  - Implementation contract, task ordering, acceptance criteria, and explicit
+    gate separation only until the implementation contract is approved.
+  - No Phase 1 evaluation/trading, validation/holdout reads, portfolio/backtest
+    evaluation, strategy performance metrics, live feeds, Growth/RDL/RBE
+    activation, non-Python runtime/toolchain introduction, OOS/performance
+    claims, production labels, or capital-ready labels.
+
+### [ ] P1D-001: Long-Only Implementation Contract
+
+Objective: |
+  Define the exact boundary for any future bounded long-only implementation:
+  allowed formation-only inputs, permitted deterministic transforms, forbidden
+  outputs, no-claim labels, review requirements, and the separate approval gate
+  required before replacing schema-only skill stubs with executable baseline
+  logic.
+
+Boundary:
+  - Contract/planning only.
+  - No executable alpha logic, portfolio allocation, backtest/evaluation,
+    strategy performance metrics, validation/holdout reads, live feeds,
+    Growth/RDL/RBE activation, runtime escalation, OOS/performance claims,
+    production labels, or capital-ready labels.
+
+Files:
+  - docs/tasks.md
+  - docs/CODEX_PROMPT.md
+  - docs/DECISION_LOG.md
+  - docs/EVIDENCE_INDEX.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/audit/README.md
+  - docs/README.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "The implementation contract distinguishes formation-only implementation from evaluation/trading."
+    test: "manual review"
+  - id: AC-2
+    description: "Validation and holdout reads remain blocked."
+    test: "manual review"
+  - id: AC-3
+    description: "Executable baseline logic requires a separate explicit approval before code changes."
+    test: "manual review"
+  - id: AC-4
+    description: "Forbidden output and claim fields remain aligned with Phase 1B/1C guards."
+    test: "manual review"
 
 ---
 

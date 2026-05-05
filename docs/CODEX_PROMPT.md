@@ -1,8 +1,8 @@
 # CODEX_PROMPT.md
 
-Version: 2.8
+Version: 3.1
 Date: 2026-05-05
-Phase: Phase 1B code closure review
+Phase: Phase 1D implementation planning
 
 This is the compact current-state handoff for new Codex sessions. Historical
 handoff state remains available through git history and the implementation
@@ -10,9 +10,9 @@ journal.
 
 ## Current State
 
-- Phase: `Phase 1B Long-Only Baseline Readiness Code Block`
-- Current task: `P1B-HUMAN-001 Phase 1B Code Closure Review`
-- Test baseline: `232 passed, 20 skipped` without `DATABASE_URL`/live services
+- Phase: `Phase 1D Bounded Long-Only Baseline Implementation Planning`
+- Current task: `P1D-001 Long-Only Implementation Contract`
+- Test baseline: `241 passed, 20 skipped` without `DATABASE_URL`/live services
 - Phase 0 archive-only research foundation: closed for archive-only work
 - Live/streaming Phase 0 gate: not approved
 - Full Phase 1 evaluation/trading: not approved
@@ -70,6 +70,16 @@ formula/statistical logic, Growth/RDL/RBE, live data, or claim/report semantics.
 - D-046: Phase 1B readiness code block completed as implemented: formation-only
   input adapter, feature contract, schema-only skill stubs, and mechanics-only
   benchmark.
+- D-047: Phase 1B code closure review selected Phase 1C Evaluation Readiness
+  Preflight as the next bounded block. Phase 1C is preflight/gate code only and
+  does not approve evaluation/trading, validation/holdout reads, performance
+  claims, or capital-ready labels.
+- D-048: Phase 1C preflight code block completed as implemented: readiness
+  contract, metadata checklist, holdout/claim guard, and deterministic no-claim
+  readiness payload/hash.
+- D-049: Phase 1C closure review selected Phase 1D Bounded Long-Only Baseline
+  Implementation Planning as the next block. Phase 1D must define the
+  implementation contract before any executable baseline logic is added.
 
 Decision log: `docs/DECISION_LOG.md`.
 
@@ -106,6 +116,8 @@ Decision log: `docs/DECISION_LOG.md`.
 - Phase 1B readiness code:
   `entropy/baseline/features.py`, `entropy/baseline/formation.py`,
   `entropy/baseline/skills.py`
+- Phase 1C readiness code:
+  `entropy/baseline/readiness.py`
 
 ## Key Hashes
 
@@ -122,7 +134,7 @@ Decision log: `docs/DECISION_LOG.md`.
 
 Allowed:
 
-- perform Phase 1B code closure review and decide the next bounded block;
+- define the Phase 1D long-only implementation contract and task order;
 - keep forbidden claim boundaries intact;
 - update docs only for real status/evidence changes.
 
@@ -141,18 +153,19 @@ Forbidden:
 
 ## Open Findings
 
-- P0/P1 blockers for P1B-HUMAN-001: none known.
+- P0/P1 blockers for P1D-001: executable baseline logic still requires a
+  separate explicit approval after the implementation contract.
 - F-C3-007 is closed for the active audit prompt chain by P1A-011.
 - F-C4-001 is closed by P1A-013 current-state sync.
 
 ## Verification Defaults
 
-For P1B-HUMAN-001, run at minimum:
+For P1D-001, run at minimum:
 
-- review `entropy/baseline/long_only.py`, `features.py`, `formation.py`, and
-  `skills.py`;
-- run targeted Phase 1B tests;
-- run ruff/pyright on touched Python files if code changes;
+- review `entropy/baseline/readiness.py` and related Phase 1B baseline
+  modules;
+- keep this as a documentation/planning task unless explicit implementation
+  approval is granted;
 - `git diff --check`;
 
 ## Maintenance Rule

@@ -12,12 +12,12 @@ phase packets, calibration plans, and prior review material are archived under
 
 ## Current State
 
-**Current work:** P1B-HUMAN-001 Phase 1B Code Closure Review.
+**Current work:** P1D-001 Long-Only Implementation Contract.
 
-**Next task:** review the completed Phase 1B readiness code block before
-opening any next bounded block.
+**Next task:** define the bounded long-only implementation contract before any
+transition from schema-only stubs to executable baseline logic.
 
-**Current verdict:** `PHASE1B_READINESS_SELECTED_NO_GO_FOR_EVALUATION`.
+**Current verdict:** `PHASE1D_PLANNING_SELECTED_NO_GO_FOR_EVALUATION`.
 
 **Still forbidden:** Phase 1 evaluation/trading, live feeds, broker integration,
 archive holdout reads, Growth/RDL/RBE activation, OOS/performance claims,

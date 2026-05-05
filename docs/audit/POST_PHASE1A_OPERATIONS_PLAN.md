@@ -1,17 +1,18 @@
 # Post-Phase-1A Operations Plan
 
 Date: 2026-05-05
-Status: `CODE_BLOCK_COMPLETE_PENDING_HUMAN_REVIEW`
-Decision: `OPEN_PHASE1B_CODE_CLOSURE_REVIEW`
+Status: `PHASE1D_PLANNING_SELECTED`
+Decision: `OPEN_PHASE1D_IMPLEMENTATION_PLANNING`
 
 ## Classification
 
 This is not full Phase 1 evaluation/trading.
 
-The next block is `Phase 1B — Long-Only Baseline Readiness Planning`. It belongs
-to the Phase 1 workstream because it prepares the long-only baseline path, but
-it remains pre-evaluation and non-claim until a separate human gate approves
-Phase 1 implementation/evaluation.
+The current next block is `Phase 1D — Bounded Long-Only Baseline
+Implementation Planning`. It belongs to the Phase 1 workstream because it
+prepares the transition from schema-only stubs to bounded implementation, but
+it remains pre-evaluation and non-claim until separate human gates approve
+implementation and then evaluation.
 
 ## Why This Is Not Full Phase 1 Yet
 
@@ -36,6 +37,9 @@ The current approved work is narrower:
 | P3 | Formation adapter and skill stubs | Prepare formation-only inputs and schema-only outputs | `entropy/baseline/features.py`, `formation.py`, `skills.py` | Alpha execution and validation/holdout reads |
 | P4 | Mechanics benchmark | Record non-claim runtime/memory facts on synthetic formation-safe rows | `PHASE1B-BASELINE-SURFACE-BENCHMARK-v1` | Runtime escalation without ADR |
 | P5 | Human closure gate | Decide whether to open the next bounded block | Explicit approval | Holdout/OOS/live/capital claims |
+| P6 | Evaluation readiness preflight | Implement contract/checklist/guards before any future evaluation | `entropy/baseline/readiness.py` | Evaluation/trading/holdout/performance claims |
+| P7 | Human closure review | Decide whether any future bounded block may open | Explicit approval | Evaluation/trading/holdout/performance claims |
+| P8 | Implementation contract | Define bounded implementation rules before executable baseline logic | `docs/tasks.md` Phase 1D section | Executable logic until approved |
 
 ## Proposed Task Graph
 
@@ -96,6 +100,41 @@ evaluation run:
 - holdout policy;
 - human approval requirement.
 
+### P1C-001 Evaluation Readiness Contract
+
+Objective: implement the machine-readable contract for future evaluation
+readiness checks: required Phase 1A/1B artifacts, forbidden claim fields, denied
+split labels, required human gates, and explicit non-evaluation semantics.
+
+### P1C-002 Preflight Checklist Model
+
+Objective: implement deterministic READY/BLOCKED prerequisite checks over
+metadata objects only, keeping evaluation_allowed and gate_claim_allowed false.
+
+### P1C-003 Holdout And Claim Guard
+
+Objective: reject validation/holdout access, OOS/performance claims,
+production/capital-ready labels, live/broker requests, Growth/RDL/RBE
+activation, and runtime escalation inside Phase 1C.
+
+### P1C-004 No-Claim Readiness Payload
+
+Objective: produce deterministic no-claim readiness payloads and hashes for
+audit/replay without creating phase-gate evidence or performance reports.
+
+### P1C-HUMAN-001 Phase 1C Closure Review
+
+Objective: Spec Owner reviews the completed Phase 1C preflight block and
+decides whether any future Phase 1 implementation/evaluation block may open.
+
+### P1D-001 Long-Only Implementation Contract
+
+Objective: define the boundary for any future bounded long-only implementation:
+allowed formation-only inputs, permitted deterministic transforms, forbidden
+outputs, no-claim labels, review requirements, and the separate approval gate
+required before replacing schema-only skill stubs with executable baseline
+logic.
+
 ### P1B-HUMAN-001 Phase 1B Code Closure Review
 
 Objective: Spec Owner reviews the completed bounded Phase 1B readiness code
@@ -119,4 +158,4 @@ again before opening the next block.
 
 ## Current Recommendation
 
-Open `P1B-HUMAN-001 Phase 1B Code Closure Review` next.
+Open `P1D-001 Long-Only Implementation Contract` next.
