@@ -1,6 +1,6 @@
 # Entropy Protocol — Documentation
 
-**Last updated:** 2026-05-03
+**Last updated:** 2026-05-05
 **Status:** Active
 
 ---
@@ -96,11 +96,13 @@ Conditional destination: **Capital Allocation Framework** (Era 3+, after Phase 1
 
 **For a new developer or AI model context-loading:**
 1. This README (orientation)
-2. `core/GLOSSARY.md` (terminology)
-3. `core/PROTOCOL_SPEC.md` Section B (frozen non-negotiables)
-4. `core/PROTOCOL_SPEC.md` Section C-D (phase structure and exit criteria)
-5. `core/CHARTER.md` Section D (regime signal governance)
-6. `architecture/AI_ENGINEERING_FRAMEWORK.md` (development workflow)
+2. `CODEX_PROMPT.md` (current handoff and next task)
+3. `tasks.md` current task section
+4. Relevant code/tests for the task
+
+Load core protocol documents only when the task changes architecture, phase
+gates, formula/statistical logic, Growth/RDL/RBE, live data, or report/claim
+semantics.
 
 **For a senior architect joining the team:**
 1. This README
@@ -130,11 +132,21 @@ Conditional destination: **Capital Allocation Framework** (Era 3+, after Phase 1
 
 ## Current Phase
 
-**Protocol Phase 0 (active):** Evaluation engine + SimBroker construction.
-**Implementation task phase (active):** Phase 3 — Database Schema + Hashing. T08 is gated by D-010 until protocol-level P0 findings are closed or explicitly waived.
-**Parallel:** Hypothesis Acceleration Track (paper-only).
+**Current work:** Phase 1A archive-only baseline scaffold.
 
-No signal receives an OOS evaluation label until Phase 0 exit criteria are met. See `core/PROTOCOL_SPEC.md` Phase 0 for criteria.
+**Next task:** `P1A-006 Archive Baseline Executable Scaffold`.
+
+**Approved scope:** scaffold and boundary tests only. The scaffold may represent
+the registered baseline specification, enforce long-only/no-leverage validation,
+and prove formation/validation/holdout read-gate behavior.
+
+**Not approved:** full Phase 1 evaluation/trading, live/streaming feeds, broker
+integration, live capital, archive holdout reads, portfolio/backtest evaluation,
+Growth/RDL/RBE activation, OOS/performance claims, production labels, or
+capital-ready labels.
+
+The compact session handoff is `docs/CODEX_PROMPT.md`. Historical handoff state
+is archived under `docs/archive/session_state/`.
 
 ---
 
