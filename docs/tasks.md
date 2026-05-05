@@ -19,7 +19,7 @@ T01-T24 are complete as the implementation foundation baseline. The formal Phase
 ### [x] P0.5-001: Phase 0 Exit Criteria Gap Register
 
 Artifacts:
-  - docs/audit/PHASE0_EXIT_GAP_REGISTER.md
+  - docs/audit/archive/phase0/PHASE0_EXIT_GAP_REGISTER.md
 
 Result:
   - Each canonical Phase 0 exit criterion is mapped to current implementation
@@ -28,7 +28,7 @@ Result:
 ### [x] P0.5-002: Formula And Evidence Debt Register
 
 Artifacts:
-  - docs/audit/FORMULA_EVIDENCE_DEBT.md
+  - docs/audit/archive/p0_5/FORMULA_EVIDENCE_DEBT.md
 
 Result:
   - Formula/evidence surfaces are ranked by gate, claims, pre-Phase-1, and
@@ -37,8 +37,8 @@ Result:
 ### [x] P0.5-003: Sharpe CI And Harvey-Liu Review Packets
 
 Artifacts:
-  - docs/audit/SHARPE_CI_REVIEW.md
-  - docs/audit/HARVEY_LIU_REVIEW.md
+  - docs/audit/archive/p0_5/SHARPE_CI_REVIEW.md
+  - docs/audit/archive/p0_5/HARVEY_LIU_REVIEW.md
   - docs/DECISION_LOG.md D-022
 
 Result:
@@ -48,7 +48,7 @@ Result:
 ### [x] P0.5-004: Purge/Embargo Design Decision
 
 Artifacts:
-  - docs/audit/PURGE_EMBARGO_DECISION.md
+  - docs/audit/archive/p0_5/PURGE_EMBARGO_DECISION.md
   - docs/DECISION_LOG.md D-023
 
 Result:
@@ -58,7 +58,7 @@ Result:
 ### [x] P0.5-005: P4 Labeler Gate Decision
 
 Artifacts:
-  - docs/audit/P4_GATE_DECISION.md
+  - docs/audit/archive/p0_5/P4_GATE_DECISION.md
   - docs/DECISION_LOG.md D-024
 
 Result:
@@ -68,7 +68,7 @@ Result:
 ### [x] P0.5-006: SimBroker Calibration Evidence Plan
 
 Artifacts:
-  - docs/audit/SIMBROKER_CALIBRATION_PLAN.md
+  - docs/audit/archive/p0_5/SIMBROKER_CALIBRATION_PLAN.md
 
 Result:
   - Future >=100 manually verified bid/ask fill evidence packet is specified.
@@ -77,7 +77,7 @@ Result:
 ### [x] P0.5-007: Data Pipeline Stability Plan
 
 Artifacts:
-  - docs/audit/DATA_STABILITY_PLAN.md
+  - docs/audit/archive/p0_5/DATA_STABILITY_PLAN.md
 
 Result:
   - Future >=90 continuous days monitoring packet is specified.
@@ -98,7 +98,7 @@ Result:
 ### [x] P0.5-009: Phase 0 Gate Packet
 
 Artifacts:
-  - docs/audit/PHASE0_GATE_PACKET.md
+  - docs/audit/archive/phase0/PHASE0_GATE_PACKET.md
   - docs/DECISION_LOG.md future gate decision
 
 Result:
@@ -152,8 +152,8 @@ Result:
 
 Context-Refs:
   - docs/core/PROTOCOL_SPEC.md §Deterministic P4 Protocol
-  - docs/audit/P4_GATE_DECISION.md
-  - docs/audit/PHASE0_GATE_PACKET.md
+  - docs/audit/archive/p0_5/P4_GATE_DECISION.md
+  - docs/audit/archive/phase0/PHASE0_GATE_PACKET.md
 
 ### [x] P0.6-002: P4 Label Artifact Generator
 
@@ -194,7 +194,7 @@ Result:
 
 Objective: |
   Revise `CI-SR-ACF-v1` implementation/report fields according to
-  `docs/audit/SHARPE_CI_REVIEW.md`.
+  `docs/audit/archive/p0_5/SHARPE_CI_REVIEW.md`.
 
 Files:
   - entropy/stats/analysis.py
@@ -210,7 +210,7 @@ Result:
 
 Objective: |
   Implement family-table `HL-HB-v1` workflow according to
-  `docs/audit/HARVEY_LIU_REVIEW.md`.
+  `docs/audit/archive/p0_5/HARVEY_LIU_REVIEW.md`.
 
 Files:
   - entropy/stats/analysis.py
@@ -231,7 +231,7 @@ Result:
 
 Objective: |
   Implement calibration row validation and summary tooling according to
-  `docs/audit/SIMBROKER_CALIBRATION_PLAN.md`; no provider activation.
+  `docs/audit/archive/p0_5/SIMBROKER_CALIBRATION_PLAN.md`; no provider activation.
 
 Files:
   - entropy/simbroker/calibration.py
@@ -251,7 +251,7 @@ Result:
 
 Objective: |
   Implement monitoring row validation and summary tooling according to
-  `docs/audit/DATA_STABILITY_PLAN.md`; no provider activation.
+  `docs/audit/archive/p0_5/DATA_STABILITY_PLAN.md`; no provider activation.
 
 Files:
   - entropy/data/stability.py
@@ -275,7 +275,7 @@ Objective: |
   real SimBroker calibration, P4 coverage, or 90-day data-stability evidence.
 
 Files:
-  - docs/audit/EVIDENCE_COLLECTION_AUTHORIZATION.md
+  - docs/audit/archive/p0_5/EVIDENCE_COLLECTION_AUTHORIZATION.md
 
 Result:
   - Created the authorization packet for P4 label coverage, SimBroker
@@ -289,13 +289,13 @@ Result:
 ### [x] P0.6-HUMAN-001: Evidence Collection Authorization Review
 
 Objective: |
-  Human owner reviews `docs/audit/EVIDENCE_COLLECTION_AUTHORIZATION.md` and
+  Human owner reviews `docs/audit/archive/p0_5/EVIDENCE_COLLECTION_AUTHORIZATION.md` and
   explicitly approves or rejects source/provider access, artifact storage
   boundaries, target universes, and network egress for real evidence collection.
 
 Files:
-  - docs/audit/EVIDENCE_COLLECTION_AUTHORIZATION.md
-  - docs/audit/EVIDENCE_SOURCE_SELECTION.md
+  - docs/audit/archive/p0_5/EVIDENCE_COLLECTION_AUTHORIZATION.md
+  - docs/audit/archive/p0_5/EVIDENCE_SOURCE_SELECTION.md
   - entropy/evidence/source_selection.py
   - entropy/evidence/__init__.py
   - tests/unit/test_source_selection.py
@@ -321,8 +321,8 @@ Objective: |
 Files:
   - entropy/evidence/crypto_universe.py
   - tests/unit/test_crypto_universe.py
-  - docs/audit/CRYPTO_UNIVERSE_SNAPSHOT.md
-  - docs/audit/SOURCE_MANIFEST_BOOTSTRAP.md
+  - docs/audit/archive/p0_6/CRYPTO_UNIVERSE_SNAPSHOT.md
+  - docs/audit/archive/p0_6/SOURCE_MANIFEST_BOOTSTRAP.md
 
 Result:
   - Created `PHASE0-CRYPTO-20-v1` with 20 liquid crypto majors.
@@ -343,7 +343,7 @@ Objective: |
 Files:
   - entropy/evidence/binance_canary.py
   - tests/unit/test_binance_canary.py
-  - docs/audit/BINANCE_P4_CANARY.md
+  - docs/audit/archive/p0_6/BINANCE_P4_CANARY.md
   - artifacts/evidence/binance_p4_canary/BTCUSDT_1d_2024_01/
 
 Result:
@@ -368,8 +368,8 @@ Objective: |
 Files:
   - entropy/evidence/p4_scale_plan.py
   - tests/unit/test_p4_scale_plan.py
-  - docs/audit/P4_COVERAGE_SCALE_PLAN.md
-  - docs/audit/P4_COVERAGE_SCALE_MANIFEST.json
+  - docs/audit/archive/p4/P4_COVERAGE_SCALE_PLAN.md
+  - docs/audit/archive/p4/P4_COVERAGE_SCALE_MANIFEST.json
 
 Result:
   - Created `P4-BINANCE-SCALE-PLAN-v1`.
@@ -389,7 +389,7 @@ Objective: |
 Files:
   - entropy/evidence/p4_batch_collection.py
   - tests/unit/test_p4_batch_collection.py
-  - docs/audit/P4_FIRST_BATCH_COLLECTION.md
+  - docs/audit/archive/p4/P4_FIRST_BATCH_COLLECTION.md
   - artifacts/evidence/p4_binance_scale/batches/batch_001/
 
 Result:
@@ -411,7 +411,7 @@ Objective: |
 Files:
   - entropy/evidence/p4_batch_conversion.py
   - tests/unit/test_p4_batch_conversion.py
-  - docs/audit/P4_FIRST_BATCH_CONVERSION.md
+  - docs/audit/archive/p4/P4_FIRST_BATCH_CONVERSION.md
   - artifacts/evidence/p4_binance_scale/conversions/batch_001/
 
 Result:
@@ -435,7 +435,7 @@ Objective: |
 Files:
   - entropy/evidence/p4_scale_plan.py
   - tests/unit/test_p4_scale_plan.py
-  - docs/audit/P4_BATCH_002_COLLECTION.md
+  - docs/audit/archive/p4/P4_BATCH_002_COLLECTION.md
   - artifacts/evidence/p4_binance_scale/batches/batch_002/
 
 Result:
@@ -459,7 +459,7 @@ Objective: |
 Files:
   - entropy/evidence/p4_batch_conversion.py
   - tests/unit/test_p4_batch_conversion.py
-  - docs/audit/P4_BTCUSDT_FULL_WINDOW_CONVERSION.md
+  - docs/audit/archive/p4/P4_BTCUSDT_FULL_WINDOW_CONVERSION.md
   - artifacts/evidence/p4_binance_scale/conversions/full_windows/BTCUSDT_1d_2023_01_2025_12/
 
 Result:
@@ -482,8 +482,8 @@ Objective: |
   record a charter-level change request before more broad P4 collection.
 
 Files:
-  - docs/audit/P4_COVERAGE_WINDOW_STRATEGY_DECISION.md
-  - docs/audit/PHASE0_GATE_PACKET.md
+  - docs/audit/archive/p4/P4_COVERAGE_WINDOW_STRATEGY_DECISION.md
+  - docs/audit/archive/phase0/PHASE0_GATE_PACKET.md
   - docs/CODEX_PROMPT.md
   - docs/tasks.md
   - docs/EVIDENCE_INDEX.md
@@ -511,7 +511,7 @@ Files:
   - entropy/evidence/p4_history_probe.py
   - entropy/evidence/__init__.py
   - tests/unit/test_p4_history_probe.py
-  - docs/audit/P4_EXTENDED_HISTORY_ELIGIBILITY_PROBE.md
+  - docs/audit/archive/p4/P4_EXTENDED_HISTORY_ELIGIBILITY_PROBE.md
   - artifacts/evidence/p4_binance_scale/history_probe_2020_2025/
   - artifacts/evidence/p4_binance_scale/history_probe_legacy_candidates_2020_2025/
 
@@ -537,8 +537,8 @@ Files:
   - entropy/evidence/crypto_universe.py
   - entropy/evidence/__init__.py
   - tests/unit/test_crypto_universe.py
-  - docs/audit/P4_UNIVERSE_REVISION_DECISION.md
-  - docs/audit/P4_REVISED_CRYPTO_UNIVERSE_SNAPSHOT.md
+  - docs/audit/archive/p4/P4_UNIVERSE_REVISION_DECISION.md
+  - docs/audit/archive/p4/P4_REVISED_CRYPTO_UNIVERSE_SNAPSHOT.md
 
 Result:
   - Decision: create `PHASE0-CRYPTO-P4-20-v2`.
@@ -560,9 +560,9 @@ Files:
   - entropy/evidence/p4_scale_plan.py
   - entropy/evidence/__init__.py
   - tests/unit/test_p4_scale_plan.py
-  - docs/audit/P4_REVISED_SCALE_PLAN_DECISION.md
-  - docs/audit/P4_REVISED_COVERAGE_SCALE_PLAN.md
-  - docs/audit/P4_REVISED_COVERAGE_SCALE_MANIFEST.json
+  - docs/audit/archive/p4/P4_REVISED_SCALE_PLAN_DECISION.md
+  - docs/audit/archive/p4/P4_REVISED_COVERAGE_SCALE_PLAN.md
+  - docs/audit/archive/p4/P4_REVISED_COVERAGE_SCALE_MANIFEST.json
 
 Result:
   - Created `P4-BINANCE-REVISED-SCALE-PLAN-v1`.
@@ -582,7 +582,7 @@ Objective: |
   before conversion or gate claims.
 
 Files:
-  - docs/audit/P4_REVISED_BATCH_001_COLLECTION.md
+  - docs/audit/archive/p4/P4_REVISED_BATCH_001_COLLECTION.md
   - artifacts/evidence/p4_binance_scale/revised_v2/batches/batch_001/
 
 Result:
@@ -600,7 +600,7 @@ Objective: |
   before additional revised batches are collected.
 
 Files:
-  - docs/audit/P4_REVISED_BATCH_001_CONVERSION.md
+  - docs/audit/archive/p4/P4_REVISED_BATCH_001_CONVERSION.md
   - artifacts/evidence/p4_binance_scale/revised_v2/conversions/batch_001/
 
 Result:
@@ -622,7 +622,7 @@ Objective: |
   before conversion or gate claims.
 
 Files:
-  - docs/audit/P4_REVISED_BATCH_002_COLLECTION.md
+  - docs/audit/archive/p4/P4_REVISED_BATCH_002_COLLECTION.md
   - artifacts/evidence/p4_binance_scale/revised_v2/batches/batch_002/
 
 Result:
@@ -640,7 +640,7 @@ Objective: |
   candidate.
 
 Files:
-  - docs/audit/P4_REVISED_FIRST15_COVERAGE_PACKET.md
+  - docs/audit/archive/p4/P4_REVISED_FIRST15_COVERAGE_PACKET.md
   - artifacts/evidence/p4_binance_scale/revised_v2/batches/batch_001/
     through batch_054/
   - artifacts/evidence/p4_binance_scale/revised_v2/conversions/full_windows/
@@ -664,7 +664,7 @@ Objective: |
   boundaries before marking the P4 blocker as closed in the Phase 0 gate packet.
 
 Files:
-  - docs/audit/P4_COVERAGE_PACKET_REVIEW.md
+  - docs/audit/archive/p4/P4_COVERAGE_PACKET_REVIEW.md
   - artifacts/evidence/p4_binance_scale/revised_v2/coverage/first_15_assets_2020_2025/
 
 Result:
@@ -686,11 +686,11 @@ Objective: |
   gate blockers keep Phase 0 at `NOT_APPROVED`.
 
 Files:
-  - docs/audit/PHASE0_GATE_PACKET.md
+  - docs/audit/archive/phase0/PHASE0_GATE_PACKET.md
 
 Result:
   - P4 label coverage is marked closed for evidence based on
-    `docs/audit/P4_COVERAGE_PACKET_REVIEW.md`.
+    `docs/audit/archive/p4/P4_COVERAGE_PACKET_REVIEW.md`.
   - Phase 0 remains `NOT_APPROVED`.
   - Remaining hard blockers include SimBroker calibration, 90-day data
     stability, registered leakage/temporal-shuffling packet, and report/gate
@@ -706,7 +706,7 @@ Objective: |
 Files:
   - entropy/evidence/simbroker_calibration_bootstrap.py
   - tests/unit/test_simbroker_calibration_bootstrap.py
-  - docs/audit/SIMBROKER_CALIBRATION_BOOTSTRAP.md
+  - docs/audit/archive/simbroker/SIMBROKER_CALIBRATION_BOOTSTRAP.md
   - artifacts/evidence/simbroker_calibration/bootstrap_001/
 
 Result:
@@ -729,7 +729,7 @@ Files:
   - entropy/simbroker/calibration.py
   - entropy/simbroker/__init__.py
   - tests/unit/test_simbroker.py
-  - docs/audit/SIMBROKER_CALIBRATION_CANDIDATE_ROW_PLAN.md
+  - docs/audit/archive/simbroker/SIMBROKER_CALIBRATION_CANDIDATE_ROW_PLAN.md
 
 Result:
   - Added `build_calibration_row_from_fill()`.
@@ -749,7 +749,7 @@ Objective: |
   fixtures.
 
 Files:
-  - docs/audit/SIMBROKER_CALIBRATION_DRY_RUN.md
+  - docs/audit/archive/simbroker/SIMBROKER_CALIBRATION_DRY_RUN.md
   - artifacts/evidence/simbroker_calibration/dry_run_001/
 
 Result:
@@ -766,7 +766,7 @@ Objective: |
   monitor snapshot while preserving the >=90 continuous-day elapsed-time gate.
 
 Files:
-  - docs/audit/DATA_STABILITY_BOOTSTRAP.md
+  - docs/audit/archive/data_stability/DATA_STABILITY_BOOTSTRAP.md
   - artifacts/evidence/data_stability/bootstrap_001/
 
 Result:
@@ -788,9 +788,9 @@ Objective: |
 Files:
   - entropy/evidence/data_stability_simulation.py
   - tests/unit/test_data_stability_simulation.py
-  - docs/audit/DATA_STABILITY_SIMULATION.md
-  - docs/audit/DAILY_STABILITY_APPEND_PROCEDURE.md
-  - docs/audit/SIMBROKER_AGENT_ASSISTED_VERIFICATION_DECISION.md
+  - docs/audit/archive/data_stability/DATA_STABILITY_SIMULATION.md
+  - docs/audit/archive/data_stability/DAILY_STABILITY_APPEND_PROCEDURE.md
+  - docs/audit/archive/simbroker/SIMBROKER_AGENT_ASSISTED_VERIFICATION_DECISION.md
   - artifacts/evidence/data_stability/simulation_90d_001/
 
 Result:
@@ -808,8 +808,8 @@ Objective: |
   to assemble the Phase 0 SimBroker calibration evidence packet.
 
 Files:
-  - docs/audit/SIMBROKER_AGENT_ASSISTED_VERIFICATION_DECISION.md
-  - docs/audit/SIMBROKER_AGENT_VERIFIED_CALIBRATION_PACKET.md
+  - docs/audit/archive/simbroker/SIMBROKER_AGENT_ASSISTED_VERIFICATION_DECISION.md
+  - docs/audit/archive/simbroker/SIMBROKER_AGENT_VERIFIED_CALIBRATION_PACKET.md
   - docs/DECISION_LOG.md
   - artifacts/evidence/simbroker_calibration/agent_verified_001/
 
@@ -833,7 +833,7 @@ Files:
   - entropy/evidence/data_stability_live.py
   - entropy/evidence/__init__.py
   - tests/unit/test_data_stability_live.py
-  - docs/audit/DATA_STABILITY_LIVE_APPEND_TOOLING.md
+  - docs/audit/archive/data_stability/DATA_STABILITY_LIVE_APPEND_TOOLING.md
   - artifacts/evidence/data_stability/live_monitor/
 
 Result:
@@ -857,7 +857,7 @@ Files:
   - entropy/walkforward/temporal_shuffle.py
   - entropy/walkforward/__init__.py
   - tests/unit/test_temporal_shuffle.py
-  - docs/audit/REGISTERED_LEAKAGE_GATE_PACKET.md
+  - docs/audit/archive/p0_7/REGISTERED_LEAKAGE_GATE_PACKET.md
   - artifacts/evidence/leakage_gate/REGISTERED_LEAKAGE_GATE_MANIFEST.json
 
 Result:
@@ -876,7 +876,7 @@ Objective: |
   any performance claims.
 
 Files:
-  - docs/audit/STATISTICAL_REPORT_GATE_PACKET.md
+  - docs/audit/archive/p0_7/STATISTICAL_REPORT_GATE_PACKET.md
   - artifacts/evidence/statistical_gate/STATISTICAL_REPORT_GATE_MANIFEST.json
 
 Result:
@@ -896,8 +896,8 @@ Objective: |
   90-day data-stability window.
 
 Files:
-  - docs/audit/PHASE0_GATE_PACKET.md
-  - docs/audit/PHASE0_FINAL_SYNC.md
+  - docs/audit/archive/phase0/PHASE0_GATE_PACKET.md
+  - docs/audit/archive/phase0/PHASE0_FINAL_SYNC.md
 
 Result:
   - Superseded by D-027 archive-only evidence mode.
@@ -914,8 +914,8 @@ Objective: |
 Files:
   - entropy/evidence/data_stability_archive.py
   - tests/unit/test_data_stability_archive.py
-  - docs/audit/ARCHIVE_ONLY_EVIDENCE_MODE_DECISION.md
-  - docs/audit/DATA_STABILITY_ARCHIVE_PACKET.md
+  - docs/audit/archive/p0_7/ARCHIVE_ONLY_EVIDENCE_MODE_DECISION.md
+  - docs/audit/archive/data_stability/DATA_STABILITY_ARCHIVE_PACKET.md
   - artifacts/evidence/data_stability/archive_2020_2025/
 
 Result:
@@ -938,7 +938,7 @@ Objective: |
   roadmap revision before adding new implementation surface.
 
 Files:
-  - docs/audit/ARCHIVE_ONLY_CONTINUATION_DECISION.md
+  - docs/audit/archive/p0_7/ARCHIVE_ONLY_CONTINUATION_DECISION.md
   - docs/DECISION_LOG.md
 
 Result:
@@ -2032,7 +2032,7 @@ Owner:      codex
 Phase:      8
 Type:       none
 Depends-On: T05, T06, T16
-Governance-Disposition: D-017 (`docs/audit/T21_FORMULA_GOVERNANCE_DISPOSITION.md`)
+Governance-Disposition: D-017 (`docs/audit/archive/dispositions/T21_FORMULA_GOVERNANCE_DISPOSITION.md`)
 
 Execution-Mode: heavy
 Evidence:
@@ -2091,7 +2091,7 @@ Owner:      codex
 Phase:      8
 Type:       none
 Depends-On: T05, T07
-Governance-Disposition: D-018 (`docs/audit/T22_GOVERNANCE_DISPOSITION.md`)
+Governance-Disposition: D-018 (`docs/audit/archive/dispositions/T22_GOVERNANCE_DISPOSITION.md`)
 
 Execution-Mode: heavy
 Evidence:
@@ -2160,7 +2160,7 @@ Owner:      codex
 Phase:      9
 Type:       none
 Depends-On: T06
-Governance-Disposition: D-019 (`docs/audit/T23_FORMULA_GOVERNANCE_DISPOSITION.md`)
+Governance-Disposition: D-019 (`docs/audit/archive/dispositions/T23_FORMULA_GOVERNANCE_DISPOSITION.md`)
 
 Objective: |
   Implement statistical analysis stubs in entropy/stats/analysis.py with documented
@@ -2210,7 +2210,7 @@ Owner:      codex
 Phase:      9
 Type:       none
 Depends-On: T21, T19, T09, T11
-Governance-Disposition: D-020 (`docs/audit/T24_EXIT_ARTIFACTS_DISPOSITION.md`)
+Governance-Disposition: D-020 (`docs/audit/archive/dispositions/T24_EXIT_ARTIFACTS_DISPOSITION.md`)
 
 Objective: |
   Implement Phase 0 exit artifact generation in entropy/evidence/artifacts.py:
@@ -2290,7 +2290,7 @@ Files:
 
 Context-Refs:
   - docs/audit/REVIEW_REPORT.md §P1 Issues §P1-1
-  - docs/audit/ARCH_REPORT.md §ARCH-3
+  - docs/audit/archive/legacy/ARCH_REPORT.md §ARCH-3
   - docs/audit/META_ANALYSIS.md §MG-06
 
 ---
@@ -2302,7 +2302,7 @@ Phase:      6 (pre-T15 gate)
 Type:       governance
 Depends-On: T-GOV-1
 Review-Source: D-010 / D-013 / D-014 / D-015 / D-016 / PHASE5_REVIEW Gate Warning
-Progress:    Completed by D-016 and `docs/audit/D010_FOCUSED_AUDIT_F1_F2_F4_F5.md`. F-1/F-2/F-4/F-5 are closed for T15 entry. F-30/F-31 remain In Progress future real-evidence gates and do not block T15.
+Progress:    Completed by D-016 and `docs/audit/archive/dispositions/D010_FOCUSED_AUDIT_F1_F2_F4_F5.md`. F-1/F-2/F-4/F-5 are closed for T15 entry. F-30/F-31 remain In Progress future real-evidence gates and do not block T15.
 
 Objective: |
   Resolve the remaining T15 stop-ship without falsely closing findings that need
@@ -2335,12 +2335,12 @@ Files:
   - docs/core/PROTOCOL_SPEC.md
   - docs/core/CHARTER.md
   - docs/core/GLOSSARY.md
-  - docs/audit/D010_FOCUSED_AUDIT_F1_F2_F4_F5.md
+  - docs/audit/archive/dispositions/D010_FOCUSED_AUDIT_F1_F2_F4_F5.md
 
 Context-Refs:
   - docs/DECISION_LOG.md D-010, D-013, D-014, D-015, D-016
-  - docs/audit/PHASE5_REVIEW.md §Gate Warning
-  - docs/audit/D010_FOCUSED_AUDIT_F1_F2_F4_F5.md
+  - docs/audit/archive/phase_reviews/PHASE5_REVIEW.md §Gate Warning
+  - docs/audit/archive/dispositions/D010_FOCUSED_AUDIT_F1_F2_F4_F5.md
   - docs/audit_task_registry.md §P0 Findings
   - docs/IMPLEMENTATION_CONTRACT.md §Review Cycle Integrity
 

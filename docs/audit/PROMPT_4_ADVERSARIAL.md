@@ -196,7 +196,7 @@ K5 fires if treasury > 60% total return in "any 12-month period." Rolling vs. ca
 
 ### Challenge F — Open Question Resolution Review
 
-Review each open question from `docs/audit/AUDIT_v1.md` (Q1–Q10 minimum) and ARCHITECT_BRIEF.md:
+Review each open question from `docs/audit/archive/legacy/AUDIT_v1.md` (Q1–Q10 minimum) and ARCHITECT_BRIEF.md:
 1. Is the question addressed anywhere in the current spec (PROTOCOL_SPEC.md v1.2)?
 2. If addressed: is the answer complete and formula-level, or partial?
 3. If unresolved: does the question directly block a phase gate decision?

@@ -274,11 +274,14 @@ Entropy_Protocol/
 │   │   ├── CHARTER.md                # Strategic charter
 │   │   └── GLOSSARY.md               # Term definitions
 │   ├── audit/
-│   │   ├── AUDIT_INDEX.md            # Review cycle index
+│   │   ├── README.md                 # Audit loading rules
+│   │   ├── AUDIT_INDEX.md            # Compact current review index
 │   │   ├── PROMPT_0_META.md          # META analyst prompt
-│   │   ├── PROMPT_1_ARCH.md          # Architecture reviewer prompt
-│   │   ├── PROMPT_2_CODE.md          # Code reviewer prompt
-│   │   └── PROMPT_3_CONSOLIDATED.md  # Consolidation agent prompt
+│   │   ├── PROMPT_1_ARCH_REVIEW.md   # Architecture review prompt
+│   │   ├── PROMPT_2_INVARIANTS.md    # Invariant review prompt
+│   │   ├── PROMPT_3_DRIFT_GUARD.md   # Drift guard prompt
+│   │   ├── PROMPT_4_ADVERSARIAL.md   # Adversarial review prompt
+│   │   └── PROMPT_5_CONSOLIDATED.md  # Consolidation prompt
 │   └── prompts/
 │       ├── ORCHESTRATOR.md           # Orchestrator system prompt (stub)
 │       └── PROMPT_S_STRATEGY.md      # Strategy reviewer prompt

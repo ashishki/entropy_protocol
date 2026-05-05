@@ -94,7 +94,7 @@ The data pipeline ingests OHLCV market data, validates quality, and stores versi
 - Real-time streaming ingestion
 - Incremental Parquet append (full write per ingestion in Phase 0)
 - Data lineage graph beyond provenance record in DB
-- Phase 0 90-day stability closure; `docs/audit/DATA_STABILITY_PLAN.md` defines
+- Phase 0 90-day stability closure; `docs/audit/archive/p0_5/DATA_STABILITY_PLAN.md` defines
   the future evidence packet, but no provider is active and no monitoring
   evidence exists yet
 
@@ -123,7 +123,7 @@ SimBroker is a deterministic execution simulation engine. Given a strategy signa
 - Real bid/ask calibration from broker data (stub only in Phase 0)
 - Order routing simulation
 - Partial fills
-- Phase 0 calibration closure; `docs/audit/SIMBROKER_CALIBRATION_PLAN.md`
+- Phase 0 calibration closure; `docs/audit/archive/p0_5/SIMBROKER_CALIBRATION_PLAN.md`
   defines the future >=100-fill evidence packet, but no provider is active and
   no calibration evidence exists yet
 

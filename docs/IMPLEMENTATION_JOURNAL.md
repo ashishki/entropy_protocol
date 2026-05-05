@@ -114,10 +114,10 @@ real-evidence gates and are not closed.
 **What happened:** Ran a scoped phase-boundary strategy, architecture, and consolidated review after T04-T06 completion.
 
 **Artifacts written:**
-- `docs/audit/STRATEGY_NOTE.md`
-- `docs/audit/ARCH_REPORT.md`
+- `docs/audit/archive/legacy/STRATEGY_NOTE.md`
+- `docs/audit/archive/legacy/ARCH_REPORT.md`
 - `docs/audit/REVIEW_REPORT.md`
-- `docs/audit/PHASE2_REVIEW.md`
+- `docs/audit/archive/phase_reviews/PHASE2_REVIEW.md`
 - `docs/audit/AUDIT_INDEX.md`
 - `docs/CODEX_PROMPT.md`
 - `docs/EVIDENCE_INDEX.md`
@@ -300,10 +300,10 @@ real-evidence gates and are not closed.
 **What happened:** Ran a scoped phase-boundary strategy, architecture, and consolidated review after T07-T08 completion.
 
 **Artifacts written:**
-- `docs/audit/STRATEGY_NOTE.md`
-- `docs/audit/ARCH_REPORT.md`
+- `docs/audit/archive/legacy/STRATEGY_NOTE.md`
+- `docs/audit/archive/legacy/ARCH_REPORT.md`
 - `docs/audit/REVIEW_REPORT.md`
-- `docs/audit/PHASE3_REVIEW.md`
+- `docs/audit/archive/phase_reviews/PHASE3_REVIEW.md`
 - `docs/audit/AUDIT_INDEX.md`
 - `docs/CODEX_PROMPT.md`
 - `docs/EVIDENCE_INDEX.md`
@@ -393,10 +393,10 @@ real-evidence gates and are not closed.
 **What happened:** Ran a scoped phase-boundary strategy, architecture, and consolidated review after T09-T11 completion.
 
 **Artifacts written:**
-- `docs/audit/STRATEGY_NOTE.md`
-- `docs/audit/ARCH_REPORT.md`
+- `docs/audit/archive/legacy/STRATEGY_NOTE.md`
+- `docs/audit/archive/legacy/ARCH_REPORT.md`
 - `docs/audit/REVIEW_REPORT.md`
-- `docs/audit/PHASE4_REVIEW.md`
+- `docs/audit/archive/phase_reviews/PHASE4_REVIEW.md`
 - `docs/audit/AUDIT_INDEX.md`
 - `docs/CODEX_PROMPT.md`
 - `docs/EVIDENCE_INDEX.md`
@@ -435,10 +435,10 @@ real-evidence gates and are not closed.
 **What happened:** Ran a scoped phase-boundary strategy, architecture, and consolidated review after T12-T14 completion.
 
 **Artifacts written:**
-- `docs/audit/STRATEGY_NOTE.md`
-- `docs/audit/ARCH_REPORT.md`
+- `docs/audit/archive/legacy/STRATEGY_NOTE.md`
+- `docs/audit/archive/legacy/ARCH_REPORT.md`
 - `docs/audit/REVIEW_REPORT.md`
-- `docs/audit/PHASE5_REVIEW.md`
+- `docs/audit/archive/phase_reviews/PHASE5_REVIEW.md`
 - `docs/audit/AUDIT_INDEX.md`
 - `docs/CODEX_PROMPT.md`
 - `docs/EVIDENCE_INDEX.md`
@@ -578,7 +578,7 @@ must not be synthetically closed.
 **What happened:** Drafted the D-010 closure packet for the six protocol P0 blockers that prevent T15.
 
 **Artifact written:**
-- `docs/audit/D010_CLOSURE_PACKET.md`
+- `docs/audit/archive/dispositions/D010_CLOSURE_PACKET.md`
 
 **Important status:**
 - This is a draft decision/evidence packet, not closure evidence.
@@ -587,17 +587,17 @@ must not be synthetically closed.
 - F-30 and F-31 are explicitly not closable by documentation alone; they require runtime/audit evidence for telemetry and K-report epoch coverage.
 
 **Files changed:**
-- `docs/audit/D010_CLOSURE_PACKET.md`
+- `docs/audit/archive/dispositions/D010_CLOSURE_PACKET.md`
 - `docs/EVIDENCE_INDEX.md`
 - `docs/CODEX_PROMPT.md`
 - `docs/IMPLEMENTATION_JOURNAL.md`
 
 **Verification run:**
-- `rg -n "D010 Closure Packet|T-GOV-2 / D-010|D010_CLOSURE_PACKET|T-GOV-2 note" docs/audit/D010_CLOSURE_PACKET.md docs/EVIDENCE_INDEX.md docs/CODEX_PROMPT.md docs/IMPLEMENTATION_JOURNAL.md`
-- `git diff --check -- docs/audit/D010_CLOSURE_PACKET.md docs/EVIDENCE_INDEX.md docs/CODEX_PROMPT.md docs/IMPLEMENTATION_JOURNAL.md`
+- `rg -n "D010 Closure Packet|T-GOV-2 / D-010|D010_CLOSURE_PACKET|T-GOV-2 note" docs/audit/archive/dispositions/D010_CLOSURE_PACKET.md docs/EVIDENCE_INDEX.md docs/CODEX_PROMPT.md docs/IMPLEMENTATION_JOURNAL.md`
+- `git diff --check -- docs/audit/archive/dispositions/D010_CLOSURE_PACKET.md docs/EVIDENCE_INDEX.md docs/CODEX_PROMPT.md docs/IMPLEMENTATION_JOURNAL.md`
 
 **Follow-ups:**
-- Spec Owner review of `docs/audit/D010_CLOSURE_PACKET.md`.
+- Spec Owner review of `docs/audit/archive/dispositions/D010_CLOSURE_PACKET.md`.
 - If approved, patch canonical protocol docs and run the audit pipeline before T15.
 
 ---
@@ -614,7 +614,7 @@ must not be synthetically closed.
 - `docs/core/CHARTER.md`
 - `docs/core/GLOSSARY.md`
 - `docs/audit_task_registry.md`
-- `docs/audit/D010_CLOSURE_PACKET.md`
+- `docs/audit/archive/dispositions/D010_CLOSURE_PACKET.md`
 - `docs/DECISION_LOG.md`
 - `docs/CODEX_PROMPT.md`
 - `docs/EVIDENCE_INDEX.md`
@@ -629,7 +629,7 @@ must not be synthetically closed.
 
 **Verification run:**
 - `rg -n "HL-HB-v1|CI-SR-ACF-v1|P4-RBL-v1|BR_eff_long|rdl_fifo_check|k_report_epoch_presence_check|D-014" docs/core/PROTOCOL_SPEC.md docs/core/CHARTER.md docs/core/GLOSSARY.md docs/audit_task_registry.md docs/DECISION_LOG.md`
-- `git diff --check -- docs/core/PROTOCOL_SPEC.md docs/core/CHARTER.md docs/core/GLOSSARY.md docs/audit_task_registry.md docs/audit/D010_CLOSURE_PACKET.md docs/DECISION_LOG.md docs/CODEX_PROMPT.md docs/EVIDENCE_INDEX.md docs/IMPLEMENTATION_JOURNAL.md`
+- `git diff --check -- docs/core/PROTOCOL_SPEC.md docs/core/CHARTER.md docs/core/GLOSSARY.md docs/audit_task_registry.md docs/audit/archive/dispositions/D010_CLOSURE_PACKET.md docs/DECISION_LOG.md docs/CODEX_PROMPT.md docs/EVIDENCE_INDEX.md docs/IMPLEMENTATION_JOURNAL.md`
 
 **Follow-ups:**
 - Run a focused audit verification pass for F-1, F-2, F-4, and F-5.
@@ -653,7 +653,7 @@ future RDL/K-report events are generated.
 - `docs/DECISION_LOG.md`
 - `docs/CODEX_PROMPT.md`
 - `docs/tasks.md`
-- `docs/audit/D010_CLOSURE_PACKET.md`
+- `docs/audit/archive/dispositions/D010_CLOSURE_PACKET.md`
 - `docs/audit_task_registry.md`
 - `docs/EVIDENCE_INDEX.md`
 - `docs/IMPLEMENTATION_JOURNAL.md`
@@ -681,7 +681,7 @@ weekly resampling, volatility, percentile rank, and zero-denominator handling.
 - F-30 and F-31 remain In Progress future real-evidence gates under D-015.
 
 **Files changed:**
-- `docs/audit/D010_FOCUSED_AUDIT_F1_F2_F4_F5.md`
+- `docs/audit/archive/dispositions/D010_FOCUSED_AUDIT_F1_F2_F4_F5.md`
 - `docs/core/PROTOCOL_SPEC.md`
 - `docs/core/CHARTER.md`
 - `docs/core/GLOSSARY.md`
@@ -694,7 +694,7 @@ weekly resampling, volatility, percentile rank, and zero-denominator handling.
 
 **Verification run:**
 - `rg -n "D-016|D010_FOCUSED_AUDIT|TASK-AF-001|TASK-AF-002|TASK-AF-004|TASK-AF-005|T15: SimBroker Cost Model" docs/`
-- `git diff --check -- docs/audit/D010_FOCUSED_AUDIT_F1_F2_F4_F5.md docs/core/PROTOCOL_SPEC.md docs/core/CHARTER.md docs/core/GLOSSARY.md docs/DECISION_LOG.md docs/CODEX_PROMPT.md docs/tasks.md docs/audit_task_registry.md docs/EVIDENCE_INDEX.md docs/IMPLEMENTATION_JOURNAL.md`
+- `git diff --check -- docs/audit/archive/dispositions/D010_FOCUSED_AUDIT_F1_F2_F4_F5.md docs/core/PROTOCOL_SPEC.md docs/core/CHARTER.md docs/core/GLOSSARY.md docs/DECISION_LOG.md docs/CODEX_PROMPT.md docs/tasks.md docs/audit_task_registry.md docs/EVIDENCE_INDEX.md docs/IMPLEMENTATION_JOURNAL.md`
 
 **Follow-ups:**
 - Implement T15 only within its cost-model scope.
@@ -945,10 +945,10 @@ coverage already included Phase 1 audit artifacts and Phase 2-5 boundary
 reviews, so this session added Phase 6 and Phase 7 review artifacts.
 
 **Review artifacts:**
-- `docs/audit/PHASE6_REVIEW.md`
-- `docs/audit/PHASE7_REVIEW.md`
-- `docs/audit/STRATEGY_NOTE.md`
-- `docs/audit/ARCH_REPORT.md`
+- `docs/audit/archive/phase_reviews/PHASE6_REVIEW.md`
+- `docs/audit/archive/phase_reviews/PHASE7_REVIEW.md`
+- `docs/audit/archive/legacy/STRATEGY_NOTE.md`
+- `docs/audit/archive/legacy/ARCH_REPORT.md`
 - `docs/audit/REVIEW_REPORT.md`
 - `docs/audit/AUDIT_INDEX.md`
 
@@ -980,7 +980,7 @@ the Phase 7 review stop-shipped direct T21 implementation.
 
 **Decision:**
 - T21 may proceed under the narrow D-017 scope in
-  `docs/audit/T21_FORMULA_GOVERNANCE_DISPOSITION.md`.
+  `docs/audit/archive/dispositions/T21_FORMULA_GOVERNANCE_DISPOSITION.md`.
 - T21 may implement four-stream attribution, stream (d) exclusion from Net
   Sharpe, raw point-estimate Net Sharpe over supplied returns, drawdown worked
   examples, and `PerformanceMetrics` assembly with explicit stub reason code.
@@ -994,7 +994,7 @@ the Phase 7 review stop-shipped direct T21 implementation.
   (a)+(b)+(c), excluding stream (d).
 
 **Files changed:**
-- `docs/audit/T21_FORMULA_GOVERNANCE_DISPOSITION.md`
+- `docs/audit/archive/dispositions/T21_FORMULA_GOVERNANCE_DISPOSITION.md`
 - `docs/DECISION_LOG.md`
 - `docs/audit_task_registry.md`
 - `docs/tasks.md`
@@ -1086,7 +1086,7 @@ hysteresis and cooldown, P3 ramp pause/resume under active P1, and append-only
 - `entropy/governance/state_machine.py`
 - `entropy/governance/__init__.py`
 - `tests/unit/test_governance.py`
-- `docs/audit/T22_GOVERNANCE_DISPOSITION.md`
+- `docs/audit/archive/dispositions/T22_GOVERNANCE_DISPOSITION.md`
 - `docs/DECISION_LOG.md`
 - `docs/tasks.md`
 - `docs/CODEX_PROMPT.md`
@@ -1114,7 +1114,7 @@ The review found no open P0/P1/P2 issues and updated the canonical consolidated
 review report to the Phase 8 state.
 
 **Artifacts written:**
-- `docs/audit/PHASE8_REVIEW.md`
+- `docs/audit/archive/phase_reviews/PHASE8_REVIEW.md`
 - `docs/audit/REVIEW_REPORT.md`
 - `docs/audit/AUDIT_INDEX.md`
 - `docs/EVIDENCE_INDEX.md`
@@ -1156,7 +1156,7 @@ disposition, then implemented provisional statistical helper surfaces for Phase
 - `entropy/stats/analysis.py`
 - `entropy/stats/__init__.py`
 - `tests/unit/test_stats.py`
-- `docs/audit/T23_FORMULA_GOVERNANCE_DISPOSITION.md`
+- `docs/audit/archive/dispositions/T23_FORMULA_GOVERNANCE_DISPOSITION.md`
 - `docs/DECISION_LOG.md`
 - `docs/tasks.md`
 - `docs/CODEX_PROMPT.md`
@@ -1195,7 +1195,7 @@ then implemented deterministic Phase 0 implementation-evidence artifact helpers.
 - `entropy/evidence/artifacts.py`
 - `entropy/evidence/__init__.py`
 - `tests/integration/test_evidence.py`
-- `docs/audit/T24_EXIT_ARTIFACTS_DISPOSITION.md`
+- `docs/audit/archive/dispositions/T24_EXIT_ARTIFACTS_DISPOSITION.md`
 - `docs/DECISION_LOG.md`
 - `docs/tasks.md`
 - `docs/CODEX_PROMPT.md`
@@ -1223,7 +1223,7 @@ T01-T24 implementation now provides, how it fits the project vector, and which
 surfaces remain provisional.
 
 **Artifact written:**
-- `docs/audit/PHASE0_FOUNDATION_REVIEW.md`
+- `docs/audit/archive/phase0/PHASE0_FOUNDATION_REVIEW.md`
 
 **Review result:**
 - Phase 0 implementation foundation is complete.
@@ -1253,8 +1253,8 @@ and Hardening stage before Phase 1 implementation.
 **Artifacts written:**
 - `docs/prompts/POST_PHASE_STRATEGIST.md`
 - `prompts/POST_PHASE_STRATEGIST.md`
-- `docs/audit/POST_PHASE_STRATEGY_REVIEW.md`
-- `docs/audit/NEXT_PHASE_PLAN.md`
+- `docs/audit/archive/phase0/POST_PHASE_STRATEGY_REVIEW.md`
+- `docs/audit/archive/phase0/NEXT_PHASE_PLAN.md`
 
 **Strategy result:**
 - Recommendation: CONDITIONAL_GO for planning/documentation hardening.
@@ -1280,7 +1280,7 @@ post-T24 Phase 0 foundation state.
 **Artifacts updated:**
 - `docs/audit/REVIEW_REPORT.md`
 - `docs/audit/AUDIT_INDEX.md`
-- `docs/audit/NEXT_PHASE_PLAN.md`
+- `docs/audit/archive/phase0/NEXT_PHASE_PLAN.md`
 - `docs/CODEX_PROMPT.md`
 - `docs/IMPLEMENTATION_JOURNAL.md`
 
@@ -1311,9 +1311,9 @@ formal Phase 0 gate `NOT_APPROVED`, and selects Phase 0.5 Foundation Closure and
 Evidence Hardening as the next stage.
 
 **Artifacts updated:**
-- `docs/audit/PHASE0_STRATEGIC_DECISION.md`
+- `docs/audit/archive/phase0/PHASE0_STRATEGIC_DECISION.md`
 - `docs/audit/REVIEW_REPORT.md`
-- `docs/audit/NEXT_PHASE_PLAN.md`
+- `docs/audit/archive/phase0/NEXT_PHASE_PLAN.md`
 - `docs/audit/AUDIT_INDEX.md`
 - `docs/DECISION_LOG.md`
 - `docs/EVIDENCE_INDEX.md`
@@ -1331,7 +1331,7 @@ Evidence Hardening as the next stage.
 - Documentation-only change; no code/test run required.
 
 **Follow-ups:**
-- Create `docs/audit/PHASE0_EXIT_GAP_REGISTER.md`.
+- Create `docs/audit/archive/phase0/PHASE0_EXIT_GAP_REGISTER.md`.
 - Update `docs/EVIDENCE_INDEX.md` with exact missing Phase 0 gate-evidence
   surfaces.
 
@@ -1343,8 +1343,8 @@ Evidence Hardening as the next stage.
 project state to make P0.5-002 the next approved task.
 
 **Artifacts updated:**
-- `docs/audit/PHASE0_EXIT_GAP_REGISTER.md`
-- `docs/audit/NEXT_PHASE_PLAN.md`
+- `docs/audit/archive/phase0/PHASE0_EXIT_GAP_REGISTER.md`
+- `docs/audit/archive/phase0/NEXT_PHASE_PLAN.md`
 - `docs/audit/REVIEW_REPORT.md`
 - `docs/audit/AUDIT_INDEX.md`
 - `docs/EVIDENCE_INDEX.md`
@@ -1365,7 +1365,7 @@ project state to make P0.5-002 the next approved task.
 - Documentation-only change; `git diff --check` passed.
 
 **Follow-ups:**
-- P0.5-002: create `docs/audit/FORMULA_EVIDENCE_DEBT.md`.
+- P0.5-002: create `docs/audit/archive/p0_5/FORMULA_EVIDENCE_DEBT.md`.
 
 ---
 
@@ -1375,9 +1375,9 @@ project state to make P0.5-002 the next approved task.
 the Phase 0.5 plan to make P0.5-003 the next approved task.
 
 **Artifacts updated:**
-- `docs/audit/FORMULA_EVIDENCE_DEBT.md`
-- `docs/audit/PHASE0_EXIT_GAP_REGISTER.md`
-- `docs/audit/NEXT_PHASE_PLAN.md`
+- `docs/audit/archive/p0_5/FORMULA_EVIDENCE_DEBT.md`
+- `docs/audit/archive/phase0/PHASE0_EXIT_GAP_REGISTER.md`
+- `docs/audit/archive/phase0/NEXT_PHASE_PLAN.md`
 - `docs/audit/REVIEW_REPORT.md`
 - `docs/audit/AUDIT_INDEX.md`
 - `docs/EVIDENCE_INDEX.md`
@@ -1396,8 +1396,8 @@ the Phase 0.5 plan to make P0.5-003 the next approved task.
 - Documentation-only change; `git diff --check` passed.
 
 **Follow-ups:**
-- P0.5-003: create `docs/audit/SHARPE_CI_REVIEW.md` and
-  `docs/audit/HARVEY_LIU_REVIEW.md`.
+- P0.5-003: create `docs/audit/archive/p0_5/SHARPE_CI_REVIEW.md` and
+  `docs/audit/archive/p0_5/HARVEY_LIU_REVIEW.md`.
 
 ---
 
@@ -1407,10 +1407,10 @@ the Phase 0.5 plan to make P0.5-003 the next approved task.
 canonical report/gate requirements and recorded D-022.
 
 **Artifacts updated:**
-- `docs/audit/SHARPE_CI_REVIEW.md`
-- `docs/audit/HARVEY_LIU_REVIEW.md`
-- `docs/audit/FORMULA_EVIDENCE_DEBT.md`
-- `docs/audit/NEXT_PHASE_PLAN.md`
+- `docs/audit/archive/p0_5/SHARPE_CI_REVIEW.md`
+- `docs/audit/archive/p0_5/HARVEY_LIU_REVIEW.md`
+- `docs/audit/archive/p0_5/FORMULA_EVIDENCE_DEBT.md`
+- `docs/audit/archive/phase0/NEXT_PHASE_PLAN.md`
 - `docs/audit/REVIEW_REPORT.md`
 - `docs/audit/AUDIT_INDEX.md`
 - `docs/DECISION_LOG.md`
@@ -1430,7 +1430,7 @@ canonical report/gate requirements and recorded D-022.
 - Documentation-only change; `git diff --check` passed.
 
 **Follow-ups:**
-- P0.5-004: create `docs/audit/PURGE_EMBARGO_DECISION.md`.
+- P0.5-004: create `docs/audit/archive/p0_5/PURGE_EMBARGO_DECISION.md`.
 
 ---
 
@@ -1440,9 +1440,9 @@ canonical report/gate requirements and recorded D-022.
 recorded D-023.
 
 **Artifacts updated:**
-- `docs/audit/PURGE_EMBARGO_DECISION.md`
-- `docs/audit/FORMULA_EVIDENCE_DEBT.md`
-- `docs/audit/NEXT_PHASE_PLAN.md`
+- `docs/audit/archive/p0_5/PURGE_EMBARGO_DECISION.md`
+- `docs/audit/archive/p0_5/FORMULA_EVIDENCE_DEBT.md`
+- `docs/audit/archive/phase0/NEXT_PHASE_PLAN.md`
 - `docs/audit/REVIEW_REPORT.md`
 - `docs/audit/AUDIT_INDEX.md`
 - `docs/DECISION_LOG.md`
@@ -1462,7 +1462,7 @@ recorded D-023.
 - Documentation-only change; `git diff --check` passed.
 
 **Follow-ups:**
-- P0.5-005: create `docs/audit/P4_GATE_DECISION.md`.
+- P0.5-005: create `docs/audit/archive/p0_5/P4_GATE_DECISION.md`.
 
 ---
 
@@ -1471,10 +1471,10 @@ recorded D-023.
 **What happened:** Reviewed the P4 Phase 0 exit criterion and recorded D-024.
 
 **Artifacts updated:**
-- `docs/audit/P4_GATE_DECISION.md`
-- `docs/audit/PHASE0_EXIT_GAP_REGISTER.md`
-- `docs/audit/FORMULA_EVIDENCE_DEBT.md`
-- `docs/audit/NEXT_PHASE_PLAN.md`
+- `docs/audit/archive/p0_5/P4_GATE_DECISION.md`
+- `docs/audit/archive/phase0/PHASE0_EXIT_GAP_REGISTER.md`
+- `docs/audit/archive/p0_5/FORMULA_EVIDENCE_DEBT.md`
+- `docs/audit/archive/phase0/NEXT_PHASE_PLAN.md`
 - `docs/audit/REVIEW_REPORT.md`
 - `docs/audit/AUDIT_INDEX.md`
 - `docs/DECISION_LOG.md`
@@ -1494,7 +1494,7 @@ recorded D-023.
 - Documentation-only change; `git diff --check` passed.
 
 **Follow-ups:**
-- P0.5-006: create `docs/audit/SIMBROKER_CALIBRATION_PLAN.md`.
+- P0.5-006: create `docs/audit/archive/p0_5/SIMBROKER_CALIBRATION_PLAN.md`.
 
 ---
 
@@ -1504,10 +1504,10 @@ recorded D-023.
 packet required by the Phase 0 exit criteria.
 
 **Artifacts updated:**
-- `docs/audit/SIMBROKER_CALIBRATION_PLAN.md`
-- `docs/audit/PHASE0_EXIT_GAP_REGISTER.md`
-- `docs/audit/FORMULA_EVIDENCE_DEBT.md`
-- `docs/audit/NEXT_PHASE_PLAN.md`
+- `docs/audit/archive/p0_5/SIMBROKER_CALIBRATION_PLAN.md`
+- `docs/audit/archive/phase0/PHASE0_EXIT_GAP_REGISTER.md`
+- `docs/audit/archive/p0_5/FORMULA_EVIDENCE_DEBT.md`
+- `docs/audit/archive/phase0/NEXT_PHASE_PLAN.md`
 - `docs/audit/REVIEW_REPORT.md`
 - `docs/audit/AUDIT_INDEX.md`
 - `docs/EVIDENCE_INDEX.md`
@@ -1525,7 +1525,7 @@ packet required by the Phase 0 exit criteria.
 - Documentation-only change; `git diff --check` passed.
 
 **Follow-ups:**
-- P0.5-007: create `docs/audit/DATA_STABILITY_PLAN.md`.
+- P0.5-007: create `docs/audit/archive/p0_5/DATA_STABILITY_PLAN.md`.
 
 ---
 
@@ -1535,10 +1535,10 @@ packet required by the Phase 0 exit criteria.
 by the Phase 0 exit criteria.
 
 **Artifacts updated:**
-- `docs/audit/DATA_STABILITY_PLAN.md`
-- `docs/audit/PHASE0_EXIT_GAP_REGISTER.md`
-- `docs/audit/FORMULA_EVIDENCE_DEBT.md`
-- `docs/audit/NEXT_PHASE_PLAN.md`
+- `docs/audit/archive/p0_5/DATA_STABILITY_PLAN.md`
+- `docs/audit/archive/phase0/PHASE0_EXIT_GAP_REGISTER.md`
+- `docs/audit/archive/p0_5/FORMULA_EVIDENCE_DEBT.md`
+- `docs/audit/archive/phase0/NEXT_PHASE_PLAN.md`
 - `docs/audit/REVIEW_REPORT.md`
 - `docs/audit/AUDIT_INDEX.md`
 - `docs/EVIDENCE_INDEX.md`
@@ -1571,7 +1571,7 @@ Phase 0.5 state.
 - `docs/spec.md`
 - `docs/tasks.md`
 - `docs/EVIDENCE_INDEX.md`
-- `docs/audit/NEXT_PHASE_PLAN.md`
+- `docs/audit/archive/phase0/NEXT_PHASE_PLAN.md`
 - `docs/audit/REVIEW_REPORT.md`
 - `docs/audit/AUDIT_INDEX.md`
 - `docs/CODEX_PROMPT.md`
@@ -1587,7 +1587,7 @@ Phase 0.5 state.
 - Documentation-only change; `git diff --check` passed.
 
 **Follow-ups:**
-- P0.5-009: create `docs/audit/PHASE0_GATE_PACKET.md`.
+- P0.5-009: create `docs/audit/archive/phase0/PHASE0_GATE_PACKET.md`.
 
 ---
 
@@ -1596,8 +1596,8 @@ Phase 0.5 state.
 **What happened:** Assembled the Phase 0 gate packet and recorded D-025.
 
 **Artifacts updated:**
-- `docs/audit/PHASE0_GATE_PACKET.md`
-- `docs/audit/NEXT_PHASE_PLAN.md`
+- `docs/audit/archive/phase0/PHASE0_GATE_PACKET.md`
+- `docs/audit/archive/phase0/NEXT_PHASE_PLAN.md`
 - `docs/audit/REVIEW_REPORT.md`
 - `docs/audit/AUDIT_INDEX.md`
 - `docs/DECISION_LOG.md`
@@ -1633,7 +1633,7 @@ scaffold and focused tests.
 - `docs/CODEX_PROMPT.md`
 - `docs/tasks.md`
 - `docs/EVIDENCE_INDEX.md`
-- `docs/audit/PHASE0_GATE_PACKET.md`
+- `docs/audit/archive/phase0/PHASE0_GATE_PACKET.md`
 - `docs/IMPLEMENTATION_JOURNAL.md`
 
 **Implementation result:**
@@ -1671,7 +1671,7 @@ and coverage summaries.
 - `docs/CODEX_PROMPT.md`
 - `docs/tasks.md`
 - `docs/EVIDENCE_INDEX.md`
-- `docs/audit/PHASE0_GATE_PACKET.md`
+- `docs/audit/archive/phase0/PHASE0_GATE_PACKET.md`
 - `docs/IMPLEMENTATION_JOURNAL.md`
 
 **Implementation result:**
@@ -1704,8 +1704,8 @@ focused tests.
 - `entropy/walkforward/embargo.py`
 - `entropy/walkforward/__init__.py`
 - `tests/unit/test_purge_embargo.py`
-- `docs/audit/PURGE_EMBARGO_DECISION.md`
-- `docs/audit/PHASE0_GATE_PACKET.md`
+- `docs/audit/archive/p0_5/PURGE_EMBARGO_DECISION.md`
+- `docs/audit/archive/phase0/PHASE0_GATE_PACKET.md`
 - `docs/CODEX_PROMPT.md`
 - `docs/tasks.md`
 - `docs/EVIDENCE_INDEX.md`
@@ -1730,7 +1730,7 @@ focused tests.
 
 **Follow-ups:**
 - P0.6-004: revise `CI-SR-ACF-v1` according to
-  `docs/audit/SHARPE_CI_REVIEW.md`.
+  `docs/audit/archive/p0_5/SHARPE_CI_REVIEW.md`.
 
 ---
 
@@ -1742,8 +1742,8 @@ autocorrelation-adjusted report fields.
 **Artifacts updated:**
 - `entropy/stats/analysis.py`
 - `tests/unit/test_stats.py`
-- `docs/audit/SHARPE_CI_REVIEW.md`
-- `docs/audit/PHASE0_GATE_PACKET.md`
+- `docs/audit/archive/p0_5/SHARPE_CI_REVIEW.md`
+- `docs/audit/archive/phase0/PHASE0_GATE_PACKET.md`
 - `docs/CODEX_PROMPT.md`
 - `docs/tasks.md`
 - `docs/EVIDENCE_INDEX.md`
@@ -1766,7 +1766,7 @@ autocorrelation-adjusted report fields.
 
 **Follow-ups:**
 - P0.6-005: implement `HL-HB-v1` family-table workflow according to
-  `docs/audit/HARVEY_LIU_REVIEW.md`.
+  `docs/audit/archive/p0_5/HARVEY_LIU_REVIEW.md`.
 
 ---
 
@@ -1779,8 +1779,8 @@ sorted Holm-Bonferroni adjustment.
 - `entropy/stats/analysis.py`
 - `entropy/stats/__init__.py`
 - `tests/unit/test_stats.py`
-- `docs/audit/HARVEY_LIU_REVIEW.md`
-- `docs/audit/PHASE0_GATE_PACKET.md`
+- `docs/audit/archive/p0_5/HARVEY_LIU_REVIEW.md`
+- `docs/audit/archive/phase0/PHASE0_GATE_PACKET.md`
 - `docs/CODEX_PROMPT.md`
 - `docs/tasks.md`
 - `docs/EVIDENCE_INDEX.md`
@@ -1806,7 +1806,7 @@ sorted Holm-Bonferroni adjustment.
 
 **Follow-ups:**
 - P0.6-006: implement SimBroker calibration tooling according to
-  `docs/audit/SIMBROKER_CALIBRATION_PLAN.md`.
+  `docs/audit/archive/p0_5/SIMBROKER_CALIBRATION_PLAN.md`.
 
 ---
 
@@ -1819,8 +1819,8 @@ JSONL round-trip, and deterministic summary rendering.
 - `entropy/simbroker/calibration.py`
 - `entropy/simbroker/__init__.py`
 - `tests/unit/test_simbroker.py`
-- `docs/audit/SIMBROKER_CALIBRATION_PLAN.md`
-- `docs/audit/PHASE0_GATE_PACKET.md`
+- `docs/audit/archive/p0_5/SIMBROKER_CALIBRATION_PLAN.md`
+- `docs/audit/archive/phase0/PHASE0_GATE_PACKET.md`
 - `docs/CODEX_PROMPT.md`
 - `docs/tasks.md`
 - `docs/EVIDENCE_INDEX.md`
@@ -1845,7 +1845,7 @@ JSONL round-trip, and deterministic summary rendering.
 
 **Follow-ups:**
 - P0.6-007: implement data stability monitor tooling according to
-  `docs/audit/DATA_STABILITY_PLAN.md`.
+  `docs/audit/archive/p0_5/DATA_STABILITY_PLAN.md`.
 
 ---
 
@@ -1858,8 +1858,8 @@ JSONL round-trip, and deterministic summary rendering.
 - `entropy/data/stability.py`
 - `entropy/data/__init__.py`
 - `tests/unit/test_data_stability.py`
-- `docs/audit/DATA_STABILITY_PLAN.md`
-- `docs/audit/PHASE0_GATE_PACKET.md`
+- `docs/audit/archive/p0_5/DATA_STABILITY_PLAN.md`
+- `docs/audit/archive/phase0/PHASE0_GATE_PACKET.md`
 - `docs/CODEX_PROMPT.md`
 - `docs/tasks.md`
 - `docs/EVIDENCE_INDEX.md`
@@ -1897,8 +1897,8 @@ JSONL round-trip, and deterministic summary rendering.
 evidence collection can start.
 
 **Artifacts updated:**
-- `docs/audit/EVIDENCE_COLLECTION_AUTHORIZATION.md`
-- `docs/audit/PHASE0_GATE_PACKET.md`
+- `docs/audit/archive/p0_5/EVIDENCE_COLLECTION_AUTHORIZATION.md`
+- `docs/audit/archive/phase0/PHASE0_GATE_PACKET.md`
 - `docs/CODEX_PROMPT.md`
 - `docs/tasks.md`
 - `docs/EVIDENCE_INDEX.md`
@@ -1928,9 +1928,9 @@ evidence collection can start.
 approved proceeding with limited free crypto sources.
 
 **Artifacts updated:**
-- `docs/audit/EVIDENCE_COLLECTION_AUTHORIZATION.md`
-- `docs/audit/EVIDENCE_SOURCE_SELECTION.md`
-- `docs/audit/PHASE0_GATE_PACKET.md`
+- `docs/audit/archive/p0_5/EVIDENCE_COLLECTION_AUTHORIZATION.md`
+- `docs/audit/archive/p0_5/EVIDENCE_SOURCE_SELECTION.md`
+- `docs/audit/archive/phase0/PHASE0_GATE_PACKET.md`
 - `docs/CODEX_PROMPT.md`
 - `docs/tasks.md`
 - `docs/EVIDENCE_INDEX.md`
@@ -1974,9 +1974,9 @@ manifest canary for the no-budget evidence bootstrap.
 - `entropy/evidence/crypto_universe.py`
 - `entropy/evidence/__init__.py`
 - `tests/unit/test_crypto_universe.py`
-- `docs/audit/CRYPTO_UNIVERSE_SNAPSHOT.md`
-- `docs/audit/SOURCE_MANIFEST_BOOTSTRAP.md`
-- `docs/audit/PHASE0_GATE_PACKET.md`
+- `docs/audit/archive/p0_6/CRYPTO_UNIVERSE_SNAPSHOT.md`
+- `docs/audit/archive/p0_6/SOURCE_MANIFEST_BOOTSTRAP.md`
+- `docs/audit/archive/phase0/PHASE0_GATE_PACKET.md`
 - `docs/CODEX_PROMPT.md`
 - `docs/tasks.md`
 - `docs/EVIDENCE_INDEX.md`
@@ -2014,8 +2014,8 @@ canary and pushed it through hash, data-quality, and P4 artifact tooling.
 - `entropy/evidence/binance_canary.py`
 - `entropy/evidence/__init__.py`
 - `tests/unit/test_binance_canary.py`
-- `docs/audit/BINANCE_P4_CANARY.md`
-- `docs/audit/PHASE0_GATE_PACKET.md`
+- `docs/audit/archive/p0_6/BINANCE_P4_CANARY.md`
+- `docs/audit/archive/phase0/PHASE0_GATE_PACKET.md`
 - `docs/CODEX_PROMPT.md`
 - `docs/tasks.md`
 - `docs/EVIDENCE_INDEX.md`
@@ -2054,9 +2054,9 @@ plan before any full 3-year/20-asset download.
 - `entropy/evidence/p4_scale_plan.py`
 - `entropy/evidence/__init__.py`
 - `tests/unit/test_p4_scale_plan.py`
-- `docs/audit/P4_COVERAGE_SCALE_PLAN.md`
-- `docs/audit/P4_COVERAGE_SCALE_MANIFEST.json`
-- `docs/audit/PHASE0_GATE_PACKET.md`
+- `docs/audit/archive/p4/P4_COVERAGE_SCALE_PLAN.md`
+- `docs/audit/archive/p4/P4_COVERAGE_SCALE_MANIFEST.json`
+- `docs/audit/archive/phase0/PHASE0_GATE_PACKET.md`
 - `docs/CODEX_PROMPT.md`
 - `docs/tasks.md`
 - `docs/EVIDENCE_INDEX.md`
@@ -2094,8 +2094,8 @@ P4 scale plan and recorded source hashes/statuses.
 - `entropy/evidence/p4_batch_collection.py`
 - `entropy/evidence/__init__.py`
 - `tests/unit/test_p4_batch_collection.py`
-- `docs/audit/P4_FIRST_BATCH_COLLECTION.md`
-- `docs/audit/PHASE0_GATE_PACKET.md`
+- `docs/audit/archive/p4/P4_FIRST_BATCH_COLLECTION.md`
+- `docs/audit/archive/phase0/PHASE0_GATE_PACKET.md`
 - `docs/CODEX_PROMPT.md`
 - `docs/tasks.md`
 - `docs/EVIDENCE_INDEX.md`
@@ -2133,8 +2133,8 @@ into a merged dataset, ran data-quality checks, and generated partial P4 output.
 - `entropy/evidence/p4_batch_conversion.py`
 - `entropy/evidence/__init__.py`
 - `tests/unit/test_p4_batch_conversion.py`
-- `docs/audit/P4_FIRST_BATCH_CONVERSION.md`
-- `docs/audit/PHASE0_GATE_PACKET.md`
+- `docs/audit/archive/p4/P4_FIRST_BATCH_CONVERSION.md`
+- `docs/audit/archive/phase0/PHASE0_GATE_PACKET.md`
 - `docs/CODEX_PROMPT.md`
 - `docs/tasks.md`
 - `docs/EVIDENCE_INDEX.md`
@@ -2177,8 +2177,8 @@ the P4 scale plan and recorded source hashes/statuses.
 - `entropy/evidence/p4_scale_plan.py`
 - `entropy/evidence/__init__.py`
 - `tests/unit/test_p4_scale_plan.py`
-- `docs/audit/P4_BATCH_002_COLLECTION.md`
-- `docs/audit/PHASE0_GATE_PACKET.md`
+- `docs/audit/archive/p4/P4_BATCH_002_COLLECTION.md`
+- `docs/audit/archive/phase0/PHASE0_GATE_PACKET.md`
 - `docs/CODEX_PROMPT.md`
 - `docs/tasks.md`
 - `docs/EVIDENCE_INDEX.md`
@@ -2218,8 +2218,8 @@ output.
 - `entropy/evidence/p4_batch_conversion.py`
 - `entropy/evidence/__init__.py`
 - `tests/unit/test_p4_batch_conversion.py`
-- `docs/audit/P4_BTCUSDT_FULL_WINDOW_CONVERSION.md`
-- `docs/audit/PHASE0_GATE_PACKET.md`
+- `docs/audit/archive/p4/P4_BTCUSDT_FULL_WINDOW_CONVERSION.md`
+- `docs/audit/archive/phase0/PHASE0_GATE_PACKET.md`
 - `docs/CODEX_PROMPT.md`
 - `docs/tasks.md`
 - `docs/EVIDENCE_INDEX.md`
@@ -2265,8 +2265,8 @@ output.
 strategy decision before more broad collection.
 
 **Artifacts updated:**
-- `docs/audit/P4_COVERAGE_WINDOW_STRATEGY_DECISION.md`
-- `docs/audit/PHASE0_GATE_PACKET.md`
+- `docs/audit/archive/p4/P4_COVERAGE_WINDOW_STRATEGY_DECISION.md`
+- `docs/audit/archive/phase0/PHASE0_GATE_PACKET.md`
 - `docs/CODEX_PROMPT.md`
 - `docs/tasks.md`
 - `docs/EVIDENCE_INDEX.md`
@@ -2301,8 +2301,8 @@ archive history probe for the current P4 universe and a legacy candidate set.
 - `entropy/evidence/p4_history_probe.py`
 - `entropy/evidence/__init__.py`
 - `tests/unit/test_p4_history_probe.py`
-- `docs/audit/P4_EXTENDED_HISTORY_ELIGIBILITY_PROBE.md`
-- `docs/audit/PHASE0_GATE_PACKET.md`
+- `docs/audit/archive/p4/P4_EXTENDED_HISTORY_ELIGIBILITY_PROBE.md`
+- `docs/audit/archive/phase0/PHASE0_GATE_PACKET.md`
 - `docs/CODEX_PROMPT.md`
 - `docs/tasks.md`
 - `docs/EVIDENCE_INDEX.md`
@@ -2344,9 +2344,9 @@ encoded P4 label requirement.
 - `entropy/evidence/crypto_universe.py`
 - `entropy/evidence/__init__.py`
 - `tests/unit/test_crypto_universe.py`
-- `docs/audit/P4_UNIVERSE_REVISION_DECISION.md`
-- `docs/audit/P4_REVISED_CRYPTO_UNIVERSE_SNAPSHOT.md`
-- `docs/audit/PHASE0_GATE_PACKET.md`
+- `docs/audit/archive/p4/P4_UNIVERSE_REVISION_DECISION.md`
+- `docs/audit/archive/p4/P4_REVISED_CRYPTO_UNIVERSE_SNAPSHOT.md`
+- `docs/audit/archive/phase0/PHASE0_GATE_PACKET.md`
 - `docs/CODEX_PROMPT.md`
 - `docs/tasks.md`
 - `docs/EVIDENCE_INDEX.md`
@@ -2381,10 +2381,10 @@ P4 universe.
 - `entropy/evidence/p4_scale_plan.py`
 - `entropy/evidence/__init__.py`
 - `tests/unit/test_p4_scale_plan.py`
-- `docs/audit/P4_REVISED_SCALE_PLAN_DECISION.md`
-- `docs/audit/P4_REVISED_COVERAGE_SCALE_PLAN.md`
-- `docs/audit/P4_REVISED_COVERAGE_SCALE_MANIFEST.json`
-- `docs/audit/PHASE0_GATE_PACKET.md`
+- `docs/audit/archive/p4/P4_REVISED_SCALE_PLAN_DECISION.md`
+- `docs/audit/archive/p4/P4_REVISED_COVERAGE_SCALE_PLAN.md`
+- `docs/audit/archive/p4/P4_REVISED_COVERAGE_SCALE_MANIFEST.json`
+- `docs/audit/archive/phase0/PHASE0_GATE_PACKET.md`
 - `docs/CODEX_PROMPT.md`
 - `docs/tasks.md`
 - `docs/EVIDENCE_INDEX.md`
@@ -2420,8 +2420,8 @@ P4 universe.
 P4 scale plan and recorded source hashes/statuses.
 
 **Artifacts updated:**
-- `docs/audit/P4_REVISED_BATCH_001_COLLECTION.md`
-- `docs/audit/PHASE0_GATE_PACKET.md`
+- `docs/audit/archive/p4/P4_REVISED_BATCH_001_COLLECTION.md`
+- `docs/audit/archive/phase0/PHASE0_GATE_PACKET.md`
 - `docs/CODEX_PROMPT.md`
 - `docs/tasks.md`
 - `docs/EVIDENCE_INDEX.md`
@@ -2453,8 +2453,8 @@ P4 scale plan and recorded source hashes/statuses.
 partial dataset and generated quality/P4 artifacts.
 
 **Artifacts updated:**
-- `docs/audit/P4_REVISED_BATCH_001_CONVERSION.md`
-- `docs/audit/PHASE0_GATE_PACKET.md`
+- `docs/audit/archive/p4/P4_REVISED_BATCH_001_CONVERSION.md`
+- `docs/audit/archive/phase0/PHASE0_GATE_PACKET.md`
 - `docs/CODEX_PROMPT.md`
 - `docs/tasks.md`
 - `docs/EVIDENCE_INDEX.md`
@@ -2490,8 +2490,8 @@ partial dataset and generated quality/P4 artifacts.
 P4 scale plan and recorded source hashes/statuses.
 
 **Artifacts updated:**
-- `docs/audit/P4_REVISED_BATCH_002_COLLECTION.md`
-- `docs/audit/PHASE0_GATE_PACKET.md`
+- `docs/audit/archive/p4/P4_REVISED_BATCH_002_COLLECTION.md`
+- `docs/audit/archive/phase0/PHASE0_GATE_PACKET.md`
 - `docs/CODEX_PROMPT.md`
 - `docs/tasks.md`
 - `docs/EVIDENCE_INDEX.md`
@@ -2523,8 +2523,8 @@ P4 scale plan and recorded source hashes/statuses.
 consolidated run, avoiding per-batch documentation churn.
 
 **Artifacts updated:**
-- `docs/audit/P4_REVISED_FIRST15_COVERAGE_PACKET.md`
-- `docs/audit/PHASE0_GATE_PACKET.md`
+- `docs/audit/archive/p4/P4_REVISED_FIRST15_COVERAGE_PACKET.md`
+- `docs/audit/archive/phase0/PHASE0_GATE_PACKET.md`
 - `docs/CODEX_PROMPT.md`
 - `docs/tasks.md`
 - `docs/EVIDENCE_INDEX.md`
@@ -2567,8 +2567,8 @@ consolidated run, avoiding per-batch documentation churn.
 it as the current P4 evidence candidate.
 
 **Artifacts updated:**
-- `docs/audit/P4_COVERAGE_PACKET_REVIEW.md`
-- `docs/audit/PHASE0_GATE_PACKET.md`
+- `docs/audit/archive/p4/P4_COVERAGE_PACKET_REVIEW.md`
+- `docs/audit/archive/phase0/PHASE0_GATE_PACKET.md`
 - `docs/CODEX_PROMPT.md`
 - `docs/tasks.md`
 - `docs/EVIDENCE_INDEX.md`
@@ -2602,7 +2602,7 @@ it as the current P4 evidence candidate.
 **What happened:** Synced the Phase 0 gate packet after the P4 coverage review.
 
 **Artifacts updated:**
-- `docs/audit/PHASE0_GATE_PACKET.md`
+- `docs/audit/archive/phase0/PHASE0_GATE_PACKET.md`
 - `docs/CODEX_PROMPT.md`
 - `docs/tasks.md`
 - `docs/EVIDENCE_INDEX.md`
@@ -2635,8 +2635,8 @@ SimBroker calibration evidence.
 - `entropy/evidence/simbroker_calibration_bootstrap.py`
 - `entropy/evidence/__init__.py`
 - `tests/unit/test_simbroker_calibration_bootstrap.py`
-- `docs/audit/SIMBROKER_CALIBRATION_BOOTSTRAP.md`
-- `docs/audit/PHASE0_GATE_PACKET.md`
+- `docs/audit/archive/simbroker/SIMBROKER_CALIBRATION_BOOTSTRAP.md`
+- `docs/audit/archive/phase0/PHASE0_GATE_PACKET.md`
 - `docs/CODEX_PROMPT.md`
 - `docs/tasks.md`
 - `docs/EVIDENCE_INDEX.md`
@@ -2672,8 +2672,8 @@ SimBroker fill logs and approved bid/ask quotes into calibration rows.
 - `entropy/simbroker/calibration.py`
 - `entropy/simbroker/__init__.py`
 - `tests/unit/test_simbroker.py`
-- `docs/audit/SIMBROKER_CALIBRATION_CANDIDATE_ROW_PLAN.md`
-- `docs/audit/PHASE0_GATE_PACKET.md`
+- `docs/audit/archive/simbroker/SIMBROKER_CALIBRATION_CANDIDATE_ROW_PLAN.md`
+- `docs/audit/archive/phase0/PHASE0_GATE_PACKET.md`
 - `docs/CODEX_PROMPT.md`
 - `docs/tasks.md`
 - `docs/EVIDENCE_INDEX.md`
@@ -2706,8 +2706,8 @@ SimBroker fill logs and approved bid/ask quotes into calibration rows.
 assembly.
 
 **Artifacts updated:**
-- `docs/audit/SIMBROKER_CALIBRATION_DRY_RUN.md`
-- `docs/audit/PHASE0_GATE_PACKET.md`
+- `docs/audit/archive/simbroker/SIMBROKER_CALIBRATION_DRY_RUN.md`
+- `docs/audit/archive/phase0/PHASE0_GATE_PACKET.md`
 - `docs/CODEX_PROMPT.md`
 - `docs/tasks.md`
 - `docs/EVIDENCE_INDEX.md`
@@ -2739,8 +2739,8 @@ assembly.
 with a first monitor snapshot.
 
 **Artifacts updated:**
-- `docs/audit/DATA_STABILITY_BOOTSTRAP.md`
-- `docs/audit/PHASE0_GATE_PACKET.md`
+- `docs/audit/archive/data_stability/DATA_STABILITY_BOOTSTRAP.md`
+- `docs/audit/archive/phase0/PHASE0_GATE_PACKET.md`
 - `docs/CODEX_PROMPT.md`
 - `docs/tasks.md`
 - `docs/EVIDENCE_INDEX.md`
@@ -2777,10 +2777,10 @@ agent-assisted verification policy question.
 - `entropy/evidence/data_stability_simulation.py`
 - `entropy/evidence/__init__.py`
 - `tests/unit/test_data_stability_simulation.py`
-- `docs/audit/DATA_STABILITY_SIMULATION.md`
-- `docs/audit/DAILY_STABILITY_APPEND_PROCEDURE.md`
-- `docs/audit/SIMBROKER_AGENT_ASSISTED_VERIFICATION_DECISION.md`
-- `docs/audit/PHASE0_GATE_PACKET.md`
+- `docs/audit/archive/data_stability/DATA_STABILITY_SIMULATION.md`
+- `docs/audit/archive/data_stability/DAILY_STABILITY_APPEND_PROCEDURE.md`
+- `docs/audit/archive/simbroker/SIMBROKER_AGENT_ASSISTED_VERIFICATION_DECISION.md`
+- `docs/audit/archive/phase0/PHASE0_GATE_PACKET.md`
 - `docs/CODEX_PROMPT.md`
 - `docs/tasks.md`
 - `docs/EVIDENCE_INDEX.md`
@@ -2812,10 +2812,10 @@ agent-assisted verification policy question.
 verification and assembled the SimBroker calibration evidence packet.
 
 **Artifacts updated:**
-- `docs/audit/SIMBROKER_AGENT_ASSISTED_VERIFICATION_DECISION.md`
-- `docs/audit/SIMBROKER_AGENT_VERIFIED_CALIBRATION_PACKET.md`
+- `docs/audit/archive/simbroker/SIMBROKER_AGENT_ASSISTED_VERIFICATION_DECISION.md`
+- `docs/audit/archive/simbroker/SIMBROKER_AGENT_VERIFIED_CALIBRATION_PACKET.md`
 - `docs/DECISION_LOG.md`
-- `docs/audit/PHASE0_GATE_PACKET.md`
+- `docs/audit/archive/phase0/PHASE0_GATE_PACKET.md`
 - `docs/CODEX_PROMPT.md`
 - `docs/tasks.md`
 - `docs/EVIDENCE_INDEX.md`
@@ -2855,8 +2855,8 @@ the first cumulative live append.
 - `entropy/evidence/data_stability_live.py`
 - `entropy/evidence/__init__.py`
 - `tests/unit/test_data_stability_live.py`
-- `docs/audit/DATA_STABILITY_LIVE_APPEND_TOOLING.md`
-- `docs/audit/PHASE0_GATE_PACKET.md`
+- `docs/audit/archive/data_stability/DATA_STABILITY_LIVE_APPEND_TOOLING.md`
+- `docs/audit/archive/phase0/PHASE0_GATE_PACKET.md`
 - `docs/CODEX_PROMPT.md`
 - `docs/tasks.md`
 - `docs/EVIDENCE_INDEX.md`
@@ -2893,9 +2893,9 @@ registered leakage gate packet.
 - `entropy/walkforward/temporal_shuffle.py`
 - `entropy/walkforward/__init__.py`
 - `tests/unit/test_temporal_shuffle.py`
-- `docs/audit/REGISTERED_LEAKAGE_GATE_PACKET.md`
+- `docs/audit/archive/p0_7/REGISTERED_LEAKAGE_GATE_PACKET.md`
 - `artifacts/evidence/leakage_gate/REGISTERED_LEAKAGE_GATE_MANIFEST.json`
-- `docs/audit/PHASE0_GATE_PACKET.md`
+- `docs/audit/archive/phase0/PHASE0_GATE_PACKET.md`
 - `docs/CODEX_PROMPT.md`
 - `docs/tasks.md`
 - `docs/EVIDENCE_INDEX.md`
@@ -2927,9 +2927,9 @@ registered leakage gate packet.
 and Harvey-Liu family workflow.
 
 **Artifacts updated:**
-- `docs/audit/STATISTICAL_REPORT_GATE_PACKET.md`
+- `docs/audit/archive/p0_7/STATISTICAL_REPORT_GATE_PACKET.md`
 - `artifacts/evidence/statistical_gate/STATISTICAL_REPORT_GATE_MANIFEST.json`
-- `docs/audit/PHASE0_GATE_PACKET.md`
+- `docs/audit/archive/phase0/PHASE0_GATE_PACKET.md`
 - `docs/CODEX_PROMPT.md`
 - `docs/tasks.md`
 - `docs/EVIDENCE_INDEX.md`
@@ -2960,8 +2960,8 @@ and Harvey-Liu family workflow.
 closable evidence blockers.
 
 **Artifacts updated:**
-- `docs/audit/PHASE0_GATE_PACKET.md`
-- `docs/audit/PHASE0_FINAL_SYNC.md`
+- `docs/audit/archive/phase0/PHASE0_GATE_PACKET.md`
+- `docs/audit/archive/phase0/PHASE0_FINAL_SYNC.md`
 - `docs/CODEX_PROMPT.md`
 - `docs/tasks.md`
 - `docs/EVIDENCE_INDEX.md`
@@ -2994,10 +2994,10 @@ archive-only evidence after owner direction not to run live monitoring.
 **Artifacts updated:**
 - `entropy/evidence/data_stability_archive.py`
 - `tests/unit/test_data_stability_archive.py`
-- `docs/audit/ARCHIVE_ONLY_EVIDENCE_MODE_DECISION.md`
-- `docs/audit/DATA_STABILITY_ARCHIVE_PACKET.md`
-- `docs/audit/PHASE0_GATE_PACKET.md`
-- `docs/audit/PHASE0_FINAL_SYNC.md`
+- `docs/audit/archive/p0_7/ARCHIVE_ONLY_EVIDENCE_MODE_DECISION.md`
+- `docs/audit/archive/data_stability/DATA_STABILITY_ARCHIVE_PACKET.md`
+- `docs/audit/archive/phase0/PHASE0_GATE_PACKET.md`
+- `docs/audit/archive/phase0/PHASE0_FINAL_SYNC.md`
 - `docs/CODEX_PROMPT.md`
 - `docs/tasks.md`
 - `docs/EVIDENCE_INDEX.md`
@@ -3037,7 +3037,7 @@ archive-only evidence after owner direction not to run live monitoring.
 foundation closure.
 
 **Artifacts updated:**
-- `docs/audit/ARCHIVE_ONLY_CONTINUATION_DECISION.md`
+- `docs/audit/archive/p0_7/ARCHIVE_ONLY_CONTINUATION_DECISION.md`
 - `docs/DECISION_LOG.md`
 - `docs/tasks.md`
 - `docs/CODEX_PROMPT.md`
@@ -3317,3 +3317,43 @@ and separated active handoff state from historical handoff state.
 
 **Verification run:**
 - `git diff --check`
+
+---
+
+## 2026-05-05 — Audit Directory Cleanup
+
+**What happened:** Reduced `docs/audit/` to the active Phase 1A audit surface
+and moved historical phase/audit packets into `docs/audit/archive/`.
+
+**Artifacts updated:**
+- `docs/audit/AUDIT_INDEX.md`
+- `docs/audit/README.md`
+- `docs/audit/archive/README.md`
+- `docs/ARCHITECTURE.md`
+- `docs/README.md`
+- `docs/audit_task_registry.md`
+- `docs/DECISION_LOG.md`
+- `docs/EVIDENCE_INDEX.md`
+- `docs/tasks.md`
+- `docs/spec.md`
+- `docs/IMPLEMENTATION_JOURNAL.md`
+
+**Result:**
+- The root audit directory now contains current Phase 1A packets, current
+  consolidated review state, and the audit prompt pipeline only.
+- Historical Phase 0, Phase 0.5, Phase 0.6, Phase 0.7, P4, SimBroker, data
+  stability, disposition, and legacy audit files are under
+  `docs/audit/archive/`.
+- The old long audit index is preserved as
+  `docs/audit/archive/legacy/AUDIT_INDEX_HISTORY_2026-05-05_v1.7.md`.
+- Superseded audit prompts `PROMPT_1_ARCH.md`, `PROMPT_2_CODE.md`, and
+  `PROMPT_3_CONSOLIDATED.md` are under
+  `docs/audit/archive/legacy_prompts/`.
+- Active documentation links to moved audit files now point to their archive
+  paths instead of stale root paths.
+- New agents should start from `docs/audit/README.md` and
+  `docs/audit/AUDIT_INDEX.md` instead of loading archived history.
+
+**Verification run:**
+- `git diff --check -- docs`
+- Link scan for stale root audit paths to archived files returned no matches.

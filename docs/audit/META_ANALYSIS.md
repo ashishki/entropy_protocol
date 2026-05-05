@@ -41,10 +41,10 @@ layer boundaries?
 | `docs/ARCHITECTURE.md` | Implementation architecture | Python/T1 deterministic runtime, no runtime LLM path |
 | `docs/spec.md` | Implementation-facing feature spec | Current implemented/provisional surfaces |
 | `docs/IMPLEMENTATION_CONTRACT.md` | Agent/code contract | No automatic gate approval, append-only rules, no claims |
-| `docs/audit/PHASE0_GATE_PACKET.md` | Gate state | Archive-only approval, live gate blocked |
-| `docs/audit/PHASE0_FINAL_SYNC.md` | Final Phase 0 archive sync | Closed archive blockers and next step |
-| `docs/audit/ARCHIVE_ONLY_EVIDENCE_MODE_DECISION.md` | D-027 | Archive-only scope |
-| `docs/audit/ARCHIVE_ONLY_CONTINUATION_DECISION.md` | D-028 | Phase 1A selected |
+| `docs/audit/archive/phase0/PHASE0_GATE_PACKET.md` | Gate state | Archive-only approval, live gate blocked |
+| `docs/audit/archive/phase0/PHASE0_FINAL_SYNC.md` | Final Phase 0 archive sync | Closed archive blockers and next step |
+| `docs/audit/archive/p0_7/ARCHIVE_ONLY_EVIDENCE_MODE_DECISION.md` | D-027 | Archive-only scope |
+| `docs/audit/archive/p0_7/ARCHIVE_ONLY_CONTINUATION_DECISION.md` | D-028 | Phase 1A selected |
 | `docs/tasks.md` | Task graph | P1A-001 next |
 | `docs/CODEX_PROMPT.md` | Session state | v1.90, P1A-001 next |
 

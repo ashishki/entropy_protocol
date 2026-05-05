@@ -142,7 +142,7 @@ recommend an explicit human-approved ADR or charter/protocol review packet.
 
 Produce these outputs:
 
-1. `docs/audit/POST_PHASE_STRATEGY_REVIEW.md`
+1. `docs/audit/archive/phase0/POST_PHASE_STRATEGY_REVIEW.md`
 
    A human-readable review with:
    - Executive Summary
@@ -155,7 +155,7 @@ Produce these outputs:
    - Documentation Patch Plan
    - Go / No-Go Recommendation
 
-2. `docs/audit/NEXT_PHASE_PLAN.md`
+2. `docs/audit/archive/phase0/NEXT_PHASE_PLAN.md`
 
    A concrete implementation planning artifact with:
    - phase name and objective;

@@ -47,7 +47,7 @@ PROTOCOL_SPEC.md v1.2 is the canonical engineering specification. It supersedes 
 
 | Artifact | File | Status | Notes |
 |---|---|---|---|
-| Source Audit | `docs/audit/AUDIT_v1.md` | Accepted | 21 findings; all Open. Basis for Cycle 0. |
+| Source Audit | `docs/audit/archive/legacy/AUDIT_v1.md` | Accepted | 21 findings; all Open. Basis for Cycle 0. |
 | Consolidated Review (baseline) | `docs/audit/REVIEW_REPORT.md` | Draft | Cycle 0 baseline; Steps 1–5 never executed. |
 | Meta Investigation | `docs/audit/META_ANALYSIS.md` | Not yet run | — |
 | Architecture Review | `docs/audit/ARCH_MODEL.md` | Not yet run | — |

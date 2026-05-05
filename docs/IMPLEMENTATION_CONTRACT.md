@@ -238,7 +238,7 @@ Canonical documents define authority and must be read directly before implementa
 | Task scope and acceptance criteria | `docs/tasks.md` |
 | Session state | `docs/CODEX_PROMPT.md` |
 | Protocol governance | `docs/core/PROTOCOL_SPEC.md`, `docs/core/CHARTER.md`, `docs/core/GLOSSARY.md` |
-| Review findings | `docs/audit/PHASE1_AUDIT.md` and subsequent review reports |
+| Review findings | `docs/audit/archive/phase_reviews/PHASE1_AUDIT.md` and subsequent review reports |
 
 Retrieval aids are indexes and memory surfaces only:
 

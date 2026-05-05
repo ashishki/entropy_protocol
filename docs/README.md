@@ -32,7 +32,7 @@ Conditional destination: **Capital Allocation Framework** (Era 3+, after Phase 1
 - [`architecture/`](./architecture/) -> engineering architecture
 - [`governance/`](./governance/) -> research discipline
 - [`research/`](./research/) -> research reports
-- [`audit/`](./audit/) -> protocol audits
+- [`audit/`](./audit/) -> current protocol audit surface
 - [`audience/`](./audience/) -> external briefs
 - [`archive/`](./archive/) -> historical materials
 
@@ -79,8 +79,8 @@ Conditional destination: **Capital Allocation Framework** (Era 3+, after Phase 1
 
 | Document | Purpose | Audience |
 |---|---|---|
-| [`audit/AUDIT_v1.md`](./audit/AUDIT_v1.md) | Baseline quantitative integrity audit | Architects, spec owner |
-| [`audit/AUDIT_INDEX.md`](./audit/AUDIT_INDEX.md) | Current audit artifact register | Spec owner, developers |
+| [`audit/README.md`](./audit/README.md) | Audit loading rules and current boundary | Spec owner, developers |
+| [`audit/AUDIT_INDEX.md`](./audit/AUDIT_INDEX.md) | Compact current audit artifact register | Spec owner, developers |
 | [`audit/REVIEW_REPORT.md`](./audit/REVIEW_REPORT.md) | Consolidated current-cycle audit status | Spec owner, developers |
 
 ## Audience-Specific Briefs
@@ -146,7 +146,7 @@ Growth/RDL/RBE activation, OOS/performance claims, production labels, or
 capital-ready labels.
 
 The compact session handoff is `docs/CODEX_PROMPT.md`. Historical handoff state
-is archived under `docs/archive/session_state/`.
+is available through git history and the implementation journal.
 
 ---
 
