@@ -10,6 +10,25 @@ Status: Active
 
 Entropy Protocol is a governed systematic capital-allocation research framework that builds leakage-resistant, auditable evaluation infrastructure before making any trading-edge claim. The system implements a fully deterministic research and evaluation pipeline — Trial Registry, SimBroker, walk-forward harness, P&L attribution, and a governance state machine — orchestrated by a human-gated workflow. There is no LLM in the application runtime path; AI is used exclusively at the development level (architecture review and implementation). The v1 milestone (Phase 0) succeeds when all evaluation infrastructure is operational with machine-checkable evidence and a complete leakage audit, with no live capital and no OOS performance claims.
 
+### Current Phase 0.5 Reality
+
+T01-T24 are complete as the implementation foundation baseline, but Phase 0 is
+not gate-approved. The current stage is Phase 0.5 Foundation Closure and
+Evidence Hardening.
+
+The following surfaces are explicitly open:
+
+- SimBroker bid/ask calibration evidence: future >=100 manually verified fills;
+- data pipeline stability evidence: future >=90 continuous days monitoring;
+- P4 labels: `P4-RBL-v1` must be implemented/evidenced before Phase 1;
+- registered leakage/temporal-shuffling gate packet;
+- Sharpe CI and Harvey-Liu helpers: provisional only under D-022;
+- purge/embargo: T18 N-bar assumption is scaffold-only under D-023;
+- F-30/F-31: future real-evidence gates, no synthetic closure.
+
+Phase 1 remains stop-shipped until the Phase 0 gate is approved or a
+charter-level review revises the relevant exit criteria.
+
 ---
 
 ## Solution Shape
@@ -75,9 +94,9 @@ ALL subproblems are deterministic. There is no LLM in the application runtime pa
 | Timestamp normalization | Deterministic | UTC enforcement |
 | Four-stream P&L | Deterministic | Streams (a)(b)(c)(d) computed separately |
 | Net Sharpe | Deterministic | Only streams (a)+(b)+(c) |
-| CI method (CI-SR-ACF-v1) | Deterministic | Analytical + autocorrelation adjustment |
-| Harvey-Liu deflation | Deterministic (stub in Phase 0) | Formula skeleton; worked example pending |
-| N_eff estimator | Deterministic | K3 formula: k/(1+(k-1)×ρ_avg) |
+| CI method (CI-SR-ACF-v1) | Deterministic scaffold | D-022: revise required before gate/report use |
+| Harvey-Liu deflation | Deterministic scaffold | D-022: blocked for gate use until full family workflow exists |
+| N_eff estimator | Deterministic scaffold | Simple K3 estimator exists; operational monitor evidence pending |
 | CRR, CER, cost drag | Deterministic | Formula-based from fill logs |
 | SimBroker cost components | Deterministic | Fixed commission + % commission + slippage (linear + sqrt impact) + borrow/funding |
 | Data ingestion retries | Deterministic | Retry logic in DataProvider |
@@ -371,7 +390,7 @@ No `.env` files are committed to the repository. A `.env.example` file documents
 The following are explicitly out of scope for the v1 / Phase 0 milestone:
 
 - **Live trading** — no capital deployment; no broker API integration
-- **OOS performance claims** — no signal receives an OOS label before T19 leakage check passes on a registered run
+- **OOS performance claims** — no signal receives an OOS label before the Phase 0 gate is approved with registered leakage evidence
 - **Phase 1+ features** — regime overlay (Phase 2), equity shorts (Phase 3), crypto perp shorts (Phase 4), treasury (Phase 5) are all deferred
 - **Multi-user** — single-tenant; no user authentication, no role-based access
 - **LLM in runtime path** — all runtime computations are deterministic; no LLM inference in the application

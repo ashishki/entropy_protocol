@@ -11,6 +11,1127 @@ Status legend:
 
 ---
 
+## Current Phase 0.5 — Foundation Closure and Evidence Hardening
+
+T01-T24 are complete as the implementation foundation baseline. The formal Phase
+0 gate remains `NOT_APPROVED`, and Phase 1 remains blocked.
+
+### [x] P0.5-001: Phase 0 Exit Criteria Gap Register
+
+Artifacts:
+  - docs/audit/PHASE0_EXIT_GAP_REGISTER.md
+
+Result:
+  - Each canonical Phase 0 exit criterion is mapped to current implementation
+    evidence, missing gate evidence, owner, blocker status, and closure path.
+
+### [x] P0.5-002: Formula And Evidence Debt Register
+
+Artifacts:
+  - docs/audit/FORMULA_EVIDENCE_DEBT.md
+
+Result:
+  - Formula/evidence surfaces are ranked by gate, claims, pre-Phase-1, and
+    future-hard-gate impact.
+
+### [x] P0.5-003: Sharpe CI And Harvey-Liu Review Packets
+
+Artifacts:
+  - docs/audit/SHARPE_CI_REVIEW.md
+  - docs/audit/HARVEY_LIU_REVIEW.md
+  - docs/DECISION_LOG.md D-022
+
+Result:
+  - `CI-SR-ACF-v1` is revise-required for gate/report use.
+  - `HL-HB-v1` is blocked for gate use.
+
+### [x] P0.5-004: Purge/Embargo Design Decision
+
+Artifacts:
+  - docs/audit/PURGE_EMBARGO_DECISION.md
+  - docs/DECISION_LOG.md D-023
+
+Result:
+  - T18 N-consecutive-bar embargo remains scaffold-only and blocks Phase 1 OOS
+    claims until derived methodology exists.
+
+### [x] P0.5-005: P4 Labeler Gate Decision
+
+Artifacts:
+  - docs/audit/P4_GATE_DECISION.md
+  - docs/DECISION_LOG.md D-024
+
+Result:
+  - Implement/evidence `P4-RBL-v1` before Phase 1; do not revise the Phase 0 P4
+    criterion yet.
+
+### [x] P0.5-006: SimBroker Calibration Evidence Plan
+
+Artifacts:
+  - docs/audit/SIMBROKER_CALIBRATION_PLAN.md
+
+Result:
+  - Future >=100 manually verified bid/ask fill evidence packet is specified.
+  - No provider is active and no calibration evidence exists yet.
+
+### [x] P0.5-007: Data Pipeline Stability Plan
+
+Artifacts:
+  - docs/audit/DATA_STABILITY_PLAN.md
+
+Result:
+  - Future >=90 continuous days monitoring packet is specified.
+  - No provider is active and no stability evidence exists yet.
+
+### [x] P0.5-008: Architecture And Spec Reality Sync
+
+Artifacts:
+  - docs/ARCHITECTURE.md
+  - docs/spec.md
+  - docs/tasks.md
+  - docs/EVIDENCE_INDEX.md
+
+Result:
+  - Implementation-facing docs reflect that T01-T24 are complete but Phase 0 is
+    not gate-approved.
+
+### [x] P0.5-009: Phase 0 Gate Packet
+
+Artifacts:
+  - docs/audit/PHASE0_GATE_PACKET.md
+  - docs/DECISION_LOG.md future gate decision
+
+Result:
+  - D-025 records Phase 0 as `NOT_APPROVED`.
+  - Phase 1 remains blocked.
+  - Phase 0.6 Evidence Implementation and Collection Prep is selected.
+
+---
+
+## Phase 0.6 — Evidence Implementation and Collection Prep
+
+Phase 0.6 implements the evidence machinery selected by the P0.5 gate packet.
+It does not start Phase 1, activate providers by default, deploy capital, or
+authorize performance claims.
+
+### [x] P0.6-001: P4 Labeler Implementation
+
+Owner:      codex
+Phase:      0.6
+Type:       implementation
+Depends-On: P0.5-005, P0.5-009
+
+Objective: |
+  Implement deterministic `P4-RBL-v1` labeler logic with tests for weekly
+  resampling, warmup, feature calculation, priority assignment, no-lookahead,
+  zero efficiency denominator, percentile rank, and deterministic replay.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "The labeler builds complete weekly bars from UTC 1D OHLCV using the locked weekday/continuous calendar profiles."
+    test: "future P0.6-001 test"
+  - id: AC-2
+    description: "No P4 label is emitted before 156 completed weekly bars; warmup rows are UNLABELED."
+    test: "future P0.6-001 test"
+  - id: AC-3
+    description: "Labels are assigned by priority: stress, then trending, then mean_reverting."
+    test: "future P0.6-001 test"
+  - id: AC-4
+    description: "Each label includes method/version metadata and no future data is used."
+    test: "future P0.6-001 test"
+
+Files:
+  - entropy/governance/p4_labeler.py
+  - tests/unit/test_p4_labeler.py
+
+Result:
+  - Deterministic `P4-RBL-v1` labeler implemented.
+  - Focused test suite covers resampling, warmup, label assignment, metadata,
+    and prefix no-lookahead stability.
+  - Phase 0 P4 gate remains open until P0.6-002+ artifacts prove coverage.
+
+Context-Refs:
+  - docs/core/PROTOCOL_SPEC.md §Deterministic P4 Protocol
+  - docs/audit/P4_GATE_DECISION.md
+  - docs/audit/PHASE0_GATE_PACKET.md
+
+### [x] P0.6-002: P4 Label Artifact Generator
+
+Objective: |
+  Generate label-vintage artifacts and coverage summaries from approved local
+  datasets. This task must not fetch external data or claim Phase 0 closure.
+
+Files:
+  - entropy/evidence/p4_artifacts.py
+  - tests/unit/test_p4_artifacts.py
+
+Result:
+  - Deterministic JSONL label artifacts and Markdown coverage summaries are
+    implemented.
+  - Coverage summary tracks missing datasets and insufficient labeled weeks.
+  - Phase 0 P4 gate remains open until approved datasets produce >=3 years of
+    labels on >=15 of 20 target assets.
+
+### [x] P0.6-003: Purge/Embargo Methodology
+
+Objective: |
+  Convert D-023 into an accepted purge/embargo methodology tied to feature
+  lookback, label horizon, holding period, bar frequency, calendar profile, and
+  execution assumptions.
+
+Files:
+  - entropy/walkforward/embargo.py
+  - tests/unit/test_purge_embargo.py
+
+Result:
+  - Method ID `PE-MAX-HORIZON-v1` implemented.
+  - Derived embargo duration is the max of feature lookback, label horizon,
+    maximum holding period, and execution lag.
+  - Derived embargo bars use ceiling division by bar duration.
+  - Existing splitter remains stable and can consume derived `embargo_bars`.
+
+### [x] P0.6-004: Sharpe CI Revision
+
+Objective: |
+  Revise `CI-SR-ACF-v1` implementation/report fields according to
+  `docs/audit/SHARPE_CI_REVIEW.md`.
+
+Files:
+  - entropy/stats/analysis.py
+  - tests/unit/test_stats.py
+
+Result:
+  - `SharpeCIResult` exposes canonical report fields.
+  - Analytical path computes Bartlett-adjusted `n_eff` and `T_eff_years`.
+  - Tests cover zero and nonzero autocorrelation examples and invalid inputs.
+  - Report/gate integration remains required before phase-exit proof.
+
+### [x] P0.6-005: Harvey-Liu Family Workflow
+
+Objective: |
+  Implement family-table `HL-HB-v1` workflow according to
+  `docs/audit/HARVEY_LIU_REVIEW.md`.
+
+Files:
+  - entropy/stats/analysis.py
+  - entropy/stats/__init__.py
+  - tests/unit/test_stats.py
+
+Result:
+  - Added `HarveyLiuTrial` and `compute_harvey_liu_family()`.
+  - Family workflow requires complete one-family membership and
+    `M_total == family membership count`.
+  - Computes one-sided positive-edge p-values, sorted Holm-Bonferroni adjusted
+    p-values, Sharpe-equivalent deflated values, ranks, membership, and hashes.
+  - Legacy single-trial `compute_harvey_liu_deflation()` remains explicit
+    provisional scaffold.
+  - Report/gate integration remains required before phase-exit proof.
+
+### [x] P0.6-006: SimBroker Calibration Tooling
+
+Objective: |
+  Implement calibration row validation and summary tooling according to
+  `docs/audit/SIMBROKER_CALIBRATION_PLAN.md`; no provider activation.
+
+Files:
+  - entropy/simbroker/calibration.py
+  - entropy/simbroker/__init__.py
+  - tests/unit/test_simbroker.py
+
+Result:
+  - Added `CalibrationRow`, `CalibrationSummary`, and per-asset summaries.
+  - Validates bid/ask math, side-specific reference price, deviation fields,
+    15% pass flag, UTC timestamps, source hashes, and manual verifier fields.
+  - Added JSONL writer/reader and deterministic Markdown summary renderer.
+  - Summary reports incomplete/fail/packet-ready-for-review status but never
+    claims Phase 0 gate approval.
+  - Real >=100 manually verified bid/ask rows remain required before gate use.
+
+### [x] P0.6-007: Data Stability Monitor Tooling
+
+Objective: |
+  Implement monitoring row validation and summary tooling according to
+  `docs/audit/DATA_STABILITY_PLAN.md`; no provider activation.
+
+Files:
+  - entropy/data/stability.py
+  - entropy/data/__init__.py
+  - tests/unit/test_data_stability.py
+
+Result:
+  - Added `DataStabilityRow`, `DataStabilitySummary`, and per-asset summaries.
+  - Validates monitor row schema, UTC timestamps, gap candidate logic, allowed
+    reason codes, explained/unexplained gap consistency, hashes, and checker
+    fields.
+  - Added JSONL writer/reader and deterministic Markdown summary renderer.
+  - Summary reports incomplete/invalid/fail/packet-ready-for-review status but
+    never claims Phase 0 gate approval.
+  - Real >=90 continuous monitored days remain required before gate use.
+
+### [x] P0.6-008: Evidence Collection Authorization Packet
+
+Objective: |
+  Request and record human source/provider approvals required before collecting
+  real SimBroker calibration, P4 coverage, or 90-day data-stability evidence.
+
+Files:
+  - docs/audit/EVIDENCE_COLLECTION_AUTHORIZATION.md
+
+Result:
+  - Created the authorization packet for P4 label coverage, SimBroker
+    calibration, and data-stability monitoring.
+  - Initial decision was `PENDING_HUMAN_APPROVAL`; P0.6-HUMAN-001 later
+    approved the limited free crypto source set.
+  - No provider activation, network egress, real evidence collection, Phase 0
+    approval, or OOS/performance claim is authorized.
+  - Next action is human approval or rejection of evidence-collection scopes.
+
+### [x] P0.6-HUMAN-001: Evidence Collection Authorization Review
+
+Objective: |
+  Human owner reviews `docs/audit/EVIDENCE_COLLECTION_AUTHORIZATION.md` and
+  explicitly approves or rejects source/provider access, artifact storage
+  boundaries, target universes, and network egress for real evidence collection.
+
+Files:
+  - docs/audit/EVIDENCE_COLLECTION_AUTHORIZATION.md
+  - docs/audit/EVIDENCE_SOURCE_SELECTION.md
+  - entropy/evidence/source_selection.py
+  - entropy/evidence/__init__.py
+  - tests/unit/test_source_selection.py
+
+Result:
+  - Decision recorded as `APPROVED_LIMITED_FREE_CRYPTO_SOURCES`.
+  - Selected `FREE-CRYPTO-SOURCES-v1`: Binance public archive primary, Kraken
+    public API and Coinbase Exchange public API cross-checks.
+  - Egress is limited to `data.binance.vision`, `api.kraken.com`, and
+    `api.exchange.coinbase.com`.
+  - Alpha Vantage free and Stooq daily equities are rejected for the first
+    evidence bootstrap.
+  - No paid APIs, authenticated broker APIs, trading, Phase 0 approval, Phase 1
+    start, or OOS/performance claims are authorized.
+
+### [x] P0.7-001: Crypto Universe Snapshot And Source Manifest Bootstrap
+
+Objective: |
+  Create the first target crypto universe snapshot and source manifest using
+  `FREE-CRYPTO-SOURCES-v1`; run only small canary checks before full evidence
+  collection.
+
+Files:
+  - entropy/evidence/crypto_universe.py
+  - tests/unit/test_crypto_universe.py
+  - docs/audit/CRYPTO_UNIVERSE_SNAPSHOT.md
+  - docs/audit/SOURCE_MANIFEST_BOOTSTRAP.md
+
+Result:
+  - Created `PHASE0-CRYPTO-20-v1` with 20 liquid crypto majors.
+  - Universe hash:
+    `6d4287839640086728536ab5b40f4592e924f1b22e18c6c1c8e3190bf7d4d4cd`.
+  - Canary checks passed for `data.binance.vision`, `api.kraken.com`, and
+    `api.exchange.coinbase.com`.
+  - No full evidence collection, Phase 0 approval, Phase 1 start, or
+    OOS/performance claim was made.
+
+### [x] P0.7-002: Binance P4 Canary Dataset
+
+Objective: |
+  Download a tiny approved Binance public archive OHLCV canary, hash it, convert
+  it through existing data quality/P4 tooling, and keep the output marked as
+  canary evidence only.
+
+Files:
+  - entropy/evidence/binance_canary.py
+  - tests/unit/test_binance_canary.py
+  - docs/audit/BINANCE_P4_CANARY.md
+  - artifacts/evidence/binance_p4_canary/BTCUSDT_1d_2024_01/
+
+Result:
+  - Downloaded approved Binance public archive canary:
+    `BTCUSDT-1d-2024-01.zip`.
+  - Source SHA-256:
+    `474c1ce6fbb09e42cfc7231fee249aecc58af2fb5918570ffeba37998926b4a4`.
+  - Converted 31 daily OHLCV bars to Parquet and computed dataset hash:
+    `042b0b99abc857e59f4a165d66bb3a7e56abaeb9de7b08c4b224b6f1c3bb3770`.
+  - Data quality status: `PASS`.
+  - P4 tooling generated 4 weekly labels; gate evidence remains `false` because
+    the canary has 0 valid post-warmup labeled weeks.
+  - No Phase 0 approval, Phase 1 start, or OOS/performance claim was made.
+
+### [x] P0.7-003: P4 Coverage Scale Plan
+
+Objective: |
+  Plan the scaled Binance archive collection for `PHASE0-CRYPTO-20-v1`,
+  including artifact-size controls, expected months/assets, resumable manifests,
+  and acceptance checks before downloading the full 3-year/20-asset dataset.
+
+Files:
+  - entropy/evidence/p4_scale_plan.py
+  - tests/unit/test_p4_scale_plan.py
+  - docs/audit/P4_COVERAGE_SCALE_PLAN.md
+  - docs/audit/P4_COVERAGE_SCALE_MANIFEST.json
+
+Result:
+  - Created `P4-BINANCE-SCALE-PLAN-v1`.
+  - Plan hash:
+    `0e6f1e9908a88372dd47c8792c7ea01d6a5a0a8c16382510a5bc6aa8b483d457`.
+  - Planned downloads: 720 monthly Binance `1d` archive files.
+  - Coverage matrix: 20 assets x 36 months, 2023-01 through 2025-12.
+  - Batch size: 20 files.
+  - Gate claim is explicitly disabled until reviewed coverage packet generation.
+
+### [x] P0.7-004: P4 First Batch Collection
+
+Objective: |
+  Download the first resumable batch from `P4-BINANCE-SCALE-PLAN-v1`, record
+  source hashes and terminal statuses, and stop before full-scale collection.
+
+Files:
+  - entropy/evidence/p4_batch_collection.py
+  - tests/unit/test_p4_batch_collection.py
+  - docs/audit/P4_FIRST_BATCH_COLLECTION.md
+  - artifacts/evidence/p4_binance_scale/batches/batch_001/
+
+Result:
+  - Downloaded first planned batch: sequence 1-20.
+  - Range: `BTCUSDT` monthly `1d` archives from 2023-01 through 2024-08.
+  - Requested: 20; done: 20; failed: 0.
+  - Recorded SHA-256 and byte count for every source zip.
+  - Gate claim remains disabled.
+  - No conversion, P4 coverage closure, Phase 0 approval, Phase 1 start, or
+    OOS/performance claim was made.
+
+### [x] P0.7-005: P4 First Batch Conversion
+
+Objective: |
+  Convert the first collected BTCUSDT batch into a merged local dataset, compute
+  dataset hash, run data-quality checks, and generate partial P4 output before
+  downloading additional batches.
+
+Files:
+  - entropy/evidence/p4_batch_conversion.py
+  - tests/unit/test_p4_batch_conversion.py
+  - docs/audit/P4_FIRST_BATCH_CONVERSION.md
+  - artifacts/evidence/p4_binance_scale/conversions/batch_001/
+
+Result:
+  - Converted 20 BTCUSDT monthly `1d` source archives into one merged Parquet
+    dataset.
+  - Dataset hash:
+    `75dfbf9a9a41c2a374220da43cf12930a9c663f17a4aef2523944cc742744c65`.
+  - Daily bars: 609, from `2023-01-01T00:00:00+00:00` through
+    `2024-08-31T00:00:00+00:00`.
+  - Data quality status: `PASS`.
+  - Partial P4 output generated 86 weekly labels and 0 valid post-warmup labeled
+    weeks; reason `insufficient_labeled_weeks`.
+  - Gate claim remains disabled.
+
+### [x] P0.7-006: P4 Batch 002 Collection
+
+Objective: |
+  Download the next resumable batch from `P4-BINANCE-SCALE-PLAN-v1`, record
+  source hashes and terminal statuses, and keep the same no-claim boundary.
+
+Files:
+  - entropy/evidence/p4_scale_plan.py
+  - tests/unit/test_p4_scale_plan.py
+  - docs/audit/P4_BATCH_002_COLLECTION.md
+  - artifacts/evidence/p4_binance_scale/batches/batch_002/
+
+Result:
+  - Added deterministic `batch_items()` helper for one-based resumable batch
+    selection.
+  - Downloaded plan sequence 21-40.
+  - Range: `BTCUSDT` 2024-09 through 2025-12, then `ETHUSDT` 2023-01 through
+    2023-04.
+  - Requested: 20; done: 20; failed: 0.
+  - Recorded SHA-256 and byte count for every source zip.
+  - Gate claim remains disabled.
+
+### [x] P0.7-007: BTCUSDT Full-Window Conversion
+
+Objective: |
+  Merge BTCUSDT source archives across batch 001 and batch 002 into the full
+  planned 2023-01 through 2025-12 dataset, compute dataset hash, run
+  data-quality checks, and generate full-window BTCUSDT P4 output before
+  collecting more assets.
+
+Files:
+  - entropy/evidence/p4_batch_conversion.py
+  - tests/unit/test_p4_batch_conversion.py
+  - docs/audit/P4_BTCUSDT_FULL_WINDOW_CONVERSION.md
+  - artifacts/evidence/p4_binance_scale/conversions/full_windows/BTCUSDT_1d_2023_01_2025_12/
+
+Result:
+  - Added symbol-window conversion across collected batch manifests.
+  - Converted BTCUSDT source sequences 1-36, 2023-01 through 2025-12.
+  - Dataset hash:
+    `15dd83aa0222f764247f535fbd5ac1c8c67cdd50770870f5fc9aa66dac0f4592`.
+  - Daily bars: 1096, from `2023-01-01T00:00:00+00:00` through
+    `2025-12-31T00:00:00+00:00`.
+  - Data quality status: `PASS`.
+  - P4 generated labels: 156; valid post-warmup labeled weeks: 1; reason
+    `insufficient_labeled_weeks`.
+  - Strategic finding: the current 3-year plan cannot satisfy the encoded 156
+    valid post-warmup labeled-week requirement.
+
+### [x] P0.7-008: P4 Coverage Window Strategy Decision
+
+Objective: |
+  Decide whether to expand the source window, revise the acceptance metric, or
+  record a charter-level change request before more broad P4 collection.
+
+Files:
+  - docs/audit/P4_COVERAGE_WINDOW_STRATEGY_DECISION.md
+  - docs/audit/PHASE0_GATE_PACKET.md
+  - docs/CODEX_PROMPT.md
+  - docs/tasks.md
+  - docs/EVIDENCE_INDEX.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Result:
+  - Decision: do not continue broad 2023-2025 collection under the current
+    matrix.
+  - Reason: full BTCUSDT 2023-2025 conversion produced data quality `PASS`, but
+    only 1 valid post-warmup P4 labeled week against the encoded requirement of
+    156.
+  - Rejected silently treating 156 generated labels as sufficient.
+  - Accepted next step: source-approved extended-history eligibility probe before
+    any larger download plan.
+
+### [x] P0.7-009: P4 Extended History Eligibility Probe
+
+Objective: |
+  Probe approved Binance public archive history depth for the target universe
+  and determine whether at least 15 assets can support 156 valid post-warmup P4
+  labels under the current label semantics.
+
+Files:
+  - entropy/evidence/p4_history_probe.py
+  - entropy/evidence/__init__.py
+  - tests/unit/test_p4_history_probe.py
+  - docs/audit/P4_EXTENDED_HISTORY_ELIGIBILITY_PROBE.md
+  - artifacts/evidence/p4_binance_scale/history_probe_2020_2025/
+  - artifacts/evidence/p4_binance_scale/history_probe_legacy_candidates_2020_2025/
+
+Result:
+  - Implemented HEAD-only Binance archive history probe.
+  - Probed `PHASE0-CRYPTO-20-v1` for 2020-01 through 2025-12.
+  - Current universe eligible assets: 13/15; universe eligible: `false`.
+  - Ineligible current assets: SOLUSDT, AVAXUSDT, DOTUSDT, UNIUSDT, AAVEUSDT,
+    NEARUSDT, FILUSDT.
+  - Probed 12 legacy replacement candidates under the same method.
+  - Eligible legacy candidates: 11/12.
+  - Finding: preserve P4 label semantics; revise universe composition before
+    regenerating a large download matrix.
+
+### [x] P0.7-010: P4 Universe Revision Decision
+
+Objective: |
+  Decide whether to revise the Phase 0 P4 universe using eligible legacy
+  candidates, and if accepted, define the revised universe snapshot before
+  regenerating the download matrix.
+
+Files:
+  - entropy/evidence/crypto_universe.py
+  - entropy/evidence/__init__.py
+  - tests/unit/test_crypto_universe.py
+  - docs/audit/P4_UNIVERSE_REVISION_DECISION.md
+  - docs/audit/P4_REVISED_CRYPTO_UNIVERSE_SNAPSHOT.md
+
+Result:
+  - Decision: create `PHASE0-CRYPTO-P4-20-v2`.
+  - Revised universe hash:
+    `298fd0d4cb59dc7f94db12f61bc9cacb9915c59ba35a9be94f470f0e5b39f594`.
+  - Retained 13 eligible current assets.
+  - Replaced SOLUSDT, AVAXUSDT, DOTUSDT, UNIUSDT, AAVEUSDT, NEARUSDT, and
+    FILUSDT with XLMUSDT, VETUSDT, IOTAUSDT, NEOUSDT, QTUMUSDT, ONTUSDT, and
+    XTZUSDT.
+  - P4 label semantics remain unchanged.
+
+### [x] P0.7-011: Revised P4 Scale Plan
+
+Objective: |
+  Regenerate the 2020-01 through 2025-12 download matrix for
+  `PHASE0-CRYPTO-P4-20-v2` before collecting more archives.
+
+Files:
+  - entropy/evidence/p4_scale_plan.py
+  - entropy/evidence/__init__.py
+  - tests/unit/test_p4_scale_plan.py
+  - docs/audit/P4_REVISED_SCALE_PLAN_DECISION.md
+  - docs/audit/P4_REVISED_COVERAGE_SCALE_PLAN.md
+  - docs/audit/P4_REVISED_COVERAGE_SCALE_MANIFEST.json
+
+Result:
+  - Created `P4-BINANCE-REVISED-SCALE-PLAN-v1`.
+  - Plan hash:
+    `f8902894d1b712c19784c7fd8b2ffb6dcaa52a34100b8e64815fe19a9692ee2f`.
+  - Universe: `PHASE0-CRYPTO-P4-20-v2`.
+  - Window: 2020-01 through 2025-12.
+  - Planned downloads: 1440 monthly Binance `1d` archives.
+  - Batch size: 20.
+  - Gate claim remains disabled.
+
+### [x] P0.7-012: Revised P4 Batch 001 Collection
+
+Objective: |
+  Download the first resumable 20-file batch from
+  `P4-BINANCE-REVISED-SCALE-PLAN-v1`, record source hashes/statuses, and stop
+  before conversion or gate claims.
+
+Files:
+  - docs/audit/P4_REVISED_BATCH_001_COLLECTION.md
+  - artifacts/evidence/p4_binance_scale/revised_v2/batches/batch_001/
+
+Result:
+  - Downloaded revised plan sequence 1-20.
+  - Range: `BTCUSDT` monthly `1d` archives from 2020-01 through 2021-08.
+  - Requested: 20; done: 20; failed: 0.
+  - Recorded SHA-256 and byte count for every source zip.
+  - Gate claim remains disabled.
+
+### [x] P0.7-013: Revised P4 BTCUSDT Batch 001 Conversion
+
+Objective: |
+  Convert the first revised BTCUSDT source batch into a partial local dataset,
+  compute dataset hash, run data-quality checks, and generate partial P4 output
+  before additional revised batches are collected.
+
+Files:
+  - docs/audit/P4_REVISED_BATCH_001_CONVERSION.md
+  - artifacts/evidence/p4_binance_scale/revised_v2/conversions/batch_001/
+
+Result:
+  - Converted revised batch 001 into a merged BTCUSDT Parquet dataset.
+  - Dataset hash:
+    `e7e26e022c849317f5266333d3dd3a40570bf0e4e2919ee1850c55f3296af354`.
+  - Daily bars: 609, from `2020-01-01T00:00:00+00:00` through
+    `2021-08-31T00:00:00+00:00`.
+  - Data quality status: `PASS`.
+  - Partial P4 output generated 86 weekly labels and 0 valid post-warmup labeled
+    weeks; reason `insufficient_labeled_weeks`.
+  - Gate claim remains disabled.
+
+### [x] P0.7-014: Revised P4 Batch 002 Collection
+
+Objective: |
+  Download the second resumable 20-file batch from
+  `P4-BINANCE-REVISED-SCALE-PLAN-v1`, record source hashes/statuses, and stop
+  before conversion or gate claims.
+
+Files:
+  - docs/audit/P4_REVISED_BATCH_002_COLLECTION.md
+  - artifacts/evidence/p4_binance_scale/revised_v2/batches/batch_002/
+
+Result:
+  - Downloaded revised plan sequence 21-40.
+  - Range: `BTCUSDT` monthly `1d` archives from 2021-09 through 2023-04.
+  - Requested: 20; done: 20; failed: 0.
+  - Recorded SHA-256 and byte count for every source zip.
+  - Gate claim remains disabled.
+
+### [x] P0.7-015: Revised P4 First 15 Coverage Build
+
+Objective: |
+  Complete revised P4 source collection and full-window conversion for the first
+  15 revised-universe assets, then generate an aggregate P4 coverage packet
+  candidate.
+
+Files:
+  - docs/audit/P4_REVISED_FIRST15_COVERAGE_PACKET.md
+  - artifacts/evidence/p4_binance_scale/revised_v2/batches/batch_001/
+    through batch_054/
+  - artifacts/evidence/p4_binance_scale/revised_v2/conversions/full_windows/
+  - artifacts/evidence/p4_binance_scale/revised_v2/coverage/first_15_assets_2020_2025/
+
+Result:
+  - Collected revised plan sequence 1-1080 across batch 001-054.
+  - Batch failures: 0.
+  - Converted full 2020-01 through 2025-12 windows for 15 assets.
+  - Data quality status: `PASS` for all 15 assets.
+  - Daily bars: 2192 per asset.
+  - Valid post-warmup P4 labeled weeks: 157 per asset.
+  - Passing assets: 15/15.
+  - Aggregate P4 gate evidence candidate complete: `true`.
+  - Gate claim remains disabled pending human review.
+
+### [x] P0.7-016: P4 Coverage Packet Review
+
+Objective: |
+  Review the generated revised P4 coverage labels, manifests, hashes, and source
+  boundaries before marking the P4 blocker as closed in the Phase 0 gate packet.
+
+Files:
+  - docs/audit/P4_COVERAGE_PACKET_REVIEW.md
+  - artifacts/evidence/p4_binance_scale/revised_v2/coverage/first_15_assets_2020_2025/
+
+Result:
+  - Reviewed aggregate packet `P4-REVISED-FIRST15-COVERAGE-v1`.
+  - Verified 54/54 batch manifests and 1080/1080 source archives.
+  - Recomputed source and dataset hashes with 0 mismatches.
+  - Verified 15/15 full-window symbol manifests, label artifacts, and data
+    quality `PASS`.
+  - Valid post-warmup P4 labeled weeks: 157 per asset.
+  - Accepted as the current P4 evidence candidate.
+  - This closes the P4 coverage blocker as an evidence blocker only; Phase 0
+    remains not approved until remaining gate blockers close.
+
+### [x] P0.7-017: Phase 0 Gate Packet Sync
+
+Objective: |
+  Update the Phase 0 gate packet so P4 coverage is marked closed by reviewed
+  evidence while SimBroker calibration, data-stability, and other remaining
+  gate blockers keep Phase 0 at `NOT_APPROVED`.
+
+Files:
+  - docs/audit/PHASE0_GATE_PACKET.md
+
+Result:
+  - P4 label coverage is marked closed for evidence based on
+    `docs/audit/P4_COVERAGE_PACKET_REVIEW.md`.
+  - Phase 0 remains `NOT_APPROVED`.
+  - Remaining hard blockers include SimBroker calibration, 90-day data
+    stability, registered leakage/temporal-shuffling packet, and report/gate
+    formula packets.
+
+### [x] P0.7-018: SimBroker Calibration Bootstrap
+
+Objective: |
+  Prepare the no-budget SimBroker calibration evidence path using only approved
+  public quote sources, with no broker activation, no trading, and no Phase 0
+  approval claim.
+
+Files:
+  - entropy/evidence/simbroker_calibration_bootstrap.py
+  - tests/unit/test_simbroker_calibration_bootstrap.py
+  - docs/audit/SIMBROKER_CALIBRATION_BOOTSTRAP.md
+  - artifacts/evidence/simbroker_calibration/bootstrap_001/
+
+Result:
+  - Added approved-source quote bootstrap tooling for Coinbase Exchange public
+    API and Kraken public API.
+  - Collected 10/10 raw public bid/ask quote snapshots across 5 representative
+    crypto assets and 2 approved sources.
+  - Wrote raw extracts, SHA-256 hashes, manifest, and summary.
+  - Created 0 calibration rows; manual verification remains incomplete.
+  - SimBroker calibration gate remains open.
+
+### [x] P0.7-019: SimBroker Calibration Candidate Row Plan
+
+Objective: |
+  Define how real SimBroker fill logs will be paired with approved public quote
+  snapshots to create >=100 manually verified calibration rows, without
+  synthetic gate closure or post-hoc tuning.
+
+Files:
+  - entropy/simbroker/calibration.py
+  - entropy/simbroker/__init__.py
+  - tests/unit/test_simbroker.py
+  - docs/audit/SIMBROKER_CALIBRATION_CANDIDATE_ROW_PLAN.md
+
+Result:
+  - Added `build_calibration_row_from_fill()`.
+  - Builder converts real `FillLog` plus approved `BidAskQuote` and manual
+    verifier metadata into a validated `CalibrationRow`.
+  - Buy rows reference ask; sell rows reference bid.
+  - Stale quote matches are excluded with
+    `quote_timestamp_outside_tolerance`.
+  - Gate claim remains disabled and no calibration rows are accepted without
+    manual verification.
+
+### [x] P0.7-020: SimBroker Calibration Packet Assembly Dry Run
+
+Objective: |
+  Use fixture fill logs and fixture quotes to verify calibration packet assembly
+  mechanics end-to-end while keeping all generated rows marked as non-gate
+  fixtures.
+
+Files:
+  - docs/audit/SIMBROKER_CALIBRATION_DRY_RUN.md
+  - artifacts/evidence/simbroker_calibration/dry_run_001/
+
+Result:
+  - Generated 100 fixture calibration rows through
+    `build_calibration_row_from_fill()`.
+  - Wrote JSONL rows and deterministic summary.
+  - All rows are excluded as `fixture_non_gate`.
+  - Summary status is `INCOMPLETE`; no gate evidence was created.
+
+### [x] P0.7-021: Data Stability Bootstrap
+
+Objective: |
+  Start the approved-source data-stability evidence path by recording the first
+  monitor snapshot while preserving the >=90 continuous-day elapsed-time gate.
+
+Files:
+  - docs/audit/DATA_STABILITY_BOOTSTRAP.md
+  - artifacts/evidence/data_stability/bootstrap_001/
+
+Result:
+  - Wrote 10 monitor rows from approved public quote snapshots.
+  - Monitored day count: 1.
+  - Missing symbol-days: 0.
+  - Unexplained gaps: 0.
+  - Packet status: `INCOMPLETE`.
+  - Data-stability gate remains open because >=90 continuous monitored days are
+    required.
+
+### [x] P0.7-022: Daily Stability Append Procedure
+
+Objective: |
+  Define the repeatable daily append procedure for data-stability monitor rows
+  so future sessions can accumulate the required 90-day evidence window without
+  overwriting prior rows.
+
+Files:
+  - entropy/evidence/data_stability_simulation.py
+  - tests/unit/test_data_stability_simulation.py
+  - docs/audit/DATA_STABILITY_SIMULATION.md
+  - docs/audit/DAILY_STABILITY_APPEND_PROCEDURE.md
+  - docs/audit/SIMBROKER_AGENT_ASSISTED_VERIFICATION_DECISION.md
+  - artifacts/evidence/data_stability/simulation_90d_001/
+
+Result:
+  - Added fixture-only 90-day data-stability simulation helper and tests.
+  - Generated 450 simulated monitor rows across 90 days and 5 assets.
+  - Mechanical packet status reaches `PACKET_READY_FOR_REVIEW`.
+  - Gate claim remains disabled because the data is simulated.
+  - Defined daily append procedure for real monitoring.
+  - Recorded proposed SimBroker agent-assisted verification decision.
+
+### [x] P0.7-023: SimBroker Agent Verification Approval And Calibration Packet
+
+Objective: |
+  Record owner approval for agent-assisted deterministic verification and use it
+  to assemble the Phase 0 SimBroker calibration evidence packet.
+
+Files:
+  - docs/audit/SIMBROKER_AGENT_ASSISTED_VERIFICATION_DECISION.md
+  - docs/audit/SIMBROKER_AGENT_VERIFIED_CALIBRATION_PACKET.md
+  - docs/DECISION_LOG.md
+  - artifacts/evidence/simbroker_calibration/agent_verified_001/
+
+Result:
+  - D-026 records owner approval for agent-assisted deterministic verification.
+  - Built 100 included SimBroker calibration rows from approved public quote
+    snapshots and deterministic SimBroker fill logs.
+  - Included rows: 100.
+  - Pass count: 100.
+  - Failure count: 0.
+  - Packet status: `PACKET_READY_FOR_REVIEW`.
+  - SimBroker calibration evidence blocker is closed.
+
+### [x] P0.7-024: Live Data Stability Append Tooling
+
+Objective: |
+  Convert the bootstrap snapshot flow into a reusable append command/helper for
+  cumulative live-monitor rows, preserving append-only evidence semantics.
+
+Files:
+  - entropy/evidence/data_stability_live.py
+  - entropy/evidence/__init__.py
+  - tests/unit/test_data_stability_live.py
+  - docs/audit/DATA_STABILITY_LIVE_APPEND_TOOLING.md
+  - artifacts/evidence/data_stability/live_monitor/
+
+Result:
+  - Added append-only live data-stability helper.
+  - Helper records daily raw snapshots, appends cumulative JSONL rows, rejects
+    duplicate same-day monitor IDs, and rebuilds cumulative summary.
+  - First real append wrote 10 rows for 2026-05-05.
+  - Monitored day count: 1.
+  - Missing symbol-days: 0.
+  - Unexplained gaps: 0.
+  - Packet status: `INCOMPLETE`.
+  - Data-stability gate remains open until >=90 continuous monitored days.
+
+### [x] P0.7-025: Registered Leakage Gate Packet
+
+Objective: |
+  Assemble the registered leakage/temporal-shuffling gate packet from existing
+  T19/T20 leakage tooling and accepted purge/embargo methodology.
+
+Files:
+  - entropy/walkforward/temporal_shuffle.py
+  - entropy/walkforward/__init__.py
+  - tests/unit/test_temporal_shuffle.py
+  - docs/audit/REGISTERED_LEAKAGE_GATE_PACKET.md
+  - artifacts/evidence/leakage_gate/REGISTERED_LEAKAGE_GATE_MANIFEST.json
+
+Result:
+  - Added `TS-OOS-SHUFFLE-v1` temporal-shuffling audit.
+  - Temporal shuffle passes only when IS feature hash is invariant to
+    deterministic OOS reversal.
+  - Registered packet combines T19 checklist, T20 OOS block, omitted-detector
+    FAIL policy, `PE-MAX-HORIZON-v1`, and `TS-OOS-SHUFFLE-v1`.
+  - Leakage/temporal-shuffling evidence blocker is closed.
+
+### [x] P0.7-026: Statistical Report Gate Packets
+
+Objective: |
+  Assemble report/gate packets for revised Sharpe CI and Harvey-Liu family
+  workflow so statistical helper tooling has accepted report boundaries before
+  any performance claims.
+
+Files:
+  - docs/audit/STATISTICAL_REPORT_GATE_PACKET.md
+  - artifacts/evidence/statistical_gate/STATISTICAL_REPORT_GATE_MANIFEST.json
+
+Result:
+  - Accepted `CI-SR-ACF-v1` as report-boundary tooling with required report
+    fields.
+  - Accepted `HL-HB-v1` family workflow as report-boundary tooling.
+  - Legacy single-trial Harvey-Liu scaffold remains rejected for gate/report
+    proof.
+  - No strategy validation or OOS/performance claim is made.
+  - Statistical report-boundary blocker is closed.
+
+### [x] P0.7-027: Phase 0 Gate Packet Final Sync
+
+Objective: |
+  Reconcile closed evidence blockers and remaining elapsed-time blockers in the
+  Phase 0 gate packet, then decide whether Phase 0 remains blocked only by the
+  90-day data-stability window.
+
+Files:
+  - docs/audit/PHASE0_GATE_PACKET.md
+  - docs/audit/PHASE0_FINAL_SYNC.md
+
+Result:
+  - Superseded by D-027 archive-only evidence mode.
+  - All currently closable evidence blockers are closed.
+  - At the time of this sync, live/streaming data stability remained
+    unapproved.
+
+### [x] P0.7-028: Archive-Mode Data Stability Packet
+
+Objective: |
+  Because current work is archive-only, build a data-stability evidence packet
+  from immutable approved archive datasets instead of continuing live monitoring.
+
+Files:
+  - entropy/evidence/data_stability_archive.py
+  - tests/unit/test_data_stability_archive.py
+  - docs/audit/ARCHIVE_ONLY_EVIDENCE_MODE_DECISION.md
+  - docs/audit/DATA_STABILITY_ARCHIVE_PACKET.md
+  - artifacts/evidence/data_stability/archive_2020_2025/
+
+Result:
+  - D-027 records archive-only evidence mode.
+  - Archive packet status: `PACKET_READY_FOR_REVIEW`.
+  - Source manifests: 15.
+  - Archive days: 2192.
+  - Rows: 32880.
+  - Missing symbol-days: 0.
+  - Unexplained gaps: 0.
+  - Archive-only Phase 0 research foundation is ready for strategist review.
+  - Live/streaming data-stability remains a future hard gate before live
+    operation.
+
+### [x] PSR-003: Archive-Only Continuation Decision
+
+Objective: |
+  Decide the next development stage from the closed archive-only Phase 0
+  foundation: archive-only Phase 1 planning, another architecture audit pass, or
+  roadmap revision before adding new implementation surface.
+
+Files:
+  - docs/audit/ARCHIVE_ONLY_CONTINUATION_DECISION.md
+  - docs/DECISION_LOG.md
+
+Result:
+  - D-028 selects Phase 1A Archive-Only Baseline Planning and Instrumentation.
+  - Live monitoring, live trading, streaming providers, RDL hypothesis
+    generation, Growth Layer escalation, and OOS/performance claims remain
+    blocked.
+  - First next task: P1A-001 Phase 1 Archive Entry Contract.
+
+## Phase 1A — Archive-Only Baseline Planning and Instrumentation
+
+### [x] P1A-001: Phase 1 Archive Entry Contract
+
+Objective: |
+  Define the archive-only entry contract for Phase 1 Long-Only Baseline before
+  any strategy implementation: dataset freeze rules, admissible archive windows,
+  baseline skill boundaries, portfolio constraints, Growth Layer monitoring
+  prerequisites, RDL dormancy, and no-claim reporting rules.
+
+Boundary:
+  - Archive-only planning and instrumentation only.
+  - No live feeds, live capital, streaming providers, live broker integration,
+    RDL hypothesis generation, RBE activation, or OOS/performance claims.
+
+Files:
+  - docs/audit/PHASE1A_ARCHIVE_ENTRY_CONTRACT.md
+  - docs/audit/REVIEW_REPORT.md
+  - docs/audit/DRIFT_ASSERTIONS.md
+  - docs/audit/DRIFT_REPORT.md
+  - docs/audit/INVARIANTS.md
+  - docs/audit/ADVERSARIAL_REVIEW.md
+
+Result:
+  - F-C3-001 through F-C3-006 are closed by contract.
+  - Dataset freeze rules, archive split labels, skill boundaries, portfolio
+    constraints, Growth monitoring-only scope, and RDL dormancy attestation are
+    defined.
+  - Phase 1 implementation remains blocked.
+  - Next task: P1A-002 Archive Dataset Freeze Manifest.
+
+### [x] P1A-002: Archive Dataset Freeze Manifest
+
+Objective: |
+  Convert the P1A-001 dataset freeze contract into a machine-readable manifest
+  that enumerates the admissible initial archive datasets, source manifests,
+  dataset hashes, windows, split labels, and no-claim boundary before any
+  dataset-consuming implementation begins.
+
+Boundary:
+  - Manifest and validation only.
+  - No strategy implementation, portfolio implementation, archive performance
+    evaluation, Growth instrumentation, RDL scaffolding, live feeds, or OOS
+    performance claims.
+
+Files:
+  - entropy/evidence/phase1a_freeze.py
+  - entropy/evidence/__init__.py
+  - tests/unit/test_phase1a_freeze.py
+  - docs/audit/PHASE1A_ARCHIVE_FREEZE_PACKET.md
+  - artifacts/evidence/phase1a_archive_freeze/freeze_001/PHASE1A_ARCHIVE_FREEZE_MANIFEST.json
+  - artifacts/evidence/phase1a_archive_freeze/freeze_001/PHASE1A_ARCHIVE_FREEZE_SUMMARY.md
+
+Result:
+  - Freeze ID `PHASE1A-ARCHIVE-FREEZE-v1` is generated.
+  - The initial Phase 1A archive universe is frozen to 15 approved `1d`
+    datasets from `2020-01-01` through `2025-12-31`.
+  - Manifest hash:
+    `54a820dbb07557294e821356168db4dbc6ba70fda4464a519442c4b20faea35e`.
+  - Split labels are encoded for archive formation, archive validation, and
+    archive holdout, with holdout forbidden before registration boundary.
+  - No strategy, portfolio, Growth, RDL, live, OOS, or performance claim is
+    authorized.
+  - Next task: P1A-003 Archive Split Registration Boundary.
+
+### [x] P1A-003: Archive Split Registration Boundary
+
+Objective: |
+  Implement the machine-readable registration/read-gate boundary derived from
+  the P1A-002 freeze manifest. The boundary must define which archive split can
+  be read by future formation, validation, and holdout tasks, and must make
+  holdout access impossible before a registered baseline specification exists.
+
+Boundary:
+  - Registration and read-gate instrumentation only.
+  - No strategy implementation, portfolio implementation, archive performance
+    evaluation, Growth instrumentation, RDL scaffolding, live feeds, or OOS
+    performance claims.
+
+Files:
+  - entropy/evidence/phase1a_registration.py
+  - entropy/evidence/__init__.py
+  - tests/unit/test_phase1a_registration.py
+  - docs/audit/PHASE1A_REGISTRATION_BOUNDARY_PACKET.md
+  - artifacts/evidence/phase1a_registration_boundary/boundary_001/PHASE1A_ARCHIVE_REGISTRATION_BOUNDARY_MANIFEST.json
+  - artifacts/evidence/phase1a_registration_boundary/boundary_001/PHASE1A_ARCHIVE_REGISTRATION_BOUNDARY_SUMMARY.md
+
+Result:
+  - Boundary ID `PHASE1A-ARCHIVE-REGISTRATION-BOUNDARY-v1` is generated.
+  - Freeze manifest hash is validated against
+    `54a820dbb07557294e821356168db4dbc6ba70fda4464a519442c4b20faea35e`.
+  - `ARCHIVE_FORMATION` reads are allowed for formation/instrumentation
+    purposes.
+  - `ARCHIVE_VALIDATION` reads require baseline registration metadata.
+  - `ARCHIVE_HOLDOUT` reads are locked with
+    `HOLDOUT_LOCKED_PENDING_BASELINE_REGISTRATION`.
+  - No strategy, portfolio, Growth, RDL, live, OOS, or performance claim is
+    authorized.
+  - Next task: P1A-004 Archive Baseline Specification Registration.
+
+### [x] P1A-004: Archive Baseline Specification Registration
+
+Objective: |
+  Register the first machine-readable long-only baseline specification shape
+  against the P1A-003 boundary before any strategy implementation. The
+  registration must hash the baseline spec, identify admissible skill families,
+  portfolio constraints, formation/validation access, and no-claim labels.
+
+Boundary:
+  - Baseline specification registration only.
+  - No executable strategy logic, portfolio backtest/evaluation, Growth
+    instrumentation, RDL scaffolding, live feeds, holdout unlock, or OOS
+    performance claims.
+
+Files:
+  - entropy/evidence/phase1a_baseline.py
+  - entropy/evidence/__init__.py
+  - tests/unit/test_phase1a_baseline.py
+  - docs/audit/PHASE1A_BASELINE_REGISTRATION_PACKET.md
+  - artifacts/evidence/phase1a_baseline_registration/registration_001/PHASE1A_BASELINE_SPEC_REGISTRATION_MANIFEST.json
+  - artifacts/evidence/phase1a_baseline_registration/registration_001/PHASE1A_BASELINE_SPEC_REGISTRATION_SUMMARY.md
+
+Result:
+  - Registration ID `PHASE1A-BASELINE-SPEC-REGISTRATION-v1` is generated.
+  - Baseline spec hash:
+    `a94c0441e0ff5b38bd0bafe83e445fe2041eb19e936dac19526ef417c39d3646`.
+  - Validation registration hash:
+    `7a23273630350704809be291da57c06e23e15537a16eaf3950d5e0da599816b4`.
+  - Six long-only baseline skill families and portfolio constraints are
+    registered as non-executable specification shape.
+  - Validation access metadata is recorded; holdout remains locked.
+  - No executable strategy, portfolio evaluation, Growth, RDL, live, OOS, or
+    performance claim is authorized.
+  - Next task: P1A-005 Phase 1A Fix Closure Review.
+
+### [x] P1A-005: Phase 1A Fix Closure Review
+
+Objective: |
+  Review whether P1A-001 through P1A-004 fully close the contract/read-gate
+  fixes required before a narrow executable archive baseline scaffold can begin.
+
+Boundary:
+  - Review and decision only.
+  - No executable strategy logic, portfolio backtest/evaluation, Growth
+    instrumentation, RDL scaffolding, live feeds, holdout unlock, or OOS
+    performance claims.
+
+Files:
+  - docs/audit/PHASE1A_FIX_CLOSURE_REVIEW.md
+  - docs/tasks.md
+  - docs/DECISION_LOG.md
+  - docs/EVIDENCE_INDEX.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/audit/REVIEW_REPORT.md
+  - docs/CODEX_PROMPT.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Result:
+  - P1A-001 through P1A-004 are sufficient to close the contract/read-gate
+    fixes required before a narrow executable archive baseline scaffold.
+  - Holdout remains locked.
+  - Live, Growth/RDL/RBE, portfolio/backtest evaluation, and OOS/performance
+    claims remain forbidden.
+  - F-C3-007 remains a non-blocking P2 audit-maintenance item for the next
+    audit cycle.
+  - Next task: P1A-006 Archive Baseline Executable Scaffold.
+
+### [ ] P1A-006: Archive Baseline Executable Scaffold
+
+Objective: |
+  Implement the minimum executable scaffold for the registered Phase 1A
+  archive baseline specification without alpha logic or evaluation. The scaffold
+  must reference the P1A-004 registration, enforce long-only/no-leverage
+  constraints, expose deterministic non-trading skill-family placeholders, and
+  prove formation/validation/holdout read-gate behavior.
+
+Boundary:
+  - Executable scaffold and boundary tests only.
+  - No executable alpha logic, portfolio allocation, backtest/evaluation,
+    performance metrics, Growth/RDL/RBE activation, live feeds, holdout unlock,
+    or OOS/performance claims.
+
+---
+
 ## Phase 1 — Foundation
 
 ### [x] T01: Project Skeleton
@@ -964,13 +2085,13 @@ Notes: |
 
 ---
 
-## [!] T22: P1/P3 Governance State Machine
+## [x] T22: P1/P3 Governance State Machine
 
 Owner:      codex
 Phase:      8
 Type:       none
 Depends-On: T05, T07
-Governance-Blocker: D-010 requires explicit T22 disposition or waiver before implementation.
+Governance-Disposition: D-018 (`docs/audit/T22_GOVERNANCE_DISPOSITION.md`)
 
 Execution-Mode: heavy
 Evidence:
@@ -1023,16 +2144,23 @@ Context-Refs:
   - docs/EVIDENCE_INDEX.md §Heavy Task Evidence
   - docs/IMPLEMENTATION_CONTRACT.md §Phase Gate Human Approval
 
+Notes: |
+  T22 was implemented only under D-018. Do not treat this as closure of D-010
+  for T23 or any later formula-bearing task. T22 must not implement IC/BR,
+  N_eff/K3, P4, K-report, RDL promotion telemetry, phase-exit evidence, or
+  automated position management beyond deterministic state exposure.
+
 ---
 
 ## Phase 9 — Statistical Analysis + Phase Gate Evidence
 
-### T23: Statistical Analysis Stubs
+### [x] T23: Statistical Analysis Stubs
 
 Owner:      codex
 Phase:      9
 Type:       none
 Depends-On: T06
+Governance-Disposition: D-019 (`docs/audit/T23_FORMULA_GOVERNANCE_DISPOSITION.md`)
 
 Objective: |
   Implement statistical analysis stubs in entropy/stats/analysis.py with documented
@@ -1067,14 +2195,22 @@ Context-Refs:
   - docs/EVIDENCE_INDEX.md §Statistical Formula Stubs
   - docs/core/PROTOCOL_SPEC.md §Harvey-Liu Haircut Method
 
+Notes: |
+  T23 was implemented only under D-019. These helpers are provisional Phase 0
+  foundation surfaces with method IDs and explicit stub reason codes. Do not use
+  them to claim phase-exit pass/fail, OOS performance, K-report evidence, RDL
+  telemetry closure, P4 reproducibility, IC/BR, FLAM, or independent formula
+  validation.
+
 ---
 
-## T24: Phase 0 Exit Artifacts
+## [x] T24: Phase 0 Exit Artifacts
 
 Owner:      codex
 Phase:      9
 Type:       none
 Depends-On: T21, T19, T09, T11
+Governance-Disposition: D-020 (`docs/audit/T24_EXIT_ARTIFACTS_DISPOSITION.md`)
 
 Objective: |
   Implement Phase 0 exit artifact generation in entropy/evidence/artifacts.py:
@@ -1109,6 +2245,13 @@ Context-Refs:
   - docs/spec.md §Phase Gate Evidence
   - docs/EVIDENCE_INDEX.md §Phase Gate Evidence
   - docs/IMPLEMENTATION_CONTRACT.md §Phase Gate Human Approval
+
+Notes: |
+  T24 was implemented only under D-020. It generates deterministic Phase 0
+  implementation evidence, not automatic phase-gate approval. The gate report
+  defaults to `Phase gate approval: NOT_APPROVED` unless explicit caller-supplied
+  approval evidence is provided. T24 does not close F-30/F-31 and does not emit
+  RDL telemetry, K-report artifacts, OOS performance claims, P4, IC/BR, or FLAM.
 
 ---
 

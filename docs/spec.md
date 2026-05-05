@@ -10,6 +10,25 @@ Status: Active
 
 Entropy Protocol provides a governed systematic capital-allocation research framework for a solo researcher/operator. Its primary function is to build leakage-resistant, auditable evaluation infrastructure before any trading-edge claim is made. The system enforces strict separation between in-sample (IS) and out-of-sample (OOS) data, preregistration of all trial specifications before data examination, deterministic four-stream P&L attribution, and a governance state machine with human-gated phase transitions. The v1 milestone (Phase 0) is complete when all evaluation infrastructure is operational with machine-checkable evidence and a leakage audit that passes — no live capital is deployed and no OOS performance claims are made in this phase.
 
+### Current Phase 0.5 Status
+
+T01-T24 are implemented and verified as the foundation baseline, but the formal
+Phase 0 gate remains `NOT_APPROVED`. Current work is Phase 0.5 Foundation
+Closure and Evidence Hardening.
+
+Open gate/evidence surfaces:
+
+- registered leakage/temporal-shuffling gate packet;
+- SimBroker >=100 manually verified bid/ask calibration fills;
+- >=90 continuous days of data feed monitoring;
+- P4 label artifacts covering >=3 years of 1D data on >=15 of 20 target assets;
+- Sharpe CI and Harvey-Liu helpers blocked from report/gate claims under D-022;
+- purge/embargo final methodology blocked under D-023;
+- F-30/F-31 future real-evidence gates.
+
+No Phase 1 implementation, OOS/performance claim, live capital decision, or
+phase-gate approval is authorized by the current implementation baseline.
+
 ---
 
 ## User Roles
@@ -75,6 +94,9 @@ The data pipeline ingests OHLCV market data, validates quality, and stores versi
 - Real-time streaming ingestion
 - Incremental Parquet append (full write per ingestion in Phase 0)
 - Data lineage graph beyond provenance record in DB
+- Phase 0 90-day stability closure; `docs/audit/DATA_STABILITY_PLAN.md` defines
+  the future evidence packet, but no provider is active and no monitoring
+  evidence exists yet
 
 ---
 
@@ -101,6 +123,9 @@ SimBroker is a deterministic execution simulation engine. Given a strategy signa
 - Real bid/ask calibration from broker data (stub only in Phase 0)
 - Order routing simulation
 - Partial fills
+- Phase 0 calibration closure; `docs/audit/SIMBROKER_CALIBRATION_PLAN.md`
+  defines the future >=100-fill evidence packet, but no provider is active and
+  no calibration evidence exists yet
 
 ---
 
@@ -128,6 +153,8 @@ The walk-forward harness enforces strict IS/OOS time separation with configurabl
 - Rolling walk-forward (multiple IS/OOS folds); Phase 0 implements a single split
 - Parallel walk-forward runs
 - Online parameter optimization inside the IS window
+- Final Phase 1 OOS purge/embargo methodology; D-023 keeps the current N-bar
+  embargo as scaffold-only until derived methodology exists
 
 ---
 
@@ -191,6 +218,11 @@ The governance state machine implements the P1 drawdown circuit breaker and the 
 
 The phase gate evidence system generates reproducible evaluation reports and collects leakage audit evidence. A report for a given trial_id fetches all relevant registry data, hashes, and run records, then renders a reproducible Markdown document. The EVIDENCE_INDEX is updated whenever the leakage checklist passes on a registered run.
 
+Current Phase 0.5 boundary: T24 report helpers produce implementation evidence
+and default the phase gate to `NOT_APPROVED`. They do not close SimBroker
+calibration, 90-day data stability, P4 labels, final purge/embargo methodology,
+Sharpe CI/Harvey-Liu validation, F-30, or F-31.
+
 #### Acceptance Criteria
 
 1. The evaluation report generator produces a Markdown report for a given trial_id that includes: trial_id, trial spec fields, dataset_hash, code_hash, policy_hash, IS/OOS window, leakage report status, and net Sharpe (or "not yet computed" if not available).
@@ -204,3 +236,5 @@ The phase gate evidence system generates reproducible evaluation reports and col
 - HTML or PDF report output
 - Automated email/notification of reports
 - Phase 1+ exit artifact generation (KPI dashboards, Sharpe CI charts)
+- Automatic phase-gate approval or any conversion of provisional helper output
+  into OOS/performance claims
