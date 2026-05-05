@@ -23,6 +23,10 @@ transition from schema-only stubs to executable baseline logic.
 archive holdout reads, Growth/RDL/RBE activation, OOS/performance claims,
 production labels, capital-ready labels, and live-capital claims.
 
+**Roadmap:** Phase 1 D-K is recorded in `docs/tasks.md` from implementation
+contract through optional final research closure; it is not blanket approval to
+execute later phases.
+
 ---
 
 ## Active Audit Files

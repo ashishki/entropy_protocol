@@ -2039,6 +2039,183 @@ Acceptance-Criteria:
     description: "Forbidden output and claim fields remain aligned with Phase 1B/1C guards."
     test: "manual review"
 
+## Phase 1 Research Roadmap — D Through K
+
+This roadmap is the ordered development path from the current implementation
+planning step to possible archive-only research closure. It is not an approval
+to execute all future phases. Each phase still requires its own task closure,
+review, and explicit gate where noted.
+
+Global boundary:
+  - No phase below automatically approves Phase 1 evaluation/trading, holdout
+    read/unlock, live feeds, broker integration, live capital,
+    Growth/RDL/RBE activation, non-Python runtime/toolchain introduction,
+    OOS/performance claims, production labels, or capital-ready labels.
+  - Holdout remains locked until an explicit holdout gate.
+  - Capital-ready status remains out of scope for this research roadmap.
+
+### [ ] P1D-ROADMAP-001: D-K Sequential Roadmap Acceptance
+
+Objective: |
+  Keep the D-K development sequence visible in the task graph so future work
+  cannot proceed from an oral plan or implied architecture.
+
+Result:
+  - Planned sequence: P1D implementation contract, P1E bounded baseline
+    implementation, P1F baseline registration integration, P1G evaluation run
+    contract, P1H first governed evaluation, P1I evaluation report and audit
+    packet, P1J research decision/holdout gate, optional P1K holdout/final
+    research closure.
+
+## Phase 1E — Bounded Baseline Implementation
+
+Purpose: implement the first bounded long-only baseline logic after P1D
+contract approval. This phase remains formation-only until a separate
+evaluation gate.
+
+Boundary:
+  - Formation-safe implementation only.
+  - No validation/holdout reads, portfolio/backtest evaluation, strategy
+    performance metrics, OOS/performance claims, live/broker work, runtime
+    escalation, production labels, or capital-ready labels.
+
+### [ ] P1E-HUMAN-001: Baseline Implementation Approval
+
+Objective: |
+  Spec Owner explicitly approves replacing schema-only skill stubs with bounded
+  executable baseline logic under the P1D contract.
+
+### [ ] P1E-001: Bounded Long-Only Baseline Logic
+
+Objective: |
+  Implement deterministic formation-only baseline logic according to the P1D
+  contract, preserving no-claim labels and forbidden output guards.
+
+## Phase 1F — Baseline Registration Integration
+
+Purpose: bind the implemented baseline to registry/spec/code/policy hashes
+before any governed evaluation can be configured.
+
+Boundary:
+  - Registration and reproducibility integration only.
+  - No evaluation run, holdout read, performance claim, or phase-gate claim.
+
+### [ ] P1F-001: Baseline Code And Policy Hash Binding
+
+Objective: |
+  Record the implemented baseline code hash, policy hash, input contract hash,
+  and no-claim boundary in a deterministic registration payload.
+
+### [ ] P1F-002: Trial Registry Pre-Registration Surface
+
+Objective: |
+  Prepare the registry integration required before future evaluation, without
+  executing evaluation or reading validation/holdout data.
+
+## Phase 1G — Evaluation Run Contract
+
+Purpose: define the exact governed evaluation configuration before any
+evaluation run is allowed.
+
+Boundary:
+  - Contract/configuration only until explicit evaluation approval.
+  - No evaluation execution, holdout read, OOS claim, or performance conclusion.
+
+### [ ] P1G-001: Evaluation Configuration Contract
+
+Objective: |
+  Specify walk-forward windows, leakage checklist requirements, SimBroker
+  assumptions, statistical report fields, family/multiplicity accounting,
+  allowed data splits, and required human approval.
+
+### [ ] P1G-HUMAN-001: Evaluation Run Approval
+
+Objective: |
+  Spec Owner decides whether a first governed archive-only evaluation run may
+  execute. This does not approve holdout access or capital-ready claims.
+
+## Phase 1H — First Governed Evaluation
+
+Purpose: execute the first allowed archive-only governed baseline evaluation
+after P1G approval.
+
+Boundary:
+  - Evaluation is archive-only and governed by the P1G contract.
+  - Holdout remains locked unless separately approved.
+  - Results are research evidence only, not production/capital-ready evidence.
+
+### [ ] P1H-001: First Archive-Only Governed Evaluation Run
+
+Objective: |
+  Run the registered baseline through the approved evaluation path and emit
+  deterministic run records, leakage status, and no-capital research evidence.
+
+## Phase 1I — Evaluation Report And Audit Packet
+
+Purpose: package the first governed evaluation result into a reviewable
+research packet.
+
+Boundary:
+  - Report/audit packaging only.
+  - No automatic phase approval, holdout unlock, production label, or
+    capital-ready claim.
+
+### [ ] P1I-001: Evaluation Report Assembly
+
+Objective: |
+  Assemble hashes, registry records, run records, leakage status, statistics,
+  claim boundaries, and no-capital labels into a deterministic report packet.
+
+### [ ] P1I-002: Deep Protocol Review After Evaluation
+
+Objective: |
+  Run the deep review sequence on the evaluation packet before any research
+  decision or holdout-gate discussion.
+
+## Phase 1J — Research Decision And Holdout Gate
+
+Purpose: decide what the first evaluation means and whether any holdout/final
+research step may be requested.
+
+Boundary:
+  - Human research decision only.
+  - Holdout remains locked unless explicitly approved by this phase's gate.
+  - No production/capital-ready claim.
+
+### [ ] P1J-HUMAN-001: Research Decision Review
+
+Objective: |
+  Decide whether the result is invalid, weak, needs iteration, is sufficient as
+  archive-only research evidence, or may request a holdout/final audit gate.
+
+### [ ] P1J-HUMAN-002: Holdout Gate Decision
+
+Objective: |
+  If justified, decide whether a holdout/final research closure phase may open.
+  This gate does not approve production or capital deployment.
+
+## Phase 1K — Optional Holdout And Final Research Closure
+
+Purpose: optional final archive-only research closure if P1J explicitly opens a
+holdout/final audit path.
+
+Boundary:
+  - Optional and gate-dependent.
+  - No production/capital-ready label, live feed, broker integration, or live
+    capital authorization.
+
+### [ ] P1K-001: Holdout/Final Research Audit Packet
+
+Objective: |
+  Execute the explicitly approved holdout/final audit procedure and package
+  deterministic evidence without production or capital-ready claims.
+
+### [ ] P1K-HUMAN-001: Research Phase Closure Decision
+
+Objective: |
+  Decide whether the archive-only research phase closes successfully, requires
+  iteration, or stops. Capital-ready/live work remains a separate future stage.
+
 ---
 
 ## Phase 1 — Foundation

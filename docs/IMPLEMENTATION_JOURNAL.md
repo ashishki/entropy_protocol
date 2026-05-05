@@ -3915,3 +3915,32 @@ block and opened Phase 1D implementation planning as the next bounded block.
 
 **Verification run:**
 - Documentation-only closure/planning update.
+
+---
+
+## 2026-05-05 — Phase 1 D-K Research Roadmap
+
+**What happened:** Recorded the previously discussed D-K research sequence in
+the authoritative task graph to prevent future work from relying on an oral
+plan.
+
+**Artifacts updated:**
+- `docs/tasks.md`
+- `docs/CODEX_PROMPT.md`
+- `docs/DECISION_LOG.md`
+- `docs/EVIDENCE_INDEX.md`
+- `docs/audit/AUDIT_INDEX.md`
+- `docs/audit/POST_PHASE1A_OPERATIONS_PLAN.md`
+- `docs/README.md`
+- `docs/IMPLEMENTATION_JOURNAL.md`
+
+**Result:**
+- D-050 records the ordered roadmap from P1D implementation contract through
+  optional P1K final research closure.
+- The roadmap is visible in `docs/tasks.md` with phase boundaries and gate
+  points.
+- No blanket approval is granted for evaluation, holdout, production, live, or
+  capital-ready work.
+
+**Verification run:**
+- Documentation-only roadmap update.

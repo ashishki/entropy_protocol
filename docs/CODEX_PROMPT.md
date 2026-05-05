@@ -1,6 +1,6 @@
 # CODEX_PROMPT.md
 
-Version: 3.1
+Version: 3.2
 Date: 2026-05-05
 Phase: Phase 1D implementation planning
 
@@ -80,6 +80,11 @@ formula/statistical logic, Growth/RDL/RBE, live data, or claim/report semantics.
 - D-049: Phase 1C closure review selected Phase 1D Bounded Long-Only Baseline
   Implementation Planning as the next block. Phase 1D must define the
   implementation contract before any executable baseline logic is added.
+- D-050: Phase 1 D-K sequential research roadmap is recorded in the task graph.
+  It orders implementation contract, bounded baseline implementation,
+  registration integration, evaluation contract, first governed evaluation,
+  evaluation report/audit, research decision/holdout gate, and optional final
+  research closure.
 
 Decision log: `docs/DECISION_LOG.md`.
 
@@ -135,6 +140,7 @@ Decision log: `docs/DECISION_LOG.md`.
 Allowed:
 
 - define the Phase 1D long-only implementation contract and task order;
+- keep the D-K roadmap visible in task graph updates;
 - keep forbidden claim boundaries intact;
 - update docs only for real status/evidence changes.
 

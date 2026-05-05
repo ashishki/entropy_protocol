@@ -163,6 +163,7 @@ _Required because this project has heavy tasks (T16, T17, T18, T19, T20, T21, T2
 | P1B-HUMAN-001 / P1C Plan | Phase 1B closure review and Phase 1C evaluation-readiness preflight task graph | docs/tasks.md Phase 1C; docs/DECISION_LOG.md D-047; docs/CODEX_PROMPT.md | Complete as planning decision; next task P1C-001 Evaluation Readiness Contract; no code/evaluation/holdout access opened | 2026-05-05 |
 | P1C-001..P1C-004 Phase 1C Preflight Code Block | Evaluation-readiness contract, metadata checklist, holdout/claim guard, and deterministic no-claim readiness payload | entropy/baseline/readiness.py; entropy/baseline/__init__.py; tests/unit/test_phase1c_readiness.py; docs/DECISION_LOG.md D-048 | Complete; Phase1C focused slice 9 passed, Phase1A+P1B+P1C focused slice 49 passed, full suite 241 passed/20 skipped; ruff passed; pyright 0 errors | 2026-05-05 |
 | P1C-HUMAN-001 / P1D Plan | Phase 1C closure review and Phase 1D implementation-planning task graph | docs/tasks.md Phase 1D; docs/DECISION_LOG.md D-049; docs/CODEX_PROMPT.md | Complete as planning decision; next task P1D-001 Long-Only Implementation Contract; executable baseline logic still requires separate approval | 2026-05-05 |
+| Phase 1 D-K Research Roadmap | Sequential development roadmap from implementation contract to optional final research closure | docs/tasks.md Phase 1 Research Roadmap — D Through K; docs/DECISION_LOG.md D-050; docs/CODEX_PROMPT.md | Complete as planning decision; no code/evaluation/holdout access opened | 2026-05-05 |
 
 ## Data Pipeline Evidence
 

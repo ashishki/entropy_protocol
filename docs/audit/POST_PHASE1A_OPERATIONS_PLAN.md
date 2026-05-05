@@ -40,6 +40,7 @@ The current approved work is narrower:
 | P6 | Evaluation readiness preflight | Implement contract/checklist/guards before any future evaluation | `entropy/baseline/readiness.py` | Evaluation/trading/holdout/performance claims |
 | P7 | Human closure review | Decide whether any future bounded block may open | Explicit approval | Evaluation/trading/holdout/performance claims |
 | P8 | Implementation contract | Define bounded implementation rules before executable baseline logic | `docs/tasks.md` Phase 1D section | Executable logic until approved |
+| P9 | D-K research roadmap | Keep implementation/evaluation/report/decision/holdout sequence explicit | `docs/tasks.md` Phase 1 Research Roadmap | Blanket approval by implication |
 
 ## Proposed Task Graph
 
@@ -134,6 +135,19 @@ allowed formation-only inputs, permitted deterministic transforms, forbidden
 outputs, no-claim labels, review requirements, and the separate approval gate
 required before replacing schema-only skill stubs with executable baseline
 logic.
+
+### Phase 1 D-K Research Roadmap
+
+Objective: keep the sequential research path in the task graph:
+
+- P1D implementation contract;
+- P1E bounded baseline implementation;
+- P1F baseline registration integration;
+- P1G evaluation run contract;
+- P1H first governed evaluation;
+- P1I evaluation report and audit packet;
+- P1J research decision/holdout gate;
+- optional P1K holdout/final research closure.
 
 ### P1B-HUMAN-001 Phase 1B Code Closure Review
 

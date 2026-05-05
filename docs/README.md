@@ -141,6 +141,12 @@ transition from schema-only stubs to executable baseline logic.
 Phase 1 workstream, but no executable baseline logic or Phase 1
 evaluation/trading step is approved by default.
 
+**Visible roadmap:** Phase 1 D-K is now recorded in `docs/tasks.md`: P1D
+implementation contract, P1E bounded baseline implementation, P1F registration
+integration, P1G evaluation run contract, P1H first governed evaluation, P1I
+report/audit packet, P1J research decision/holdout gate, and optional P1K final
+research closure.
+
 **Not approved:** full Phase 1 evaluation/trading, live/streaming feeds, broker
 integration, live capital, archive holdout reads, portfolio/backtest evaluation,
 Growth/RDL/RBE activation, strategy performance metrics, non-Python
