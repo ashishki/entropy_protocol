@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from decimal import Decimal
 from typing import Any, cast
 
@@ -11,7 +11,18 @@ from pydantic import ValidationError
 
 from entropy.models.market import OHLCVBar
 from entropy.models.registry import FillSide
-from entropy.simbroker.calibration import BidAskProvider, BidAskQuote, NoOpBidAskProvider
+from entropy.simbroker.calibration import (
+    NO_GATE_CLAIM,
+    BidAskProvider,
+    BidAskQuote,
+    CalibrationRow,
+    NoOpBidAskProvider,
+    build_calibration_row_from_fill,
+    build_calibration_summary,
+    read_calibration_rows_jsonl,
+    render_calibration_summary,
+    write_calibration_rows_jsonl,
+)
 from entropy.simbroker.costs import CostModelConfig, compute_cost
 from entropy.simbroker.fills import FillSignal, process_fill
 
@@ -286,3 +297,258 @@ def test_bid_ask_quote_validates_spread_and_timestamp() -> None:
 
     with pytest.raises(ValidationError):
         BidAskQuote(symbol="BTCUSDT", timestamp=datetime(2026, 5, 3, 12, 0), bid=100.0, ask=100.5)
+
+
+def test_calibration_row_validates_buy_reference_and_deviation() -> None:
+    row = make_calibration_row(
+        side=FillSide.BUY,
+        bid=Decimal("99"),
+        ask=Decimal("100"),
+        mid=Decimal("99.5"),
+        spread=Decimal("1"),
+        simbroker_fill_price=Decimal("102"),
+        reference_price=Decimal("100"),
+        absolute_deviation=Decimal("2"),
+        pct_deviation=Decimal("0.02"),
+        pass_15pct=True,
+    )
+
+    assert row.reference_price == Decimal("100")
+    assert row.pass_15pct is True
+    assert row.evidence_claim == NO_GATE_CLAIM
+
+    with pytest.raises(ValidationError, match="reference_price"):
+        make_calibration_row(side=FillSide.BUY, reference_price=Decimal("99"))
+    with pytest.raises(ValidationError, match="pct_deviation"):
+        make_calibration_row(pct_deviation=Decimal("0.01"))
+    with pytest.raises(ValidationError, match="pass_15pct"):
+        make_calibration_row(pass_15pct=False)
+
+
+def test_calibration_row_validates_sell_reference() -> None:
+    row = make_calibration_row(
+        side=FillSide.SELL,
+        bid=Decimal("99"),
+        ask=Decimal("100"),
+        mid=Decimal("99.5"),
+        spread=Decimal("1"),
+        simbroker_fill_price=Decimal("98"),
+        reference_price=Decimal("99"),
+        absolute_deviation=Decimal("1"),
+        pct_deviation=Decimal("0.01010101010101010101010101010"),
+        pass_15pct=True,
+    )
+
+    assert row.reference_price == Decimal("99")
+
+
+def test_calibration_row_rejects_invalid_schema_fields() -> None:
+    with pytest.raises(ValidationError, match="mid"):
+        make_calibration_row(mid=Decimal("99.4"))
+    with pytest.raises(ValidationError, match="spread"):
+        make_calibration_row(spread=Decimal("2"))
+    with pytest.raises(ValidationError, match="quote_source_hash"):
+        make_calibration_row(quote_source_hash="")
+    with pytest.raises(ValidationError, match="timezone-aware UTC"):
+        make_calibration_row(fill_ts=datetime(2026, 5, 3, 12, 0))
+
+
+def test_calibration_summary_counts_and_renders_packet_boundary() -> None:
+    rows = (
+        make_calibration_row(
+            calibration_id="cal-1", symbol="BTC-USD", pct_deviation=Decimal("0.02")
+        ),
+        make_calibration_row(
+            calibration_id="cal-2",
+            symbol="BTC-USD",
+            simbroker_fill_price=Decimal("104"),
+            absolute_deviation=Decimal("4"),
+            pct_deviation=Decimal("0.04"),
+        ),
+        make_calibration_row(
+            calibration_id="cal-3",
+            symbol="ETH-USD",
+            simbroker_fill_price=Decimal("110"),
+            absolute_deviation=Decimal("10"),
+            pct_deviation=Decimal("0.10"),
+        ),
+        make_calibration_row(
+            calibration_id="cal-4",
+            symbol="ETH-USD",
+            exclusion_reason="quote_outside_tolerance",
+        ),
+    )
+
+    summary = build_calibration_summary(rows, min_included_rows=3)
+    rendered = render_calibration_summary(summary)
+
+    assert summary.total_rows == 4
+    assert summary.included_rows == 3
+    assert summary.excluded_rows == 1
+    assert summary.pass_count == 3
+    assert summary.packet_status == "PACKET_READY_FOR_REVIEW"
+    assert summary.evidence_claim == NO_GATE_CLAIM
+    assert summary.asset_summaries[0].symbol == "BTC-USD"
+    assert summary.asset_summaries[0].median_pct_deviation == Decimal("0.030")
+    assert "not_phase_gate_approval" in rendered
+    assert "does not approve Phase 0" in rendered
+
+
+def test_calibration_summary_reports_incomplete_and_failure_states() -> None:
+    passing_row = make_calibration_row(calibration_id="pass")
+    failing_row = make_calibration_row(
+        calibration_id="fail",
+        simbroker_fill_price=Decimal("120"),
+        absolute_deviation=Decimal("20"),
+        pct_deviation=Decimal("0.20"),
+        pass_15pct=False,
+    )
+
+    incomplete = build_calibration_summary((passing_row,), min_included_rows=2)
+    failed = build_calibration_summary((passing_row, failing_row), min_included_rows=2)
+
+    assert incomplete.packet_status == "INCOMPLETE"
+    assert failed.packet_status == "FAIL"
+    assert failed.failure_count == 1
+
+
+def test_calibration_rows_jsonl_round_trip(tmp_path) -> None:
+    rows = (
+        make_calibration_row(calibration_id="cal-1"),
+        make_calibration_row(calibration_id="cal-2", symbol="ETH-USD"),
+    )
+    path = tmp_path / "calibration_rows.jsonl"
+
+    write_calibration_rows_jsonl(rows, path)
+    loaded = read_calibration_rows_jsonl(path)
+
+    assert loaded == rows
+
+    with pytest.raises(ValueError, match="duplicate"):
+        write_calibration_rows_jsonl((rows[0], rows[0]), tmp_path / "duplicate.jsonl")
+
+
+def test_build_calibration_row_from_fill_uses_side_reference_and_cost_fields() -> None:
+    fill = process_fill(
+        signal=make_signal(side=FillSide.SELL, proposed_price=99.5),
+        bar=make_bar(),
+        cost_config=make_cost_config(),
+    )
+    quote = BidAskQuote(
+        symbol="BTC-USD",
+        timestamp=UTC_TS,
+        bid=99.0,
+        ask=100.0,
+    )
+
+    row = build_calibration_row_from_fill(
+        calibration_id="cal-fill-1",
+        fill=fill,
+        quote=quote,
+        quote_source="kraken_public_api",
+        quote_source_hash="source-hash",
+        manual_verifier="reviewer",
+        manual_verification_ts=UTC_TS,
+        bar_open=Decimal("100"),
+        bar_high=Decimal("105"),
+        bar_low=Decimal("99"),
+        bar_close=Decimal("103"),
+    )
+
+    assert row.side is FillSide.SELL
+    assert row.reference_price == Decimal("99.0")
+    assert row.simbroker_fill_price == fill.fill_price
+    assert row.quantity == fill.quantity
+    assert row.total_cost == fill.total_cost
+    assert row.exclusion_reason is None
+    assert row.evidence_claim == NO_GATE_CLAIM
+
+
+def test_build_calibration_row_from_fill_excludes_stale_quote_without_failing() -> None:
+    fill = process_fill(
+        signal=make_signal(),
+        bar=make_bar(),
+        cost_config=make_cost_config(),
+    )
+    quote = BidAskQuote(
+        symbol="BTC-USD",
+        timestamp=UTC_TS - timedelta(minutes=10),
+        bid=99.0,
+        ask=100.0,
+    )
+
+    row = build_calibration_row_from_fill(
+        calibration_id="cal-stale",
+        fill=fill,
+        quote=quote,
+        quote_source="coinbase_exchange_public_api",
+        quote_source_hash="source-hash",
+        manual_verifier="reviewer",
+        manual_verification_ts=UTC_TS,
+        quote_tolerance=timedelta(minutes=5),
+    )
+
+    assert row.exclusion_reason == "quote_timestamp_outside_tolerance"
+
+
+def test_build_calibration_row_from_fill_rejects_symbol_mismatch() -> None:
+    fill = process_fill(
+        signal=make_signal(symbol="BTC-USD"),
+        bar=make_bar(),
+        cost_config=make_cost_config(),
+    )
+    quote = BidAskQuote(
+        symbol="ETH-USD",
+        timestamp=UTC_TS,
+        bid=99.0,
+        ask=100.0,
+    )
+
+    with pytest.raises(ValueError, match="fill and quote symbols must match"):
+        build_calibration_row_from_fill(
+            calibration_id="cal-mismatch",
+            fill=fill,
+            quote=quote,
+            quote_source="coinbase_exchange_public_api",
+            quote_source_hash="source-hash",
+            manual_verifier="reviewer",
+            manual_verification_ts=UTC_TS,
+        )
+
+
+def make_calibration_row(**overrides: object) -> CalibrationRow:
+    data = {
+        "calibration_id": "cal-1",
+        "symbol": "BTC-USD",
+        "asset_class": "crypto",
+        "side": FillSide.BUY,
+        "fill_ts": UTC_TS,
+        "quote_ts": UTC_TS,
+        "quote_source": "manual-fixture",
+        "quote_source_hash": "source-hash",
+        "bid": Decimal("99"),
+        "ask": Decimal("100"),
+        "mid": Decimal("99.5"),
+        "spread": Decimal("1"),
+        "simbroker_fill_price": Decimal("102"),
+        "bar_open": Decimal("100"),
+        "bar_high": Decimal("105"),
+        "bar_low": Decimal("99"),
+        "bar_close": Decimal("103"),
+        "quantity": Decimal("10"),
+        "commission": Decimal("1.8"),
+        "slippage": Decimal("0.2"),
+        "market_impact": Decimal("0.2"),
+        "borrow_rate": Decimal("0"),
+        "funding_rate": Decimal("0"),
+        "total_cost": Decimal("2.2"),
+        "reference_price": Decimal("100"),
+        "absolute_deviation": Decimal("2"),
+        "pct_deviation": Decimal("0.02"),
+        "pass_15pct": True,
+        "manual_verifier": "manual-reviewer",
+        "manual_verification_ts": UTC_TS,
+        "exclusion_reason": None,
+    }
+    data.update(overrides)
+    return CalibrationRow(**data)

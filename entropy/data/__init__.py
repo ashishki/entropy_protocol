@@ -21,6 +21,17 @@ from entropy.data.quality import (
     run_all_checks,
     validate_timestamps,
 )
+from entropy.data.stability import (
+    NO_STABILITY_GATE_CLAIM,
+    STABILITY_METHOD_ID,
+    DataStabilityAssetSummary,
+    DataStabilityRow,
+    DataStabilitySummary,
+    build_data_stability_summary,
+    read_data_stability_rows_jsonl,
+    render_data_stability_summary,
+    write_data_stability_rows_jsonl,
+)
 
 __all__ = [
     "DataIngestionError",
@@ -34,10 +45,19 @@ __all__ = [
     "OHLCVSanityError",
     "ProviderNotFoundError",
     "LocalFixtureAdapter",
+    "NO_STABILITY_GATE_CLAIM",
     "TimestampNormalizationError",
+    "STABILITY_METHOD_ID",
+    "DataStabilityAssetSummary",
+    "DataStabilityRow",
+    "DataStabilitySummary",
+    "build_data_stability_summary",
     "check_ohlcv_sanity",
     "detect_gaps",
     "provider_registry",
+    "read_data_stability_rows_jsonl",
+    "render_data_stability_summary",
     "run_all_checks",
     "validate_timestamps",
+    "write_data_stability_rows_jsonl",
 ]
