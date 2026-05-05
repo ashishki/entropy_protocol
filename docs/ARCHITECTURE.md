@@ -10,21 +10,25 @@ Status: Active
 
 Entropy Protocol is a governed systematic capital-allocation research framework that builds leakage-resistant, auditable evaluation infrastructure before making any trading-edge claim. The system implements a fully deterministic research and evaluation pipeline — Trial Registry, SimBroker, walk-forward harness, P&L attribution, and a governance state machine — orchestrated by a human-gated workflow. There is no LLM in the application runtime path; AI is used exclusively at the development level (architecture review and implementation). The v1 milestone (Phase 0) succeeds when all evaluation infrastructure is operational with machine-checkable evidence and a complete leakage audit, with no live capital and no OOS performance claims.
 
-### Current Phase 0.5 Reality
+### Current Post-Phase-1A Reality
 
-T01-T24 are complete as the implementation foundation baseline, but Phase 0 is
-not gate-approved. The current stage is Phase 0.5 Foundation Closure and
-Evidence Hardening.
+T01-T24 are complete as the implementation foundation baseline. The project
+then completed archive-only evidence hardening and Phase 1A archive-only
+baseline planning/instrumentation. The current stage is post-Phase-1A audit
+readiness and current-state sync.
 
-The following surfaces are explicitly open:
+Phase 1A closed only a scaffold/probe foundation:
 
-- SimBroker bid/ask calibration evidence: future >=100 manually verified fills;
-- data pipeline stability evidence: future >=90 continuous days monitoring;
-- P4 labels: `P4-RBL-v1` must be implemented/evidenced before Phase 1;
-- registered leakage/temporal-shuffling gate packet;
-- Sharpe CI and Harvey-Liu helpers: provisional only under D-022;
-- purge/embargo: T18 N-bar assumption is scaffold-only under D-023;
-- F-30/F-31: future real-evidence gates, no synthetic closure.
+- archive dataset freeze, split registration, baseline specification
+  registration, executable non-trading scaffold, and mechanics-only probe are
+  closed as archive-only evidence;
+- the probe is implementation benchmark evidence only and emits no strategy
+  performance metrics;
+- holdout remains locked;
+- full Phase 1 evaluation/trading is not approved;
+- live/streaming feeds, broker integration, live capital, Growth/RDL/RBE
+  activation, non-Python runtime/toolchain introduction, OOS/performance
+  claims, production labels, and capital-ready labels remain blocked.
 
 Phase 1 remains stop-shipped until the Phase 0 gate is approved or a
 charter-level review revises the relevant exit criteria.

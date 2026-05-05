@@ -3,8 +3,8 @@
 **Classification:** Confidential — Internal Governance Document
 **Filename:** `docs/audit/PROMPT_1_ARCH_REVIEW.md`
 **Pipeline Step:** Step 2 — Architecture Review
-**Cycle:** 1 (Phase 0, Pre-Development)
-**Date:** 2026-03-04
+**Cycle:** 4 (Post-Phase-1A Scaffold Closure)
+**Date:** 2026-05-05
 **Output artifact:** `docs/audit/ARCH_MODEL.md`
 
 ---
@@ -32,7 +32,10 @@ If META_ANALYSIS.md is present, continue loading:
 5. `docs/core/PROTOCOL_SPEC.md` (especially Sections A, B, D, E, F, H, J, J1, J2)
 6. `docs/core/CHARTER.md` (especially Sections B, D, Kill Criteria Appendix, Phase roadmap)
 7. `docs/core/GLOSSARY.md`
-8. `docs/audit/REVIEW_REPORT.md` (Cycle 0 baseline — prior findings context)
+8. `docs/audit/REVIEW_REPORT.md` (current consolidated status)
+9. `docs/audit/PHASE1A_SCAFFOLD_CLOSURE_REVIEW.md`
+10. `docs/audit/POST_PHASE1A_STRATEGY_REVIEW.md`
+11. `docs/audit/POST_PHASE1A_NEXT_STAGE_PLAN.md`
 
 ---
 
@@ -50,7 +53,8 @@ For each named module or layer, record:
 - Current activation state (Active / Dormant / Locked / Scaffolding-only / Conditional)
 - Phase gate (first phase at which it becomes active)
 - Key inputs and outputs
-- Whether it was present in the original AUDIT_v1.md scope or added in v1.1/v1.2
+- Whether it is active, dormant, scaffolding-only, or blocked in the current
+  post-Phase-1A state
 
 Modules to cover (minimum):
 - Data Pipeline
@@ -125,24 +129,28 @@ For each assumption:
 - Risk surface it corresponds to (RS-NN from PROMPT_0_META.md), if applicable
 - Severity estimate (P0 / P1 / P2) based on phase-gate impact
 
-#### 6. New Surface Analysis (v1.1/v1.2 additions)
+#### 6. Dormant And Governed Surface Analysis
 
-The following modules were added AFTER the source audit (AUDIT_v1.md). They have not been reviewed by any prior audit artifact. Perform a dedicated analysis of each:
+Perform a dedicated current-state analysis of each governed surface. Use the
+current canonical docs and Phase 1A packets, not historical baseline
+assumptions:
 
-**Growth Layer (added v1.1):**
+**Growth Layer:**
 - Map the complete monitoring → RBE activation pathway
 - Identify what triggers an RBE step (is this formula-specified or judgment-based?)
 - Identify what "charter-level review" means operationally (who reviews? what's the output format? where is it recorded?)
 - Identify the boundary condition at which Growth Layer transitions from monitoring-only to active portfolio influence
 - Check whether Growth Layer activation respects all frozen non-negotiables (NN-1 through NN-6)
 
-**RDL — all four submodules (added v1.2):**
+**RDL — all four submodules:**
 - Map the scaffolding-mode vs. operational-mode boundary for each submodule
 - Identify what physical artifact or state flag distinguishes "scaffolding" from "operational"
 - Map the RDL-1 → Trial Registry pipeline and the trial counting inception point
-- Map the RDL-2 dependency on F-4 resolution (P4 algorithm)
-- Identify whether RDL-3 FeatureSpec versioning interacts with purge/embargo rules (RS-16)
-- Identify whether RDL-4 EventLabel timestamps interact with RS-17 (timestamp leakage)
+- Map the RDL-2 dependency on the current P4 labeler/gate evidence state
+- Identify whether RDL-3 FeatureSpec versioning interacts with current
+  purge/embargo rules
+- Identify whether RDL-4 EventLabel timestamps interact with timestamp leakage
+  controls
 
 ---
 
@@ -181,6 +189,6 @@ Do NOT:
 
 ---
 
-*Cycle: 1 | Step: 2 (Architecture Review) | Pipeline: v1.0 | Date: 2026-03-04*
+*Cycle: 4 | Step: 2 (Architecture Review) | Pipeline: v1.0 | Date: 2026-05-05*
 *Prior step required: Step 1 (META_ANALYSIS.md)*
 *Next step: PROMPT_2_INVARIANTS.md (reads ARCH_MODEL.md)*

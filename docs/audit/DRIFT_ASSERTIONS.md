@@ -1,37 +1,22 @@
-# Entropy Protocol — Drift Assertions
+# Drift Assertions — Cycle 4 Post-Phase-1A
 
-**Audit Cycle:** Cycle 3 — Post-Phase0 Archive-Only Gate Audit
-**Pipeline Step:** Step 4 — Protocol Drift Guard
-**Pipeline Version:** v1.0
-**Date:** 2026-05-05
-**Status:** Draft — Awaiting Spec Owner Acceptance
-**Prior step input:** `docs/audit/INVARIANTS.md`
+Date: 2026-05-05
+Step: 4a
+Status: `COMPLETE`
 
 | INV-ID | Invariant short name | Verdict | Evidence pointer | Regression? |
 |---|---|---|---|---|
-| INV-C3-A01 | No live capital/trading | PASS | D-027, D-028, Phase0 final sync | No |
-| INV-C3-A02 | No OOS/performance claim | PASS | Phase0 gate packet, statistical report packet | No |
-| INV-C3-A03 | Archive/live gate split | PASS | Phase0 final sync | No |
-| INV-C3-A04 | Append-only registry/governance writes | PASS | implementation contract, tests | No |
-| INV-C3-A05 | Four-stream boundary | PASS | spec, attribution implementation evidence | No |
-| INV-C3-A06 | RDL dormant before Phase 2 | AMBIGUOUS | Protocol states boundary; Phase 1A attestation not yet defined | No |
-| INV-C3-A07 | Growth/RBE locked | AMBIGUOUS | Protocol states lock; Phase 1A monitoring contract not yet defined | No |
-| INV-C3-B01 | P4 archive evidence | PASS | P4 coverage packet review | No |
-| INV-C3-B02 | SimBroker calibration evidence | PASS | Agent-verified calibration packet | No |
-| INV-C3-B03 | Archive data stability | PASS | Archive data-stability packet | No |
-| INV-C3-B04 | Leakage/temporal-shuffling | PASS | Registered leakage gate packet | No |
-| INV-C3-B05 | Statistical helpers report-boundary only | PASS | Statistical report gate packet | No |
-| INV-C3-B06 | No live data stability claim | PASS | D-027, data stability archive packet | No |
-| INV-C3-C01 | Dataset freeze before implementation | PASS | P1A-001 contract; manifest implementation remains next | No |
-| INV-C3-C02 | IS/OOS contract before evaluation | PASS | P1A-001 contract | No |
-| INV-C3-C03 | Skill boundaries before skill code | PASS | P1A-001 contract | No |
-| INV-C3-C04 | Portfolio constraints before implementation | PASS | P1A-001 contract | No |
-| INV-C3-C05 | Growth monitoring-only contract | PASS | P1A-001 contract | No |
-| INV-C3-C06 | RDL dormancy attestation | PASS | P1A-001 contract | No |
-| INV-C3-D01 | No live feed stability claim | PASS | D-027 | No |
-| INV-C3-D02 | No live capital readiness claim | PASS | D-027/D-028 | No |
-| INV-C3-D03 | No OOS performance claim | PASS | Phase0 gate packet | No |
-| INV-C3-D04 | No RDL telemetry closure claim | PASS | Phase0 gate packet | No |
-| INV-C3-D05 | No K-report closure claim | PASS | Phase0 gate packet | No |
-| INV-C3-D06 | No RBE activation | PASS | D-028 | No |
-| TOTAL | - | PASS: 23 | FAIL: 0 / AMBIGUOUS: 2 | Regressions: 0 |
+| INV-C4-001 | No Phase 1 evaluation/trading | PASS | `CODEX_PROMPT.md`; `REVIEW_REPORT.md`; `PHASE1A_SCAFFOLD_CLOSURE_REVIEW.md` | No |
+| INV-C4-002 | Holdout locked | PASS | `PHASE1A_REGISTRATION_BOUNDARY_PACKET.md`; scaffold tests | No |
+| INV-C4-003 | No OOS/performance claim | PASS | `REVIEW_REPORT.md`; no-claim labels | No |
+| INV-C4-004 | Non-trading scaffold placeholders | PASS | `PHASE1A_BASELINE_SCAFFOLD_PACKET.md`; tests | No |
+| INV-C4-005 | Probe emits no strategy metrics | PASS | `PHASE1A_SCAFFOLD_PERFORMANCE_PROBE_PACKET.md`; tests | No |
+| INV-C4-006 | Runtime escalation gated | PASS | `ARCHITECTURE.md`; `IMPLEMENTATION_CONTRACT.md`; P1A-006/P1A-007 | No |
+| INV-C4-007 | Storage boundary | PASS | `PHASE1A_WORKLOAD_BENCHMARK_CONTRACT.md` | No |
+| INV-C4-008 | Growth/RBE inactive | PASS | `PHASE1A_ARCHIVE_ENTRY_CONTRACT.md`; `REVIEW_REPORT.md` | No |
+| INV-C4-009 | RDL dormant | PASS | `PHASE1A_ARCHIVE_ENTRY_CONTRACT.md`; `REVIEW_REPORT.md` | No |
+| INV-C4-010 | Audit prompt current metadata | PASS | `PHASE1A_AUDIT_PROMPT_REFRESH_PACKET.md` | No |
+| INV-C4-011 | Archive loading discipline | PASS | `AUDIT_INDEX.md`; `docs/audit/README.md`; prompts | No |
+| DOC-C4-001 | Implementation-facing current-state prose | AMBIGUOUS | `ARCHITECTURE.md`; `spec.md`; `CODEX_PROMPT.md` | No |
+
+| TOTAL | PASS: 11 | FAIL: 0 | AMBIGUOUS: 1 | Regressions: 0 |

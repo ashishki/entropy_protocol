@@ -3,8 +3,8 @@
 **Classification:** Confidential — Internal Governance Document
 **Filename:** `docs/audit/PROMPT_4_ADVERSARIAL.md`
 **Pipeline Step:** Step 5 — Adversarial Review
-**Cycle:** 1 (Phase 0, Pre-Development)
-**Date:** 2026-03-04
+**Cycle:** 4 (Post-Phase-1A Scaffold Closure)
+**Date:** 2026-05-05
 **Output artifact:** `docs/audit/ADVERSARIAL_REVIEW.md`
 
 ---
@@ -36,8 +36,10 @@ Continue loading:
 8. `docs/core/GLOSSARY.md`
 9. `docs/core/EVOLUTION.md`
 10. `docs/audience/ARCHITECT_BRIEF.md`
-11. `docs/audit/REVIEW_REPORT.md` (Cycle 0 — prior findings)
-12. Prior `docs/audit/ADVERSARIAL_REVIEW.md` if present (check; none expected for Cycle 1)
+11. `docs/audit/REVIEW_REPORT.md` (current consolidated status)
+12. `docs/audit/PHASE1A_SCAFFOLD_CLOSURE_REVIEW.md`
+13. `docs/audit/POST_PHASE1A_STRATEGY_REVIEW.md`
+14. Prior `docs/audit/ADVERSARIAL_REVIEW.md` if present
 
 ---
 
@@ -196,8 +198,10 @@ K5 fires if treasury > 60% total return in "any 12-month period." Rolling vs. ca
 
 ### Challenge F — Open Question Resolution Review
 
-Review each open question from `docs/audit/archive/legacy/AUDIT_v1.md` (Q1–Q10 minimum) and ARCHITECT_BRIEF.md:
-1. Is the question addressed anywhere in the current spec (PROTOCOL_SPEC.md v1.2)?
+Review open questions from the current review report, current Phase 1A packets,
+and ARCHITECT_BRIEF.md. Open archive files only when a compact current index
+points to a needed historical source.
+1. Is the question addressed anywhere in the current spec-of-record?
 2. If addressed: is the answer complete and formula-level, or partial?
 3. If unresolved: does the question directly block a phase gate decision?
 
@@ -226,6 +230,6 @@ Do NOT:
 
 ---
 
-*Cycle: 1 | Step: 5 (Adversarial Review) | Pipeline: v1.0 | Date: 2026-03-04*
+*Cycle: 4 | Step: 5 (Adversarial Review) | Pipeline: v1.0 | Date: 2026-05-05*
 *Prior steps required: Steps 2–4 (ARCH_MODEL.md, INVARIANTS.md, DRIFT_REPORT.md)*
 *Next step: PROMPT_5_CONSOLIDATED.md (reads all prior artifacts)*

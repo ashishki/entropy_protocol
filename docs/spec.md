@@ -10,24 +10,25 @@ Status: Active
 
 Entropy Protocol provides a governed systematic capital-allocation research framework for a solo researcher/operator. Its primary function is to build leakage-resistant, auditable evaluation infrastructure before any trading-edge claim is made. The system enforces strict separation between in-sample (IS) and out-of-sample (OOS) data, preregistration of all trial specifications before data examination, deterministic four-stream P&L attribution, and a governance state machine with human-gated phase transitions. The v1 milestone (Phase 0) is complete when all evaluation infrastructure is operational with machine-checkable evidence and a leakage audit that passes — no live capital is deployed and no OOS performance claims are made in this phase.
 
-### Current Phase 0.5 Status
+### Current Post-Phase-1A Status
 
-T01-T24 are implemented and verified as the foundation baseline, but the formal
-Phase 0 gate remains `NOT_APPROVED`. Current work is Phase 0.5 Foundation
-Closure and Evidence Hardening.
+T01-T24 are implemented and verified as the foundation baseline. Archive-only
+evidence hardening and Phase 1A archive-only baseline planning/instrumentation
+are complete through scaffold/probe closure. Current work is post-Phase-1A
+audit readiness and current-state sync.
 
-Open gate/evidence surfaces:
+Closed Phase 1A foundation surfaces:
 
-- registered leakage/temporal-shuffling gate packet;
-- SimBroker >=100 manually verified bid/ask calibration fills;
-- >=90 continuous days of data feed monitoring;
-- P4 label artifacts covering >=3 years of 1D data on >=15 of 20 target assets;
-- Sharpe CI and Harvey-Liu helpers blocked from report/gate claims under D-022;
-- purge/embargo final methodology blocked under D-023;
-- F-30/F-31 future real-evidence gates.
+- archive dataset freeze and split registration;
+- non-executable baseline specification registration;
+- executable non-trading scaffold;
+- mechanics-only probe with no strategy metric fields;
+- prompt metadata refresh and post-Phase-1A deep review.
 
-No Phase 1 implementation, OOS/performance claim, live capital decision, or
-phase-gate approval is authorized by the current implementation baseline.
+No full Phase 1 evaluation/trading, archive holdout read, live feed, broker
+integration, Growth/RDL/RBE activation, non-Python runtime/toolchain
+introduction, OOS/performance claim, live capital decision, or phase-gate
+approval is authorized by the current implementation baseline.
 
 ---
 
@@ -218,10 +219,12 @@ The governance state machine implements the P1 drawdown circuit breaker and the 
 
 The phase gate evidence system generates reproducible evaluation reports and collects leakage audit evidence. A report for a given trial_id fetches all relevant registry data, hashes, and run records, then renders a reproducible Markdown document. The EVIDENCE_INDEX is updated whenever the leakage checklist passes on a registered run.
 
-Current Phase 0.5 boundary: T24 report helpers produce implementation evidence
-and default the phase gate to `NOT_APPROVED`. They do not close SimBroker
-calibration, 90-day data stability, P4 labels, final purge/embargo methodology,
-Sharpe CI/Harvey-Liu validation, F-30, or F-31.
+Current post-Phase-1A boundary: report helpers and Phase 1A packets produce
+implementation/foundation evidence only and default phase gates to
+`NOT_APPROVED` unless explicit human approval exists. They do not authorize
+Phase 1 evaluation/trading, holdout reads, live feeds, Growth/RDL/RBE
+activation, non-Python runtime/toolchain introduction, OOS/performance claims,
+production labels, or capital-ready labels.
 
 #### Acceptance Criteria
 

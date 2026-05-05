@@ -3,8 +3,8 @@
 **Classification:** Confidential — Internal Governance Document
 **Filename:** `docs/audit/PROMPT_3_DRIFT_GUARD.md`
 **Pipeline Step:** Step 4 — Protocol Drift Guard
-**Cycle:** 1 (Phase 0, Pre-Development)
-**Date:** 2026-03-04
+**Cycle:** 4 (Post-Phase-1A Scaffold Closure)
+**Date:** 2026-05-05
 **Output artifacts:** `docs/audit/DRIFT_ASSERTIONS.md` + `docs/audit/DRIFT_REPORT.md`
 
 ---
@@ -34,8 +34,10 @@ Continue loading:
 8. `docs/audience/ARCHITECT_BRIEF.md`
 9. `docs/audience/TRADER_BRIEF.md`
 10. `docs/audit/ARCH_MODEL.md`
-11. `docs/audit/REVIEW_REPORT.md` (Cycle 0 — prior findings)
-12. Prior `docs/audit/DRIFT_ASSERTIONS.md` and `docs/audit/DRIFT_REPORT.md` if present (check; none expected for Cycle 1)
+11. `docs/audit/REVIEW_REPORT.md` (current consolidated status)
+12. `docs/audit/PHASE1A_SCAFFOLD_CLOSURE_REVIEW.md`
+13. `docs/audit/POST_PHASE1A_STRATEGY_REVIEW.md`
+14. Prior `docs/audit/DRIFT_ASSERTIONS.md` and `docs/audit/DRIFT_REPORT.md` if present
 
 ---
 
@@ -91,11 +93,12 @@ The Growth Layer and RDL were added after the source audit. Check specifically:
 - Does the RDL trial counting rule ("counted from submission") appear consistently in PROTOCOL_SPEC.md Section E and GLOSSARY.md?
 - Is the "RDL-* namespace" defined in GLOSSARY.md and Trial Registry section?
 - Does the "RDL outputs must never feed into RBE" constraint appear in docs/architecture/workflow_ai_development.md or any governance document, or only in PROTOCOL_SPEC.md?
-- Do RDL-3 FeatureSpec versioning rules cross-reference or contradict the purge/embargo rules (F-12 / TASK-AF-012)?
+- Do RDL-3 FeatureSpec versioning rules cross-reference or contradict the
+  current purge/embargo rules?
 
-### Check 4 — Regression Detection (vs. Cycle 0 findings)
+### Check 4 — Regression Detection (vs. Current Review Findings)
 
-For each P0/P1 finding from REVIEW_REPORT.md (F-1 through F-11):
+For each open P0/P1/P2 finding from REVIEW_REPORT.md:
 1. Check whether any document in the current spec set has been modified to partially address the finding
 2. If a partial fix exists: note it as PARTIAL_MITIGATION (not PASS; partial mitigations cannot change finding status without a full pipeline step)
 3. If the finding has not been addressed at all: confirm FAIL status persists
@@ -133,7 +136,7 @@ Structure:
 ### Executive Summary
 - Total verdicts by type
 - Most critical FAIL items
-- New FAIL items vs. prior cycle (Cycle 0 had no DRIFT_ASSERTIONS; treat all as new)
+- New FAIL items vs. the current REVIEW_REPORT baseline
 - Any regressions identified
 
 ### FAIL Findings (ordered by severity)
@@ -171,6 +174,6 @@ Map each FAIL/AMBIGUOUS verdict to:
 
 ---
 
-*Cycle: 1 | Step: 4 (Drift Guard) | Pipeline: v1.0 | Date: 2026-03-04*
+*Cycle: 4 | Step: 4 (Drift Guard) | Pipeline: v1.0 | Date: 2026-05-05*
 *Prior steps required: Steps 2–3 (ARCH_MODEL.md, INVARIANTS.md)*
 *Next step: PROMPT_4_ADVERSARIAL.md (reads DRIFT_REPORT.md)*

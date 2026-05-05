@@ -1,76 +1,51 @@
-# Entropy Protocol — Architecture Model
+# Architecture Model — Cycle 4 Post-Phase-1A
 
-**Audit Cycle:** Cycle 3 — Post-Phase0 Archive-Only Gate Audit
-**Pipeline Step:** Step 2 — Architecture Review
-**Pipeline Version:** v1.0
-**Date:** 2026-05-05
-**Status:** Draft — Awaiting Spec Owner Acceptance
-**Prior step input:** `docs/audit/META_ANALYSIS.md`
-**Full run / Partial run:** Full run: Yes / Partial run: No
+Date: 2026-05-05
+Step: 2
+Status: `COMPLETE`
 
-## Executive Architecture Verdict
+## Architecture Summary
 
-Verdict: `ALIGNED_FOR_PHASE_1A_PLANNING_ONLY`.
+Entropy Protocol remains a deterministic, human-gated research infrastructure
+system. Phase 1A added archive-only baseline planning and instrumentation around
+the existing Phase 0 foundation; it did not convert the system into a trading
+or evaluation engine.
 
-The architecture supports moving into Phase 1A archive-only planning because the
-Phase 0 foundation now has deterministic data, registry, SimBroker,
-walk-forward, P4, leakage, and evidence machinery. It does not support Phase 1
-strategy implementation, live operation, RDL activation, or Growth/RBE
-activation until the Phase 1 archive entry contract is written and reviewed.
+## Component State
 
-## Component Inventory
-
-| Component | Current state | Active from | Inputs | Outputs | Gate risk |
-|---|---|---|---|---|---|
-| Data Pipeline | Implemented foundation; archive evidence packet complete | Phase 0 / Phase 1A archive | Approved archive OHLCV | Parquet datasets, hashes, stability rows | Live feed stability not proven |
-| Trial Registry | Implemented foundation | Phase 0+ | Trial specs, run records | Append-only registry records | Phase 1A must define preregistration boundaries |
-| Walk-Forward Harness | Implemented foundation | Phase 0+ | Dataset, strategy callbacks, leakage report | IS/OOS run records | Archive entry contract must freeze split policy |
-| SimBroker | Implemented foundation; calibration evidence packet accepted | Phase 0+ | Fill logs, quotes, cost config | Fill/cost records | Live broker integration absent by design |
-| P&L Attribution | Implemented foundation | Phase 1+ | Fill/cost/trade logs | Four streams, metrics scaffolds | No performance claims before registered archive evaluation |
-| P1/P3 Governance | Implemented foundation | Phase 1+ | HWM/DD, correlations | Governance events, exposure state | Needs Phase 1A portfolio contract |
-| P4 | Implemented/evidenced for archive foundation | Phase 0 evidence, Phase 1 reporting context | 1D archive data | Vintage labels | Must preserve label vintage/freeze |
-| Statistical Helpers | Report-boundary accepted | Reporting only | Return series, trial family table | CI/HL report fields | Not independent formula validation |
-| Growth Layer | Protocol-defined, runtime inactive except future monitoring/instrumentation | Phase 1A planning / later monitoring | Cost, N_eff, utilization | Monitoring facts only | RBE activation locked |
-| RBE | Locked | Future charter-level review only | Growth metrics, review packet | Step state if approved | Must remain inactive |
-| RDL | Dormant | Phase 2 operational; Phase 0-1 scaffolding only | Hypotheses/features/events | RDL objects | No Phase 1A generation or portfolio influence |
-
-## Data Flow Map
-
-| Flow | Status | Phase 1A requirement |
+| Component | Current state | Notes |
 |---|---|---|
-| Archive OHLCV -> Data Pipeline -> Dataset hashes | Working | Define dataset freeze and admissible windows |
-| Dataset -> P4 labels -> evidence packet | Working | Define how labels are referenced without recalibration drift |
-| Dataset -> Walk-forward harness -> Trial Registry | Foundation working | Define archive IS/OOS split and preregistration contract |
-| SimBroker fills -> P&L attribution | Foundation working | Define long-only baseline cost assumptions and reporting fields |
-| Governance state -> Portfolio constraints | Foundation working | Define portfolio-layer exposure rules before implementation |
-| Growth metrics -> monitoring facts | Not yet Phase 1A-defined | Define monitoring-only outputs, no RBE activation |
-| RDL objects -> Trial Registry | Not allowed in Phase 1A except explicitly approved scaffolding | Define dormancy attestation |
+| Trial Registry | Active foundation | Preregistration semantics remain required; Phase 1A baseline spec is registered as non-executable shape |
+| Data Pipeline | Active foundation | Archive datasets are frozen for P1A; live/streaming feed remains not approved |
+| SimBroker | Active foundation | Calibration evidence exists for archive/foundation context; no live broker integration |
+| Walk-Forward Harness | Active foundation | Not used to produce a Phase 1 OOS/evaluation claim in Phase 1A |
+| P&L Attribution | Active foundation | No Phase 1A strategy P&L or performance report is authorized |
+| Governance State Machine | Active foundation | Growth/RDL/RBE activation remains blocked |
+| Evidence Layer | Active foundation | Phase 1A scaffold/probe packets are implementation evidence only |
+| Phase 1A Scaffold | Closed foundation | Non-trading placeholders, read-gate checks, long-only/no-leverage validation |
+| Phase 1A Probe | Closed foundation | Synthetic/no-claim mechanics-only benchmark |
+| RDL | Dormant/scaffolding-only | No hypothesis generation or portfolio influence |
+| Growth/RBE | Not active | Monitoring/activation paths remain blocked |
+| Runtime Stack | Python control plane; Polars/DuckDB/Arrow data plane | No non-Python toolchain added |
 
-## Phase Dependency Map
+## Boundary Checks
 
-| Module | Active from | Gate condition | Depends on |
-|---|---|---|---|
-| Phase 1A archive planning | Now | D-028 | Archive-only Phase 0 foundation closure |
-| Phase 1 strategy implementation | After P1A contract approval | Frozen archive entry contract | P1A-001 and follow-on task graph |
-| Live data stability | Future live gate | >=90 live monitored days | Provider activation and live monitoring approval |
-| RDL operational mode | Phase 2 | Phase 2 start and registry controls | Phase 1 completion; RDL attestation |
-| Growth/RBE active influence | Future explicit review | Charter-level review and preregistration | Monitoring evidence and RBE packet |
+| Boundary | Verdict | Evidence |
+|---|---|---|
+| Phase 1 evaluation not started | Pass | `REVIEW_REPORT.md`, `PHASE1A_SCAFFOLD_CLOSURE_REVIEW.md` |
+| Holdout locked | Pass | `PHASE1A_REGISTRATION_BOUNDARY_PACKET.md`, scaffold tests |
+| No strategy metrics in probe | Pass | `PHASE1A_SCAFFOLD_PERFORMANCE_PROBE_PACKET.md` |
+| Runtime escalation blocked | Pass | `ARCHITECTURE.md`, `IMPLEMENTATION_CONTRACT.md`, P1A-006/P1A-007 |
+| Archive loading discipline | Pass | `AUDIT_INDEX.md`, `docs/audit/README.md`, refreshed prompts |
 
-## Architectural Assumptions
+## Architecture Finding
 
-| ID | Assumption | Severity | Status |
-|---|---|---|---|
-| AR-C3-001 | Archive-only evidence can close research foundation but not live readiness | P1 | Explicit in D-027 |
-| AR-C3-002 | Phase 1A can plan archive evaluation before strategy implementation | P1 | Explicit in D-028 |
-| AR-C3-003 | RDL remains dormant in Phase 1A | P1 | Must be enforced in P1A-001 |
-| AR-C3-004 | Growth monitoring can be specified without RBE activation | P1 | Must be enforced in P1A-001 |
-| AR-C3-005 | No OOS/performance claim is produced by archive foundation closure | P1 | Explicit in gate packets |
+| ID | Severity | Finding | Evidence | Recommendation |
+|---|---|---|---|---|
+| F-C4-001 | P2 | Implementation-facing current-state prose in `docs/ARCHITECTURE.md` and `docs/spec.md` still says current work is Phase 0.5/Foundation Closure even though the operational handoff is post-Phase-1A audit readiness. | `ARCHITECTURE.md` "Current Phase 0.5 Reality"; `spec.md` "Current Phase 0.5 Status"; `CODEX_PROMPT.md` current state | Add a narrow current-state sync after the deep review or as part of P1A-013; do not alter canonical phase gates. |
 
-## Gaps Requiring Immediate Spec Clarification
+## Step Verdict
 
-1. P1A-001 must define admissible archive datasets, freeze rules, IS/OOS
-   boundaries, and report labels.
-2. P1A-001 must define RDL dormancy attestation for Phase 1A.
-3. P1A-001 must define Growth Layer monitoring-only scope and explicitly block
-   RBE activation.
-4. Future live gate must remain separate from archive-only Phase 0 closure.
+Verdict: `ARCHITECTURE_ALIGNED_WITH_P2_DOC_DRIFT`.
+
+Proceed to `PROMPT_2_INVARIANTS.md`.

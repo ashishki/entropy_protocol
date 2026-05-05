@@ -3,8 +3,8 @@
 **Classification:** Confidential — Internal Governance Document
 **Filename:** `docs/audit/PROMPT_2_INVARIANTS.md`
 **Pipeline Step:** Step 3 — Invariant Extraction
-**Cycle:** 1 (Phase 0, Pre-Development)
-**Date:** 2026-03-04
+**Cycle:** 4 (Post-Phase-1A Scaffold Closure)
+**Date:** 2026-05-05
 **Output artifact:** `docs/audit/INVARIANTS.md`
 
 ---
@@ -30,7 +30,9 @@ Continue loading:
 4. `docs/core/PROTOCOL_SPEC.md` — especially Sections B, D, F, J, J1, J2
 5. `docs/core/CHARTER.md` — especially Sections B, D, Kill Criteria Appendix, Phase exit criteria
 6. `docs/core/GLOSSARY.md`
-7. `docs/audit/REVIEW_REPORT.md` (Cycle 0 — prior findings for context)
+7. `docs/audit/REVIEW_REPORT.md` (current consolidated status)
+8. `docs/audit/PHASE1A_SCAFFOLD_CLOSURE_REVIEW.md`
+9. `docs/audit/POST_PHASE1A_STRATEGY_REVIEW.md`
 
 ---
 
@@ -132,7 +134,7 @@ Metrics to cover (minimum):
 - Four-stream P&L separation: what constitutes streams (a), (b), (c), (d); what can and cannot be blended
 - Behavioral integrity: solo-developer rules for self-certification, finding closure, spec changes
 
-#### Category G — New Module Invariants (v1.1/v1.2, not in AUDIT_v1.md)
+#### Category G — Dormant And Governed Module Invariants
 
 **Growth Layer invariants:**
 - Locked by default: what conditions allow unlock?
@@ -180,6 +182,6 @@ Do NOT:
 
 ---
 
-*Cycle: 1 | Step: 3 (Invariant Extraction) | Pipeline: v1.0 | Date: 2026-03-04*
+*Cycle: 4 | Step: 3 (Invariant Extraction) | Pipeline: v1.0 | Date: 2026-05-05*
 *Prior step required: Step 2 (ARCH_MODEL.md)*
 *Next step: PROMPT_3_DRIFT_GUARD.md (reads INVARIANTS.md)*

@@ -1,73 +1,47 @@
-# Entropy Protocol — Meta Investigation
+# Meta Analysis — Cycle 4 Post-Phase-1A
 
-**Audit Cycle:** Cycle 3 — Post-Phase0 Archive-Only Gate Audit
-**Pipeline Step:** Step 1 — Meta Investigation
-**Pipeline Version:** v1.0
-**Date:** 2026-05-05
-**Status:** Draft — Awaiting Spec Owner Acceptance
-**Full run / Partial run:** Full run: Yes / Partial run: No
+Date: 2026-05-05
+Step: 1
+Status: `COMPLETE`
 
 ## Scope
 
-This audit cycle is triggered by the archive-only Phase 0 foundation closure and
-the PSR-003 decision to proceed to Phase 1A Archive-Only Baseline Planning and
-Instrumentation.
-
-The audit question is narrow:
-
-Can the project safely move from archive-only Phase 0 foundation closure to
-archive-only Phase 1A planning without violating the protocol, architecture, or
-layer boundaries?
+This meta step reviews the active audit context after Phase 1A scaffold/probe
+closure. It uses `PROMPT_0_META.md` as the current cycle authority for audit
+sequencing and risk surfaces.
 
 ## Current State
 
-| Area | Current state |
+- Phase 1A scaffold/probe chain is closed for foundation purposes.
+- Full Phase 1 evaluation/trading is not approved.
+- Archive holdout remains locked.
+- Live/streaming feeds, broker integration, live capital, Growth/RDL/RBE
+  activation, runtime escalation, and OOS/performance claims remain blocked.
+- F-C3-007 was closed by P1A-011; active prompts now identify Cycle 4
+  Post-Phase-1A Scaffold Closure.
+
+## Required Review Focus
+
+| Risk Surface | Meta disposition |
 |---|---|
-| Implementation foundation | T01-T24 complete |
-| Evidence closure | P4, SimBroker calibration, archive data stability, leakage, purge/embargo, statistical report boundaries complete for archive-only foundation |
-| Phase 0 archive-only gate | Approved for archive research foundation |
-| Live/streaming Phase 0 gate | Not approved |
-| Next stage | Phase 1A Archive-Only Baseline Planning and Instrumentation |
-| Next task | P1A-001 Phase 1 Archive Entry Contract |
-| Verification baseline | 192 passed, 20 skipped without DATABASE_URL/live services |
+| RS-01 Phase 1 evaluation creep | Must verify scaffold/probe artifacts cannot be read as OOS/evaluation evidence |
+| RS-02 Holdout boundary integrity | Must verify holdout remains locked across current docs and scaffold gates |
+| RS-03 No-claim benchmark semantics | Must verify benchmark outputs are mechanics-only |
+| RS-04 Runtime escalation drift | Must verify Python/Polars/DuckDB/Arrow boundary remains intact |
+| RS-05 Storage boundary drift | Must verify large data-plane artifacts remain Parquet/Arrow-style, not PostgreSQL-heavy |
+| RS-06 Growth/RBE activation leakage | Must verify no activation path was opened |
+| RS-07 RDL dormancy leakage | Must verify RDL remains dormant/scaffolding-only |
+| RS-08 Prompt metadata drift | Closed by P1A-011; verify no stale active prompt context remains |
+| RS-09 Archive loading discipline | Must verify compact current indexes remain the default loading path |
 
-## Canonical Inputs
+## Meta Findings
 
-| Document | Role | Current relevance |
-|---|---|---|
-| `docs/core/PROTOCOL_SPEC.md` | Protocol authority | Phase roadmap, RDL/Growth/RBE boundaries, no-claim rules |
-| `docs/core/CHARTER.md` | Strategic authority | Phase 1 Long-Only Baseline target and frozen non-negotiables |
-| `docs/core/GLOSSARY.md` | Term authority | Phase roadmap, SimBroker, RDL, Growth/RBE terms |
-| `docs/ARCHITECTURE.md` | Implementation architecture | Python/T1 deterministic runtime, no runtime LLM path |
-| `docs/spec.md` | Implementation-facing feature spec | Current implemented/provisional surfaces |
-| `docs/IMPLEMENTATION_CONTRACT.md` | Agent/code contract | No automatic gate approval, append-only rules, no claims |
-| `docs/audit/archive/phase0/PHASE0_GATE_PACKET.md` | Gate state | Archive-only approval, live gate blocked |
-| `docs/audit/archive/phase0/PHASE0_FINAL_SYNC.md` | Final Phase 0 archive sync | Closed archive blockers and next step |
-| `docs/audit/archive/p0_7/ARCHIVE_ONLY_EVIDENCE_MODE_DECISION.md` | D-027 | Archive-only scope |
-| `docs/audit/archive/p0_7/ARCHIVE_ONLY_CONTINUATION_DECISION.md` | D-028 | Phase 1A selected |
-| `docs/tasks.md` | Task graph | P1A-001 next |
-| `docs/CODEX_PROMPT.md` | Session state | v1.90, P1A-001 next |
-
-## Metadata Findings
-
-| ID | Severity | Finding | Impact | Required action |
-|---|---|---|---|---|
-| MG-03-001 | P2 | Audit prompts still describe Cycle 1 / Phase 0 pre-development | Agents can misread current state if prompts are followed literally | Treat prompts as workflow templates; current cycle metadata must be supplied by `META_ANALYSIS.md` |
-| MG-03-002 | P1 | Phase 0 has two dispositions: archive-only approved, live/streaming not approved | Ambiguous shorthand "Phase 0 closed" can cause overclaiming | Every future gate doc must preserve this split |
-| MG-03-003 | P1 | Phase 1A is selected but the archive entry contract does not yet exist | Strategy implementation would lack frozen evaluation boundaries | Complete P1A-001 before skill or portfolio implementation |
-| MG-03-004 | P1 | RDL and Growth/RBE are present in protocol docs but not active in runtime | Phase 1A planning could accidentally add active influence paths | Explicit dormancy/monitoring-only attestations required in P1A-001 |
-
-## Risk Surface Register For This Cycle
-
-| RS | Risk surface | Severity | Current disposition |
+| ID | Severity | Finding | Disposition |
 |---|---|---|---|
-| RS-C3-01 | Archive-only closure overclaimed as live Phase 0 approval | P1 | Guarded by D-027/D-028; continue enforcing in docs |
-| RS-C3-02 | Phase 1A starts without dataset freeze and IS/OOS contract | P1 | Blocks implementation until P1A-001 |
-| RS-C3-03 | RDL dormant boundary not translated into Phase 1A checks | P1 | Must be included in entry contract |
-| RS-C3-04 | Growth Layer monitoring requirements confused with RBE activation | P1 | Must be included in entry contract |
-| RS-C3-05 | Old audit prompts stale relative to current project state | P2 | Current cycle headers supersede prompt metadata |
+| MF-C4-001 | P2 | `docs/ARCHITECTURE.md` and `docs/spec.md` still describe the current implementation-facing phase as Phase 0.5 even though the handoff state is post-Phase-1A audit readiness. | Track as current-state documentation drift; does not authorize Phase 1 evaluation. |
 
-## Step 1 Verdict
+## Step Verdict
 
-Step 1 passes for continuing the audit. Required next artifact:
-`docs/audit/ARCH_MODEL.md`.
+Verdict: `READY_FOR_ARCHITECTURE_REVIEW`.
+
+Proceed to `PROMPT_1_ARCH_REVIEW.md`.
