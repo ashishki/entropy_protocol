@@ -12,11 +12,12 @@ phase packets, calibration plans, and prior review material are archived under
 
 ## Current State
 
-**Current work:** Phase 1A archive-only baseline scaffold.
+**Current work:** P1B-HUMAN-001 Phase 1B Code Closure Review.
 
-**Next task:** `P1A-006 Archive Baseline Executable Scaffold`.
+**Next task:** review the completed Phase 1B readiness code block before
+opening any next bounded block.
 
-**Current verdict:** `GO_FOR_P1A-006_SCAFFOLD_ONLY`.
+**Current verdict:** `PHASE1B_READINESS_SELECTED_NO_GO_FOR_EVALUATION`.
 
 **Still forbidden:** Phase 1 evaluation/trading, live feeds, broker integration,
 archive holdout reads, Growth/RDL/RBE activation, OOS/performance claims,
@@ -34,6 +35,21 @@ production labels, capital-ready labels, and live-capital claims.
 | `PHASE1A_ARCHIVE_FREEZE_PACKET.md` | Archive freeze evidence packet |
 | `PHASE1A_REGISTRATION_BOUNDARY_PACKET.md` | Registration/read-gate boundary packet |
 | `PHASE1A_BASELINE_REGISTRATION_PACKET.md` | Baseline spec registration packet |
+| `PHASE1A_DEVELOPMENT_STRATEGY.md` | Phase 1A sequencing and runtime/workload strategy |
+| `PHASE1A_WORKLOAD_BENCHMARK_CONTRACT.md` | Workload profile and benchmark contract |
+| `PHASE1A_BASELINE_SCAFFOLD_PACKET.md` | Executable scaffold boundary packet |
+| `PHASE1A_SCAFFOLD_PERFORMANCE_PROBE_PACKET.md` | Mechanics-only scaffold probe packet |
+| `PHASE1A_SCAFFOLD_CLOSURE_REVIEW.md` | Scaffold/probe closure decision |
+| `POST_PHASE1A_STRATEGY_REVIEW.md` | Strategy decision selecting audit-readiness as the next block |
+| `POST_PHASE1A_NEXT_STAGE_PLAN.md` | Task plan for prompt refresh, deep review, and consolidation |
+| `PHASE1A_AUDIT_PROMPT_REFRESH_PACKET.md` | P1A-011 prompt refresh closure and F-C3-007 disposition |
+| `POST_PHASE1A_OPERATIONS_PLAN.md` | Prioritized Phase 1B readiness operations plan |
+| `META_ANALYSIS.md` | Cycle 4 meta-analysis output |
+| `ARCH_MODEL.md` | Cycle 4 architecture review output |
+| `INVARIANTS.md` | Cycle 4 invariant extraction output |
+| `DRIFT_ASSERTIONS.md` | Cycle 4 drift assertion output |
+| `DRIFT_REPORT.md` | Cycle 4 drift report output |
+| `ADVERSARIAL_REVIEW.md` | Cycle 4 adversarial review output |
 
 ---
 

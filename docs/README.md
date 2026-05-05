@@ -132,18 +132,20 @@ semantics.
 
 ## Current Phase
 
-**Current work:** Phase 1A archive-only baseline scaffold.
+**Current work:** P1B-HUMAN-001 Phase 1B Code Closure Review.
 
-**Next task:** `P1A-006 Archive Baseline Executable Scaffold`.
+**Next task:** review the completed Phase 1B readiness code block before
+opening any next bounded block.
 
-**Approved scope:** scaffold and boundary tests only. The scaffold may represent
-the registered baseline specification, enforce long-only/no-leverage validation,
-and prove formation/validation/holdout read-gate behavior.
+**Approved scope:** Phase 1B readiness/code closure only. This is part of the
+Phase 1 workstream, but no Phase 1 evaluation/trading step is approved by
+default.
 
 **Not approved:** full Phase 1 evaluation/trading, live/streaming feeds, broker
 integration, live capital, archive holdout reads, portfolio/backtest evaluation,
-Growth/RDL/RBE activation, OOS/performance claims, production labels, or
-capital-ready labels.
+Growth/RDL/RBE activation, strategy performance metrics, non-Python
+runtime/toolchain introduction without the escalation gate, OOS/performance
+claims, production labels, or capital-ready labels.
 
 The compact session handoff is `docs/CODEX_PROMPT.md`. Historical handoff state
 is available through git history and the implementation journal.

@@ -1103,6 +1103,7 @@ Files:
   - docs/audit/AUDIT_INDEX.md
   - docs/audit/REVIEW_REPORT.md
   - docs/CODEX_PROMPT.md
+  - docs/README.md
   - docs/IMPLEMENTATION_JOURNAL.md
 
 Result:
@@ -1113,22 +1114,691 @@ Result:
     claims remain forbidden.
   - F-C3-007 remains a non-blocking P2 audit-maintenance item for the next
     audit cycle.
-  - Next task: P1A-006 Archive Baseline Executable Scaffold.
+  - Superseded next-step note: P1A-006 was re-scoped by D-034 into Phase 1A
+    Development And Runtime Strategy before executable scaffold work.
 
-### [ ] P1A-006: Archive Baseline Executable Scaffold
+### [x] P1A-006: Phase 1A Development And Runtime Strategy
+
+Objective: |
+  Reassess Phase 1A sequencing before executable scaffold work, focusing on
+  protocol alignment, expected simulation/hypothesis-testing workloads, runtime
+  stack boundaries, and the risk of building a correct but slow evaluation
+  architecture.
+
+Boundary:
+  - Strategy and planning only.
+  - No source-code implementation, executable alpha logic, portfolio
+    allocation, backtest/evaluation, performance metrics, Growth/RDL/RBE
+    activation, live feeds, holdout unlock, OOS/performance claims, or
+    non-Python runtime/toolchain introduction.
+
+Files:
+  - docs/audit/PHASE1A_DEVELOPMENT_STRATEGY.md
+  - docs/tasks.md
+  - docs/DECISION_LOG.md
+  - docs/EVIDENCE_INDEX.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/audit/README.md
+  - docs/audit/REVIEW_REPORT.md
+  - docs/CODEX_PROMPT.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Result:
+  - Executable scaffold is deferred until workload strategy is explicit.
+  - Python remains the active Phase 0/1 language, with Polars/DuckDB/Arrow as
+    the expected columnar execution layer.
+  - Non-Python implementation remains prohibited without benchmark evidence,
+    ADR, architecture/task/CI updates, and explicit human approval.
+  - Phase 1A must define representative workload, runtime/memory targets, and
+    benchmark commands before executable scaffold implementation.
+  - Next task: P1A-007 Workload Profile And Benchmark Contract.
+
+### [x] P1A-007: Workload Profile And Benchmark Contract
+
+Objective: |
+  Define the representative Phase 1A workload and benchmark contract before
+  executable scaffold implementation. The contract must specify admissible
+  benchmark inputs, formation-only or synthetic non-claim data boundaries,
+  runtime and memory targets, deterministic replay hashes, benchmark commands,
+  and the criteria for Python/Polars/DuckDB optimization versus future
+  language-escalation ADR.
+
+Boundary:
+  - Benchmark contract and planning only.
+  - No executable alpha logic, portfolio allocation, backtest/evaluation,
+    performance metrics, Growth/RDL/RBE activation, live feeds, holdout unlock,
+    OOS/performance claims, or non-Python runtime/toolchain introduction.
+
+Files:
+  - docs/audit/PHASE1A_WORKLOAD_BENCHMARK_CONTRACT.md
+  - docs/tasks.md
+  - docs/DECISION_LOG.md
+  - docs/EVIDENCE_INDEX.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/audit/README.md
+  - docs/audit/REVIEW_REPORT.md
+  - docs/CODEX_PROMPT.md
+  - docs/README.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Result:
+  - Representative workload shapes W0-W4 are defined.
+  - Benchmark input boundaries are restricted to metadata, formation-only, or
+    deterministic synthetic non-claim data; holdout remains locked.
+  - Runtime, memory, throughput, replay-hash, storage, and benchmark packet
+    fields are defined.
+  - Python remains the control plane; Polars/DuckDB/Arrow remain the data-plane
+    default; non-Python escalation remains blocked pending benchmark, ADR, and
+    explicit human approval.
+  - Next task: P1A-008 Archive Baseline Executable Scaffold.
+
+### [x] P1A-008: Archive Baseline Executable Scaffold
 
 Objective: |
   Implement the minimum executable scaffold for the registered Phase 1A
   archive baseline specification without alpha logic or evaluation. The scaffold
   must reference the P1A-004 registration, enforce long-only/no-leverage
-  constraints, expose deterministic non-trading skill-family placeholders, and
-  prove formation/validation/holdout read-gate behavior.
+  constraints, expose deterministic non-trading skill-family placeholders,
+  preserve the P1A-007 workload boundaries, and prove
+  formation/validation/holdout read-gate behavior.
 
 Boundary:
   - Executable scaffold and boundary tests only.
   - No executable alpha logic, portfolio allocation, backtest/evaluation,
     performance metrics, Growth/RDL/RBE activation, live feeds, holdout unlock,
-    or OOS/performance claims.
+    OOS/performance claims, or non-Python runtime/toolchain introduction.
+
+Files:
+  - entropy/evidence/phase1a_scaffold.py
+  - entropy/evidence/__init__.py
+  - tests/unit/test_phase1a_scaffold.py
+  - docs/audit/PHASE1A_BASELINE_SCAFFOLD_PACKET.md
+  - docs/tasks.md
+  - docs/DECISION_LOG.md
+  - docs/EVIDENCE_INDEX.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/audit/README.md
+  - docs/audit/REVIEW_REPORT.md
+  - docs/CODEX_PROMPT.md
+  - docs/README.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Result:
+  - `PHASE1A-BASELINE-SCAFFOLD-v1` loads the registered P1A-004 baseline
+    manifest and validates spec/validation hashes.
+  - Six deterministic non-trading skill-family placeholders are exposed.
+  - Long-only/no-leverage constraints are enforced as validation logic without
+    portfolio allocation.
+  - Formation read authorization is allowed for instrumentation mechanics.
+  - Validation authorization succeeds only with P1A-004 registration metadata.
+  - Holdout remains locked.
+  - P1A-007 batch/table-oriented workload boundary is preserved.
+  - Next task: P1A-009 Scaffold Performance Probe.
+
+### [x] P1A-009: Scaffold Performance Probe
+
+Objective: |
+  Run a mechanics-only scaffold benchmark on formation-only or deterministic
+  synthetic non-claim inputs, recording Python/Polars/DuckDB baseline runtime,
+  memory, artifact size, and replay hash according to the P1A-007 contract.
+
+Boundary:
+  - Implementation benchmark only.
+  - No alpha logic, portfolio allocation, backtest/evaluation, strategy
+    performance metrics, holdout read/unlock, live feeds, Growth/RDL/RBE
+    activation, non-Python runtime/toolchain introduction, or OOS/performance
+    claims.
+
+Files:
+  - entropy/evidence/phase1a_scaffold_probe.py
+  - entropy/evidence/__init__.py
+  - tests/unit/test_phase1a_scaffold_probe.py
+  - docs/audit/PHASE1A_SCAFFOLD_PERFORMANCE_PROBE_PACKET.md
+  - docs/tasks.md
+  - docs/DECISION_LOG.md
+  - docs/EVIDENCE_INDEX.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/audit/README.md
+  - docs/audit/REVIEW_REPORT.md
+  - docs/CODEX_PROMPT.md
+  - docs/README.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Result:
+  - `PHASE1A-SCAFFOLD-PROBE-v1` implemented a mechanics-only Polars benchmark
+    probe.
+  - Probe inputs are restricted to metadata-only, formation-only, or
+    deterministic synthetic non-claim boundary labels.
+  - Holdout boundary labels are rejected.
+  - Probe writes Parquet/Arrow-compatible synthetic artifacts and a JSON
+    manifest with runtime, memory, artifact size, backend path, replay hash,
+    code hash, policy hash, and no-claim labels.
+  - Probe manifest omits strategy metric fields and emits no OOS/performance
+    claims.
+  - Next task: P1A-010 Scaffold Closure Review.
+
+### [x] P1A-010: Scaffold Closure Review
+
+Objective: |
+  Review P1A-008 and P1A-009 to decide whether the scaffold is acceptable,
+  needs Python/Polars/DuckDB optimization, or requires a future
+  language-escalation ADR before any broader evaluation implementation.
+
+Boundary:
+  - Review and decision only.
+  - No alpha logic, portfolio allocation, backtest/evaluation, strategy
+    performance metrics, holdout read/unlock, live feeds, Growth/RDL/RBE
+    activation, non-Python runtime/toolchain introduction, or OOS/performance
+    claims.
+
+Files:
+  - docs/audit/PHASE1A_SCAFFOLD_CLOSURE_REVIEW.md
+  - docs/tasks.md
+  - docs/DECISION_LOG.md
+  - docs/EVIDENCE_INDEX.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/audit/README.md
+  - docs/audit/REVIEW_REPORT.md
+  - docs/CODEX_PROMPT.md
+  - docs/README.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Result:
+  - P1A-008 scaffold and P1A-009 probe are accepted for narrow archive-only
+    scaffold/probe closure.
+  - No immediate Python/Polars/DuckDB optimization is required.
+  - No language-escalation ADR is justified.
+  - Future optimization or language escalation remains benchmark-gated under
+    P1A-007.
+  - Phase 1 evaluation/trading, holdout reads, live feeds, Growth/RDL/RBE
+    activation, non-Python runtime/toolchain introduction, and OOS/performance
+    claims remain blocked.
+  - Next step: human/strategic decision for the post-Phase-1A stage.
+
+### [x] PSR-004: Post-Phase-1A Strategy Review
+
+Objective: |
+  Use the post-phase strategist workflow to decide the next admissible block
+  after Phase 1A scaffold/probe closure, without auto-starting Phase 1
+  evaluation or trading work.
+
+Boundary:
+  - Strategy and planning only.
+  - No source-code implementation, alpha logic, portfolio allocation,
+    backtest/evaluation, strategy performance metrics, holdout read/unlock,
+    live feeds, Growth/RDL/RBE activation, non-Python runtime/toolchain
+    introduction, or OOS/performance claims.
+
+Files:
+  - docs/audit/POST_PHASE1A_STRATEGY_REVIEW.md
+  - docs/audit/POST_PHASE1A_NEXT_STAGE_PLAN.md
+  - docs/tasks.md
+  - docs/DECISION_LOG.md
+  - docs/EVIDENCE_INDEX.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/audit/README.md
+  - docs/audit/REVIEW_REPORT.md
+  - docs/CODEX_PROMPT.md
+  - docs/README.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Result:
+  - Post-Phase-1A recommendation is `CONDITIONAL_GO` for audit-readiness work
+    only.
+  - Phase 1A remains closed as scaffold/probe foundation, not as evaluation
+    approval.
+  - F-C3-007 audit prompt metadata staleness should be fixed before the next
+    full audit cycle.
+  - Next stage: Post-Phase-1A Audit Readiness And Deep Review.
+  - Next task: P1A-011 Audit Prompt Metadata Refresh.
+
+### [x] P1A-011: Audit Prompt Metadata Refresh
+
+Objective: |
+  Refresh the active audit prompt chain so the required post-Phase-1A deep
+  protocol review runs against the current state instead of stale Cycle 1
+  pre-development metadata.
+
+Boundary:
+  - Audit prompt maintenance only.
+  - No protocol rule changes, source-code implementation, alpha logic,
+    portfolio allocation, backtest/evaluation, strategy performance metrics,
+    holdout read/unlock, live feeds, Growth/RDL/RBE activation, non-Python
+    runtime/toolchain introduction, or OOS/performance claims.
+
+Files:
+  - docs/audit/PROMPT_0_META.md
+  - docs/audit/PROMPT_1_ARCH_REVIEW.md
+  - docs/audit/PROMPT_2_INVARIANTS.md
+  - docs/audit/PROMPT_3_DRIFT_GUARD.md
+  - docs/audit/PROMPT_4_ADVERSARIAL.md
+  - docs/audit/PROMPT_5_CONSOLIDATED.md
+  - docs/audit/PHASE1A_AUDIT_PROMPT_REFRESH_PACKET.md
+  - docs/tasks.md
+  - docs/DECISION_LOG.md
+  - docs/EVIDENCE_INDEX.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/audit/README.md
+  - docs/audit/REVIEW_REPORT.md
+  - docs/CODEX_PROMPT.md
+  - docs/README.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Prompt headers or context blocks identify the current post-Phase-1A audit context."
+    test: "manual review + git diff"
+  - id: AC-2
+    description: "Cycle 1 pre-development assumptions are removed or explicitly overridden."
+    test: "rg for stale Cycle 1/pre-development references"
+  - id: AC-3
+    description: "The prompt chain still writes current root audit outputs and does not require archive bulk-loading."
+    test: "manual review"
+  - id: AC-4
+    description: "The refresh closes F-C3-007 without changing canonical protocol semantics."
+    test: "manual review"
+
+Context-Refs:
+  - docs/audit/POST_PHASE1A_STRATEGY_REVIEW.md
+  - docs/audit/POST_PHASE1A_NEXT_STAGE_PLAN.md
+  - docs/audit/REVIEW_REPORT.md F-C3-007
+
+Result:
+  - F-C3-007 is closed for the active audit prompt chain.
+  - Active prompts now identify Cycle 4 Post-Phase-1A Scaffold Closure with
+    2026-05-05 metadata.
+  - Stale Cycle 1/pre-development assumptions, dated footers, and consolidated
+    review instructions were removed or replaced with current-cycle
+    instructions.
+  - Prompt chain still writes root audit outputs and does not require archive
+    bulk-loading.
+  - No canonical protocol semantics were changed.
+  - Next task: P1A-012 Post-Phase-1A Deep Protocol Review.
+
+### [x] P1A-012: Post-Phase-1A Deep Protocol Review
+
+Objective: |
+  Run the refreshed deep audit sequence after Phase 1A scaffold/probe closure,
+  producing current root audit outputs and a consolidated finding inventory
+  before any new implementation phase is opened.
+
+Boundary:
+  - Audit review only.
+  - No source-code implementation, alpha logic, portfolio allocation,
+    backtest/evaluation, strategy performance metrics, holdout read/unlock,
+    live feeds, Growth/RDL/RBE activation, non-Python runtime/toolchain
+    introduction, or OOS/performance claims.
+
+Files:
+  - docs/audit/PROMPT_0_META.md
+  - docs/audit/PROMPT_1_ARCH_REVIEW.md
+  - docs/audit/PROMPT_2_INVARIANTS.md
+  - docs/audit/PROMPT_3_DRIFT_GUARD.md
+  - docs/audit/PROMPT_4_ADVERSARIAL.md
+  - docs/audit/PROMPT_5_CONSOLIDATED.md
+  - docs/audit/META_ANALYSIS.md
+  - docs/audit/ARCH_MODEL.md
+  - docs/audit/INVARIANTS.md
+  - docs/audit/DRIFT_ASSERTIONS.md
+  - docs/audit/DRIFT_REPORT.md
+  - docs/audit/ADVERSARIAL_REVIEW.md
+  - docs/audit/REVIEW_REPORT.md
+  - docs/audit/AUDIT_INDEX.md
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "The audit sequence runs in order from PROMPT_0_META through PROMPT_5_CONSOLIDATED."
+    test: "manual artifact review"
+  - id: AC-2
+    description: "Root audit outputs are refreshed against the post-Phase-1A context."
+    test: "manual artifact review"
+  - id: AC-3
+    description: "Findings are classified P0/P1/P2/P3 and do not approve forbidden claims."
+    test: "manual review of REVIEW_REPORT.md"
+  - id: AC-4
+    description: "Next task graph is proposed only after consolidation."
+    test: "manual review"
+
+Context-Refs:
+  - docs/audit/PHASE1A_AUDIT_PROMPT_REFRESH_PACKET.md
+  - docs/audit/POST_PHASE1A_NEXT_STAGE_PLAN.md
+
+Result:
+  - Cycle 4 post-Phase-1A deep review completed through all prompt steps.
+  - No P0/P1 drift was found in the Phase 1A scaffold/probe boundary.
+  - F-C3-007 remains closed by P1A-011.
+  - New finding F-C4-001 records P2 documentation drift: `ARCHITECTURE.md` and
+    `docs/spec.md` current-state prose still says Phase 0.5 while the active
+    handoff is post-Phase-1A audit readiness.
+  - Phase 1 evaluation/trading, holdout reads, live feeds, Growth/RDL/RBE
+    activation, non-Python runtime/toolchain introduction, and OOS/performance
+    claims remain blocked.
+  - Next task: P1A-013 Consolidated Post-Phase-1A Decision And Current-State
+    Sync.
+
+### [x] P1A-013: Consolidated Post-Phase-1A Decision And Current-State Sync
+
+Objective: |
+  Resolve or explicitly disposition F-C4-001, synchronize current-state
+  architecture/spec prose with the active post-Phase-1A audit readiness state,
+  and select the next task graph without opening forbidden Phase 1 evaluation
+  or trading work.
+
+Boundary:
+  - Current-state sync and strategic decision only.
+  - No source-code implementation, alpha logic, portfolio allocation,
+    backtest/evaluation, strategy performance metrics, holdout read/unlock,
+    live feeds, Growth/RDL/RBE activation, non-Python runtime/toolchain
+    introduction, or OOS/performance claims.
+
+Files:
+  - docs/ARCHITECTURE.md
+  - docs/spec.md
+  - docs/audit/REVIEW_REPORT.md
+  - docs/tasks.md
+  - docs/CODEX_PROMPT.md
+  - docs/DECISION_LOG.md
+  - docs/EVIDENCE_INDEX.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/audit/README.md
+  - docs/README.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`ARCHITECTURE.md` current-state prose acknowledges post-Phase-1A audit readiness without changing Phase 1 gate restrictions."
+    test: "manual review"
+  - id: AC-2
+    description: "`docs/spec.md` current-state prose acknowledges post-Phase-1A audit readiness without authorizing Phase 1 evaluation/trading."
+    test: "manual review"
+  - id: AC-3
+    description: "F-C4-001 is closed or explicitly accepted as non-blocking by Spec Owner decision."
+    test: "REVIEW_REPORT.md finding inventory"
+  - id: AC-4
+    description: "Next task graph is selected with forbidden claim boundaries preserved."
+    test: "tasks.md and CODEX_PROMPT.md"
+
+Context-Refs:
+  - docs/audit/REVIEW_REPORT.md
+  - docs/audit/ARCH_MODEL.md
+  - docs/audit/DRIFT_REPORT.md
+  - docs/audit/ADVERSARIAL_REVIEW.md
+
+Result:
+  - F-C4-001 is closed by current-state sync in `ARCHITECTURE.md` and
+    `docs/spec.md`.
+  - Current-state prose now acknowledges post-Phase-1A audit readiness while
+    preserving Phase 1 gate restrictions.
+  - No implementation phase is opened by this sync.
+  - Phase 1 evaluation/trading, holdout reads, live feeds, Growth/RDL/RBE
+    activation, non-Python runtime/toolchain introduction, and OOS/performance
+    claims remain blocked.
+  - Next task: P1A-HUMAN-001 Next Block Approval.
+
+### [x] P1A-HUMAN-001: Next Block Approval
+
+Objective: |
+  Spec Owner chooses the next post-Phase-1A block before Codex opens more
+  implementation surface.
+
+Boundary:
+  - Human/strategic approval only.
+  - No source-code implementation, alpha logic, portfolio allocation,
+    backtest/evaluation, strategy performance metrics, holdout read/unlock,
+    live feeds, Growth/RDL/RBE activation, non-Python runtime/toolchain
+    introduction, or OOS/performance claims.
+
+Allowed outcomes:
+  - archive-only hardening block;
+  - benchmark-contract extension block;
+  - Phase 1 planning path with explicit non-evaluation boundaries;
+  - stop/no-go pending further review.
+
+Context-Refs:
+  - docs/audit/REVIEW_REPORT.md
+  - docs/audit/POST_PHASE1A_STRATEGY_REVIEW.md
+  - docs/audit/POST_PHASE1A_NEXT_STAGE_PLAN.md
+
+Result:
+  - Spec Owner selected a prioritized operations-plan block instead of opening
+    Phase 1 evaluation/trading.
+  - The selected block is `Phase 1B — Long-Only Baseline Readiness Planning`.
+  - This is part of the Phase 1 workstream, but it is not full Phase 1
+    evaluation and carries no OOS/performance or capital-readiness claim.
+  - Next task: P1B-001 Phase Taxonomy And Gate Map.
+
+## Phase 1B — Long-Only Baseline Readiness Planning
+
+Phase 1B prepares the ordered long-only baseline path after Phase 1A
+scaffold/probe closure. It is not full Phase 1 evaluation/trading.
+
+Boundary:
+  - Planning, design, readiness, and non-claim benchmark decisions only.
+  - No alpha execution, portfolio allocation, backtest/evaluation, strategy
+    performance metrics, holdout read/unlock, live feeds, Growth/RDL/RBE
+    activation, non-Python runtime/toolchain introduction, or OOS/performance
+    claims.
+
+### [x] P1B-001: Phase Taxonomy And Gate Map
+
+Objective: |
+  Define the exact phase naming and gate map for Phase 1A, Phase 1B, Phase 1
+  implementation, Phase 1 evaluation, and Phase 1 exit so future tasks do not
+  accidentally treat readiness work as evaluation approval.
+
+Files:
+  - docs/audit/POST_PHASE1A_OPERATIONS_PLAN.md
+  - docs/tasks.md
+  - docs/CODEX_PROMPT.md
+  - docs/DECISION_LOG.md
+  - docs/EVIDENCE_INDEX.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/audit/README.md
+  - docs/README.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Phase 1B is explicitly defined as readiness/planning, not evaluation."
+    test: "manual review"
+  - id: AC-2
+    description: "Phase 1 implementation, Phase 1 evaluation, and Phase 1 exit each require separate explicit gates."
+    test: "manual review"
+  - id: AC-3
+    description: "Forbidden claims and holdout/live/runtime escalation boundaries remain unchanged."
+    test: "manual review"
+
+Context-Refs:
+  - docs/audit/POST_PHASE1A_OPERATIONS_PLAN.md
+  - docs/audit/REVIEW_REPORT.md
+
+Result:
+  - Phase taxonomy is recorded in `POST_PHASE1A_OPERATIONS_PLAN.md`.
+  - Phase 1B is explicitly readiness/planning, not Phase 1 evaluation/trading.
+  - Phase 1 implementation, Phase 1 evaluation, and Phase 1 exit remain
+    separate gates.
+  - Forbidden holdout/live/runtime escalation/claim boundaries remain
+    unchanged.
+  - Next task: P1B-002 Long-Only Baseline Operations Graph.
+
+### [x] P1B-002: Long-Only Baseline Operations Graph
+
+Objective: |
+  Expand the Phase 1B plan into an executable task graph with dependencies,
+  acceptance criteria, review gates, and evidence requirements for the long-only
+  baseline readiness path.
+
+Boundary:
+  - Planning and task graph only.
+  - No source-code implementation, alpha execution, portfolio allocation,
+    backtest/evaluation, strategy performance metrics, holdout read/unlock,
+    live feeds, Growth/RDL/RBE activation, non-Python runtime/toolchain
+    introduction, or OOS/performance claims.
+
+Files:
+  - docs/audit/POST_PHASE1A_OPERATIONS_PLAN.md
+  - docs/tasks.md
+  - docs/CODEX_PROMPT.md
+  - docs/DECISION_LOG.md
+  - docs/EVIDENCE_INDEX.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/audit/README.md
+  - docs/README.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Tasks are ordered by dependency and priority."
+    test: "manual review"
+  - id: AC-2
+    description: "Each task has explicit no-claim and no-holdout boundaries."
+    test: "manual review"
+  - id: AC-3
+    description: "Implementation/evaluation gates are represented as separate human approvals."
+    test: "manual review"
+
+Context-Refs:
+  - docs/audit/POST_PHASE1A_OPERATIONS_PLAN.md
+
+Result:
+  - Operations graph was collapsed into a code-first path to avoid further
+    documentation-only churn.
+  - Next completed code block: P1B-003 Long-Only Baseline Implementation
+    Surface.
+
+### [x] P1B-003: Long-Only Baseline Implementation Surface
+
+Objective: |
+  Implement the bounded long-only baseline implementation surface before any
+  alpha logic or evaluation. The surface must bind to the Phase 1A scaffold,
+  expose registered skill-family interfaces, validate formation-only schema
+  requests, reject validation/holdout use, reject score/weight/PnL/OOS fields,
+  and produce deterministic schema hashes.
+
+Boundary:
+  - Interface and schema guard code only.
+  - No alpha execution, portfolio allocation, backtest/evaluation, strategy
+    performance metrics, holdout read/unlock, live feeds, Growth/RDL/RBE
+    activation, non-Python runtime/toolchain introduction, or OOS/performance
+    claims.
+
+Files:
+  - entropy/baseline/__init__.py
+  - entropy/baseline/long_only.py
+  - tests/unit/test_phase1b_baseline_surface.py
+  - docs/tasks.md
+  - docs/CODEX_PROMPT.md
+  - docs/DECISION_LOG.md
+  - docs/EVIDENCE_INDEX.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/audit/README.md
+  - docs/README.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Result:
+  - Added `PHASE1B-LONG-ONLY-BASELINE-SURFACE-v1`.
+  - Surface builds only from the approved Phase 1A scaffold boundary.
+  - Registered skill families are exposed as interface-only/no-alpha surfaces.
+  - Formation-only schema requests are allowed.
+  - Validation and holdout split labels are denied.
+  - Forbidden output columns include alpha/score/signal/weight/position/PnL/
+    return/Sharpe/drawdown/OOS/performance/gate fields.
+  - Deterministic schema payload and hash are available for replay/audit checks.
+  - Next task: P1B-004 Baseline Formation Input Adapter.
+
+### [x] P1B-004: Baseline Formation Input Adapter
+
+Objective: |
+  Implement a formation-only input adapter that prepares approved archive rows
+  for the Phase 1B baseline surface without computing alpha, scores, weights,
+  returns, P&L, or evaluation metrics.
+
+Boundary:
+  - Formation input preparation only.
+  - No validation/holdout reads, alpha execution, portfolio allocation,
+    backtest/evaluation, strategy performance metrics, live feeds,
+    Growth/RDL/RBE activation, non-Python runtime/toolchain introduction, or
+    OOS/performance claims.
+
+Files:
+  - entropy/baseline/features.py
+  - entropy/baseline/formation.py
+  - entropy/baseline/__init__.py
+  - tests/unit/test_phase1b_baseline_readiness.py
+
+Result:
+  - Added `PHASE1B-BASELINE-FEATURE-CONTRACT-v1`.
+  - Added `PHASE1B-FORMATION-INPUT-ADAPTER-v1`.
+  - Adapter accepts formation split rows only and rejects validation/holdout
+    labels.
+  - Input schema rejects future/target/label/score/performance fields.
+  - OHLCV sanity checks, deterministic sort, schema hash, input hash, dataset
+    hash list, row count, and symbol count are recorded.
+  - Next task: P1B-005 Baseline Skill Stub Outputs.
+
+### [x] P1B-005: Baseline Skill Stub Outputs
+
+Objective: |
+  Implement schema-only output stubs for all registered long-only skill
+  families, proving the interface can be wired without emitting alpha logic,
+  scores, weights, positions, P&L, returns, or evaluation metrics.
+
+Boundary:
+  - Schema-only no-claim output construction.
+  - No alpha execution, portfolio allocation, backtest/evaluation, strategy
+    performance metrics, validation/holdout reads, live feeds, Growth/RDL/RBE
+    activation, non-Python runtime/toolchain introduction, or OOS/performance
+    claims.
+
+Files:
+  - entropy/baseline/skills.py
+  - entropy/baseline/__init__.py
+  - tests/unit/test_phase1b_baseline_readiness.py
+
+Result:
+  - Added `PHASE1B-SKILL-STUB-OUTPUT-v1`.
+  - Stubs cover every registered Phase 1A scaffold skill family.
+  - Output columns are limited to the approved no-claim schema.
+  - Unknown skill families are rejected.
+  - Next task: P1B-006 Baseline Mechanics Benchmark.
+
+### [x] P1B-006: Baseline Mechanics Benchmark
+
+Objective: |
+  Implement a mechanics-only synthetic benchmark over the Phase 1B baseline
+  surface, formation adapter, and schema-only skill stubs to preserve workload
+  visibility without claiming strategy performance.
+
+Boundary:
+  - Synthetic mechanics/runtime evidence only.
+  - No archive holdout read/unlock, alpha execution, portfolio allocation,
+    backtest/evaluation, strategy performance metrics, live feeds,
+    Growth/RDL/RBE activation, runtime escalation, or OOS/performance claims.
+
+Files:
+  - entropy/baseline/skills.py
+  - tests/unit/test_phase1b_baseline_readiness.py
+
+Result:
+  - Added `PHASE1B-BASELINE-SURFACE-BENCHMARK-v1`.
+  - Benchmark records row count, skill-family count, output rows, wall-clock
+    seconds, peak memory bytes, backend, and no-claim labels.
+  - Benchmark uses deterministic synthetic formation-safe rows only.
+  - Full verification baseline is `232 passed, 20 skipped`.
+  - Next task: P1B-HUMAN-001 Phase 1B Code Closure Review.
+
+### [ ] P1B-HUMAN-001: Phase 1B Code Closure Review
+
+Objective: |
+  Spec Owner reviews the completed Phase 1B readiness code block and decides
+  whether to open the next bounded block.
+
+Boundary:
+  - Human/strategic review only.
+  - Does not approve Phase 1 evaluation/trading, holdout reads, live feeds,
+    portfolio/backtest evaluation, Growth/RDL/RBE activation, runtime
+    escalation, OOS/performance claims, production labels, or capital-ready
+    labels.
 
 ---
 

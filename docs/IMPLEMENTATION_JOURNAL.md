@@ -3053,10 +3053,6 @@ foundation closure.
 
 **Verification run:**
 - Documentation-only strategy decision.
-- `git diff --check` passed after final sync.
-- Focused archive tests still pass: `.venv/bin/pytest tests/unit/test_data_stability_archive.py tests/unit/test_data_stability.py`.
-
----
 
 ## 2026-05-05 — Cycle 3 Post-Phase0 Archive-Only Audit
 
@@ -3141,6 +3137,7 @@ artifacts from the approved local archive manifests.
 - `docs/audit/AUDIT_INDEX.md`
 - `docs/audit/REVIEW_REPORT.md`
 - `docs/CODEX_PROMPT.md`
+- `docs/README.md`
 - `docs/IMPLEMENTATION_JOURNAL.md`
 - `artifacts/evidence/phase1a_archive_freeze/freeze_001/PHASE1A_ARCHIVE_FREEZE_MANIFEST.json`
 - `artifacts/evidence/phase1a_archive_freeze/freeze_001/PHASE1A_ARCHIVE_FREEZE_SUMMARY.md`
@@ -3357,3 +3354,457 @@ and moved historical phase/audit packets into `docs/audit/archive/`.
 **Verification run:**
 - `git diff --check -- docs`
 - Link scan for stale root audit paths to archived files returned no matches.
+
+---
+
+## 2026-05-05 — P1A-006 Phase 1A Development And Runtime Strategy
+
+**What happened:** Paused the planned executable scaffold and ran a strategy
+correction focused on Phase 1A sequencing and future workload scale.
+
+**Artifacts updated:**
+- `docs/audit/PHASE1A_DEVELOPMENT_STRATEGY.md`
+- `docs/tasks.md`
+- `docs/DECISION_LOG.md`
+- `docs/EVIDENCE_INDEX.md`
+- `docs/audit/AUDIT_INDEX.md`
+- `docs/audit/README.md`
+- `docs/audit/REVIEW_REPORT.md`
+- `docs/CODEX_PROMPT.md`
+- `docs/IMPLEMENTATION_JOURNAL.md`
+
+**Result:**
+- D-034 records that the executable archive baseline scaffold is deferred until
+  workload and benchmark boundaries are explicit.
+- Python remains the active Phase 0/1 language.
+- Phase 1A should use Python for governance/orchestration and
+  Polars/DuckDB/Arrow for columnar execution.
+- Non-Python implementation remains blocked unless the language-escalation gate
+  is satisfied by benchmark evidence, ADR, architecture/task/CI updates, and
+  explicit human approval.
+- Next task: P1A-007 Workload Profile And Benchmark Contract.
+
+**Verification run:**
+- Documentation-only strategy correction.
+
+---
+
+## 2026-05-05 — P1A-007 Workload Profile And Benchmark Contract
+
+**What happened:** Defined the workload and benchmark contract that must shape
+the Phase 1A executable scaffold before code begins.
+
+**Artifacts updated:**
+- `docs/audit/PHASE1A_WORKLOAD_BENCHMARK_CONTRACT.md`
+- `docs/tasks.md`
+- `docs/DECISION_LOG.md`
+- `docs/EVIDENCE_INDEX.md`
+- `docs/audit/AUDIT_INDEX.md`
+- `docs/audit/README.md`
+- `docs/audit/REVIEW_REPORT.md`
+- `docs/CODEX_PROMPT.md`
+- `docs/README.md`
+- `docs/IMPLEMENTATION_JOURNAL.md`
+
+**Result:**
+- D-035 records the P1A-007 workload/benchmark contract approval.
+- Benchmark inputs are restricted to metadata, formation-only, or deterministic
+  synthetic non-claim data.
+- Holdout remains locked.
+- PostgreSQL is metadata-only for benchmark paths; large intermediates must be
+  Parquet/Arrow-compatible.
+- Python remains the control plane; Polars/DuckDB/Arrow remain the default data
+  plane.
+- Non-Python implementation remains blocked pending benchmark evidence, ADR,
+  architecture/task/CI updates, and explicit human approval.
+- Next task: P1A-008 Archive Baseline Executable Scaffold.
+
+**Verification run:**
+- Documentation-only workload contract.
+
+---
+
+## 2026-05-05 — P1A-008 Archive Baseline Executable Scaffold
+
+**What happened:** Implemented the narrow executable scaffold for the registered
+Phase 1A archive baseline specification under the P1A-007 workload boundary.
+
+**Artifacts updated:**
+- `entropy/evidence/phase1a_scaffold.py`
+- `entropy/evidence/__init__.py`
+- `tests/unit/test_phase1a_scaffold.py`
+- `docs/audit/PHASE1A_BASELINE_SCAFFOLD_PACKET.md`
+- `docs/tasks.md`
+- `docs/DECISION_LOG.md`
+- `docs/EVIDENCE_INDEX.md`
+- `docs/audit/AUDIT_INDEX.md`
+- `docs/audit/README.md`
+- `docs/audit/REVIEW_REPORT.md`
+- `docs/CODEX_PROMPT.md`
+- `docs/README.md`
+- `docs/IMPLEMENTATION_JOURNAL.md`
+
+**Result:**
+- D-036 records P1A-008 scaffold approval.
+- Scaffold ID: `PHASE1A-BASELINE-SCAFFOLD-v1`.
+- The scaffold loads and validates the P1A-004 baseline registration manifest.
+- Six deterministic non-trading skill-family placeholders are exposed.
+- Long-only/no-leverage constraints are enforced as validation logic without
+  allocation.
+- Formation read authorization is allowed for instrumentation mechanics.
+- Validation read authorization requires P1A-004 metadata.
+- Holdout remains locked.
+- No alpha logic, portfolio/backtest evaluation, strategy performance metrics,
+  non-Python runtime/toolchain, live feed, Growth/RDL/RBE activation, or
+  OOS/performance claim is authorized.
+- Next task: P1A-009 Scaffold Performance Probe.
+
+**Verification run:**
+- Pre-code `.venv/bin/pytest -q` -> 205 passed, 20 skipped.
+- Pre-code `.venv/bin/ruff check entropy tests` -> passed.
+- `.venv/bin/pytest tests/unit/test_phase1a_scaffold.py -q` -> 6 passed.
+- `.venv/bin/pytest tests/unit/test_phase1a_freeze.py tests/unit/test_phase1a_registration.py tests/unit/test_phase1a_baseline.py tests/unit/test_phase1a_scaffold.py -q` -> 19 passed.
+- `.venv/bin/ruff check entropy/evidence/phase1a_scaffold.py entropy/evidence/__init__.py tests/unit/test_phase1a_scaffold.py` -> passed.
+- `.venv/bin/ruff format --check entropy/evidence/phase1a_scaffold.py entropy/evidence/__init__.py tests/unit/test_phase1a_scaffold.py` -> passed.
+- `.venv/bin/pyright --pythonpath .venv/bin/python entropy/evidence/phase1a_scaffold.py` -> 0 errors.
+- `.venv/bin/pytest -q` -> 211 passed, 20 skipped.
+
+---
+
+## 2026-05-05 — P1A-009 Scaffold Performance Probe
+
+**What happened:** Implemented a mechanics-only scaffold benchmark probe under
+the P1A-007 workload contract.
+
+**Artifacts updated:**
+- `entropy/evidence/phase1a_scaffold_probe.py`
+- `entropy/evidence/__init__.py`
+- `tests/unit/test_phase1a_scaffold_probe.py`
+- `docs/audit/PHASE1A_SCAFFOLD_PERFORMANCE_PROBE_PACKET.md`
+- `docs/tasks.md`
+- `docs/DECISION_LOG.md`
+- `docs/EVIDENCE_INDEX.md`
+- `docs/audit/AUDIT_INDEX.md`
+- `docs/audit/README.md`
+- `docs/audit/REVIEW_REPORT.md`
+- `docs/CODEX_PROMPT.md`
+- `docs/README.md`
+- `docs/IMPLEMENTATION_JOURNAL.md`
+
+**Result:**
+- D-037 records P1A-009 probe approval.
+- Probe ID: `PHASE1A-SCAFFOLD-PROBE-v1`.
+- The probe writes deterministic synthetic scaffold-shaped rows as a Parquet
+  artifact and a JSON benchmark manifest.
+- Manifest records runtime, peak memory, artifact size, backend, replay hash,
+  code hash, policy hash, and no-claim labels.
+- Holdout data boundaries and non-Polars backend labels are rejected.
+- Strategy metric fields are absent.
+- No alpha logic, portfolio/backtest evaluation, strategy performance metrics,
+  non-Python runtime/toolchain, live feed, Growth/RDL/RBE activation, or
+  OOS/performance claim is authorized.
+- Next task: P1A-010 Scaffold Closure Review.
+
+**Verification run:**
+- `.venv/bin/pytest tests/unit/test_phase1a_scaffold_probe.py -q` -> 5 passed.
+- `.venv/bin/ruff check entropy/evidence/phase1a_scaffold_probe.py entropy/evidence/__init__.py tests/unit/test_phase1a_scaffold_probe.py` -> passed.
+- `.venv/bin/ruff format --check entropy/evidence/phase1a_scaffold_probe.py entropy/evidence/__init__.py tests/unit/test_phase1a_scaffold_probe.py` -> passed.
+- `.venv/bin/pyright --pythonpath .venv/bin/python entropy/evidence/phase1a_scaffold_probe.py` -> 0 errors.
+
+---
+
+## 2026-05-05 — P1A-010 Scaffold Closure Review
+
+**What happened:** Reviewed P1A-008 scaffold and P1A-009 mechanics-only probe
+for closure.
+
+**Artifacts updated:**
+- `docs/audit/PHASE1A_SCAFFOLD_CLOSURE_REVIEW.md`
+- `docs/tasks.md`
+- `docs/DECISION_LOG.md`
+- `docs/EVIDENCE_INDEX.md`
+- `docs/audit/AUDIT_INDEX.md`
+- `docs/audit/README.md`
+- `docs/audit/REVIEW_REPORT.md`
+- `docs/CODEX_PROMPT.md`
+- `docs/README.md`
+- `docs/IMPLEMENTATION_JOURNAL.md`
+
+**Result:**
+- D-038 records P1A-010 closure approval.
+- P1A-008 scaffold and P1A-009 probe close the Phase 1A scaffold/probe chain.
+- No immediate Python/Polars/DuckDB optimization is required.
+- No language-escalation ADR is justified.
+- Future optimization or language escalation remains benchmark-gated under
+  P1A-007.
+- Phase 1 evaluation/trading, holdout reads, live feeds, Growth/RDL/RBE
+  activation, non-Python runtime/toolchain introduction, and OOS/performance
+  claims remain blocked.
+- Next step: human/strategic decision for the post-Phase-1A stage.
+
+**Verification run:**
+- Reviewed P1A-008/P1A-009 packets and evidence rows.
+- `.venv/bin/ruff check entropy tests` -> passed.
+- `.venv/bin/pytest tests/unit/test_phase1a_freeze.py tests/unit/test_phase1a_registration.py tests/unit/test_phase1a_baseline.py tests/unit/test_phase1a_scaffold.py tests/unit/test_phase1a_scaffold_probe.py -q` -> 24 passed.
+- `.venv/bin/pyright --pythonpath .venv/bin/python entropy/evidence/phase1a_scaffold.py entropy/evidence/phase1a_scaffold_probe.py` -> 0 errors.
+- `.venv/bin/pytest -q` -> 216 passed, 20 skipped.
+- `git diff --check` -> passed.
+
+---
+
+## 2026-05-05 — PSR-004 Post-Phase-1A Strategy Review
+
+**What happened:** Ran the post-phase strategist workflow after P1A-010 to
+select the next admissible block.
+
+**Artifacts updated:**
+- `docs/audit/POST_PHASE1A_STRATEGY_REVIEW.md`
+- `docs/audit/POST_PHASE1A_NEXT_STAGE_PLAN.md`
+- `docs/tasks.md`
+- `docs/DECISION_LOG.md`
+- `docs/EVIDENCE_INDEX.md`
+- `docs/audit/AUDIT_INDEX.md`
+- `docs/audit/README.md`
+- `docs/audit/REVIEW_REPORT.md`
+- `docs/CODEX_PROMPT.md`
+- `docs/README.md`
+- `docs/IMPLEMENTATION_JOURNAL.md`
+
+**Result:**
+- D-039 records the post-Phase-1A strategy decision.
+- Recommendation: `CONDITIONAL_GO` for audit-readiness work only.
+- Next stage: Post-Phase-1A Audit Readiness And Deep Review.
+- First next task: P1A-011 Audit Prompt Metadata Refresh to close F-C3-007
+  before running the full prompt chain.
+- Phase 1 evaluation/trading, holdout reads, live feeds, Growth/RDL/RBE
+  activation, non-Python runtime/toolchain introduction, and OOS/performance
+  claims remain blocked.
+
+**Verification run:**
+- Documentation-only strategy decision.
+
+---
+
+## 2026-05-05 — P1A-011 Audit Prompt Metadata Refresh
+
+**What happened:** Refreshed the active audit prompt chain before the required
+post-Phase-1A deep protocol review.
+
+**Artifacts updated:**
+- `docs/audit/PROMPT_0_META.md`
+- `docs/audit/PROMPT_1_ARCH_REVIEW.md`
+- `docs/audit/PROMPT_2_INVARIANTS.md`
+- `docs/audit/PROMPT_3_DRIFT_GUARD.md`
+- `docs/audit/PROMPT_4_ADVERSARIAL.md`
+- `docs/audit/PROMPT_5_CONSOLIDATED.md`
+- `docs/audit/PHASE1A_AUDIT_PROMPT_REFRESH_PACKET.md`
+- `docs/tasks.md`
+- `docs/DECISION_LOG.md`
+- `docs/EVIDENCE_INDEX.md`
+- `docs/audit/AUDIT_INDEX.md`
+- `docs/audit/README.md`
+- `docs/audit/REVIEW_REPORT.md`
+- `docs/CODEX_PROMPT.md`
+- `docs/README.md`
+- `docs/IMPLEMENTATION_JOURNAL.md`
+
+**Result:**
+- D-040 records the P1A-011 prompt refresh approval.
+- F-C3-007 is closed for the active audit prompt chain.
+- Prompts now identify Cycle 4 Post-Phase-1A Scaffold Closure with
+  2026-05-05 metadata.
+- Prompt chain still writes root audit outputs and preserves archive loading
+  discipline.
+- Next task: P1A-012 Post-Phase-1A Deep Protocol Review.
+
+**Verification run:**
+- Stale prompt metadata search -> no matches.
+- Current metadata search -> Cycle 4/Post-Phase-1A metadata present.
+- Targeted `git diff --check` for prompt files -> passed.
+
+---
+
+## 2026-05-05 — P1A-012 Post-Phase-1A Deep Protocol Review
+
+**What happened:** Ran the refreshed Cycle 4 deep protocol review sequence after
+P1A-011.
+
+**Artifacts updated:**
+- `docs/audit/META_ANALYSIS.md`
+- `docs/audit/ARCH_MODEL.md`
+- `docs/audit/INVARIANTS.md`
+- `docs/audit/DRIFT_ASSERTIONS.md`
+- `docs/audit/DRIFT_REPORT.md`
+- `docs/audit/ADVERSARIAL_REVIEW.md`
+- `docs/audit/REVIEW_REPORT.md`
+- `docs/tasks.md`
+- `docs/DECISION_LOG.md`
+- `docs/EVIDENCE_INDEX.md`
+- `docs/audit/AUDIT_INDEX.md`
+- `docs/audit/README.md`
+- `docs/CODEX_PROMPT.md`
+- `docs/README.md`
+- `docs/IMPLEMENTATION_JOURNAL.md`
+
+**Result:**
+- D-041 records P1A-012 as complete draft audit output.
+- No P0/P1 drift was found in the Phase 1A scaffold/probe boundary.
+- F-C3-007 remains closed.
+- New P2 F-C4-001 records current-state documentation drift in
+  `ARCHITECTURE.md` and `docs/spec.md`.
+- Phase 1 evaluation/trading, holdout reads, live feeds, Growth/RDL/RBE
+  activation, runtime escalation, and OOS/performance claims remain blocked.
+- Next task: P1A-013 Consolidated Post-Phase-1A Decision And Current-State Sync.
+
+**Verification run:**
+- Documentation-only audit review.
+
+---
+
+## 2026-05-05 — P1A-013 Current-State Sync
+
+**What happened:** Closed F-C4-001 by syncing implementation-facing
+current-state prose after the Cycle 4 deep review.
+
+**Artifacts updated:**
+- `docs/ARCHITECTURE.md`
+- `docs/spec.md`
+- `docs/audit/REVIEW_REPORT.md`
+- `docs/tasks.md`
+- `docs/DECISION_LOG.md`
+- `docs/EVIDENCE_INDEX.md`
+- `docs/audit/AUDIT_INDEX.md`
+- `docs/audit/README.md`
+- `docs/CODEX_PROMPT.md`
+- `docs/README.md`
+- `docs/IMPLEMENTATION_JOURNAL.md`
+
+**Result:**
+- D-042 records the current-state sync.
+- F-C4-001 is closed.
+- `ARCHITECTURE.md` and `docs/spec.md` now acknowledge post-Phase-1A audit
+  readiness while preserving Phase 1 gate restrictions.
+- No implementation phase is opened.
+- Next task: P1A-HUMAN-001 Next Block Approval.
+
+**Verification run:**
+- `.venv/bin/pytest tests/unit/test_phase1a_freeze.py tests/unit/test_phase1a_registration.py tests/unit/test_phase1a_baseline.py tests/unit/test_phase1a_scaffold.py tests/unit/test_phase1a_scaffold_probe.py -q` -> 24 passed.
+- `.venv/bin/ruff check entropy/evidence/phase1a_scaffold.py entropy/evidence/phase1a_scaffold_probe.py entropy/evidence/__init__.py tests/unit/test_phase1a_scaffold.py tests/unit/test_phase1a_scaffold_probe.py` -> passed.
+- `git diff --check` -> passed.
+
+---
+
+## 2026-05-05 — P1A-HUMAN-001 / P1B-001 Next Block And Phase Taxonomy
+
+**What happened:** Recorded the Spec Owner direction to write a prioritized
+operations plan and clarified whether the next work is Phase 1.
+
+**Artifacts updated:**
+- `docs/audit/POST_PHASE1A_OPERATIONS_PLAN.md`
+- `docs/tasks.md`
+- `docs/DECISION_LOG.md`
+- `docs/EVIDENCE_INDEX.md`
+- `docs/CODEX_PROMPT.md`
+- `docs/audit/AUDIT_INDEX.md`
+- `docs/audit/README.md`
+- `docs/README.md`
+- `docs/IMPLEMENTATION_JOURNAL.md`
+
+**Result:**
+- D-043 selects `Phase 1B Long-Only Baseline Readiness Planning`.
+- D-044 closes P1B-001 phase taxonomy and gate map.
+- Phase 1B is part of the Phase 1 workstream but is not full Phase 1
+  evaluation/trading.
+- Phase 1 implementation, Phase 1 evaluation, and Phase 1 exit remain separate
+  explicit gates.
+- Next task: P1B-002 Long-Only Baseline Operations Graph.
+
+**Verification run:**
+- Documentation-only next-block approval and taxonomy update.
+
+---
+
+## 2026-05-05 — P1B-003 Long-Only Baseline Implementation Surface
+
+**What happened:** Implemented the first Phase 1B code block: a bounded
+long-only baseline surface that prepares interface/schema guards without alpha
+logic or evaluation.
+
+**Artifacts updated:**
+- `entropy/baseline/__init__.py`
+- `entropy/baseline/long_only.py`
+- `tests/unit/test_phase1b_baseline_surface.py`
+- `docs/tasks.md`
+- `docs/DECISION_LOG.md`
+- `docs/EVIDENCE_INDEX.md`
+- `docs/CODEX_PROMPT.md`
+- `docs/audit/AUDIT_INDEX.md`
+- `docs/audit/README.md`
+- `docs/README.md`
+- `docs/IMPLEMENTATION_JOURNAL.md`
+
+**Result:**
+- D-045 records `PHASE1B-LONG-ONLY-BASELINE-SURFACE-v1`.
+- Surface builds only from the approved Phase 1A scaffold.
+- Registered skill families are interface-only and no-alpha.
+- Formation-only schema requests are allowed; validation and holdout labels are
+  denied.
+- Output schema guards reject alpha, score, signal, weight, position, PnL,
+  return, Sharpe, drawdown, OOS, performance, and phase-gate fields.
+- Deterministic schema payload/hash are available for replay/audit checks.
+- Next task: P1B-004 Baseline Formation Input Adapter.
+
+**Verification run:**
+- Pre-code `.venv/bin/pytest -q` -> 216 passed, 20 skipped.
+- Pre-code `.venv/bin/ruff check entropy tests` -> passed.
+- `.venv/bin/pytest tests/unit/test_phase1b_baseline_surface.py -q` -> 7 passed.
+- `.venv/bin/pytest tests/unit/test_phase1a_freeze.py tests/unit/test_phase1a_registration.py tests/unit/test_phase1a_baseline.py tests/unit/test_phase1a_scaffold.py tests/unit/test_phase1a_scaffold_probe.py tests/unit/test_phase1b_baseline_surface.py -q` -> 31 passed.
+- `.venv/bin/ruff check entropy/baseline tests/unit/test_phase1b_baseline_surface.py` -> passed.
+- `.venv/bin/pyright --pythonpath .venv/bin/python entropy/baseline/long_only.py tests/unit/test_phase1b_baseline_surface.py` -> 0 errors.
+- `.venv/bin/pytest -q` -> 223 passed, 20 skipped.
+
+---
+
+## 2026-05-05 — P1B-004..P1B-006 Phase 1B Readiness Code Block
+
+**What happened:** Completed the remaining Phase 1B readiness code block after
+the baseline surface: feature contract, formation-only adapter, schema-only
+skill stubs, and mechanics-only synthetic benchmark.
+
+**Artifacts updated:**
+- `entropy/baseline/__init__.py`
+- `entropy/baseline/features.py`
+- `entropy/baseline/formation.py`
+- `entropy/baseline/skills.py`
+- `tests/unit/test_phase1b_baseline_readiness.py`
+- `docs/tasks.md`
+- `docs/DECISION_LOG.md`
+- `docs/EVIDENCE_INDEX.md`
+- `docs/CODEX_PROMPT.md`
+- `docs/audit/AUDIT_INDEX.md`
+- `docs/audit/README.md`
+- `docs/audit/POST_PHASE1A_OPERATIONS_PLAN.md`
+- `docs/README.md`
+- `docs/IMPLEMENTATION_JOURNAL.md`
+
+**Result:**
+- D-046 records `PHASE1B-BASELINE-FEATURE-CONTRACT-v1`,
+  `PHASE1B-FORMATION-INPUT-ADAPTER-v1`,
+  `PHASE1B-SKILL-STUB-OUTPUT-v1`, and
+  `PHASE1B-BASELINE-SURFACE-BENCHMARK-v1`.
+- Formation adapter accepts formation split rows only, rejects holdout and
+  forbidden future/target/label/performance fields, records deterministic
+  schema/input hashes, and keeps evaluation/gate claims disabled.
+- Skill stubs cover registered Phase 1A scaffold skill families with
+  schema-only no-claim outputs.
+- Mechanics benchmark uses deterministic synthetic formation-safe rows and
+  records runtime/memory facts only.
+- Next task: P1B-HUMAN-001 Phase 1B Code Closure Review.
+
+**Verification run:**
+- `.venv/bin/pytest tests/unit/test_phase1b_baseline_readiness.py -q` -> 9 passed.
+- `.venv/bin/pytest tests/unit/test_phase1b_baseline_surface.py tests/unit/test_phase1b_baseline_readiness.py -q` -> 16 passed.
+- `.venv/bin/pytest tests/unit/test_phase1a_freeze.py tests/unit/test_phase1a_scaffold.py tests/unit/test_phase1a_registration.py tests/unit/test_phase1a_baseline.py tests/unit/test_phase1a_scaffold_probe.py tests/unit/test_phase1b_baseline_surface.py tests/unit/test_phase1b_baseline_readiness.py -q` -> 40 passed.
+- `.venv/bin/ruff check entropy tests` -> passed.
+- `.venv/bin/pyright --pythonpath .venv/bin/python entropy tests/unit/test_phase1b_baseline_surface.py tests/unit/test_phase1b_baseline_readiness.py` -> 0 errors.
+- `.venv/bin/pytest -q` -> 232 passed, 20 skipped.
