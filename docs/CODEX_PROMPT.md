@@ -1,180 +1,99 @@
 # CODEX_PROMPT.md
 
-Version: 3.2
-Date: 2026-05-05
-Phase: Phase 1D implementation planning
+Version: 3.8
+Date: 2026-05-06
+Phase: D-K deep review fix closure
 
-This is the compact current-state handoff for new Codex sessions. Historical
-handoff state remains available through git history and the implementation
-journal.
+Compact current-state handoff. Historical task graph, logs, evidence, and
+Phase1A packets are archived and should not be loaded by default.
 
 ## Current State
 
-- Phase: `Phase 1D Bounded Long-Only Baseline Implementation Planning`
-- Current task: `P1D-001 Long-Only Implementation Contract`
-- Test baseline: `241 passed, 20 skipped` without `DATABASE_URL`/live services
-- Phase 0 archive-only research foundation: closed for archive-only work
-- Live/streaming Phase 0 gate: not approved
-- Full Phase 1 evaluation/trading: not approved
+- Current task: `SO-DK-001 Spec Owner Next Decision After D-K Fix Closure`
+- Last completed task: `DK-REVIEW-001 Full D-K Deep Review And Fix Closure`
+- Current verdict: `DK_DEEP_REVIEW_COMPLETE_FIXES_APPLIED_NO_CLAIMS`
+- Test baseline: `277 passed, 20 skipped`
 - Holdout: locked
+- Phase 1 trading/live capital: not approved
+- Production/capital-ready labels: not approved
 
 ## Read First
 
 For a normal coding session, read only:
 
 1. `docs/CODEX_PROMPT.md`
-2. `docs/audit/PHASE1A_SCAFFOLD_CLOSURE_REVIEW.md`
-3. `docs/audit/POST_PHASE1A_STRATEGY_REVIEW.md`
-4. `docs/audit/POST_PHASE1A_NEXT_STAGE_PLAN.md`
-5. `docs/audit/PHASE1A_AUDIT_PROMPT_REFRESH_PACKET.md`
-6. `docs/tasks.md` current task section
+2. `docs/tasks.md`
+3. `docs/audit/AUDIT_INDEX.md`
+4. `docs/audit/REVIEW_REPORT.md`
 
-Read broader protocol docs only if changing architecture, phase gates,
-formula/statistical logic, Growth/RDL/RBE, live data, or claim/report semantics.
+Load archive files only when a task explicitly needs historical evidence.
 
 ## Active Decisions
 
-- D-027: current evidence mode is archive-only; live/streaming claims are not
-  authorized.
-- D-028: Phase 1A archive-only baseline planning selected.
-- D-029: P1A entry contract approved.
-- D-030: archive dataset freeze approved.
-- D-031: archive split registration/read gate approved.
-- D-032: non-executable baseline specification registration approved.
-- D-033: fix chain closed for narrow executable scaffold only.
-- D-034: executable scaffold deferred until workload profile and benchmark
-  contract are explicit.
-- D-035: workload profile and benchmark contract approved; P1A-008 may proceed
-  as scaffold-only under that boundary.
-- D-036: executable scaffold approved; P1A-009 may run mechanics-only scaffold
-  performance probe.
-- D-037: scaffold performance probe approved; P1A-010 may review scaffold/probe
-  closure only.
-- D-038: scaffold/probe chain closed; next step is human/strategic post-Phase-1A
-  decision.
-- D-039: post-Phase-1A strategy selected audit-readiness work first: refresh
-  audit prompt metadata, then run the deep protocol review, then consolidate the
-  next task graph.
-- D-040: audit prompt metadata refresh closed F-C3-007; P1A-012 may run the
-  post-Phase-1A deep protocol review.
-- D-041: post-Phase-1A deep review found no P0/P1 drift in the scaffold/probe
-  boundary and opened P2 F-C4-001 for current-state sync.
-- D-042: current-state sync closed F-C4-001; next step requires Spec Owner
-  approval of the next block.
-- D-043: Spec Owner selected Phase 1B Long-Only Baseline Readiness Planning as
-  the next block. Phase 1B is part of the Phase 1 workstream but is not full
-  Phase 1 evaluation/trading.
-- D-044: Phase taxonomy and gate map approved; P1B-002 should expand the
-  operations plan into an ordered readiness task graph.
-- D-045: long-only baseline implementation surface approved.
-- D-046: Phase 1B readiness code block completed as implemented: formation-only
-  input adapter, feature contract, schema-only skill stubs, and mechanics-only
-  benchmark.
-- D-047: Phase 1B code closure review selected Phase 1C Evaluation Readiness
-  Preflight as the next bounded block. Phase 1C is preflight/gate code only and
-  does not approve evaluation/trading, validation/holdout reads, performance
-  claims, or capital-ready labels.
-- D-048: Phase 1C preflight code block completed as implemented: readiness
-  contract, metadata checklist, holdout/claim guard, and deterministic no-claim
-  readiness payload/hash.
-- D-049: Phase 1C closure review selected Phase 1D Bounded Long-Only Baseline
-  Implementation Planning as the next block. Phase 1D must define the
-  implementation contract before any executable baseline logic is added.
-- D-050: Phase 1 D-K sequential research roadmap is recorded in the task graph.
-  It orders implementation contract, bounded baseline implementation,
-  registration integration, evaluation contract, first governed evaluation,
-  evaluation report/audit, research decision/holdout gate, and optional final
-  research closure.
+| ID | Summary |
+|---|---|
+| D-027 | Evidence mode is archive-only; live/streaming claims are not authorized. |
+| D-050 | Phase 1 D-K roadmap was recorded; it is not blanket approval. |
+| D-051 | P1D implementation contract completed and light-reviewed. |
+| D-052 | P1E bounded formation-only baseline logic completed. |
+| D-053 | P1F baseline hash binding and preregistration surface completed. |
+| D-054 | P1G/P1H governed config and archive-only run metadata completed. |
+| D-055 | P1I/P1J/P1K report, decision, and no-holdout closure completed. |
+| D-056 | D-K deep review and fix closure completed; F-DK-001/002/003 fixed. |
 
-Decision log: `docs/DECISION_LOG.md`.
+Full decision history:
+`docs/archive/session_state/DECISION_LOG_full_2026-05-06.md`.
 
 ## Current Artifacts
 
-- Entry contract:
-  `docs/audit/PHASE1A_ARCHIVE_ENTRY_CONTRACT.md`
-- Freeze manifest:
-  `artifacts/evidence/phase1a_archive_freeze/freeze_001/PHASE1A_ARCHIVE_FREEZE_MANIFEST.json`
-- Registration boundary manifest:
-  `artifacts/evidence/phase1a_registration_boundary/boundary_001/PHASE1A_ARCHIVE_REGISTRATION_BOUNDARY_MANIFEST.json`
-- Baseline registration manifest:
-  `artifacts/evidence/phase1a_baseline_registration/registration_001/PHASE1A_BASELINE_SPEC_REGISTRATION_MANIFEST.json`
-- Fix closure review:
-  `docs/audit/PHASE1A_FIX_CLOSURE_REVIEW.md`
-- Development/runtime strategy:
-  `docs/audit/PHASE1A_DEVELOPMENT_STRATEGY.md`
-- Workload/benchmark contract:
-  `docs/audit/PHASE1A_WORKLOAD_BENCHMARK_CONTRACT.md`
-- Baseline scaffold packet:
-  `docs/audit/PHASE1A_BASELINE_SCAFFOLD_PACKET.md`
-- Scaffold performance probe packet:
-  `docs/audit/PHASE1A_SCAFFOLD_PERFORMANCE_PROBE_PACKET.md`
-- Scaffold closure review:
-  `docs/audit/PHASE1A_SCAFFOLD_CLOSURE_REVIEW.md`
-- Post-Phase-1A strategy review:
-  `docs/audit/POST_PHASE1A_STRATEGY_REVIEW.md`
-- Post-Phase-1A next stage plan:
-  `docs/audit/POST_PHASE1A_NEXT_STAGE_PLAN.md`
-- Audit prompt refresh packet:
-  `docs/audit/PHASE1A_AUDIT_PROMPT_REFRESH_PACKET.md`
-- Operations plan:
-  `docs/audit/POST_PHASE1A_OPERATIONS_PLAN.md`
-- Phase 1B readiness code:
-  `entropy/baseline/features.py`, `entropy/baseline/formation.py`,
-  `entropy/baseline/skills.py`
-- Phase 1C readiness code:
-  `entropy/baseline/readiness.py`
-
-## Key Hashes
-
-- Freeze manifest hash:
-  `54a820dbb07557294e821356168db4dbc6ba70fda4464a519442c4b20faea35e`
-- Registration boundary hash:
-  `2759fad18037361412f504384f22b411b4283b00e7764150f8c660f4375620df`
-- Baseline spec hash:
-  `a94c0441e0ff5b38bd0bafe83e445fe2041eb19e936dac19526ef417c39d3646`
-- Validation registration hash:
-  `7a23273630350704809be291da57c06e23e15537a16eaf3950d5e0da599816b4`
+| Area | Active artifact |
+|---|---|
+| Task graph | `docs/tasks.md` |
+| Audit status | `docs/audit/REVIEW_REPORT.md` |
+| Audit index | `docs/audit/AUDIT_INDEX.md` |
+| D-K code | `entropy/baseline/implementation.py`, `bounded.py`, `registration.py`, `evaluation.py`, `governed.py`, `report.py`, `decision.py` |
+| D-K tests | `tests/unit/test_phase1d_implementation_contract.py` through `tests/unit/test_phase1i_j_k_packets.py` |
+| Historical Phase1A packets | `docs/audit/archive/phase1a/` |
+| Full historical logs | `docs/archive/session_state/` |
 
 ## Current Scope
 
 Allowed:
-
-- define the Phase 1D long-only implementation contract and task order;
-- keep the D-K roadmap visible in task graph updates;
-- keep forbidden claim boundaries intact;
-- update docs only for real status/evidence changes.
+- prepare or record the Spec Owner next decision;
+- inspect or explain D-K review artifacts and fixes;
+- update compact current-state docs for real status changes.
 
 Forbidden:
-
 - executable alpha logic;
 - portfolio allocation or backtest/evaluation;
 - strategy performance metrics;
-- archive holdout read or unlock;
+- archive holdout read/unlock;
 - Growth/RDL/RBE activation;
 - live feeds, broker integration, or live capital;
-- Rust, Go, C/C++, FFI, native extensions, or second runtime services without
-  benchmark evidence, ADR, architecture/task/CI updates, and explicit human
-  approval;
+- non-Python runtime/toolchain escalation without the approved escalation gate;
 - OOS/performance, validated-alpha, production, or capital-ready claims.
 
 ## Open Findings
 
-- P0/P1 blockers for P1D-001: executable baseline logic still requires a
-  separate explicit approval after the implementation contract.
-- F-C3-007 is closed for the active audit prompt chain by P1A-011.
-- F-C4-001 is closed by P1A-013 current-state sync.
+- No open D-K P0/P1 findings remain after fix closure.
+- F-DK-001, F-DK-002, and F-DK-003 are fixed pending Spec Owner acceptance.
+- Holdout remains closed; production/capital-ready labels remain blocked.
 
 ## Verification Defaults
 
-For P1D-001, run at minimum:
+For code changes in this scope, run:
 
-- review `entropy/baseline/readiness.py` and related Phase 1B baseline
-  modules;
-- keep this as a documentation/planning task unless explicit implementation
-  approval is granted;
-- `git diff --check`;
+- `.venv/bin/python -m pytest -q tests/`
+- ruff check on changed modules/tests
+- pyright on changed modules/tests
+- `git diff --check`
 
-## Maintenance Rule
+## Archive Pointers
 
-Keep this file compact. Append only current-state facts. Put detailed history in
-`docs/IMPLEMENTATION_JOURNAL.md` or task-specific audit packets.
+| Historical surface | Snapshot/location |
+|---|---|
+| Full task graph | `docs/archive/session_state/tasks_full_2026-05-06.md` |
+| Full implementation journal | `docs/archive/session_state/IMPLEMENTATION_JOURNAL_full_2026-05-06.md` |
+| Full evidence index | `docs/archive/session_state/EVIDENCE_INDEX_full_2026-05-06.md` |
+| Full decision log | `docs/archive/session_state/DECISION_LOG_full_2026-05-06.md` |
+| Command hook log | `docs/archive/session_state/hooks_log_2026-05-01_to_2026-05-06.txt` |

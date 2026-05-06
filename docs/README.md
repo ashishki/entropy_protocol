@@ -1,6 +1,6 @@
 # Entropy Protocol — Documentation
 
-**Last updated:** 2026-05-05
+**Last updated:** 2026-05-06
 **Status:** Active
 
 ---
@@ -20,6 +20,11 @@ It provides:
 
 Current classification: **Research Lab** (Era 0–2).
 Conditional destination: **Capital Allocation Framework** (Era 3+, after Phase 1 exit criteria met).
+
+Current development status: Phase 1D-K archive-only baseline path completed and
+deep-reviewed. Review fixes are applied; holdout, production/capital-ready
+labels, live feeds, broker integration, Growth/RDL/RBE activation, and
+OOS/performance claims remain blocked.
 
 ---
 
@@ -132,14 +137,16 @@ semantics.
 
 ## Current Phase
 
-**Current work:** P1D-001 Long-Only Implementation Contract.
+**Current work:** Spec Owner next decision after D-K fix closure.
 
-**Next task:** define the bounded long-only implementation contract before any
-transition from schema-only stubs to executable baseline logic.
+**Last completed task:** DK-REVIEW-001 Full D-K Deep Review And Fix Closure.
 
-**Approved scope:** Phase 1D implementation planning only. This is part of the
-Phase 1 workstream, but no executable baseline logic or Phase 1
-evaluation/trading step is approved by default.
+**Review cadence:** light review after each phase; deep review after the full
+D-K block.
+
+**Approved scope:** Review and decision work over the completed Phase 1D-K
+archive-only baseline block. No live, production, capital-ready, or
+holdout-opening work is approved by default.
 
 **Visible roadmap:** Phase 1 D-K is now recorded in `docs/tasks.md`: P1D
 implementation contract, P1E bounded baseline implementation, P1F registration
@@ -158,57 +165,11 @@ is available through git history and the implementation journal.
 
 ---
 
-## Current Stabilization Plan (What and Why)
+## Archive Discipline
 
-The system is intentionally large. Current work is focused on reducing ambiguity, not adding new complexity.
+Default context stays compact. Historical task graph, decision, evidence, and
+implementation logs are archived under `docs/archive/session_state/`. Phase 1A
+and post-Phase1A audit packets are archived under `docs/audit/archive/phase1a/`.
 
-What we are doing now:
-1. Make regime control deterministic (`P3/P4`): same inputs must produce same risk action.
-2. Lock RDL boundaries: Phase 0-1 scaffolding only; Phase 2 enables research operations; routing influence only after Phase 2 exit.
-3. Make audit evidence machine-checkable: add mode flags, attestation queries, and structured transition logs.
-4. Normalize core metrics language: net Sharpe is always `(a+b+c)` in every table and report.
-5. Close governance loopholes: persistent near-zero skill weight is treated as strategy modification (GE-3), not discretionary reweighting.
-6. Formalize RBE approval artifact: "charter-level review" now maps to a required packet schema.
-
-Why this matters:
-- Phase gates become auditable and reproducible.
-- Fewer "interpretation" paths during stress periods.
-- Lower risk of accidental policy bypass.
-- Better operator confidence: clear rules before adding new modules.
-
-Tracking sources:
-- `docs/audit/REVIEW_REPORT.md` (Cycle 1 findings F-22..F-32)
-- `docs/tasks.md` (Audit Findings Backlog + Implementation Notes)
-
----
-
-## Recent Addition — Research Portfolio Monitor (2026-03-23)
-
-### What was added
-
-`governance/research_portfolio_monitor.md` — a new governance document defining the **Research Portfolio Monitor (RPM)**: a read-only dashboard that displays the factual state of the research portfolio by hypothesis family.
-
-The RPM introduces three governed signal classes:
-
-- **Class ATT (Attention Signals)** — human-preregistered conditions evaluated mechanically against Trial Registry data. When a condition is met, the system reports: "The state of [X] is [Y]." No inference is added. The human defines the condition; the system checks it.
-- **Class DM (Derived Metrics)** — factual metrics computed from registry data with all inputs visible: X-of-Y counts, means with mandatory basis counts, budget headroom. Percentages without visible denominators are prohibited.
-- **Class SC (Session Comparison)** — a manual point-in-time diff between the current state and one named, timestamped snapshot. Output is a signed integer delta. No directional framing, no trend inference, no accumulated history.
-
-Two output types are newly formally prohibited (F-6, F-7):
-
-- **F-6: trend inference** — moving averages, rate-of-change indicators, "improving/declining" language
-- **F-7: denominator-collapsed ratios** — any percentage without a visible denominator
-
-`PROTOCOL_SPEC.md` updated to v1.7. `CHARTER.md` updated to v5.2 and `GLOSSARY.md` updated to v1.3 for D-010 formula-bearing implementation mitigations. The v1.6 RPM update remains active.
-
-### Why it was added
-
-Two gaps existed that the existing governance controls did not address:
-
-1. **No cross-family evidence review.** The hypothesis budget (max 3/week, 1 active/family) controls the rate of new experiments but provides no view of what has actually been learned across families. A researcher has no structured way to see which families have accumulated results, which are stale, and where the multiplicity budget is being consumed.
-
-2. **No redundancy detection.** Nothing in the existing pipeline detects when a candidate hypothesis is semantically near-duplicate to an already-registered trial. Redundant hypotheses consume multiplicity budget without producing new information.
-
-### What the RPM explicitly does not do
-
-The RPM produces no recommendations, no priority rankings, no composite quality scores, and no AI-generated assessments. It has no write access to the Trial Registry. Its outputs cannot be cited as admissible evidence in phase gates or kill criterion evaluations. All decisions informed by RPM output require a named human sponsor. The human interprets the data; the system only surfaces it.
+Load archived files only when a current task explicitly needs old acceptance
+criteria, evidence, or rationale.
