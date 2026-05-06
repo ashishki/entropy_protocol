@@ -3,8 +3,8 @@
 **Classification:** Confidential — Internal Governance Document
 **Filename:** `docs/audit/PROMPT_4_ADVERSARIAL.md`
 **Pipeline Step:** Step 5 — Adversarial Review
-**Cycle:** 4 (Post-Phase-1A Scaffold Closure)
-**Date:** 2026-05-05
+**Cycle:** 5 (Phase 1D-K Archive-Only Baseline Deep Review)
+**Date:** 2026-05-06
 **Output artifact:** `docs/audit/ADVERSARIAL_REVIEW.md`
 
 ---
@@ -37,9 +37,10 @@ Continue loading:
 9. `docs/core/EVOLUTION.md`
 10. `docs/audience/ARCHITECT_BRIEF.md`
 11. `docs/audit/REVIEW_REPORT.md` (current consolidated status)
-12. `docs/audit/PHASE1A_SCAFFOLD_CLOSURE_REVIEW.md`
-13. `docs/audit/POST_PHASE1A_STRATEGY_REVIEW.md`
-14. Prior `docs/audit/ADVERSARIAL_REVIEW.md` if present
+12. Prior `docs/audit/ADVERSARIAL_REVIEW.md` if present
+
+Archived Phase1A packets live under `docs/audit/archive/phase1a/`; open them
+only if an adversarial challenge requires historical boundary evidence.
 
 ---
 
@@ -230,6 +231,6 @@ Do NOT:
 
 ---
 
-*Cycle: 4 | Step: 5 (Adversarial Review) | Pipeline: v1.0 | Date: 2026-05-05*
+*Cycle: 5 | Step: 5 (Adversarial Review) | Pipeline: v1.0 | Date: 2026-05-06*
 *Prior steps required: Steps 2–4 (ARCH_MODEL.md, INVARIANTS.md, DRIFT_REPORT.md)*
 *Next step: PROMPT_5_CONSOLIDATED.md (reads all prior artifacts)*

@@ -3,8 +3,8 @@
 **Classification:** Confidential — Internal Governance Document
 **Filename:** `docs/audit/PROMPT_2_INVARIANTS.md`
 **Pipeline Step:** Step 3 — Invariant Extraction
-**Cycle:** 4 (Post-Phase-1A Scaffold Closure)
-**Date:** 2026-05-05
+**Cycle:** 5 (Phase 1D-K Archive-Only Baseline Deep Review)
+**Date:** 2026-05-06
 **Output artifact:** `docs/audit/INVARIANTS.md`
 
 ---
@@ -31,8 +31,9 @@ Continue loading:
 5. `docs/core/CHARTER.md` — especially Sections B, D, Kill Criteria Appendix, Phase exit criteria
 6. `docs/core/GLOSSARY.md`
 7. `docs/audit/REVIEW_REPORT.md` (current consolidated status)
-8. `docs/audit/PHASE1A_SCAFFOLD_CLOSURE_REVIEW.md`
-9. `docs/audit/POST_PHASE1A_STRATEGY_REVIEW.md`
+
+Archived Phase1A packets live under `docs/audit/archive/phase1a/`; open them
+only if a current invariant requires historical boundary evidence.
 
 ---
 
@@ -182,6 +183,6 @@ Do NOT:
 
 ---
 
-*Cycle: 4 | Step: 3 (Invariant Extraction) | Pipeline: v1.0 | Date: 2026-05-05*
+*Cycle: 5 | Step: 3 (Invariant Extraction) | Pipeline: v1.0 | Date: 2026-05-06*
 *Prior step required: Step 2 (ARCH_MODEL.md)*
 *Next step: PROMPT_3_DRIFT_GUARD.md (reads INVARIANTS.md)*

@@ -2,11 +2,11 @@
 
 **Classification:** Confidential — Internal Governance Document
 **Filename:** `docs/audit/PROMPT_0_META.md`
-**Cycle:** Cycle 4 — Post-Phase-1A Scaffold Closure
-**Date:** 2026-05-05
+**Cycle:** Cycle 5 — Phase 1D-K Archive-Only Baseline Deep Review
+**Date:** 2026-05-06
 **Owner:** Spec Owner / Staff-Level Systems Architect
 **Pipeline Version:** v1.0
-**Role:** Stable entrypoint for the post-Phase-1A deep protocol review. Read
+**Role:** Stable entrypoint for the Phase 1D-K deep protocol review. Read
 this first before running any pipeline step.
 
 ---
@@ -40,7 +40,7 @@ Each step must complete and write its artifact before the next step begins.
 
 ---
 
-## Cycle Context (State Snapshot — 2026-05-05)
+## Cycle Context (State Snapshot — 2026-05-06)
 
 ### Spec-of-Record
 
@@ -63,43 +63,43 @@ authorities.
 
 | Artifact | File | Status | Notes |
 |---|---|---|---|
-| Current consolidated review | `docs/audit/REVIEW_REPORT.md` | Draft | Cycle 3 post-Phase0 archive-only audit plus Phase 1A closure updates |
+| Current consolidated review | `docs/audit/REVIEW_REPORT.md` | Draft | Cycle 5 D-K deep review status |
 | Meta Investigation | `docs/audit/META_ANALYSIS.md` | Existing | Refresh in this cycle |
 | Architecture Review | `docs/audit/ARCH_MODEL.md` | Existing | Refresh in this cycle |
 | Invariant Extraction | `docs/audit/INVARIANTS.md` | Existing | Refresh in this cycle |
 | Drift Assertions | `docs/audit/DRIFT_ASSERTIONS.md` | Existing | Refresh in this cycle |
 | Drift Report | `docs/audit/DRIFT_REPORT.md` | Existing | Refresh in this cycle |
 | Adversarial Review | `docs/audit/ADVERSARIAL_REVIEW.md` | Existing | Refresh in this cycle |
-| Phase 1A closure | `docs/audit/PHASE1A_SCAFFOLD_CLOSURE_REVIEW.md` | Complete | Scaffold/probe chain closed; no evaluation approval |
-| Post-Phase-1A strategy | `docs/audit/POST_PHASE1A_STRATEGY_REVIEW.md` | Complete | Selects audit-readiness and deep review as next stage |
+| Phase 1A closure | `docs/audit/archive/phase1a/PHASE1A_SCAFFOLD_CLOSURE_REVIEW.md` | Complete | Scaffold/probe chain closed; no evaluation approval |
+| Post-Phase-1A strategy | `docs/audit/archive/phase1a/POST_PHASE1A_STRATEGY_REVIEW.md` | Complete | Selects audit-readiness and deep review as next stage |
 
-**Summary:** This cycle runs after Phase 1A archive-only scaffold/probe
-closure. Phase 0 is closed only as an archive-only research foundation. Full
-Phase 1 evaluation/trading remains unapproved, live/streaming Phase 0 remains
-unapproved, and holdout remains locked.
+**Summary:** This cycle runs after the Phase 1D-K archive-only baseline path was
+implemented and light-reviewed phase by phase. The D-K block is not production,
+capital-ready, or phase-gate evidence. Phase 1 trading, live feeds, broker
+integration, Growth/RDL/RBE activation, performance/OOS claims, and holdout
+reads remain unapproved.
 
 ### Delta Since Prior Full Audit
 
-1. P1A-001 through P1A-004 closed the archive contract/read-gate fix chain.
-2. P1A-006 and P1A-007 established workload/runtime and benchmark boundaries:
-   Python remains the control/orchestration layer, Polars/DuckDB/Arrow remain
-   the data-plane default, and non-Python escalation requires benchmark
-   evidence, ADR, architecture/task/CI updates, and explicit human approval.
-3. P1A-008 implemented a narrow executable scaffold with non-trading
-   placeholders and read-gate checks.
-4. P1A-009 implemented a mechanics-only scaffold probe with synthetic/no-claim
-   benchmark artifacts and no strategy metrics.
-5. P1A-010 closed the scaffold/probe chain for foundation purposes only.
-6. PSR-004 selected audit-readiness before any new implementation block.
+1. P1D defined the long-only implementation contract and separate P1E approval
+   guard.
+2. P1E implemented bounded formation-only baseline observations for registered
+   skill families.
+3. P1F added deterministic hash binding and preregistration payload surfaces.
+4. P1G added the governed evaluation configuration contract and approval guard.
+5. P1H emitted first archive-only governed run metadata with no performance
+   conclusion.
+6. P1I/P1J/P1K packaged the report, no-holdout research decision, and
+   archive-only closure packet.
 
 ### Current Phase Hypothesis
 
-**Post-Phase-1A Audit Readiness And Deep Review**
+**Phase 1D-K Archive-Only Baseline Deep Review**
 
-- Current task: P1A-011 Audit Prompt Metadata Refresh
-- Immediate blocker for this audit run: F-C3-007 stale prompt metadata
-- Earliest permissible next implementation block: after the prompt refresh,
-  deep review, and consolidated post-Phase-1A decision
+- Current task: full D-K deep review
+- Last completed task: `P1K-HUMAN-001 Research Phase Closure Decision`
+- Immediate review focus: P1F reproducibility, P1I report semantics, and prompt
+  current-state metadata
 - Not approved: Phase 1 evaluation/trading, holdout reads, live feeds,
   Growth/RDL/RBE activation, non-Python runtime/toolchain introduction, or
   OOS/performance claims
@@ -108,33 +108,31 @@ unapproved, and holdout remains locked.
 
 ## Risk Surface Register
 
-The following risk surfaces are ranked for the post-Phase-1A review. Downstream
+The following risk surfaces are ranked for the D-K review. Downstream
 prompts should create findings only when current documents or code evidence
 support them.
 
 ### TIER-1: Claim And Phase-Gate Containment
 
-**RS-01 — Phase 1 Evaluation Creep**
-- Why now: Phase 1A created executable scaffold/probe artifacts. A downstream
-  review must ensure these cannot be mistaken for Phase 1 evaluation, OOS
-  evidence, validated alpha, or gate approval.
-- Evidence: `PHASE1A_SCAFFOLD_CLOSURE_REVIEW.md`,
-  `POST_PHASE1A_STRATEGY_REVIEW.md`, `REVIEW_REPORT.md`
+**RS-01 — Evaluation/Claim Creep**
+- Why now: P1H and P1I create evaluation-run metadata and report packets. A
+  downstream review must ensure these cannot be mistaken for OOS evidence,
+  validated alpha, phase-gate evidence, production status, or capital readiness.
+- Evidence: `entropy/baseline/governed.py`, `entropy/baseline/report.py`,
+  `docs/tasks.md`, `REVIEW_REPORT.md`
 
 **RS-02 — Holdout Boundary Integrity**
 - Why now: The archive freeze and registration boundary encode formation,
   validation, and holdout labels. The holdout must remain locked until a
   separate approved gate exists.
-- Evidence: `PHASE1A_REGISTRATION_BOUNDARY_PACKET.md`,
-  `PHASE1A_BASELINE_REGISTRATION_PACKET.md`,
-  `PHASE1A_SCAFFOLD_CLOSURE_REVIEW.md`
+- Evidence: `archive/phase1a/PHASE1A_REGISTRATION_BOUNDARY_PACKET.md`,
+  `archive/phase1a/PHASE1A_BASELINE_REGISTRATION_PACKET.md`,
+  `archive/phase1a/PHASE1A_SCAFFOLD_CLOSURE_REVIEW.md`
 
-**RS-03 — No-Claim Benchmark Semantics**
-- Why now: P1A-009 emits runtime/memory/artifact facts. These facts must remain
-  implementation evidence only and must not become strategy performance
-  evidence.
-- Evidence: `PHASE1A_WORKLOAD_BENCHMARK_CONTRACT.md`,
-  `PHASE1A_SCAFFOLD_PERFORMANCE_PROBE_PACKET.md`
+**RS-03 — No-Claim Report Semantics**
+- Why now: P1I emits report metadata. Field inventory must not be read as
+  computed performance statistics or phase-gate evidence.
+- Evidence: `entropy/baseline/report.py`, `tests/unit/test_phase1i_j_k_packets.py`
 
 ### TIER-2: Architecture And Runtime Drift
 
@@ -143,34 +141,35 @@ support them.
   Python remains the control plane and Polars/DuckDB/Arrow remain the data
   plane unless a benchmark miss and ADR justify escalation.
 - Evidence: `ARCHITECTURE.md`, `IMPLEMENTATION_CONTRACT.md`,
-  `PHASE1A_DEVELOPMENT_STRATEGY.md`,
-  `PHASE1A_WORKLOAD_BENCHMARK_CONTRACT.md`
+  `archive/phase1a/PHASE1A_DEVELOPMENT_STRATEGY.md`,
+  `archive/phase1a/PHASE1A_WORKLOAD_BENCHMARK_CONTRACT.md`
 
 **RS-05 — Storage Boundary Drift**
 - Why now: Benchmarks and future evaluation planning must not move large
   intermediates into PostgreSQL or create mutable untracked data stores.
-- Evidence: `ARCHITECTURE.md`, `PHASE1A_WORKLOAD_BENCHMARK_CONTRACT.md`
+- Evidence: `ARCHITECTURE.md`,
+  `archive/phase1a/PHASE1A_WORKLOAD_BENCHMARK_CONTRACT.md`
 
 ### TIER-3: Dormant Module And Governance Boundaries
 
 **RS-06 — Growth/RBE Activation Leakage**
 - Why now: Phase 1A documents Growth monitoring-only scope but does not approve
   Growth instrumentation, RBE activation, or portfolio influence.
-- Evidence: `PROTOCOL_SPEC.md`, `PHASE1A_ARCHIVE_ENTRY_CONTRACT.md`,
+- Evidence: `PROTOCOL_SPEC.md`, `archive/phase1a/PHASE1A_ARCHIVE_ENTRY_CONTRACT.md`,
   `REVIEW_REPORT.md`
 
 **RS-07 — RDL Dormancy Leakage**
 - Why now: RDL must remain dormant/scaffolding-only through Phase 0-1 unless a
   future approved phase changes the boundary.
 - Evidence: `PROTOCOL_SPEC.md`, `GLOSSARY.md`,
-  `PHASE1A_ARCHIVE_ENTRY_CONTRACT.md`
+  `archive/phase1a/PHASE1A_ARCHIVE_ENTRY_CONTRACT.md`
 
 ### TIER-4: Audit Pipeline Integrity
 
 **RS-08 — Prompt Metadata Drift**
-- Why now: F-C3-007 identified stale prompt metadata. This refresh is the
-  prerequisite for a reliable deep review.
-- Evidence: `POST_PHASE1A_STRATEGY_REVIEW.md`, `REVIEW_REPORT.md`
+- Why now: D-K became the current review state after P1K closure. Prompt headers
+  and current-cycle context must match that state.
+- Evidence: `AUDIT_INDEX.md`, `REVIEW_REPORT.md`
 
 **RS-09 — Archive Loading Discipline**
 - Why now: Historical audit files are archived. The next review should load
@@ -215,5 +214,5 @@ support them.
 
 ---
 
-*Cycle: 4 | Phase: Post-Phase-1A | Date: 2026-05-05 | Pipeline: v1.0*
-*Next cycle trigger: P1A-011 prompt refresh complete, then run the full post-Phase-1A deep review sequence*
+*Cycle: 5 | Phase: Phase 1D-K Archive-Only Baseline Deep Review | Date: 2026-05-06 | Pipeline: v1.0*
+*Next cycle trigger: Spec Owner selects the next bounded block, a phase gate is proposed, or D-K evidence semantics change*

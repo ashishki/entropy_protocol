@@ -3,8 +3,8 @@
 **Classification:** Confidential — Internal Governance Document
 **Filename:** `docs/audit/PROMPT_3_DRIFT_GUARD.md`
 **Pipeline Step:** Step 4 — Protocol Drift Guard
-**Cycle:** 4 (Post-Phase-1A Scaffold Closure)
-**Date:** 2026-05-05
+**Cycle:** 5 (Phase 1D-K Archive-Only Baseline Deep Review)
+**Date:** 2026-05-06
 **Output artifacts:** `docs/audit/DRIFT_ASSERTIONS.md` + `docs/audit/DRIFT_REPORT.md`
 
 ---
@@ -35,9 +35,10 @@ Continue loading:
 9. `docs/audience/TRADER_BRIEF.md`
 10. `docs/audit/ARCH_MODEL.md`
 11. `docs/audit/REVIEW_REPORT.md` (current consolidated status)
-12. `docs/audit/PHASE1A_SCAFFOLD_CLOSURE_REVIEW.md`
-13. `docs/audit/POST_PHASE1A_STRATEGY_REVIEW.md`
-14. Prior `docs/audit/DRIFT_ASSERTIONS.md` and `docs/audit/DRIFT_REPORT.md` if present
+12. Prior `docs/audit/DRIFT_ASSERTIONS.md` and `docs/audit/DRIFT_REPORT.md` if present
+
+Archived Phase1A packets live under `docs/audit/archive/phase1a/`; open them
+only if a current drift assertion requires historical boundary evidence.
 
 ---
 
@@ -174,6 +175,6 @@ Map each FAIL/AMBIGUOUS verdict to:
 
 ---
 
-*Cycle: 4 | Step: 4 (Drift Guard) | Pipeline: v1.0 | Date: 2026-05-05*
+*Cycle: 5 | Step: 4 (Drift Guard) | Pipeline: v1.0 | Date: 2026-05-06*
 *Prior steps required: Steps 2–3 (ARCH_MODEL.md, INVARIANTS.md)*
 *Next step: PROMPT_4_ADVERSARIAL.md (reads DRIFT_REPORT.md)*

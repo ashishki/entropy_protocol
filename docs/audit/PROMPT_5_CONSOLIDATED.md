@@ -3,8 +3,8 @@
 **Classification:** Confidential — Internal Governance Document
 **Filename:** `docs/audit/PROMPT_5_CONSOLIDATED.md`
 **Pipeline Step:** Step 6 — Consolidated Review
-**Cycle:** 4 (Post-Phase-1A Scaffold Closure)
-**Date:** 2026-05-05
+**Cycle:** 5 (Phase 1D-K Archive-Only Baseline Deep Review)
+**Date:** 2026-05-06
 **Output artifact:** `docs/audit/REVIEW_REPORT.md` (+ backlog proposals for `docs/tasks.md`)
 
 ---
@@ -38,8 +38,9 @@ Continue loading:
 9. `docs/audit/REVIEW_REPORT.md` — current consolidated status (will be OVERWRITTEN by this step)
 10. `docs/tasks.md` — Task registry; current backlog (will receive NEW ENTRIES proposed by this step)
 11. `docs/audit/AUDIT_INDEX.md` — Artifact registry (will be UPDATED by this step)
-12. `docs/audit/PHASE1A_SCAFFOLD_CLOSURE_REVIEW.md`
-13. `docs/audit/POST_PHASE1A_STRATEGY_REVIEW.md`
+
+Archived Phase1A packets live under `docs/audit/archive/phase1a/`; open them
+only if consolidation requires historical boundary evidence.
 
 ---
 
@@ -48,13 +49,13 @@ Continue loading:
 ### Part 1 — Produce new `docs/audit/REVIEW_REPORT.md`
 
 Overwrite the existing REVIEW_REPORT.md with a new consolidated report for
-Cycle 4. Preserve the current report content as a "Prior Cycle Summary" section
+Cycle 5. Preserve the current report content as a "Prior Cycle Summary" section
 (one paragraph) rather than duplicating it in full.
 
 The new REVIEW_REPORT.md must contain:
 
 #### Header
-- Audit Cycle: Cycle 4, Post-Phase-1A Scaffold Closure
+- Audit Cycle: Cycle 5, Phase 1D-K Archive-Only Baseline Deep Review
 - Pipeline version, date, step status (all six steps completed)
 - Spec-of-record: PROTOCOL_SPEC.md v1.8, CHARTER.md v5.3,
   GLOSSARY.md v1.4
@@ -63,7 +64,7 @@ The new REVIEW_REPORT.md must contain:
 #### Executive Summary
 - Total findings this cycle (inherited Open + new from Steps 1–5)
 - Count by severity: P0 / P1 / P2
-- Count by source: Prior open / New from Cycle 4 pipeline
+- Count by source: Prior open / New from Cycle 5 pipeline
 - Summary of the dominant risk theme and whether this cycle changes the current
   framing
 - Specific statement of which phases are blocked and why
@@ -80,7 +81,7 @@ For each finding, record:
 - Corresponding Task ID (TASK-AF-N or "NEW — propose TASK-AF-N" for new findings)
 - Severity: P0 / P1 / P2
 - Status: Open / Inherited-Open / Partial-Mitigation (if spec change partially addressed but not closed)
-- Source: Prior report / Cycle 4 (Step N: META/ARCH/INVARIANTS/DRIFT/ADVERSARIAL)
+- Source: Prior report / Cycle 5 (Step N: META/ARCH/INVARIANTS/DRIFT/ADVERSARIAL)
 - Location: doc(s) + section(s)
 - Evidence summary (2–4 sentences max)
 - Impact category: (A) invalid performance claims / (B) incorrect kill decisions / (C) state corruption / (D) behavioral integrity gap
@@ -143,14 +144,14 @@ updated criterion.
 
 ### Part 3 — Update `docs/audit/AUDIT_INDEX.md`
 
-Add or update the current-state entry for Cycle 4. The compact
+Add or update the current-state entry for Cycle 5. The compact
 `AUDIT_INDEX.md` may not have a historical history table; if so, update the
 current-state fields and active artifact table instead of recreating archived
 history.
 
 **New History entry must include:**
-- Trigger: Post-Phase-1A scaffold/probe closure and PSR-004 audit-readiness
-  decision
+- Trigger: Phase 1D-K archive-only baseline closure and required full D-K deep
+  review
 - Type: Full pipeline run
 - Pipeline version: v1.0
 - All seven canonical artifacts listed with their versioned snapshot filenames
@@ -159,7 +160,7 @@ history.
 - Open findings count: reference to REVIEW_REPORT.md finding inventory
 - Spec Owner sign-off: Pending
 
-**Update active artifacts/current-state tables** so they reflect Cycle 4.
+**Update active artifacts/current-state tables** so they reflect Cycle 5.
 
 ---
 
@@ -167,21 +168,21 @@ history.
 
 ### REVIEW_REPORT.md
 - Complete overwrite (prior current content preserved only as "Prior Cycle Summary" paragraph)
-- Header clearly marks as Cycle 4, all six steps completed
+- Header clearly marks as Cycle 5, all six steps completed
 - All existing open findings present with confirmed status or noted partial mitigation
 - All new findings present with stable F-N IDs
 - "Proposed tasks.md additions" section at end
 - Status: Draft
 
 ### AUDIT_INDEX.md
-- Current-state fields updated for Cycle 4
+- Current-state fields updated for Cycle 5
 - Active artifact table updated for all seven current artifacts
 - Versioned snapshot filenames listed only if this cycle uses snapshots
 
 ### Versioned Snapshots
 
 If snapshots are used, register intended filenames with a current date and
-post-Phase-1A label. Do not create archive files unless the Spec Owner requests
+D-K label. Do not create archive files unless the Spec Owner requests
 snapshot archival.
 
 Do NOT:
@@ -193,7 +194,7 @@ Do NOT:
 
 ---
 
-*Cycle: 4 | Step: 6 (Consolidated Review) | Pipeline: v1.0 | Date: 2026-05-05*
+*Cycle: 5 | Step: 6 (Consolidated Review) | Pipeline: v1.0 | Date: 2026-05-06*
 *Prior steps required: All five (META_ANALYSIS, ARCH_MODEL, INVARIANTS, DRIFT_ASSERTIONS, DRIFT_REPORT, ADVERSARIAL_REVIEW)*
 *This step OVERWRITES: docs/audit/REVIEW_REPORT.md*
 *This step UPDATES: docs/audit/AUDIT_INDEX.md*
