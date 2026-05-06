@@ -1,42 +1,42 @@
-# Invariants — Cycle 4 Post-Phase-1A
+# INVARIANTS — D-K Deep Review
 
-Date: 2026-05-05
-Step: 3
-Status: `COMPLETE`
+**Audit cycle:** Cycle 5 — Phase 1D-K archive-only baseline deep review
+**Date:** 2026-05-06
+**Prior artifact:** `ARCH_MODEL.md`
+**Status:** Draft — pending Spec Owner acceptance
 
-## Core Invariants
+## Stable Invariants
 
-| ID | Invariant | Status | Check mechanism |
+| INV-ID | Invariant | Active scope | Verdict |
 |---|---|---|---|
-| INV-C4-001 | No Phase 1 evaluation/trading starts without explicit gate approval | Active | Current-state docs, task graph, review report |
-| INV-C4-002 | Archive holdout remains locked until a separate approved gate | Active | Registration boundary, scaffold authorization tests |
-| INV-C4-003 | No OOS/performance claim without walk-forward harness and approved phase context | Active | Reports and no-claim labels |
-| INV-C4-004 | Scaffold placeholders must remain non-trading and non-alpha | Active | Scaffold packet and tests |
-| INV-C4-005 | Mechanics probes must not emit strategy performance metric fields | Active | Probe packet and tests |
-| INV-C4-006 | Python remains Phase 0/1 control plane; non-Python requires benchmark + ADR + approval | Active | Architecture, implementation contract, P1A-006/P1A-007 |
-| INV-C4-007 | Large benchmark intermediates use Parquet/Arrow-compatible data plane, not PostgreSQL bulk storage | Active | P1A-007 contract |
-| INV-C4-008 | Growth/RBE remains inactive before approved activation path | Active | Protocol spec, Phase 1A entry contract |
-| INV-C4-009 | RDL remains dormant/scaffolding-only through Phase 0-1 | Active | Protocol spec, glossary, Phase 1A entry contract |
-| INV-C4-010 | Audit prompts must describe the current cycle and avoid stale pre-development assumptions | Active | P1A-011 refresh packet |
-| INV-C4-011 | Archived audit history is not loaded by default | Active | Audit README/index and prompt context |
+| DK-INV-001 | D-K does not unlock Phase 1 trading, live feeds, broker integration, holdout, production, capital-ready status, or live capital | All D-K phases | PASS |
+| DK-INV-002 | P1D permits only formation-only implementation contract checks until P1E approval | P1D/P1E | PASS |
+| DK-INV-003 | P1E outputs cannot include score, rank, weight, position, return, PnL, performance, or gate fields | P1E+ | PASS |
+| DK-INV-004 | P1F requires all registered skill families and all no-claim outputs before hash binding | P1F+ | PASS |
+| DK-INV-005 | P1F code hash must be reproducible for the same repository source contents | P1F+ | PASS |
+| DK-INV-006 | P1F preregistration surface cannot write to Trial Registry or permit evaluation/gate claims | P1F+ | PASS |
+| DK-INV-007 | P1G denies holdout, live feed, broker, performance conclusion, phase-gate, production, and capital-ready requests | P1G+ | PASS |
+| DK-INV-008 | P1H requires explicit evaluation-run approval and remains archive-only | P1H+ | PASS |
+| DK-INV-009 | P1H emits metadata and leakage status, not performance conclusions | P1H+ | PASS |
+| DK-INV-010 | P1I report fields must distinguish required-stat inventory from computed statistics | P1I+ | PASS |
+| DK-INV-011 | P1J/P1K cannot open holdout without explicit holdout gate approval | P1J/P1K | PASS |
+| DK-INV-012 | Audit prompts must identify the current review cycle and work state | Audit pipeline | PASS |
 
-## Phase Gate Invariants
+## Core Spec Invariants Still Preserved
 
-| Gate | Current status | Invariant |
+| Core invariant | D-K interaction | Verdict |
 |---|---|---|
-| Live/streaming Phase 0 | Not approved | Archive-only evidence does not imply live feed readiness |
-| Full Phase 1 evaluation | Not approved | Phase 1A scaffold/probe closure does not imply evaluation approval |
-| Holdout unlock | Not approved | No task may read holdout without explicit gate |
-| Runtime escalation | Not approved | No Rust/Go/native/second service without escalation packet |
+| NN-1 gross leverage <= 1.0 | No positions or weights are emitted | PASS |
+| NN-2 four-stream P&L separation | No P&L stream is computed or blended | PASS |
+| NN-3 evaluation engine first | P1H uses walk-forward mechanics and no OOS claim label | PASS |
+| NN-4 sequential rollout | Holdout/production/capital phases remain blocked | PASS |
+| NN-5 Trial Registry + multiplicity | P1F prepares `TrialSpec`; P1G records family accounting | PASS |
+| NN-6 stop-loss parameters | No short-side or stop-loss logic is introduced | PASS |
 
-## Invariant Finding
+## Formula And Boundary Flags
 
-| ID | Severity | Finding | Impact |
+| INV-ID | Flag | Reason |
 |---|---|---|
-| F-C4-001 | P2 | Current-state prose drift in `ARCHITECTURE.md`/`spec.md` can confuse future audit or implementation sessions. | Documentation drift only; no evidence of executable boundary violation. |
-
-## Step Verdict
-
-Verdict: `INVARIANTS_EXTRACTED_NO_P0_P1`.
-
-Proceed to `PROMPT_3_DRIFT_GUARD.md`.
+| DK-INV-005 | FIXED | P1F source identity is normalized before hash payload construction |
+| DK-INV-010 | FIXED | Report packet lists deterministic per-field no-computation status |
+| DK-INV-012 | FIXED | Prompt headers identify Cycle 5 D-K context |

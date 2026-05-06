@@ -1,81 +1,81 @@
-# REVIEW_REPORT — Cycle 4 Post-Phase-1A Deep Review
+# REVIEW_REPORT — Cycle 5 D-K Deep Review
 
-**Audit Cycle:** Cycle 4 — Post-Phase-1A Scaffold Closure
+**Audit Cycle:** Cycle 5 — Phase 1D-K Archive-Only Baseline Deep Review
 **Pipeline Version:** v1.0
-**Date:** 2026-05-05
+**Date:** 2026-05-06
 **Step status:** Steps 1-6 completed
-**Status:** Draft — Awaiting Spec Owner Acceptance
-**Spec context:** Post-Phase-1A audit readiness; scaffold/probe chain closed
+**Status:** Draft — fixes applied, pending Spec Owner acceptance
+**Spec-of-record:** `PROTOCOL_SPEC.md` v1.8, `CHARTER.md` v5.3, `GLOSSARY.md` v1.4
 
 ## Executive Summary
 
-Verdict: `POST_PHASE1A_DEEP_REVIEW_COMPLETE`,
-`NO_GO_FOR_PHASE_1_EVALUATION_OR_CLAIMS`.
+Verdict: `DK_DEEP_REVIEW_COMPLETE_FIXES_APPLIED_NO_CLAIMS`.
 
-The deep review found no P0/P1 drift in the Phase 1A scaffold/probe boundary.
-Phase 1A remains valid as archive-only foundation and implementation evidence.
-It does not approve Phase 1 evaluation/trading, holdout access, live feeds,
-Growth/RDL/RBE activation, runtime escalation, or OOS/performance claims.
+The D-K archive-only baseline path preserves the no-claim boundary: it does not
+authorize Phase 1 trading, holdout reads, live feeds, broker integration,
+Growth/RDL/RBE activation, production labels, capital-ready labels, live
+capital, or OOS/performance claims.
 
-F-C3-007 is closed by P1A-011. F-C4-001 was opened by the deep review and then
-closed by P1A-013 current-state sync in `ARCHITECTURE.md` and `docs/spec.md`.
-No implementation phase is opened by this review.
+Findings this cycle: 3 total. Severity: P0=0, P1=1, P2=2. Source: all 3 are new
+from the Cycle 5 D-K pipeline. All three were fixed after the review and
+verified by focused tests, full tests, ruff, pyright, and `git diff --check`.
+The dominant risk theme was evidence semantics: hashes and report packets must
+be reproducible and unambiguous before the D-K packet can be treated as clean
+research evidence.
 
 ## Finding Inventory
 
-| ID | Severity | Status | Source | Finding | Next action | Acceptance criterion |
-|---|---|---|---|---|---|---|
-| F-C3-001 | P1 | Closed by P1A-001 | Prior Cycle 3 | Phase 1A lacked archive dataset freeze rules | Closed | Contract lists admissible datasets, hashes, windows, and mutation policy |
-| F-C3-002 | P1 | Closed by P1A-001 | Prior Cycle 3 | Phase 1A lacked IS/OOS split contract | Closed | Contract defines split policy, embargo, label freeze, and report labels |
-| F-C3-003 | P1 | Closed by P1A-001 | Prior Cycle 3 | Baseline long-only skill boundary not frozen | Closed | Contract states allowed skill families and preregistration/multiplicity boundary |
-| F-C3-004 | P1 | Closed by P1A-001 | Prior Cycle 3 | Portfolio constraints not frozen for Phase 1A | Closed | Contract states gross, rebalance, regime, and no-leverage boundaries |
-| F-C3-005 | P1 | Closed by P1A-001 | Prior Cycle 3 | Growth Layer monitoring-only scope not defined for Phase 1A | Closed | Contract states facts-only metrics and blocks RBE/recommendations |
-| F-C3-006 | P1 | Closed by P1A-001 | Prior Cycle 3 | RDL dormancy attestation missing for Phase 1A | Closed | Contract defines checkable no-RDL-active-path attestation |
-| F-C3-007 | P2 | Closed by P1A-011 | Meta | Audit prompts had stale Cycle 1 pre-development metadata | Closed | Active prompts identify Cycle 4 post-Phase-1A context |
-| F-C4-001 | P2 | Closed by P1A-013 | Architecture/Drift/Adversarial | `ARCHITECTURE.md` and `docs/spec.md` current-state prose still said Phase 0.5 while handoff was post-Phase-1A audit readiness | `ARCHITECTURE.md` and `spec.md` current-state sync | `ARCHITECTURE.md` and `spec.md` acknowledge post-Phase-1A audit readiness without changing canonical phase gates |
-
-## Confirmed Non-Findings
-
-| Area | Verdict |
-|---|---|
-| Phase 1A scaffold/probe closure | Not invalidated |
-| Phase 1 evaluation/trading | Not authorized |
-| Archive holdout reads | Still locked |
-| Live/streaming readiness | Still not approved |
-| OOS/performance claims | Not authorized |
-| Growth/RDL/RBE activation | Not authorized |
-| Non-Python runtime/toolchain | Still escalation-gated |
+| ID | Task ID | Severity | Status | Source | Location | Evidence summary | Impact | Next action | Acceptance criterion |
+|---|---|---|---|---|---|---|---|---|---|
+| F-DK-001 | DK-FIX-001 | P1 | Fixed, pending Spec Owner acceptance | Step 2/4/5 | `entropy/baseline/registration.py` | P1F code hash included the caller path string. Equivalent repository-local absolute and relative paths could produce different code hashes for identical source contents. | A/C | Applied: normalize repository-local source paths before hashing and add regression coverage. | Absolute and relative references to the same repo source files produce identical Phase 1F code hashes. |
+| F-DK-002 | DK-FIX-002 | P2 | Fixed, pending Spec Owner acceptance | Step 2/4/5 | `entropy/baseline/report.py` | P1I recorded `stat_fields` as names only. P1H intentionally does not compute strategy performance statistics, so the packet needed explicit per-field status. | A/D | Applied: add deterministic per-field no-computation/no-claim status metadata and tests. | Report payload exposes one status per required stat field with no phase-gate evidence semantics. |
+| F-DK-003 | DK-FIX-003 | P2 | Fixed, pending Spec Owner acceptance | Step 1/4 | `docs/audit/PROMPT_*.md` | Active prompts identified Cycle 4 / Post-Phase-1A even though current work is D-K deep review after `P1K-HUMAN-001`. | C/D | Applied: refresh prompt headers/current context while preserving protocol order and constraints. | Prompt headers identify Cycle 5 D-K review context and retain the six-step sequence. |
 
 ## Converted Backlog Items
 
 | Finding ID | Task ID | Severity | Status | Cycle introduced |
 |---|---|---|---|---|
-| F-C3-001 | P1A-001 | P1 | Closed | Cycle 3 |
-| F-C3-002 | P1A-001 | P1 | Closed | Cycle 3 |
-| F-C3-003 | P1A-001 | P1 | Closed | Cycle 3 |
-| F-C3-004 | P1A-001 | P1 | Closed | Cycle 3 |
-| F-C3-005 | P1A-001 | P1 | Closed | Cycle 3 |
-| F-C3-006 | P1A-001 | P1 | Closed | Cycle 3 |
-| F-C3-007 | P1A-011 | P2 | Closed | Cycle 3 |
-| F-C4-001 | P1A-013 | P2 | Closed | Cycle 4 |
+| F-DK-001 | DK-FIX-001 | P1 | Fixed | Cycle 5 |
+| F-DK-002 | DK-FIX-002 | P2 | Fixed | Cycle 5 |
+| F-DK-003 | DK-FIX-003 | P2 | Fixed | Cycle 5 |
+
+## Missing Evidence / Ambiguity
+
+- F-DK-002 is intentionally scoped to metadata semantics; no performance
+  statistics were computed as part of this fix.
+- Prompt metadata drift was accepted for this run because the Spec Owner
+  explicitly instructed use of prompts 0-5.
 
 ## Prior Cycle Summary
 
-Cycle 3 selected Phase 1A archive-only planning and identified seven findings.
-P1A-001 through P1A-004 closed the six P1 contract/read-gate findings, and
-P1A-011 closed the remaining P2 prompt-metadata finding. P1A-008/P1A-009 then
-closed a narrow scaffold/probe chain without approving evaluation or claims.
+Cycle 4 completed the Post-Phase-1A deep review, found no P0/P1 drift in the
+Phase 1A scaffold/probe boundary, closed F-C3-007 via prompt refresh, and closed
+F-C4-001 via current-state sync. It did not approve Phase 1 evaluation/trading,
+holdout access, Growth/RDL/RBE activation, runtime escalation, or performance
+claims.
 
-## Proposed tasks.md Additions
+## Applied tasks.md Additions
 
-| Proposed task | Finding | Summary | Acceptance criterion |
-|---|---|---|---|
-| P1A-HUMAN-001 Next Block Approval | Next block selection | Spec Owner chooses archive-only hardening, benchmark extension, bounded Phase 1 planning, or no-go | `docs/tasks.md` records the selected next block before more implementation surface opens |
+| Task | Finding | Severity | Summary | Acceptance criterion | Dependency notes |
+|---|---|---|---|---|---|
+| DK-FIX-001 | F-DK-001 | P1 | Normalize P1F source paths in code hash | Absolute and relative repo-local paths hash identically | Complete in working tree |
+| DK-FIX-002 | F-DK-002 | P2 | Add P1I stat field statuses | Every stat field has deterministic no-computation status | Complete in working tree |
+| DK-FIX-003 | F-DK-003 | P2 | Refresh prompt D-K metadata | Prompt headers reflect Cycle 5 D-K review | Complete in working tree |
+
+## Verification
+
+- `.venv/bin/python -m pytest -q tests/unit/test_phase1f_registration.py` -> 6 passed.
+- `.venv/bin/python -m pytest -q tests/unit/test_phase1i_j_k_packets.py` -> 6 passed.
+- `.venv/bin/python -m pytest -q tests/` -> 277 passed, 20 skipped.
+- `ruff check` on changed D-K baseline modules/tests -> passed.
+- `ruff format --check` on changed D-K baseline modules/tests -> passed.
+- `pyright` on changed D-K baseline modules/tests -> 0 errors.
+- `git diff --check` -> passed.
 
 ## Next Actions
 
-1. Run P1A-HUMAN-001 Next Block Approval.
-2. Do not open any implementation phase until the Spec Owner selects the next
-   block.
-3. Keep Phase 1 evaluation/trading, holdout reads, live feeds, Growth/RDL/RBE
-   activation, runtime escalation, and OOS/performance claims blocked.
+1. Spec Owner: accept or reject this D-K deep review and fix closure.
+2. If accepted, choose the next bounded block or stop/iterate.
+3. Keep holdout, production, capital-ready, live feed, broker integration,
+   Growth/RDL/RBE activation, and OOS/performance claims blocked until a
+   separate explicit gate opens them.

@@ -1,22 +1,22 @@
-# Drift Assertions — Cycle 4 Post-Phase-1A
+# DRIFT_ASSERTIONS — D-K Deep Review
 
-Date: 2026-05-05
-Step: 4a
-Status: `COMPLETE`
+**Audit cycle:** Cycle 5 — Phase 1D-K archive-only baseline deep review
+**Date:** 2026-05-06
+**Prior artifact:** `INVARIANTS.md`
+**Status:** Draft — pending Spec Owner acceptance
 
-| INV-ID | Invariant short name | Verdict | Evidence pointer | Regression? |
-|---|---|---|---|---|
-| INV-C4-001 | No Phase 1 evaluation/trading | PASS | `CODEX_PROMPT.md`; `REVIEW_REPORT.md`; `PHASE1A_SCAFFOLD_CLOSURE_REVIEW.md` | No |
-| INV-C4-002 | Holdout locked | PASS | `PHASE1A_REGISTRATION_BOUNDARY_PACKET.md`; scaffold tests | No |
-| INV-C4-003 | No OOS/performance claim | PASS | `REVIEW_REPORT.md`; no-claim labels | No |
-| INV-C4-004 | Non-trading scaffold placeholders | PASS | `PHASE1A_BASELINE_SCAFFOLD_PACKET.md`; tests | No |
-| INV-C4-005 | Probe emits no strategy metrics | PASS | `PHASE1A_SCAFFOLD_PERFORMANCE_PROBE_PACKET.md`; tests | No |
-| INV-C4-006 | Runtime escalation gated | PASS | `ARCHITECTURE.md`; `IMPLEMENTATION_CONTRACT.md`; P1A-006/P1A-007 | No |
-| INV-C4-007 | Storage boundary | PASS | `PHASE1A_WORKLOAD_BENCHMARK_CONTRACT.md` | No |
-| INV-C4-008 | Growth/RBE inactive | PASS | `PHASE1A_ARCHIVE_ENTRY_CONTRACT.md`; `REVIEW_REPORT.md` | No |
-| INV-C4-009 | RDL dormant | PASS | `PHASE1A_ARCHIVE_ENTRY_CONTRACT.md`; `REVIEW_REPORT.md` | No |
-| INV-C4-010 | Audit prompt current metadata | PASS | `PHASE1A_AUDIT_PROMPT_REFRESH_PACKET.md` | No |
-| INV-C4-011 | Archive loading discipline | PASS | `AUDIT_INDEX.md`; `docs/audit/README.md`; prompts | No |
-| DOC-C4-001 | Implementation-facing current-state prose | AMBIGUOUS | `ARCHITECTURE.md`; `spec.md`; `CODEX_PROMPT.md` | No |
-
-| TOTAL | PASS: 11 | FAIL: 0 | AMBIGUOUS: 1 | Regressions: 0 |
+| INV-ID | Invariant short name | Verdict | Evidence pointer | Prior cycle verdict | Regression? |
+|---|---|---|---|---|---|
+| DK-INV-001 | D-K no unlock | PASS | `docs/audit/AUDIT_INDEX.md` Current State; D-K task boundaries | New | No |
+| DK-INV-002 | P1D contract gate | PASS | `implementation.py`; `docs/tasks.md` P1D | New | No |
+| DK-INV-003 | P1E forbidden outputs | PASS | `bounded.py`; `test_phase1e_bounded_baseline.py` | New | No |
+| DK-INV-004 | P1F all-family binding | PASS | `registration.py` `_validate_outputs` | New | No |
+| DK-INV-005 | P1F reproducible code hash | PASS | `registration.py` `_hash_source_files` normalizes repo-local source identity | New | No |
+| DK-INV-006 | P1F no registry write | PASS | `registration.py` dataclasses and tests | New | No |
+| DK-INV-007 | P1G denied requests | PASS | `evaluation.py` `validate_phase1g_evaluation_request` | New | No |
+| DK-INV-008 | P1H approval gate | PASS | `governed.py` `run_phase1h_governed_evaluation` | New | No |
+| DK-INV-009 | P1H no performance conclusion | PASS | `governed.py` result flags | New | No |
+| DK-INV-010 | P1I stat status clarity | PASS | `report.py` `stat_field_statuses` records no-computation status | New | No |
+| DK-INV-011 | P1J/P1K holdout closed | PASS | `decision.py` no-holdout guard | New | No |
+| DK-INV-012 | Prompt current metadata | PASS | `PROMPT_0_META.md` through `PROMPT_5_CONSOLIDATED.md` headers | Prior F-C3-007/F-C4-001 class | No |
+| TOTAL | - | PASS: 12 | FAIL: 0 | AMBIGUOUS: 0 | Regressions: 0 |

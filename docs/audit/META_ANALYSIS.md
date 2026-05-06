@@ -1,47 +1,70 @@
-# Meta Analysis — Cycle 4 Post-Phase-1A
+# META_ANALYSIS — D-K Deep Review
 
-Date: 2026-05-05
-Step: 1
-Status: `COMPLETE`
+**Audit cycle:** Cycle 5 — Phase 1D-K archive-only baseline deep review
+**Date:** 2026-05-06
+**Pipeline:** `docs/audit/review_pipeline.md` v1.0
+**Prompts used:** `PROMPT_0_META.md` through `PROMPT_5_CONSOLIDATED.md`
+**Status:** Draft — pending Spec Owner acceptance
 
 ## Scope
 
-This meta step reviews the active audit context after Phase 1A scaffold/probe
-closure. It uses `PROMPT_0_META.md` as the current cycle authority for audit
-sequencing and risk surfaces.
+This run reviews the completed Phase 1D-K archive-only baseline path after
+light review was recorded for each phase. The reviewed implementation surface is:
 
-## Current State
+- P1D implementation contract: `entropy/baseline/implementation.py`
+- P1E bounded formation-only baseline: `entropy/baseline/bounded.py`
+- P1F hash binding and preregistration surface:
+  `entropy/baseline/registration.py`
+- P1G evaluation configuration contract: `entropy/baseline/evaluation.py`
+- P1H archive-only governed run metadata: `entropy/baseline/governed.py`
+- P1I report packet: `entropy/baseline/report.py`
+- P1J/P1K decision and closure packets: `entropy/baseline/decision.py`
+- Phase task/status records in `docs/tasks.md`, `docs/CODEX_PROMPT.md`,
+  `docs/EVIDENCE_INDEX.md`, `docs/DECISION_LOG.md`,
+  `docs/IMPLEMENTATION_JOURNAL.md`, and `docs/audit/AUDIT_INDEX.md`
 
-- Phase 1A scaffold/probe chain is closed for foundation purposes.
-- Full Phase 1 evaluation/trading is not approved.
-- Archive holdout remains locked.
-- Live/streaming feeds, broker integration, live capital, Growth/RDL/RBE
-  activation, runtime escalation, and OOS/performance claims remain blocked.
-- F-C3-007 was closed by P1A-011; active prompts now identify Cycle 4
-  Post-Phase-1A Scaffold Closure.
+## Current-State Metadata
 
-## Required Review Focus
+The active audit index states:
 
-| Risk Surface | Meta disposition |
-|---|---|
-| RS-01 Phase 1 evaluation creep | Must verify scaffold/probe artifacts cannot be read as OOS/evaluation evidence |
-| RS-02 Holdout boundary integrity | Must verify holdout remains locked across current docs and scaffold gates |
-| RS-03 No-claim benchmark semantics | Must verify benchmark outputs are mechanics-only |
-| RS-04 Runtime escalation drift | Must verify Python/Polars/DuckDB/Arrow boundary remains intact |
-| RS-05 Storage boundary drift | Must verify large data-plane artifacts remain Parquet/Arrow-style, not PostgreSQL-heavy |
-| RS-06 Growth/RBE activation leakage | Must verify no activation path was opened |
-| RS-07 RDL dormancy leakage | Must verify RDL remains dormant/scaffolding-only |
-| RS-08 Prompt metadata drift | Closed by P1A-011; verify no stale active prompt context remains |
-| RS-09 Archive loading discipline | Must verify compact current indexes remain the default loading path |
+- Current work: Spec Owner next decision after D-K fix closure.
+- Last completed task: `DK-REVIEW-001 Full D-K Deep Review And Fix Closure`.
+- Current verdict: `DK_DEEP_REVIEW_COMPLETE_FIXES_APPLIED_NO_CLAIMS`.
+- Still forbidden: Phase 1 evaluation/trading, live feeds, broker integration,
+  archive holdout reads, Growth/RDL/RBE activation, OOS/performance claims,
+  production labels, capital-ready labels, and live-capital claims.
 
-## Meta Findings
+The prompt files initially carried Cycle 4 / Post-Phase-1A header metadata.
+DK-FIX-003 refreshed their headers/current context to Cycle 5 D-K while
+preserving the active protocol sequence.
 
-| ID | Severity | Finding | Disposition |
-|---|---|---|---|
-| MF-C4-001 | P2 | `docs/ARCHITECTURE.md` and `docs/spec.md` still describe the current implementation-facing phase as Phase 0.5 even though the handoff state is post-Phase-1A audit readiness. | Track as current-state documentation drift; does not authorize Phase 1 evaluation. |
+## Document Inventory Verdict
 
-## Step Verdict
+| Area | Verdict | Evidence |
+|---|---|---|
+| Core spec versions | PASS | `PROTOCOL_SPEC.md` v1.8, `CHARTER.md` v5.3, `GLOSSARY.md` v1.4 |
+| D-K task chain | PASS | `docs/tasks.md` records P1D through P1K and DK-REVIEW-001 as complete |
+| No-claim boundary | PASS | D-K code and task entries block holdout, production, capital-ready, and performance claims |
+| Audit prompt metadata | FIXED | `PROMPT_0_META.md` through `PROMPT_5_CONSOLIDATED.md` identify Cycle 5 D-K context |
+| Required audit outputs | PASS | This run refreshes all canonical Step 1-6 outputs |
 
-Verdict: `READY_FOR_ARCHITECTURE_REVIEW`.
+## Metadata Findings
 
-Proceed to `PROMPT_1_ARCH_REVIEW.md`.
+### F-DK-003 — Audit Prompt Header Drift
+
+Severity: P2
+
+The active prompts correctly define the six-step review sequence, but their
+headers described Cycle 4 / Post-Phase-1A when this run began. Current-state
+files describe the review as full D-K deep review after `P1K-HUMAN-001`.
+DK-FIX-003 refreshed the prompt metadata after consolidation.
+
+Acceptance criterion: prompt headers and cycle context identify the current D-K
+review state while preserving the same step order and hard constraints. Status:
+fixed, pending Spec Owner acceptance.
+
+## Handoff To Step 2
+
+Architecture review should treat D-K as archive-only research tooling. It must
+not infer production, holdout, capital, live feed, Growth/RDL/RBE, or Phase 1
+gate approval from the existence of P1H/P1I/P1J/P1K surfaces.
