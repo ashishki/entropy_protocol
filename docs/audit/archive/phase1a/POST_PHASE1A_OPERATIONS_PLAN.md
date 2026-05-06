@@ -1,8 +1,8 @@
 # Post-Phase-1A Operations Plan
 
-Date: 2026-05-05
-Status: `PHASE1D_PLANNING_SELECTED`
-Decision: `OPEN_PHASE1D_IMPLEMENTATION_PLANNING`
+Date: 2026-05-06
+Status: `DK_ARCHIVE_ONLY_BLOCK_COMPLETE`
+Decision: `CONTINUE_DK_LIGHT_REVIEW_PER_PHASE_DEEP_REVIEW_AFTER_BLOCK`
 
 ## Classification
 
@@ -172,4 +172,6 @@ again before opening the next block.
 
 ## Current Recommendation
 
-Open `P1D-001 Long-Only Implementation Contract` next.
+Phase 1D-K archive-only baseline path is implemented, light-reviewed through the
+no-holdout closure packet, and deep-reviewed through prompts 0-5. Review fixes
+are applied; the next step is Spec Owner decision after D-K fix closure.

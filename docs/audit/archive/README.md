@@ -10,6 +10,7 @@ default context load.
 | `p0_5/` | Phase 0.5 evidence-hardening plans and statistical reviews |
 | `p0_6/` | Source manifest, Binance/P4 canary, and universe bootstrap records |
 | `p0_7/` | Archive-only continuation and gate packet records |
+| `phase1a/` | Phase 1A and post-Phase1A packets moved out of active root |
 | `p4/` | P4 coverage, conversion, and universe scaling records |
 | `simbroker/` | SimBroker calibration planning and verification records |
 | `data_stability/` | Data stability bootstrap, append, simulation, and archive records |
