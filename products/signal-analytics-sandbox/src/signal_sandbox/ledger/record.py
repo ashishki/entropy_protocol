@@ -44,6 +44,7 @@ class SignalRecord(BaseModel):
     target: Decimal | None = None
     confidence_flags: list[str] = Field(default_factory=list)
     ambiguity_flags: list[str] = Field(default_factory=list)
+    reviewer_id: str | None = None
     extraction_metadata: dict[str, str] = Field(default_factory=dict)
 
     @field_validator("direction", mode="before")

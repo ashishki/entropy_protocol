@@ -21,6 +21,10 @@ class DuplicateSignalRecord(LedgerIOError):
     """Raised when multiple records share a dedup key."""
 
 
+class LLMReviewRequired(LedgerIOError):
+    """Raised when an LLM-sourced draft has not been human-reviewed."""
+
+
 CANONICAL_COLUMNS = [
     "dedup_key",
     "source_id",
@@ -36,6 +40,7 @@ CANONICAL_COLUMNS = [
     "target",
     "confidence_flags",
     "ambiguity_flags",
+    "reviewer_id",
     "extraction_metadata",
 ]
 
@@ -54,6 +59,7 @@ LEDGER_SCHEMA = {
     "target": pl.String,
     "confidence_flags": pl.String,
     "ambiguity_flags": pl.String,
+    "reviewer_id": pl.String,
     "extraction_metadata": pl.String,
 }
 
@@ -64,6 +70,7 @@ def write_ledger(
     *,
     force_duplicate: bool = False,
 ) -> None:
+    _ensure_llm_records_reviewed(records)
     normalized = _normalize_duplicates(records, force_duplicate=force_duplicate)
     rows = [_record_to_row(record) for record in normalized]
     rows.sort(key=lambda row: (row["dedup_key"], row["capture_id"], row["source_id"]))
@@ -83,6 +90,15 @@ def read_ledger(path: Path) -> list[SignalRecord]:
     for row in frame.to_dicts():
         records.append(_row_to_record(row))
     return records
+
+
+def _ensure_llm_records_reviewed(records: list[SignalRecord]) -> None:
+    for record in records:
+        adapter_id = record.extraction_metadata.get("adapter_id", "")
+        if adapter_id.startswith("llm/") and record.reviewer_id is None:
+            raise LLMReviewRequired(
+                "LLM-sourced records require reviewer_id before ledger write"
+            )
 
 
 def _normalize_duplicates(
@@ -125,6 +141,7 @@ def _record_to_row(record: SignalRecord) -> dict[str, str]:
         "target": _decimal_to_string(record.target),
         "confidence_flags": json.dumps(record.confidence_flags, sort_keys=True),
         "ambiguity_flags": json.dumps(record.ambiguity_flags, sort_keys=True),
+        "reviewer_id": record.reviewer_id or "",
         "extraction_metadata": json.dumps(
             record.extraction_metadata,
             separators=(",", ":"),
@@ -149,6 +166,7 @@ def _row_to_record(row: dict[str, Any]) -> SignalRecord:
             "target": _string_to_decimal(row["target"]),
             "confidence_flags": json.loads(row["confidence_flags"]),
             "ambiguity_flags": json.loads(row["ambiguity_flags"]),
+            "reviewer_id": _empty_string_to_none(row["reviewer_id"]),
             "extraction_metadata": json.loads(row["extraction_metadata"]),
         }
     )
@@ -173,3 +191,9 @@ def _string_to_decimal(value: str) -> Decimal | None:
     if value == "":
         return None
     return Decimal(value)
+
+
+def _empty_string_to_none(value: str) -> str | None:
+    if value == "":
+        return None
+    return value
