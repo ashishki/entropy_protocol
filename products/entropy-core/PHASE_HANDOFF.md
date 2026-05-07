@@ -7,10 +7,10 @@ manual restart.
 
 - Product: entropy-core
 - Branch: codex/entropy-core-work
-- Active task: T14 Reset Strategy Closure Review
+- Active task: reset implementation awaits human decision after T14
 - Phase: 4 Product Bridges
-- Last validation: 2026-05-07 T13: `325 passed, 20 skipped`; ruff check clean; ruff format check clean; pyright 0 errors; `git diff --check` clean.
-- Git status summary: T13 local changes pending commit at handoff update time.
+- Last validation: 2026-05-07 T14: `328 passed, 20 skipped`; ruff check clean; ruff format check clean; pyright 0 errors; `git diff --check` clean.
+- Git status summary: T14 local changes pending commit at handoff update time.
 
 ## Completed In This Phase
 
@@ -30,10 +30,11 @@ manual restart.
 - Phase 3 boundary review completed with no findings.
 - T12 Trader Risk Audit Bridge Contracts completed with no findings.
 - T13 Hypothesis Backtest Bridge Design completed with no findings.
+- T14 Reset Strategy Closure Review completed with no findings.
 
 ## Remaining Work
 
-- T14 Reset Strategy Closure Review
+- Reset implementation awaits human decision after T14.
 
 ## Blockers Or Human Decisions
 

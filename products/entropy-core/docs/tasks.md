@@ -478,6 +478,7 @@ Owner:      codex
 Phase:      4
 Type:       none
 Depends-On: T11, T12, T13
+Status:     done 2026-05-07
 
 Objective: |
   Close the reset implementation block with a strategy review, audit index update, and next-block recommendation grounded in current evidence.

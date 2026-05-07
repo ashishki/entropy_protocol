@@ -55,3 +55,14 @@ Phase 3 Evaluation Safety is complete in the reset task graph.
 - Audit index updated: `docs/audit/AUDIT_INDEX.md`.
 - Next task: T12 Trader Risk Audit Bridge Contracts.
 - No open findings or blockers.
+
+## 2026-05-07 Reset Closure
+
+The reset implementation block is complete through T14.
+
+- Completed tasks: T01 through T14.
+- Latest validation: `.venv/bin/python -m pytest -q tests/` -> `328 passed, 20 skipped`; ruff check clean; ruff format check clean; pyright 0 errors; `git diff --check` clean.
+- Review artifact: `docs/audit/RESET_REVIEW.md`.
+- Audit index updated: `docs/audit/AUDIT_INDEX.md`.
+- Next state: reset implementation awaits human decision after T14.
+- No open findings or blockers.

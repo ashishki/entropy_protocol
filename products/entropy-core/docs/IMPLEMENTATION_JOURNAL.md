@@ -21,6 +21,15 @@ This file records handoff context. It is not authority.
 
 ## Entries
 
+### 2026-05-07 - T14 - Reset Strategy Closure Review
+
+- Scope: `docs/audit/RESET_REVIEW.md`, `docs/audit/AUDIT_INDEX.md`, `docs/CODEX_PROMPT.md`, `tests/reset/test_reset_closure.py`
+- Why this work happened: close the reset implementation block with a strategy review, audit index update, and next-block recommendation grounded in current evidence
+- Decisions applied: `docs/EVIDENCE_INDEX.md`; `docs/IMPLEMENTATION_JOURNAL.md`
+- Evidence collected: T14 acceptance tests passed (`3 passed`); full reset baseline `328 passed, 20 skipped`; ruff check clean; ruff format check clean; pyright `0 errors`; `git diff --check` clean
+- Follow-ups: reset implementation awaits human decision after T14
+- Notes for next agent: no open findings remain; no holdout, live feed, broker, production, capital-ready, or OOS/performance claim surface is approved by this closure.
+
 ### 2026-05-07 - T13 - Hypothesis Backtest Bridge Design
 
 - Scope: `docs/bridges/hypothesis-backtest.md`, `tests/integration/test_hypothesis_bridge_design.py`
