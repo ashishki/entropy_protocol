@@ -16,6 +16,8 @@ This file indexes proof artifacts. It is not authority by itself.
 | T04 Registry Append-Only Audit | Test result | `tests/unit/test_registry_append_only_reset.py`; `tests/integration/test_registry_append_only_reset.py` | Registry/governance no UPDATE/DELETE app paths, missing-hash-before-DB guard, migration append-only table checks | 2026-05-07: `3 passed`; full baseline `291 passed, 20 skipped` | Yes |
 | T05 Evidence Index and Journal Sync | Test result | `tests/reset/test_evidence_index_contract.py` | Evidence rows point to existing artifacts, reset journal entry is retrievable, legacy references remain scoped | 2026-05-07: `3 passed`; full baseline `294 passed, 20 skipped` | Yes |
 | T06 No-Claim Report Boundary | Test result | `tests/unit/test_no_claim_report_boundary.py`; `src/entropy/baseline/report.py`; `src/entropy/baseline/decision.py` | Archive-only stat status, no production/capital-ready/OOS claim flags without gates, D-K closure no-claim boundary | 2026-05-07: `5 passed`; full baseline `299 passed, 20 skipped` | Yes |
+| T07 Governance Approval Gate Audit | Test result | `tests/unit/test_governance_gate_reset.py`; `src/entropy/governance/approval.py` | Human approval gates for phase gate reports, holdout access, and provider activation | 2026-05-07: `3 passed`; full baseline `302 passed, 20 skipped` | Yes |
+| Phase 2 Governance Integrity Review | Review report | `docs/audit/PHASE2_REVIEW.md` | Phase 2 boundary review for T04-T07 governance integrity | 2026-05-07: PASS; Stop-Ship 0, P0 0, P1 0, P2 0 | Yes |
 
 T08 and T10 must add heavy-task evidence rows when implemented.
 

@@ -226,6 +226,7 @@ Owner:      codex
 Phase:      2
 Type:       none
 Depends-On: T04, T06
+Status:     done 2026-05-07
 
 Objective: |
   Verify human approval gates for research object registration, evaluation execution, phase-gate acceptance, holdout access, data-provider activation, and product bridge activation.

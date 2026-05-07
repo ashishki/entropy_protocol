@@ -7,10 +7,10 @@ manual restart.
 
 - Product: entropy-core
 - Branch: codex/entropy-core-work
-- Active task: T07 Governance Approval Gate Audit
-- Phase: 2 Governance Integrity
-- Last validation: 2026-05-07 T06: `299 passed, 20 skipped`; ruff check clean; ruff format check clean; pyright 0 errors; `git diff --check` clean.
-- Git status summary: T06 local changes pending commit at handoff update time.
+- Active task: T08 Data and Leakage Gate Verification
+- Phase: 3 Evaluation Safety
+- Last validation: 2026-05-07 Phase 2 boundary: `302 passed, 20 skipped`; ruff check clean; ruff format check clean; pyright 0 errors; `git diff --check` clean.
+- Git status summary: Phase 2 local changes pending commit at handoff update time.
 
 ## Completed In This Phase
 
@@ -21,10 +21,15 @@ manual restart.
 - T04 Registry Append-Only Audit completed with no findings.
 - T05 Evidence Index and Journal Sync completed with no findings.
 - T06 No-Claim Report Boundary completed with no findings.
+- T07 Governance Approval Gate Audit completed with no findings.
+- Phase 2 boundary review completed with no findings.
 
 ## Remaining Work
 
-- T07 Governance Approval Gate Audit
+- T08 Data and Leakage Gate Verification
+- T09 SimBroker and Cost Surface Regression
+- T10 Attribution Stream Boundary Audit
+- T11 Phase Gate Evidence Packet
 
 ## Blockers Or Human Decisions
 

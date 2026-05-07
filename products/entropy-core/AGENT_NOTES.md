@@ -33,3 +33,14 @@ Phase 1 Reset Foundation is complete in the reset task graph.
 - Audit index updated: `docs/audit/AUDIT_INDEX.md`.
 - Next task: T04 Registry Append-Only Audit.
 - No open findings or blockers.
+
+## 2026-05-07 Phase 2 Boundary
+
+Phase 2 Governance Integrity is complete in the reset task graph.
+
+- Completed tasks: T04, T05, T06, T07.
+- Latest validation: `.venv/bin/python -m pytest -q tests/` -> `302 passed, 20 skipped`; ruff check clean; ruff format check clean; pyright 0 errors; `git diff --check` clean.
+- Review artifact: `docs/audit/PHASE2_REVIEW.md`.
+- Audit index updated: `docs/audit/AUDIT_INDEX.md`.
+- Next task: T08 Data and Leakage Gate Verification.
+- No open findings or blockers.

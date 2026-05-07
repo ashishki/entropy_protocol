@@ -21,6 +21,24 @@ This file records handoff context. It is not authority.
 
 ## Entries
 
+### 2026-05-07 - PHASE2 - Governance Integrity Boundary
+
+- Scope: T04-T07, `docs/audit/PHASE2_REVIEW.md`, `docs/audit/AUDIT_INDEX.md`
+- Why this work happened: Phase 2 tasks completed and the reset loop required a phase-boundary review, archive/index update, and handoff checkpoint
+- Decisions applied: `D-RESET-001`, `D-RESET-004`, `D-RESET-005`
+- Evidence collected: Phase 2 boundary review PASS; full reset baseline `302 passed, 20 skipped`; ruff check clean; ruff format check clean; pyright `0 errors`; `git diff --check` clean
+- Follow-ups: start T08 Data and Leakage Gate Verification
+- Notes for next agent: no phase-boundary findings were opened.
+
+### 2026-05-07 - T07 - Governance Approval Gate Audit
+
+- Scope: `src/entropy/governance/`, `src/entropy/evidence/`, `tests/unit/test_governance_gate_reset.py`
+- Why this work happened: verify human approval gates for phase gates, holdout access, and provider activation
+- Decisions applied: `docs/ARCHITECTURE.md#human-approval-boundaries`; `docs/governance/governor.md`
+- Evidence collected: T07 acceptance tests passed (`3 passed`); full reset baseline `302 passed, 20 skipped`; ruff check clean; ruff format check clean; pyright `0 errors`; `git diff --check` clean
+- Follow-ups: run Phase 2 boundary review and start T08
+- Notes for next agent: T07 added deterministic approval-gate helpers only; provider activation remains design-only unless future tasks approve a concrete provider.
+
 ### 2026-05-07 - T06 - No-Claim Report Boundary
 
 - Scope: `src/entropy/evidence/`, `src/entropy/baseline/report.py`, `src/entropy/baseline/decision.py`, `tests/unit/test_no_claim_report_boundary.py`

@@ -2,7 +2,7 @@
 
 Version: 1.0
 Date: 2026-05-07
-Phase: 2
+Phase: 3
 
 Reset state for Entropy Core after archiving the old active workflow. Historical files are available under `docs/legacy/old-workflow/2026-05-07/` but are not read by default.
 
@@ -10,15 +10,15 @@ Reset state for Entropy Core after archiving the old active workflow. Historical
 
 ## Current Phase
 
-- Phase: 2
-- Name: Governance Integrity
-- Business goal: synchronize registry, governance, evidence index, and no-claim report boundaries with the current reset-era codebase.
-- Phase gate: append-only, human-gate, no-claim, and evidence-index checks pass.
+- Phase: 3
+- Name: Evaluation Safety
+- Business goal: harden data/leakage/holdout, SimBroker, attribution, and phase-gate evidence boundaries before any downstream research claim can escalate.
+- Phase gate: heavy evidence tasks have executable tests and indexed proof.
 
 ## Current State
 
-- Phase: 2
-- Baseline: 299 passing tests, 20 skipped (T06 local verification on 2026-05-07)
+- Phase: 3
+- Baseline: 302 passing tests, 20 skipped (Phase 2 boundary verification on 2026-05-07)
 - Ruff: clean on Phase 1 boundary verification 2026-05-07
 - Pyright: clean on Phase 1 boundary verification 2026-05-07
 - Last CI: product-local workflow configured; remote CI not yet observed after reset
@@ -40,7 +40,7 @@ Reset state for Entropy Core after archiving the old active workflow. Historical
 
 ## Next Task
 
-T07: Governance Approval Gate Audit
+T08: Data and Leakage Gate Verification
 
 ## Fix Queue
 
@@ -76,10 +76,15 @@ none after reset. Legacy D-K findings were closed in the prior workflow, but old
   - Acceptance tests: `tests/unit/test_no_claim_report_boundary.py` passed (`5 passed`).
   - Reset baseline: `.venv/bin/python -m pytest -q tests/` reported `299 passed, 20 skipped`.
   - Quality checks: ruff check clean; ruff format check clean; pyright `0 errors`; `git diff --check` clean.
+- 2026-05-07: T07 Governance Approval Gate Audit completed.
+  - Acceptance tests: `tests/unit/test_governance_gate_reset.py` passed (`3 passed`).
+  - Reset baseline: `.venv/bin/python -m pytest -q tests/` reported `302 passed, 20 skipped`.
+  - Quality checks: ruff check clean; ruff format check clean; pyright `0 errors`; `git diff --check` clean.
 
 ## Phase History
 
 - 2026-05-07: Phase 1 Reset Foundation completed. Review artifact: `docs/audit/PHASE1_REVIEW.md`. Result: PASS; Stop-Ship 0, P0 0, P1 0, P2 0.
+- 2026-05-07: Phase 2 Governance Integrity completed. Review artifact: `docs/audit/PHASE2_REVIEW.md`. Result: PASS; Stop-Ship 0, P0 0, P1 0, P2 0.
 
 ## Profile State: RAG
 
