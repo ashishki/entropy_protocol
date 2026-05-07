@@ -1,8 +1,8 @@
 # CODEX_PROMPT.md — Signal Analytics Sandbox
 
-Version: 2.14
+Version: 2.26
 Date: 2026-05-07
-Phase: 8
+Phase: 9
 
 ---
 
@@ -24,7 +24,7 @@ Telegram pilot validates the product hypothesis.
 
 ## Current State
 
-- **Phase:** 8 (complete)
+- **Phase:** 9 (Phase 10 draft automation scoped; phase boundary not advanced)
 - **Baseline:** 84 passing tests, 0 skipped
 - **Ruff:** `ruff check src/ tests/` passes
 - **Pyright:** `pyright` passes
@@ -48,12 +48,29 @@ Telegram pilot validates the product hypothesis.
 - **Task-scoped context:** read `Context-Refs` in `docs/tasks.md` before broad searching
 - **Legal/risk memo (SAS-002 output):** `docs/legal_risk_memo.md` (created by SAS-002)
 - **Pilot log (SAS-001 output):** `docs/PILOT_LOG.md` (created by SAS-001)
+- **Pilot development loop:** `docs/PILOT_DEVELOPMENT_LOOP_RU.md`
 
 ---
 
 ## Next Task
 
-No pending implementation task remains in `docs/tasks.md`.
+SAS-AUTO-001: Seed Labels For bablos79 Draft Parser
+
+Phase 10 is a narrow deterministic draft-extraction assistant phase. The
+Orchestrator should dispatch `SAS-AUTO-001` from `docs/tasks.md` next.
+After seed labels, run `SAS-AUTO-001B` before implementing parser code so the
+author-specific lexicon is discovered offline and human-approved.
+
+Immediate instruction:
+- Create `docs/pilot/BABLOS79_LABEL_SEED.md` with 10-15 representative rows
+  sampled from `workspace/captures/bablos79/`.
+- Do not implement parser code until the seed labels and
+  `docs/pilot/bablos79_APPROVED_LEXICON.md` exist.
+- Do not modify product code.
+- Keep automation draft-only: no approved ledger writes without human review.
+- Do not start bot/SaaS/private scraping/LLM-truth expansion. Frontier-model
+  usage is allowed only as offline lexicon-candidate discovery in
+  `SAS-AUTO-001B`; it must not become runtime extraction truth.
 
 Closeout digest for the Orchestrator:
 - T20 implemented the gated LLM extraction adapter with fixed mock clients in CI.
@@ -63,6 +80,7 @@ Closeout digest for the Orchestrator:
 - `write_ledger` rejects direct LLM-sourced records unless `reviewer_id` is present.
 - Heavy-task evidence is archived at `docs/audit/HEAVY_T20_EVIDENCE.md`.
 - Phase 8 archive is `docs/archive/PHASE8_REVIEW.md`.
+- Phase 9 archive is `docs/archive/PHASE9_REVIEW.md`.
 
 Only send codex to the full ARCHITECTURE.md / IMPLEMENTATION_CONTRACT.md when a task is heavy or touches cross-cutting boundaries.
 
@@ -102,95 +120,105 @@ none
 
 ---
 
+## Summary State
+
+Phase 1 through Phase 8 are complete. The deterministic sandbox baseline is 84
+passing tests, 0 skipped; `ruff check src/ tests/` and `pyright` pass locally.
+The implemented surface includes:
+
+- installable Python package and CLI skeleton;
+- source manifest, capture loader, signal record schema, ledger I/O, dedup, and
+  ambiguity handling;
+- deterministic price provider interface, operator-file provider, exchange
+  public provider, yfinance prototype provider, snapshot persistence, outcome
+  matcher, aggregator, and Markdown report renderer;
+- manual, rule, and gated LLM extraction adapters;
+- Phase 4 through Phase 8 deep review archives and heavy-task evidence for
+  T12, T14, and T20.
+
+Phase 9 is now a validation-first Telegram pilot loop for the three
+operator/customer-provided public Telegram sources in `docs/PILOT_LOG.md`.
+Product-code expansion remains blocked until pilot evidence identifies a
+measured bottleneck.
+
+Current Phase 9 evidence update: `bablos79` has 60 public text captures in
+`workspace/captures/bablos79/`, validated by `load_captures(Path("workspace"),
+"bablos79")`. Manual extraction has not run yet.
+
+---
+
 ## Completed Tasks
 
-- 2026-05-07 — T01 Project Skeleton: created installable Python package
-  `signal-sandbox`, console script `signal-sandbox`, package subdirectories,
-  shared `get_tracer()`, CLI stubs, dependency manifests, and T01 tests.
-  Baseline after: 11 passed, 0 skipped. Review: light PASS.
-- 2026-05-07 — T02 CI Setup: verified product CI workflow contract with tests
-  for trigger branches, Python 3.12, pip cache, command order, install command,
-  dev dependencies, and the repository-root workflow bridge needed for GitHub
-  to run this product's CI in the monorepo. Baseline after: 18 passed, 0 skipped.
-  Review: light PASS.
-- 2026-05-07 — T03 Phase 1 Smoke Tests: added tracer singleton test,
-  structured JSON logger test, and `signal-sandbox status` temp-workspace smoke
-  test. Recorded Phase 1 baseline. Baseline after: 18 passed, 0 skipped.
-  Review: light PASS.
-- 2026-05-07 — T04 SourceManifest Pydantic Schema: implemented strict
-  Pydantic source manifest validation, source type and eligibility enums,
-  canonical JSON persistence, and `load_source` rejection for non-approved
-  sources. Baseline after: 22 passed, 0 skipped. Review: light PASS.
-- 2026-05-07 — T05 Capture Loader: implemented captured post schema, raw-text
-  SHA-256 verification, private-source URL rejection, and deterministic batch
-  ordering. Baseline after: 26 passed, 0 skipped. Review: light PASS.
-- 2026-05-07 — T06 SignalRecord Schema: implemented signal record schema,
-  direction enum validation, evaluability semantics, and canonical SHA-256
-  dedup-key computation. Baseline after: 31 passed, 0 skipped.
-  Review: light PASS.
-- 2026-05-07 — T07 Ledger I/O (Parquet): implemented deterministic Parquet
-  ledger writes, canonical column order, duplicate dedup-key rejection/force
-  flagging, and empty-ledger round-trip behavior. Baseline after: 35 passed,
-  0 skipped. Review: light PASS.
-- 2026-05-07 — T08 Dedup + Ambiguity Flagging: implemented deterministic
-  deduplication and ambiguity flagging with set semantics. Baseline after:
-  38 passed, 0 skipped. Review: light PASS.
-- 2026-05-07 — T09 PriceDataProvider Abstract Interface: accepted ADR-001,
-  implemented `PriceDataProvider`, `PriceSnapshot`, checksum validation, and
-  deterministic Parquet snapshot bytes. Baseline after: 41 passed, 0 skipped.
-  Review: light PASS.
-- 2026-05-07 — T10 OperatorFilePriceProvider: implemented local operator-file
-  OHLCV Parquet loading, schema validation, deterministic snapshot creation,
-  typed missing/malformed errors, and low-cardinality adapter logging. Baseline
-  after: 44 passed, 0 skipped. Review: light PASS.
-- 2026-05-07 — T11 PriceSnapshot Persistence + Provenance: implemented
-  deterministic snapshot persistence to `snapshots/<snapshot_id>/`, immutable
-  re-save semantics, deterministic metadata JSON, and checksum-verifying load.
-  Baseline after: 47 passed, 0 skipped. Review: light PASS. Phase 4 deep review:
-  `docs/archive/PHASE4_REVIEW.md`.
-- 2026-05-07 — T12 Outcome Matching Engine: implemented deterministic
-  outcome matching, append-only rule registry, Decimal-based six-place
-  banker's rounding, byte-identical outcomes Parquet with rule-registry
-  metadata, and heavy evidence at `docs/audit/HEAVY_T12_EVIDENCE.md`.
-  Baseline after: 55 passed, 0 skipped. Review: heavy/light PASS.
-- 2026-05-07 — T13 Aggregator: implemented deterministic outcome aggregation,
-  outcomes Parquet byte input, historical summary JSON bytes, win-rate exclusion
-  semantics, Decimal mean/median, and chronological max drawdown. Baseline
-  after: 59 passed, 0 skipped. Review: light PASS.
-- 2026-05-07 — T14 Markdown Report Generator: implemented deterministic
-  Markdown rendering, canonical disclaimer validation, provenance block,
-  evidence-rich evaluated/excluded tables, prototype snapshot gating, and heavy
-  evidence at `docs/audit/HEAVY_T14_EVIDENCE.md`. Baseline after: 65 passed,
-  0 skipped. Review: heavy/light PASS. Phase 5 deep review:
-  `docs/archive/PHASE5_REVIEW.md`.
-- 2026-05-07 — T15 ExtractionAdapter ABC: implemented `ExtractionAdapter`,
-  `ExtractionResult`, status invariants, and model-level evidence preservation
-  between `CapturedPost` and draft `SignalRecord`. Baseline after: 68 passed,
-  0 skipped. Review: light PASS.
-- 2026-05-07 — T16 ManualExtractionAdapter: implemented injected-editor manual
-  extraction templates, draft parsing into `SignalRecord`, missing-field
-  `defer_to_human` reasons, and evidence preservation through the extraction
-  result envelope. Baseline after: 70 passed, 0 skipped. Review: light PASS.
-- 2026-05-07 — T17 RuleExtractionAdapter: implemented versioned regex rule
-  templates, `binance_spot_v1`, match/defer extraction behavior, and locked
-  template hash validation. Baseline after: 72 passed, 0 skipped.
-  Review: light PASS. Phase 6 deep review: `docs/archive/PHASE6_REVIEW.md`.
-- 2026-05-07 — T18 ExchangePublicOHLCVProvider: implemented public exchange
-  OHLCV provider with injected ccxt-style client, deterministic snapshot cache,
-  `public_exchange` status, rate-limit-aware ccxt construction, and failure
-  behavior that avoids partial snapshot persistence. Baseline after: 75 passed,
-  0 skipped. Review: light PASS.
-- 2026-05-07 — T19 YFinanceDevProvider: implemented prototype-only yfinance
-  provider, `SIGNAL_SANDBOX_ALLOW_YFINANCE=1` activation gate, and deterministic
-  prototype snapshots through the price provider contract. Baseline after:
-  77 passed, 0 skipped. Review: light PASS. Phase 7 deep review:
-  `docs/archive/PHASE7_REVIEW.md`.
-- 2026-05-07 — T20 LLMExtractionAdapter: implemented double-gated LLM
-  extraction with fixed mock coverage, provider adapter IDs, paid-call cost-cap
-  enforcement, ledger rejection for unreviewed LLM records, and eval acceptance
-  rate measurement. Baseline after: 84 passed, 0 skipped. Review: heavy/light
-  PASS. Heavy evidence: `docs/audit/HEAVY_T20_EVIDENCE.md`. Phase 8 deep
-  review: `docs/archive/PHASE8_REVIEW.md`.
+- 2026-05-07 — SAS-PILOT-001 Pilot Scope: created
+  `docs/pilot/PILOT_SCOPE.md` for the three public Telegram pilot sources,
+  selected the first source, defined target signal counts, scope exclusions,
+  and customer-centered success/kill criteria. Baseline after: 84 passed,
+  0 skipped. Review: skipped (doc-only patch per orchestrator review exception).
+- 2026-05-07 — SAS-PILOT-002 Methodology V0: created
+  `docs/pilot/METHODOLOGY_V0.md` with required capture fields, signal
+  qualification rules, extraction statuses, ambiguity handling, deterministic
+  outcome semantics, price provenance, and report guardrails. Baseline after:
+  84 passed, 0 skipped. Review: skipped (doc-only patch per orchestrator review
+  exception).
+- 2026-05-07 — SAS-PILOT-003 First Source Capture Plan And Log: created
+  `docs/pilot/CAPTURE_LOG.md` for `https://t.me/bablos79` with capture method,
+  required evidence fields, captured/skipped/blocked/pending status definitions,
+  skip/block reason codes, and a pending operator-input row because no real
+  captures are present. Baseline after: 84 passed, 0 skipped. Review: skipped
+  (doc-only patch per orchestrator review exception).
+- 2026-05-07 — SAS-PILOT-004 First Source Manual Extraction Log: created
+  `docs/pilot/EXTRACTION_LOG.md` for `https://t.me/bablos79` with required
+  extraction fields, status counts, a pending capture row, explicit blocker on
+  operator-supplied public captures, and no fabricated signal candidates.
+  Baseline after: 84 passed, 0 skipped. Review: skipped (doc-only patch per
+  orchestrator review exception).
+- 2026-05-07 — SAS-PILOT-005 First Source Report V0: created
+  `docs/pilot/reports/bablos79_BLOCKED_REPORT_V0.md` because no real captures,
+  extraction rows, approved ledger, price snapshot, or outcomes exist. The memo
+  records source, planned audit window, zero counts, blocker, limitations, and
+  non-advice / historical-only language. Baseline after: 84 passed, 0 skipped.
+  Review: skipped (doc-only patch per orchestrator review exception).
+- 2026-05-07 — SAS-PILOT-006 Customer Feedback And Payment Signal Log: created
+  `docs/pilot/CUSTOMER_FEEDBACK.md` and `docs/pilot/PAYMENT_SIGNAL_LOG.md` with
+  pending rows, past-behavior feedback questions, objection/status definitions,
+  payment-signal categories, refusal reasons, and Telegram-delivery-as-format
+  guardrails. Baseline after: 84 passed, 0 skipped. Review: skipped (doc-only
+  patch per orchestrator review exception).
+- 2026-05-07 — SAS-PILOT-007 Repeat Or Automate Decision: created
+  `docs/pilot/PILOT_DECISION.md` and recorded D-014. Verdict:
+  stop/defer automation until real public captures are supplied for the first
+  source. No new engineering phase is approved. Baseline after: 84 passed,
+  0 skipped. Review: Phase 9 deep review PASS.
+- 2026-05-07 — Public Capture Parse for bablos79: parsed 60 public text posts
+  from unauthenticated Telegram `/s/` pages into
+  `workspace/captures/bablos79/`, wrote
+  `docs/pilot/bablos79_CAPTURE_MANIFEST.json`, updated capture/extraction logs,
+  and revised D-014 to continue manual extraction while deferring automation.
+- 2026-05-07 — Auto Extraction Development Plan: created
+  `docs/pilot/AUTO_EXTRACTION_DEVELOPMENT_PLAN.md`, appended Phase 10
+  `SAS-AUTO-001`, `SAS-AUTO-001B`, and `SAS-AUTO-002..005` to
+  `docs/tasks.md`, and recorded D-015. Added
+  `SAS-AUTO-001B` and D-016 for offline frontier-model author lexicon discovery
+  with human approval before parser implementation. Next task: seed labels.
+
+---
+
+## Completed Task Archive
+
+Older detailed task entries were compacted on 2026-05-07 after reaching the
+orchestrator compaction threshold. Full task definitions remain in
+`docs/tasks.md`; review archives remain in `docs/archive/`.
+
+| Range | Summary | Final baseline / archive |
+|-------|---------|--------------------------|
+| T01-T03 | Project skeleton, CI setup, and smoke-test baseline. | 18 passed, 0 skipped; `docs/archive/PHASE1_REVIEW.md` |
+| T04-T06 | Source manifest, capture loader, and signal record schema. | 31 passed, 0 skipped; `docs/archive/PHASE2_REVIEW.md` |
+| T07-T08 | Ledger I/O, deterministic deduplication, and ambiguity flagging. | 38 passed, 0 skipped; `docs/archive/PHASE3_REVIEW.md` |
+| T09-T11 | Price provider interface, operator-file provider, and immutable snapshot persistence. | 47 passed, 0 skipped; `docs/archive/PHASE4_REVIEW.md` |
+| T12-T14 | Outcome matching, aggregation, and deterministic Markdown reports. | 65 passed, 0 skipped; `docs/archive/PHASE5_REVIEW.md`; heavy evidence T12/T14 |
+| T15-T17 | Extraction adapter ABC, manual extraction, and rule extraction templates. | 72 passed, 0 skipped; `docs/archive/PHASE6_REVIEW.md` |
+| T18-T19 | Public exchange OHLCV provider and yfinance prototype provider. | 77 passed, 0 skipped; `docs/archive/PHASE7_REVIEW.md` |
+| T20 | Gated LLM extraction adapter with cost cap and human-review ledger guard. | 84 passed, 0 skipped; `docs/archive/PHASE8_REVIEW.md`; heavy evidence T20 |
 
 ---
 

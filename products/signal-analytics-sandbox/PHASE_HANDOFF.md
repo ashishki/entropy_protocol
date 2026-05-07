@@ -4,10 +4,13 @@ Use this file only at a phase boundary, context rollover, or limit recovery.
 
 ## Current State
 
-- Phase: 8 complete.
-- Active task: none; `docs/tasks.md` task graph is complete through T20.
+- Phase: 9 active; Phase 10 draft automation is scoped but the phase boundary
+  is not advanced.
+- Active task: `SAS-AUTO-001: Seed Labels For bablos79 Draft Parser`. Phase 9
+  tasks are complete and archived; 60 public `bablos79` captures exist; Phase
+  10 draft-extraction assistant plan is now in `docs/tasks.md`.
 - Branch: `codex/signal-analytics-sandbox-work`.
-- Last validation: `.venv/bin/python -m pytest tests/ -q` -> 84 tests passed on 2026-05-07; `ruff check src/ tests/`, `ruff format --check src/ tests/`, and `pyright` also pass.
+- Last validation: `.venv/bin/python -m pytest tests/ -q` -> 84 tests passed on 2026-05-07; `.venv/bin/python -m ruff check src/ tests/` and `.venv/bin/python -m pyright` also pass.
 - Git status summary: product-local modified docs/hooks/prompts plus untracked `AGENT_NOTES.md`, `PHASE_HANDOFF.md`, `RUNBOOK.md`, and `tests/`.
 
 ## Completed In This Phase
@@ -63,10 +66,79 @@ Use this file only at a phase boundary, context rollover, or limit recovery.
 - Phase 8 deep review completed and archived at `docs/archive/PHASE8_REVIEW.md`.
 - Added validation coverage for `guard_phase_boundary.sh` so cross-phase `Next Task` advancement is blocked without archived review evidence.
 - Updated `AGENT_NOTES.md` with investigation notes, decisions, risks, and minimal plan.
+- Completed `SAS-PILOT-001: Pilot Scope`:
+  - created `docs/pilot/PILOT_SCOPE.md`
+  - selected `https://t.me/bablos79` first by deterministic `PILOT_LOG` order
+  - set default 30-50 defensible signal record target where available
+  - kept bot/SaaS/parser/private-source expansion out of scope
+  - updated `docs/CODEX_PROMPT.md`, `docs/tasks.md`,
+    `docs/IMPLEMENTATION_JOURNAL.md`, and `AGENT_NOTES.md`
+- Completed `SAS-PILOT-002: Methodology V0`:
+  - created `docs/pilot/METHODOLOGY_V0.md`
+  - defined required capture fields, signal qualification rules, extraction
+    statuses, ambiguity handling, deterministic outcome semantics, price
+    provenance, and report guardrails
+  - advanced `docs/CODEX_PROMPT.md` to `SAS-PILOT-003`
+- Completed `SAS-PILOT-003: First Source Capture Plan And Log`:
+  - created `docs/pilot/CAPTURE_LOG.md`
+  - recorded public/operator-supplied-only capture method
+  - added required evidence fields, capture statuses, and skip/block reasons
+  - left current row as `pending-operator-input` because no real captures exist
+  - advanced `docs/CODEX_PROMPT.md` to `SAS-PILOT-004`
+- Completed `SAS-PILOT-004: First Source Manual Extraction Log`:
+  - created `docs/pilot/EXTRACTION_LOG.md`
+  - recorded required extraction fields and status counts
+  - set `pending_capture=1` and all approved/ambiguous/excluded counts to 0
+  - documented extraction blocker on operator-supplied public captures
+  - advanced `docs/CODEX_PROMPT.md` to `SAS-PILOT-005`
+- Completed `SAS-PILOT-005: First Source Report V0`:
+  - created `docs/pilot/reports/bablos79_BLOCKED_REPORT_V0.md`
+  - recorded zero capture/extraction/approved/evaluable counts
+  - documented missing approved ledger, price snapshot, and outcomes
+  - preserved non-advice and historical-only language
+  - advanced `docs/CODEX_PROMPT.md` to `SAS-PILOT-006`
+- Completed `SAS-PILOT-006: Customer Feedback And Payment Signal Log`:
+  - created `docs/pilot/CUSTOMER_FEEDBACK.md`
+  - created `docs/pilot/PAYMENT_SIGNAL_LOG.md`
+  - recorded pending rows because no customer review/payment behavior exists
+  - added past-behavior questions, payment statuses, refusal reasons, and
+    Telegram-delivery-as-format guardrails
+  - advanced `docs/CODEX_PROMPT.md` to `SAS-PILOT-007`
+- Completed `SAS-PILOT-007: Repeat Or Automate Decision`:
+  - created `docs/pilot/PILOT_DECISION.md`
+  - recorded D-014 in `docs/DECISION_LOG.md`
+  - verdict: stop/defer automation until real public captures are supplied
+  - no new engineering phase approved
+- Phase 9 deep review completed:
+  - wrote `docs/audit/META_ANALYSIS.md`
+  - wrote `docs/audit/ARCH_REPORT.md`
+  - wrote `docs/audit/REVIEW_REPORT.md`
+  - archived `docs/archive/PHASE9_REVIEW.md`
+  - updated `docs/audit/AUDIT_INDEX.md`
+  - wrote `docs/audit/PHASE_REPORT_LATEST.md`
+  - updated `README.md`, `docs/ARCHITECTURE.md`, and `docs/CODEX_PROMPT.md`
+- Parsed public `bablos79` captures after operator instruction:
+  - fetched unauthenticated `https://t.me/s/bablos79` pages only
+  - created 60 capture JSON files in `workspace/captures/bablos79/`
+  - wrote `docs/pilot/bablos79_CAPTURE_MANIFEST.json`
+  - validated with `load_captures(Path("workspace"), "bablos79")` -> 60
+  - updated capture/extraction logs and decision docs
+- Created Phase 10 plan:
+  - `docs/pilot/AUTO_EXTRACTION_DEVELOPMENT_PLAN.md`
+  - `docs/tasks.md` Phase 10 `SAS-AUTO-001`, `SAS-AUTO-001B`, and
+    `SAS-AUTO-002..005`
+  - D-015 and D-016 in `docs/DECISION_LOG.md`
+  - `docs/CODEX_PROMPT.md` next task set to `SAS-AUTO-001`
 
 ## Remaining Work
 
-- No pending implementation task remains in the current task graph.
+- Run `SAS-AUTO-001`: create `docs/pilot/BABLOS79_LABEL_SEED.md` with 10-15
+  representative labeled captures before parser implementation.
+- Then run `SAS-AUTO-001B`: create `docs/pilot/bablos79_LEXICON_DRAFT.md`,
+  `docs/pilot/bablos79_APPROVED_LEXICON.md`, and
+  `workspace/lexicons/bablos79_lexicon_draft.json`.
+- Then run `SAS-AUTO-002` deterministic draft parser library.
+- Keep parser output draft-only and human-reviewed.
 
 ## Blockers Or Human Decisions
 
@@ -76,5 +148,7 @@ Use this file only at a phase boundary, context rollover, or limit recovery.
 
 Continue this product from `RUNBOOK.md`, `AGENT_NOTES.md`, this
 `PHASE_HANDOFF.md`, `docs/CODEX_PROMPT.md`, and `docs/tasks.md`.
-Do not spawn nested Codex. Continue the orchestration loop from the next pending
-task in the current product tmux window.
+Do not spawn nested Codex. Resume from `SAS-AUTO-001`. Do not implement parser
+code until seed labels and the approved author lexicon exist. Frontier-model
+output may propose vocabulary only; it is not final extraction truth. Do not
+write approved ledger records from parser output without human review.

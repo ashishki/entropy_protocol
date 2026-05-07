@@ -8,10 +8,13 @@ wedge separate from Entropy Core and Trader Risk Audit.
 ## Current Status
 
 - Phase 0 gates are acknowledged for the initial Telegram pilot sources.
-- Engineering Phases 1-3 are complete; Phase 4 is blocked before T09 by ADR-001.
+- Engineering Phases 1-8 are complete through T20.
+- Phase 9 pilot loop is complete; 60 public `bablos79` text captures now exist
+  in `workspace/captures/bablos79/`.
+- Current verdict: continue manual extraction; defer automation.
 - Package target: Python 3.12, installable as `signal-sandbox`.
 - CLI status: `signal-sandbox` exists with stubs for the planned operator workflow.
-- Tests: 38 passing; ruff and pyright pass locally.
+- Tests: 84 passing; ruff and pyright pass locally.
 
 ## Scope In
 

@@ -843,3 +843,619 @@ Notes: |
   §Inference / Model Strategy. Activation flow:
     SIGNAL_SANDBOX_ENABLE_LLM=1  signal-sandbox extract --llm-approved --source ...
   The double gate is intentional — env var alone is insufficient.
+
+---
+
+## Phase 9 — Customer-Backed Telegram Pilot Loop
+
+Phase 9 turns the completed sandbox into a customer-backed pilot on the three
+public Telegram sources already provided by potential customers:
+
+- `https://t.me/bablos79`
+- `https://t.me/nemphiscrypts`
+- `https://t.me/pifagortrade`
+
+This phase is validation-first. It may create pilot documentation, logs,
+manual-report artifacts, and narrowly scoped operator workflow improvements
+only after a bottleneck is proven. It must not start a Telegram bot, public
+SaaS, private-source scraping, marketplace, copy-trading, broker integration,
+or Entropy Core research feed.
+
+### SAS-PILOT-001: Pilot Scope ✅
+
+Owner:      codex
+Phase:      9
+Type:       validation
+Depends-On: T20
+
+Objective: |
+  Create the concrete pilot scope for the three customer-provided public
+  Telegram sources. The scope must define which source is audited first, the
+  historical window or target signal count, what qualifies as a signal, what is
+  excluded, and what customer decision the report is meant to support.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/PILOT_SCOPE.md` lists all three Telegram sources from `docs/PILOT_LOG.md` and marks them as public Telegram pilot sources."
+    test: "manual-evidence: docs/pilot/PILOT_SCOPE.md contains all three source URLs."
+  - id: AC-2
+    description: "The document chooses the first source to audit and states why that source goes first."
+    test: "manual-evidence: docs/pilot/PILOT_SCOPE.md §First Source is non-empty."
+  - id: AC-3
+    description: "The document defines the audit window or target count per source, with a default target of 30-50 defensible signal records where available."
+    test: "manual-evidence: docs/pilot/PILOT_SCOPE.md §Audit Window / Target Count is non-empty."
+  - id: AC-4
+    description: "The document explicitly states scope-out items: private groups, paywalled/login-walled sources, OCR/screenshots, X/Twitter, Discord, bot ingestion, public leaderboard, marketplace, copy trading, broker integration, and investment advice."
+    test: "manual-evidence: forbidden scope list is present."
+  - id: AC-5
+    description: "The document defines success and kill criteria for the pilot in customer terms: decision impact, payment signal, repeat request/referral, or refusal reason."
+    test: "manual-evidence: success/kill criteria sections are present."
+
+Context-Refs:
+  - docs/PILOT_LOG.md
+  - docs/legal_risk_memo.md
+  - docs/PILOT_DEVELOPMENT_LOOP_RU.md
+  - STARTUP_PRESSURE_TEST_RU.md
+
+Files:
+  - docs/pilot/PILOT_SCOPE.md
+  - docs/CODEX_PROMPT.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Notes: |
+  This task is documentation/validation only. Do not change product code.
+  The output should be written in Russian unless a source URL / field name is
+  clearer in English.
+
+---
+
+### SAS-PILOT-002: Methodology V0 ✅
+
+Owner:      codex
+Phase:      9
+Type:       validation
+Depends-On: SAS-PILOT-001
+
+Objective: |
+  Define the pilot methodology before extracting signals. The methodology must
+  explain how captures are recorded, how signals are manually extracted, how
+  ambiguity is handled, which outcome rules are used, how price provenance is
+  recorded, and how reports avoid advice or future-performance claims.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/METHODOLOGY_V0.md` defines required capture fields: source_id, public URL, capture timestamp, raw text, raw-text SHA-256, and operator notes."
+    test: "manual-evidence: capture fields section is present."
+  - id: AC-2
+    description: "The document defines signal qualification rules for asset, direction, entry, stop, target, timestamp, and evidence reference."
+    test: "manual-evidence: signal qualification section is present."
+  - id: AC-3
+    description: "The document defines statuses for approved, ambiguous, not_a_signal, insufficient_fields, duplicate, and needs_rule_template."
+    test: "manual-evidence: extraction status table is present."
+  - id: AC-4
+    description: "The document defines deterministic outcome semantics and says excluded/ambiguous records do not contribute to win/loss stats."
+    test: "manual-evidence: outcome/exclusion section is present."
+  - id: AC-5
+    description: "The document includes non-advice, historical-only, no-future-prediction, no-private-scraping, and no-Entropy-Core-contamination language."
+    test: "manual-evidence: guardrail language is present."
+
+Context-Refs:
+  - docs/pilot/PILOT_SCOPE.md
+  - docs/IMPLEMENTATION_CONTRACT.md
+  - docs/ARCHITECTURE.md
+  - docs/spec.md
+  - docs/legal_risk_memo.md
+
+Files:
+  - docs/pilot/METHODOLOGY_V0.md
+  - docs/CODEX_PROMPT.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Notes: |
+  This task should use the existing deterministic boundaries. Do not weaken
+  PSR-1 public-source-only, PSR-2 reproducibility, PSR-3 LLM output is never
+  truth, PSR-6 disclaimer integrity, or PSR-11 no forward-looking claims.
+
+---
+
+### SAS-PILOT-003: First Source Capture Plan And Log ✅
+
+Owner:      codex
+Phase:      9
+Type:       validation
+Depends-On: SAS-PILOT-002
+
+Objective: |
+  Prepare and begin the capture package for the first selected public Telegram
+  source. If the operator has not supplied raw captures yet, create the capture
+  log structure and mark capture rows as pending-operator-input instead of
+  inventing data.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/CAPTURE_LOG.md` exists and identifies the first selected source, capture status, capture method, and required evidence fields."
+    test: "manual-evidence: docs/pilot/CAPTURE_LOG.md exists with required columns."
+  - id: AC-2
+    description: "The capture log distinguishes captured, skipped, blocked, and pending-operator-input rows."
+    test: "manual-evidence: status definitions are present."
+  - id: AC-3
+    description: "The capture log records why any post/source is skipped or blocked, including non-public, paywalled, screenshot-only, or insufficient text cases."
+    test: "manual-evidence: skip/block reason list is present."
+  - id: AC-4
+    description: "No private/authenticated scraping method is introduced or recommended."
+    test: "manual-evidence: capture method section states public/operator-supplied only."
+
+Context-Refs:
+  - docs/pilot/PILOT_SCOPE.md
+  - docs/pilot/METHODOLOGY_V0.md
+  - docs/legal_risk_memo.md
+
+Files:
+  - docs/pilot/CAPTURE_LOG.md
+  - docs/CODEX_PROMPT.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Notes: |
+  Do not fabricate source posts or trading calls. If real public captures are
+  not available in the workspace, leave rows as pending operator input.
+
+---
+
+### SAS-PILOT-004: First Source Manual Extraction Log ✅
+
+Owner:      codex
+Phase:      9
+Type:       validation
+Depends-On: SAS-PILOT-003
+
+Objective: |
+  Create the manual extraction log for the first source and, if captures are
+  available, record approved/ambiguous/excluded signal candidates. The task
+  measures extraction feasibility and operator time before any new automation.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/EXTRACTION_LOG.md` exists with fields for capture_id, evidence_url, extracted fields, status, ambiguity_flags, reviewer_id, and operator_minutes."
+    test: "manual-evidence: extraction log exists with required columns."
+  - id: AC-2
+    description: "The log records counts for approved, ambiguous, not_a_signal, insufficient_fields, duplicate, needs_rule_template, and pending_capture."
+    test: "manual-evidence: summary count section is present."
+  - id: AC-3
+    description: "If no real captures are available, the log explicitly says extraction is blocked on operator-supplied captures."
+    test: "manual-evidence: blocker section is present when applicable."
+  - id: AC-4
+    description: "The log identifies repeated formats that may justify future rule templates, without implementing them."
+    test: "manual-evidence: future rule-template candidates section is present."
+
+Context-Refs:
+  - docs/pilot/CAPTURE_LOG.md
+  - docs/pilot/METHODOLOGY_V0.md
+  - docs/IMPLEMENTATION_CONTRACT.md
+
+Files:
+  - docs/pilot/EXTRACTION_LOG.md
+  - docs/CODEX_PROMPT.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Notes: |
+  Manual extraction is the default. LLM may only be discussed as a draft helper
+  after human approval; it must not be treated as final truth.
+
+---
+
+### SAS-PILOT-005: First Source Report V0 ✅
+
+Owner:      codex
+Phase:      9
+Type:       validation
+Depends-On: SAS-PILOT-004
+
+Objective: |
+  Produce the first customer-readable report artifact or a clear blocked report
+  memo if captures/extraction are insufficient. The report should be private,
+  historical-only, evidence-backed, and suitable for customer review.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/reports/` exists and contains a first-source report or blocked-report memo."
+    test: "manual-evidence: docs/pilot/reports/ contains the artifact."
+  - id: AC-2
+    description: "The report includes source, audit window, capture count, extraction count, approved/evaluable count, excluded count, limitations, and non-advice language."
+    test: "manual-evidence: required report sections are present."
+  - id: AC-3
+    description: "If outcome matching is possible, the report includes price-source provenance and deterministic outcome assumptions. If not possible, it states the blocker."
+    test: "manual-evidence: outcome/provenance or blocker section is present."
+  - id: AC-4
+    description: "The report does not recommend trades, rank influencers publicly, predict future performance, or use defamation-style language."
+    test: "manual-evidence: report language is historical and caveated."
+
+Context-Refs:
+  - docs/pilot/PILOT_SCOPE.md
+  - docs/pilot/METHODOLOGY_V0.md
+  - docs/pilot/CAPTURE_LOG.md
+  - docs/pilot/EXTRACTION_LOG.md
+  - docs/IMPLEMENTATION_CONTRACT.md
+
+Files:
+  - docs/pilot/reports/
+  - docs/CODEX_PROMPT.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Notes: |
+  This task can use existing deterministic code if the needed inputs exist, but
+  it must not implement new product features. If the report is blocked, write a
+  blocker memo rather than inventing data.
+
+---
+
+### SAS-PILOT-006: Customer Feedback And Payment Signal Log ✅
+
+Owner:      codex
+Phase:      9
+Type:       validation
+Depends-On: SAS-PILOT-005
+
+Objective: |
+  Create the customer feedback and payment-signal log for the first report.
+  The goal is to capture whether the report changed a decision and whether
+  there is payment, deposit, intent-to-pay, repeat request, or referral.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/CUSTOMER_FEEDBACK.md` exists with past-behavior questions, customer decision impact, objections, format preference, and next requested source."
+    test: "manual-evidence: feedback log exists with required sections."
+  - id: AC-2
+    description: "`docs/pilot/PAYMENT_SIGNAL_LOG.md` exists and distinguishes paid, deposit, written intent-to-pay, repeat request, referral, no-payment, and false-positive enthusiasm."
+    test: "manual-evidence: payment signal log exists with status definitions."
+  - id: AC-3
+    description: "The feedback questions avoid hypothetical 'would you pay/use' wording and focus on what the customer did or decided."
+    test: "manual-evidence: question list is past-behavior oriented."
+  - id: AC-4
+    description: "The log records whether Telegram delivery mattered as delivery format only, not as approval to build bot ingestion."
+    test: "manual-evidence: Telegram delivery section is present."
+
+Context-Refs:
+  - docs/pilot/reports/
+  - docs/PILOT_DEVELOPMENT_LOOP_RU.md
+  - STARTUP_PRESSURE_TEST_RU.md
+
+Files:
+  - docs/pilot/CUSTOMER_FEEDBACK.md
+  - docs/pilot/PAYMENT_SIGNAL_LOG.md
+  - docs/CODEX_PROMPT.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Notes: |
+  If customer feedback has not been received yet, create the log and mark rows
+  as pending-customer-review. Do not mark the pilot successful without a real
+  behavior/payment signal.
+
+---
+
+### SAS-PILOT-007: Repeat Or Automate Decision ✅
+
+Owner:      codex
+Phase:      9
+Type:       validation
+Depends-On: SAS-PILOT-006
+
+Objective: |
+  Decide whether to repeat the manual audit on the remaining two sources,
+  automate a narrow bottleneck, pivot the offer, or stop. This task is the
+  Phase 9 decision gate and must not approve broad product expansion without
+  payment evidence.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/PILOT_DECISION.md` exists and gives one of: repeat manual reports, automate narrow bottleneck, keep concierge, pivot to seller verification, stop/defer."
+    test: "manual-evidence: decision document exists with explicit verdict."
+  - id: AC-2
+    description: "The decision cites evidence from capture, extraction, report, feedback, and payment-signal logs."
+    test: "manual-evidence: evidence references section is present."
+  - id: AC-3
+    description: "If automation is recommended, it names the exact bottleneck and the smallest next engineering task. It must not approve bot ingestion, private scraping, marketplace, copy trading, broker integration, or public leaderboard."
+    test: "manual-evidence: automation scope is narrow and forbidden expansions are still blocked."
+  - id: AC-4
+    description: "The document states whether to continue with the second and third Telegram sources and what must be true before doing so."
+    test: "manual-evidence: remaining-source plan is present."
+
+Context-Refs:
+  - docs/pilot/CAPTURE_LOG.md
+  - docs/pilot/EXTRACTION_LOG.md
+  - docs/pilot/CUSTOMER_FEEDBACK.md
+  - docs/pilot/PAYMENT_SIGNAL_LOG.md
+  - docs/PILOT_DEVELOPMENT_LOOP_RU.md
+
+Files:
+  - docs/pilot/PILOT_DECISION.md
+  - docs/tasks.md
+  - docs/CODEX_PROMPT.md
+  - docs/DECISION_LOG.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Notes: |
+  If the decision creates new engineering work, add a new follow-up phase to
+  docs/tasks.md only after this decision document exists. Do not silently widen
+  the product.
+
+---
+
+## Phase 10 — Draft Extraction Assistant For Captured Telegram Posts
+
+Phase 10 is a narrow automation phase justified by the captured first-source
+batch: `workspace/captures/bablos79/` contains 60 public text captures and
+`docs/pilot/EXTRACTION_LOG.md` has `pending_manual_extraction=60`.
+
+This phase builds a deterministic draft parser / triage assistant. It may use a
+frontier model offline for author-specific lexicon discovery, but only as a
+draft candidate generator with evidence and human approval. It must not write
+approved ledger records, treat parser output as truth, introduce LLM-owned final
+extraction, add bot ingestion, scrape private sources, or expand into SaaS.
+Human review remains required before any signal record becomes approved.
+
+Reference plan: `docs/pilot/AUTO_EXTRACTION_DEVELOPMENT_PLAN.md`.
+
+### SAS-AUTO-001: Seed Labels For bablos79 Draft Parser
+
+Owner:      codex
+Phase:      10
+Type:       validation
+Depends-On: SAS-PILOT-007
+
+Objective: |
+  Create a representative hand-labeled seed set from the 60 captured public
+  `bablos79` posts before implementing parser logic. The seed must include clear
+  non-signals, insufficient-field trade mentions, ambiguous candidates, and any
+  obvious review candidates if present.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/BABLOS79_LABEL_SEED.md` exists with 10-15 rows sampled from `workspace/captures/bablos79/`."
+    test: "manual-evidence: seed file has 10-15 capture IDs."
+  - id: AC-2
+    description: "Each seed row includes capture_id, evidence_url, text_sha256, short text excerpt, expected suggested status, and reason."
+    test: "manual-evidence: seed table has required columns."
+  - id: AC-3
+    description: "The seed includes at least `not_a_signal`, `insufficient_fields`, and `ambiguous` unless the captured corpus truly lacks one category, in which case the absence is documented."
+    test: "manual-evidence: category coverage section is present."
+  - id: AC-4
+    description: "No approved ledger rows are created and no parser output is treated as final truth."
+    test: "manual-evidence: seed file states human-review boundary."
+
+Context-Refs:
+  - docs/pilot/AUTO_EXTRACTION_DEVELOPMENT_PLAN.md
+  - docs/pilot/CAPTURE_LOG.md
+  - docs/pilot/EXTRACTION_LOG.md
+  - docs/pilot/METHODOLOGY_V0.md
+
+Files:
+  - docs/pilot/BABLOS79_LABEL_SEED.md
+  - docs/CODEX_PROMPT.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Notes: |
+  This is labeling/planning, not parser implementation. Do not add product code
+  in this task.
+
+---
+
+### SAS-AUTO-001B: LLM-Assisted Author Lexicon Discovery
+
+Owner:      codex
+Phase:      10
+Type:       validation
+Depends-On: SAS-AUTO-001
+
+Objective: |
+  Use a frontier model offline to propose `bablos79`-specific extraction terms
+  from the 60 captured public posts. The model output is a review artifact only:
+  it may widen the candidate vocabulary after human approval, but it must not
+  create final extraction rows or become a parser/runtime dependency.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/bablos79_LEXICON_DRAFT.md` exists and lists candidate terms grouped by extraction category."
+    test: "manual-evidence: draft lexicon artifact exists with category sections."
+  - id: AC-2
+    description: "Every candidate includes term, category, evidence_capture_ids, short evidence excerpt, false-positive risk, and confidence."
+    test: "manual-evidence: candidate table has required columns."
+  - id: AC-3
+    description: "`docs/pilot/bablos79_APPROVED_LEXICON.md` records a human decision for every candidate: approved, rejected, or deferred."
+    test: "manual-evidence: approved lexicon includes decision column and no undecided rows."
+  - id: AC-4
+    description: "Rejected or deferred terms are explicitly excluded from parser fixtures and parser behavior."
+    test: "manual-evidence: exclusion section cites rejected/deferred candidates."
+  - id: AC-5
+    description: "No LLM call is added to parser runtime, CLI export, ledger writing, tests, or any always-on product path."
+    test: "manual-evidence: task closeout states LLM usage is offline-only; code review confirms no runtime LLM call was introduced."
+
+Context-Refs:
+  - docs/pilot/BABLOS79_LABEL_SEED.md
+  - docs/pilot/AUTO_EXTRACTION_DEVELOPMENT_PLAN.md
+  - docs/pilot/CAPTURE_LOG.md
+  - docs/pilot/EXTRACTION_LOG.md
+  - workspace/captures/bablos79/
+
+Files:
+  - docs/pilot/bablos79_LEXICON_DRAFT.md
+  - docs/pilot/bablos79_APPROVED_LEXICON.md
+  - workspace/lexicons/bablos79_lexicon_draft.json
+  - docs/CODEX_PROMPT.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Notes: |
+  This task may use a frontier model as an offline analyst over public local
+  captures. The model proposes vocabulary only; it does not decide whether a
+  post is a valid signal. Parser implementation starts after this task and can
+  use only approved lexicon entries.
+
+---
+
+### SAS-AUTO-002: Deterministic Draft Parser Library
+
+Owner:      codex
+Phase:      10
+Type:       validation
+Depends-On: SAS-AUTO-001B
+
+Objective: |
+  Implement pure deterministic parser functions over `CapturedPost` that suggest
+  extraction statuses and candidate fields for human review. The parser may use
+  the approved `bablos79` author lexicon as static local input. It must preserve
+  evidence fields and must not call an LLM or network.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`parse_draft(post)` returns a structured draft with capture_id, evidence_url, text_sha256, suggested_status, candidate fields, missing_required_fields, reason_codes, and confidence."
+    test: "tests/unit/test_draft_parser.py::test_parse_draft_returns_structured_review_draft"
+  - id: AC-2
+    description: "Evidence fields from `CapturedPost` are preserved byte-identically in every draft."
+    test: "tests/unit/test_draft_parser.py::test_parse_draft_preserves_evidence_fields"
+  - id: AC-3
+    description: "Seed labels in `docs/pilot/BABLOS79_LABEL_SEED.md` classify deterministically with no time, locale, network, or LLM dependency."
+    test: "tests/unit/test_draft_parser.py::test_seed_labels_classify_deterministically"
+  - id: AC-4
+    description: "Parser output never maps directly to final `approved`; complete candidates use `review_candidate` until human review."
+    test: "tests/unit/test_draft_parser.py::test_complete_candidate_requires_human_review"
+
+Context-Refs:
+  - docs/pilot/BABLOS79_LABEL_SEED.md
+  - docs/pilot/bablos79_APPROVED_LEXICON.md
+  - docs/pilot/AUTO_EXTRACTION_DEVELOPMENT_PLAN.md
+  - src/signal_sandbox/capture/loader.py
+  - src/signal_sandbox/extraction/rule.py
+  - docs/IMPLEMENTATION_CONTRACT.md
+
+Files:
+  - src/signal_sandbox/extraction/draft_parser.py
+  - tests/unit/test_draft_parser.py
+  - docs/CODEX_PROMPT.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Notes: |
+  Keep this pure and local. No CLI wiring, no ledger writes, no LLM calls.
+  Rejected or deferred lexicon candidates from `SAS-AUTO-001B` must not affect
+  parser behavior.
+
+---
+
+### SAS-AUTO-003: Draft Export Artifact
+
+Owner:      codex
+Phase:      10
+Type:       validation
+Depends-On: SAS-AUTO-002
+
+Objective: |
+  Export parser suggestions for all captured `bablos79` posts into a reviewable
+  artifact. The export must be deterministic, sorted, and clearly marked as
+  draft-only.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/EXTRACTION_DRAFTS_BABLOS79.md` exists and contains one draft row per captured post."
+    test: "manual-evidence: row count matches `load_captures(Path(\"workspace\"), \"bablos79\")`."
+  - id: AC-2
+    description: "Rows are sorted by source timestamp and capture_id, include suggested status, candidate fields, missing fields, reason codes, confidence, evidence_url, and text_sha256."
+    test: "tests/unit/test_draft_export.py::test_export_rows_are_deterministic_and_complete"
+  - id: AC-3
+    description: "Every row has reviewer_id set to `pending`; export does not create or modify approved ledger files."
+    test: "tests/unit/test_draft_export.py::test_export_is_draft_only_and_does_not_write_ledger"
+
+Context-Refs:
+  - docs/pilot/AUTO_EXTRACTION_DEVELOPMENT_PLAN.md
+  - docs/pilot/BABLOS79_LABEL_SEED.md
+  - src/signal_sandbox/extraction/draft_parser.py
+
+Files:
+  - src/signal_sandbox/extraction/draft_export.py
+  - tests/unit/test_draft_export.py
+  - docs/pilot/EXTRACTION_DRAFTS_BABLOS79.md
+  - docs/CODEX_PROMPT.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Notes: |
+  This task may add a local helper function, but not a new bot, service, or
+  network collector.
+
+---
+
+### SAS-AUTO-004: Merge Draft Suggestions Into Extraction Log
+
+Owner:      codex
+Phase:      10
+Type:       validation
+Depends-On: SAS-AUTO-003
+
+Objective: |
+  Update `docs/pilot/EXTRACTION_LOG.md` with parser suggestions while keeping
+  final review status separate from draft status. This measures whether the
+  parser reduces manual review work without approving records automatically.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/EXTRACTION_LOG.md` summary counts include draft suggested statuses separately from final approved statuses."
+    test: "manual-evidence: draft-vs-final counts section is present."
+  - id: AC-2
+    description: "All 60 captured rows have a suggested status or documented parser failure reason."
+    test: "manual-evidence: no `pending_manual_extraction` rows remain without a suggestion."
+  - id: AC-3
+    description: "Rows suggested as `review_candidate` still have reviewer_id=`pending` and final status is not `approved`."
+    test: "manual-evidence: human-review boundary preserved."
+  - id: AC-4
+    description: "Repeated patterns that could become rule templates are listed without implementing new templates in this task."
+    test: "manual-evidence: rule-template candidate section is present."
+
+Context-Refs:
+  - docs/pilot/EXTRACTION_DRAFTS_BABLOS79.md
+  - docs/pilot/METHODOLOGY_V0.md
+  - docs/IMPLEMENTATION_CONTRACT.md
+
+Files:
+  - docs/pilot/EXTRACTION_LOG.md
+  - docs/CODEX_PROMPT.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Notes: |
+  This is still draft classification. Approved ledger creation remains out of
+  scope until human review is explicitly recorded.
+
+---
+
+### SAS-AUTO-005: Draft Parser Evaluation And Next Decision
+
+Owner:      codex
+Phase:      10
+Type:       validation
+Depends-On: SAS-AUTO-004
+
+Objective: |
+  Evaluate whether the deterministic draft parser is useful enough to keep,
+  improve, or discard. The decision must cite reviewed rows and measured false
+  positives / useful suggestions.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/AUTO_EXTRACTION_EVAL.md` records eval source, date, row counts, suggested-status distribution, false-positive notes, and operator-review implications."
+    test: "manual-evidence: eval artifact has Date and Eval Source fields."
+  - id: AC-2
+    description: "`docs/pilot/PILOT_DECISION.md` is updated with one of: keep draft helper, improve parser rules, discard parser, or continue manual-only."
+    test: "manual-evidence: decision section cites eval artifact."
+  - id: AC-3
+    description: "If a next engineering task is proposed, it names the exact bottleneck and does not approve bot ingestion, private scraping, marketplace, copy trading, broker integration, public leaderboard, or LLM truth."
+    test: "manual-evidence: automation boundary section is present."
+
+Context-Refs:
+  - docs/pilot/EXTRACTION_LOG.md
+  - docs/pilot/EXTRACTION_DRAFTS_BABLOS79.md
+  - docs/pilot/PAYMENT_SIGNAL_LOG.md
+  - docs/pilot/AUTO_EXTRACTION_DEVELOPMENT_PLAN.md
+
+Files:
+  - docs/pilot/AUTO_EXTRACTION_EVAL.md
+  - docs/pilot/PILOT_DECISION.md
+  - docs/CODEX_PROMPT.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Notes: |
+  This is the Phase 10 decision gate. Do not silently widen the product.

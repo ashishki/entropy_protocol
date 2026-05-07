@@ -1,43 +1,45 @@
-# ARCH_REPORT - Cycle 3
+# ARCH_REPORT — Cycle 9
 _Date: 2026-05-07_
 
 ## Component Verdicts
 
 | Component | Verdict | Note |
 |-----------|---------|------|
-| Ledger I/O | PASS | Deterministic Parquet write/read path with canonical columns and duplicate handling. |
-| Dedup + ambiguity | PASS | Pure deterministic functions over `SignalRecord`; no I/O or runtime surface. |
-| ADR gate | PASS | ADR-001 is still open and correctly blocks T09 onward. |
+| Phase 9 pilot docs | PASS | Documentation-only validation loop; no application component or runtime expansion added. |
+| Pilot capture/extraction/report logs | PASS | Logs preserve operator-supplied public capture boundary and explicitly avoid fabricated data. |
+| Pilot decision gate | PASS | `PILOT_DECISION.md` stops/defers automation until real captures and customer/payment evidence exist. |
+| State surfaces | PASS | `CODEX_PROMPT.md`, `tasks.md`, `DECISION_LOG.md`, and journal align on stop/defer verdict. |
+| Regression guard test | PASS | Test update keeps phase-boundary guard aligned with current Phase 9 state. |
 
 ## Contract Compliance
 
 | Rule | Verdict | Note |
 |------|---------|------|
-| SQL Safety | PASS | No SQL surface in scope. |
-| Async Redis | PASS | No Redis surface in scope. |
-| Authorization | PASS | No API surface; local library only. |
-| PII Policy | PASS | Phase 3 adds no logging/span/metric output. Evidence URLs are persisted as required ledger data only. |
-| Credentials and Secrets | PASS | No credentials in source or tests. |
-| Shared Tracing Module | PASS | No new tracing implementations outside `observability.py`. |
-| CI Gate | PASS | Local CI-equivalent validation passes. |
-| Observability | PASS | No external adapter call boundary was added. |
-| PSR-1 Public-Source-Only | PASS | No source collection/fetching code added. |
-| PSR-2 Reproducibility Contract | PASS | Ledger writes are byte-identical under tests; dedup output is deterministic. |
-| PSR-3 LLM Output Is Never Truth | PASS | No LLM path exists in scope. |
-| PSR-4 Cost-Cap Enforcement | PASS | Paid adapters not implemented yet. |
-| PSR-5 Snapshot Immutability | PASS | Snapshot persistence not implemented yet; ADR-001 still blocks. |
-| PSR-6 Disclaimer Integrity | PASS | Reports/disclaimers not implemented yet. |
-| PSR-7 Outcome Rule Citation | PASS | Outcomes not implemented yet. |
-| PSR-8 Evidence Field Preservation | PASS | Ledger I/O preserves evidence fields through read/write. |
-| PSR-9 Append-Only Rule and Template Versioning | PASS | Registries/templates not implemented yet. |
-| PSR-10 Phase 0 Gate | PASS | Phase 0 remains acknowledged. |
-| PSR-11 No Forward-Looking Claims | PASS | No reports/outcomes strings in scope. |
+| SQL Safety | PASS | No SQL surface introduced. |
+| Async Redis | PASS | No Redis surface introduced. |
+| Authorization | PASS | No API or multi-user surface introduced. |
+| PII Policy | PASS | Docs mention public source URLs as pilot evidence, not logs/spans/metrics. |
+| Credentials and Secrets | PASS | No credentials or secrets introduced. |
+| Shared Tracing Module | PASS | No tracing changes. |
+| CI Gate | PASS | Local tests, ruff, and pyright pass. |
+| Observability | PASS | No adapter/runtime code changed. |
+| PSR-1 Public-Source-Only | PASS | Phase 9 docs repeatedly block private, paywalled, login-walled, and authenticated capture. |
+| PSR-2 Reproducibility | PASS | No deterministic core changes; methodology preserves immutable snapshots and byte-identical reruns. |
+| PSR-3 LLM Output Is Never Truth | PASS | Methodology says LLM drafts require human review and no LLM output is final truth. |
+| PSR-4 Cost-Cap Enforcement | PASS | No paid adapter changes. |
+| PSR-5 Snapshot Immutability | PASS | No snapshot code changes. |
+| PSR-6 Disclaimer Integrity | PASS | No disclaimer/report renderer code changes; blocked memo includes non-advice language. |
+| PSR-7 Outcome Rule Citation | PASS | No outcome rule changes; methodology requires rule IDs for outcomes. |
+| PSR-8 Evidence Field Preservation | PASS | Capture/extraction docs require URL/timestamp/hash preservation before extraction. |
+| PSR-9 Append-Only Rule and Template Versioning | PASS | No registry/template code changes. |
+| PSR-10 Phase 0 Gate | PASS | Phase 0 gates are acknowledged; Phase 9 is validation documentation. |
+| PSR-11 No Forward-Looking Claims | PASS | Pilot report memo forbids future-performance claims; no app report/outcome strings changed. |
 
 ## ADR Compliance
 
 | ADR | Verdict | Note |
 |-----|---------|------|
-| ADR-001 | PASS | OPEN and still blocking Phase 4/T09; no snapshot serialization code was implemented. |
+| ADR-001 | PASS | Snapshot serialization decision unaffected; no price snapshot code changed. |
 
 ## Architecture Findings
 
@@ -47,26 +49,26 @@ none
 
 | Check | Verdict | Note |
 |-------|---------|------|
-| Solution shape still Hybrid | PASS | Phase 3 added deterministic ledger/dedup logic only. |
-| Deterministic-owned areas remain deterministic | PASS | No LLM/probabilistic behavior added. |
-| Runtime tier still T0 | PASS | Local file persistence only; no daemon, privilege, shell, or persistent worker behavior. |
-| LLM adapter still gated | PASS | LLM adapter not implemented or activated. |
-| Public-source-only boundary intact (PSR-1) | PASS | No source collection behavior added. |
+| Solution shape still Hybrid | PASS | No new behavior beyond deterministic core + validation workflow docs. |
+| Deterministic-owned areas remain deterministic | PASS | No deterministic runtime code changed; methodology preserves deterministic outcomes. |
+| Runtime tier still T0 | PASS | No service, daemon, shell mutation, privilege, or hosted surface added. |
+| LLM adapter still gated | PASS | No LLM adapter code changed; docs preserve human-review gate. |
+| Public-source-only boundary intact (PSR-1) | PASS | Capture/extraction/report/decision docs reject private/authenticated/paywalled sources. |
 
 ## Reproducibility / Integrity Checks
 
 | Check | Verdict | Note |
 |-------|---------|------|
-| No new non-determinism sources | PASS | Ledger rows are sorted and Parquet is written with fixed compression/statistics settings. |
-| Decimal discipline preserved | PASS | Ledger stores numeric fields as canonical Decimal strings; outcomes/aggregator not yet implemented. |
-| Snapshots immutable on disk | PASS | Snapshots not implemented yet; ADR-001 blocks. |
-| Disclaimer canonical | PASS | Reports/disclaimers not implemented yet. |
-| Outcome rule registry append-only | PASS | Registry not implemented yet. |
-| Extraction rule templates append-only | PASS | Templates not implemented yet. |
-| All capability profiles still OFF | PASS | No retrieval/tool/agent/plan/compliance behavior added. |
+| No new non-determinism sources | PASS | No runtime output generation code changed. |
+| Decimal discipline preserved | PASS | Outcomes/aggregator unchanged. |
+| Snapshots immutable on disk | PASS | Snapshot code unchanged. |
+| Disclaimer canonical | PASS | Canonical disclaimer file and renderer unchanged. |
+| Outcome rule registry append-only | PASS | Registry unchanged. |
+| Extraction rule templates append-only | PASS | Templates unchanged. |
+| All capability profiles still OFF | PASS | No RAG/tool-use/agent/planning/compliance behavior added. |
 
 ## Doc Patches Needed
 
 | File | Section | Change |
 |------|---------|--------|
-| none | - | - |
+| none | - | No architecture/spec patch required for documentation-only Phase 9. |

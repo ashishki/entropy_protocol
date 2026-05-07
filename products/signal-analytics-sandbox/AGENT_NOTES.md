@@ -171,4 +171,45 @@ Result on 2026-05-07:
 
 ## Unresolved Follow-Up
 
-- None inside the current T01-T20 task graph.
+- Phase 9 is now active in `docs/tasks.md`.
+- Completed `SAS-PILOT-001: Pilot Scope` with
+  `docs/pilot/PILOT_SCOPE.md`.
+- Completed `SAS-PILOT-002: Methodology V0` with
+  `docs/pilot/METHODOLOGY_V0.md`.
+- Completed `SAS-PILOT-003: First Source Capture Plan And Log` with
+  `docs/pilot/CAPTURE_LOG.md`; no real captures are present yet.
+- Completed `SAS-PILOT-004: First Source Manual Extraction Log` with
+  `docs/pilot/EXTRACTION_LOG.md`; extraction is blocked on operator-supplied
+  public captures.
+- Completed `SAS-PILOT-005: First Source Report V0` with
+  `docs/pilot/reports/bablos79_BLOCKED_REPORT_V0.md`; report is blocked on
+  missing captures/extraction.
+- Completed `SAS-PILOT-006: Customer Feedback And Payment Signal Log` with
+  `docs/pilot/CUSTOMER_FEEDBACK.md` and `docs/pilot/PAYMENT_SIGNAL_LOG.md`;
+  both are pending real customer/payment behavior.
+- Completed `SAS-PILOT-007: Repeat Or Automate Decision` with
+  `docs/pilot/PILOT_DECISION.md`.
+- Current verdict: stop/defer automation until real public captures are supplied
+  for `https://t.me/bablos79`.
+- Phase 9 deep review/archive completed at `docs/archive/PHASE9_REVIEW.md`;
+  latest report is `docs/audit/PHASE_REPORT_LATEST.md`.
+- Operator requested parsing the public source. Captured 60 public text posts
+  from unauthenticated `https://t.me/s/bablos79` pages into
+  `workspace/captures/bablos79/`; manifest:
+  `docs/pilot/bablos79_CAPTURE_MANIFEST.json`.
+- Validated captures with `load_captures(Path("workspace"), "bablos79")` -> 60.
+- Updated capture/extraction logs and D-014. Current verdict: continue manual
+  extraction for these 60 captures; automation remains deferred.
+- Created `docs/pilot/AUTO_EXTRACTION_DEVELOPMENT_PLAN.md` and Phase 10
+  `SAS-AUTO-001`, `SAS-AUTO-001B`, and `SAS-AUTO-002..005` in `docs/tasks.md`
+  for a deterministic draft parser.
+- Recorded D-015: draft-extraction assistant is approved as a narrow,
+  human-reviewed automation path.
+- Recorded D-016: a frontier model may be used only offline to propose
+  author-specific lexicon candidates with evidence and human approval.
+- Next orchestrator action: `SAS-AUTO-001: Seed Labels For bablos79 Draft Parser`.
+- The three pilot sources are customer/potential-customer provided and should
+  be handled through the Phase 9 validation loop before any additional
+  automation.
+- Do not build bot/SaaS/parser expansion until `SAS-PILOT-007` identifies a
+  measured bottleneck and a narrow follow-up task.

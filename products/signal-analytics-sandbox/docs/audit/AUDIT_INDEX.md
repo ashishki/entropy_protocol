@@ -16,6 +16,7 @@ _Append-only. One row per review cycle._
 | 6 | Phase 6 | 2026-05-07 | T15-T17 | No | 0 | 0 | 0 |
 | 7 | Phase 7 | 2026-05-07 | T18-T19 | No | 0 | 0 | 0 |
 | 8 | Phase 8 | 2026-05-07 | T20 | No | 0 | 0 | 0 |
+| 9 | Phase 9 | 2026-05-07 | SAS-PILOT-001-SAS-PILOT-007 | No | 0 | 0 | 0 |
 
 ---
 
@@ -31,6 +32,7 @@ _Append-only. One row per review cycle._
 | 6 | `docs/archive/PHASE6_REVIEW.md` | Phase 6 | OK |
 | 7 | `docs/archive/PHASE7_REVIEW.md` | Phase 7 | OK |
 | 8 | `docs/archive/PHASE8_REVIEW.md` | Phase 8 | OK |
+| 9 | `docs/archive/PHASE9_REVIEW.md` | Phase 9 | OK |
 
 ---
 

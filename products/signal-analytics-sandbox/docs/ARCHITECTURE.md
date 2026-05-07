@@ -2,7 +2,7 @@
 
 Version: 1.0
 Last updated: 2026-05-07
-Status: Phase 1 Draft (pending Phase 0 gates SAS-001 + SAS-002)
+Status: Phase 9 complete (automation deferred pending public captures)
 
 ---
 
