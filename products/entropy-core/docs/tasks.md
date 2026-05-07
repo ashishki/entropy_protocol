@@ -21,6 +21,7 @@ Owner:      codex
 Phase:      1
 Type:       none
 Depends-On: none
+Status:     done 2026-05-07
 
 Objective: |
   Align the existing Entropy Core package skeleton with the reset governance loop: Python 3.12 tooling, package import surface, CLI health/version command surface, and baseline verification commands.
@@ -56,6 +57,7 @@ Owner:      codex
 Phase:      1
 Type:       none
 Depends-On: T01
+Status:     done 2026-05-07
 
 Objective: |
   Add or update the product-local CI workflow that installs Entropy Core on Python 3.12 and runs pytest, ruff check, ruff format check, and pyright from `products/entropy-core/`.
@@ -87,6 +89,7 @@ Owner:      codex
 Phase:      1
 Type:       none
 Depends-On: T01, T02
+Status:     done 2026-05-07
 
 Objective: |
   Record the first reset baseline and add smoke tests for shared tracing, metrics stubs, CLI health, and documentation state.

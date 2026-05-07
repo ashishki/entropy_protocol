@@ -21,6 +21,42 @@ This file records handoff context. It is not authority.
 
 ## Entries
 
+### 2026-05-07 - PHASE1 - Reset Foundation Boundary
+
+- Scope: T01-T03, `docs/audit/PHASE1_REVIEW.md`, `docs/audit/AUDIT_INDEX.md`
+- Why this work happened: Phase 1 tasks completed and the reset loop required a phase-boundary deep review, archive/index update, and handoff checkpoint
+- Decisions applied: `D-RESET-001`, `D-RESET-002`, `D-RESET-004`, `D-RESET-005`
+- Evidence collected: Phase 1 boundary review PASS; full reset baseline `288 passed, 20 skipped`; ruff check clean; ruff format check clean; pyright `0 errors`; `entropy --help` exited 0; `git diff --check` clean
+- Follow-ups: start T04 Registry Append-Only Audit
+- Notes for next agent: no phase-boundary findings were opened.
+
+### 2026-05-07 - T03 - Reset Baseline Smoke Tests
+
+- Scope: `src/entropy/tracing.py`, `src/entropy/metrics.py`, `docs/CODEX_PROMPT.md`, `tests/reset/test_reset_smoke.py`
+- Why this work happened: close Phase 1 with smoke coverage for tracing, metrics stubs, CLI health, reset baseline documentation, and legacy context scoping
+- Decisions applied: `D-RESET-001`, `D-RESET-005`
+- Evidence collected: `tests/reset/test_reset_smoke.py` passed (`5 passed`); full reset baseline `288 passed, 20 skipped`; ruff check clean; ruff format check clean; pyright `0 errors`; `entropy --help` exited 0; `git diff --check` clean
+- Follow-ups: run Phase 1 boundary review and archive update, then start T04
+- Notes for next agent: the reset smoke tests scan source AST for tracing-boundary drift and active tasks for old workflow archive references.
+
+### 2026-05-07 - T02 - Product-Local CI Setup
+
+- Scope: `.github/workflows/ci.yml`, `tests/reset/test_ci_contract.py`
+- Why this work happened: verify the product-local GitHub Actions workflow under the reset task graph
+- Decisions applied: `D-RESET-002`, `D-RESET-004`
+- Evidence collected: `tests/reset/test_ci_contract.py` passed (`3 passed`); full reset baseline `283 passed, 20 skipped`; ruff check clean; ruff format check clean; pyright `0 errors`; `git diff --check` clean
+- Follow-ups: start T03 Reset Baseline Smoke Tests
+- Notes for next agent: the CI workflow was already structurally aligned; this task added reset contract tests for the workflow.
+
+### 2026-05-07 - T01 - Existing Project Baseline Skeleton
+
+- Scope: `pyproject.toml`, `src/entropy/__init__.py`, `src/entropy/cli.py`, `tests/reset/test_reset_tooling.py`, `tests/reset/test_reset_skeleton.py`
+- Why this work happened: complete the first reset foundation task by verifying Python 3.12 tooling, package import/version surface, and CLI help surface against current files
+- Decisions applied: `D-RESET-001`, `D-RESET-002`
+- Evidence collected: `tests/reset/test_reset_tooling.py tests/reset/test_reset_skeleton.py` passed (`3 passed`); full reset baseline `280 passed, 20 skipped`; ruff check clean; ruff format check clean; pyright `0 errors`; `entropy --help` exited 0; `git diff --check` clean
+- Follow-ups: start T02 Product-Local CI Setup
+- Notes for next agent: T01 required no product-code patch in this segment; current files already satisfied the reset contract.
+
 ### 2026-05-07 - RESET - Governance Reset Bootstrap
 
 - Scope: `docs/`, `.github/workflows/ci.yml`, `.claude/commands/orchestrate.md`, `pyproject.toml`

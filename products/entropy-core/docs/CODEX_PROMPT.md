@@ -2,7 +2,7 @@
 
 Version: 1.0
 Date: 2026-05-07
-Phase: 1
+Phase: 2
 
 Reset state for Entropy Core after archiving the old active workflow. Historical files are available under `docs/legacy/old-workflow/2026-05-07/` but are not read by default.
 
@@ -10,18 +10,18 @@ Reset state for Entropy Core after archiving the old active workflow. Historical
 
 ## Current Phase
 
-- Phase: 1
-- Name: Reset Foundation
-- Business goal: establish the new AI Workflow Playbook loop over the existing Core codebase with Python 3.12 tooling, product-local CI, and a recorded baseline.
-- Phase gate: Phase 1 validation passes, T01-T03 complete, pytest baseline recorded, ruff and pyright clean, and CI workflow present.
+- Phase: 2
+- Name: Governance Integrity
+- Business goal: synchronize registry, governance, evidence index, and no-claim report boundaries with the current reset-era codebase.
+- Phase gate: append-only, human-gate, no-claim, and evidence-index checks pass.
 
 ## Current State
 
-- Phase: 1
-- Baseline: 0 passing tests (reset governance pre-implementation; manual sanity check 2026-05-07: 277 passed, 20 skipped)
-- Ruff: clean on manual sanity check 2026-05-07
-- Pyright: clean on manual sanity check 2026-05-07
-- Last CI: not yet configured after reset
+- Phase: 2
+- Baseline: 288 passing tests, 20 skipped (Phase 1 boundary verification on 2026-05-07)
+- Ruff: clean on Phase 1 boundary verification 2026-05-07
+- Pyright: clean on Phase 1 boundary verification 2026-05-07
+- Last CI: product-local workflow configured; remote CI not yet observed after reset
 - Holdout: locked
 - Live capital: not approved
 - Broker/exchange integration: not approved
@@ -40,7 +40,7 @@ Reset state for Entropy Core after archiving the old active workflow. Historical
 
 ## Next Task
 
-T01: Existing Project Baseline Skeleton
+T04: Registry Append-Only Audit
 
 ## Fix Queue
 
@@ -52,11 +52,22 @@ none after reset. Legacy D-K findings were closed in the prior workflow, but old
 
 ## Completed Tasks
 
-none in the reset task graph.
+- 2026-05-07: T01 Existing Project Baseline Skeleton completed.
+  - Acceptance tests: `tests/reset/test_reset_tooling.py` and `tests/reset/test_reset_skeleton.py` passed (`3 passed`).
+  - Reset baseline: `.venv/bin/python -m pytest -q tests/` reported `280 passed, 20 skipped`.
+  - Quality checks: ruff check clean; ruff format check clean; pyright `0 errors`; `entropy --help` exited 0; `git diff --check` clean.
+- 2026-05-07: T02 Product-Local CI Setup completed.
+  - Acceptance tests: `tests/reset/test_ci_contract.py` passed (`3 passed`).
+  - Reset baseline: `.venv/bin/python -m pytest -q tests/` reported `283 passed, 20 skipped`.
+  - Quality checks: ruff check clean; ruff format check clean; pyright `0 errors`; `git diff --check` clean.
+- 2026-05-07: T03 Reset Baseline Smoke Tests completed.
+  - Acceptance tests: `tests/reset/test_reset_smoke.py` passed (`5 passed`).
+  - Reset baseline: `.venv/bin/python -m pytest -q tests/` reported `288 passed, 20 skipped`.
+  - Quality checks: ruff check clean; ruff format check clean; pyright `0 errors`; `entropy --help` exited 0; `git diff --check` clean.
 
 ## Phase History
 
-none in the reset task graph.
+- 2026-05-07: Phase 1 Reset Foundation completed. Review artifact: `docs/audit/PHASE1_REVIEW.md`. Result: PASS; Stop-Ship 0, P0 0, P1 0, P2 0.
 
 ## Profile State: RAG
 
@@ -144,4 +155,5 @@ Run from `products/entropy-core/`:
 
 ## Phase 1 Validation
 
-Phase 1 validation has not run in the reset loop. The orchestrator should run the Phase 1 Validator before starting T01 and write `docs/audit/PHASE1_AUDIT.md`.
+Phase 1 validation ran in the reset loop and wrote `docs/audit/PHASE1_AUDIT.md`.
+Result: PASS, 100 checks passed, 0 blockers, 0 warnings.

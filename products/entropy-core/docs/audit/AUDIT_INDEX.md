@@ -6,11 +6,13 @@ Append-only. One row per reset-era review cycle.
 
 | Cycle | Phase | Date | Scope | Stop-Ship | P0 | P1 | P2 |
 |-------|-------|------|-------|-----------|----|----|----|
+| PHASE1-RESET | 1 | 2026-05-07 | T01-T03 Reset Foundation | 0 | 0 | 0 | 0 |
 
 ## Archive
 
 | Cycle | File | Phase | Health |
 |-------|------|-------|--------|
+| PHASE1-RESET | `docs/audit/PHASE1_REVIEW.md` | 1 | PASS |
 
 ## Notes
 
