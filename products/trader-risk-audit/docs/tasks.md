@@ -70,7 +70,7 @@ Objective: |
 Acceptance-Criteria:
   - id: AC-1
     description: "`.github/workflows/ci.yml` specifies Python 3.12 and installs with `pip install -r requirements-dev.txt -e .`."
-    test: "tests/test_ci_contract.py::test_ci_uses_python_311_and_editable_install"
+    test: "tests/test_ci_contract.py::test_ci_uses_python_312_and_editable_install"
   - id: AC-2
     description: "`.github/workflows/ci.yml` contains separate steps for `ruff check`, `ruff format --check`, and `python -m pytest`."
     test: "tests/test_ci_contract.py::test_ci_has_lint_format_and_pytest_steps"

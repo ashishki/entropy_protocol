@@ -1,8 +1,8 @@
 # CODEX_PROMPT.md
 
-Version: 1.0
+Version: 1.3
 Date: 2026-05-07
-Phase: 1
+Phase: 5
 
 This file is the single source of truth for implementation session state. Every Codex agent reads this file before starting work and updates it at phase boundaries or when the orchestrator records findings.
 
@@ -10,17 +10,17 @@ This file is the single source of truth for implementation session state. Every 
 
 ## Current Phase
 
-- Phase: 1
-- Name: Foundation
-- Business goal: establish the local Python package skeleton, CI contract, and first smoke-test baseline for deterministic Trader Risk Audit implementation.
-- Phase gate: Phase 1 validation passes, T01-T03 complete, pytest baseline recorded, ruff clean, and CI workflow present.
+- Phase: 5
+- Name: Concierge Pilot Workflow
+- Business goal: wire a complete local pilot workflow that produces reproducible audit artifacts, delivery-ready text, retention controls, and regression fixtures.
+- Phase gate: T17-T20 complete; a local operator can run a complete anonymized audit and reproduce the same artifact hashes; pytest baseline recorded; ruff clean.
 
 ## Current State
 
-- Phase: 1
-- Baseline: 0 passing tests (pre-implementation)
-- Ruff: not yet configured
-- Last CI: not yet configured
+- Phase: 5
+- Baseline: 61 passing tests
+- Ruff: clean (`ruff check` and `ruff format --check`)
+- Last CI: workflow configured; remote run not observed from this clone
 - Last updated: 2026-05-07
 - Session tokens (approx): not yet tracked
 - Cumulative phase tokens (approx): not yet tracked
@@ -36,7 +36,7 @@ This file is the single source of truth for implementation session state. Every 
 
 ## Next Task
 
-T01: Project Skeleton
+none - Phase 5 complete
 
 Before implementation, the orchestrator should hand Codex a narrow task digest inline:
 
@@ -58,11 +58,34 @@ none
 
 ## Completed Tasks
 
-none
+- T01: Project Skeleton
+- T02: CI Setup
+- T03: Baseline Smoke Tests
+- T04: Canonical Trade Schema
+- T05: Trade Export Importer
+- T06: Risk Policy Schema
+- T07: Policy Review Packet
+- T08: Session Calendar and Aggregates
+- T09: Position and Asset Rule Evaluators
+- T10: Loss, Drawdown, and Cooldown Evaluators
+- T11: Violation Record Determinism
+- T12: Violation P&L Attribution
+- T13: Report Model and Summaries
+- T14: Markdown Report Generator
+- T15: Claim Guard and Disclaimers
+- T16: Artifact Manifest and Reproducible Hashes
+- T17: End-to-End Audit CLI
+- T18: Telegram-Ready Delivery Packet
+- T19: Local Retention and Deletion Workflow
+- T20: Pilot Regression Fixture Pack
 
 ## Phase History
 
-none
+- Phase 1 Foundation complete: T01-T03 delivered package skeleton, CI contract, and baseline smoke tests. Baseline moved from 6 to 9 passing tests. Deep review Cycle 1 found P0:0, P1:0, P2:0; Stop-Ship: No.
+- Phase 2 Input Contracts complete: T04-T07 delivered canonical trade records, CSV import normalization, risk policy schema, and policy review packets. Baseline moved from 9 to 21 passing tests. Deep review Cycle 2 found P0:0, P1:0, P2:0; Stop-Ship: No.
+- Phase 3 Rule Evaluation complete: T08-T12 delivered session aggregation, deterministic evaluators, violation determinism, and reconciled P&L attribution with golden evidence. Baseline moved from 21 to 37 passing tests. Deep review Cycle 3 found P0:0, P1:0, P2:0; Stop-Ship: No.
+- Phase 4 Reporting and Artifacts complete: T13-T16 delivered deterministic report data, Markdown output, claim guard validation, and reproducible artifact manifests. Baseline moved from 37 to 49 passing tests. Deep review Cycle 4 found P0:0, P1:0, P2:0; Stop-Ship: No.
+- Phase 5 Concierge Pilot Workflow complete: T17-T20 delivered end-to-end local audit CLI, Telegram-ready copy packet, retention/delete controls, and anonymized pilot regression fixtures. Baseline moved from 49 to 61 passing tests. Deep review Cycle 5 found P0:0, P1:0, P2:0; Stop-Ship: No.
 
 ## Summary State
 
@@ -168,4 +191,4 @@ none
 
 ## Phase 1 Validation
 
-Phase 1 validation has not run yet. The orchestrator should run the Phase 1 Validator before starting T01 and write `docs/audit/PHASE1_AUDIT.md`.
+Phase 1 validation was not run before T01 in this workspace, and `docs/audit/PHASE1_AUDIT.md` is absent. Cycle 1 review recorded this as a non-blocking governance warning because the workspace had already advanced to T03 when the orchestrator resumed.

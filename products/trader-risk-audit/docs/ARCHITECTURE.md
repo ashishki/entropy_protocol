@@ -116,6 +116,7 @@ Retrieval mode is no retrieval for v1. User-provided rules and templates are loa
 | Trade schema | `trader_risk_audit/trades/schema.py` | Define canonical trade fields, validation rules, and normalized row identifiers. |
 | Import normalizer | `trader_risk_audit/trades/importers.py` | Parse supported CSV/XLSX exports into canonical trade records. |
 | Risk policy schema | `trader_risk_audit/policy/schema.py` | Define supported rule types, thresholds, units, account scope, and schema version. |
+| Policy review packet | `trader_risk_audit/policy/review.py` | Produce deterministic human review artifacts for ambiguous policy mappings and apply approved deterministic fields. |
 | Policy validator | `trader_risk_audit/policy/validation.py` | Produce explicit errors for unsupported, ambiguous, or missing rule fields. |
 | Calendar and aggregation | `trader_risk_audit/evaluation/calendar.py`, `trader_risk_audit/evaluation/aggregates.py` | Build session/day groupings, daily P&L, equity curve, exposure, and drawdown inputs. |
 | Rule evaluators | `trader_risk_audit/evaluation/rules.py` | Evaluate max daily loss, drawdown, cooldown, position size, forbidden assets, and leverage rules. |
@@ -148,7 +149,7 @@ Retrieval mode is no retrieval for v1. User-provided rules and templates are loa
 | Component | Choice | Rationale |
 |-----------|--------|-----------|
 | Language | Python 3.12 | Matches Entropy Core's runtime, fits the local CLI/data workflow, and keeps future bridge contracts from carrying cross-version friction. |
-| CLI framework | Typer or argparse | A CLI is sufficient for concierge pilots; Typer may improve ergonomics, argparse avoids dependency cost. T01 decides and pins one. |
+| CLI framework | argparse | A CLI is sufficient for concierge pilots; argparse keeps Phase 1 dependency cost at zero and is pinned by the implemented package skeleton. |
 | Dataframe engine | Polars preferred, pandas acceptable behind adapter | Polars is fast for batch trade exports and memory efficient for tens of thousands of rows; an adapter keeps migration possible. |
 | Validation | Pydantic | Versioned schemas and explicit validation errors match the audit contract. |
 | Storage | Local files; SQLite or DuckDB only if needed by a later task | Local artifacts minimize infrastructure cost before paid repeat-use evidence. |
@@ -212,6 +213,7 @@ trader-risk-audit/
 │   │   └── importers.py
 │   ├── policy/
 │   │   ├── __init__.py
+│   │   ├── review.py
 │   │   ├── schema.py
 │   │   └── validation.py
 │   ├── evaluation/
