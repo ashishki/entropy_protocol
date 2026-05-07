@@ -1,50 +1,50 @@
-# META_ANALYSIS - Cycle 3
+# META_ANALYSIS — Cycle 7
 _Date: 2026-05-07 · Type: full_
 
 ## Project State
 
-Phase 3 (T08-T12) complete. Next: T13 - Report Model and Summaries.
-Baseline: 37 pass, 0 skip.
+Phase 6 (T21-T29) is complete. Next: no implementation task remains in the
+current task graph.
+
+Baseline: 88 pass, 0 skip, 0 fail.
 
 ## Open Findings
 
 | ID | Sev | Description | Files | Status |
 |----|-----|-------------|-------|--------|
-| none | - | No open findings in `docs/CODEX_PROMPT.md`; previous cycles found no issues. | - | - |
+| none | - | No open findings in `docs/CODEX_PROMPT.md` or the prior review report. | - | - |
 
 ## PROMPT_1 Scope (architecture)
 
-- Calendar and aggregation: session-date assignment, daily realized P&L, exposure totals, and equity curve.
-- Rule evaluators: position/asset, leverage warning, daily loss, drawdown, and cooldown rules.
-- Violation model: stable violation ids and deterministic violation/warning serialization.
-- P&L attribution: exclusive top-level row buckets, overlapping rule-level membership, reconciliation guard, and golden heavy evidence.
+- Demo/pilot artifacts and Russian sales demo case.
+- Pilot intake contract, local audit workspace convention, and operator queue.
+- ADR-001 constrained Telegram intake/delivery path.
+- Telegram local intake handlers, local storage, approved delivery abstraction,
+  and mocked end-to-end pilot flow.
+- Pilot payment/evidence log for business validation.
 
 ## PROMPT_2 Scope (code, priority order)
 
-1. `trader_risk_audit/evaluation/aggregates.py` (new)
-2. `trader_risk_audit/evaluation/calendar.py` (new)
-3. `trader_risk_audit/evaluation/rules.py` (new/changed)
-4. `trader_risk_audit/evaluation/violations.py` (new/changed)
-5. `trader_risk_audit/evaluation/attribution.py` (new)
-6. `trader_risk_audit/evaluation/__init__.py` (changed)
-7. `tests/unit/evaluation/test_aggregates.py` (new)
-8. `tests/unit/evaluation/test_position_asset_rules.py` (new)
-9. `tests/unit/evaluation/test_loss_rules.py` (new)
-10. `tests/unit/evaluation/test_violation_records.py` (new)
-11. `tests/unit/evaluation/test_attribution.py` (new)
-12. `tests/integration/test_attribution_golden.py` (new)
-13. `tests/fixtures/trades/aggregate_scenarios.csv` (new)
-14. `tests/fixtures/trades/position_asset_trades.csv` (new)
-15. `tests/fixtures/trades/loss_rule_scenarios.csv` (new)
-16. `tests/fixtures/trades/attribution_overlap.csv` (new)
-17. `tests/fixtures/policies/position_asset_policy.yaml` (new)
-18. `tests/fixtures/policies/loss_rules_policy.yaml` (new)
-19. `tests/fixtures/expected/attribution_overlap_expected.json` (new)
+1. `trader_risk_audit/workspace.py`
+2. `trader_risk_audit/pilot_queue.py`
+3. `trader_risk_audit/telegram_bot/`
+4. `trader_risk_audit/cli.py`
+5. `tests/integration/test_demo_pack.py`
+6. `tests/integration/test_telegram_pilot_flow.py`
+7. `tests/unit/telegram_bot/`
+8. `tests/unit/test_workspace_layout.py`
+9. `tests/unit/test_pilot_queue.py`
+10. `tests/test_pilot_intake_contract.py`
+11. `tests/test_pilot_evidence_log.py`
+12. `tests/test_telegram_intake_adr.py`
+13. `docs/adr/ADR-001-telegram-intake-delivery.md`
+14. `docs/PILOT_*.md`, `docs/DEMO_CASE_RU.md`, templates, and demo artifacts
 
 ## Cycle Type
 
-Full - Phase 3 is complete and the project is at a phase boundary before Phase 4 reporting.
+Full — Phase 6 boundary review after T21-T29 completion.
 
 ## Notes for PROMPT_3
 
-Focus consolidation on T12 heavy evidence validity and whether Phase 4 can safely consume attribution and violation outputs.
+No P0, P1, or P2 findings were identified. README and architecture were refreshed
+as part of the Phase 6 doc update.

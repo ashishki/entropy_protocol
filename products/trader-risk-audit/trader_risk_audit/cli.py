@@ -16,6 +16,12 @@ from trader_risk_audit.evaluation.rules import (
     evaluate_position_asset_rules,
 )
 from trader_risk_audit.evaluation.violations import serialize_violations
+from trader_risk_audit.pilot_queue import (
+    PilotQueue,
+    PilotQueueError,
+    format_queue_list,
+    format_queue_request,
+)
 from trader_risk_audit.policy.review import build_review_packet
 from trader_risk_audit.policy.schema import load_policy
 from trader_risk_audit.policy.validation import (
@@ -75,6 +81,26 @@ def build_parser() -> argparse.ArgumentParser:
     retention_delete.add_argument("--confirm-delete", action="store_true")
     retention_delete.set_defaults(handler=_retention_delete_command)
 
+    queue = subparsers.add_parser("queue", help="Manage local pilot review queue.")
+    queue_subparsers = queue.add_subparsers(dest="queue_command")
+    queue_list = queue_subparsers.add_parser("list", help="List pilot requests.")
+    queue_list.add_argument("--queue-file", required=True)
+    queue_list.set_defaults(handler=_queue_list_command)
+    queue_show = queue_subparsers.add_parser("show", help="Show one pilot request.")
+    queue_show.add_argument("--queue-file", required=True)
+    queue_show.add_argument("--audit-id", required=True)
+    queue_show.set_defaults(handler=_queue_show_command)
+    queue_status = queue_subparsers.add_parser("status", help="Set request status.")
+    queue_status.add_argument("--queue-file", required=True)
+    queue_status.add_argument("--audit-id", required=True)
+    queue_status.add_argument("--status", required=True)
+    queue_status.set_defaults(handler=_queue_status_command)
+    queue_reject = queue_subparsers.add_parser("reject", help="Reject one request.")
+    queue_reject.add_argument("--queue-file", required=True)
+    queue_reject.add_argument("--audit-id", required=True)
+    queue_reject.add_argument("--reason", required=True)
+    queue_reject.set_defaults(handler=_queue_reject_command)
+
     return parser
 
 
@@ -109,6 +135,41 @@ def _retention_delete_command(args: argparse.Namespace) -> int:
     print("missing paths:")
     for path in result.missing_paths:
         print(path)
+    return 0
+
+
+def _queue_list_command(args: argparse.Namespace) -> int:
+    print(format_queue_list(PilotQueue(args.queue_file).list_requests()), end="")
+    return 0
+
+
+def _queue_show_command(args: argparse.Namespace) -> int:
+    try:
+        request = PilotQueue(args.queue_file).get_request(args.audit_id)
+    except PilotQueueError as error:
+        print(str(error))
+        return 2
+    print(format_queue_request(request), end="")
+    return 0
+
+
+def _queue_status_command(args: argparse.Namespace) -> int:
+    try:
+        request = PilotQueue(args.queue_file).set_status(args.audit_id, args.status)
+    except PilotQueueError as error:
+        print(str(error))
+        return 2
+    print(format_queue_request(request), end="")
+    return 0
+
+
+def _queue_reject_command(args: argparse.Namespace) -> int:
+    try:
+        request = PilotQueue(args.queue_file).reject(args.audit_id, args.reason)
+    except PilotQueueError as error:
+        print(str(error))
+        return 2
+    print(format_queue_request(request), end="")
     return 0
 
 

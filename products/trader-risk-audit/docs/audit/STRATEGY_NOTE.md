@@ -1,5 +1,5 @@
-# STRATEGY_NOTE - Phase 3 Review
-_Date: 2026-05-07 · Reviewing: Phase 4 (T13-T16)_
+# STRATEGY_NOTE — Phase 6 Review
+_Date: 2026-05-07 · Reviewing: Phase 6 (T21-T29)_
 
 ## Recommendation: Proceed
 
@@ -7,12 +7,12 @@ _Date: 2026-05-07 · Reviewing: Phase 4 (T13-T16)_
 
 | Check | Verdict | Notes |
 |-------|---------|-------|
-| Phase coherence | COHERENT | Phase 4 tasks T13-T16 map to Reporting and Artifacts: report model, Markdown rendering, claim guard, and reproducible manifests. |
-| Open findings gate | CLEAR | `docs/CODEX_PROMPT.md` has empty Fix Queue and no open findings. |
-| Architectural drift | ALIGNED | Completed Phase 3 components match the architecture component table: aggregation, rule evaluators, violation model, and P&L attribution. |
-| Solution shape / governance / runtime drift | ALIGNED | Phase 3 stayed deterministic and T0. No LLM behavior, live broker integration, agent loop, or privileged runtime mutation was introduced. |
-| ADR compliance | N/A | `docs/adr/` contains only the ADR directory README; no ADR decisions are present to verify. |
-| Capability Profile gate | N/A | RAG, Tool-Use, Agentic, Planning, and Compliance profiles are OFF. |
+| Phase coherence | COHERENT | T21-T29 map to the Phase 6 gate: demo artifacts, intake contract, local workspace, Telegram ADR/intake/delivery, operator queue, mocked pilot flow, and business evidence log. |
+| Open findings gate | CLEAR | `docs/CODEX_PROMPT.md` Fix Queue is empty and Open Findings is none. |
+| Architectural drift | ALIGNED | ADR-001 governs Telegram scope; architecture has been updated for local workspace and Telegram pilot components. |
+| Solution shape / governance / runtime drift | ALIGNED | Workflow orchestration and Standard governance remain appropriate. Runtime stays local-first; Telegram code is disabled/gated or sender-injected in tests, with no broker/exchange APIs or order blocking. |
+| ADR compliance | HONOURED | ADR-001 boundaries are reflected in code and tests: intake/status/local storage/approved delivery only. |
+| Capability Profile gate | N/A | RAG, Tool-Use, Agentic, Planning, and Compliance profiles remain OFF. |
 
 ## Findings / Blockers
 
@@ -20,4 +20,4 @@ None.
 
 ## Warnings
 
-- Phase 4 introduces report text and claim boundaries; T15 should be reviewed closely for unsupported advice, causal, performance, or live-control claims.
+- README and architecture should be refreshed during Phase 6 doc update so current status, baseline, components, and file layout match the completed phase.

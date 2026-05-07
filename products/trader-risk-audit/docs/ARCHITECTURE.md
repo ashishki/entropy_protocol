@@ -86,8 +86,8 @@ The highest error cost is false accusation, missed violation, bad P&L attributio
 |----------|----------|
 | Isolation boundary | T0 local process. Audits run from the product workspace or a local virtual environment controlled by the operator. |
 | Persistence model | Local files only in v1: input exports, normalized artifacts, reports, manifests, and optional SQLite/DuckDB artifacts if later justified. |
-| Network model | No network required for core v1. Telegram is manual or disabled unless a later ADR adds bot delivery. No broker/exchange egress. |
-| Secrets model | No required secrets for core v1. Optional Telegram bot token is disabled by default and must come from environment variables if enabled later. |
+| Network model | No network required for core v1. Telegram is disabled by default; ADR-001 permits constrained pilot intake/delivery only. No broker/exchange egress. |
+| Secrets model | No required secrets for core v1. Optional Telegram bot token remains disabled by default and must come from environment variables when enabled. |
 | Runtime mutation boundary | Application runtime may not install packages, modify toolchains, create services, or mutate shell state. Development and CI dependency installation are outside runtime. |
 | Rollback / recovery model | Re-run an audit from the same export, policy file, and config. Generated artifact hashes must identify output drift. |
 
@@ -126,6 +126,9 @@ Retrieval mode is no retrieval for v1. User-provided rules and templates are loa
 | Markdown report generator | `trader_risk_audit/reporting/markdown.py` | Render deterministic reports from report models and templates. |
 | Claim guard | `trader_risk_audit/reporting/claim_guard.py` | Block unsupported advice, performance, live-control, or causal claims in report text. |
 | Artifact manifest | `trader_risk_audit/artifacts/manifest.py` | Write reproducible manifests and hashes for inputs, normalized data, violations, and reports. |
+| Local workspace | `trader_risk_audit/workspace.py` | Create operator-controlled local audit workspaces with input, output, notes, artifacts, and non-sensitive metadata. |
+| Telegram pilot intake/delivery | `trader_risk_audit/telegram_bot/` | Provide disabled-by-default Telegram intake handlers, local file storage, and approved-report delivery abstractions inside ADR-001 boundaries; no broker control, signal parsing, advice, or unapproved report sending. |
+| Pilot review queue | `trader_risk_audit/pilot_queue.py` | Persist local operator-owned request statuses and non-sensitive file references for manual review and approval gates. |
 | Retention/delete workflow | `trader_risk_audit/storage/retention.py` | Delete or archive local pilot data according to explicit operator decisions. |
 | Test fixtures | `tests/fixtures/` | Store anonymized exports, policies, and expected outputs for regression tests. |
 
@@ -196,7 +199,7 @@ No confidential trade data, trader identity, broker account identifier, account 
 | Integration | Purpose | Auth method | Rate limit / SLA |
 |-------------|---------|-------------|------------------|
 | None in core v1 | Local imports and local reports do not require external APIs. | N/A | N/A |
-| Telegram delivery, optional later | Prepare or send a concise report packet where traders already communicate. | Manual copy in v1; bot token by env var only if enabled by ADR/task. | Not a dependency for core audit generation. |
+| Telegram intake/delivery, optional pilot | Receive pilot files, return status, and deliver approved reports where traders already communicate. | Disabled by default; bot token by env var only; ADR-001 boundaries apply. | Not a dependency for core audit generation; no broker/exchange APIs, signal analytics, order blocking, or investment advice. |
 
 ## File Layout
 
@@ -206,6 +209,8 @@ trader-risk-audit/
 │   ├── __init__.py
 │   ├── cli.py
 │   ├── config.py
+│   ├── pilot_queue.py
+│   ├── workspace.py
 │   ├── observability.py
 │   ├── trades/
 │   │   ├── __init__.py
@@ -226,14 +231,21 @@ trader-risk-audit/
 │   ├── reporting/
 │   │   ├── __init__.py
 │   │   ├── claim_guard.py
+│   │   ├── delivery.py
 │   │   ├── markdown.py
 │   │   └── model.py
 │   ├── artifacts/
 │   │   ├── __init__.py
 │   │   └── manifest.py
-│   └── storage/
-│       ├── __init__.py
-│       └── retention.py
+│   ├── storage/
+│   │   ├── __init__.py
+│   │   └── retention.py
+│   ├── telegram_bot/
+│   │   ├── __init__.py
+│   │   ├── bot.py
+│   │   ├── delivery.py
+│   │   ├── handlers.py
+│   │   └── storage.py
 ├── tests/
 │   ├── conftest.py
 │   ├── fixtures/
@@ -267,9 +279,11 @@ trader-risk-audit/
 | `TRA_REPORT_DIR` | Local directory where reports and manifests are written. | `./artifacts/reports` | No, default `./artifacts/reports` |
 | `TRA_LOG_LEVEL` | Logging level for local CLI diagnostics. | `INFO` | No, default `INFO` |
 | `TRA_DATABASE_URL` | Optional SQLite or DuckDB URL if a later task adds local query storage. | `sqlite:///./local.sqlite3` | No |
-| `TRA_TELEGRAM_DELIVERY_ENABLED` | Feature flag for future Telegram bot delivery. Must remain `false` until approved. | `false` | No, default `false` |
-| `TRA_TELEGRAM_BOT_TOKEN` | Optional Telegram token if bot delivery is later approved. Example shows format only. | `123456:placeholder` | No |
-| `TRA_TELEGRAM_CHAT_ID` | Optional Telegram chat id if bot delivery is later approved. | `123456789` | No |
+| `TRA_TELEGRAM_DELIVERY_ENABLED` | Legacy delivery flag; ADR-001 governs constrained Telegram pilot behavior. | `false` | No, default `false` |
+| `TRA_TELEGRAM_BOT_ENABLED` | Explicit feature flag for constrained Telegram pilot intake/delivery. | `false` | No, default `false` |
+| `TRA_TELEGRAM_BOT_TOKEN` | Optional Telegram token if bot delivery is enabled. Stored in environment only. | empty in `.env.example` | Required only when bot enabled |
+| `TRA_TELEGRAM_CHAT_ID` | Optional Telegram chat id if a future concrete sender needs it. | empty in `.env.example` | No |
+| `TRA_TELEGRAM_WORKSPACE_DIR` | Local operator-controlled workspace for Telegram pilot files. | `./data/telegram_audits` | No |
 | `TRA_LIVE_BROKER_API_ENABLED` | Explicit guard flag; live broker APIs are forbidden in v1. | `false` | No, must be `false` |
 | `TRA_ORDER_BLOCKING_ENABLED` | Explicit guard flag; order blocking is forbidden in v1. | `false` | No, must be `false` |
 

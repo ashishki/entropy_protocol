@@ -1,8 +1,8 @@
 # Task Graph - Trader Risk Audit
 
-Version: 1.0
+Version: 1.2
 Last updated: 2026-05-07
-Status: Phase 1 ready for validation
+Status: Phase 7 planned - internal validation with public samples
 
 ---
 
@@ -15,6 +15,8 @@ Status: Phase 1 ready for validation
 | 3 | Rule Evaluation | T08-T12 | Aggregation, deterministic rule evaluators, violation records, and P&L attribution. | Golden fixtures prove violation truth, source-row traceability, and reconciled attribution. |
 | 4 | Reporting and Artifacts | T13-T16 | Report data model, Markdown output, claim guard, and reproducible manifest hashes. | Reports are generated from deterministic artifacts and blocked when unsupported claims appear. |
 | 5 | Concierge Pilot Workflow | T17-T20 | End-to-end CLI, Telegram-ready packet, retention/delete workflow, and pilot regression fixtures. | A local operator can run a complete anonymized audit and reproduce the same artifact hashes. |
+| 6 | Pilot Validation and Telegram Intake | T21-T29 | Demo artifacts, pilot intake contracts, local audit workspace conventions, Telegram intake/delivery gate, operator queue, and pilot evidence log. | A user can submit files through a constrained pilot path, an operator can review/run/deliver an audit, and business evidence is captured without live trading scope. |
+| 7 | Internal Validation with Public Samples | T30-T32 | Public sample source policy, reproducible public evidence pack, and internal readiness review before trader outreach. | The team can prove the audit workflow on licensed public/anonymized examples, explain its limits, and decide whether to start trader outreach without counting public samples as paid pilot evidence. |
 
 ---
 
@@ -698,3 +700,416 @@ Context-Refs:
 
 Notes: |
   This task closes the concierge pilot implementation baseline. Real customer exports must never be committed as fixtures.
+
+## T21: Demo Audit Pack
+
+Owner:      codex
+Phase:      6
+Type:       none
+Depends-On: T17, T18, T20
+
+Objective: |
+  Add a clearly synthetic demonstration audit pack and Russian demo case so the founder can show real audit artifacts before asking prospects for their own exports and rules.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "The demo pack contains synthetic trades, a policy, generated report Markdown, generated Telegram-ready packet text, and a manifest-backed output folder."
+    test: "tests/integration/test_demo_pack.py::test_demo_pack_contains_required_artifacts"
+  - id: AC-2
+    description: "The demo audit can be regenerated through the existing local audit workflow and produces deterministic report and attribution outputs."
+    test: "tests/integration/test_demo_pack.py::test_demo_pack_regenerates_deterministically"
+  - id: AC-3
+    description: "The Russian demo case states that the data is synthetic and does not present the report as investment advice, strategy proof, or live trading control."
+    test: "tests/integration/test_demo_pack.py::test_demo_case_contains_synthetic_data_and_claim_boundaries"
+
+Files:
+  - demo/risk_audit_case_001/trades.csv
+  - demo/risk_audit_case_001/policy.yaml
+  - demo/risk_audit_case_001/output/report.md
+  - demo/risk_audit_case_001/output/telegram_packet.txt
+  - demo/risk_audit_case_001/output/manifest.json
+  - docs/DEMO_CASE_RU.md
+  - tests/integration/test_demo_pack.py
+
+Context-Refs:
+  - STARTUP_PRESSURE_TEST_RU.md#11-mvp--pilot-test
+  - docs/IMPLEMENTATION_CONTRACT.md#report-claim-boundaries
+
+Notes: |
+  This is a sales/demo artifact, not market validation. Do not use real customer exports or imply that synthetic evidence proves willingness to pay.
+
+## T22: Pilot Intake Contract
+
+Owner:      codex
+Phase:      6
+Type:       none
+Depends-On: T21
+
+Objective: |
+  Define the exact pilot intake contract a trader must satisfy before a manual audit can run: files, metadata, written risk rules, privacy/disclaimer text, and operator checklist.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "The Russian intake contract lists required files, supported file types, timezone/session fields, broker/platform field, account currency, audit period, and written risk rule requirements."
+    test: "tests/test_pilot_intake_contract.py::test_intake_contract_mentions_required_fields"
+  - id: AC-2
+    description: "The risk-rules template asks for past/current rules in trader language while warning that ambiguous rules require operator approval before evaluation."
+    test: "tests/test_pilot_intake_contract.py::test_risk_rules_template_preserves_human_approval_boundary"
+  - id: AC-3
+    description: "The privacy/disclaimer template states local-first handling, no investment advice, no live trading control, and no broker/exchange API connection."
+    test: "tests/test_pilot_intake_contract.py::test_privacy_disclaimer_contains_required_boundaries"
+
+Files:
+  - docs/PILOT_INTAKE_CONTRACT_RU.md
+  - templates/intake_request.yaml
+  - templates/risk_rules_template_ru.md
+  - templates/privacy_disclaimer_ru.md
+  - tests/test_pilot_intake_contract.py
+
+Context-Refs:
+  - STARTUP_PRESSURE_TEST_RU.md#10-first-10-customers-plan
+  - docs/ARCHITECTURE.md#human-approval-boundaries
+  - docs/IMPLEMENTATION_CONTRACT.md#confidential-data-handling
+
+Notes: |
+  Keep this contract simple enough for Telegram/manual intake. Do not introduce user accounts, hosted storage, payments, or SaaS onboarding.
+
+## T23: Local Audit Workspace Convention
+
+Owner:      codex
+Phase:      6
+Type:       none
+Depends-On: T17, T22
+
+Objective: |
+  Add a local audit workspace convention so every pilot request has predictable input, output, operator notes, status metadata, and generated artifacts without requiring a database or SaaS surface.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "A helper creates the expected audit workspace directories for input, output, and operator notes from an audit id."
+    test: "tests/unit/test_workspace_layout.py::test_workspace_layout_creates_expected_directories"
+  - id: AC-2
+    description: "Workspace metadata stores audit id, created timestamp, status, and non-sensitive file references without raw trade rows."
+    test: "tests/unit/test_workspace_layout.py::test_workspace_metadata_omits_raw_trade_data"
+  - id: AC-3
+    description: "The Russian runbook documents the local folder convention and the manual operator handoff from intake to audit output."
+    test: "tests/unit/test_workspace_layout.py::test_workspace_runbook_documents_required_layout"
+
+Files:
+  - trader_risk_audit/workspace.py
+  - docs/AUDIT_WORKSPACE_RUNBOOK_RU.md
+  - tests/unit/test_workspace_layout.py
+
+Context-Refs:
+  - docs/ARCHITECTURE.md#runtime-and-isolation-model
+  - docs/IMPLEMENTATION_CONTRACT.md#runtime-boundary
+
+Notes: |
+  The workspace is a local operator convention. It must not add a hosted database, multi-tenant auth, or network dependency.
+
+## T24: Telegram Intake ADR
+
+Owner:      codex
+Phase:      6
+Type:       adr
+Depends-On: T22, T23
+
+Objective: |
+  File an ADR that permits Telegram as a constrained pilot intake and delivery surface while keeping Trader Risk Audit separate from signal analytics, broker control, and investment-advice behavior.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "The ADR states Telegram may receive user files, return status, and deliver approved reports, but may not connect to brokers, accept API keys, block orders, parse signal channels, or generate trading advice."
+    test: "tests/test_telegram_intake_adr.py::test_adr_declares_allowed_and_forbidden_telegram_scope"
+  - id: AC-2
+    description: "The ADR defines operator approval before report delivery and keeps final violation truth in deterministic audit artifacts."
+    test: "tests/test_telegram_intake_adr.py::test_adr_preserves_operator_approval_and_deterministic_truth"
+  - id: AC-3
+    description: "The ADR documents secrets, logging, local storage, and retention boundaries for Telegram pilot files."
+    test: "tests/test_telegram_intake_adr.py::test_adr_documents_security_and_retention_boundaries"
+
+Files:
+  - docs/adr/ADR-001-telegram-intake-delivery.md
+  - tests/test_telegram_intake_adr.py
+
+Context-Refs:
+  - docs/ARCHITECTURE.md#external-integrations
+  - docs/IMPLEMENTATION_CONTRACT.md#runtime-boundary
+  - STARTUP_PRESSURE_TEST_RU.md#12-next-development-phases
+
+Notes: |
+  This ADR is required before bot implementation. It does not approve Telegram signal analytics or any live trading behavior.
+
+## T25: Minimal Telegram Bot Skeleton
+
+Owner:      codex
+Phase:      6
+Type:       none
+Depends-On: T23, T24
+
+Objective: |
+  Add a minimal Telegram pilot bot that can start an audit request, accept allowed document uploads, store files in a local audit workspace, and return an audit id with status `received`.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "The bot refuses to start unless `TRA_TELEGRAM_BOT_ENABLED=true` and a token is provided through environment variables."
+    test: "tests/unit/telegram_bot/test_handlers.py::test_bot_requires_explicit_enable_and_token"
+  - id: AC-2
+    description: "`/start`, `/help`, `/new_audit`, `/status`, and `/cancel` handlers return deterministic user-facing messages without exposing raw trade data."
+    test: "tests/unit/telegram_bot/test_handlers.py::test_core_commands_return_safe_messages"
+  - id: AC-3
+    description: "Allowed uploaded files are saved under the local audit workspace and the user receives a stable audit id."
+    test: "tests/unit/telegram_bot/test_handlers.py::test_document_upload_creates_local_audit_request"
+
+Files:
+  - trader_risk_audit/telegram_bot/__init__.py
+  - trader_risk_audit/telegram_bot/bot.py
+  - trader_risk_audit/telegram_bot/handlers.py
+  - trader_risk_audit/telegram_bot/storage.py
+  - tests/unit/telegram_bot/test_handlers.py
+  - .env.example
+
+Context-Refs:
+  - docs/adr/ADR-001-telegram-intake-delivery.md
+  - docs/IMPLEMENTATION_CONTRACT.md#credentials
+  - docs/IMPLEMENTATION_CONTRACT.md#confidential-data-handling
+
+Notes: |
+  This is intake only. Do not auto-run audits, send final reports, process payments, parse signal channels, or request broker credentials.
+
+## T26: Operator Review Queue
+
+Owner:      codex
+Phase:      6
+Type:       none
+Depends-On: T23, T25
+
+Objective: |
+  Add a local operator review queue and CLI commands so pilot requests from Telegram/manual intake can be listed, inspected, statused, rejected, or marked ready for local audit execution.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "The queue persists statuses: received, needs_policy_mapping, needs_user_clarification, ready_to_run, processing, ready_for_review, delivered, and rejected."
+    test: "tests/unit/test_pilot_queue.py::test_queue_persists_allowed_statuses"
+  - id: AC-2
+    description: "CLI commands list and show audit requests without printing raw trade rows or confidential free-text notes."
+    test: "tests/unit/test_pilot_queue.py::test_queue_cli_omits_confidential_data"
+  - id: AC-3
+    description: "The operator can change status and reject a request with a non-sensitive reason."
+    test: "tests/unit/test_pilot_queue.py::test_queue_cli_status_and_reject_transitions"
+
+Files:
+  - trader_risk_audit/pilot_queue.py
+  - trader_risk_audit/cli.py
+  - tests/unit/test_pilot_queue.py
+
+Context-Refs:
+  - docs/adr/ADR-001-telegram-intake-delivery.md
+  - docs/IMPLEMENTATION_CONTRACT.md#human-approval-for-ambiguous-inputs
+
+Notes: |
+  The queue is local-first and operator-owned. Do not add background workers, hosted queue services, or automated report sending.
+
+## T27: Telegram Delivery Packet Send
+
+Owner:      codex
+Phase:      6
+Type:       none
+Depends-On: T18, T24, T26
+
+Objective: |
+  Send an approved Telegram-ready summary and report file to the requesting user after operator approval, claim guard validation, and local audit artifact generation.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Delivery is allowed only for requests in `ready_for_review` with an existing report and delivery packet."
+    test: "tests/unit/telegram_bot/test_delivery.py::test_delivery_requires_ready_for_review_status"
+  - id: AC-2
+    description: "The source report must pass claim guard before any Telegram delivery message is sent."
+    test: "tests/unit/telegram_bot/test_delivery.py::test_delivery_requires_claim_guard_pass"
+  - id: AC-3
+    description: "Successful delivery sends summary text, attaches report Markdown, includes the disclaimer, and marks the request `delivered`."
+    test: "tests/unit/telegram_bot/test_delivery.py::test_delivery_sends_summary_report_and_marks_delivered"
+
+Files:
+  - trader_risk_audit/telegram_bot/delivery.py
+  - tests/unit/telegram_bot/test_delivery.py
+
+Context-Refs:
+  - docs/adr/ADR-001-telegram-intake-delivery.md
+  - docs/IMPLEMENTATION_CONTRACT.md#report-claim-boundaries
+
+Notes: |
+  Delivery sends only approved audit artifacts. Do not add live alerts, trade suggestions, recurring schedulers, or signal-channel messages.
+
+## T28: End-to-End Telegram Pilot Test
+
+Owner:      codex
+Phase:      6
+Type:       none
+Depends-On: T25, T26, T27
+
+Objective: |
+  Prove the full Telegram pilot loop with a mocked Telegram client: user starts a request, uploads files, operator reviews and runs audit locally, report is approved, and delivery is sent.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "The integration test covers `/new_audit`, document upload, local workspace creation, status transitions, audit output registration, and delivery through a mocked Telegram client."
+    test: "tests/integration/test_telegram_pilot_flow.py::test_full_mocked_telegram_pilot_flow"
+  - id: AC-2
+    description: "The end-to-end test requires no real network access and no real Telegram credentials."
+    test: "tests/integration/test_telegram_pilot_flow.py::test_telegram_pilot_flow_uses_mocked_client_only"
+  - id: AC-3
+    description: "Logs and test output do not contain raw trade rows, Telegram handles, emails, broker account ids, or customer identifiers."
+    test: "tests/integration/test_telegram_pilot_flow.py::test_telegram_pilot_flow_redacts_confidential_data"
+
+Files:
+  - tests/integration/test_telegram_pilot_flow.py
+
+Context-Refs:
+  - docs/adr/ADR-001-telegram-intake-delivery.md
+  - docs/IMPLEMENTATION_CONTRACT.md#confidential-data-handling
+
+Notes: |
+  The test must mock Telegram network behavior. Do not require real bot credentials in CI.
+
+## T29: Pilot Payment and Evidence Log
+
+Owner:      codex
+Phase:      6
+Type:       none
+Depends-On: T21, T22
+
+Objective: |
+  Add simple pilot evidence artifacts so business validation does not disappear behind engineering work.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "The Russian evidence log defines required fields for prospect source, ICP, call date, export provided, rules provided, paid amount, objections, report delivered, repeat requested, and referral."
+    test: "tests/test_pilot_evidence_log.py::test_evidence_log_documents_required_business_fields"
+  - id: AC-2
+    description: "The customer log CSV template contains the same required validation fields and no real customer rows."
+    test: "tests/test_pilot_evidence_log.py::test_customer_log_template_contains_required_columns_only"
+  - id: AC-3
+    description: "The evidence log states the advancement gate: 3 paid audit reports from 10 qualified prospects within 14 days, then at least 2 repeat audit commitments within 30 days."
+    test: "tests/test_pilot_evidence_log.py::test_evidence_log_records_advancement_gate"
+
+Files:
+  - docs/PILOT_EVIDENCE_LOG_RU.md
+  - templates/pilot_customer_log.csv
+  - tests/test_pilot_evidence_log.py
+
+Context-Refs:
+  - STARTUP_PRESSURE_TEST_RU.md#14-final-recommendation
+  - README.md#current-status
+
+Notes: |
+  This is a validation artifact. Do not commit real names, Telegram handles, emails, broker accounts, exports, or payment identifiers.
+
+## T30: Public Sample Source Policy
+
+Owner:      codex
+Phase:      7
+Type:       docs
+Depends-On: T21, T29
+
+Objective: |
+  Define the source, licensing, privacy, and evidence-labeling rules for public or public-like records that can be used to validate Trader Risk Audit internally before approaching real traders.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "The Russian source policy defines acceptable public/anonymized source types, required source metadata, license checks, and PII/secret rejection criteria."
+    test: "tests/test_public_sample_source_policy.py::test_public_sample_policy_defines_source_license_and_privacy_rules"
+  - id: AC-2
+    description: "The policy explicitly states that public sample artifacts are internal/demo evidence and must not be counted as qualified prospect calls, paid pilot reports, repeat commitments, referrals, or PMF evidence."
+    test: "tests/test_public_sample_source_policy.py::test_public_sample_policy_separates_demo_from_market_validation"
+  - id: AC-3
+    description: "The policy defines the readiness gate for moving from internal validation to trader outreach: reproducible reports, explainable violations, at least three risk scenarios, and a two-minute readable demo."
+    test: "tests/test_public_sample_source_policy.py::test_public_sample_policy_defines_outreach_readiness_gate"
+
+Files:
+  - docs/PUBLIC_SAMPLE_SOURCE_POLICY_RU.md
+  - tests/test_public_sample_source_policy.py
+
+Context-Refs:
+  - docs/DEMO_CASE_RU.md
+  - docs/PILOT_EVIDENCE_LOG_RU.md
+  - STARTUP_PRESSURE_TEST_RU.md#14-final-recommendation
+  - README.md#current-status
+
+Notes: |
+  This task only defines the source policy and internal readiness gate. Do not fetch public data, add public sample artifacts, contact traders, or mark validation evidence as paid pilot proof.
+  Candidate primary source for T31: SEC EDGAR Insider Transactions Data Sets / Form 4 non-derivative transactions, using only P/S transaction rows with required date, ticker, shares, and price fields. Source policy must require removing reporting owner names, signatures, remarks, footnotes, and any unnecessary personal fields before committing a sample pack.
+  Candidate backup source: public exchange trade-print samples only if SEC Form 4 cannot support at least three explainable risk scenarios; backup samples must be labeled as market trade prints, not account history.
+
+## T31: Public Sample Evidence Pack
+
+Owner:      codex
+Phase:      7
+Type:       none
+Depends-On: T30
+
+Objective: |
+  Create a reproducible public-sample evidence pack from allowed public/anonymized records or explicitly documented public-like sample records, then run the deterministic audit workflow end to end.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "The public sample pack includes source metadata, trade input, risk policy, generated audit outputs, delivery packet, and manifest with deterministic hashes."
+    test: "tests/integration/test_public_sample_pack.py::test_public_sample_pack_contains_required_inputs_outputs_and_manifest"
+  - id: AC-2
+    description: "The generated report contains at least three distinct risk scenarios and passes claim guard without investment advice, performance promises, broker-control claims, or causal overclaims."
+    test: "tests/integration/test_public_sample_pack.py::test_public_sample_report_is_explainable_and_claim_guard_safe"
+  - id: AC-3
+    description: "The source metadata labels the pack as internal/demo validation and records why it is not paid pilot evidence."
+    test: "tests/integration/test_public_sample_pack.py::test_public_sample_pack_is_not_marked_as_market_validation"
+
+Files:
+  - demo/public_sample_001/source.md
+  - demo/public_sample_001/trades.csv
+  - demo/public_sample_001/policy.yaml
+  - demo/public_sample_001/output/
+  - docs/PUBLIC_SAMPLE_EVIDENCE_RU.md
+  - tests/integration/test_public_sample_pack.py
+
+Context-Refs:
+  - docs/PUBLIC_SAMPLE_SOURCE_POLICY_RU.md
+  - docs/DEMO_CASE_RU.md
+  - docs/IMPLEMENTATION_CONTRACT.md#report-claim-boundaries
+  - docs/IMPLEMENTATION_CONTRACT.md#confidential-data-handling
+
+Notes: |
+  Preferred source path: use SEC EDGAR Insider Transactions Data Sets / Form 4 non-derivative transactions after T30 confirms source, licensing, privacy, and transformation rules. Map `TRANS_DATE` to timestamp, `ISSUERTRADINGSYMBOL` to symbol, `TRANS_ACQUIRED_DISP_CD` A/D to buy/sell, `TRANS_SHARES` to quantity, `TRANS_PRICEPERSHARE` to price, and `ACCESSION_NUMBER` plus row key to source traceability. Do not include reporting owner names, signatures, remarks, footnotes, broker credentials, or unverifiable copied private exports.
+  If using live public internet sources, record the exact source URL, access date, license or terms summary, and transformation steps.
+
+## T32: Internal Outreach Readiness Review
+
+Owner:      codex
+Phase:      7
+Type:       docs
+Depends-On: T31
+
+Objective: |
+  Review whether the public-sample evidence proves enough internal product confidence to start manual trader outreach, and capture remaining product risks separately from market validation risks.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "The readiness review records pass/fail against reproducibility, explainability, scenario coverage, two-minute demo readability, and claim safety."
+    test: "tests/test_internal_readiness_review.py::test_internal_readiness_review_records_required_gate_results"
+  - id: AC-2
+    description: "The review separates internal product confidence from market validation and keeps the paid pilot gate from the evidence log unchanged."
+    test: "tests/test_internal_readiness_review.py::test_internal_readiness_review_preserves_paid_pilot_gate"
+  - id: AC-3
+    description: "The review states the next go/no-go action for trader outreach and lists only concrete blockers or risks."
+    test: "tests/test_internal_readiness_review.py::test_internal_readiness_review_states_go_no_go_action"
+
+Files:
+  - docs/INTERNAL_VALIDATION_REVIEW_RU.md
+  - tests/test_internal_readiness_review.py
+
+Context-Refs:
+  - docs/PUBLIC_SAMPLE_EVIDENCE_RU.md
+  - docs/PILOT_EVIDENCE_LOG_RU.md
+  - STARTUP_PRESSURE_TEST_RU.md#14-final-recommendation
+
+Notes: |
+  This review may approve starting manual outreach, but it must not claim product-market fit or paid demand without real trader evidence.

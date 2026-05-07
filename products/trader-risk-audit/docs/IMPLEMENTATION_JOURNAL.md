@@ -23,6 +23,15 @@ This file records durable handoff context across agents and sessions. It is not 
 
 ## Entries
 
+### 2026-05-07 - Phase 6 Planning - Pilot Validation and Telegram Intake
+
+- Scope: `STARTUP_PRESSURE_TEST_RU.md`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `docs/DECISION_LOG.md`
+- Why this work happened: founder requested a development-loop continuation that creates real demo/pilot artifacts and a simple Telegram path for file intake and report delivery.
+- Decisions applied: `D-007`, `D-008`
+- Evidence collected: planning-only update; no product code changed and no tests run.
+- Follow-ups: start T21 Demo Audit Pack; do not implement Telegram bot work until T24 files the Telegram intake/delivery ADR.
+- Notes for next agent: Telegram is allowed only as constrained intake/delivery. It must not accept broker API keys, block orders, parse signal channels, generate trading advice, or determine final violation truth.
+
 ### 2026-05-07 - T20 - Pilot Regression Fixture Pack
 
 - Scope: `tests/integration/test_pilot_fixture_pack.py`, `tests/fixtures/pilot/trades.csv`, `tests/fixtures/pilot/policy.yaml`, `tests/fixtures/expected/pilot_violations.json`, `tests/fixtures/expected/pilot_attribution.json`, `tests/fixtures/expected/pilot_report.md`, `tests/fixtures/expected/pilot_manifest_hashes.json`, docs state.

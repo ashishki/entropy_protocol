@@ -1,20 +1,33 @@
-# Phase 3 Rule Evaluation Report
+# Phase 6 Pilot Validation and Telegram Intake Report
 
 Date: 2026-05-07
 
 ## What Was Built
 
-Phase 3 implemented the deterministic rule-evaluation core. The system now assigns trades to configured trading sessions, builds daily realized P&L and equity curve inputs, evaluates position/asset/loss/drawdown/cooldown rules, creates stable violation ids, serializes violations and warnings deterministically, and attributes P&L without double counting overlapping violations.
+Phase 6 turned the local audit workflow into a pilot-ready package without
+changing the core product into a live trading tool. The phase added a synthetic
+demo audit pack, Russian demo positioning, intake and privacy templates, a local
+workspace convention, and operator-owned queue state.
 
-The heavy T12 attribution proof is complete. The golden integration fixture verifies that top-level P&L buckets are exclusive, rule-level overlap is allowed without corrupting totals, fees are counted once, and non-zero reconciliation deltas block report generation.
+Telegram scope is now governed by ADR-001. The implementation supports a
+disabled-by-default pilot intake skeleton, local file storage, status handling,
+approved delivery through an injected sender abstraction, and a mocked
+end-to-end Telegram pilot test. It does not add broker/exchange APIs, order
+blocking, signal analytics, private group scraping, investment advice, real
+Telegram credentials, or network-dependent tests.
+
+The phase also added a pilot evidence log and CSV template so business
+validation is tracked explicitly: prospect source, ICP, call date, export/rules
+provided, paid amount, objections, report delivery, repeat request, and referral.
 
 ## Validation
 
-- Tests before Phase 3: 21 passing.
-- Tests after Phase 3: 37 passing.
+- Tests before Phase 6: 61 passing.
+- Tests after Phase 6: 88 passing.
 - Ruff check: clean.
 - Ruff format check: clean.
-- Deep review Cycle 3: P0:0, P1:0, P2:0.
+- Strategy review: Proceed.
+- Deep review Cycle 7: P0:0, P1:0, P2:0.
 - Stop-Ship: No.
 
 ## Open Issues
@@ -23,8 +36,13 @@ No open implementation findings.
 
 ## Health Verdict
 
-OK. Phase 3 remains deterministic, local-first, source-traceable, and aligned with the declared T0 runtime.
+OK. Phase 6 remains aligned with workflow orchestration, Standard governance,
+and local-first operation. Telegram is constrained by ADR-001 and covered by
+mocked tests; audit truth remains deterministic.
 
 ## Next Phase
 
-Phase 4 - Reporting and Artifacts starts with T13, Report Model and Summaries. The next phase must preserve report claim boundaries and ensure unsupported claims are blocked before customer-facing artifacts are generated.
+No next implementation phase is currently defined in `docs/tasks.md`. The next
+project move should be pilot validation: contact prospects, collect real exports
+and written rules, sell paid manual reports, and record evidence before adding
+more product scope.

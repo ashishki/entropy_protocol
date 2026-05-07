@@ -24,8 +24,10 @@ This file is a retrieval surface for important decisions. It is not the source o
 | D-004 | 2026-05-07 | Active | Capability profiles are OFF for RAG, Tool-Use, Agentic, Planning, and Compliance. | Keeps v1 profile governance proportional; turning any profile on later requires ADR. | `docs/ARCHITECTURE.md#capability-profiles` | none |
 | D-005 | 2026-05-07 | Active | Violation P&L attribution uses heavy-task evidence. | Incorrect attribution is the highest trust risk; golden fixtures and evidence indexing are required. | `docs/tasks.md#t12-violation-pl-attribution` | none |
 | D-006 | 2026-05-07 | Active | No live broker APIs, order blocking, or capital-control path in v1. | Protects the product wedge and keeps runtime tier at T0. | `docs/ARCHITECTURE.md#non-goals-v1` and `docs/IMPLEMENTATION_CONTRACT.md#forbidden-actions` | none |
+| D-007 | 2026-05-07 | Active | Phase 6 prioritizes demo artifacts, pilot intake, local workspace conventions, and validation evidence before more product expansion. | The startup pressure test found that market validation, not more core engineering, is now the binding risk. | `STARTUP_PRESSURE_TEST_RU.md` and `docs/tasks.md#t21-demo-audit-pack` | none |
+| D-008 | 2026-05-07 | Active | Telegram may be explored only as pilot intake/delivery after an ADR; it must not become signal analytics, broker integration, order blocking, or advice. | Telegram is a useful trader workflow surface, but unconstrained Telegram scope would contaminate the current audit wedge. | `docs/tasks.md#t24-telegram-intake-adr` | none |
 
 ## Retrieval Notes
 
-- Read this file before revisiting architecture, runtime tier, capability profiles, rule semantics, P&L attribution, or live integration boundaries.
+- Read this file before revisiting architecture, runtime tier, capability profiles, rule semantics, P&L attribution, Telegram behavior, or live integration boundaries.
 - If a task has `Context-Refs`, prefer those entries over scanning this file top-to-bottom.

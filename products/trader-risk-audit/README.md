@@ -12,18 +12,19 @@ violated, when they were violated, and how much damage violations created.
 
 ## Current Status
 
-- Current phase: Phase 5 - Concierge Pilot Workflow.
-- Completed: Phase 1 foundation, Phase 2 input contracts, Phase 3 rule evaluation, Phase 4 reporting/artifacts, and Phase 5 concierge pilot workflow.
-- Local baseline: 61 passing tests, 0 skipped.
-- Quality checks: `ruff check trader_risk_audit tests` and `ruff format --check trader_risk_audit tests` are clean.
-- Review status: Phase 5 deep review archived at `docs/archive/PHASE5_REVIEW.md`; Stop-Ship: No.
+- Current phase: Phase 7 - Internal Validation with Public Samples planned.
+- Completed: Phase 1 foundation through Phase 6 pilot validation, including constrained Telegram intake/delivery and business evidence artifacts.
+- Next task: T30 Public Sample Source Policy.
+- Local baseline: 88 passing tests, 0 skipped.
+- Quality checks: `.venv/bin/ruff check` and `.venv/bin/ruff format --check` are clean.
+- Review status: Phase 6 deep review archived at `docs/archive/PHASE6_REVIEW.md`; Stop-Ship: No.
 
 ## Features
 
 | Area | Status | Notes |
 |------|--------|-------|
 | Package skeleton | Complete | `python -m trader_risk_audit --version` is available. |
-| CLI command surface | Partial | `audit` runs the local deterministic workflow and `retention` manages manifest-referenced files; `manifest` remains a stub. |
+| CLI command surface | Partial | `audit` runs the local deterministic workflow; `retention` manages manifest-referenced files; `queue` manages local pilot review status; `manifest` remains a stub. |
 | Config guardrails | Complete | Live broker API and order-blocking flags are rejected for v1. |
 | CI contract | Complete | GitHub Actions installs editable package, runs ruff lint, ruff format check, and pytest. |
 | Canonical trade schema | Complete | `TradeRecord` validates canonical fields, normalizes sides, and exposes stable row ids. |
@@ -43,14 +44,20 @@ violated, when they were violated, and how much damage violations created.
 | Telegram-ready delivery packet | Complete | Copyable local text includes summary, violation counts, P&L, limitations, disclaimer, and report path without sending messages. |
 | Retention/delete workflow | Complete | Manifest artifact groups can be listed, dry-run deleted, or deleted with explicit confirmation. |
 | Pilot regression fixture pack | Complete | Anonymized end-to-end fixtures pin deterministic violations, attribution, report, and manifest hashes. |
+| Demo audit pack | Complete | Synthetic demo case includes trade/policy inputs, generated report, Telegram-ready packet, manifest, and Russian positioning doc. |
+| Pilot intake contract | Complete | Russian intake contract and templates capture required files, metadata, privacy boundaries, and human approval rules. |
+| Local audit workspace | Complete | Helper creates input/output/operator-notes/artifacts directories and non-sensitive metadata. |
+| Telegram pilot intake/delivery | Complete | ADR-001, disabled-by-default intake handlers, local storage, operator queue, approved delivery abstraction, and mocked E2E flow are covered by tests. |
+| Pilot evidence log | Complete | Russian evidence log and CSV template track qualified calls, paid reports, objections, repeat commitments, and referrals. |
+| Public sample validation | Planned | Phase 7 will define public sample source rules, build a reproducible public-sample evidence pack, and decide whether to start trader outreach. |
 
 ## Tests
 
 | Command | Current Result |
 |---------|----------------|
-| `.venv/bin/python -m pytest tests -q --tb=short` | 61 passed |
-| `.venv/bin/python -m ruff check trader_risk_audit tests` | passed |
-| `.venv/bin/python -m ruff format --check trader_risk_audit tests` | passed |
+| `.venv/bin/python -m pytest tests -q --tb=short` | 88 passed |
+| `.venv/bin/ruff check` | passed |
+| `.venv/bin/ruff format --check` | passed |
 
 ## Scope In
 
@@ -60,6 +67,10 @@ violated, when they were violated, and how much damage violations created.
 - Deterministic violation evaluation.
 - Violation attribution.
 - Markdown/PDF/Telegram-ready report packets.
+- Constrained Telegram pilot intake/delivery after ADR-001.
+- Operator-owned local review queue and workspace convention.
+- Pilot payment/evidence tracking.
+- Public/anonymized internal validation samples before trader outreach.
 
 ## Scope Out
 
@@ -69,6 +80,7 @@ violated, when they were violated, and how much damage violations created.
 - Strategy backtesting platform.
 - AI-generated trading strategies.
 - Public marketplace.
+- Telegram signal analytics, private group scraping, and live alerts.
 
 ## Read First
 
@@ -91,6 +103,8 @@ trader_risk_audit/
   __main__.py
   cli.py
   config.py
+  pilot_queue.py
+  workspace.py
   artifacts/
     __init__.py
     manifest.py
@@ -116,6 +130,12 @@ trader_risk_audit/
   storage/
     __init__.py
     retention.py
+  telegram_bot/
+    __init__.py
+    bot.py
+    delivery.py
+    handlers.py
+    storage.py
   trades/
     __init__.py
     importers.py
@@ -159,15 +179,28 @@ tests/
   unit/reporting/test_delivery_packet.py
   unit/artifacts/test_manifest.py
   unit/storage/test_retention.py
+  unit/telegram_bot/test_delivery.py
+  unit/telegram_bot/test_handlers.py
+  unit/test_pilot_queue.py
+  unit/test_workspace_layout.py
   integration/test_attribution_golden.py
   integration/test_audit_cli.py
+  integration/test_demo_pack.py
   integration/test_pilot_fixture_pack.py
+  integration/test_telegram_pilot_flow.py
 docs/
   ARCHITECTURE.md
   CODEX_PROMPT.md
   IMPLEMENTATION_CONTRACT.md
+  DEMO_CASE_RU.md
+  PILOT_EVIDENCE_LOG_RU.md
+  PILOT_INTAKE_CONTRACT_RU.md
+  adr/
   audit/
   archive/
+demo/
+  risk_audit_case_001/
+  public_sample_001/   # planned
 .github/workflows/ci.yml
 pyproject.toml
 requirements.txt

@@ -1,8 +1,8 @@
 # CODEX_PROMPT.md
 
-Version: 1.3
+Version: 1.7
 Date: 2026-05-07
-Phase: 5
+Phase: 7
 
 This file is the single source of truth for implementation session state. Every Codex agent reads this file before starting work and updates it at phase boundaries or when the orchestrator records findings.
 
@@ -10,15 +10,15 @@ This file is the single source of truth for implementation session state. Every 
 
 ## Current Phase
 
-- Phase: 5
-- Name: Concierge Pilot Workflow
-- Business goal: wire a complete local pilot workflow that produces reproducible audit artifacts, delivery-ready text, retention controls, and regression fixtures.
-- Phase gate: T17-T20 complete; a local operator can run a complete anonymized audit and reproduce the same artifact hashes; pytest baseline recorded; ruff clean.
+- Phase: 7
+- Name: Internal Validation with Public Samples
+- Business goal: prove internally that Trader Risk Audit works on licensed public/anonymized examples before manual trader outreach, while keeping public samples separate from paid pilot or PMF evidence.
+- Phase gate: T30-T32 complete; the team has a public sample source policy, a reproducible public-sample evidence pack, and a go/no-go readiness review for starting trader outreach without claiming market validation from demo artifacts.
 
 ## Current State
 
-- Phase: 5
-- Baseline: 61 passing tests
+- Phase: 7
+- Baseline: 88 passing tests
 - Ruff: clean (`ruff check` and `ruff format --check`)
 - Last CI: workflow configured; remote run not observed from this clone
 - Last updated: 2026-05-07
@@ -36,7 +36,43 @@ This file is the single source of truth for implementation session state. Every 
 
 ## Next Task
 
-none - Phase 5 complete
+T30 - Public Sample Source Policy
+
+Task intent:
+
+- Define the source, licensing, privacy, and evidence-labeling rules for public or public-like records used for internal validation before approaching real traders.
+- Record SEC EDGAR Insider Transactions Data Sets / Form 4 as the candidate primary source for the first public sample pack, subject to T30 source policy checks.
+- Make explicit that public sample artifacts are internal/demo evidence, not qualified prospect calls, paid pilot reports, repeat commitments, referrals, or PMF evidence.
+- Define the readiness gate for moving from internal validation to trader outreach.
+
+Required context before starting:
+
+- `docs/IMPLEMENTATION_CONTRACT.md`
+- `docs/tasks.md#t30-public-sample-source-policy`
+- `docs/DEMO_CASE_RU.md`
+- `docs/PILOT_EVIDENCE_LOG_RU.md`
+- `STARTUP_PRESSURE_TEST_RU.md#14-final-recommendation`
+- `README.md#current-status`
+- `docs/prompts/PROMPT_S_STRATEGY.md`
+- `docs/audit/PROMPT_0_META.md`
+- `docs/audit/PROMPT_1_ARCH.md`
+- `docs/audit/PROMPT_2_CODE.md`
+- `docs/audit/PROMPT_3_CONSOLIDATED.md`
+
+Immediate scope:
+
+- `docs/PUBLIC_SAMPLE_SOURCE_POLICY_RU.md`
+- `tests/test_public_sample_source_policy.py`
+
+Candidate source decision:
+
+- Primary: SEC EDGAR Insider Transactions Data Sets / Form 4 non-derivative transactions.
+- Filter: P/S transaction rows with required date, ticker, shares, and price.
+- Mapping for T31: `TRANS_DATE` -> timestamp, `ISSUERTRADINGSYMBOL` -> symbol, `TRANS_ACQUIRED_DISP_CD` A/D -> buy/sell, `TRANS_SHARES` -> quantity, `TRANS_PRICEPERSHARE` -> price.
+- Privacy rule: remove reporting owner names, signatures, remarks, footnotes, and unnecessary personal fields before committing a public sample pack.
+- Backup: public exchange trade-print samples only if SEC Form 4 cannot support at least three explainable risk scenarios; label backup samples as market prints, not account history.
+
+ADR-001 is filed. Telegram implementation may proceed only inside that ADR's constrained intake boundary. Phase 7 does not require new Telegram behavior.
 
 Before implementation, the orchestrator should hand Codex a narrow task digest inline:
 
@@ -58,6 +94,35 @@ none
 
 ## Completed Tasks
 
+- T17: End-to-End Audit CLI
+- T18: Telegram-Ready Delivery Packet
+- T19: Local Retention and Deletion Workflow
+- T20: Pilot Regression Fixture Pack
+- T21: Demo Audit Pack
+- T22: Pilot Intake Contract
+- T23: Local Audit Workspace Convention
+- T24: Telegram Intake ADR
+- T25: Minimal Telegram Bot Skeleton
+- T26: Operator Review Queue
+- T27: Telegram Delivery Packet Send
+- T28: End-to-End Telegram Pilot Test
+- T29: Pilot Payment and Evidence Log
+
+## Phase History
+
+- Phase 5 Concierge Pilot Workflow complete: T17-T20 delivered end-to-end local audit CLI, Telegram-ready copy packet, retention/delete controls, and anonymized pilot regression fixtures. Baseline moved from 49 to 61 passing tests. Deep review Cycle 5 found P0:0, P1:0, P2:0; Stop-Ship: No.
+- Phase 6 Pilot Validation and Telegram Intake complete: T21-T29 delivered synthetic demo artifacts, pilot intake/workspace conventions, ADR-001, constrained Telegram intake/delivery, operator queue, mocked pilot flow, and business evidence log. Baseline moved from 61 to 88 passing tests. Deep review Cycle 7 found P0:0, P1:0, P2:0; Stop-Ship: No.
+- Phase 7 Internal Validation with Public Samples planned: T30-T32 will define public sample source rules, create a reproducible public-sample evidence pack, and decide whether internal product confidence is sufficient to start trader outreach.
+
+## Summary State
+
+- Compacted on 2026-05-07 before T22 because `## Completed Tasks` exceeded 20 entries.
+- Compacted on 2026-05-07 after Phase 6 because `## Phase History` exceeded 5 entries.
+- Archived completed task detail covers T01-T16; active completed task list keeps Phase 5/6 pilot workflow context.
+- Current phase, baseline, next task, open findings, active decisions, and evidence pointers remain in their canonical sections above.
+
+## Archive - Completed Tasks
+
 - T01: Project Skeleton
 - T02: CI Setup
 - T03: Baseline Smoke Tests
@@ -74,22 +139,13 @@ none
 - T14: Markdown Report Generator
 - T15: Claim Guard and Disclaimers
 - T16: Artifact Manifest and Reproducible Hashes
-- T17: End-to-End Audit CLI
-- T18: Telegram-Ready Delivery Packet
-- T19: Local Retention and Deletion Workflow
-- T20: Pilot Regression Fixture Pack
 
-## Phase History
+## Archive - Phase History
 
 - Phase 1 Foundation complete: T01-T03 delivered package skeleton, CI contract, and baseline smoke tests. Baseline moved from 6 to 9 passing tests. Deep review Cycle 1 found P0:0, P1:0, P2:0; Stop-Ship: No.
 - Phase 2 Input Contracts complete: T04-T07 delivered canonical trade records, CSV import normalization, risk policy schema, and policy review packets. Baseline moved from 9 to 21 passing tests. Deep review Cycle 2 found P0:0, P1:0, P2:0; Stop-Ship: No.
 - Phase 3 Rule Evaluation complete: T08-T12 delivered session aggregation, deterministic evaluators, violation determinism, and reconciled P&L attribution with golden evidence. Baseline moved from 21 to 37 passing tests. Deep review Cycle 3 found P0:0, P1:0, P2:0; Stop-Ship: No.
 - Phase 4 Reporting and Artifacts complete: T13-T16 delivered deterministic report data, Markdown output, claim guard validation, and reproducible artifact manifests. Baseline moved from 37 to 49 passing tests. Deep review Cycle 4 found P0:0, P1:0, P2:0; Stop-Ship: No.
-- Phase 5 Concierge Pilot Workflow complete: T17-T20 delivered end-to-end local audit CLI, Telegram-ready copy packet, retention/delete controls, and anonymized pilot regression fixtures. Baseline moved from 49 to 61 passing tests. Deep review Cycle 5 found P0:0, P1:0, P2:0; Stop-Ship: No.
-
-## Summary State
-
-No compacted phase summaries yet.
 
 ## Compaction Protocol
 
