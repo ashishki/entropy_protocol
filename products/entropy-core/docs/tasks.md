@@ -514,6 +514,7 @@ Owner:      codex
 Phase:      5
 Type:       none
 Depends-On: T13, T14
+Status:     done 2026-05-07
 
 Objective: |
   Select one narrow, falsifiable archive-only baseline hypothesis and encode a preregistration packet that can become a registered evaluation object only through explicit human approval and hash binding.
@@ -549,6 +550,7 @@ Owner:      codex
 Phase:      5
 Type:       none
 Depends-On: T08, T15
+Status:     done 2026-05-07
 
 Objective: |
   Bind the first research candidate to an archive-only dataset manifest with deterministic dataset hashes and explicit holdout exclusion.
@@ -584,6 +586,7 @@ Owner:      codex
 Phase:      5
 Type:       none
 Depends-On: T09, T10, T15, T16
+Status:     done 2026-05-07
 
 Objective: |
   Wire the first candidate through an archive-only evaluation path that records leakage checks, SimBroker fills/costs, and attribution streams without opening OOS/performance claims.
@@ -627,6 +630,7 @@ Owner:      codex
 Phase:      5
 Type:       none
 Depends-On: T11, T17
+Status:     done 2026-05-07
 
 Objective: |
   Generate the first deterministic archive-only research evidence packet with candidate, hashes, leakage, SimBroker, attribution, no-claim labels, and evidence-index proof.
@@ -670,6 +674,7 @@ Owner:      codex
 Phase:      5
 Type:       none
 Depends-On: T18
+Status:     done 2026-05-07
 
 Objective: |
   Review the first research evidence packet, record open findings, and recommend the next human decision without escalating claims.

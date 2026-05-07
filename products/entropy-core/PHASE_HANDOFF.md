@@ -7,10 +7,10 @@ manual restart.
 
 - Product: entropy-core
 - Branch: codex/entropy-core-work
-- Active task: T15 First Research Candidate Registration Packet
+- Active task: Human decision required after T19
 - Phase: 5 First Research Evidence Packet
-- Last validation: 2026-05-07 T14: `328 passed, 20 skipped`; ruff check clean; ruff format check clean; pyright 0 errors; `git diff --check` clean.
-- Git status summary: new research packet task graph local changes pending commit at handoff update time.
+- Last validation: 2026-05-07 T19: `351 passed, 20 skipped`; ruff check clean; ruff format check clean; pyright 0 errors; `git diff --check` clean.
+- Git status summary: T15-T19 first research packet local changes pending commit at handoff update time.
 
 ## Completed In This Phase
 
@@ -31,18 +31,20 @@ manual restart.
 - T12 Trader Risk Audit Bridge Contracts completed with no findings.
 - T13 Hypothesis Backtest Bridge Design completed with no findings.
 - T14 Reset Strategy Closure Review completed with no findings.
+- T15 First Research Candidate Registration Packet completed with no findings.
+- T16 Archive Dataset Manifest and Hash Binding completed with no findings.
+- T17 Archive Evaluation Harness Wiring completed with no findings.
+- T18 First Research Evidence Packet completed with no findings.
+- T19 First Research Packet Review completed with no findings.
 
 ## Remaining Work
 
-- T15 First Research Candidate Registration Packet
-- T16 Archive Dataset Manifest and Hash Binding
-- T17 Archive Evaluation Harness Wiring
-- T18 First Research Evidence Packet
-- T19 First Research Packet Review
+- Human decision required before any new research block, phase-gate discussion, holdout access, live-feed path, broker/exchange path, production/capital-ready path, or OOS/performance claim path.
 
 ## Blockers Or Human Decisions
 
 - Human decision after T14 recorded: open the first research evidence packet block.
+- Human decision required after T19: first packet block is complete; no next block is open.
 
 ## Resume Instruction
 

@@ -8,6 +8,14 @@ from entropy.evidence.artifacts import (
     generate_evaluation_report,
     generate_phase0_gate_report,
 )
+from entropy.evidence.first_research_packet import (
+    FIRST_RESEARCH_EVIDENCE_PACKET_SCHEMA_VERSION,
+    FIRST_RESEARCH_PACKET_NO_CLAIM_LABELS,
+    FirstResearchEvidencePacket,
+    FirstResearchEvidencePacketError,
+    build_first_research_evidence_packet,
+    deterministic_research_packet_json,
+)
 from entropy.evidence.binance_canary import (
     BINANCE_CANARY_ID,
     BinanceKlineCanaryResult,
@@ -194,6 +202,8 @@ __all__ = [
     "DATA_STABILITY_LIVE_APPEND_ID",
     "DATA_STABILITY_ARCHIVE_PACKET_ID",
     "DATA_STABILITY_SIMULATION_ID",
+    "FIRST_RESEARCH_EVIDENCE_PACKET_SCHEMA_VERSION",
+    "FIRST_RESEARCH_PACKET_NO_CLAIM_LABELS",
     "P4ArtifactInput",
     "P4_BATCH_COLLECTION_ID",
     "P4_BATCH_CONVERSION_ID",
@@ -259,6 +269,8 @@ __all__ = [
     "DataStabilitySimulationResult",
     "EvidenceIndexRow",
     "EvidenceCollectionError",
+    "FirstResearchEvidencePacket",
+    "FirstResearchEvidencePacketError",
     "PhaseGateEvidencePacket",
     "append_live_data_stability_snapshot",
     "authorize_phase1a_archive_read",
@@ -271,6 +283,7 @@ __all__ = [
     "build_phase1a_baseline_registration_manifest",
     "build_phase1a_registration_boundary_manifest",
     "build_phase_gate_evidence_packet",
+    "build_first_research_evidence_packet",
     "batch_manifest_payload",
     "collect_first_p4_batch",
     "collect_calibration_quote_bootstrap",
@@ -285,6 +298,7 @@ __all__ = [
     "generate_fixture_stability_window",
     "generate_p4_label_artifacts",
     "generate_phase0_gate_report",
+    "deterministic_research_packet_json",
     "get_approved_free_crypto_sources",
     "get_default_phase0_crypto_universe",
     "get_default_phase0_p4_crypto_universe",

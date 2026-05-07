@@ -18,9 +18,9 @@ Reset state for Entropy Core after archiving the old active workflow. Historical
 ## Current State
 
 - Phase: 5
-- Baseline: 328 passing tests, 20 skipped (T14 local verification on 2026-05-07)
-- Ruff: clean on Phase 1 boundary verification 2026-05-07
-- Pyright: clean on Phase 1 boundary verification 2026-05-07
+- Baseline: 351 passing tests, 20 skipped (T19 local verification on 2026-05-07)
+- Ruff: clean on T19 local verification 2026-05-07
+- Pyright: clean on T19 local verification 2026-05-07
 - Last CI: product-local workflow configured; remote CI not yet observed after reset
 - Holdout: locked
 - Live capital: not approved
@@ -40,9 +40,9 @@ Reset state for Entropy Core after archiving the old active workflow. Historical
 
 ## Next Task
 
-T15: First Research Candidate Registration Packet
+Human decision required after T19.
 
-Human decision recorded: Reset implementation awaits human decision after T14; this instruction opens the next research packet block.
+First Research Evidence Packet block complete through T19. Do not continue into a new research block, holdout discussion, live-feed path, broker/exchange path, production/capital-ready path, or OOS/performance claim path unless a human explicitly opens that scope.
 
 ## Fix Queue
 
@@ -110,6 +110,26 @@ none after reset. Legacy D-K findings were closed in the prior workflow, but old
   - Acceptance tests: `tests/reset/test_reset_closure.py` passed (`3 passed`).
   - Reset baseline: `.venv/bin/python -m pytest -q tests/` reported `328 passed, 20 skipped`.
   - Quality checks: ruff check clean; ruff format check clean; pyright `0 errors`; `git diff --check` clean.
+- 2026-05-07: T15 First Research Candidate Registration Packet completed.
+  - Acceptance tests: `tests/integration/test_first_research_packet.py` passed (`11 passed`).
+  - Reset baseline: `.venv/bin/python -m pytest -q tests/` reported `339 passed, 20 skipped`.
+  - Quality checks: ruff check clean; ruff format check clean; pyright `0 errors`; `git diff --check` clean.
+- 2026-05-07: T16 Archive Dataset Manifest and Hash Binding completed.
+  - Acceptance tests: `tests/integration/test_first_research_packet.py` passed (`14 passed`).
+  - Reset baseline: `.venv/bin/python -m pytest -q tests/` reported `342 passed, 20 skipped`.
+  - Quality checks: ruff check clean; ruff format check clean; pyright `0 errors`; `git diff --check` clean.
+- 2026-05-07: T17 Archive Evaluation Harness Wiring completed.
+  - Acceptance tests: `tests/integration/test_first_research_packet.py` passed (`17 passed`).
+  - Reset baseline: `.venv/bin/python -m pytest -q tests/` reported `345 passed, 20 skipped`.
+  - Quality checks: ruff check clean; ruff format check clean; pyright `0 errors`; `git diff --check` clean.
+- 2026-05-07: T18 First Research Evidence Packet completed.
+  - Acceptance tests: `tests/integration/test_first_research_packet.py` passed (`20 passed`).
+  - Reset baseline: `.venv/bin/python -m pytest -q tests/` reported `348 passed, 20 skipped`.
+  - Quality checks: ruff check clean; ruff format check clean; pyright `0 errors`; `git diff --check` clean.
+- 2026-05-07: T19 First Research Packet Review completed.
+  - Acceptance tests: `tests/reset/test_first_research_packet_review.py` passed (`3 passed`).
+  - Reset baseline: `.venv/bin/python -m pytest -q tests/` reported `351 passed, 20 skipped`.
+  - Quality checks: ruff check clean; ruff format check clean; pyright `0 errors`; `git diff --check` clean.
 
 ## Phase History
 
@@ -118,6 +138,7 @@ none after reset. Legacy D-K findings were closed in the prior workflow, but old
 - 2026-05-07: Phase 3 Evaluation Safety completed. Review artifact: `docs/audit/PHASE3_REVIEW.md`. Result: PASS; Stop-Ship 0, P0 0, P1 0, P2 0.
 - 2026-05-07: Reset implementation block completed. Review artifact: `docs/audit/RESET_REVIEW.md`. Result: PASS; Stop-Ship 0, P0 0, P1 0, P2 0.
 - 2026-05-07: First Research Evidence Packet block opened by human decision after T14. Scope: T15-T19.
+- 2026-05-07: First Research Evidence Packet block completed. Review artifact: `docs/audit/FIRST_RESEARCH_PACKET_REVIEW.md`. Result: PASS; Stop-Ship 0, P0 0, P1 0, P2 0.
 
 ## Profile State: RAG
 
@@ -167,18 +188,22 @@ none after reset. Legacy D-K findings were closed in the prior workflow, but old
 ### Last Evaluation
 
 - Profile: First Research Evidence Packet
-- Task: T15 First Research Candidate Registration Packet
+- Task: Human decision required after T19
 - Date: 2026-05-07
-- Eval Source: pending
-- Metric(s): pending first research candidate contract tests
-- Score: pending; current baseline `328 passed, 20 skipped`
-- Baseline: reset closure `328 passed, 20 skipped`
-- Delta: pending
+- Eval Source: `tests/integration/test_first_research_packet.py`
+- Metric(s): first research packet review contract tests
+- Score: `3 passed`; current baseline `351 passed, 20 skipped`
+- Baseline: T18 first research evidence packet `348 passed, 20 skipped`
+- Delta: +3 passing tests
 - Regression: none known
 
 ### Open Evaluation Issues
 
 none
+
+### Human Decision Point
+
+First Research Evidence Packet block is complete through T19. Holdout, live feeds, broker/exchange, production, capital-ready, and OOS/performance remain unapproved.
 
 ## Verification Defaults
 

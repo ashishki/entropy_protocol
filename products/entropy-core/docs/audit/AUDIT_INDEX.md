@@ -10,6 +10,7 @@ Append-only. One row per reset-era review cycle.
 | PHASE2-GOVERNANCE | 2 | 2026-05-07 | T04-T07 Governance Integrity | 0 | 0 | 0 | 0 |
 | PHASE3-EVALUATION | 3 | 2026-05-07 | T08-T11 Evaluation Safety | 0 | 0 | 0 | 0 |
 | RESET-CLOSURE | 4 | 2026-05-07 | T01-T14 Reset Closure | 0 | 0 | 0 | 0 |
+| FIRST-RESEARCH-PACKET | 5 | 2026-05-07 | T15-T19 First Research Evidence Packet | 0 | 0 | 0 | 0 |
 
 ## Archive
 
@@ -19,6 +20,7 @@ Append-only. One row per reset-era review cycle.
 | PHASE2-GOVERNANCE | `docs/audit/PHASE2_REVIEW.md` | 2 | PASS |
 | PHASE3-EVALUATION | `docs/audit/PHASE3_REVIEW.md` | 3 | PASS |
 | RESET-CLOSURE | `docs/audit/RESET_REVIEW.md` | 4 | PASS |
+| FIRST-RESEARCH-PACKET | `docs/audit/FIRST_RESEARCH_PACKET_REVIEW.md` | 5 | PASS |
 
 ## Notes
 

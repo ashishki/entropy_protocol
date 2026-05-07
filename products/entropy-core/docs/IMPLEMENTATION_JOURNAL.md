@@ -21,6 +21,51 @@ This file records handoff context. It is not authority.
 
 ## Entries
 
+### 2026-05-07 - T19 - First Research Packet Review
+
+- Scope: `docs/audit/FIRST_RESEARCH_PACKET_REVIEW.md`, `docs/audit/AUDIT_INDEX.md`, `docs/CODEX_PROMPT.md`, `tests/reset/test_first_research_packet_review.py`
+- Why this work happened: close the first research evidence packet block with a review artifact, audit index row, validation record, limitations, and next human decision point
+- Decisions applied: `docs/research/first-packet/RESEARCH_EVIDENCE_PACKET.md`; `docs/audit/RESET_REVIEW.md`
+- Evidence collected: T19 acceptance tests passed (`3 passed`); full reset baseline `351 passed, 20 skipped`; ruff check clean; ruff format check clean; pyright `0 errors`; `git diff --check` clean
+- Follow-ups: stop for human decision unless explicitly instructed to open a new research block or gate discussion
+- Notes for next agent: first packet block is complete; holdout, live feeds, broker/exchange, production, capital-ready, phase-gate, and OOS/performance remain unapproved.
+
+### 2026-05-07 - T18 - First Research Evidence Packet
+
+- Scope: `src/entropy/evidence/first_research_packet.py`, `src/entropy/evidence/__init__.py`, `docs/research/first-packet/RESEARCH_EVIDENCE_PACKET.md`, `docs/EVIDENCE_INDEX.md`, `tests/integration/test_first_research_packet.py`
+- Why this work happened: generate the first deterministic archive-only research evidence packet from the candidate, manifest, and archive evaluation outputs
+- Decisions applied: `docs/audit/RESET_REVIEW.md`; `docs/EVIDENCE_INDEX.md`; T11 phase-gate packet boundary; T17 archive evaluation harness
+- Evidence collected: T18 acceptance tests passed (`20 passed`); full reset baseline `348 passed, 20 skipped`; ruff check clean; ruff format check clean; pyright `0 errors`; `git diff --check` clean
+- Follow-ups: start T19 First Research Packet Review
+- Notes for next agent: T18 creates a concrete packet artifact but remains no-claim; it fails missing referenced artifacts or unresolved hashes and preserves blocked holdout, OOS/performance, phase-gate, production, capital-ready, live-feed, and broker/exchange approvals.
+
+### 2026-05-07 - T17 - Archive Evaluation Harness Wiring
+
+- Scope: `src/entropy/research/evaluation.py`, `src/entropy/research/__init__.py`, `docs/EVIDENCE_INDEX.md`, `tests/integration/test_first_research_packet.py`
+- Why this work happened: wire the first candidate and archive dataset manifest through a deterministic archive-only evaluation surface that records leakage, SimBroker, attribution, and no-claim evidence
+- Decisions applied: `docs/core/PROTOCOL_SPEC.md`; `docs/audit/PHASE3_REVIEW.md`; T09 SimBroker evidence; T10 attribution boundary evidence; T15-T16 first packet contracts
+- Evidence collected: T17 acceptance tests passed (`17 passed`); full reset baseline `345 passed, 20 skipped`; ruff check clean; ruff format check clean; pyright `0 errors`; `git diff --check` clean
+- Follow-ups: start T18 First Research Evidence Packet
+- Notes for next agent: T17 is heavy evidence and remains archive-only; the harness refuses unresolved dataset/code/policy/parameter hashes, does not create an OOS label, and emits separated attribution streams with no performance conclusion.
+
+### 2026-05-07 - T16 - Archive Dataset Manifest and Hash Binding
+
+- Scope: `src/entropy/research/manifest.py`, `src/entropy/research/__init__.py`, `docs/research/first-packet/DATASET_MANIFEST.md`, `docs/EVIDENCE_INDEX.md`, `tests/integration/test_first_research_packet.py`
+- Why this work happened: bind the first research candidate to an archive-only dataset manifest with deterministic aggregate hashes and explicit holdout exclusion
+- Decisions applied: `docs/core/PROTOCOL_SPEC.md`; `docs/IMPLEMENTATION_CONTRACT.md#leakage-and-holdout-boundary`; T08 dataset/hash and holdout guard evidence; T15 candidate packet contract
+- Evidence collected: T16 acceptance tests passed (`14 passed`); full reset baseline `342 passed, 20 skipped`; ruff check clean; ruff format check clean; pyright `0 errors`; `git diff --check` clean
+- Follow-ups: start T17 Archive Evaluation Harness Wiring
+- Notes for next agent: T16 added manifest binding only; it excludes holdout paths and preserves the T15 hypothesis text, family, and frozen parameters when replacing the candidate dataset hash placeholder with the aggregate archive dataset hash.
+
+### 2026-05-07 - T15 - First Research Candidate Registration Packet
+
+- Scope: `src/entropy/research/`, `docs/research/first-packet/CANDIDATE_PACKET.md`, `tests/integration/test_first_research_packet.py`
+- Why this work happened: create the first narrow archive-only preregistration candidate for the Phase 5 research evidence packet block
+- Decisions applied: `docs/governance/research_firewall.md`; `docs/governance/experiment_readiness_gate.md`; `docs/governance/hypothesis_families.md`; `docs/bridges/hypothesis-backtest.md`
+- Evidence collected: T15 acceptance tests passed (`11 passed`); full reset baseline `339 passed, 20 skipped`; ruff check clean; ruff format check clean; pyright `0 errors`; `git diff --check` clean
+- Follow-ups: start T16 Archive Dataset Manifest and Hash Binding
+- Notes for next agent: T15 is candidate-only and not registered or evaluated; hash placeholders are present for dataset, code, policy, and parameter binding, and no holdout, live feed, broker/exchange, production, capital-ready, or OOS/performance surface is approved.
+
 ### 2026-05-07 - PHASE5 - First Research Evidence Packet Block Opened
 
 - Scope: `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `docs/EVIDENCE_INDEX.md`

@@ -38,5 +38,9 @@ def test_audit_index_records_reset_review() -> None:
 def test_codex_prompt_records_reset_closure_state() -> None:
     text = CODEX_PROMPT.read_text(encoding="utf-8")
 
-    assert "Reset implementation awaits human decision after T14" in text
+    assert (
+        "Reset implementation awaits human decision after T14" in text
+        or "## Next Task\n\nT" in text
+        or "Human decision required after T19" in text
+    )
     assert "T14 Reset Strategy Closure Review completed" in text

@@ -77,3 +77,13 @@ Human decision after T14 opened a new research-result block.
 - Latest validation remains reset closure baseline: `.venv/bin/python -m pytest -q tests/` -> `328 passed, 20 skipped`; ruff check clean; ruff format check clean; pyright 0 errors; `git diff --check` clean.
 - Next task: T15 First Research Candidate Registration Packet.
 - Boundaries remain unchanged: no holdout, live feed, broker/exchange, production, capital-ready, or OOS/performance approval.
+
+## 2026-05-07 First Packet Evidence Progress
+
+Phase 5 is complete through T19.
+
+- Completed tasks: T15 First Research Candidate Registration Packet, T16 Archive Dataset Manifest and Hash Binding, T17 Archive Evaluation Harness Wiring, T18 First Research Evidence Packet, T19 First Research Packet Review.
+- Latest validation: `.venv/bin/python -m pytest -q tests/` -> `351 passed, 20 skipped`; ruff check clean; ruff format check clean; pyright `0 errors`; `git diff --check` clean.
+- Evidence index rows added for T15, T16, T17, and T18; review artifact `docs/audit/FIRST_RESEARCH_PACKET_REVIEW.md` added for T19.
+- Next state: human decision required after T19.
+- Boundaries remain unchanged: first packet block is archive-only and complete; holdout, live feeds, broker/exchange, production, capital-ready, phase-gate, and OOS/performance remain unapproved.
