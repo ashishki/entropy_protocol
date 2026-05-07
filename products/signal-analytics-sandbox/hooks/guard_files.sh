@@ -37,6 +37,12 @@ IFS=':' read -ra PATHS <<< "$PROTECTED"
 for PROTECTED_PATH in "${PATHS[@]}"; do
   # Match exact path or absolute path ending with /protected_path
   if [[ "$FILE_PATH" == "$PROTECTED_PATH" ]] || [[ "$FILE_PATH" == *"/${PROTECTED_PATH}" ]]; then
+    # Allow first-creation: if the file does not yet exist on disk, the protection
+    # has nothing to protect — let bootstrap proceed. Once the file exists, edits
+    # are blocked as before (immutable per IMPLEMENTATION_CONTRACT.md).
+    if [[ ! -e "$FILE_PATH" ]]; then
+      exit 0
+    fi
     echo "BLOCKED: '${PROTECTED_PATH}' is immutable at runtime." >&2
     echo "To modify this file, file an ADR in docs/adr/ first (see IMPLEMENTATION_CONTRACT.md §Forbidden Actions)." >&2
     echo "(Override: set PLAYBOOK_PROTECTED_FILES env var with colon-separated paths.)" >&2

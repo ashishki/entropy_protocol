@@ -1,0 +1,74 @@
+name: CI
+
+# Trigger on pushes and PRs to master/main.
+on:
+  push:
+    branches: ["master", "main"]
+  pull_request:
+    branches: ["master", "main"]
+
+jobs:
+  test:
+    name: Tests + Lint + Type-check
+    runs-on: ubuntu-latest
+
+    # No external services required for v1 — local files only.
+
+    steps:
+      # Standard checkout.
+      - uses: actions/checkout@v4
+
+      # Python 3.12 is mandated by ARCHITECTURE.md and DECISION_LOG D-006.
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      # Install runtime + dev deps and the package in editable mode.
+      # requirements-dev.txt extends requirements.txt and adds pytest, ruff, pyright, pytest-cov.
+      - name: Install dependencies
+        run: pip install -r requirements-dev.txt -e .
+
+      # Lint — ruff check.
+      # Rule selection (E, F, I, UP, B) is configured in pyproject.toml [tool.ruff].
+      - name: Lint (ruff check)
+        run: ruff check src/ tests/
+
+      # Format check — fails CI if code is not formatted correctly.
+      - name: Format check (ruff format)
+        run: ruff format --check src/ tests/
+
+      # Type-check — pyright is mandated by the brief.
+      # pyright config lives in pyproject.toml [tool.pyright] (pythonVersion = "3.12").
+      - name: Type-check (pyright)
+        run: pyright
+
+      # Run tests.
+      # -q: quiet output (summary only)
+      # --tb=short: short traceback on failure
+      - name: Run tests
+        env:
+          # Test workspace path — fixtures use tmp_path, so this is just a
+          # placeholder that the CLI smoke test can read. No real secrets.
+          SIGNAL_SANDBOX_WORKSPACE: "/tmp/sas-ci-workspace"
+          SIGNAL_SANDBOX_LOG_LEVEL: "INFO"
+          # Cost cap = 0 disables paid adapters in CI; LLM adapter stays off.
+          SIGNAL_SANDBOX_COST_CAP_USD: "0.00"
+          SIGNAL_SANDBOX_ENABLE_LLM: "0"
+          SIGNAL_SANDBOX_ENABLE_PAID_PRICE: "0"
+        run: python -m pytest tests/ -q --tb=short
+
+      # ----- Capability evaluation steps -----
+      # All capability profiles are OFF in v1 (DECISION_LOG D-004). When/if a
+      # profile is activated via ADR, uncomment the corresponding block here
+      # and populate the matching tests/eval/test_*.py file. The eval baseline
+      # for that profile is recorded in docs/CODEX_PROMPT.md §Evaluation State.
+      #
+      # When T20 (LLMExtractionAdapter) lands, uncomment this:
+      # - name: Run extraction-adapter quality eval (T20)
+      #   if: always()
+      #   run: |
+      #     SIGNAL_SANDBOX_ENABLE_LLM=1 python -m pytest tests/eval/test_llm_extraction_quality.py -v
+      #   # Fails CI if extraction acceptance rate drops > 5% vs baseline in
+      #   # docs/CODEX_PROMPT.md §Evaluation State §Recorded Baselines.
