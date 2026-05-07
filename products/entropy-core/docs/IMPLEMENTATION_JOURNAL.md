@@ -21,6 +21,15 @@ This file records handoff context. It is not authority.
 
 ## Entries
 
+### 2026-05-07 - PHASE5 - First Research Evidence Packet Block Opened
+
+- Scope: `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `docs/EVIDENCE_INDEX.md`
+- Why this work happened: human decision after T14 opened a new block focused on a concrete research result rather than a faster product MVP
+- Decisions applied: `docs/audit/RESET_REVIEW.md`; `docs/core/PROTOCOL_SPEC.md`; `docs/governance/research_firewall.md`
+- Evidence collected: documentation contract update; validation pending for first implementation task T15
+- Follow-ups: start T15 First Research Candidate Registration Packet
+- Notes for next agent: Phase 5 target is one registered, hash-bound, archive-only, leakage-checked research evidence packet; it must remain no-claim and cannot approve holdout, live feeds, broker integration, production, capital-ready, or OOS/performance labels.
+
 ### 2026-05-07 - T14 - Reset Strategy Closure Review
 
 - Scope: `docs/audit/RESET_REVIEW.md`, `docs/audit/AUDIT_INDEX.md`, `docs/CODEX_PROMPT.md`, `tests/reset/test_reset_closure.py`

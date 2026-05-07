@@ -33,6 +33,11 @@ T08 through T14 heavy-task, product-bridge, and reset-closure evidence rows are 
 
 | Topic | Expected artifact | Owning task |
 |-------|-------------------|-------------|
+| First research candidate packet proof | `tests/integration/test_first_research_packet.py::test_candidate_packet_records_registration_requirements` | T15 |
+| First archive dataset manifest proof | `tests/integration/test_first_research_packet.py::test_archive_dataset_manifest_hash_is_deterministic` | T16 |
+| First archive evaluation harness proof | `tests/integration/test_first_research_packet.py::test_archive_evaluation_output_remains_no_claim` | T17 |
+| First research evidence packet proof | `tests/integration/test_first_research_packet.py::test_research_packet_contains_required_sections` | T18 |
+| First research packet review proof | `tests/reset/test_first_research_packet_review.py::test_first_research_packet_review_contains_required_sections` | T19 |
 
 ## Retrieval Rules
 

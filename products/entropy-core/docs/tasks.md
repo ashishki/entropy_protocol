@@ -2,7 +2,7 @@
 
 Version: 1.0
 Last updated: 2026-05-07
-Status: reset task graph
+Status: active research packet task graph
 
 ---
 
@@ -14,6 +14,7 @@ Status: reset task graph
 | 2 | Governance Integrity | T04-T07 | Registry, governance, evidence index, and no-claim report boundaries synchronized with current code. | Append-only, human-gate, no-claim, and evidence-index checks pass. |
 | 3 | Evaluation Safety | T08-T11 | Data/leakage/holdout, SimBroker, attribution, and phase-gate evidence hardening. | Heavy evidence tasks have executable tests and indexed proof. |
 | 4 | Product Bridges | T12-T14 | Trader Risk Audit primitives and hypothesis/backtest bridge contracts. | Bridge tests prove no live/no-claim boundaries are preserved. |
+| 5 | First Research Evidence Packet | T15-T19 | One registered, hash-bound, archive-only, leakage-checked research packet from a narrow baseline hypothesis. | Packet and review prove reproducible evidence without OOS/performance, holdout, live, production, or capital-ready claims. |
 
 ## T01: Existing Project Baseline Skeleton
 
@@ -506,3 +507,193 @@ Context-Refs:
 
 Notes: |
   This task does not approve holdout, live feeds, broker integration, or performance claims.
+
+## T15: First Research Candidate Registration Packet
+
+Owner:      codex
+Phase:      5
+Type:       none
+Depends-On: T13, T14
+
+Objective: |
+  Select one narrow, falsifiable archive-only baseline hypothesis and encode a preregistration packet that can become a registered evaluation object only through explicit human approval and hash binding.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "The first research candidate packet records hypothesis text, hypothesis family, scope, frozen parameters, no-claim labels, and required human registration gate."
+    test: "tests/integration/test_first_research_packet.py::test_candidate_packet_records_registration_requirements"
+  - id: AC-2
+    description: "Candidate packet serialization is deterministic and includes dataset/code/policy/parameter hash placeholders before evaluation."
+    test: "tests/integration/test_first_research_packet.py::test_candidate_packet_serializes_deterministically"
+  - id: AC-3
+    description: "Candidate packet cannot request holdout, OOS/performance, production, capital-ready, live-feed, or broker/exchange surfaces."
+    test: "tests/integration/test_first_research_packet.py::test_candidate_packet_rejects_claim_and_live_surfaces"
+
+Files:
+  - src/entropy/research/
+  - docs/research/first-packet/CANDIDATE_PACKET.md
+  - tests/integration/test_first_research_packet.py
+
+Context-Refs:
+  - docs/governance/research_firewall.md
+  - docs/governance/experiment_readiness_gate.md
+  - docs/governance/hypothesis_families.md
+  - docs/bridges/hypothesis-backtest.md
+
+Notes: |
+  This task creates a candidate packet only. It does not run evaluation, inspect holdout, or claim performance.
+
+## T16: Archive Dataset Manifest and Hash Binding
+
+Owner:      codex
+Phase:      5
+Type:       none
+Depends-On: T08, T15
+
+Objective: |
+  Bind the first research candidate to an archive-only dataset manifest with deterministic dataset hashes and explicit holdout exclusion.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Dataset manifest hash is deterministic across row order and path ordering."
+    test: "tests/integration/test_first_research_packet.py::test_archive_dataset_manifest_hash_is_deterministic"
+  - id: AC-2
+    description: "Manifest records formation/evaluation scope and explicitly excludes holdout reads."
+    test: "tests/integration/test_first_research_packet.py::test_archive_dataset_manifest_excludes_holdout"
+  - id: AC-3
+    description: "Dataset binding updates the candidate packet without changing hypothesis text, family, or frozen parameters."
+    test: "tests/integration/test_first_research_packet.py::test_dataset_binding_preserves_registered_candidate_fields"
+
+Files:
+  - src/entropy/research/
+  - src/entropy/data/
+  - src/entropy/hashing/
+  - docs/research/first-packet/DATASET_MANIFEST.md
+  - tests/integration/test_first_research_packet.py
+
+Context-Refs:
+  - docs/core/PROTOCOL_SPEC.md
+  - docs/IMPLEMENTATION_CONTRACT.md#leakage-and-holdout-boundary
+
+Notes: |
+  Use archive/local fixtures only. Do not add provider activation, live feeds, or holdout access.
+
+## T17: Archive Evaluation Harness Wiring
+
+Owner:      codex
+Phase:      5
+Type:       none
+Depends-On: T09, T10, T15, T16
+
+Objective: |
+  Wire the first candidate through an archive-only evaluation path that records leakage checks, SimBroker fills/costs, and attribution streams without opening OOS/performance claims.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Evaluation harness refuses to run unless candidate, dataset hash, code hash, policy hash, and parameter hash are present."
+    test: "tests/integration/test_first_research_packet.py::test_archive_evaluation_requires_all_hash_bindings"
+  - id: AC-2
+    description: "Evaluation output includes leakage status, SimBroker fill log identifiers, and separated attribution streams."
+    test: "tests/integration/test_first_research_packet.py::test_archive_evaluation_outputs_required_evidence_surfaces"
+  - id: AC-3
+    description: "Evaluation output serializes no-claim labels and no OOS/performance conclusion."
+    test: "tests/integration/test_first_research_packet.py::test_archive_evaluation_output_remains_no_claim"
+
+Execution-Mode: heavy
+Evidence:
+  - tests/integration/test_first_research_packet.py::test_archive_evaluation_output_remains_no_claim
+  - docs/EVIDENCE_INDEX.md row for first archive evaluation harness proof
+Verifier-Focus: |
+  Confirm the first archive evaluation path cannot silently become OOS/performance evidence.
+
+Files:
+  - src/entropy/research/
+  - src/entropy/walkforward/
+  - src/entropy/simbroker/
+  - src/entropy/attribution/
+  - tests/integration/test_first_research_packet.py
+  - docs/EVIDENCE_INDEX.md
+
+Context-Refs:
+  - docs/core/PROTOCOL_SPEC.md
+  - docs/audit/PHASE3_REVIEW.md
+
+Notes: |
+  Heavy task because this is the first end-to-end research evidence path after reset.
+
+## T18: First Research Evidence Packet
+
+Owner:      codex
+Phase:      5
+Type:       none
+Depends-On: T11, T17
+
+Objective: |
+  Generate the first deterministic archive-only research evidence packet with candidate, hashes, leakage, SimBroker, attribution, no-claim labels, and evidence-index proof.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Evidence packet contains candidate id, dataset/code/policy/parameter hashes, leakage status, SimBroker evidence, attribution streams, and no-claim labels."
+    test: "tests/integration/test_first_research_packet.py::test_research_packet_contains_required_sections"
+  - id: AC-2
+    description: "Evidence packet generation fails when any referenced artifact or required hash is missing."
+    test: "tests/integration/test_first_research_packet.py::test_research_packet_fails_missing_artifact_or_hash"
+  - id: AC-3
+    description: "Evidence packet contains no holdout unlock, OOS/performance approval, production approval, or capital-ready approval."
+    test: "tests/integration/test_first_research_packet.py::test_research_packet_blocks_claim_approvals"
+
+Execution-Mode: heavy
+Evidence:
+  - tests/integration/test_first_research_packet.py::test_research_packet_contains_required_sections
+  - docs/research/first-packet/RESEARCH_EVIDENCE_PACKET.md
+  - docs/EVIDENCE_INDEX.md row for first research packet proof
+Verifier-Focus: |
+  Confirm the packet is a concrete research artifact but remains no-claim and archive-only.
+
+Files:
+  - src/entropy/evidence/
+  - src/entropy/research/
+  - docs/research/first-packet/RESEARCH_EVIDENCE_PACKET.md
+  - docs/EVIDENCE_INDEX.md
+  - tests/integration/test_first_research_packet.py
+
+Context-Refs:
+  - docs/audit/RESET_REVIEW.md
+  - docs/EVIDENCE_INDEX.md
+
+Notes: |
+  The packet may be useful research evidence, but it does not approve phase exit, live use, or performance claims.
+
+## T19: First Research Packet Review
+
+Owner:      codex
+Phase:      5
+Type:       none
+Depends-On: T18
+
+Objective: |
+  Review the first research evidence packet, record open findings, and recommend the next human decision without escalating claims.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/audit/FIRST_RESEARCH_PACKET_REVIEW.md` summarizes candidate, evidence, validation, limitations, open findings, and next recommendation."
+    test: "tests/reset/test_first_research_packet_review.py::test_first_research_packet_review_contains_required_sections"
+  - id: AC-2
+    description: "Review records that holdout, live feeds, broker integration, production, capital-ready, and OOS/performance claims remain unapproved."
+    test: "tests/reset/test_first_research_packet_review.py::test_first_research_packet_review_preserves_boundaries"
+  - id: AC-3
+    description: "`docs/CODEX_PROMPT.md` records the completed first research packet state and next human decision point."
+    test: "tests/reset/test_first_research_packet_review.py::test_codex_prompt_records_first_packet_review_state"
+
+Files:
+  - docs/audit/FIRST_RESEARCH_PACKET_REVIEW.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/CODEX_PROMPT.md
+  - tests/reset/test_first_research_packet_review.py
+
+Context-Refs:
+  - docs/research/first-packet/RESEARCH_EVIDENCE_PACKET.md
+  - docs/audit/RESET_REVIEW.md
+
+Notes: |
+  Stop after this review unless a human explicitly opens the next research block or approves a gate discussion.

@@ -7,10 +7,10 @@ manual restart.
 
 - Product: entropy-core
 - Branch: codex/entropy-core-work
-- Active task: reset implementation awaits human decision after T14
-- Phase: 4 Product Bridges
+- Active task: T15 First Research Candidate Registration Packet
+- Phase: 5 First Research Evidence Packet
 - Last validation: 2026-05-07 T14: `328 passed, 20 skipped`; ruff check clean; ruff format check clean; pyright 0 errors; `git diff --check` clean.
-- Git status summary: T14 local changes pending commit at handoff update time.
+- Git status summary: new research packet task graph local changes pending commit at handoff update time.
 
 ## Completed In This Phase
 
@@ -34,11 +34,15 @@ manual restart.
 
 ## Remaining Work
 
-- Reset implementation awaits human decision after T14.
+- T15 First Research Candidate Registration Packet
+- T16 Archive Dataset Manifest and Hash Binding
+- T17 Archive Evaluation Harness Wiring
+- T18 First Research Evidence Packet
+- T19 First Research Packet Review
 
 ## Blockers Or Human Decisions
 
-- None.
+- Human decision after T14 recorded: open the first research evidence packet block.
 
 ## Resume Instruction
 

@@ -2,7 +2,7 @@
 
 Version: 1.0
 Date: 2026-05-07
-Phase: 4
+Phase: 5
 
 Reset state for Entropy Core after archiving the old active workflow. Historical files are available under `docs/legacy/old-workflow/2026-05-07/` but are not read by default.
 
@@ -10,14 +10,14 @@ Reset state for Entropy Core after archiving the old active workflow. Historical
 
 ## Current Phase
 
-- Phase: 4
-- Name: Product Bridges
-- Business goal: define protocol-safe bridge contracts for downstream products without opening live trading, provider, or unsupported research-claim surfaces.
-- Phase gate: bridge tests prove no live/no-claim boundaries are preserved.
+- Phase: 5
+- Name: First Research Evidence Packet
+- Business goal: produce one registered, hash-bound, archive-only, leakage-checked research evidence packet from a narrow baseline hypothesis.
+- Phase gate: packet and review prove reproducible evidence without OOS/performance, holdout, live, production, or capital-ready claims.
 
 ## Current State
 
-- Phase: 4
+- Phase: 5
 - Baseline: 328 passing tests, 20 skipped (T14 local verification on 2026-05-07)
 - Ruff: clean on Phase 1 boundary verification 2026-05-07
 - Pyright: clean on Phase 1 boundary verification 2026-05-07
@@ -40,7 +40,9 @@ Reset state for Entropy Core after archiving the old active workflow. Historical
 
 ## Next Task
 
-Reset implementation awaits human decision after T14
+T15: First Research Candidate Registration Packet
+
+Human decision recorded: Reset implementation awaits human decision after T14; this instruction opens the next research packet block.
 
 ## Fix Queue
 
@@ -115,6 +117,7 @@ none after reset. Legacy D-K findings were closed in the prior workflow, but old
 - 2026-05-07: Phase 2 Governance Integrity completed. Review artifact: `docs/audit/PHASE2_REVIEW.md`. Result: PASS; Stop-Ship 0, P0 0, P1 0, P2 0.
 - 2026-05-07: Phase 3 Evaluation Safety completed. Review artifact: `docs/audit/PHASE3_REVIEW.md`. Result: PASS; Stop-Ship 0, P0 0, P1 0, P2 0.
 - 2026-05-07: Reset implementation block completed. Review artifact: `docs/audit/RESET_REVIEW.md`. Result: PASS; Stop-Ship 0, P0 0, P1 0, P2 0.
+- 2026-05-07: First Research Evidence Packet block opened by human decision after T14. Scope: T15-T19.
 
 ## Profile State: RAG
 
@@ -163,15 +166,15 @@ none after reset. Legacy D-K findings were closed in the prior workflow, but old
 
 ### Last Evaluation
 
-- Profile: Evaluation Safety
-- Task: T14 Reset Strategy Closure Review
+- Profile: First Research Evidence Packet
+- Task: T15 First Research Candidate Registration Packet
 - Date: 2026-05-07
-- Eval Source: `tests/reset/test_reset_closure.py`
-- Metric(s): reset closure contract tests
-- Score: `3 passed`; full suite `328 passed, 20 skipped`
-- Baseline: T13 `325 passed, 20 skipped`
-- Delta: +3 passing tests
-- Regression: none
+- Eval Source: pending
+- Metric(s): pending first research candidate contract tests
+- Score: pending; current baseline `328 passed, 20 skipped`
+- Baseline: reset closure `328 passed, 20 skipped`
+- Delta: pending
+- Regression: none known
 
 ### Open Evaluation Issues
 

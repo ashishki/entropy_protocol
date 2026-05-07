@@ -66,3 +66,14 @@ The reset implementation block is complete through T14.
 - Audit index updated: `docs/audit/AUDIT_INDEX.md`.
 - Next state: reset implementation awaits human decision after T14.
 - No open findings or blockers.
+
+## 2026-05-07 First Research Packet Block
+
+Human decision after T14 opened a new research-result block.
+
+- Active phase: Phase 5 First Research Evidence Packet.
+- Planned tasks: T15 through T19.
+- Target result: one registered, hash-bound, archive-only, leakage-checked research evidence packet.
+- Latest validation remains reset closure baseline: `.venv/bin/python -m pytest -q tests/` -> `328 passed, 20 skipped`; ruff check clean; ruff format check clean; pyright 0 errors; `git diff --check` clean.
+- Next task: T15 First Research Candidate Registration Packet.
+- Boundaries remain unchanged: no holdout, live feed, broker/exchange, production, capital-ready, or OOS/performance approval.
