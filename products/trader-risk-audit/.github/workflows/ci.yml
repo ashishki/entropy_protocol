@@ -1,0 +1,50 @@
+name: CI
+
+# Run the same verification path on pushes and pull requests.
+on:
+  push:
+    branches: ["main", "master"]
+  pull_request:
+    branches: ["main", "master"]
+
+jobs:
+  test:
+    name: Tests + Lint
+    runs-on: ubuntu-latest
+
+    steps:
+      # Fetch the repository contents for the workflow run.
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Python 3.12 is the Phase 1 runtime target for the local CLI package,
+      # matching Entropy Core's runtime.
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      # Install runtime and development dependencies, then install the package
+      # in editable mode so CLI and package imports use the checked-out code.
+      - name: Install dependencies
+        run: pip install -r requirements-dev.txt -e .
+
+      # Lint source and tests. Keep directories explicit so unrelated workflow
+      # templates in this product workspace do not become part of app linting.
+      - name: Lint
+        run: ruff check trader_risk_audit tests
+
+      # Enforce stable formatting without modifying files in CI.
+      - name: Format check
+        run: ruff format --check trader_risk_audit tests
+
+      # Execute the test suite. Tests must use local-only defaults and must not
+      # require broker, exchange, Telegram, or other external credentials.
+      - name: Run tests
+        env:
+          TRA_ENV: test
+          TRA_LIVE_BROKER_API_ENABLED: "false"
+          TRA_ORDER_BLOCKING_ENABLED: "false"
+          TRA_TELEGRAM_DELIVERY_ENABLED: "false"
+        run: python -m pytest tests -q --tb=short
