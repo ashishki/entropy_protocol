@@ -1,8 +1,8 @@
 # MEMORY - Signal Analytics Sandbox
 
-Last completed: T15 - ExtractionAdapter ABC at 2026-05-07
-Baseline: 68 pass / 0 skip
-Next task: T16 - ManualExtractionAdapter
-Phase: Phase 6 - Manual + Rule Extraction Adapters
-Review tier next: light
-Any blockers: none for T16.
+Last completed: T20 - LLMExtractionAdapter at 2026-05-07
+Baseline: 84 pass / 0 skip
+Next task: none - docs/tasks.md task graph complete
+Phase: Phase 8 - complete
+Review tier next: none unless new scope is added
+Any blockers: none.

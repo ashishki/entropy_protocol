@@ -2,6 +2,7 @@ import json
 import os
 import stat
 import subprocess
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -83,37 +84,47 @@ class WorkspaceValidationTests(unittest.TestCase):
             "tool_name": "Edit",
             "tool_input": {
                 "file_path": "docs/CODEX_PROMPT.md",
-                "old_string": "Phase: 6",
-                "new_string": "Phase: 7",
+                "old_string": "Phase: 8",
+                "new_string": "Phase: 9",
             },
         }
 
-        result = self._run_hook("guard_phase_boundary.sh", payload)
+        with tempfile.TemporaryDirectory() as temp_dir:
+            audit_index = Path(temp_dir) / "AUDIT_INDEX.md"
+            audit_index.write_text("# Audit Index\n", encoding="utf-8")
+            result = self._run_hook(
+                "guard_phase_boundary.sh",
+                payload,
+                audit_index_path=str(audit_index),
+            )
 
         self.assertEqual(result.returncode, 2, result.stderr)
         self.assertIn("phase boundary update", result.stderr)
 
-    def test_phase_boundary_guard_blocks_next_task_phase_increment(self) -> None:
+    def test_phase_boundary_guard_allows_noop_next_task_at_final_task(self) -> None:
         payload = {
             "tool_name": "Edit",
             "tool_input": {
                 "file_path": "docs/CODEX_PROMPT.md",
-                "old_string": "**T16: ManualExtractionAdapter**",
-                "new_string": "**T18: ExchangePublicOHLCVProvider**",
+                "old_string": "**T20: LLMExtractionAdapter**",
+                "new_string": "**T20: LLMExtractionAdapter**",
             },
         }
 
         result = self._run_hook("guard_phase_boundary.sh", payload)
 
-        self.assertEqual(result.returncode, 2, result.stderr)
-        self.assertIn("requires archived deep review for Phase 6", result.stderr)
+        self.assertEqual(result.returncode, 0, result.stderr)
 
     def _run_hook(
-        self, hook_name: str, payload: dict[str, object]
+        self,
+        hook_name: str,
+        payload: dict[str, object],
+        *,
+        audit_index_path: str = "docs/audit/AUDIT_INDEX.md",
     ) -> subprocess.CompletedProcess[str]:
         env = os.environ.copy()
         env["PLAYBOOK_CODEX_PROMPT_PATH"] = "docs/CODEX_PROMPT.md"
-        env["PLAYBOOK_AUDIT_INDEX_PATH"] = "docs/audit/AUDIT_INDEX.md"
+        env["PLAYBOOK_AUDIT_INDEX_PATH"] = audit_index_path
         env["PLAYBOOK_TASKS_PATH"] = "docs/tasks.md"
 
         return subprocess.run(

@@ -1,8 +1,8 @@
 # CODEX_PROMPT.md — Signal Analytics Sandbox
 
-Version: 2.9
+Version: 2.14
 Date: 2026-05-07
-Phase: 6
+Phase: 8
 
 ---
 
@@ -24,8 +24,8 @@ Telegram pilot validates the product hypothesis.
 
 ## Current State
 
-- **Phase:** 6 (ready for T16)
-- **Baseline:** 68 passing tests, 0 skipped
+- **Phase:** 8 (complete)
+- **Baseline:** 84 passing tests, 0 skipped
 - **Ruff:** `ruff check src/ tests/` passes
 - **Pyright:** `pyright` passes
 - **Last CI run:** local CI-equivalent commands pass; GitHub run not yet observed
@@ -53,15 +53,16 @@ Telegram pilot validates the product hypothesis.
 
 ## Next Task
 
-**T16: ManualExtractionAdapter**
+No pending implementation task remains in `docs/tasks.md`.
 
-Inline digest for the Orchestrator:
-- Implement the manual extraction adapter using an injected editor command.
-- Write a pre-filled template containing every required `SignalRecord` field plus evidence_url and text_sha256.
-- Parse the saved template into `ExtractionResult(status="draft_pending_review", record=...)`.
-- Return `defer_to_human` with missing-field reasons when required fields are blank.
-- Files: see `docs/tasks.md::T16::Files`.
-- Applicable rules: PII Policy, Human Approval Boundaries, Pre-Task Protocol.
+Closeout digest for the Orchestrator:
+- T20 implemented the gated LLM extraction adapter with fixed mock clients in CI.
+- Activation requires both `SIGNAL_SANDBOX_ENABLE_LLM=1` and per-run `llm_approved=True`.
+- Every successful result is `draft_pending_review` with `adapter_id="llm/<provider>/<model>"`.
+- Paid Claude-style calls enforce `SIGNAL_SANDBOX_COST_CAP_USD` before invoking once budget is exhausted.
+- `write_ledger` rejects direct LLM-sourced records unless `reviewer_id` is present.
+- Heavy-task evidence is archived at `docs/audit/HEAVY_T20_EVIDENCE.md`.
+- Phase 8 archive is `docs/archive/PHASE8_REVIEW.md`.
 
 Only send codex to the full ARCHITECTURE.md / IMPLEMENTATION_CONTRACT.md when a task is heavy or touches cross-cutting boundaries.
 
@@ -166,6 +167,30 @@ none
   `ExtractionResult`, status invariants, and model-level evidence preservation
   between `CapturedPost` and draft `SignalRecord`. Baseline after: 68 passed,
   0 skipped. Review: light PASS.
+- 2026-05-07 — T16 ManualExtractionAdapter: implemented injected-editor manual
+  extraction templates, draft parsing into `SignalRecord`, missing-field
+  `defer_to_human` reasons, and evidence preservation through the extraction
+  result envelope. Baseline after: 70 passed, 0 skipped. Review: light PASS.
+- 2026-05-07 — T17 RuleExtractionAdapter: implemented versioned regex rule
+  templates, `binance_spot_v1`, match/defer extraction behavior, and locked
+  template hash validation. Baseline after: 72 passed, 0 skipped.
+  Review: light PASS. Phase 6 deep review: `docs/archive/PHASE6_REVIEW.md`.
+- 2026-05-07 — T18 ExchangePublicOHLCVProvider: implemented public exchange
+  OHLCV provider with injected ccxt-style client, deterministic snapshot cache,
+  `public_exchange` status, rate-limit-aware ccxt construction, and failure
+  behavior that avoids partial snapshot persistence. Baseline after: 75 passed,
+  0 skipped. Review: light PASS.
+- 2026-05-07 — T19 YFinanceDevProvider: implemented prototype-only yfinance
+  provider, `SIGNAL_SANDBOX_ALLOW_YFINANCE=1` activation gate, and deterministic
+  prototype snapshots through the price provider contract. Baseline after:
+  77 passed, 0 skipped. Review: light PASS. Phase 7 deep review:
+  `docs/archive/PHASE7_REVIEW.md`.
+- 2026-05-07 — T20 LLMExtractionAdapter: implemented double-gated LLM
+  extraction with fixed mock coverage, provider adapter IDs, paid-call cost-cap
+  enforcement, ledger rejection for unreviewed LLM records, and eval acceptance
+  rate measurement. Baseline after: 84 passed, 0 skipped. Review: heavy/light
+  PASS. Heavy evidence: `docs/audit/HEAVY_T20_EVIDENCE.md`. Phase 8 deep
+  review: `docs/archive/PHASE8_REVIEW.md`.
 
 ---
 
@@ -227,7 +252,9 @@ none
 
 ### Recorded Baselines
 
-- (none yet)
+- 2026-05-07 — LLM extraction acceptance rate fixture baseline:
+  `1.000000` (`3/3` drafts approved without modification) in
+  `tests/eval/test_llm_extraction_quality.py`.
 
 ---
 

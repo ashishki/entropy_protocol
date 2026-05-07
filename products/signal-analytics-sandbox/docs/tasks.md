@@ -665,7 +665,7 @@ Notes: |
 
 ---
 
-### T16: ManualExtractionAdapter
+### T16: ManualExtractionAdapter ✅
 
 Owner:      codex
 Phase:      6
@@ -689,7 +689,7 @@ Files:
 
 ---
 
-### T17: RuleExtractionAdapter
+### T17: RuleExtractionAdapter ✅
 
 Owner:      codex
 Phase:      6
@@ -721,7 +721,7 @@ Notes: |
 
 ## Phase 7 — Additional Price Adapters
 
-### T18: ExchangePublicOHLCVProvider
+### T18: ExchangePublicOHLCVProvider ✅
 
 Owner:      codex
 Phase:      7
@@ -752,7 +752,7 @@ Notes: |
 
 ---
 
-### T19: YFinanceDevProvider (prototype only)
+### T19: YFinanceDevProvider (prototype only) ✅
 
 Owner:      codex
 Phase:      7
@@ -783,7 +783,7 @@ Notes: |
 
 ## Phase 8 — Gated LLM Extraction Adapter (heavy)
 
-### T20: LLMExtractionAdapter
+### T20: LLMExtractionAdapter ✅
 
 Owner:      codex
 Phase:      8

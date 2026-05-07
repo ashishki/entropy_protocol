@@ -119,24 +119,56 @@ Result on 2026-05-07:
   - added `src/signal_sandbox/extraction/base.py`
   - added `tests/unit/test_extraction_base.py`
   - validation after T15: 68 pytest passed; ruff check passed; ruff format check passed; pyright passed
-- Next task: T16 ManualExtractionAdapter.
+- Completed T16 ManualExtractionAdapter:
+  - added `src/signal_sandbox/extraction/manual.py`
+  - added `tests/unit/test_manual_extraction.py`
+  - validation after T16: 70 pytest passed; ruff check passed; ruff format check passed; pyright passed
+- Completed T17 RuleExtractionAdapter:
+  - added `src/signal_sandbox/extraction/rule.py`
+  - added `src/signal_sandbox/extraction/rule_templates.py`
+  - added `tests/unit/test_rule_extraction.py`
+  - added `tests/unit/test_rule_templates.py`
+  - validation after T17: 72 pytest passed; ruff check passed; ruff format check passed; pyright passed
+- Phase 6 deep review completed and archived at `docs/archive/PHASE6_REVIEW.md`.
+- Completed T18 ExchangePublicOHLCVProvider:
+  - added `src/signal_sandbox/prices/exchange_public.py`
+  - added `tests/integration/test_exchange_public_provider.py`
+  - validation after T18: 75 pytest passed; ruff check passed; ruff format check passed; pyright passed
+- Completed T19 YFinanceDevProvider:
+  - added `src/signal_sandbox/prices/yfinance_dev.py`
+  - added `tests/unit/test_yfinance_provider.py`
+  - updated dependency manifests with `yfinance`
+  - validation after T19: 77 pytest passed; ruff check passed; ruff format check passed; pyright passed
+- Phase 7 deep review completed and archived at `docs/archive/PHASE7_REVIEW.md`.
+- Completed T20 LLMExtractionAdapter:
+  - added double activation gate: `SIGNAL_SANDBOX_ENABLE_LLM=1` plus
+    `llm_approved=True`
+  - added fixed-client LLM extraction with `llm/<provider>/<model>` adapter IDs
+  - added paid Claude-style cost-cap enforcement and zero-cap disabling
+  - added ledger rejection for unreviewed LLM-sourced records
+  - added fixed eval acceptance-rate baseline coverage
+  - validation after T20: 84 pytest passed; ruff check passed; ruff format
+    check passed; pyright passed
+- Heavy T20 evidence written to `docs/audit/HEAVY_T20_EVIDENCE.md`.
+- Phase 8 deep review completed and archived at `docs/archive/PHASE8_REVIEW.md`.
+- Current task graph is complete through T20.
 
 ## Technical Risks
 
-1. Phase 0 gates are still pending, so core implementation is intentionally blocked.
-2. There is no Python package skeleton yet (`pyproject.toml`, `src/`, `tests/unit`, and `tests/integration` are absent), so the architecture and Phase 1 CI expectations are not executable.
-3. Product-local CI files exist, but the currently planned CI commands depend on files that do not exist until T01/T02. Treat CI as a Phase 1 deliverable, not a verified setup.
-4. The product-local `.github/workflows/ci.yml` lives under the product directory; in a monorepo it will not be picked up by GitHub unless copied or bridged from the repository root.
-5. Hook behavior is now lightly covered, but only the highest-risk governance checks have tests. More hook cases should be added before relying on the workflow heavily.
+1. Live Ollama and Claude provider calls are not exercised in CI by design; the
+   T20 contract is covered through injected fixed clients and provider shells.
+2. LLM eval baseline is a deterministic fixture baseline, not a production
+   quality measure. Treat any real-source expansion as a new eval/update task.
+3. Hook behavior has targeted coverage for high-risk governance checks, but not
+   exhaustive branch coverage.
 
 ## Minimal Improvement Plan
 
-1. Keep the new workspace validation suite as the pre-engineering setup check.
-2. Operator completes SAS-001 and SAS-002, then acknowledges both rows in `docs/CODEX_PROMPT.md`.
-3. Start T01 exactly as written in `docs/tasks.md`: package skeleton, CLI stubs, shared observability module, and smoke tests.
-4. During T02, reconcile the CI workflow location and commands with the monorepo layout.
-5. Update `RUNBOOK.md` again once real pytest/ruff/pyright commands exist.
+1. Use the completed sandbox against the three approved Telegram pilot sources.
+2. Add real capture fixtures and reviewer outcomes before changing the LLM eval
+   baseline.
+3. Keep LLM outputs in draft review until `reviewer_id` is set.
 
 ## Unresolved Follow-Up
 
-- Decide whether this product should have a root-level workflow entry that delegates into `products/signal-analytics-sandbox/`, or whether product-local workflows are only templates.
+- None inside the current T01-T20 task graph.

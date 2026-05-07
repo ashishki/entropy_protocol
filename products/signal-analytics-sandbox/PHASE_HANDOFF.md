@@ -4,10 +4,10 @@ Use this file only at a phase boundary, context rollover, or limit recovery.
 
 ## Current State
 
-- Phase: 6 active.
-- Active task: T16 ManualExtractionAdapter is next. T15 is complete.
+- Phase: 8 complete.
+- Active task: none; `docs/tasks.md` task graph is complete through T20.
 - Branch: `codex/signal-analytics-sandbox-work`.
-- Last validation: `.venv/bin/python -m pytest tests/ -q` -> 68 tests passed on 2026-05-07; `ruff check src/ tests/`, `ruff format --check src/ tests/`, and `pyright` also pass.
+- Last validation: `.venv/bin/python -m pytest tests/ -q` -> 84 tests passed on 2026-05-07; `ruff check src/ tests/`, `ruff format --check src/ tests/`, and `pyright` also pass.
 - Git status summary: product-local modified docs/hooks/prompts plus untracked `AGENT_NOTES.md`, `PHASE_HANDOFF.md`, `RUNBOOK.md`, and `tests/`.
 
 ## Completed In This Phase
@@ -44,16 +44,33 @@ Use this file only at a phase boundary, context rollover, or limit recovery.
 - Phase 5 deep review completed and archived at `docs/archive/PHASE5_REVIEW.md`.
 - Completed T15 ExtractionAdapter ABC with result status invariants and
   model-level evidence preservation checks.
+- Completed T16 ManualExtractionAdapter with injected editor command, prefilled
+  JSON templates, draft parsing, and missing-field defer reasons.
+- Completed T17 RuleExtractionAdapter with versioned rule templates,
+  `binance_spot_v1`, match/defer behavior, and locked template hash validation.
+- Phase 6 deep review completed and archived at `docs/archive/PHASE6_REVIEW.md`.
+- Completed T18 ExchangePublicOHLCVProvider with injected ccxt-style client,
+  deterministic cache, public_exchange snapshots, rate-limit-aware ccxt
+  construction, and no-partial-persistence failure behavior.
+- Completed T19 YFinanceDevProvider with prototype status and
+  `SIGNAL_SANDBOX_ALLOW_YFINANCE=1` construction gate.
+- Phase 7 deep review completed and archived at `docs/archive/PHASE7_REVIEW.md`.
+- Completed T20 LLMExtractionAdapter with double activation gate,
+  fixed-client CI coverage, LLM adapter IDs, paid-call cost-cap enforcement,
+  ledger rejection for unreviewed LLM records, and eval acceptance-rate
+  baseline.
+- Heavy T20 evidence archived at `docs/audit/HEAVY_T20_EVIDENCE.md`.
+- Phase 8 deep review completed and archived at `docs/archive/PHASE8_REVIEW.md`.
 - Added validation coverage for `guard_phase_boundary.sh` so cross-phase `Next Task` advancement is blocked without archived review evidence.
 - Updated `AGENT_NOTES.md` with investigation notes, decisions, risks, and minimal plan.
 
 ## Remaining Work
 
-- Start T16 exactly as specified in `docs/tasks.md`.
+- No pending implementation task remains in the current task graph.
 
 ## Blockers Or Human Decisions
 
-- None for T16.
+- None.
 
 ## Resume Instruction
 
