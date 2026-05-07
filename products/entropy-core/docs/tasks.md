@@ -303,6 +303,7 @@ Owner:      codex
 Phase:      3
 Type:       none
 Depends-On: T08
+Status:     done 2026-05-07
 
 Objective: |
   Verify deterministic SimBroker fill/cost behavior and preserve scaffold/calibration boundaries without live broker integration.

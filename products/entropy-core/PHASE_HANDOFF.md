@@ -7,10 +7,10 @@ manual restart.
 
 - Product: entropy-core
 - Branch: codex/entropy-core-work
-- Active task: T09 SimBroker and Cost Surface Regression
+- Active task: T10 Attribution Stream Boundary Audit
 - Phase: 3 Evaluation Safety
-- Last validation: 2026-05-07 T08: `305 passed, 20 skipped`; ruff check clean; ruff format check clean; pyright 0 errors; `git diff --check` clean.
-- Git status summary: T08 local changes pending commit at handoff update time.
+- Last validation: 2026-05-07 T09: `308 passed, 20 skipped`; ruff check clean; ruff format check clean; pyright 0 errors; `git diff --check` clean.
+- Git status summary: T09 local changes pending commit at handoff update time.
 
 ## Completed In This Phase
 
@@ -24,10 +24,10 @@ manual restart.
 - T07 Governance Approval Gate Audit completed with no findings.
 - Phase 2 boundary review completed with no findings.
 - T08 Data and Leakage Gate Verification completed with no findings.
+- T09 SimBroker and Cost Surface Regression completed with no findings.
 
 ## Remaining Work
 
-- T09 SimBroker and Cost Surface Regression
 - T10 Attribution Stream Boundary Audit
 - T11 Phase Gate Evidence Packet
 

@@ -18,7 +18,7 @@ Reset state for Entropy Core after archiving the old active workflow. Historical
 ## Current State
 
 - Phase: 3
-- Baseline: 305 passing tests, 20 skipped (T08 local verification on 2026-05-07)
+- Baseline: 308 passing tests, 20 skipped (T09 local verification on 2026-05-07)
 - Ruff: clean on Phase 1 boundary verification 2026-05-07
 - Pyright: clean on Phase 1 boundary verification 2026-05-07
 - Last CI: product-local workflow configured; remote CI not yet observed after reset
@@ -40,7 +40,7 @@ Reset state for Entropy Core after archiving the old active workflow. Historical
 
 ## Next Task
 
-T09: SimBroker and Cost Surface Regression
+T10: Attribution Stream Boundary Audit
 
 ## Fix Queue
 
@@ -83,6 +83,10 @@ none after reset. Legacy D-K findings were closed in the prior workflow, but old
 - 2026-05-07: T08 Data and Leakage Gate Verification completed.
   - Acceptance tests: `tests/unit/test_data_leakage_reset.py` passed (`3 passed`).
   - Reset baseline: `.venv/bin/python -m pytest -q tests/` reported `305 passed, 20 skipped`.
+  - Quality checks: ruff check clean; ruff format check clean; pyright `0 errors`; `git diff --check` clean.
+- 2026-05-07: T09 SimBroker and Cost Surface Regression completed.
+  - Acceptance tests: `tests/unit/test_simbroker_reset.py` passed (`3 passed`).
+  - Reset baseline: `.venv/bin/python -m pytest -q tests/` reported `308 passed, 20 skipped`.
   - Quality checks: ruff check clean; ruff format check clean; pyright `0 errors`; `git diff --check` clean.
 
 ## Phase History

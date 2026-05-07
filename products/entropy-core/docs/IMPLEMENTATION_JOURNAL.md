@@ -21,6 +21,15 @@ This file records handoff context. It is not authority.
 
 ## Entries
 
+### 2026-05-07 - T09 - SimBroker and Cost Surface Regression
+
+- Scope: `src/entropy/simbroker/`, `tests/unit/test_simbroker_reset.py`
+- Why this work happened: verify deterministic SimBroker fill logs, separated cost fields, and no live broker/exchange imports after reset
+- Decisions applied: `docs/ARCHITECTURE.md#non-goals-v1`
+- Evidence collected: T09 acceptance tests passed (`3 passed`); focused SimBroker slice `28 passed`; full reset baseline `308 passed, 20 skipped`; ruff check clean; ruff format check clean; pyright `0 errors`; `git diff --check` clean
+- Follow-ups: start T10 Attribution Stream Boundary Audit
+- Notes for next agent: T09 changed tests only; existing SimBroker runtime behavior already satisfied the reset contract.
+
 ### 2026-05-07 - T08 - Data and Leakage Gate Verification
 
 - Scope: `src/entropy/data/`, `src/entropy/walkforward/`, `src/entropy/hashing/`, `tests/unit/test_data_leakage_reset.py`, `docs/EVIDENCE_INDEX.md`
