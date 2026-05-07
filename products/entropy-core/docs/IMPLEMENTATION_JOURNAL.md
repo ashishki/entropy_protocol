@@ -21,6 +21,15 @@ This file records handoff context. It is not authority.
 
 ## Entries
 
+### 2026-05-07 - T13 - Hypothesis Backtest Bridge Design
+
+- Scope: `docs/bridges/hypothesis-backtest.md`, `tests/integration/test_hypothesis_bridge_design.py`
+- Why this work happened: define a design-only bridge from research-assist hypothesis drafts to registered, hash-bound, leakage-safe evaluation objects without enabling autonomous strategy execution
+- Decisions applied: `docs/governance/research_firewall.md`; `docs/core/CHARTER.md`
+- Evidence collected: T13 acceptance tests passed (`3 passed`); full reset baseline `325 passed, 20 skipped`; ruff check clean; ruff format check clean; pyright `0 errors`; `git diff --check` clean
+- Follow-ups: start T14 Reset Strategy Closure Review
+- Notes for next agent: T13 is documentation-only; drafts remain research-only until human registration, hash binding, readiness, leakage, holdout, and no-claim boundaries are satisfied.
+
 ### 2026-05-07 - T12 - Trader Risk Audit Bridge Contracts
 
 - Scope: `docs/bridges/trader-risk-audit.md`, `src/entropy/bridges/`, `tests/integration/test_trader_risk_bridge_contract.py`

@@ -18,7 +18,7 @@ Reset state for Entropy Core after archiving the old active workflow. Historical
 ## Current State
 
 - Phase: 4
-- Baseline: 322 passing tests, 20 skipped (T12 local verification on 2026-05-07)
+- Baseline: 325 passing tests, 20 skipped (T13 local verification on 2026-05-07)
 - Ruff: clean on Phase 1 boundary verification 2026-05-07
 - Pyright: clean on Phase 1 boundary verification 2026-05-07
 - Last CI: product-local workflow configured; remote CI not yet observed after reset
@@ -40,7 +40,7 @@ Reset state for Entropy Core after archiving the old active workflow. Historical
 
 ## Next Task
 
-T13: Hypothesis Backtest Bridge Design
+T14: Reset Strategy Closure Review
 
 ## Fix Queue
 
@@ -100,6 +100,10 @@ none after reset. Legacy D-K findings were closed in the prior workflow, but old
   - Acceptance tests: `tests/integration/test_trader_risk_bridge_contract.py` passed (`8 passed`).
   - Reset baseline: `.venv/bin/python -m pytest -q tests/` reported `322 passed, 20 skipped`.
   - Quality checks: ruff check clean; ruff format check clean; pyright `0 errors`; `git diff --check` clean.
+- 2026-05-07: T13 Hypothesis Backtest Bridge Design completed.
+  - Acceptance tests: `tests/integration/test_hypothesis_bridge_design.py` passed (`3 passed`).
+  - Reset baseline: `.venv/bin/python -m pytest -q tests/` reported `325 passed, 20 skipped`.
+  - Quality checks: ruff check clean; ruff format check clean; pyright `0 errors`; `git diff --check` clean.
 
 ## Phase History
 
@@ -155,13 +159,13 @@ none after reset. Legacy D-K findings were closed in the prior workflow, but old
 ### Last Evaluation
 
 - Profile: Evaluation Safety
-- Task: T12 Trader Risk Audit Bridge Contracts
+- Task: T13 Hypothesis Backtest Bridge Design
 - Date: 2026-05-07
-- Eval Source: `tests/integration/test_trader_risk_bridge_contract.py`
-- Metric(s): product bridge contract tests
-- Score: `8 passed`; full suite `322 passed, 20 skipped`
-- Baseline: Phase 3 boundary `314 passed, 20 skipped`
-- Delta: +8 passing tests
+- Eval Source: `tests/integration/test_hypothesis_bridge_design.py`
+- Metric(s): hypothesis bridge design tests
+- Score: `3 passed`; full suite `325 passed, 20 skipped`
+- Baseline: T12 `322 passed, 20 skipped`
+- Delta: +3 passing tests
 - Regression: none
 
 ### Open Evaluation Issues

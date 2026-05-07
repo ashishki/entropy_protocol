@@ -445,6 +445,7 @@ Owner:      codex
 Phase:      4
 Type:       none
 Depends-On: T07, T08, T11
+Status:     done 2026-05-07
 
 Objective: |
   Design the human-gated bridge from research-assist hypothesis drafts to registered, hash-bound, leakage-safe evaluation objects without enabling autonomous strategy execution.
