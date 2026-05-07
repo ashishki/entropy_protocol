@@ -213,10 +213,10 @@ none after reset. Legacy D-K findings were closed in the prior workflow, but old
 
 ### Last Evaluation
 
-- Profile: First Research Evidence Packet
+- Profile: Archive Evidence Expansion Review
 - Task: Human decision required after T24
 - Date: 2026-05-07
-- Eval Source: `tests/integration/test_first_research_packet.py`
+- Eval Source: `tests/reset/test_archive_evidence_expansion_review.py`
 - Metric(s): archive evidence expansion review contract tests
 - Score: `3 passed`; current baseline `374 passed, 20 skipped`
 - Baseline: T23 second research evidence packet `371 passed, 20 skipped`
