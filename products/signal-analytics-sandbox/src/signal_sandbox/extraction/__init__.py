@@ -1,0 +1,1 @@
+"""Signal extraction adapter package."""
