@@ -18,7 +18,7 @@ Reset state for Entropy Core after archiving the old active workflow. Historical
 ## Current State
 
 - Phase: 3
-- Baseline: 302 passing tests, 20 skipped (Phase 2 boundary verification on 2026-05-07)
+- Baseline: 305 passing tests, 20 skipped (T08 local verification on 2026-05-07)
 - Ruff: clean on Phase 1 boundary verification 2026-05-07
 - Pyright: clean on Phase 1 boundary verification 2026-05-07
 - Last CI: product-local workflow configured; remote CI not yet observed after reset
@@ -40,7 +40,7 @@ Reset state for Entropy Core after archiving the old active workflow. Historical
 
 ## Next Task
 
-T08: Data and Leakage Gate Verification
+T09: SimBroker and Cost Surface Regression
 
 ## Fix Queue
 
@@ -79,6 +79,10 @@ none after reset. Legacy D-K findings were closed in the prior workflow, but old
 - 2026-05-07: T07 Governance Approval Gate Audit completed.
   - Acceptance tests: `tests/unit/test_governance_gate_reset.py` passed (`3 passed`).
   - Reset baseline: `.venv/bin/python -m pytest -q tests/` reported `302 passed, 20 skipped`.
+  - Quality checks: ruff check clean; ruff format check clean; pyright `0 errors`; `git diff --check` clean.
+- 2026-05-07: T08 Data and Leakage Gate Verification completed.
+  - Acceptance tests: `tests/unit/test_data_leakage_reset.py` passed (`3 passed`).
+  - Reset baseline: `.venv/bin/python -m pytest -q tests/` reported `305 passed, 20 skipped`.
   - Quality checks: ruff check clean; ruff format check clean; pyright `0 errors`; `git diff --check` clean.
 
 ## Phase History
@@ -133,15 +137,15 @@ none after reset. Legacy D-K findings were closed in the prior workflow, but old
 
 ### Last Evaluation
 
-- Profile: n/a
-- Task: n/a
-- Date: n/a
-- Eval Source: n/a
-- Metric(s): n/a
-- Score: n/a
-- Baseline: n/a
-- Delta: n/a
-- Regression: n/a
+- Profile: Evaluation Safety
+- Task: T08 Data and Leakage Gate Verification
+- Date: 2026-05-07
+- Eval Source: `tests/unit/test_data_leakage_reset.py`
+- Metric(s): leakage/holdout proof tests
+- Score: `3 passed`; full suite `305 passed, 20 skipped`
+- Baseline: Phase 2 boundary `302 passed, 20 skipped`
+- Delta: +3 passing tests
+- Regression: none
 
 ### Open Evaluation Issues
 

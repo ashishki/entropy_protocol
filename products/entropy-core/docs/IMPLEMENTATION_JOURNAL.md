@@ -21,6 +21,15 @@ This file records handoff context. It is not authority.
 
 ## Entries
 
+### 2026-05-07 - T08 - Data and Leakage Gate Verification
+
+- Scope: `src/entropy/data/`, `src/entropy/walkforward/`, `src/entropy/hashing/`, `tests/unit/test_data_leakage_reset.py`, `docs/EVIDENCE_INDEX.md`
+- Why this work happened: heavy Evaluation Safety task to verify deterministic dataset hashing, leakage-gated OOS labels, and holdout lock checks before read access
+- Decisions applied: `docs/core/PROTOCOL_SPEC.md`; `docs/IMPLEMENTATION_CONTRACT.md#forbidden-actions`
+- Evidence collected: T08 acceptance tests passed (`3 passed`); focused data/leakage/walk-forward slice `17 passed, 2 skipped`; full reset baseline `305 passed, 20 skipped`; ruff check clean; ruff format check clean; pyright `0 errors`; `git diff --check` clean
+- Follow-ups: start T09 SimBroker and Cost Surface Regression
+- Notes for next agent: T08 added explicit OOS label creation only from passing leakage reports and holdout read authorization that checks lock status before invoking a reader.
+
 ### 2026-05-07 - PHASE2 - Governance Integrity Boundary
 
 - Scope: T04-T07, `docs/audit/PHASE2_REVIEW.md`, `docs/audit/AUDIT_INDEX.md`

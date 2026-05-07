@@ -260,6 +260,7 @@ Owner:      codex
 Phase:      3
 Type:       none
 Depends-On: T07
+Status:     done 2026-05-07
 
 Objective: |
   Verify local historical data contracts, deterministic hashes, purge/embargo behavior, leakage checks, and holdout locks before any evaluation result can claim OOS status.

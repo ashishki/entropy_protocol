@@ -18,6 +18,7 @@ This file indexes proof artifacts. It is not authority by itself.
 | T06 No-Claim Report Boundary | Test result | `tests/unit/test_no_claim_report_boundary.py`; `src/entropy/baseline/report.py`; `src/entropy/baseline/decision.py` | Archive-only stat status, no production/capital-ready/OOS claim flags without gates, D-K closure no-claim boundary | 2026-05-07: `5 passed`; full baseline `299 passed, 20 skipped` | Yes |
 | T07 Governance Approval Gate Audit | Test result | `tests/unit/test_governance_gate_reset.py`; `src/entropy/governance/approval.py` | Human approval gates for phase gate reports, holdout access, and provider activation | 2026-05-07: `3 passed`; full baseline `302 passed, 20 skipped` | Yes |
 | Phase 2 Governance Integrity Review | Review report | `docs/audit/PHASE2_REVIEW.md` | Phase 2 boundary review for T04-T07 governance integrity | 2026-05-07: PASS; Stop-Ship 0, P0 0, P1 0, P2 0 | Yes |
+| T08 Data and Leakage Gate Verification | Test result | `tests/unit/test_data_leakage_reset.py::test_leakage_failure_blocks_oos_label`; `tests/unit/test_data_leakage_reset.py::test_holdout_lock_checked_before_path_open`; `src/entropy/walkforward/leakage.py`; `src/entropy/data/holdout.py` | OOS labels blocked by leakage failures with failing check ids; holdout lock checked before path read; dataset hash order independence | 2026-05-07: `3 passed`; full baseline `305 passed, 20 skipped` | Yes |
 
 T08 and T10 must add heavy-task evidence rows when implemented.
 
@@ -25,7 +26,6 @@ T08 and T10 must add heavy-task evidence rows when implemented.
 
 | Topic | Expected artifact | Owning task |
 |-------|-------------------|-------------|
-| Leakage/holdout proof | `tests/unit/test_data_leakage_reset.py::test_leakage_failure_blocks_oos_label` | T08 |
 | Attribution stream proof | `tests/unit/test_attribution_reset.py::test_net_sharpe_excludes_stream_d` | T10 |
 | Phase-gate packet proof | `tests/integration/test_phase_gate_packet_reset.py::test_phase_gate_packet_contains_required_sections` | T11 |
 | Product bridge proof | `tests/integration/test_trader_risk_bridge_contract.py::test_bridge_rejects_live_and_claim_surfaces` | T12 |
