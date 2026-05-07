@@ -124,6 +124,7 @@ Phase:      2
 Type:       none
 Depends-On: T03
 Status:     done 2026-05-07
+Status:     done 2026-05-07
 
 Objective: |
   Verify and harden registry/governance append-only behavior across SQLAlchemy models, migrations, and application write paths.
@@ -170,13 +171,12 @@ Acceptance-Criteria:
     description: "`docs/IMPLEMENTATION_JOURNAL.md` has an append-only reset entry that names the reset scope and next task."
     test: "tests/reset/test_evidence_index_contract.py::test_journal_has_reset_entry"
   - id: AC-3
-    description: "Legacy archive pointers are present in `docs/legacy/CORE_LEGACY_SUMMARY.md` and absent from active task instructions except scoped `Context-Refs`."
+    description: "Legacy summary pointers are present in the legacy summary and absent from active task instructions except scoped `Context-Refs`."
     test: "tests/reset/test_evidence_index_contract.py::test_legacy_archive_pointers_are_scoped"
 
 Files:
   - docs/EVIDENCE_INDEX.md
   - docs/IMPLEMENTATION_JOURNAL.md
-  - docs/legacy/CORE_LEGACY_SUMMARY.md
   - tests/reset/test_evidence_index_contract.py
 
 Context-Refs:

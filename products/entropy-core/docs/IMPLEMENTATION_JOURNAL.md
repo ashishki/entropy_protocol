@@ -21,6 +21,15 @@ This file records handoff context. It is not authority.
 
 ## Entries
 
+### 2026-05-07 - T05 - Evidence Index and Journal Sync
+
+- Scope: `docs/EVIDENCE_INDEX.md`, `docs/IMPLEMENTATION_JOURNAL.md`, `docs/tasks.md`, `tests/reset/test_evidence_index_contract.py`
+- Why this work happened: make reset-era evidence and handoff records executable and scoped so future work can retrieve proof without reading old workflow logs by default
+- Decisions applied: `D-RESET-001`, `D-RESET-005`
+- Evidence collected: T05 acceptance tests passed (`3 passed`); full reset baseline `294 passed, 20 skipped`; ruff check clean; ruff format check clean; pyright `0 errors`; `git diff --check` clean
+- Follow-ups: start T06 No-Claim Report Boundary
+- Notes for next agent: T05 removed legacy summary from active `Files:` task scope and enforces legacy references only through scoped `Context-Refs`.
+
 ### 2026-05-07 - T04 - Registry Append-Only Audit
 
 - Scope: `src/entropy/registry/`, `migrations/`, `tests/unit/test_registry_append_only_reset.py`, `tests/integration/test_registry_append_only_reset.py`

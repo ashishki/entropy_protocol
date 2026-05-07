@@ -7,10 +7,10 @@ manual restart.
 
 - Product: entropy-core
 - Branch: codex/entropy-core-work
-- Active task: T05 Evidence Index and Journal Sync
+- Active task: T06 No-Claim Report Boundary
 - Phase: 2 Governance Integrity
-- Last validation: 2026-05-07 T04: `291 passed, 20 skipped`; ruff check clean; ruff format check clean; pyright 0 errors; `git diff --check` clean.
-- Git status summary: T04 local changes pending commit at handoff update time.
+- Last validation: 2026-05-07 T05: `294 passed, 20 skipped`; ruff check clean; ruff format check clean; pyright 0 errors; `git diff --check` clean.
+- Git status summary: T05 local changes pending commit at handoff update time.
 
 ## Completed In This Phase
 
@@ -19,10 +19,10 @@ manual restart.
 - T03 Reset Baseline Smoke Tests completed with reset smoke coverage.
 - Phase 1 boundary review completed with no findings.
 - T04 Registry Append-Only Audit completed with no findings.
+- T05 Evidence Index and Journal Sync completed with no findings.
 
 ## Remaining Work
 
-- T05 Evidence Index and Journal Sync
 - T06 No-Claim Report Boundary
 - T07 Governance Approval Gate Audit
 
