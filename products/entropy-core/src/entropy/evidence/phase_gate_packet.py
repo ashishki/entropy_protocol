@@ -15,7 +15,9 @@ from entropy.governance.approval import HumanApprovalRecord, build_phase_gate_re
 DEFAULT_PHASE3_REQUIRED_EVIDENCE_TOPICS = (
     "T07 Governance Approval Gate Audit",
     "T08 Data and Leakage Gate Verification",
+    "T09 SimBroker and Cost Surface Regression",
     "T10 Attribution Stream Boundary Audit",
+    "T11 Phase-Gate Evidence Packet",
 )
 DEFAULT_PHASE3_REQUIRED_HUMAN_APPROVALS = (
     "phase_gate:phase-3-evaluation-safety",

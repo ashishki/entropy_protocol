@@ -35,7 +35,9 @@ def test_phase_gate_packet_contains_required_sections() -> None:
     assert "## Evidence Rows" in markdown
     assert "T07 Governance Approval Gate Audit" in markdown
     assert "T08 Data and Leakage Gate Verification" in markdown
+    assert "T09 SimBroker and Cost Surface Regression" in markdown
     assert "T10 Attribution Stream Boundary Audit" in markdown
+    assert "T11 Phase-Gate Evidence Packet" in markdown
     assert "Baseline: 311 passed, 20 skipped" in markdown
 
 
