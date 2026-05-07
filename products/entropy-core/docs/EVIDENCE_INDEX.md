@@ -23,14 +23,14 @@ This file indexes proof artifacts. It is not authority by itself.
 | T10 Attribution Stream Boundary Audit | Test result | `tests/unit/test_attribution_reset.py::test_net_sharpe_excludes_stream_d`; `tests/unit/test_attribution_reset.py::test_attribution_streams_are_separate_fields`; `tests/unit/test_attribution_reset.py::test_archive_only_attribution_has_no_performance_conclusion`; `src/entropy/attribution/engine.py` | Net Sharpe excludes stream d and rejects raw stream d input; archive-only attribution serializes streams a/b/c/d separately with no performance conclusion label | 2026-05-07: `3 passed`; full baseline `311 passed, 20 skipped` | Yes |
 | T11 Phase-Gate Evidence Packet | Test result | `tests/integration/test_phase_gate_packet_reset.py::test_phase_gate_packet_contains_required_sections`; `tests/integration/test_phase_gate_packet_reset.py::test_phase_gate_packet_fails_missing_evidence`; `tests/integration/test_phase_gate_packet_reset.py::test_phase_gate_packet_blocks_unapproved_claim_labels`; `src/entropy/evidence/phase_gate_packet.py` | Reset-era phase-gate packet lists baseline, required approvals, blocked claim surfaces, canonical evidence rows, and fails missing referenced artifacts | 2026-05-07: `3 passed`; full baseline `314 passed, 20 skipped` | Yes |
 | Phase 3 Evaluation Safety Review | Review report | `docs/audit/PHASE3_REVIEW.md` | Phase 3 boundary review for T08-T11 evaluation safety | 2026-05-07: PASS; Stop-Ship 0, P0 0, P1 0, P2 0 | Yes |
+| T12 Trader Risk Audit Bridge Contracts | Test result | `tests/integration/test_trader_risk_bridge_contract.py::test_bridge_contract_lists_allowed_and_forbidden_surfaces`; `tests/integration/test_trader_risk_bridge_contract.py::test_bridge_schemas_are_deterministic_and_no_llm_owned_fields`; `tests/integration/test_trader_risk_bridge_contract.py::test_bridge_rejects_live_and_claim_surfaces`; `docs/bridges/trader-risk-audit.md`; `src/entropy/bridges/trader_risk_audit.py` | Bridge contract lists allowed/forbidden Core surfaces and human gates; deterministic schemas reject LLM-owned fields and live/order/claim surfaces | 2026-05-07: `8 passed`; full baseline `322 passed, 20 skipped` | Yes |
 
-T08 through T10 heavy-task evidence rows are indexed.
+T08 through T12 heavy-task and product-bridge evidence rows are indexed.
 
 ## Pending Evidence
 
 | Topic | Expected artifact | Owning task |
 |-------|-------------------|-------------|
-| Product bridge proof | `tests/integration/test_trader_risk_bridge_contract.py::test_bridge_rejects_live_and_claim_surfaces` | T12 |
 
 ## Retrieval Rules
 

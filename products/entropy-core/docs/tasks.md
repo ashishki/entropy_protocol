@@ -411,6 +411,7 @@ Owner:      codex
 Phase:      4
 Type:       none
 Depends-On: T05, T06, T10
+Status:     done 2026-05-07
 
 Objective: |
   Define deterministic bridge contracts for Trader Risk Audit risk policy, violation record, attribution, and report primitives that can reuse Core without opening live trading or research-claim surfaces.

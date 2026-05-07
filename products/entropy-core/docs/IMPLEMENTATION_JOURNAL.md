@@ -21,6 +21,15 @@ This file records handoff context. It is not authority.
 
 ## Entries
 
+### 2026-05-07 - T12 - Trader Risk Audit Bridge Contracts
+
+- Scope: `docs/bridges/trader-risk-audit.md`, `src/entropy/bridges/`, `tests/integration/test_trader_risk_bridge_contract.py`
+- Why this work happened: define deterministic Core-side bridge contracts for Trader Risk Audit without opening live trading, order-blocking, or unsupported research-claim surfaces
+- Decisions applied: `docs/ARCHITECTURE.md#human-approval-boundaries`; `docs/IMPLEMENTATION_CONTRACT.md#product-bridge-boundary`
+- Evidence collected: T12 acceptance tests passed (`8 passed`); full reset baseline `322 passed, 20 skipped`; ruff check clean; ruff format check clean; pyright `0 errors`; `git diff --check` clean
+- Follow-ups: start T13 Hypothesis Backtest Bridge Design
+- Notes for next agent: T12 adds schemas and guard functions only; it does not integrate with product runtime code, broker APIs, holdout reads, or Core registry/gate writes.
+
 ### 2026-05-07 - PHASE3 - Evaluation Safety Boundary
 
 - Scope: T08-T11, `docs/audit/PHASE3_REVIEW.md`, `docs/audit/AUDIT_INDEX.md`
