@@ -1,4 +1,5 @@
 docs/hooks_log.txt
+**/docs/hooks_log.txt
 .env
 .env.*
 !.env.example
