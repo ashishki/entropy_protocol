@@ -18,7 +18,7 @@ Reset state for Entropy Core after archiving the old active workflow. Historical
 ## Current State
 
 - Phase: 2
-- Baseline: 294 passing tests, 20 skipped (T05 local verification on 2026-05-07)
+- Baseline: 299 passing tests, 20 skipped (T06 local verification on 2026-05-07)
 - Ruff: clean on Phase 1 boundary verification 2026-05-07
 - Pyright: clean on Phase 1 boundary verification 2026-05-07
 - Last CI: product-local workflow configured; remote CI not yet observed after reset
@@ -40,7 +40,7 @@ Reset state for Entropy Core after archiving the old active workflow. Historical
 
 ## Next Task
 
-T06: No-Claim Report Boundary
+T07: Governance Approval Gate Audit
 
 ## Fix Queue
 
@@ -71,6 +71,10 @@ none after reset. Legacy D-K findings were closed in the prior workflow, but old
 - 2026-05-07: T05 Evidence Index and Journal Sync completed.
   - Acceptance tests: `tests/reset/test_evidence_index_contract.py` passed (`3 passed`).
   - Reset baseline: `.venv/bin/python -m pytest -q tests/` reported `294 passed, 20 skipped`.
+  - Quality checks: ruff check clean; ruff format check clean; pyright `0 errors`; `git diff --check` clean.
+- 2026-05-07: T06 No-Claim Report Boundary completed.
+  - Acceptance tests: `tests/unit/test_no_claim_report_boundary.py` passed (`5 passed`).
+  - Reset baseline: `.venv/bin/python -m pytest -q tests/` reported `299 passed, 20 skipped`.
   - Quality checks: ruff check clean; ruff format check clean; pyright `0 errors`; `git diff --check` clean.
 
 ## Phase History

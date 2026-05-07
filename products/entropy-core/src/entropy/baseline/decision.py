@@ -44,7 +44,14 @@ class Phase1KClosurePacket:
 
 def build_phase1j_research_decision(report: Phase1IEvaluationReport) -> Phase1JResearchDecision:
     """Decide the research state without opening holdout or production claims."""
-    if report.performance_conclusion or report.holdout_used or report.phase_gate_evidence:
+    if (
+        report.performance_conclusion
+        or report.holdout_used
+        or report.phase_gate_evidence
+        or report.production_label
+        or report.capital_ready_label
+        or report.oos_label
+    ):
         raise ValueError("Phase 1J decision requires a no-claim report")
     return Phase1JResearchDecision(
         decision_id=PHASE1J_RESEARCH_DECISION_ID,

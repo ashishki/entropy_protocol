@@ -125,6 +125,7 @@ Type:       none
 Depends-On: T03
 Status:     done 2026-05-07
 Status:     done 2026-05-07
+Status:     done 2026-05-07
 
 Objective: |
   Verify and harden registry/governance append-only behavior across SQLAlchemy models, migrations, and application write paths.

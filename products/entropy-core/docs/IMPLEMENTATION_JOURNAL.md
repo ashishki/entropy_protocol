@@ -21,6 +21,15 @@ This file records handoff context. It is not authority.
 
 ## Entries
 
+### 2026-05-07 - T06 - No-Claim Report Boundary
+
+- Scope: `src/entropy/evidence/`, `src/entropy/baseline/report.py`, `src/entropy/baseline/decision.py`, `tests/unit/test_no_claim_report_boundary.py`
+- Why this work happened: verify report and decision surfaces remain archive-only/no-claim after reset and reject unsupported production, capital-ready, or OOS claim flags
+- Decisions applied: `D-RESET-001`; `docs/legacy/CORE_LEGACY_SUMMARY.md#durable-boundaries`; `docs/IMPLEMENTATION_CONTRACT.md#forbidden-actions`
+- Evidence collected: T06 acceptance tests passed (`5 passed`); full reset baseline `299 passed, 20 skipped`; ruff check clean; ruff format check clean; pyright `0 errors`; `git diff --check` clean
+- Follow-ups: start T07 Governance Approval Gate Audit
+- Notes for next agent: T06 added an `oos_label` boolean guard to report payloads and rejects it before any no-claim research decision can be built.
+
 ### 2026-05-07 - T05 - Evidence Index and Journal Sync
 
 - Scope: `docs/EVIDENCE_INDEX.md`, `docs/IMPLEMENTATION_JOURNAL.md`, `docs/tasks.md`, `tests/reset/test_evidence_index_contract.py`
