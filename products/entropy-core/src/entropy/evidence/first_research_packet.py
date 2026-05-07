@@ -132,13 +132,14 @@ def build_first_research_evidence_packet(
     evaluation: ArchiveEvaluationResult,
     artifact_refs: Sequence[str],
     project_root: Path | str,
+    packet_id: str = "FIRST-RESEARCH-EVIDENCE-PACKET-001",
 ) -> FirstResearchEvidencePacket:
     """Build and verify the first archive-only research evidence packet."""
     _verify_artifacts(artifact_refs, project_root=Path(project_root))
     _verify_consistency(candidate=candidate, manifest=manifest, evaluation=evaluation)
     payload = {
         "schema_version": FIRST_RESEARCH_EVIDENCE_PACKET_SCHEMA_VERSION,
-        "packet_id": "FIRST-RESEARCH-EVIDENCE-PACKET-001",
+        "packet_id": packet_id,
         "candidate_id": evaluation.candidate_id,
         "dataset_hash": evaluation.dataset_hash,
         "code_hash": evaluation.code_hash,

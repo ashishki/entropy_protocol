@@ -7,10 +7,10 @@ manual restart.
 
 - Product: entropy-core
 - Branch: codex/entropy-core-work
-- Active task: Human decision required after T19
-- Phase: 5 First Research Evidence Packet
-- Last validation: 2026-05-07 T19: `351 passed, 20 skipped`; ruff check clean; ruff format check clean; pyright 0 errors; `git diff --check` clean.
-- Git status summary: T15-T19 first research packet local changes pending commit at handoff update time.
+- Active task: Human decision required after T24
+- Phase: 6 Archive Evidence Expansion
+- Last validation: 2026-05-07 T24: `374 passed, 20 skipped`; ruff check clean; ruff format check clean; pyright 0 errors; `git diff --check` clean.
+- Git status summary: Phase 6 archive evidence expansion local changes pending commit at handoff update time.
 
 ## Completed In This Phase
 
@@ -36,6 +36,11 @@ manual restart.
 - T17 Archive Evaluation Harness Wiring completed with no findings.
 - T18 First Research Evidence Packet completed with no findings.
 - T19 First Research Packet Review completed with no findings.
+- T20 Second Research Candidate Registration Packet completed with no findings.
+- T21 Second Archive Dataset Manifest and Hash Binding completed with no findings.
+- T22 Second Archive Evaluation Harness Wiring completed with no findings.
+- T23 Second Research Evidence Packet completed with no findings.
+- T24 Archive Evidence Expansion Review completed with no findings.
 
 ## Remaining Work
 
@@ -45,6 +50,8 @@ manual restart.
 
 - Human decision after T14 recorded: open the first research evidence packet block.
 - Human decision required after T19: first packet block is complete; no next block is open.
+- Human decision after T19 recorded: open archive-only evidence expansion for more proof. No holdout, live feed, broker/exchange, production, capital-ready, phase-gate, or OOS/performance claim path is approved.
+- Human decision required after T24: archive evidence expansion is complete; no next block is open.
 
 ## Resume Instruction
 

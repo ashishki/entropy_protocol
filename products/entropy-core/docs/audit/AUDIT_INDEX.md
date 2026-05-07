@@ -11,6 +11,7 @@ Append-only. One row per reset-era review cycle.
 | PHASE3-EVALUATION | 3 | 2026-05-07 | T08-T11 Evaluation Safety | 0 | 0 | 0 | 0 |
 | RESET-CLOSURE | 4 | 2026-05-07 | T01-T14 Reset Closure | 0 | 0 | 0 | 0 |
 | FIRST-RESEARCH-PACKET | 5 | 2026-05-07 | T15-T19 First Research Evidence Packet | 0 | 0 | 0 | 0 |
+| ARCHIVE-EVIDENCE-EXPANSION | 6 | 2026-05-07 | T20-T24 Archive Evidence Expansion | 0 | 0 | 0 | 0 |
 
 ## Archive
 
@@ -21,6 +22,7 @@ Append-only. One row per reset-era review cycle.
 | PHASE3-EVALUATION | `docs/audit/PHASE3_REVIEW.md` | 3 | PASS |
 | RESET-CLOSURE | `docs/audit/RESET_REVIEW.md` | 4 | PASS |
 | FIRST-RESEARCH-PACKET | `docs/audit/FIRST_RESEARCH_PACKET_REVIEW.md` | 5 | PASS |
+| ARCHIVE-EVIDENCE-EXPANSION | `docs/audit/ARCHIVE_EVIDENCE_EXPANSION_REVIEW.md` | 6 | PASS |
 
 ## Notes
 

@@ -21,6 +21,51 @@ This file records handoff context. It is not authority.
 
 ## Entries
 
+### 2026-05-07 - T24 - Archive Evidence Expansion Review
+
+- Scope: `docs/audit/ARCHIVE_EVIDENCE_EXPANSION_REVIEW.md`, `docs/audit/AUDIT_INDEX.md`, `docs/CODEX_PROMPT.md`, `tests/reset/test_archive_evidence_expansion_review.py`
+- Why this work happened: close the archive evidence expansion block with a review artifact, audit index row, validation record, limitations, and next human decision point
+- Decisions applied: `docs/research/second-packet/RESEARCH_EVIDENCE_PACKET.md`; `docs/audit/FIRST_RESEARCH_PACKET_REVIEW.md`
+- Evidence collected: T24 acceptance tests passed (`3 passed`); full reset baseline `374 passed, 20 skipped`; ruff check clean; ruff format check clean; pyright `0 errors`; `git diff --check` clean
+- Follow-ups: stop for human decision unless explicitly instructed to open a new research block or gate discussion
+- Notes for next agent: archive evidence expansion is complete; holdout, live feeds, broker/exchange, production, capital-ready, phase-gate, and OOS/performance remain unapproved.
+
+### 2026-05-07 - T23 - Second Research Evidence Packet
+
+- Scope: `src/entropy/evidence/first_research_packet.py`, `docs/research/second-packet/RESEARCH_EVIDENCE_PACKET.md`, `docs/EVIDENCE_INDEX.md`, `tests/integration/test_second_research_packet.py`
+- Why this work happened: generate a second deterministic archive-only research evidence packet from the second candidate, manifest, and evaluation outputs
+- Decisions applied: `docs/research/first-packet/RESEARCH_EVIDENCE_PACKET.md`; `docs/audit/FIRST_RESEARCH_PACKET_REVIEW.md`; T22 archive evaluation harness proof
+- Evidence collected: T23 acceptance tests passed (`20 passed`); full reset baseline `371 passed, 20 skipped`; ruff check clean; ruff format check clean; pyright `0 errors`; `git diff --check` clean
+- Follow-ups: start T24 Archive Evidence Expansion Review
+- Notes for next agent: T23 parameterized packet id for the second packet and remains no-claim; no holdout, live, broker/exchange, production, capital-ready, phase-gate, or OOS/performance approval was introduced.
+
+### 2026-05-07 - T22 - Second Archive Evaluation Harness Wiring
+
+- Scope: `tests/integration/test_second_research_packet.py`, `docs/EVIDENCE_INDEX.md`
+- Why this work happened: prove repeat use of the archive-only evaluation harness on the second candidate without opening claim surfaces
+- Decisions applied: `docs/audit/FIRST_RESEARCH_PACKET_REVIEW.md`; `docs/audit/PHASE3_REVIEW.md`; T17 archive evaluation harness contract; T20-T21 second packet contracts
+- Evidence collected: T22 acceptance tests passed (`17 passed`); full reset baseline `368 passed, 20 skipped`; ruff check clean; ruff format check clean; pyright `0 errors`; `git diff --check` clean
+- Follow-ups: start T23 Second Research Evidence Packet
+- Notes for next agent: T22 is heavy evidence; the second evaluation remains archive-only, refuses missing hashes, emits separated attribution streams, and does not produce OOS/performance, holdout, phase-gate, production, or capital-ready approval.
+
+### 2026-05-07 - T21 - Second Archive Dataset Manifest and Hash Binding
+
+- Scope: `docs/research/second-packet/DATASET_MANIFEST.md`, `docs/EVIDENCE_INDEX.md`, `tests/integration/test_second_research_packet.py`
+- Why this work happened: bind the second research candidate to an archive-only dataset manifest with deterministic aggregate hashes and explicit holdout exclusion
+- Decisions applied: `docs/core/PROTOCOL_SPEC.md`; `docs/IMPLEMENTATION_CONTRACT.md#leakage-and-holdout-boundary`; T16 manifest binding contract; T20 second candidate packet contract
+- Evidence collected: T21 acceptance tests passed (`14 passed`); full reset baseline `365 passed, 20 skipped`; ruff check clean; ruff format check clean; pyright `0 errors`; `git diff --check` clean
+- Follow-ups: start T22 Second Archive Evaluation Harness Wiring
+- Notes for next agent: T21 reused the archive manifest boundary for ETH fixture paths; holdout paths remain rejected and T20 candidate fields remain unchanged by dataset binding.
+
+### 2026-05-07 - T20 - Second Research Candidate Registration Packet
+
+- Scope: `src/entropy/research/candidate.py`, `src/entropy/research/__init__.py`, `docs/research/second-packet/CANDIDATE_PACKET.md`, `docs/EVIDENCE_INDEX.md`, `tests/integration/test_second_research_packet.py`
+- Why this work happened: human approval after T19 requested more evidence, so Phase 6 opens archive-only expansion with a second distinct candidate
+- Decisions applied: `docs/governance/research_firewall.md`; `docs/governance/experiment_readiness_gate.md`; `docs/governance/hypothesis_families.md`; `docs/audit/FIRST_RESEARCH_PACKET_REVIEW.md`
+- Evidence collected: T20 acceptance tests passed (`11 passed`); full reset baseline `362 passed, 20 skipped`; ruff check clean; ruff format check clean; pyright `0 errors`; `git diff --check` clean
+- Follow-ups: start T21 Second Archive Dataset Manifest and Hash Binding
+- Notes for next agent: T20 is candidate-only and not registered or evaluated; it uses Structure Levels, distinct from the first Volatility Compression candidate, and preserves all no-claim/no-live/no-holdout boundaries.
+
 ### 2026-05-07 - T19 - First Research Packet Review
 
 - Scope: `docs/audit/FIRST_RESEARCH_PACKET_REVIEW.md`, `docs/audit/AUDIT_INDEX.md`, `docs/CODEX_PROMPT.md`, `tests/reset/test_first_research_packet_review.py`

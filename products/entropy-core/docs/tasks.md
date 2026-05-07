@@ -15,6 +15,7 @@ Status: active research packet task graph
 | 3 | Evaluation Safety | T08-T11 | Data/leakage/holdout, SimBroker, attribution, and phase-gate evidence hardening. | Heavy evidence tasks have executable tests and indexed proof. |
 | 4 | Product Bridges | T12-T14 | Trader Risk Audit primitives and hypothesis/backtest bridge contracts. | Bridge tests prove no live/no-claim boundaries are preserved. |
 | 5 | First Research Evidence Packet | T15-T19 | One registered, hash-bound, archive-only, leakage-checked research packet from a narrow baseline hypothesis. | Packet and review prove reproducible evidence without OOS/performance, holdout, live, production, or capital-ready claims. |
+| 6 | Archive Evidence Expansion | T20-T24 | Additional archive-only, hash-bound evidence packets from distinct narrow baseline hypotheses. | Packet set demonstrates repeatable archive evidence generation without OOS/performance, holdout, live, production, or capital-ready claims. |
 
 ## T01: Existing Project Baseline Skeleton
 
@@ -699,6 +700,196 @@ Files:
 Context-Refs:
   - docs/research/first-packet/RESEARCH_EVIDENCE_PACKET.md
   - docs/audit/RESET_REVIEW.md
+
+Notes: |
+  Stop after this review unless a human explicitly opens the next research block or approves a gate discussion.
+
+## T20: Second Research Candidate Registration Packet
+
+Owner:      codex
+Phase:      6
+Type:       none
+Depends-On: T19
+Status:     done 2026-05-07
+
+Objective: |
+  Select a second narrow, falsifiable archive-only baseline hypothesis from a different canonical family and encode a preregistration packet with the same no-claim, human-gated, hash-placeholder boundaries as the first packet.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "The second candidate packet records candidate id, hypothesis text, distinct hypothesis family, scope, frozen parameters, no-claim labels, and required human registration gate."
+    test: "tests/integration/test_second_research_packet.py::test_second_candidate_packet_records_registration_requirements"
+  - id: AC-2
+    description: "Second candidate packet serialization is deterministic and includes dataset/code/policy/parameter hash placeholders before evaluation."
+    test: "tests/integration/test_second_research_packet.py::test_second_candidate_packet_serializes_deterministically"
+  - id: AC-3
+    description: "Second candidate packet cannot request holdout, OOS/performance, production, capital-ready, live-feed, or broker/exchange surfaces."
+    test: "tests/integration/test_second_research_packet.py::test_second_candidate_packet_rejects_claim_and_live_surfaces"
+
+Files:
+  - src/entropy/research/
+  - docs/research/second-packet/CANDIDATE_PACKET.md
+  - tests/integration/test_second_research_packet.py
+
+Context-Refs:
+  - docs/governance/research_firewall.md
+  - docs/governance/experiment_readiness_gate.md
+  - docs/governance/hypothesis_families.md
+  - docs/audit/FIRST_RESEARCH_PACKET_REVIEW.md
+
+Notes: |
+  This task opens more archive-only evidence. It does not approve holdout, OOS/performance, live, broker/exchange, production, capital-ready, or phase-gate claims.
+
+## T21: Second Archive Dataset Manifest and Hash Binding
+
+Owner:      codex
+Phase:      6
+Type:       none
+Depends-On: T16, T20
+Status:     done 2026-05-07
+
+Objective: |
+  Bind the second research candidate to an archive-only dataset manifest with deterministic dataset hashes and explicit holdout exclusion.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Second dataset manifest hash is deterministic across row order and path ordering."
+    test: "tests/integration/test_second_research_packet.py::test_second_archive_dataset_manifest_hash_is_deterministic"
+  - id: AC-2
+    description: "Second manifest records formation/evaluation scope and explicitly excludes holdout reads."
+    test: "tests/integration/test_second_research_packet.py::test_second_archive_dataset_manifest_excludes_holdout"
+  - id: AC-3
+    description: "Second dataset binding updates the candidate packet without changing hypothesis text, family, or frozen parameters."
+    test: "tests/integration/test_second_research_packet.py::test_second_dataset_binding_preserves_registered_candidate_fields"
+
+Files:
+  - src/entropy/research/
+  - docs/research/second-packet/DATASET_MANIFEST.md
+  - tests/integration/test_second_research_packet.py
+
+Context-Refs:
+  - docs/core/PROTOCOL_SPEC.md
+  - docs/IMPLEMENTATION_CONTRACT.md#leakage-and-holdout-boundary
+
+Notes: |
+  Use archive/local fixtures only. Do not add provider activation, live feeds, or holdout access.
+
+## T22: Second Archive Evaluation Harness Wiring
+
+Owner:      codex
+Phase:      6
+Type:       none
+Depends-On: T17, T20, T21
+Status:     done 2026-05-07
+
+Objective: |
+  Wire the second candidate through the archive-only evaluation path and prove the reusable harness still records leakage, SimBroker, attribution, and no-claim outputs.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Second evaluation refuses to run unless candidate, dataset hash, code hash, policy hash, and parameter hash are present."
+    test: "tests/integration/test_second_research_packet.py::test_second_archive_evaluation_requires_all_hash_bindings"
+  - id: AC-2
+    description: "Second evaluation output includes leakage status, SimBroker fill log identifiers, and separated attribution streams."
+    test: "tests/integration/test_second_research_packet.py::test_second_archive_evaluation_outputs_required_evidence_surfaces"
+  - id: AC-3
+    description: "Second evaluation output serializes no-claim labels and no OOS/performance conclusion."
+    test: "tests/integration/test_second_research_packet.py::test_second_archive_evaluation_output_remains_no_claim"
+
+Execution-Mode: heavy
+Evidence:
+  - tests/integration/test_second_research_packet.py::test_second_archive_evaluation_output_remains_no_claim
+  - docs/EVIDENCE_INDEX.md row for second archive evaluation harness proof
+Verifier-Focus: |
+  Confirm repeat use of the archive evaluation path cannot silently become OOS/performance evidence.
+
+Files:
+  - src/entropy/research/
+  - docs/EVIDENCE_INDEX.md
+  - tests/integration/test_second_research_packet.py
+
+Context-Refs:
+  - docs/audit/FIRST_RESEARCH_PACKET_REVIEW.md
+  - docs/audit/PHASE3_REVIEW.md
+
+Notes: |
+  Heavy task because it expands evidence generation beyond the first candidate while preserving no-claim boundaries.
+
+## T23: Second Research Evidence Packet
+
+Owner:      codex
+Phase:      6
+Type:       none
+Depends-On: T18, T22
+Status:     done 2026-05-07
+
+Objective: |
+  Generate the second deterministic archive-only research evidence packet with candidate, hashes, leakage, SimBroker, attribution, no-claim labels, and evidence-index proof.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Second evidence packet contains candidate id, dataset/code/policy/parameter hashes, leakage status, SimBroker evidence, attribution streams, and no-claim labels."
+    test: "tests/integration/test_second_research_packet.py::test_second_research_packet_contains_required_sections"
+  - id: AC-2
+    description: "Second evidence packet generation fails when any referenced artifact or required hash is missing."
+    test: "tests/integration/test_second_research_packet.py::test_second_research_packet_fails_missing_artifact_or_hash"
+  - id: AC-3
+    description: "Second evidence packet contains no holdout unlock, OOS/performance approval, production approval, or capital-ready approval."
+    test: "tests/integration/test_second_research_packet.py::test_second_research_packet_blocks_claim_approvals"
+
+Execution-Mode: heavy
+Evidence:
+  - tests/integration/test_second_research_packet.py::test_second_research_packet_contains_required_sections
+  - docs/research/second-packet/RESEARCH_EVIDENCE_PACKET.md
+  - docs/EVIDENCE_INDEX.md row for second research packet proof
+Verifier-Focus: |
+  Confirm the second packet adds evidence without approving phase exit, live use, or performance claims.
+
+Files:
+  - src/entropy/evidence/
+  - src/entropy/research/
+  - docs/research/second-packet/RESEARCH_EVIDENCE_PACKET.md
+  - docs/EVIDENCE_INDEX.md
+  - tests/integration/test_second_research_packet.py
+
+Context-Refs:
+  - docs/research/first-packet/RESEARCH_EVIDENCE_PACKET.md
+  - docs/audit/FIRST_RESEARCH_PACKET_REVIEW.md
+
+Notes: |
+  The packet may be useful archive evidence, but it does not approve phase exit, live use, or performance claims.
+
+## T24: Archive Evidence Expansion Review
+
+Owner:      codex
+Phase:      6
+Type:       none
+Depends-On: T23
+Status:     done 2026-05-07
+
+Objective: |
+  Review the expanded archive evidence set, record open findings, and recommend the next human decision without escalating claims.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/audit/ARCHIVE_EVIDENCE_EXPANSION_REVIEW.md` summarizes packet set, evidence, validation, limitations, open findings, and next recommendation."
+    test: "tests/reset/test_archive_evidence_expansion_review.py::test_archive_evidence_expansion_review_contains_required_sections"
+  - id: AC-2
+    description: "Review records that holdout, live feeds, broker integration, production, capital-ready, and OOS/performance claims remain unapproved."
+    test: "tests/reset/test_archive_evidence_expansion_review.py::test_archive_evidence_expansion_review_preserves_boundaries"
+  - id: AC-3
+    description: "`docs/CODEX_PROMPT.md` records the completed archive evidence expansion state and next human decision point."
+    test: "tests/reset/test_archive_evidence_expansion_review.py::test_codex_prompt_records_archive_expansion_review_state"
+
+Files:
+  - docs/audit/ARCHIVE_EVIDENCE_EXPANSION_REVIEW.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/CODEX_PROMPT.md
+  - tests/reset/test_archive_evidence_expansion_review.py
+
+Context-Refs:
+  - docs/research/second-packet/RESEARCH_EVIDENCE_PACKET.md
+  - docs/audit/FIRST_RESEARCH_PACKET_REVIEW.md
 
 Notes: |
   Stop after this review unless a human explicitly opens the next research block or approves a gate discussion.

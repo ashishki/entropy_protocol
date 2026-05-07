@@ -230,6 +230,53 @@ def build_first_research_candidate_packet() -> FirstResearchCandidatePacket:
     )
 
 
+def build_second_research_candidate_packet() -> FirstResearchCandidatePacket:
+    """Build the second narrow archive-only research candidate packet."""
+    return FirstResearchCandidatePacket(
+        candidate_id="SRC-001-STRUCTURE-RETEST-BOUNCE",
+        hypothesis_text=(
+            "When a liquid ETH archive bar sequence closes back above a prior 20-bar "
+            "structure low within three bars after a downside breach, the next archive "
+            "evaluation window should exhibit higher net stream-a-minus-cost outcome than "
+            "an always-flat baseline under the preregistered no-claim harness."
+        ),
+        hypothesis_family="Structure Levels",
+        scope=(
+            "archive-only ETH local fixture bars; no holdout, live feed, broker, exchange, "
+            "production, capital-ready, or OOS/performance surface"
+        ),
+        frozen_parameters=(
+            FrozenParameter(
+                name="structure_window_bars",
+                value="20",
+                rationale="Freezes the prior-low structure reference before any evaluation run.",
+            ),
+            FrozenParameter(
+                name="retest_confirmation_bars",
+                value="3",
+                rationale="Freezes the allowed reclaim window before hash binding.",
+            ),
+            FrozenParameter(
+                name="holding_window_bars",
+                value="5",
+                rationale="Freezes the archive evaluation holding horizon for the second packet.",
+            ),
+        ),
+        primary_metric="net_stream_a_minus_cost_status",
+        baseline_comparator="always_flat_archive_baseline",
+        minimum_sample_requirement="at least 30 archive fixture candidate events before any summary",
+        invalidation_condition=(
+            "Reject as not ready if leakage checks fail, required hashes are missing, or sample "
+            "count is below the frozen minimum."
+        ),
+        leakage_risks=(
+            "post-hoc level selection after inspecting evaluation output",
+            "look-ahead from using future lows in structure or reclaim labels",
+            "reuse of calibration information across future holdout boundaries",
+        ),
+    )
+
+
 def deterministic_candidate_json(packet: FirstResearchCandidatePacket) -> str:
     """Serialize a candidate packet with stable key ordering and compact separators."""
     return json.dumps(packet.model_dump(mode="json"), sort_keys=True, separators=(",", ":"))
@@ -265,6 +312,7 @@ __all__ = [
     "FirstResearchCandidatePacket",
     "FrozenParameter",
     "build_first_research_candidate_packet",
+    "build_second_research_candidate_packet",
     "deterministic_candidate_json",
     "validate_candidate_requested_surfaces",
 ]

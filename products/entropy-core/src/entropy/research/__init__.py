@@ -9,6 +9,7 @@ from entropy.research.candidate import (
     FirstResearchCandidatePacket,
     FrozenParameter,
     build_first_research_candidate_packet,
+    build_second_research_candidate_packet,
     deterministic_candidate_json,
     validate_candidate_requested_surfaces,
 )
@@ -53,6 +54,7 @@ __all__ = [
     "bind_candidate_evaluation_hashes",
     "build_archive_dataset_manifest",
     "build_first_research_candidate_packet",
+    "build_second_research_candidate_packet",
     "deterministic_candidate_json",
     "deterministic_evaluation_json",
     "deterministic_manifest_json",

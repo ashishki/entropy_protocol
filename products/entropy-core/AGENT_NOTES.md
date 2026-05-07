@@ -87,3 +87,15 @@ Phase 5 is complete through T19.
 - Evidence index rows added for T15, T16, T17, and T18; review artifact `docs/audit/FIRST_RESEARCH_PACKET_REVIEW.md` added for T19.
 - Next state: human decision required after T19.
 - Boundaries remain unchanged: first packet block is archive-only and complete; holdout, live feeds, broker/exchange, production, capital-ready, phase-gate, and OOS/performance remain unapproved.
+
+## 2026-05-07 Archive Evidence Expansion Opened
+
+Human decision after T19 opened a new archive-only evidence expansion block.
+
+- Active phase: Phase 6 Archive Evidence Expansion.
+- Planned tasks: T20 through T24.
+- Target result: additional hash-bound, archive-only, leakage-checked research evidence from a second distinct narrow baseline hypothesis.
+- Latest validation: `.venv/bin/python -m pytest -q tests/` -> `374 passed, 20 skipped`; ruff check clean; ruff format check clean; pyright `0 errors`; `git diff --check` clean.
+- Completed tasks: T20 Second Research Candidate Registration Packet, T21 Second Archive Dataset Manifest and Hash Binding, T22 Second Archive Evaluation Harness Wiring, T23 Second Research Evidence Packet, T24 Archive Evidence Expansion Review.
+- Next state: human decision required after T24.
+- Boundaries remain unchanged: no holdout, live feed, broker/exchange, production, capital-ready, phase-gate, or OOS/performance approval.

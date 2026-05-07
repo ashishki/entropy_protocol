@@ -2,7 +2,7 @@
 
 Version: 1.0
 Date: 2026-05-07
-Phase: 5
+Phase: 6
 
 Reset state for Entropy Core after archiving the old active workflow. Historical files are available under `docs/legacy/old-workflow/2026-05-07/` but are not read by default.
 
@@ -10,17 +10,17 @@ Reset state for Entropy Core after archiving the old active workflow. Historical
 
 ## Current Phase
 
-- Phase: 5
-- Name: First Research Evidence Packet
-- Business goal: produce one registered, hash-bound, archive-only, leakage-checked research evidence packet from a narrow baseline hypothesis.
-- Phase gate: packet and review prove reproducible evidence without OOS/performance, holdout, live, production, or capital-ready claims.
+- Phase: 6
+- Name: Archive Evidence Expansion
+- Business goal: produce additional hash-bound, archive-only, leakage-checked research evidence packets from distinct narrow baseline hypotheses.
+- Phase gate: expanded packet set and review prove repeatable archive evidence generation without OOS/performance, holdout, live, production, or capital-ready claims.
 
 ## Current State
 
-- Phase: 5
-- Baseline: 351 passing tests, 20 skipped (T19 local verification on 2026-05-07)
-- Ruff: clean on T19 local verification 2026-05-07
-- Pyright: clean on T19 local verification 2026-05-07
+- Phase: 6
+- Baseline: 374 passing tests, 20 skipped (T24 local verification on 2026-05-07)
+- Ruff: clean on T24 local verification 2026-05-07
+- Pyright: clean on T24 local verification 2026-05-07
 - Last CI: product-local workflow configured; remote CI not yet observed after reset
 - Holdout: locked
 - Live capital: not approved
@@ -40,9 +40,11 @@ Reset state for Entropy Core after archiving the old active workflow. Historical
 
 ## Next Task
 
-Human decision required after T19.
+Human decision required after T24.
 
-First Research Evidence Packet block complete through T19. Do not continue into a new research block, holdout discussion, live-feed path, broker/exchange path, production/capital-ready path, or OOS/performance claim path unless a human explicitly opens that scope.
+Archive Evidence Expansion block complete through T24. Do not continue into another research block, holdout discussion, live-feed path, broker/exchange path, production/capital-ready path, phase-gate approval, or OOS/performance claim path unless a human explicitly opens that scope.
+
+Human decision recorded after T19: open an archive-only evidence expansion block for more proof. Holdout, live feeds, broker/exchange, production, capital-ready, phase-gate, and OOS/performance claim paths remain unapproved.
 
 ## Fix Queue
 
@@ -130,6 +132,26 @@ none after reset. Legacy D-K findings were closed in the prior workflow, but old
   - Acceptance tests: `tests/reset/test_first_research_packet_review.py` passed (`3 passed`).
   - Reset baseline: `.venv/bin/python -m pytest -q tests/` reported `351 passed, 20 skipped`.
   - Quality checks: ruff check clean; ruff format check clean; pyright `0 errors`; `git diff --check` clean.
+- 2026-05-07: T20 Second Research Candidate Registration Packet completed.
+  - Acceptance tests: `tests/integration/test_second_research_packet.py` passed (`11 passed`).
+  - Reset baseline: `.venv/bin/python -m pytest -q tests/` reported `362 passed, 20 skipped`.
+  - Quality checks: ruff check clean; ruff format check clean; pyright `0 errors`; `git diff --check` clean.
+- 2026-05-07: T21 Second Archive Dataset Manifest and Hash Binding completed.
+  - Acceptance tests: `tests/integration/test_second_research_packet.py` passed (`14 passed`).
+  - Reset baseline: `.venv/bin/python -m pytest -q tests/` reported `365 passed, 20 skipped`.
+  - Quality checks: ruff check clean; ruff format check clean; pyright `0 errors`; `git diff --check` clean.
+- 2026-05-07: T22 Second Archive Evaluation Harness Wiring completed.
+  - Acceptance tests: `tests/integration/test_second_research_packet.py` passed (`17 passed`).
+  - Reset baseline: `.venv/bin/python -m pytest -q tests/` reported `368 passed, 20 skipped`.
+  - Quality checks: ruff check clean; ruff format check clean; pyright `0 errors`; `git diff --check` clean.
+- 2026-05-07: T23 Second Research Evidence Packet completed.
+  - Acceptance tests: `tests/integration/test_second_research_packet.py` passed (`20 passed`).
+  - Reset baseline: `.venv/bin/python -m pytest -q tests/` reported `371 passed, 20 skipped`.
+  - Quality checks: ruff check clean; ruff format check clean; pyright `0 errors`; `git diff --check` clean.
+- 2026-05-07: T24 Archive Evidence Expansion Review completed.
+  - Acceptance tests: `tests/reset/test_archive_evidence_expansion_review.py` passed (`3 passed`).
+  - Reset baseline: `.venv/bin/python -m pytest -q tests/` reported `374 passed, 20 skipped`.
+  - Quality checks: ruff check clean; ruff format check clean; pyright `0 errors`; `git diff --check` clean.
 
 ## Phase History
 
@@ -139,6 +161,10 @@ none after reset. Legacy D-K findings were closed in the prior workflow, but old
 - 2026-05-07: Reset implementation block completed. Review artifact: `docs/audit/RESET_REVIEW.md`. Result: PASS; Stop-Ship 0, P0 0, P1 0, P2 0.
 - 2026-05-07: First Research Evidence Packet block opened by human decision after T14. Scope: T15-T19.
 - 2026-05-07: First Research Evidence Packet block completed. Review artifact: `docs/audit/FIRST_RESEARCH_PACKET_REVIEW.md`. Result: PASS; Stop-Ship 0, P0 0, P1 0, P2 0.
+- 2026-05-07: First Research Evidence Packet block complete through T19. Human decision required after T19 was satisfied by opening archive-only evidence expansion.
+- 2026-05-07: T19 boundary state preserved: holdout, live feeds, broker/exchange, production, capital-ready, and OOS/performance remain unapproved.
+- 2026-05-07: Archive Evidence Expansion block opened by human decision after T19. Scope: T20-T24.
+- 2026-05-07: Archive Evidence Expansion block complete through T24. Review artifact: `docs/audit/ARCHIVE_EVIDENCE_EXPANSION_REVIEW.md`. Result: PASS; Stop-Ship 0, P0 0, P1 0, P2 0.
 
 ## Profile State: RAG
 
@@ -188,12 +214,12 @@ none after reset. Legacy D-K findings were closed in the prior workflow, but old
 ### Last Evaluation
 
 - Profile: First Research Evidence Packet
-- Task: Human decision required after T19
+- Task: Human decision required after T24
 - Date: 2026-05-07
 - Eval Source: `tests/integration/test_first_research_packet.py`
-- Metric(s): first research packet review contract tests
-- Score: `3 passed`; current baseline `351 passed, 20 skipped`
-- Baseline: T18 first research evidence packet `348 passed, 20 skipped`
+- Metric(s): archive evidence expansion review contract tests
+- Score: `3 passed`; current baseline `374 passed, 20 skipped`
+- Baseline: T23 second research evidence packet `371 passed, 20 skipped`
 - Delta: +3 passing tests
 - Regression: none known
 
@@ -201,9 +227,13 @@ none after reset. Legacy D-K findings were closed in the prior workflow, but old
 
 none
 
+### Human Decision
+
+Human approval after T19 opened Phase 6 Archive Evidence Expansion for more archive-only proof. Holdout, live feeds, broker/exchange, production, capital-ready, phase-gate, and OOS/performance remain unapproved.
+
 ### Human Decision Point
 
-First Research Evidence Packet block is complete through T19. Holdout, live feeds, broker/exchange, production, capital-ready, and OOS/performance remain unapproved.
+Archive Evidence Expansion block is complete through T24. Holdout, live feeds, broker/exchange, production, capital-ready, phase-gate, and OOS/performance remain unapproved.
 
 ## Verification Defaults
 
