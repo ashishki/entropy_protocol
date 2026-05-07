@@ -1,0 +1,11 @@
+{
+  "artifacts": {
+    "attribution_summary": "c0e3fc1d3e29be8c26c6136e4b37c4aeb58c23c974f299190260c01888c06e2e",
+    "normalized_trades": "d05388820af8ea89751540df1070e470b7c61850791f6a491908204f73ef53c2",
+    "policy_file": "f8c25ed5ad18a28b691ee5d3b5ee33a0ab79e2bb033ef9de06bb1b6ddaaeee41",
+    "report_markdown": "0991628e10b28a644fced0121d1c6fd51950c5f22a9c7317ec7468598dd8c2b7",
+    "source_export": "92a46be7b84188020c63948259220b1d72ef2de5c94b1b63768b76c1a0df62ab",
+    "violations": "4fc46e9fa668b1145a343712489a94596f8b9cc6c0d6b4b3458eddc325cc13e4"
+  },
+  "content_hash": "dfb89658ee1dc15c98f3f476521fa78cea5954a14b9db56090e89e4a0d7d9e87"
+}
