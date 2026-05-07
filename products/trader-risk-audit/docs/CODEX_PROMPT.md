@@ -13,12 +13,12 @@ This file is the single source of truth for implementation session state. Every 
 - Phase: 7
 - Name: Internal Validation with Public Samples
 - Business goal: prove internally that Trader Risk Audit works on licensed public/anonymized examples before manual trader outreach, while keeping public samples separate from paid pilot or PMF evidence.
-- Phase gate: T30-T32 complete; the team has a public sample source policy, a reproducible public-sample evidence pack, and a go/no-go readiness review for starting trader outreach without claiming market validation from demo artifacts.
+- Phase gate: T30-T32 complete; the team has a public sample source policy, soft/medium/hard starter policy profiles, a reproducible public-sample evidence pack, and a go/no-go readiness review for starting trader outreach without claiming market validation from demo artifacts.
 
 ## Current State
 
 - Phase: 7
-- Baseline: 88 passing tests
+- Baseline: 92 passing tests
 - Ruff: clean (`ruff check` and `ruff format --check`)
 - Last CI: workflow configured; remote run not observed from this clone
 - Last updated: 2026-05-07
@@ -42,6 +42,7 @@ Task intent:
 
 - Define the source, licensing, privacy, and evidence-labeling rules for public or public-like records used for internal validation before approaching real traders.
 - Record SEC EDGAR Insider Transactions Data Sets / Form 4 as the candidate primary source for the first public sample pack, subject to T30 source policy checks.
+- Document the `soft`, `medium`, and `hard` starter policy profiles as audit presets that welcome customization and do not replace trader or prop/funded account rules.
 - Make explicit that public sample artifacts are internal/demo evidence, not qualified prospect calls, paid pilot reports, repeat commitments, referrals, or PMF evidence.
 - Define the readiness gate for moving from internal validation to trader outreach.
 
@@ -50,6 +51,7 @@ Required context before starting:
 - `docs/IMPLEMENTATION_CONTRACT.md`
 - `docs/tasks.md#t30-public-sample-source-policy`
 - `docs/DEMO_CASE_RU.md`
+- `docs/STARTER_POLICY_PROFILES_RU.md`
 - `docs/PILOT_EVIDENCE_LOG_RU.md`
 - `STARTUP_PRESSURE_TEST_RU.md#14-final-recommendation`
 - `README.md#current-status`
@@ -62,7 +64,12 @@ Required context before starting:
 Immediate scope:
 
 - `docs/PUBLIC_SAMPLE_SOURCE_POLICY_RU.md`
+- `docs/STARTER_POLICY_PROFILES_RU.md`
+- `templates/policies/starter_policy_soft.yaml`
+- `templates/policies/starter_policy_medium.yaml`
+- `templates/policies/starter_policy_hard.yaml`
 - `tests/test_public_sample_source_policy.py`
+- `tests/test_starter_policy_profiles.py`
 
 Candidate source decision:
 
@@ -71,6 +78,13 @@ Candidate source decision:
 - Mapping for T31: `TRANS_DATE` -> timestamp, `ISSUERTRADINGSYMBOL` -> symbol, `TRANS_ACQUIRED_DISP_CD` A/D -> buy/sell, `TRANS_SHARES` -> quantity, `TRANS_PRICEPERSHARE` -> price.
 - Privacy rule: remove reporting owner names, signatures, remarks, footnotes, and unnecessary personal fields before committing a public sample pack.
 - Backup: public exchange trade-print samples only if SEC Form 4 cannot support at least three explainable risk scenarios; label backup samples as market prints, not account history.
+
+Starter policy decision:
+
+- Provide three starter audit presets: `soft`, `medium`, and `hard`.
+- Treat them as internal validation/demo defaults, not investment advice, strategy recommendations, or optimal risk settings.
+- Prefer trader custom rules and prop/funded account rules when available.
+- For Phase 7 internal validation, run public samples through these profiles where useful to test explainability across strictness levels.
 
 ADR-001 is filed. Telegram implementation may proceed only inside that ADR's constrained intake boundary. Phase 7 does not require new Telegram behavior.
 
@@ -112,7 +126,7 @@ none
 
 - Phase 5 Concierge Pilot Workflow complete: T17-T20 delivered end-to-end local audit CLI, Telegram-ready copy packet, retention/delete controls, and anonymized pilot regression fixtures. Baseline moved from 49 to 61 passing tests. Deep review Cycle 5 found P0:0, P1:0, P2:0; Stop-Ship: No.
 - Phase 6 Pilot Validation and Telegram Intake complete: T21-T29 delivered synthetic demo artifacts, pilot intake/workspace conventions, ADR-001, constrained Telegram intake/delivery, operator queue, mocked pilot flow, and business evidence log. Baseline moved from 61 to 88 passing tests. Deep review Cycle 7 found P0:0, P1:0, P2:0; Stop-Ship: No.
-- Phase 7 Internal Validation with Public Samples planned: T30-T32 will define public sample source rules, create a reproducible public-sample evidence pack, and decide whether internal product confidence is sufficient to start trader outreach.
+- Phase 7 Internal Validation with Public Samples planned: T30-T32 will define public sample source rules, use soft/medium/hard starter policy profiles, create a reproducible public-sample evidence pack, and decide whether internal product confidence is sufficient to start trader outreach.
 
 ## Summary State
 

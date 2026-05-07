@@ -16,7 +16,7 @@ Status: Phase 7 planned - internal validation with public samples
 | 4 | Reporting and Artifacts | T13-T16 | Report data model, Markdown output, claim guard, and reproducible manifest hashes. | Reports are generated from deterministic artifacts and blocked when unsupported claims appear. |
 | 5 | Concierge Pilot Workflow | T17-T20 | End-to-end CLI, Telegram-ready packet, retention/delete workflow, and pilot regression fixtures. | A local operator can run a complete anonymized audit and reproduce the same artifact hashes. |
 | 6 | Pilot Validation and Telegram Intake | T21-T29 | Demo artifacts, pilot intake contracts, local audit workspace conventions, Telegram intake/delivery gate, operator queue, and pilot evidence log. | A user can submit files through a constrained pilot path, an operator can review/run/deliver an audit, and business evidence is captured without live trading scope. |
-| 7 | Internal Validation with Public Samples | T30-T32 | Public sample source policy, reproducible public evidence pack, and internal readiness review before trader outreach. | The team can prove the audit workflow on licensed public/anonymized examples, explain its limits, and decide whether to start trader outreach without counting public samples as paid pilot evidence. |
+| 7 | Internal Validation with Public Samples | T30-T32 | Public sample source policy, soft/medium/hard starter policy profiles, reproducible public evidence pack, and internal readiness review before trader outreach. | The team can prove the audit workflow on licensed public/anonymized examples, explain its limits, and decide whether to start trader outreach without counting public samples as paid pilot evidence. |
 
 ---
 
@@ -1014,7 +1014,7 @@ Type:       docs
 Depends-On: T21, T29
 
 Objective: |
-  Define the source, licensing, privacy, and evidence-labeling rules for public or public-like records that can be used to validate Trader Risk Audit internally before approaching real traders.
+  Define the source, licensing, privacy, evidence-labeling rules, and starter policy profile boundaries for public or public-like records that can be used to validate Trader Risk Audit internally before approaching real traders.
 
 Acceptance-Criteria:
   - id: AC-1
@@ -1026,13 +1026,22 @@ Acceptance-Criteria:
   - id: AC-3
     description: "The policy defines the readiness gate for moving from internal validation to trader outreach: reproducible reports, explainable violations, at least three risk scenarios, and a two-minute readable demo."
     test: "tests/test_public_sample_source_policy.py::test_public_sample_policy_defines_outreach_readiness_gate"
+  - id: AC-4
+    description: "The starter policy profile doc and YAML templates define soft, medium, and hard audit presets, explain customization, and preserve the no-advice boundary."
+    test: "tests/test_starter_policy_profiles.py"
 
 Files:
   - docs/PUBLIC_SAMPLE_SOURCE_POLICY_RU.md
+  - docs/STARTER_POLICY_PROFILES_RU.md
+  - templates/policies/starter_policy_soft.yaml
+  - templates/policies/starter_policy_medium.yaml
+  - templates/policies/starter_policy_hard.yaml
   - tests/test_public_sample_source_policy.py
+  - tests/test_starter_policy_profiles.py
 
 Context-Refs:
   - docs/DEMO_CASE_RU.md
+  - docs/STARTER_POLICY_PROFILES_RU.md
   - docs/PILOT_EVIDENCE_LOG_RU.md
   - STARTUP_PRESSURE_TEST_RU.md#14-final-recommendation
   - README.md#current-status
@@ -1041,6 +1050,7 @@ Notes: |
   This task only defines the source policy and internal readiness gate. Do not fetch public data, add public sample artifacts, contact traders, or mark validation evidence as paid pilot proof.
   Candidate primary source for T31: SEC EDGAR Insider Transactions Data Sets / Form 4 non-derivative transactions, using only P/S transaction rows with required date, ticker, shares, and price fields. Source policy must require removing reporting owner names, signatures, remarks, footnotes, and any unnecessary personal fields before committing a sample pack.
   Candidate backup source: public exchange trade-print samples only if SEC Form 4 cannot support at least three explainable risk scenarios; backup samples must be labeled as market trade prints, not account history.
+  Starter policies: provide `soft`, `medium`, and `hard` audit presets for internal validation and demos. They must be framed as customizable audit strictness profiles, not investment advice, strategy recommendations, optimal risk settings, or replacements for trader/prop account rules.
 
 ## T31: Public Sample Evidence Pack
 
@@ -1062,6 +1072,9 @@ Acceptance-Criteria:
   - id: AC-3
     description: "The source metadata labels the pack as internal/demo validation and records why it is not paid pilot evidence."
     test: "tests/integration/test_public_sample_pack.py::test_public_sample_pack_is_not_marked_as_market_validation"
+  - id: AC-4
+    description: "The public sample evidence pack records which starter profile was used and, where useful, compares soft, medium, and hard outputs without claiming one profile is objectively best."
+    test: "tests/integration/test_public_sample_pack.py::test_public_sample_pack_records_starter_profile_context"
 
 Files:
   - demo/public_sample_001/source.md
@@ -1069,16 +1082,22 @@ Files:
   - demo/public_sample_001/policy.yaml
   - demo/public_sample_001/output/
   - docs/PUBLIC_SAMPLE_EVIDENCE_RU.md
+  - docs/STARTER_POLICY_PROFILES_RU.md
+  - templates/policies/starter_policy_soft.yaml
+  - templates/policies/starter_policy_medium.yaml
+  - templates/policies/starter_policy_hard.yaml
   - tests/integration/test_public_sample_pack.py
 
 Context-Refs:
   - docs/PUBLIC_SAMPLE_SOURCE_POLICY_RU.md
+  - docs/STARTER_POLICY_PROFILES_RU.md
   - docs/DEMO_CASE_RU.md
   - docs/IMPLEMENTATION_CONTRACT.md#report-claim-boundaries
   - docs/IMPLEMENTATION_CONTRACT.md#confidential-data-handling
 
 Notes: |
   Preferred source path: use SEC EDGAR Insider Transactions Data Sets / Form 4 non-derivative transactions after T30 confirms source, licensing, privacy, and transformation rules. Map `TRANS_DATE` to timestamp, `ISSUERTRADINGSYMBOL` to symbol, `TRANS_ACQUIRED_DISP_CD` A/D to buy/sell, `TRANS_SHARES` to quantity, `TRANS_PRICEPERSHARE` to price, and `ACCESSION_NUMBER` plus row key to source traceability. Do not include reporting owner names, signatures, remarks, footnotes, broker credentials, or unverifiable copied private exports.
+  Starter profile path: use `soft`, `medium`, and `hard` templates to test internal explainability across strictness levels. Prefer custom trader or prop/funded account rules when available, and never present starter profiles as trading advice or optimal settings.
   If using live public internet sources, record the exact source URL, access date, license or terms summary, and transformation steps.
 
 ## T32: Internal Outreach Readiness Review

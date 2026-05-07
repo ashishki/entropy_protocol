@@ -15,7 +15,7 @@ violated, when they were violated, and how much damage violations created.
 - Current phase: Phase 7 - Internal Validation with Public Samples planned.
 - Completed: Phase 1 foundation through Phase 6 pilot validation, including constrained Telegram intake/delivery and business evidence artifacts.
 - Next task: T30 Public Sample Source Policy.
-- Local baseline: 88 passing tests, 0 skipped.
+- Local baseline: 92 passing tests, 0 skipped.
 - Quality checks: `.venv/bin/ruff check` and `.venv/bin/ruff format --check` are clean.
 - Review status: Phase 6 deep review archived at `docs/archive/PHASE6_REVIEW.md`; Stop-Ship: No.
 
@@ -49,13 +49,14 @@ violated, when they were violated, and how much damage violations created.
 | Local audit workspace | Complete | Helper creates input/output/operator-notes/artifacts directories and non-sensitive metadata. |
 | Telegram pilot intake/delivery | Complete | ADR-001, disabled-by-default intake handlers, local storage, operator queue, approved delivery abstraction, and mocked E2E flow are covered by tests. |
 | Pilot evidence log | Complete | Russian evidence log and CSV template track qualified calls, paid reports, objections, repeat commitments, and referrals. |
-| Public sample validation | Planned | Phase 7 will define public sample source rules, build a reproducible public-sample evidence pack, and decide whether to start trader outreach. |
+| Public sample validation | Planned | Phase 7 will define public sample source rules, use soft/medium/hard starter policy profiles, build a reproducible public-sample evidence pack, and decide whether to start trader outreach. |
+| Starter policy profiles | Complete | `docs/STARTER_POLICY_PROFILES_RU.md` and YAML templates define customizable soft, medium, and hard audit presets for internal validation, not trading advice. |
 
 ## Tests
 
 | Command | Current Result |
 |---------|----------------|
-| `.venv/bin/python -m pytest tests -q --tb=short` | 88 passed |
+| `.venv/bin/python -m pytest tests -q --tb=short` | 92 passed |
 | `.venv/bin/ruff check` | passed |
 | `.venv/bin/ruff format --check` | passed |
 
@@ -71,6 +72,7 @@ violated, when they were violated, and how much damage violations created.
 - Operator-owned local review queue and workspace convention.
 - Pilot payment/evidence tracking.
 - Public/anonymized internal validation samples before trader outreach.
+- Soft/medium/hard starter policy profiles as customizable audit presets.
 
 ## Scope Out
 
@@ -192,6 +194,7 @@ docs/
   ARCHITECTURE.md
   CODEX_PROMPT.md
   IMPLEMENTATION_CONTRACT.md
+  STARTER_POLICY_PROFILES_RU.md
   DEMO_CASE_RU.md
   PILOT_EVIDENCE_LOG_RU.md
   PILOT_INTAKE_CONTRACT_RU.md
@@ -201,6 +204,10 @@ docs/
 demo/
   risk_audit_case_001/
   public_sample_001/   # planned
+templates/policies/
+  starter_policy_soft.yaml
+  starter_policy_medium.yaml
+  starter_policy_hard.yaml
 .github/workflows/ci.yml
 pyproject.toml
 requirements.txt
