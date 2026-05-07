@@ -2,4 +2,5 @@ pydantic>=2
 polars
 pandas
 ccxt
+yfinance
 click
