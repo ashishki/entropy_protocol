@@ -8,6 +8,7 @@ Append-only. One row per reset-era review cycle.
 |-------|-------|------|-------|-----------|----|----|----|
 | PHASE1-RESET | 1 | 2026-05-07 | T01-T03 Reset Foundation | 0 | 0 | 0 | 0 |
 | PHASE2-GOVERNANCE | 2 | 2026-05-07 | T04-T07 Governance Integrity | 0 | 0 | 0 | 0 |
+| PHASE3-EVALUATION | 3 | 2026-05-07 | T08-T11 Evaluation Safety | 0 | 0 | 0 | 0 |
 
 ## Archive
 
@@ -15,6 +16,7 @@ Append-only. One row per reset-era review cycle.
 |-------|------|-------|--------|
 | PHASE1-RESET | `docs/audit/PHASE1_REVIEW.md` | 1 | PASS |
 | PHASE2-GOVERNANCE | `docs/audit/PHASE2_REVIEW.md` | 2 | PASS |
+| PHASE3-EVALUATION | `docs/audit/PHASE3_REVIEW.md` | 3 | PASS |
 
 ## Notes
 

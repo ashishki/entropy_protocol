@@ -21,6 +21,15 @@ This file records handoff context. It is not authority.
 
 ## Entries
 
+### 2026-05-07 - PHASE3 - Evaluation Safety Boundary
+
+- Scope: T08-T11, `docs/audit/PHASE3_REVIEW.md`, `docs/audit/AUDIT_INDEX.md`
+- Why this work happened: Phase 3 tasks completed and the reset loop required a phase-boundary review, archive/index update, and handoff checkpoint
+- Decisions applied: `D-RESET-001`, `D-RESET-004`, `D-RESET-005`; `docs/ARCHITECTURE.md#minimum-viable-control-surface`
+- Evidence collected: Phase 3 boundary review PASS; full reset baseline `314 passed, 20 skipped`; ruff check clean; ruff format check clean; pyright `0 errors`; `git diff --check` clean
+- Follow-ups: start T12 Trader Risk Audit Bridge Contracts
+- Notes for next agent: no phase-boundary findings were opened; Phase 4 begins with product bridge contracts and must preserve no-live/no-claim boundaries.
+
 ### 2026-05-07 - T11 - Phase-Gate Evidence Packet
 
 - Scope: `src/entropy/evidence/`, `docs/EVIDENCE_INDEX.md`, `tests/integration/test_phase_gate_packet_reset.py`

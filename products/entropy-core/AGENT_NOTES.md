@@ -44,3 +44,14 @@ Phase 2 Governance Integrity is complete in the reset task graph.
 - Audit index updated: `docs/audit/AUDIT_INDEX.md`.
 - Next task: T08 Data and Leakage Gate Verification.
 - No open findings or blockers.
+
+## 2026-05-07 Phase 3 Boundary
+
+Phase 3 Evaluation Safety is complete in the reset task graph.
+
+- Completed tasks: T08, T09, T10, T11.
+- Latest validation: `.venv/bin/python -m pytest -q tests/` -> `314 passed, 20 skipped`; ruff check clean; ruff format check clean; pyright 0 errors; `git diff --check` clean.
+- Review artifact: `docs/audit/PHASE3_REVIEW.md`.
+- Audit index updated: `docs/audit/AUDIT_INDEX.md`.
+- Next task: T12 Trader Risk Audit Bridge Contracts.
+- No open findings or blockers.

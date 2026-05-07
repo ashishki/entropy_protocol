@@ -7,10 +7,10 @@ manual restart.
 
 - Product: entropy-core
 - Branch: codex/entropy-core-work
-- Active task: Phase 3 boundary review
-- Phase: 3 Evaluation Safety
-- Last validation: 2026-05-07 T11: `314 passed, 20 skipped`; ruff check clean; ruff format check clean; pyright 0 errors; `git diff --check` clean.
-- Git status summary: T11 local changes pending commit at handoff update time.
+- Active task: T12 Trader Risk Audit Bridge Contracts
+- Phase: 4 Product Bridges
+- Last validation: 2026-05-07 Phase 3 review: `314 passed, 20 skipped`; ruff check clean; ruff format check clean; pyright 0 errors; `git diff --check` clean.
+- Git status summary: Phase 3 review local changes pending commit at handoff update time.
 
 ## Completed In This Phase
 
@@ -27,11 +27,13 @@ manual restart.
 - T09 SimBroker and Cost Surface Regression completed with no findings.
 - T10 Attribution Stream Boundary Audit completed with no findings.
 - T11 Phase-Gate Evidence Packet completed with no findings.
+- Phase 3 boundary review completed with no findings.
 
 ## Remaining Work
 
-- Phase 3 boundary review
 - T12 Trader Risk Audit Bridge Contracts
+- T13 Hypothesis Bridge Contract
+- T14 Backtest Bridge Contract
 
 ## Blockers Or Human Decisions
 
