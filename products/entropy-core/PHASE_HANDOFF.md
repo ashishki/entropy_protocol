@@ -7,10 +7,10 @@ manual restart.
 
 - Product: entropy-core
 - Branch: codex/entropy-core-work
-- Active task: T04 Registry Append-Only Audit
+- Active task: T05 Evidence Index and Journal Sync
 - Phase: 2 Governance Integrity
-- Last validation: 2026-05-07 Phase 1 boundary: `288 passed, 20 skipped`; ruff check clean; ruff format check clean; pyright 0 errors; `entropy --help` exited 0; `git diff --check` clean.
-- Git status summary: local reset/orchestration files modified or untracked; no commit made in this segment.
+- Last validation: 2026-05-07 T04: `291 passed, 20 skipped`; ruff check clean; ruff format check clean; pyright 0 errors; `git diff --check` clean.
+- Git status summary: T04 local changes pending commit at handoff update time.
 
 ## Completed In This Phase
 
@@ -18,10 +18,10 @@ manual restart.
 - T02 Product-Local CI Setup completed with reset CI contract tests.
 - T03 Reset Baseline Smoke Tests completed with reset smoke coverage.
 - Phase 1 boundary review completed with no findings.
+- T04 Registry Append-Only Audit completed with no findings.
 
 ## Remaining Work
 
-- T04 Registry Append-Only Audit
 - T05 Evidence Index and Journal Sync
 - T06 No-Claim Report Boundary
 - T07 Governance Approval Gate Audit

@@ -21,6 +21,15 @@ This file records handoff context. It is not authority.
 
 ## Entries
 
+### 2026-05-07 - T04 - Registry Append-Only Audit
+
+- Scope: `src/entropy/registry/`, `migrations/`, `tests/unit/test_registry_append_only_reset.py`, `tests/integration/test_registry_append_only_reset.py`
+- Why this work happened: verify reset-era append-only behavior for Trial Registry and governance event surfaces
+- Decisions applied: `D-RESET-001`; `docs/IMPLEMENTATION_CONTRACT.md#project-specific-rules`; `docs/core/PROTOCOL_SPEC.md`
+- Evidence collected: T04 acceptance tests passed (`3 passed`); full reset baseline `291 passed, 20 skipped`; ruff check clean; ruff format check clean; pyright `0 errors`; `git diff --check` clean
+- Follow-ups: start T05 Evidence Index and Journal Sync
+- Notes for next agent: T04 added static mutation-path checks, missing-hash-before-DB guard coverage, and migration append-only checks. Runtime code already satisfied the tested contracts.
+
 ### 2026-05-07 - PHASE1 - Reset Foundation Boundary
 
 - Scope: T01-T03, `docs/audit/PHASE1_REVIEW.md`, `docs/audit/AUDIT_INDEX.md`
