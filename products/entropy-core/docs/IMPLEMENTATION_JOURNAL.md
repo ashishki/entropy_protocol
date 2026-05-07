@@ -21,6 +21,15 @@ This file records handoff context. It is not authority.
 
 ## Entries
 
+### 2026-05-07 - T11 - Phase-Gate Evidence Packet
+
+- Scope: `src/entropy/evidence/`, `docs/EVIDENCE_INDEX.md`, `tests/integration/test_phase_gate_packet_reset.py`
+- Why this work happened: produce a reset-era phase-gate packet that binds baseline, required approvals, blocked claims, and canonical evidence rows without using old workflow state as authority
+- Decisions applied: `docs/ARCHITECTURE.md#minimum-viable-control-surface`
+- Evidence collected: T11 acceptance tests passed (`3 passed`); focused phase-gate/evidence slice `9 passed`; full reset baseline `314 passed, 20 skipped`; ruff check clean; ruff format check clean; pyright `0 errors`; `git diff --check` clean
+- Follow-ups: run Phase 3 boundary review before starting T12
+- Notes for next agent: T11 added `build_phase_gate_evidence_packet`, which verifies evidence-index artifact/test references and renders all claim surfaces blocked unless gate evidence exists.
+
 ### 2026-05-07 - T10 - Attribution Stream Boundary Audit
 
 - Scope: `src/entropy/attribution/`, `tests/unit/test_attribution_reset.py`, `docs/EVIDENCE_INDEX.md`

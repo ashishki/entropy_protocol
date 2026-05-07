@@ -18,7 +18,7 @@ Reset state for Entropy Core after archiving the old active workflow. Historical
 ## Current State
 
 - Phase: 3
-- Baseline: 311 passing tests, 20 skipped (T10 local verification on 2026-05-07)
+- Baseline: 314 passing tests, 20 skipped (T11 local verification on 2026-05-07)
 - Ruff: clean on Phase 1 boundary verification 2026-05-07
 - Pyright: clean on Phase 1 boundary verification 2026-05-07
 - Last CI: product-local workflow configured; remote CI not yet observed after reset
@@ -40,7 +40,7 @@ Reset state for Entropy Core after archiving the old active workflow. Historical
 
 ## Next Task
 
-T11: Phase-Gate Evidence Packet
+Phase 3 boundary review
 
 ## Fix Queue
 
@@ -91,6 +91,10 @@ none after reset. Legacy D-K findings were closed in the prior workflow, but old
 - 2026-05-07: T10 Attribution Stream Boundary Audit completed.
   - Acceptance tests: `tests/unit/test_attribution_reset.py` passed (`3 passed`).
   - Reset baseline: `.venv/bin/python -m pytest -q tests/` reported `311 passed, 20 skipped`.
+  - Quality checks: ruff check clean; ruff format check clean; pyright `0 errors`; `git diff --check` clean.
+- 2026-05-07: T11 Phase-Gate Evidence Packet completed.
+  - Acceptance tests: `tests/integration/test_phase_gate_packet_reset.py` passed (`3 passed`).
+  - Reset baseline: `.venv/bin/python -m pytest -q tests/` reported `314 passed, 20 skipped`.
   - Quality checks: ruff check clean; ruff format check clean; pyright `0 errors`; `git diff --check` clean.
 
 ## Phase History
@@ -146,12 +150,12 @@ none after reset. Legacy D-K findings were closed in the prior workflow, but old
 ### Last Evaluation
 
 - Profile: Evaluation Safety
-- Task: T10 Attribution Stream Boundary Audit
+- Task: T11 Phase-Gate Evidence Packet
 - Date: 2026-05-07
-- Eval Source: `tests/unit/test_attribution_reset.py`
-- Metric(s): attribution stream boundary proof tests
-- Score: `3 passed`; full suite `311 passed, 20 skipped`
-- Baseline: T09 `308 passed, 20 skipped`
+- Eval Source: `tests/integration/test_phase_gate_packet_reset.py`
+- Metric(s): phase-gate packet proof tests
+- Score: `3 passed`; full suite `314 passed, 20 skipped`
+- Baseline: T10 `311 passed, 20 skipped`
 - Delta: +3 passing tests
 - Regression: none
 

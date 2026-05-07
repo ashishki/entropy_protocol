@@ -7,10 +7,10 @@ manual restart.
 
 - Product: entropy-core
 - Branch: codex/entropy-core-work
-- Active task: T11 Phase-Gate Evidence Packet
+- Active task: Phase 3 boundary review
 - Phase: 3 Evaluation Safety
-- Last validation: 2026-05-07 T10: `311 passed, 20 skipped`; ruff check clean; ruff format check clean; pyright 0 errors; `git diff --check` clean.
-- Git status summary: T10 local changes pending commit at handoff update time.
+- Last validation: 2026-05-07 T11: `314 passed, 20 skipped`; ruff check clean; ruff format check clean; pyright 0 errors; `git diff --check` clean.
+- Git status summary: T11 local changes pending commit at handoff update time.
 
 ## Completed In This Phase
 
@@ -26,10 +26,12 @@ manual restart.
 - T08 Data and Leakage Gate Verification completed with no findings.
 - T09 SimBroker and Cost Surface Regression completed with no findings.
 - T10 Attribution Stream Boundary Audit completed with no findings.
+- T11 Phase-Gate Evidence Packet completed with no findings.
 
 ## Remaining Work
 
-- T11 Phase-Gate Evidence Packet
+- Phase 3 boundary review
+- T12 Trader Risk Audit Bridge Contracts
 
 ## Blockers Or Human Decisions
 
