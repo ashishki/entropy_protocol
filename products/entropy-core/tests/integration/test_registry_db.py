@@ -3,8 +3,8 @@
 from __future__ import annotations
 
 import os
-import shutil
 import subprocess
+import sys
 from collections.abc import Iterable
 from datetime import datetime, timezone
 from pathlib import Path
@@ -42,17 +42,17 @@ def assert_test_database(database_url: str) -> None:
         pytest.skip("DATABASE_URL database name must contain 'test' for migration reset")
 
 
-def alembic_executable() -> str:
-    """Return the Alembic executable from PATH or the local virtualenv."""
-    return shutil.which("alembic") or str(PROJECT_ROOT / ".venv" / "bin" / "alembic")
-
-
 def run_alembic(database_url: str, *args: str) -> subprocess.CompletedProcess[str]:
     """Run Alembic with the project migration config."""
     env = os.environ.copy()
     env["DATABASE_URL"] = database_url
+    existing_pythonpath = env.get("PYTHONPATH")
+    src_path = str(PROJECT_ROOT / "src")
+    env["PYTHONPATH"] = (
+        src_path if not existing_pythonpath else os.pathsep.join([src_path, existing_pythonpath])
+    )
     return subprocess.run(
-        [alembic_executable(), "-c", str(ALEMBIC_CONFIG), *args],
+        [sys.executable, "-m", "alembic", "-c", str(ALEMBIC_CONFIG), *args],
         cwd=PROJECT_ROOT,
         env=env,
         capture_output=True,

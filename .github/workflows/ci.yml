@@ -25,6 +25,9 @@ jobs:
   ci:
     name: "Lint, type-check, and test"
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: products/entropy-core
 
     # PostgreSQL 16 service container.
     # The application expects this database to be available before tests run.
@@ -67,17 +70,17 @@ jobs:
       # Step 4: Ruff lint check.
       # Zero warnings required — any ruff error fails the build.
       - name: Ruff lint check
-        run: ruff check entropy/ tests/
+        run: ruff check src/entropy tests/
 
       # Step 5: Ruff format check.
       # All source files must be formatted; the build fails on any diff.
       - name: Ruff format check
-        run: ruff format --check entropy/ tests/
+        run: ruff format --check src/entropy tests/
 
       # Step 6: Pyright type check.
-      # Strict type checking on the entropy/ package.
+      # Strict type checking on the Entropy Core package.
       - name: Pyright type check
-        run: pyright entropy/
+        run: pyright src/entropy
 
       # Step 7: Run pytest with short tracebacks.
       # Creates temp directories for test data and registry artifacts.

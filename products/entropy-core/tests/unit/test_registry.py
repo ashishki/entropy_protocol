@@ -22,7 +22,7 @@ from entropy.registry.read import (
 from entropy.registry.write import register_trial
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
-WRITE_PATH = PROJECT_ROOT / "entropy" / "registry" / "write.py"
+WRITE_PATH = PROJECT_ROOT / "src" / "entropy" / "registry" / "write.py"
 
 
 class EmptyResult:

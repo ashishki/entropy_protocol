@@ -75,8 +75,14 @@ def test_readiness_guard_rejects_labels_live_broker_growth_runtime_and_eval(tmp_
         (Phase1CPreflightRequest(live_feed_requested=True), "LIVE_FEED_NOT_ALLOWED"),
         (Phase1CPreflightRequest(broker_requested=True), "BROKER_NOT_ALLOWED"),
         (Phase1CPreflightRequest(growth_rdl_rbe_requested=True), "GROWTH_RDL_RBE_NOT_ALLOWED"),
-        (Phase1CPreflightRequest(runtime_escalation_requested=True), "RUNTIME_ESCALATION_NOT_ALLOWED"),
-        (Phase1CPreflightRequest(phase1_evaluation_requested=True), "PHASE1_EVALUATION_NOT_ALLOWED"),
+        (
+            Phase1CPreflightRequest(runtime_escalation_requested=True),
+            "RUNTIME_ESCALATION_NOT_ALLOWED",
+        ),
+        (
+            Phase1CPreflightRequest(phase1_evaluation_requested=True),
+            "PHASE1_EVALUATION_NOT_ALLOWED",
+        ),
         (Phase1CPreflightRequest(holdout_unlock_requested=True), "HOLDOUT_UNLOCK_NOT_ALLOWED"),
     ]
 

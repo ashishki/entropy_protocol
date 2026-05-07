@@ -8,13 +8,18 @@ import polars as pl
 import pytest
 
 from entropy.baseline.bounded import build_phase1e_all_bounded_baseline_outputs
-from entropy.baseline.evaluation import build_phase1g_evaluation_config
-from entropy.baseline.formation import prepare_phase1b_formation_input
-from entropy.baseline.governed import (
-    PHASE1H_GOVERNED_EVALUATION_RUN_ID,
-    Phase1HBar,
-    run_phase1h_governed_evaluation,
+from entropy.baseline.evaluation import (
+    PHASE1G_EVALUATION_APPROVAL_GUARD_ID,
+    PHASE1G_EVALUATION_CONFIG_CONTRACT_ID,
+    PHASE1G_REQUIRED_LEAKAGE_CHECKS,
+    PHASE1G_REQUIRED_STAT_FIELDS,
+    Phase1GEvaluationRequest,
+    build_phase1g_evaluation_config,
+    phase1g_evaluation_config_hash,
+    phase1g_evaluation_config_payload,
+    validate_phase1g_evaluation_request,
 )
+from entropy.baseline.formation import prepare_phase1b_formation_input
 from entropy.baseline.implementation import build_phase1d_implementation_contract
 from entropy.baseline.long_only import build_phase1b_long_only_baseline_surface
 from entropy.baseline.readiness import (
@@ -32,71 +37,117 @@ from entropy.evidence.phase1a_registration import (
     PHASE1A_FORMATION_LABEL,
     PHASE1A_HOLDOUT_LABEL,
     PHASE1A_REGISTRATION_BOUNDARY_ID,
+    PHASE1A_VALIDATION_LABEL,
 )
 from entropy.evidence.phase1a_scaffold import load_phase1a_baseline_scaffold
-from entropy.models.registry import LeakageStatus
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
 
-def test_phase1h_governed_evaluation_emits_run_record_without_claims(tmp_path) -> None:
+def test_phase1g_config_records_required_governed_evaluation_fields(tmp_path) -> None:
     config = _build_config(tmp_path)
 
-    result = run_phase1h_governed_evaluation(config, _bars())
-
-    assert result.evaluation_id == PHASE1H_GOVERNED_EVALUATION_RUN_ID
-    assert result.run_record.trial_id == config.trial_id
-    assert result.run_record.dataset_hash == config.dataset_hash
-    assert result.run_record.code_hash == config.code_hash
-    assert result.run_record.policy_hash == config.policy_hash
-    assert result.leakage_status is LeakageStatus.PASS
-    assert result.is_bar_count == 3
-    assert result.oos_bar_count == 4
-    assert result.holdout_used is False
-    assert result.performance_conclusion is False
-    assert result.phase_gate_evidence is False
-    assert result.production_label is False
-    assert result.capital_ready_label is False
+    assert config.contract_id == PHASE1G_EVALUATION_CONFIG_CONTRACT_ID
+    assert config.allowed_split_labels == (PHASE1A_FORMATION_LABEL, PHASE1A_VALIDATION_LABEL)
+    assert config.denied_split_labels == (PHASE1A_HOLDOUT_LABEL,)
+    assert config.leakage_checks_required == PHASE1G_REQUIRED_LEAKAGE_CHECKS
+    assert config.stat_report_fields == PHASE1G_REQUIRED_STAT_FIELDS
+    assert "phase1g_evaluation_run_approval" in config.required_human_gates
+    assert config.evaluation_execution_allowed is False
+    assert config.holdout_allowed is False
+    assert config.gate_claim_allowed is False
+    assert config.phase_gate_evidence is False
 
 
-def test_phase1h_governed_evaluation_requires_p1g_approval(tmp_path) -> None:
+def test_phase1g_config_payload_and_hash_are_deterministic(tmp_path) -> None:
     config = _build_config(tmp_path)
 
-    with pytest.raises(ValueError, match="EVALUATION_APPROVAL_REQUIRED"):
-        run_phase1h_governed_evaluation(
-            config,
-            _bars(),
-            approval_gate_id="phase1d_contract_approval",
+    payload = phase1g_evaluation_config_payload(config)
+
+    assert payload["contract_id"] == PHASE1G_EVALUATION_CONFIG_CONTRACT_ID
+    no_claim_labels = payload["no_claim_labels"]
+    assert isinstance(no_claim_labels, list)
+    assert "not_phase_gate_evidence" in no_claim_labels
+    assert phase1g_evaluation_config_hash(config) == phase1g_evaluation_config_hash(config)
+
+
+def test_phase1g_config_rejects_bad_windows(tmp_path) -> None:
+    preregistration = _build_preregistration(tmp_path)
+
+    with pytest.raises(ValueError, match="validation_start must be after formation_end"):
+        build_phase1g_evaluation_config(
+            preregistration,
+            formation_start=_dt(2020, 1, 1),
+            formation_end=_dt(2022, 12, 31),
+            validation_start=_dt(2022, 12, 31),
+            validation_end=_dt(2024, 12, 31),
+            embargo_bars=5,
         )
 
 
-def test_phase1h_run_id_is_deterministic_for_same_hashes(tmp_path) -> None:
+def test_phase1g_guard_rejects_holdout_live_broker_claims_and_labels(tmp_path) -> None:
     config = _build_config(tmp_path)
 
-    first = run_phase1h_governed_evaluation(config, _bars())
-    second = run_phase1h_governed_evaluation(config, _bars())
+    cases = [
+        (Phase1GEvaluationRequest(split_label=PHASE1A_HOLDOUT_LABEL), "HOLDOUT_NOT_ALLOWED"),
+        (Phase1GEvaluationRequest(holdout_requested=True), "HOLDOUT_NOT_ALLOWED"),
+        (Phase1GEvaluationRequest(live_feed_requested=True), "LIVE_FEED_NOT_ALLOWED"),
+        (Phase1GEvaluationRequest(broker_requested=True), "BROKER_NOT_ALLOWED"),
+        (
+            Phase1GEvaluationRequest(performance_conclusion_requested=True),
+            "PERFORMANCE_CONCLUSION_NOT_ALLOWED",
+        ),
+        (Phase1GEvaluationRequest(phase_gate_claim_requested=True), "PHASE_GATE_CLAIM_NOT_ALLOWED"),
+        (Phase1GEvaluationRequest(production_label_requested=True), "PRODUCTION_LABEL_NOT_ALLOWED"),
+        (
+            Phase1GEvaluationRequest(capital_ready_label_requested=True),
+            "CAPITAL_READY_LABEL_NOT_ALLOWED",
+        ),
+    ]
 
-    assert first.run_record.run_id == second.run_record.run_id
+    for request, reason_code in cases:
+        decision = validate_phase1g_evaluation_request(config, request)
+        assert decision.allowed is False
+        assert decision.reason_code == reason_code
 
 
-def test_phase1h_rejects_leaky_is_features(tmp_path) -> None:
+def test_phase1g_guard_requires_approval_before_evaluation_run(tmp_path) -> None:
     config = _build_config(tmp_path)
-    bars = list(_bars())
-    bars[0] = Phase1HBar(
-        timestamp=bars[0].timestamp,
-        open=bars[0].open,
-        high=bars[0].high,
-        low=bars[0].low,
-        close=bars[0].close,
-        volume=bars[0].volume,
-        feature_computed_through=_dt(2021, 1, 5),
+
+    denied = validate_phase1g_evaluation_request(
+        config,
+        Phase1GEvaluationRequest(evaluation_run_requested=True),
+    )
+    allowed = validate_phase1g_evaluation_request(
+        config,
+        Phase1GEvaluationRequest(
+            evaluation_run_requested=True,
+            approval_gate_id="phase1g_evaluation_run_approval",
+        ),
     )
 
-    with pytest.raises(ValueError, match="computed using data"):
-        run_phase1h_governed_evaluation(config, tuple(bars))
+    assert denied.allowed is False
+    assert denied.reason_code == "EVALUATION_APPROVAL_REQUIRED"
+    assert allowed.allowed is True
+    assert allowed.reason_code == "EVALUATION_CONFIG_REQUEST_ALLOWED"
+
+
+def test_phase1g_approval_guard_id_is_stable() -> None:
+    assert PHASE1G_EVALUATION_APPROVAL_GUARD_ID == "PHASE1G-EVALUATION-APPROVAL-GUARD-v1"
 
 
 def _build_config(tmp_path):
+    return build_phase1g_evaluation_config(
+        _build_preregistration(tmp_path),
+        formation_start=_dt(2020, 1, 1),
+        formation_end=_dt(2022, 12, 31),
+        validation_start=_dt(2023, 1, 1),
+        validation_end=_dt(2024, 12, 31),
+        embargo_bars=5,
+    )
+
+
+def _build_preregistration(tmp_path):
     boundary_path = _write_boundary_manifest(tmp_path)
     result = build_phase1a_baseline_registration_manifest(
         boundary_manifest_path=boundary_path,
@@ -121,36 +172,15 @@ def _build_config(tmp_path):
         contract,
         outputs,
         source_paths=(
-            PROJECT_ROOT / "entropy" / "baseline" / "bounded.py",
-            PROJECT_ROOT / "entropy" / "baseline" / "implementation.py",
+            PROJECT_ROOT / "src" / "entropy" / "baseline" / "bounded.py",
+            PROJECT_ROOT / "src" / "entropy" / "baseline" / "implementation.py",
         ),
     )
-    preregistration = build_phase1f_preregistration_surface(
-        binding,
-        registered_at=_dt(2026, 5, 6),
-    )
-    return build_phase1g_evaluation_config(
-        preregistration,
-        formation_start=_dt(2021, 1, 1),
-        formation_end=_dt(2021, 1, 3),
-        validation_start=_dt(2021, 1, 5),
-        validation_end=_dt(2021, 1, 8),
-        embargo_bars=1,
-    )
+    return build_phase1f_preregistration_surface(binding, registered_at=_dt(2026, 5, 6))
 
 
-def _bars() -> tuple[Phase1HBar, ...]:
-    return tuple(
-        Phase1HBar(
-            timestamp=_dt(2021, 1, day),
-            open=100.0 + day,
-            high=101.0 + day,
-            low=99.0 + day,
-            close=100.5 + day,
-            volume=1_000.0 + day,
-        )
-        for day in range(1, 9)
-    )
+def _dt(year: int, month: int, day: int) -> datetime:
+    return datetime(year, month, day, tzinfo=timezone.utc)
 
 
 def _formation_rows() -> pl.DataFrame:
@@ -171,10 +201,6 @@ def _formation_rows() -> pl.DataFrame:
             "dataset_hash": ["btc_hash", "btc_hash", "btc_hash", "btc_hash"],
         }
     )
-
-
-def _dt(year: int, month: int, day: int) -> datetime:
-    return datetime(year, month, day, tzinfo=timezone.utc)
 
 
 def _write_boundary_manifest(tmp_path):

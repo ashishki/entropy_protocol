@@ -133,7 +133,9 @@ def _synthetic_formation_rows(row_count: int) -> pl.DataFrame:
     return pl.DataFrame(
         {
             "symbol": [symbols[index % len(symbols)] for index in range(row_count)],
-            "timestamp_utc": [f"2021-01-{(index % 28) + 1:02d}T00:00:00Z" for index in range(row_count)],
+            "timestamp_utc": [
+                f"2021-01-{(index % 28) + 1:02d}T00:00:00Z" for index in range(row_count)
+            ],
             "open": [100.0 + float(index % 10) for index in range(row_count)],
             "high": [101.0 + float(index % 10) for index in range(row_count)],
             "low": [99.0 + float(index % 10) for index in range(row_count)],

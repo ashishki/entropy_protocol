@@ -80,7 +80,9 @@ def test_formation_adapter_rejects_holdout_and_forbidden_columns(tmp_path) -> No
     surface = _build_surface(tmp_path)
 
     with pytest.raises(ValueError, match="only accepts formation"):
-        prepare_phase1b_formation_input(surface, _formation_rows(), split_label=PHASE1A_HOLDOUT_LABEL)
+        prepare_phase1b_formation_input(
+            surface, _formation_rows(), split_label=PHASE1A_HOLDOUT_LABEL
+        )
     with pytest.raises(ValueError, match="FORBIDDEN_FEATURE_COLUMN"):
         prepare_phase1b_formation_input(
             surface,

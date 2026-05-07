@@ -285,7 +285,10 @@ def _check_surface(
 ) -> Phase1CChecklistItem:
     if surface is None:
         return Phase1CChecklistItem("phase1b_surface", "FAIL", "SURFACE_MISSING")
-    if surface.surface_id != contract.surface_id or surface.surface_id != PHASE1B_BASELINE_SURFACE_ID:
+    if (
+        surface.surface_id != contract.surface_id
+        or surface.surface_id != PHASE1B_BASELINE_SURFACE_ID
+    ):
         return Phase1CChecklistItem("phase1b_surface", "FAIL", "SURFACE_ID_MISMATCH")
     if surface.baseline_spec_hash != contract.baseline_spec_hash:
         return Phase1CChecklistItem("phase1b_surface", "FAIL", "BASELINE_SPEC_HASH_MISMATCH")
@@ -330,9 +333,13 @@ def _check_benchmark(
     if benchmark.benchmark_id != contract.benchmark_id:
         return Phase1CChecklistItem("mechanics_benchmark", "FAIL", "BENCHMARK_ID_MISMATCH")
     if benchmark.evaluation_allowed or benchmark.gate_claim_allowed:
-        return Phase1CChecklistItem("mechanics_benchmark", "FAIL", "BENCHMARK_CLAIM_FLAGS_NOT_ALLOWED")
+        return Phase1CChecklistItem(
+            "mechanics_benchmark", "FAIL", "BENCHMARK_CLAIM_FLAGS_NOT_ALLOWED"
+        )
     if tuple(benchmark.no_claim_labels) != PHASE1B_BASELINE_NO_CLAIM_LABELS:
-        return Phase1CChecklistItem("mechanics_benchmark", "FAIL", "BENCHMARK_NO_CLAIM_LABEL_MISMATCH")
+        return Phase1CChecklistItem(
+            "mechanics_benchmark", "FAIL", "BENCHMARK_NO_CLAIM_LABEL_MISMATCH"
+        )
     return Phase1CChecklistItem("mechanics_benchmark", "PASS", "BENCHMARK_READY")
 
 

@@ -1,8 +1,12 @@
 {
   "pythonVersion": "3.12",
+  "include": [
+    "src/entropy",
+    "tests"
+  ],
   "executionEnvironments": [
     {
-      "root": ".",
+      "root": "src",
       "extraPaths": [
         ".venv/lib/python3.12/site-packages"
       ]

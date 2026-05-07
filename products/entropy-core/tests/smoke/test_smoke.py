@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import importlib
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -15,9 +16,10 @@ except ModuleNotFoundError:  # pragma: no cover - Python <3.11 fallback
     import tomli as tomllib  # pyright: ignore[reportMissingImports]
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
+REPO_ROOT = PROJECT_ROOT.parents[1]
 PYPROJECT_PATH = PROJECT_ROOT / "pyproject.toml"
 GITIGNORE_PATH = PROJECT_ROOT / ".gitignore"
-CI_WORKFLOW_PATH = PROJECT_ROOT / ".github" / "workflows" / "ci.yml"
+CI_WORKFLOW_PATH = REPO_ROOT / ".github" / "workflows" / "ci.yml"
 SUBPACKAGES = [
     "entropy.models",
     "entropy.db",
@@ -60,9 +62,9 @@ REQUIRED_CI_ENV_VARS = {
     "LOG_LEVEL": "WARNING",
 }
 REQUIRED_CI_COMMANDS_IN_ORDER = [
-    "ruff check entropy/ tests/",
-    "ruff format --check entropy/ tests/",
-    "pyright entropy/",
+    "ruff check src/entropy tests/",
+    "ruff format --check src/entropy tests/",
+    "pyright src/entropy",
     "python3 -m pytest tests/ -q --tb=short",
 ]
 
@@ -71,6 +73,7 @@ def test_cli_help_exits_zero() -> None:
     result = subprocess.run(
         [sys.executable, "-m", "entropy", "--help"],
         capture_output=True,
+        env={**os.environ, "PYTHONPATH": str(PROJECT_ROOT / "src")},
         text=True,
         cwd=PROJECT_ROOT,
         check=False,

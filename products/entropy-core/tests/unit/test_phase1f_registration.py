@@ -185,8 +185,8 @@ def _build_registration_inputs(tmp_path):
 
 def _source_paths() -> tuple[Path, ...]:
     return (
-        PROJECT_ROOT / "entropy" / "baseline" / "bounded.py",
-        PROJECT_ROOT / "entropy" / "baseline" / "implementation.py",
+        PROJECT_ROOT / "src" / "entropy" / "baseline" / "bounded.py",
+        PROJECT_ROOT / "src" / "entropy" / "baseline" / "implementation.py",
     )
 
 
