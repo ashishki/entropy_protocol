@@ -1,31 +1,34 @@
 # CODEX_PROMPT.md — Signal Analytics Sandbox
 
-Version: 1.0
+Version: 2.9
 Date: 2026-05-07
-Phase: 1 (pending Phase 0 acknowledgement)
+Phase: 6
 
 ---
 
 ## Phase 0 Gate Status
 
-Engineering Phase 1 (T01+) MUST NOT begin until both rows below are marked `acknowledged` by the operator.
+Engineering Phase 1 (T01+) may begin because both rows below are marked `acknowledged` by the operator.
 
 | Gate | Status | Evidence | Acknowledged date |
 |------|--------|----------|-------------------|
-| SAS-001: Paid Pilot Demand Validation | pending | `docs/PILOT_LOG.md` (not yet created) | — |
-| SAS-002: Public-Source Legal/Terms Memo | pending | `docs/legal_risk_memo.md` (not yet created) | — |
+| SAS-001: Paid Pilot Demand Validation | acknowledged | `docs/PILOT_LOG.md` | 2026-05-07 |
+| SAS-002: Public-Source Legal/Terms Memo | acknowledged | `docs/legal_risk_memo.md` | 2026-05-07 |
 
-To acknowledge a gate, the operator edits this block — replaces `pending` with `acknowledged`, references the evidence file, and dates the acknowledgement. The Orchestrator refuses to dispatch T01–T20 while either row is pending (per IMPLEMENTATION_CONTRACT §PSR-10).
+The operator acknowledged the initial pilot scope on 2026-05-07:
+`https://t.me/bablos79`, `https://t.me/nemphiscrypts`, and
+`https://t.me/pifagortrade`. Twitter / X and Discord are deferred until the
+Telegram pilot validates the product hypothesis.
 
 ---
 
 ## Current State
 
-- **Phase:** 1 (queued — blocked by Phase 0)
-- **Baseline:** 0 passing tests (pre-implementation)
-- **Ruff:** not yet configured
-- **Pyright:** not yet configured
-- **Last CI run:** not yet configured
+- **Phase:** 6 (ready for T16)
+- **Baseline:** 68 passing tests, 0 skipped
+- **Ruff:** `ruff check src/ tests/` passes
+- **Pyright:** `pyright` passes
+- **Last CI run:** local CI-equivalent commands pass; GitHub run not yet observed
 - **Last updated:** 2026-05-07
 - **Session tokens (approx):** not yet tracked
 - **Cumulative phase tokens (approx):** not yet tracked
@@ -50,19 +53,15 @@ To acknowledge a gate, the operator edits this block — replaces `pending` with
 
 ## Next Task
 
-**Phase 0 — SAS-001: Paid Pilot Demand Validation** (operator-owned, non-codex)
+**T16: ManualExtractionAdapter**
 
-Engineering T01 is queued behind Phase 0. After both Phase 0 gates are acknowledged in the table above, the next task becomes:
-
-**T01: Project Skeleton**
-
-Inline digest for the Orchestrator (when T01 unblocks):
-- Pyproject + console-script `signal-sandbox`; Python ≥ 3.12.
-- Subpackages: sources/, capture/, extraction/, ledger/, prices/, outcomes/, reports/.
-- Shared `get_tracer()` in `src/signal_sandbox/observability.py` (no inline noop spans).
-- All subcommands except `status` exit code 2 with "not implemented".
-- Files: see `docs/tasks.md::T01::Files`.
-- Applicable rules: PSR-1 (no scraping code paths in stubs), Shared Tracing Module (universal), Pre-Task Protocol (universal).
+Inline digest for the Orchestrator:
+- Implement the manual extraction adapter using an injected editor command.
+- Write a pre-filled template containing every required `SignalRecord` field plus evidence_url and text_sha256.
+- Parse the saved template into `ExtractionResult(status="draft_pending_review", record=...)`.
+- Return `defer_to_human` with missing-field reasons when required fields are blank.
+- Files: see `docs/tasks.md::T16::Files`.
+- Applicable rules: PII Policy, Human Approval Boundaries, Pre-Task Protocol.
 
 Only send codex to the full ARCHITECTURE.md / IMPLEMENTATION_CONTRACT.md when a task is heavy or touches cross-cutting boundaries.
 
@@ -84,7 +83,7 @@ were deferred from the current task. Format:
 ## Open Findings
 
 ### Open ADRs (block specific phases)
-- ADR-001 (`docs/adr/ADR-001-snapshot-serialization.md`) — research pending; **blocks Phase 4 (T09 onward)**. Must reach Status: ACCEPTED before T09 implementation begins.
+- ADR-001 (`docs/adr/ADR-001-snapshot-serialization.md`) — accepted on 2026-05-07; deterministic Parquet snapshot bytes selected for T09/T11.
 
 ### Findings from review cycles
 none
@@ -104,7 +103,69 @@ none
 
 ## Completed Tasks
 
-none
+- 2026-05-07 — T01 Project Skeleton: created installable Python package
+  `signal-sandbox`, console script `signal-sandbox`, package subdirectories,
+  shared `get_tracer()`, CLI stubs, dependency manifests, and T01 tests.
+  Baseline after: 11 passed, 0 skipped. Review: light PASS.
+- 2026-05-07 — T02 CI Setup: verified product CI workflow contract with tests
+  for trigger branches, Python 3.12, pip cache, command order, install command,
+  dev dependencies, and the repository-root workflow bridge needed for GitHub
+  to run this product's CI in the monorepo. Baseline after: 18 passed, 0 skipped.
+  Review: light PASS.
+- 2026-05-07 — T03 Phase 1 Smoke Tests: added tracer singleton test,
+  structured JSON logger test, and `signal-sandbox status` temp-workspace smoke
+  test. Recorded Phase 1 baseline. Baseline after: 18 passed, 0 skipped.
+  Review: light PASS.
+- 2026-05-07 — T04 SourceManifest Pydantic Schema: implemented strict
+  Pydantic source manifest validation, source type and eligibility enums,
+  canonical JSON persistence, and `load_source` rejection for non-approved
+  sources. Baseline after: 22 passed, 0 skipped. Review: light PASS.
+- 2026-05-07 — T05 Capture Loader: implemented captured post schema, raw-text
+  SHA-256 verification, private-source URL rejection, and deterministic batch
+  ordering. Baseline after: 26 passed, 0 skipped. Review: light PASS.
+- 2026-05-07 — T06 SignalRecord Schema: implemented signal record schema,
+  direction enum validation, evaluability semantics, and canonical SHA-256
+  dedup-key computation. Baseline after: 31 passed, 0 skipped.
+  Review: light PASS.
+- 2026-05-07 — T07 Ledger I/O (Parquet): implemented deterministic Parquet
+  ledger writes, canonical column order, duplicate dedup-key rejection/force
+  flagging, and empty-ledger round-trip behavior. Baseline after: 35 passed,
+  0 skipped. Review: light PASS.
+- 2026-05-07 — T08 Dedup + Ambiguity Flagging: implemented deterministic
+  deduplication and ambiguity flagging with set semantics. Baseline after:
+  38 passed, 0 skipped. Review: light PASS.
+- 2026-05-07 — T09 PriceDataProvider Abstract Interface: accepted ADR-001,
+  implemented `PriceDataProvider`, `PriceSnapshot`, checksum validation, and
+  deterministic Parquet snapshot bytes. Baseline after: 41 passed, 0 skipped.
+  Review: light PASS.
+- 2026-05-07 — T10 OperatorFilePriceProvider: implemented local operator-file
+  OHLCV Parquet loading, schema validation, deterministic snapshot creation,
+  typed missing/malformed errors, and low-cardinality adapter logging. Baseline
+  after: 44 passed, 0 skipped. Review: light PASS.
+- 2026-05-07 — T11 PriceSnapshot Persistence + Provenance: implemented
+  deterministic snapshot persistence to `snapshots/<snapshot_id>/`, immutable
+  re-save semantics, deterministic metadata JSON, and checksum-verifying load.
+  Baseline after: 47 passed, 0 skipped. Review: light PASS. Phase 4 deep review:
+  `docs/archive/PHASE4_REVIEW.md`.
+- 2026-05-07 — T12 Outcome Matching Engine: implemented deterministic
+  outcome matching, append-only rule registry, Decimal-based six-place
+  banker's rounding, byte-identical outcomes Parquet with rule-registry
+  metadata, and heavy evidence at `docs/audit/HEAVY_T12_EVIDENCE.md`.
+  Baseline after: 55 passed, 0 skipped. Review: heavy/light PASS.
+- 2026-05-07 — T13 Aggregator: implemented deterministic outcome aggregation,
+  outcomes Parquet byte input, historical summary JSON bytes, win-rate exclusion
+  semantics, Decimal mean/median, and chronological max drawdown. Baseline
+  after: 59 passed, 0 skipped. Review: light PASS.
+- 2026-05-07 — T14 Markdown Report Generator: implemented deterministic
+  Markdown rendering, canonical disclaimer validation, provenance block,
+  evidence-rich evaluated/excluded tables, prototype snapshot gating, and heavy
+  evidence at `docs/audit/HEAVY_T14_EVIDENCE.md`. Baseline after: 65 passed,
+  0 skipped. Review: heavy/light PASS. Phase 5 deep review:
+  `docs/archive/PHASE5_REVIEW.md`.
+- 2026-05-07 — T15 ExtractionAdapter ABC: implemented `ExtractionAdapter`,
+  `ExtractionResult`, status invariants, and model-level evidence preservation
+  between `CapturedPost` and draft `SignalRecord`. Baseline after: 68 passed,
+  0 skipped. Review: light PASS.
 
 ---
 
@@ -149,6 +210,7 @@ none
 
 ## Compliance State
 
+- Compliance Status: OFF
 - Compliance Profile: OFF
 - Active frameworks: none
 - Compliance eval baseline: n/a

@@ -8,6 +8,11 @@ _Append-only. One row per review cycle._
 
 | Cycle | Phase | Date | Scope | Stop-Ship | P0 | P1 | P2 |
 |-------|-------|------|-------|-----------|----|----|-----|
+| 1 | Phase 1 | 2026-05-07 | T01-T03 | No | 0 | 0 | 0 |
+| 2 | Phase 2 | 2026-05-07 | T04-T06 | No | 0 | 0 | 0 |
+| 3 | Phase 3 | 2026-05-07 | T07-T08 | No | 0 | 0 | 0 |
+| 4 | Phase 4 | 2026-05-07 | T09-T11 | No | 0 | 0 | 0 |
+| 5 | Phase 5 | 2026-05-07 | T12-T14 | No | 0 | 0 | 0 |
 
 ---
 
@@ -15,6 +20,11 @@ _Append-only. One row per review cycle._
 
 | Cycle | File | Phase | Health |
 |-------|------|-------|--------|
+| 1 | `docs/archive/PHASE1_REVIEW.md` | Phase 1 | OK |
+| 2 | `docs/archive/PHASE2_REVIEW.md` | Phase 2 | OK |
+| 3 | `docs/archive/PHASE3_REVIEW.md` | Phase 3 | OK |
+| 4 | `docs/archive/PHASE4_REVIEW.md` | Phase 4 | OK |
+| 5 | `docs/archive/PHASE5_REVIEW.md` | Phase 5 | OK |
 
 ---
 

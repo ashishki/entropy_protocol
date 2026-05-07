@@ -49,14 +49,15 @@ audit_text = Path(audit_index_path).read_text()
 
 def extract_phase(text: str):
     patterns = [
-        r"^- \*\*Phase:\*\* (\d+)\s*$",
-        r"^Phase:\s*(\d+)\s*$",
+        r"^- \*\*Phase:\*\* (\d+)(?:\s+.*)?$",
+        r"^Phase:\s*(\d+)(?:\s+.*)?$",
     ]
+    matches = []
     for pattern in patterns:
-        match = re.search(pattern, text, re.MULTILINE)
-        if match:
-            return int(match.group(1))
-    return None
+        matches.extend(
+            int(match.group(1)) for match in re.finditer(pattern, text, re.MULTILINE)
+        )
+    return max(matches) if matches else None
 
 
 def extract_next_task(text: str):
@@ -85,7 +86,7 @@ def parse_task_phases(text: str):
     task_phases = {}
     current_task = None
     for line in text.splitlines():
-        task_match = re.match(r"^##\s+(T\d+):", line.strip())
+        task_match = re.match(r"^#{2,3}\s+(T\d+):", line.strip())
         if task_match:
             current_task = task_match.group(1)
             continue
@@ -95,7 +96,7 @@ def parse_task_phases(text: str):
     return task_phases
 
 
-def apply_edit_like_claude(text: str, payload: dict):
+def apply_edit_like_tool(text: str, payload: dict):
     name = payload.get("tool_name", "")
     t_input = payload.get("tool_input", {})
     if name == "Write":
@@ -118,7 +119,7 @@ def apply_edit_like_claude(text: str, payload: dict):
     return text
 
 
-projected_text = apply_edit_like_claude(current_text, payload)
+projected_text = apply_edit_like_tool(current_text, payload)
 current_phase = extract_phase(current_text)
 projected_phase = extract_phase(projected_text)
 task_phases = parse_task_phases(tasks_text)

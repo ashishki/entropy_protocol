@@ -438,7 +438,7 @@ No real secrets in source. Example values document format only.
 
 ### Scoped Retrieval Rules
 
-- Tasks tagged heavy (currently T11 outcome matcher, T13 report renderer, T16 LLM adapter) must include `Context-Refs` to the SAS-002 legal memo, the relevant ADR (if any), and the previous heavy-task evidence.
+- Tasks tagged heavy (currently T12 outcome matcher, T14 report renderer, T20 LLM adapter) must include `Context-Refs` to the SAS-002 legal memo, the relevant ADR (if any), and the previous heavy-task evidence.
 - Other tasks include `Context-Refs` only when they touch architecture, runtime, the public-source-only boundary, or an open finding.
 - Retrieval surfaces summarize and index. They do not overrule canonical files.
 - `docs/EVIDENCE_INDEX.md` is omitted in v1 because the evidence volume is operator-managed Markdown reports + workspace snapshots; we add it when heavy-task evidence accumulates beyond what `docs/audit/` and `docs/IMPLEMENTATION_JOURNAL.md` can index in-place.

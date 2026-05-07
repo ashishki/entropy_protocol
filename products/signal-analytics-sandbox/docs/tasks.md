@@ -85,12 +85,12 @@ Notes: |
 
 ## Phase 1 — Project Skeleton
 
-### T01: Project Skeleton
+### T01: Project Skeleton ✅
 
 Owner:      codex
 Phase:      1
 Type:       none
-Depends-On: SAS-001, SAS-002
+Depends-On: none
 
 Objective: |
   Initialize the Python package skeleton, console-script entry, dependency manifests, and base directory structure. After this task the package can be installed in editable mode and `signal-sandbox --help` prints the planned subcommand list (subcommands are stubs that return "not implemented" except `status`).
@@ -133,6 +133,9 @@ Files:
   - README.md
 
 Notes: |
+  Phase 0 gates SAS-001 and SAS-002 are enforced by docs/CODEX_PROMPT.md
+  §Phase 0 Gate Status and IMPLEMENTATION_CONTRACT §PSR-10, not by this
+  engineering-task dependency field.
   Use a single CLI library (pick typer or click and stay with it through the project).
   The observability module must export `get_tracer()` returning a no-op tracer in v1; this
   is the load-bearing tracing-module-shared-singleton requirement of IMPLEMENTATION_CONTRACT
@@ -140,7 +143,7 @@ Notes: |
 
 ---
 
-### T02: CI Setup
+### T02: CI Setup ✅
 
 Owner:      codex
 Phase:      1
@@ -172,7 +175,7 @@ Notes: |
 
 ---
 
-### T03: Phase 1 Smoke Tests
+### T03: Phase 1 Smoke Tests ✅
 
 Owner:      codex
 Phase:      1
@@ -209,7 +212,7 @@ Notes: |
 
 ## Phase 2 — Source Manifest, Capture, Signal Record Schema
 
-### T04: SourceManifest Pydantic Schema
+### T04: SourceManifest Pydantic Schema ✅
 
 Owner:      codex
 Phase:      2
@@ -243,7 +246,7 @@ Notes: |
 
 ---
 
-### T05: Capture Loader
+### T05: Capture Loader ✅
 
 Owner:      codex
 Phase:      2
@@ -279,7 +282,7 @@ Notes: |
 
 ---
 
-### T06: SignalRecord Schema
+### T06: SignalRecord Schema ✅
 
 Owner:      codex
 Phase:      2
@@ -315,7 +318,7 @@ Notes: |
 
 ## Phase 3 — Ledger I/O + Dedup
 
-### T07: Ledger I/O (Parquet)
+### T07: Ledger I/O (Parquet) ✅
 
 Owner:      codex
 Phase:      3
@@ -351,7 +354,7 @@ Notes: |
 
 ---
 
-### T08: Dedup + Ambiguity Flagging
+### T08: Dedup + Ambiguity Flagging ✅
 
 Owner:      codex
 Phase:      3
@@ -384,7 +387,7 @@ Notes: |
 
 ## Phase 4 — Price Adapters + Snapshot
 
-### T09: PriceDataProvider Abstract Interface
+### T09: PriceDataProvider Abstract Interface ✅
 
 Owner:      codex
 Phase:      4
@@ -415,7 +418,7 @@ Notes: |
 
 ---
 
-### T10: OperatorFilePriceProvider
+### T10: OperatorFilePriceProvider ✅
 
 Owner:      codex
 Phase:      4
@@ -446,7 +449,7 @@ Notes: |
 
 ---
 
-### T11: PriceSnapshot Persistence + Provenance
+### T11: PriceSnapshot Persistence + Provenance ✅
 
 Owner:      codex
 Phase:      4
@@ -479,7 +482,7 @@ Notes: |
 
 ## Phase 5 — Outcome Matching + Aggregation + Report (heavy)
 
-### T12: Outcome Matching Engine
+### T12: Outcome Matching Engine ✅
 
 Owner:      codex
 Phase:      5
@@ -538,7 +541,7 @@ Notes: |
 
 ---
 
-### T13: Aggregator
+### T13: Aggregator ✅
 
 Owner:      codex
 Phase:      5
@@ -571,7 +574,7 @@ Notes: |
 
 ---
 
-### T14: Markdown Report Generator
+### T14: Markdown Report Generator ✅
 
 Owner:      codex
 Phase:      5
@@ -631,7 +634,7 @@ Notes: |
 
 ## Phase 6 — Manual + Rule Extraction Adapters
 
-### T15: ExtractionAdapter ABC
+### T15: ExtractionAdapter ABC ✅
 
 Owner:      codex
 Phase:      6

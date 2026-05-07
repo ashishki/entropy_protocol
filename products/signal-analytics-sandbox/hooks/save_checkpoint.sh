@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Stop hook: save_checkpoint.sh
-# Writes a lightweight Orchestrator state snapshot when the Claude Code session ends.
+# Writes a lightweight Orchestrator state snapshot when a Codex tmux work segment ends.
 #
 # Always exits 0 — must never block session stop.
 #
@@ -42,7 +42,7 @@ EOF
 if [ "${SILENT:-0}" != "1" ] \
    && [ -n "${NOTIFICATION_TOKEN:-}" ] \
    && [ -n "${NOTIFICATION_TARGET:-}" ]; then
-  NOTIFY_TEXT="Session ended ${TIMESTAMP}. Active: ${ACTIVE_TASK}. Fix Queue: ${FIX_COUNT}. Resume: paste ORCHESTRATOR.md."
+  NOTIFY_TEXT="Session ended ${TIMESTAMP}. Active: ${ACTIVE_TASK}. Fix Queue: ${FIX_COUNT}. Resume from PHASE_HANDOFF.md and AGENT_NOTES.md in the product tmux window."
   curl -s -X POST "https://api.telegram.org/bot${NOTIFICATION_TOKEN}/sendMessage" \
     -d chat_id="${NOTIFICATION_TARGET}" \
     --data-urlencode "text=${NOTIFY_TEXT}" > /dev/null 2>&1 || true
