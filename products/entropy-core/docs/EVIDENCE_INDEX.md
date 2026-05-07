@@ -1,35 +1,29 @@
-# Evidence Index — Entropy Protocol
+# Evidence Index - Entropy Core
 
-Status: Active compact index
-Date: 2026-05-06
+Version: 1.0
+Last updated: 2026-05-07
 
-Full historical evidence index snapshot:
-`products/entropy-core/docs/archive/session_state/EVIDENCE_INDEX_full_2026-05-06.md`.
+This file indexes proof artifacts. It is not authority by itself.
 
-This file is a retrieval surface, not authority. Load archived snapshots only
-when a task explicitly needs older phase evidence.
+## Evidence Table
 
-## Current Evidence
+| Topic / Finding / Task | Artifact type | Location | Scope covered | Last verified | Canonical? |
+|------------------------|---------------|----------|---------------|---------------|------------|
 
-| Evidence | Artifact(s) | Status | Date |
-|---|---|---|---|
-| D-K deep review and fix closure | `products/entropy-core/docs/audit/REVIEW_REPORT.md`; `products/entropy-core/docs/audit/META_ANALYSIS.md`; `products/entropy-core/docs/audit/ARCH_MODEL.md`; `products/entropy-core/docs/audit/INVARIANTS.md`; `products/entropy-core/docs/audit/DRIFT_ASSERTIONS.md`; `products/entropy-core/docs/audit/DRIFT_REPORT.md`; `products/entropy-core/docs/audit/ADVERSARIAL_REVIEW.md` | Complete as draft pending Spec Owner acceptance; no claims opened | 2026-05-06 |
-| P1F source-path-stable code hash | `src/entropy/baseline/registration.py`; `tests/unit/test_phase1f_registration.py` | Fixed F-DK-001; focused slice 6 passed | 2026-05-06 |
-| P1I stat-field no-computation status | `src/entropy/baseline/report.py`; `tests/unit/test_phase1i_j_k_packets.py` | Fixed F-DK-002; focused slice 6 passed | 2026-05-06 |
-| Active audit prompt metadata | `products/entropy-core/docs/audit/PROMPT_0_META.md` through `products/entropy-core/docs/audit/PROMPT_5_CONSOLIDATED.md` | Fixed F-DK-003; prompts identify Cycle 5 D-K context | 2026-05-06 |
-| Full test baseline | `.venv/bin/python -m pytest -q tests/` | 277 passed, 20 skipped | 2026-05-06 |
-| Static checks | ruff, pyright, `git diff --check` | ruff passed; pyright 0 errors; diff check passed | 2026-05-06 |
-| Post-D-K strategy synthesis | `products/entropy-core/docs/audit/POST_DK_STRATEGY_REVIEW.md`; `products/entropy-core/docs/audit/NEXT_PHASE_PLAN.md` | Complete as draft recommendation; proposes P0C only after SO-DK-001 acceptance | 2026-05-06 |
-| Core workspace isolation | `products/entropy-core/pyproject.toml`; `products/entropy-core/src/entropy/`; `products/entropy-core/tests/`; `.github/workflows/ci.yml` | `pytest` 277 passed, 20 skipped; ruff check/format passed; pyright 0 errors; `git diff --check` passed | 2026-05-07 |
+No reset evidence rows are recorded yet. T01 records the first reset baseline. T08 and T10 must add heavy-task evidence rows when implemented.
 
-## Archive Map
+## Pending Evidence
 
-| Evidence range | Location |
-|---|---|
-| Full historical evidence index | `products/entropy-core/docs/archive/session_state/EVIDENCE_INDEX_full_2026-05-06.md` |
-| Full historical task graph | `products/entropy-core/docs/archive/session_state/tasks_full_2026-05-06.md` |
-| Full historical implementation journal | `products/entropy-core/docs/archive/session_state/IMPLEMENTATION_JOURNAL_full_2026-05-06.md` |
-| Full historical decision log | `products/entropy-core/docs/archive/session_state/DECISION_LOG_full_2026-05-06.md` |
-| Phase 1A audit packets | `products/entropy-core/docs/audit/archive/phase1a/` |
-| Phase 0.x evidence packets | `products/entropy-core/docs/audit/archive/p0_5/`, `products/entropy-core/docs/audit/archive/p0_6/`, `products/entropy-core/docs/audit/archive/p0_7/` |
-| SimBroker/P4/data-stability packets | `products/entropy-core/docs/audit/archive/simbroker/`, `products/entropy-core/docs/audit/archive/p4/`, `products/entropy-core/docs/audit/archive/data_stability/` |
+| Topic | Expected artifact | Owning task |
+|-------|-------------------|-------------|
+| Reset baseline | pytest/ruff/format/pyright command results in `docs/CODEX_PROMPT.md` | T01-T03 |
+| Leakage/holdout proof | `tests/unit/test_data_leakage_reset.py::test_leakage_failure_blocks_oos_label` | T08 |
+| Attribution stream proof | `tests/unit/test_attribution_reset.py::test_net_sharpe_excludes_stream_d` | T10 |
+| Phase-gate packet proof | `tests/integration/test_phase_gate_packet_reset.py::test_phase_gate_packet_contains_required_sections` | T11 |
+| Product bridge proof | `tests/integration/test_trader_risk_bridge_contract.py::test_bridge_rejects_live_and_claim_surfaces` | T12 |
+
+## Retrieval Rules
+
+- Add rows only after the referenced artifact exists.
+- Prefer executable tests, review reports, fixtures, and generated packets over summary prose.
+- Legacy summaries are context, not proof.

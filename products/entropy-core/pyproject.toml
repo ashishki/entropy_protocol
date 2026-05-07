@@ -7,7 +7,7 @@ name = "entropy-protocol"
 version = "0.1.0"
 description = "Entropy Protocol project skeleton."
 readme = "docs/ARCHITECTURE.md"
-requires-python = ">=3.10"
+requires-python = ">=3.12"
 dependencies = [
     "alembic",
     "duckdb",
@@ -47,7 +47,7 @@ testpaths = ["tests"]
 pythonpath = ["src"]
 
 [tool.ruff]
-target-version = "py310"
+target-version = "py312"
 line-length = 100
 
 [tool.ruff.format]

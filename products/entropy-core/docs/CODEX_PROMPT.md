@@ -1,104 +1,147 @@
 # CODEX_PROMPT.md
 
-Version: 3.8
-Date: 2026-05-06
-Phase: D-K deep review fix closure
+Version: 1.0
+Date: 2026-05-07
+Phase: 1
 
-Compact current-state handoff. Historical task graph, logs, evidence, and
-Phase1A packets are archived and should not be loaded by default.
+Reset state for Entropy Core after archiving the old active workflow. Historical files are available under `docs/legacy/old-workflow/2026-05-07/` but are not read by default.
+
+---
+
+## Current Phase
+
+- Phase: 1
+- Name: Reset Foundation
+- Business goal: establish the new AI Workflow Playbook loop over the existing Core codebase with Python 3.12 tooling, product-local CI, and a recorded baseline.
+- Phase gate: Phase 1 validation passes, T01-T03 complete, pytest baseline recorded, ruff and pyright clean, and CI workflow present.
 
 ## Current State
 
-- Current task: `SO-DK-001 Spec Owner Next Decision After D-K Fix Closure`
-- Last completed task: `DK-REVIEW-001 Full D-K Deep Review And Fix Closure`
-- Current verdict: `DK_DEEP_REVIEW_COMPLETE_FIXES_APPLIED_NO_CLAIMS`
-- Test baseline: `277 passed, 20 skipped`
+- Phase: 1
+- Baseline: 0 passing tests (reset governance pre-implementation; manual sanity check 2026-05-07: 277 passed, 20 skipped)
+- Ruff: clean on manual sanity check 2026-05-07
+- Pyright: clean on manual sanity check 2026-05-07
+- Last CI: not yet configured after reset
 - Holdout: locked
-- Phase 1 trading/live capital: not approved
-- Production/capital-ready labels: not approved
+- Live capital: not approved
+- Broker/exchange integration: not approved
+- OOS/performance claims: not approved
+- Last updated: 2026-05-07
 
-## Read First
+## Continuity Pointers
 
-For a normal coding session, read only:
+- Decision log: `docs/DECISION_LOG.md`
+- Implementation journal: `docs/IMPLEMENTATION_JOURNAL.md`
+- Evidence index: `docs/EVIDENCE_INDEX.md`
+- Legacy summary: `docs/legacy/CORE_LEGACY_SUMMARY.md`
+- Old active workflow archive: `docs/legacy/old-workflow/2026-05-07/`
+- Protocol docs: `docs/core/`
+- Governance docs: `docs/governance/`
 
-1. `products/entropy-core/docs/CODEX_PROMPT.md`
-2. `products/entropy-core/docs/tasks.md`
-3. `products/entropy-core/docs/audit/AUDIT_INDEX.md`
-4. `products/entropy-core/docs/audit/REVIEW_REPORT.md`
+## Next Task
 
-Load archive files only when a task explicitly needs historical evidence.
+T01: Existing Project Baseline Skeleton
 
-## Active Decisions
+## Fix Queue
 
-| ID | Summary |
-|---|---|
-| D-027 | Evidence mode is archive-only; live/streaming claims are not authorized. |
-| D-050 | Phase 1 D-K roadmap was recorded; it is not blanket approval. |
-| D-051 | P1D implementation contract completed and light-reviewed. |
-| D-052 | P1E bounded formation-only baseline logic completed. |
-| D-053 | P1F baseline hash binding and preregistration surface completed. |
-| D-054 | P1G/P1H governed config and archive-only run metadata completed. |
-| D-055 | P1I/P1J/P1K report, decision, and no-holdout closure completed. |
-| D-056 | D-K deep review and fix closure completed; F-DK-001/002/003 fixed. |
-
-Strategy recommendation:
-If SO-DK-001 accepts D-K fix closure, open proposed block
-`P0C Phase 0 Exit Evidence And D-K Admission Planning`.
-
-Full decision history:
-`products/entropy-core/docs/archive/session_state/DECISION_LOG_full_2026-05-06.md`.
-
-## Current Artifacts
-
-| Area | Active artifact |
-|---|---|
-| Task graph | `products/entropy-core/docs/tasks.md` |
-| Audit status | `products/entropy-core/docs/audit/REVIEW_REPORT.md` |
-| Strategy recommendation | `products/entropy-core/docs/audit/POST_DK_STRATEGY_REVIEW.md`; `products/entropy-core/docs/audit/NEXT_PHASE_PLAN.md` |
-| Audit index | `products/entropy-core/docs/audit/AUDIT_INDEX.md` |
-| D-K code | `src/entropy/baseline/implementation.py`, `bounded.py`, `registration.py`, `evaluation.py`, `governed.py`, `report.py`, `decision.py` |
-| D-K tests | `tests/unit/test_phase1d_implementation_contract.py` through `tests/unit/test_phase1i_j_k_packets.py` |
-| Historical Phase1A packets | `products/entropy-core/docs/audit/archive/phase1a/` |
-| Full historical logs | `products/entropy-core/docs/archive/session_state/` |
-
-## Current Scope
-
-Allowed:
-- prepare or record the Spec Owner next decision;
-- inspect or explain D-K review artifacts and fixes;
-- update compact current-state docs for real status changes.
-
-Forbidden:
-- executable alpha logic;
-- portfolio allocation or backtest/evaluation;
-- strategy performance metrics;
-- archive holdout read/unlock;
-- Growth/RDL/RBE activation;
-- live feeds, broker integration, or live capital;
-- non-Python runtime/toolchain escalation without the approved escalation gate;
-- OOS/performance, validated-alpha, production, or capital-ready claims.
+empty
 
 ## Open Findings
 
-- No open D-K P0/P1 findings remain after fix closure.
-- F-DK-001, F-DK-002, and F-DK-003 are fixed pending Spec Owner acceptance.
-- Holdout remains closed; production/capital-ready labels remain blocked.
+none after reset. Legacy D-K findings were closed in the prior workflow, but old findings are not active unless re-opened by a reset task or review.
+
+## Completed Tasks
+
+none in the reset task graph.
+
+## Phase History
+
+none in the reset task graph.
+
+## Profile State: RAG
+
+- RAG Status: OFF
+- Active corpora: n/a
+- Retrieval baseline: n/a
+- Open retrieval findings: none
+- Index schema version: n/a
+- Pending reindex actions: none
+- Retrieval-related next tasks: none
+- Retrieval-driven tasks: none
+
+## Tool-Use State
+
+- Tool-Use Profile: OFF
+- Registered tool schemas: n/a
+- Unsafe-action guardrails: n/a
+- Open tool findings: none
+
+## Agentic State
+
+- Agentic Profile: OFF
+- Active agent roles: n/a
+- Loop termination contract version: n/a
+- Cross-iteration state mechanism: n/a
+- Open agent findings: none
+
+## Planning State
+
+- Planning Profile: OFF
+- Plan schema version: n/a
+- Plan validation method: n/a
+- Open plan findings: none
+
+## Compliance State
+
+- Compliance Status: OFF
+- Active frameworks: n/a
+- Controls implemented: n/a
+- Controls partial: n/a
+- Controls not started: n/a
+- Evidence artifact: n/a
+- Open compliance findings: none
+
+## Evaluation State
+
+### Last Evaluation
+
+- Profile: n/a
+- Task: n/a
+- Date: n/a
+- Eval Source: n/a
+- Metric(s): n/a
+- Score: n/a
+- Baseline: n/a
+- Delta: n/a
+- Regression: n/a
+
+### Open Evaluation Issues
+
+none
 
 ## Verification Defaults
 
-For code changes in this scope, run:
+Run from `products/entropy-core/`:
 
 - `.venv/bin/python -m pytest -q tests/`
 - `.venv/bin/python -m ruff check src/entropy tests`
+- `.venv/bin/python -m ruff format --check src/entropy tests`
 - `.venv/bin/python -m pyright src/entropy`
 - `git diff --check`
 
-## Archive Pointers
+## Instructions for Codex
 
-| Historical surface | Snapshot/location |
-|---|---|
-| Full task graph | `products/entropy-core/docs/archive/session_state/tasks_full_2026-05-06.md` |
-| Full implementation journal | `products/entropy-core/docs/archive/session_state/IMPLEMENTATION_JOURNAL_full_2026-05-06.md` |
-| Full evidence index | `products/entropy-core/docs/archive/session_state/EVIDENCE_INDEX_full_2026-05-06.md` |
-| Full decision log | `products/entropy-core/docs/archive/session_state/DECISION_LOG_full_2026-05-06.md` |
-| Command hook log | `products/entropy-core/docs/archive/session_state/hooks_log_2026-05-01_to_2026-05-06.txt` |
+1. Read `docs/IMPLEMENTATION_CONTRACT.md` before starting any task.
+2. Read the full task definition in `docs/tasks.md` before writing code.
+3. Read all Depends-On tasks to understand interface contracts.
+4. Read task `Context-Refs` and relevant continuity artifacts when the task depends on prior decisions, evidence, findings, registry, governance, leakage, holdout, attribution, product bridges, migrations, or runtime/language boundaries.
+5. Run the verification defaults needed for the task and capture the pre-task baseline.
+6. Write tests before or alongside implementation. Every acceptance criterion has a passing test.
+7. Update this file at every phase boundary with baseline, next task, and open findings.
+8. Commit with format `type(scope): description` - one logical change per commit.
+9. When done, return `IMPLEMENTATION_RESULT: DONE` with tests run, baseline, and files changed.
+10. When blocked, return `IMPLEMENTATION_RESULT: BLOCKED` with the exact blocker.
+
+## Phase 1 Validation
+
+Phase 1 validation has not run in the reset loop. The orchestrator should run the Phase 1 Validator before starting T01 and write `docs/audit/PHASE1_AUDIT.md`.
