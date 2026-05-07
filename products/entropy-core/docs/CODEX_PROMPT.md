@@ -18,7 +18,7 @@ Reset state for Entropy Core after archiving the old active workflow. Historical
 ## Current State
 
 - Phase: 3
-- Baseline: 308 passing tests, 20 skipped (T09 local verification on 2026-05-07)
+- Baseline: 311 passing tests, 20 skipped (T10 local verification on 2026-05-07)
 - Ruff: clean on Phase 1 boundary verification 2026-05-07
 - Pyright: clean on Phase 1 boundary verification 2026-05-07
 - Last CI: product-local workflow configured; remote CI not yet observed after reset
@@ -40,7 +40,7 @@ Reset state for Entropy Core after archiving the old active workflow. Historical
 
 ## Next Task
 
-T10: Attribution Stream Boundary Audit
+T11: Phase-Gate Evidence Packet
 
 ## Fix Queue
 
@@ -87,6 +87,10 @@ none after reset. Legacy D-K findings were closed in the prior workflow, but old
 - 2026-05-07: T09 SimBroker and Cost Surface Regression completed.
   - Acceptance tests: `tests/unit/test_simbroker_reset.py` passed (`3 passed`).
   - Reset baseline: `.venv/bin/python -m pytest -q tests/` reported `308 passed, 20 skipped`.
+  - Quality checks: ruff check clean; ruff format check clean; pyright `0 errors`; `git diff --check` clean.
+- 2026-05-07: T10 Attribution Stream Boundary Audit completed.
+  - Acceptance tests: `tests/unit/test_attribution_reset.py` passed (`3 passed`).
+  - Reset baseline: `.venv/bin/python -m pytest -q tests/` reported `311 passed, 20 skipped`.
   - Quality checks: ruff check clean; ruff format check clean; pyright `0 errors`; `git diff --check` clean.
 
 ## Phase History
@@ -142,12 +146,12 @@ none after reset. Legacy D-K findings were closed in the prior workflow, but old
 ### Last Evaluation
 
 - Profile: Evaluation Safety
-- Task: T08 Data and Leakage Gate Verification
+- Task: T10 Attribution Stream Boundary Audit
 - Date: 2026-05-07
-- Eval Source: `tests/unit/test_data_leakage_reset.py`
-- Metric(s): leakage/holdout proof tests
-- Score: `3 passed`; full suite `305 passed, 20 skipped`
-- Baseline: Phase 2 boundary `302 passed, 20 skipped`
+- Eval Source: `tests/unit/test_attribution_reset.py`
+- Metric(s): attribution stream boundary proof tests
+- Score: `3 passed`; full suite `311 passed, 20 skipped`
+- Baseline: T09 `308 passed, 20 skipped`
 - Delta: +3 passing tests
 - Regression: none
 

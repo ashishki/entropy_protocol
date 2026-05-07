@@ -335,6 +335,7 @@ Owner:      codex
 Phase:      3
 Type:       none
 Depends-On: T08, T09
+Status:     done 2026-05-07
 
 Objective: |
   Verify P&L streams, cost drag, and reportable attribution fields remain separated and cannot silently create unsupported performance conclusions.

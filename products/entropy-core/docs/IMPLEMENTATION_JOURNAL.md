@@ -21,6 +21,15 @@ This file records handoff context. It is not authority.
 
 ## Entries
 
+### 2026-05-07 - T10 - Attribution Stream Boundary Audit
+
+- Scope: `src/entropy/attribution/`, `tests/unit/test_attribution_reset.py`, `docs/EVIDENCE_INDEX.md`
+- Why this work happened: verify P&L stream separation and prevent archive-only attribution output from implying unsupported performance conclusions
+- Decisions applied: `docs/core/PROTOCOL_SPEC.md#nn-2-four-stream-pl-attribution-permanent`
+- Evidence collected: T10 acceptance tests passed (`3 passed`); full reset baseline `311 passed, 20 skipped`; ruff check clean; ruff format check clean; pyright `0 errors`; `git diff --check` clean
+- Follow-ups: start T11 Phase-Gate Evidence Packet
+- Notes for next agent: T10 added an archive-only attribution payload helper that serializes streams a/b/c/d separately and omits performance/OOS/phase-gate claim fields.
+
 ### 2026-05-07 - T09 - SimBroker and Cost Surface Regression
 
 - Scope: `src/entropy/simbroker/`, `tests/unit/test_simbroker_reset.py`
