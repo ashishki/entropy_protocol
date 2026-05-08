@@ -1,8 +1,8 @@
 # CODEX_PROMPT.md
 
 Version: 1.0
-Date: 2026-05-07
-Phase: 6
+Date: 2026-05-08
+Phase: 7
 
 Reset state for Entropy Core after archiving the old active workflow. Historical files are available under `docs/legacy/old-workflow/2026-05-07/` but are not read by default.
 
@@ -10,23 +10,23 @@ Reset state for Entropy Core after archiving the old active workflow. Historical
 
 ## Current Phase
 
-- Phase: 6
-- Name: Archive Evidence Expansion
-- Business goal: produce additional hash-bound, archive-only, leakage-checked research evidence packets from distinct narrow baseline hypotheses.
-- Phase gate: expanded packet set and review prove repeatable archive evidence generation without OOS/performance, holdout, live, production, or capital-ready claims.
+- Phase: 7
+- Name: Archive Reproducibility Hardening
+- Business goal: prove existing archive-only evidence packets can be replayed, hash-checked, and governed by a dynamic roadmap evaluation rule.
+- Phase gate: replay, reproducibility matrix, no-claim sweep, and review prove deterministic archive evidence without opening holdout, live, broker/exchange, production, capital-ready, phase-gate, or OOS/performance claim paths.
 
 ## Current State
 
-- Phase: 6
-- Baseline: 374 passing tests, 20 skipped (T24 local verification on 2026-05-07)
-- Ruff: clean on T24 local verification 2026-05-07
-- Pyright: clean on T24 local verification 2026-05-07
+- Phase: 7
+- Baseline: 377 passing tests, 20 skipped (T25 local verification on 2026-05-08)
+- Ruff: clean on T25 local verification 2026-05-08
+- Pyright: clean on T25 local verification 2026-05-08
 - Last CI: product-local workflow configured; remote CI not yet observed after reset
 - Holdout: locked
 - Live capital: not approved
 - Broker/exchange integration: not approved
 - OOS/performance claims: not approved
-- Last updated: 2026-05-07
+- Last updated: 2026-05-08
 
 ## Continuity Pointers
 
@@ -40,11 +40,11 @@ Reset state for Entropy Core after archiving the old active workflow. Historical
 
 ## Next Task
 
-Human decision required after T24.
+T26 Archive Packet Replay Contract.
 
-Archive Evidence Expansion block complete through T24. Do not continue into another research block, holdout discussion, live-feed path, broker/exchange path, production/capital-ready path, phase-gate approval, or OOS/performance claim path unless a human explicitly opens that scope.
+Human decision after T24 opened Phase 7 Archive Reproducibility Hardening and autonomous roadmap rollover. Active scope is T25 through T29; after T29, run deep review, fix findings, validate, evaluate the roadmap, rewrite future phases if useful, open the next logical active phase, and continue automatically.
 
-Human decision recorded after T19: open an archive-only evidence expansion block for more proof. Holdout, live feeds, broker/exchange, production, capital-ready, phase-gate, and OOS/performance claim paths remain unapproved.
+Archive Evidence Expansion block complete through T24. Roadmap phases 8 through 13 are planned direction and may be rewritten by roadmap evaluation. Do not execute real external side effects, live capital actions, live broker/exchange execution, or credentialed production deployment; replace them with local dry-run/sandbox protocol work unless a future local contract explicitly permits otherwise.
 
 ## Fix Queue
 
@@ -152,6 +152,10 @@ none after reset. Legacy D-K findings were closed in the prior workflow, but old
   - Acceptance tests: `tests/reset/test_archive_evidence_expansion_review.py` passed (`3 passed`).
   - Reset baseline: `.venv/bin/python -m pytest -q tests/` reported `374 passed, 20 skipped`.
   - Quality checks: ruff check clean; ruff format check clean; pyright `0 errors`; `git diff --check` clean.
+- 2026-05-08: T25 Roadmap Governance Contract completed.
+  - Acceptance tests: `tests/reset/test_roadmap_governance.py` passed (`3 passed`).
+  - Reset baseline: `.venv/bin/python -m pytest -q tests/` reported `377 passed, 20 skipped`.
+  - Quality checks: ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
 
 ## Phase History
 
@@ -165,6 +169,12 @@ none after reset. Legacy D-K findings were closed in the prior workflow, but old
 - 2026-05-07: T19 boundary state preserved: holdout, live feeds, broker/exchange, production, capital-ready, and OOS/performance remain unapproved.
 - 2026-05-07: Archive Evidence Expansion block opened by human decision after T19. Scope: T20-T24.
 - 2026-05-07: Archive Evidence Expansion block complete through T24. Review artifact: `docs/audit/ARCHIVE_EVIDENCE_EXPANSION_REVIEW.md`. Result: PASS; Stop-Ship 0, P0 0, P1 0, P2 0.
+- 2026-05-08: Human decision required after T24 was satisfied by opening Phase 7 only.
+- 2026-05-08: Historical T24 boundary preserved: holdout, live feeds, broker/exchange, production, capital-ready, phase-gate, and OOS/performance remain unapproved at the T24 boundary.
+- 2026-05-08: Forward roadmap recorded for phases 7 through 13 with autonomous roadmap evaluation and rollover required after every active phase.
+- 2026-05-08: Phase 7 Archive Reproducibility Hardening opened by human decision after T24. Scope: T25-T29. Phases 8 through 13 remain planned only.
+- 2026-05-08: T25 Roadmap Governance Contract completed. Next task: T26 Archive Packet Replay Contract.
+- 2026-05-08: Phase boundaries changed from stop points to autonomous rollover points: deep review, fix findings, validate, evaluate roadmap, rewrite future phases, open the next logical active phase, and continue.
 
 ## Profile State: RAG
 
@@ -213,13 +223,13 @@ none after reset. Legacy D-K findings were closed in the prior workflow, but old
 
 ### Last Evaluation
 
-- Profile: Archive Evidence Expansion Review
-- Task: Human decision required after T24
-- Date: 2026-05-07
-- Eval Source: `tests/reset/test_archive_evidence_expansion_review.py`
-- Metric(s): archive evidence expansion review contract tests
-- Score: `3 passed`; current baseline `374 passed, 20 skipped`
-- Baseline: T23 second research evidence packet `371 passed, 20 skipped`
+- Profile: Roadmap Governance Contract
+- Task: T25 Roadmap Governance Contract
+- Date: 2026-05-08
+- Eval Source: `tests/reset/test_roadmap_governance.py`
+- Metric(s): roadmap governance contract tests
+- Score: `3 passed`; current baseline `377 passed, 20 skipped`
+- Baseline: T24 archive evidence expansion review `374 passed, 20 skipped`
 - Delta: +3 passing tests
 - Regression: none known
 
@@ -229,11 +239,11 @@ none
 
 ### Human Decision
 
-Human approval after T19 opened Phase 6 Archive Evidence Expansion for more archive-only proof. Holdout, live feeds, broker/exchange, production, capital-ready, phase-gate, and OOS/performance remain unapproved.
+Human approval after T24 opened Phase 7 Archive Reproducibility Hardening and recorded a dynamic roadmap for phases 7 through 13. Phase boundaries now roll over automatically after deep review, fixes, validation, and roadmap evaluation. Real external side effects, live capital actions, live broker/exchange execution, and credentialed production deployment remain blocked.
 
 ### Human Decision Point
 
-Archive Evidence Expansion block is complete through T24. Holdout, live feeds, broker/exchange, production, capital-ready, phase-gate, and OOS/performance remain unapproved.
+Current active task is T26 Archive Packet Replay Contract. Archive Evidence Expansion block is complete through T24. Roadmap phases 8 through 13 are planned direction and may be promoted or rewritten automatically by roadmap evaluation. Real external side effects, live capital actions, live broker/exchange execution, and credentialed production deployment remain blocked.
 
 ## Verification Defaults
 

@@ -99,3 +99,15 @@ Human decision after T19 opened a new archive-only evidence expansion block.
 - Completed tasks: T20 Second Research Candidate Registration Packet, T21 Second Archive Dataset Manifest and Hash Binding, T22 Second Archive Evaluation Harness Wiring, T23 Second Research Evidence Packet, T24 Archive Evidence Expansion Review.
 - Next state: human decision required after T24.
 - Boundaries remain unchanged: no holdout, live feed, broker/exchange, production, capital-ready, phase-gate, or OOS/performance approval.
+
+## 2026-05-08 Roadmap Governance and Phase 7 Opened
+
+Human decision after T24 recorded a forward roadmap and opened only the first active roadmap phase.
+
+- Active phase: Phase 7 Archive Reproducibility Hardening.
+- Completed task: T25 Roadmap Governance Contract.
+- Active task: T26 Archive Packet Replay Contract.
+- Latest validation: `.venv/bin/python -m pytest -q tests/` -> `377 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
+- Planned roadmap phases: Phase 7 Archive Reproducibility Hardening; Phase 8 Phase-Gate Readiness Review; Phase 9 Holdout Access Protocol; Phase 10 Approved Holdout Evaluation Packet; Phase 11 Live-Feed Dry Run Readiness; Phase 12 Broker Sandbox and Execution Risk Audit; Phase 13 Production and Capital Gate.
+- Roadmap governance: after every active phase closes, run deep review, fix findings, validate, evaluate the roadmap, rewrite future phases/tasks if useful, open the next logical active phase, and continue automatically. Future phases may change based on completed evidence.
+- Boundaries: real external side effects, live capital actions, live broker/exchange execution, and credentialed production deployment remain blocked. Use local dry-run/sandbox/protocol work instead unless a future local contract explicitly permits otherwise.

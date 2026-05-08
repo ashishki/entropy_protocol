@@ -7,10 +7,10 @@ manual restart.
 
 - Product: entropy-core
 - Branch: codex/entropy-core-work
-- Active task: Human decision required after T24
-- Phase: 6 Archive Evidence Expansion
-- Last validation: 2026-05-07 T24: `374 passed, 20 skipped`; ruff check clean; ruff format check clean; pyright 0 errors; `git diff --check` clean.
-- Git status summary: Phase 6 archive evidence expansion local changes pending commit at handoff update time.
+- Active task: T26 Archive Packet Replay Contract
+- Phase: 7 Archive Reproducibility Hardening
+- Last validation: 2026-05-08 T25: `377 passed, 20 skipped`; ruff check clean; ruff format clean; pyright 0 errors; `git diff --check` clean.
+- Git status summary: Phase 7 roadmap governance changes pending commit at handoff update time.
 
 ## Completed In This Phase
 
@@ -41,17 +41,24 @@ manual restart.
 - T22 Second Archive Evaluation Harness Wiring completed with no findings.
 - T23 Second Research Evidence Packet completed with no findings.
 - T24 Archive Evidence Expansion Review completed with no findings.
+- T25 Roadmap Governance Contract completed with no findings.
 
 ## Remaining Work
 
-- Human decision required before any new research block, phase-gate discussion, holdout access, live-feed path, broker/exchange path, production/capital-ready path, or OOS/performance claim path.
+- T26 Archive Packet Replay Contract is active.
+- T27 Evidence Hash Reproducibility Matrix is pending.
+- T28 No-Claim Surface Regression Sweep is pending.
+- T29 Archive Reproducibility Hardening Review is pending.
+- After T29, run deep review, fix findings, validate, evaluate the roadmap, rewrite future phases/tasks if useful, open the next logical active phase, and continue automatically.
 
 ## Blockers Or Human Decisions
 
 - Human decision after T14 recorded: open the first research evidence packet block.
-- Human decision required after T19: first packet block is complete; no next block is open.
+- Human decision required after T19 was satisfied by opening Phase 6 archive-only evidence expansion.
 - Human decision after T19 recorded: open archive-only evidence expansion for more proof. No holdout, live feed, broker/exchange, production, capital-ready, phase-gate, or OOS/performance claim path is approved.
-- Human decision required after T24: archive evidence expansion is complete; no next block is open.
+- Human decision required after T24 was satisfied on 2026-05-08 by opening Phase 7 only.
+- Human decision after T24 recorded on 2026-05-08: record roadmap phases 7 through 13, open Phase 7, and allow autonomous phase rollover after deep review, fixes, validation, and roadmap evaluation.
+- Real external side effects, live capital actions, live broker/exchange execution, and credentialed production deployment remain blocked; implement local dry-run/sandbox/protocol work instead unless a future local contract explicitly permits otherwise.
 
 ## Resume Instruction
 

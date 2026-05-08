@@ -46,21 +46,29 @@ Then continue the product loop:
 
 ```text
 Fix Queue -> Strategy -> Implement -> Light Review -> phase-boundary Deep Review
--> Archive -> Doc Update -> Phase Report -> checkpoint -> next task
+-> Fix Findings -> Archive -> Doc Update -> Phase Report -> Roadmap Eval
+-> Roadmap Rewrite -> Open Next Active Phase -> next task
 ```
 
 ## Stop Policy
 
 The only unplanned stop condition is account/model limits until reset.
 
+Phase boundaries are not stop conditions. At a phase boundary, complete the deep
+review, fix actionable findings, run validation, evaluate the roadmap against
+the phase results, rewrite future phases/tasks if useful, open the next logical
+active phase, update handoff documents, and continue from the next task.
+
 Planned pauses:
 
-- Human gate: write checkpoint and ask the concrete question.
-- Phase boundary: update `AGENT_NOTES.md` and `PHASE_HANDOFF.md`, record
-  validation and git status, then optionally restart fresh context in the same
-  tmux window.
 - Project complete: write final report and stop.
-- P0 unresolved after two attempts: checkpoint and wait for operator direction.
+- Stop-Ship or P0 unresolved after two attempts: checkpoint and wait for
+  operator direction.
+- Missing local prerequisite that cannot be created safely from repository
+  context: checkpoint with exact blocker.
+- Real external side effect, live capital action, live broker/exchange
+  execution, or credentialed production deployment: checkpoint instead of
+  executing the external action.
 
 ## Context Rollover
 
@@ -70,7 +78,8 @@ When context is too heavy or a phase ends:
 2. Update `AGENT_NOTES.md`.
 3. Update `PHASE_HANDOFF.md`.
 4. Record exact validation commands and git status.
-5. Stop or ask operator to run:
+5. If context is still healthy, continue automatically. If context must be
+   refreshed, ask operator to run:
 
 ```bash
 /srv/codex-entropy/scripts/restart-product-codex.sh product-1

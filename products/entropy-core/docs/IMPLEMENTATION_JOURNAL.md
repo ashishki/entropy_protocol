@@ -1,7 +1,7 @@
 # Implementation Journal - Entropy Core
 
 Version: 1.0
-Last updated: 2026-05-07
+Last updated: 2026-05-08
 Status: append-only
 
 This file records handoff context. It is not authority.
@@ -20,6 +20,15 @@ This file records handoff context. It is not authority.
 ```
 
 ## Entries
+
+### 2026-05-08 - T25 - Roadmap Governance Contract Opened
+
+- Scope: `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`, `docs/DECISION_LOG.md`
+- Why this work happened: record the forward roadmap requested after T24, open the first active roadmap phase, and make phase boundaries autonomous rollover points
+- Decisions applied: `D-ROADMAP-001`; `docs/audit/ARCHIVE_EVIDENCE_EXPANSION_REVIEW.md`
+- Evidence collected: T25 acceptance tests passed (`3 passed`); full reset baseline `377 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean
+- Follow-ups: continue Phase 7 with T26 replay checks
+- Notes for next agent: phases 8 through 13 are planned direction and may be promoted or rewritten by roadmap evaluation. After every active phase, deep-review, fix findings, validate, evaluate the roadmap, rewrite future phases/tasks if useful, open the next logical active phase, and continue automatically.
 
 ### 2026-05-07 - T24 - Archive Evidence Expansion Review
 

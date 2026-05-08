@@ -1,8 +1,8 @@
 # Task Graph - Entropy Core
 
 Version: 1.0
-Last updated: 2026-05-07
-Status: active research packet task graph
+Last updated: 2026-05-08
+Status: active roadmap task graph
 
 ---
 
@@ -16,6 +16,25 @@ Status: active research packet task graph
 | 4 | Product Bridges | T12-T14 | Trader Risk Audit primitives and hypothesis/backtest bridge contracts. | Bridge tests prove no live/no-claim boundaries are preserved. |
 | 5 | First Research Evidence Packet | T15-T19 | One registered, hash-bound, archive-only, leakage-checked research packet from a narrow baseline hypothesis. | Packet and review prove reproducible evidence without OOS/performance, holdout, live, production, or capital-ready claims. |
 | 6 | Archive Evidence Expansion | T20-T24 | Additional archive-only, hash-bound evidence packets from distinct narrow baseline hypotheses. | Packet set demonstrates repeatable archive evidence generation without OOS/performance, holdout, live, production, or capital-ready claims. |
+| 7 | Archive Reproducibility Hardening | T25-T29 | Replay and consistency checks for existing archive-only evidence packets plus roadmap evaluation rules. | Replays prove deterministic packet generation, stable hashes, no hidden holdout/live/OOS/performance surfaces, and a documented roadmap evaluation after phase close. |
+| 8 | Phase-Gate Readiness Review | T30-T34 | Gap matrix and readiness packet for deciding whether the archive evidence base is sufficient to discuss holdout access. | Review identifies evidence sufficiency, missing controls, and required human approvals without opening holdout. |
+| 9 | Holdout Access Protocol | T35-T39 | Design and approval protocol for controlled holdout unlock, leakage guards, and audit logging. | Holdout remains unread until explicit approval; protocol proves access can be gated, logged, and blocked by default. |
+| 10 | Approved Holdout Evaluation Packet | T40-T45 | If explicitly approved, run a bounded holdout/OOS evaluation packet with no production or capital-ready claims. | OOS packet is hash-bound, leakage-checked, and reviewed; performance claims remain scoped and non-production. |
+| 11 | Live-Feed Dry Run Readiness | T46-T50 | Prepare live market data ingestion checks without broker orders, exchange execution, or live capital. | Live-feed path is observable and gated; no order placement, broker integration, or capital deployment is enabled. |
+| 12 | Broker Sandbox and Execution Risk Audit | T51-T56 | Sandbox-only broker/exchange integration, execution risk controls, and kill-switch audit. | Sandbox execution is isolated; live capital remains blocked; risk controls and audit logs are mandatory. |
+| 13 | Production and Capital Gate | T57-T64 | Final human-governed production/capital readiness review. | Production/capital-ready labels require explicit gate approval, full evidence packet, risk signoff, and rollback plan. |
+
+## Roadmap Governance
+
+The roadmap sets direction for autonomous AI development. The current active task is open for execution, and future phases are planned until roadmap evaluation promotes or rewrites them.
+
+Phase boundaries are autonomous rollover points, not stop points. After every active phase closes, run deep review, fix actionable findings, validate, evaluate the roadmap, rewrite future phases/tasks when useful, open the next logical active phase, and continue automatically. The evaluation must:
+
+- summarize what the completed phase changed;
+- list evidence that strengthened or weakened the current roadmap;
+- keep real external side effects, live capital actions, live broker/exchange execution, and credentialed production deployment blocked unless a future local protocol explicitly replaces them with safe dry-run/sandbox behavior;
+- either keep the next planned phase, modify future planned phases, or open a better next active phase;
+- update `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`, and the evidence/audit indexes when applicable.
 
 ## T01: Existing Project Baseline Skeleton
 
@@ -893,3 +912,179 @@ Context-Refs:
 
 Notes: |
   Stop after this review unless a human explicitly opens the next research block or approves a gate discussion.
+
+## T25: Roadmap Governance Contract
+
+Owner:      codex
+Phase:      7
+Type:       none
+Depends-On: T24
+Status:     done 2026-05-08
+
+Objective: |
+  Record the forward roadmap and the autonomous phase rollover rule so future agents can adapt planned phases after each completed active phase, open the next logical phase, and continue without waiting for a human at every boundary.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/tasks.md` lists planned phases 7 through 13 and records that autonomous phase rollover opens the next logical active phase after roadmap evaluation."
+    test: "tests/reset/test_roadmap_governance.py::test_tasks_records_planned_roadmap_and_active_phase"
+  - id: AC-2
+    description: "Roadmap governance requires deep review, fixes, validation, roadmap evaluation, roadmap rewrite when useful, next active phase opening, and automatic continuation after every active phase."
+    test: "tests/reset/test_roadmap_governance.py::test_tasks_records_dynamic_roadmap_evaluation_rule"
+  - id: AC-3
+    description: "`CODEX_LOOP.md`, `docs/CODEX_PROMPT.md`, and `PHASE_HANDOFF.md` record autonomous continuation while blocking real external side effects, live capital actions, live broker/exchange execution, and credentialed production deployment."
+    test: "tests/reset/test_roadmap_governance.py::test_prompt_and_handoff_record_phase7_boundaries"
+
+Files:
+  - CODEX_LOOP.md
+  - docs/tasks.md
+  - docs/CODEX_PROMPT.md
+  - PHASE_HANDOFF.md
+  - AGENT_NOTES.md
+  - tests/reset/test_roadmap_governance.py
+
+Context-Refs:
+  - docs/audit/ARCHIVE_EVIDENCE_EXPANSION_REVIEW.md
+  - docs/EVIDENCE_INDEX.md
+
+Notes: |
+  This opens Phase 7 only. Phases 8 through 13 are planned roadmap entries, not approvals.
+
+## T26: Archive Packet Replay Contract
+
+Owner:      codex
+Phase:      7
+Type:       none
+Depends-On: T25
+Status:     active
+
+Objective: |
+  Add deterministic replay checks for existing archive-only evidence packets so regenerated packet content and referenced artifacts remain stable.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Replay checks regenerate first and second archive evidence packets from current fixtures and compare deterministic content or hashes."
+    test: "tests/integration/test_archive_replay.py::test_archive_packet_replay_is_deterministic"
+  - id: AC-2
+    description: "Replay checks fail when a required packet artifact, dataset manifest, or hash binding is missing."
+    test: "tests/integration/test_archive_replay.py::test_archive_packet_replay_requires_all_artifacts"
+  - id: AC-3
+    description: "Replay output remains archive-only and contains no holdout, OOS/performance, live, production, or capital-ready approval."
+    test: "tests/integration/test_archive_replay.py::test_archive_packet_replay_preserves_no_claim_boundary"
+
+Files:
+  - src/entropy/research/
+  - src/entropy/evidence/
+  - tests/integration/test_archive_replay.py
+  - docs/EVIDENCE_INDEX.md
+
+Context-Refs:
+  - docs/research/first-packet/RESEARCH_EVIDENCE_PACKET.md
+  - docs/research/second-packet/RESEARCH_EVIDENCE_PACKET.md
+
+Notes: |
+  This task proves repeatability only. It does not compare profitability, unlock holdout, or create OOS/performance claims.
+
+## T27: Evidence Hash Reproducibility Matrix
+
+Owner:      codex
+Phase:      7
+Type:       none
+Depends-On: T26
+Status:     pending
+
+Objective: |
+  Build a matrix of candidate, dataset, code, policy, parameter, and artifact hashes across existing archive evidence packets.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "A reproducibility matrix lists the required hash categories for first and second archive evidence packets."
+    test: "tests/reset/test_reproducibility_matrix.py::test_reproducibility_matrix_lists_required_hashes"
+  - id: AC-2
+    description: "Matrix validation fails when any required hash category is unresolved, duplicated incorrectly, or missing from a packet row."
+    test: "tests/reset/test_reproducibility_matrix.py::test_reproducibility_matrix_rejects_missing_hashes"
+  - id: AC-3
+    description: "The evidence index references the reproducibility matrix and its validation tests."
+    test: "tests/reset/test_reproducibility_matrix.py::test_evidence_index_records_reproducibility_matrix"
+
+Files:
+  - docs/research/REPRODUCIBILITY_MATRIX.md
+  - docs/EVIDENCE_INDEX.md
+  - tests/reset/test_reproducibility_matrix.py
+
+Context-Refs:
+  - docs/research/first-packet/DATASET_MANIFEST.md
+  - docs/research/second-packet/DATASET_MANIFEST.md
+
+Notes: |
+  The matrix is evidence bookkeeping. It must not rank hypotheses or imply performance quality.
+
+## T28: No-Claim Surface Regression Sweep
+
+Owner:      codex
+Phase:      7
+Type:       none
+Depends-On: T27
+Status:     pending
+
+Objective: |
+  Sweep archive evidence, bridge, phase-gate, and reporting surfaces to prove no completed packet or roadmap entry silently opens restricted claim paths.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Regression tests scan active docs and generated packet surfaces for disallowed holdout/live/broker/production/capital-ready/OOS/performance approval language."
+    test: "tests/reset/test_no_claim_roadmap_sweep.py::test_active_docs_do_not_open_restricted_surfaces"
+  - id: AC-2
+    description: "Phase plan entries for phases 8 through 13 are marked as planned roadmap, not active approvals."
+    test: "tests/reset/test_no_claim_roadmap_sweep.py::test_future_phases_are_not_approvals"
+  - id: AC-3
+    description: "The sweep preserves the existing explicit boundary language in `docs/CODEX_PROMPT.md` and `PHASE_HANDOFF.md`."
+    test: "tests/reset/test_no_claim_roadmap_sweep.py::test_prompt_and_handoff_preserve_boundaries"
+
+Files:
+  - docs/tasks.md
+  - docs/CODEX_PROMPT.md
+  - PHASE_HANDOFF.md
+  - tests/reset/test_no_claim_roadmap_sweep.py
+
+Context-Refs:
+  - docs/audit/ARCHIVE_EVIDENCE_EXPANSION_REVIEW.md
+  - docs/bridges/hypothesis-backtest.md
+
+Notes: |
+  This is a safety task before any readiness discussion.
+
+## T29: Archive Reproducibility Hardening Review
+
+Owner:      codex
+Phase:      7
+Type:       none
+Depends-On: T28
+Status:     pending
+
+Objective: |
+  Review Phase 7 reproducibility hardening, record open findings, and run the first roadmap evaluation before any next phase is opened.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/audit/ARCHIVE_REPRODUCIBILITY_REVIEW.md` summarizes replay evidence, reproducibility matrix, no-claim sweep, validation, limitations, open findings, and next recommendation."
+    test: "tests/reset/test_archive_reproducibility_review.py::test_archive_reproducibility_review_contains_required_sections"
+  - id: AC-2
+    description: "Review records a roadmap evaluation that either keeps, modifies, or blocks the planned Phase 8."
+    test: "tests/reset/test_archive_reproducibility_review.py::test_archive_reproducibility_review_records_roadmap_evaluation"
+  - id: AC-3
+    description: "`docs/CODEX_PROMPT.md` records completion through T29 and returns to a human decision point before any next phase opens."
+    test: "tests/reset/test_archive_reproducibility_review.py::test_codex_prompt_records_phase7_review_state"
+
+Files:
+  - docs/audit/ARCHIVE_REPRODUCIBILITY_REVIEW.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/CODEX_PROMPT.md
+  - tests/reset/test_archive_reproducibility_review.py
+
+Context-Refs:
+  - docs/research/REPRODUCIBILITY_MATRIX.md
+  - docs/audit/ARCHIVE_EVIDENCE_EXPANSION_REVIEW.md
+
+Notes: |
+  Stop after this review. Phase 8 remains planned only until a human explicitly opens it after roadmap evaluation.
