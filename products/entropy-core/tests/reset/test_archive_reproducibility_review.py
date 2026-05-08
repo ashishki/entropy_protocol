@@ -50,11 +50,11 @@ def test_codex_prompt_records_phase7_review_state() -> None:
 
     assert "Phase: 8" in prompt
     assert "T29 Archive Reproducibility Hardening Review completed" in prompt
-    assert "T30 Archive Evidence Sufficiency Gap Matrix" in prompt
+    assert "T31 Phase-Gate Readiness Packet Scaffold" in prompt
     assert "Phase 8 Phase-Gate Readiness Review" in prompt
     assert "Status:     done 2026-05-08" in _task_section(tasks, "T29")
-    assert "Status:     active" in _task_section(tasks, "T30")
-    assert "Status:     pending" in _task_section(tasks, "T31")
+    assert "Status:     done 2026-05-08" in _task_section(tasks, "T30")
+    assert "Status:     active" in _task_section(tasks, "T31")
 
 
 def _task_section(text: str, task_id: str) -> str:

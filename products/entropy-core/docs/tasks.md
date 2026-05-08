@@ -1095,7 +1095,7 @@ Owner:      codex
 Phase:      8
 Type:       none
 Depends-On: T29
-Status:     active
+Status:     done 2026-05-08
 
 Objective: |
   Build a readiness gap matrix that maps the current archive evidence base to the controls required before any human-approved phase-gate discussion.
@@ -1129,7 +1129,7 @@ Owner:      codex
 Phase:      8
 Type:       none
 Depends-On: T30
-Status:     pending
+Status:     active
 
 Objective: |
   Create a readiness packet scaffold that assembles current evidence, missing controls, limitations, and explicit non-approval boundaries for a future human phase-gate discussion.

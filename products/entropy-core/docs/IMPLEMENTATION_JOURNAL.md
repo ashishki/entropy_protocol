@@ -21,6 +21,15 @@ This file records handoff context. It is not authority.
 
 ## Entries
 
+### 2026-05-08 - T30 - Archive Evidence Sufficiency Gap Matrix
+
+- Scope: `docs/readiness/PHASE_GATE_GAP_MATRIX.md`, `docs/EVIDENCE_INDEX.md`, `tests/reset/test_phase_gate_readiness_gap_matrix.py`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`
+- Why this work happened: map current archive evidence to readiness controls and missing prerequisites before any future human phase-gate discussion
+- Decisions applied: `D-ROADMAP-001`; `docs/audit/ARCHIVE_REPRODUCIBILITY_REVIEW.md`; `docs/research/REPRODUCIBILITY_MATRIX.md`
+- Evidence collected: T30 acceptance tests passed (`3 passed`); full reset baseline `393 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean
+- Follow-ups: start T31 Phase-Gate Readiness Packet Scaffold
+- Notes for next agent: T30 records complete, partial, and blocked readiness controls. Holdout, OOS/performance, live feed, broker/exchange, production, capital-ready, and phase-gate approvals remain blocked.
+
 ### 2026-05-08 - T29 - Archive Reproducibility Hardening Review
 
 - Scope: `docs/audit/ARCHIVE_REPRODUCIBILITY_REVIEW.md`, `docs/audit/AUDIT_INDEX.md`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`, `tests/reset/test_archive_reproducibility_review.py`

@@ -157,3 +157,14 @@ Phase 7 Archive Reproducibility Hardening is complete through T29.
 - Deep review result: PASS; Stop-Ship 0, P0 0, P1 0, P2 0.
 - Roadmap evaluation kept planned Phase 8, limited to readiness and gap analysis.
 - Boundaries remain unchanged: no holdout read, live feed, broker/exchange, production, capital-ready, phase-gate, or OOS/performance approval.
+
+## 2026-05-08 T30 Readiness Gap Matrix
+
+Phase 8 is complete through T30.
+
+- Completed task: T30 Archive Evidence Sufficiency Gap Matrix.
+- Active task: T31 Phase-Gate Readiness Packet Scaffold.
+- Latest validation: `.venv/bin/python -m pytest -q tests/` -> `393 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
+- Evidence index row added for T30 gap matrix proof.
+- Light review result: no findings.
+- Boundaries remain unchanged: T30 is readiness analysis only and does not approve holdout, OOS/performance, live, broker/exchange, production, capital-ready, or phase-gate surfaces.
