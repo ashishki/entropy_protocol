@@ -21,6 +21,15 @@ This file records handoff context. It is not authority.
 
 ## Entries
 
+### 2026-05-08 - T26 - Archive Packet Replay Contract
+
+- Scope: `src/entropy/evidence/archive_replay.py`, `src/entropy/evidence/__init__.py`, `tests/integration/test_archive_replay.py`, `docs/EVIDENCE_INDEX.md`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`
+- Why this work happened: prove first and second archive-only evidence packets can be deterministically replayed from current fixtures and checked against stored packet/manifest artifacts
+- Decisions applied: `D-ROADMAP-001`; T25 roadmap governance contract
+- Evidence collected: T26 acceptance tests passed (`4 passed`); full reset baseline `381 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean
+- Follow-ups: start T27 Evidence Hash Reproducibility Matrix
+- Notes for next agent: replay checks compare stable packet ids, candidate ids, no-claim labels, artifact references, deterministic packet hashes, and required manifest boundaries. They fail missing packet artifacts, dataset manifests, artifact references, or unresolved hash bindings without opening holdout, OOS/performance, live, broker/exchange, production, capital-ready, or phase-gate approvals.
+
 ### 2026-05-08 - T25 - Roadmap Governance Contract Opened
 
 - Scope: `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`, `docs/DECISION_LOG.md`

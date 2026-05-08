@@ -956,7 +956,7 @@ Owner:      codex
 Phase:      7
 Type:       none
 Depends-On: T25
-Status:     active
+Status:     done 2026-05-08
 
 Objective: |
   Add deterministic replay checks for existing archive-only evidence packets so regenerated packet content and referenced artifacts remain stable.
@@ -991,7 +991,7 @@ Owner:      codex
 Phase:      7
 Type:       none
 Depends-On: T26
-Status:     pending
+Status:     active
 
 Objective: |
   Build a matrix of candidate, dataset, code, policy, parameter, and artifact hashes across existing archive evidence packets.

@@ -27,7 +27,8 @@ def test_tasks_records_planned_roadmap_and_active_phase() -> None:
         assert phase in text
     assert "Phase boundaries are autonomous rollover points, not stop points" in text
     assert "open the next logical active phase, and continue automatically" in text
-    assert "Status:     active" in _task_section(text, "T26")
+    assert "Status:     done 2026-05-08" in _task_section(text, "T26")
+    assert "Status:     active" in _task_section(text, "T27")
 
 
 def test_tasks_records_dynamic_roadmap_evaluation_rule() -> None:
@@ -57,7 +58,8 @@ def test_prompt_and_handoff_record_phase7_boundaries() -> None:
     combined = f"{prompt}\n{handoff}\n{loop}".lower()
 
     assert "phase: 7" in prompt.lower()
-    assert "t26 archive packet replay contract" in prompt.lower()
+    assert "t27 evidence hash reproducibility matrix" in prompt.lower()
+    assert "t26 archive packet replay contract completed" in prompt.lower()
     assert "phase: 7 archive reproducibility hardening" in handoff.lower()
     assert "phase boundaries are not stop conditions" in combined
     assert "roadmap rewrite -> open next active phase -> next task" in combined

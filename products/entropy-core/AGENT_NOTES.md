@@ -111,3 +111,14 @@ Human decision after T24 recorded a forward roadmap and opened only the first ac
 - Planned roadmap phases: Phase 7 Archive Reproducibility Hardening; Phase 8 Phase-Gate Readiness Review; Phase 9 Holdout Access Protocol; Phase 10 Approved Holdout Evaluation Packet; Phase 11 Live-Feed Dry Run Readiness; Phase 12 Broker Sandbox and Execution Risk Audit; Phase 13 Production and Capital Gate.
 - Roadmap governance: after every active phase closes, run deep review, fix findings, validate, evaluate the roadmap, rewrite future phases/tasks if useful, open the next logical active phase, and continue automatically. Future phases may change based on completed evidence.
 - Boundaries: real external side effects, live capital actions, live broker/exchange execution, and credentialed production deployment remain blocked. Use local dry-run/sandbox/protocol work instead unless a future local contract explicitly permits otherwise.
+
+## 2026-05-08 T26 Archive Replay Contract
+
+Phase 7 is complete through T26.
+
+- Completed task: T26 Archive Packet Replay Contract.
+- Active task: T27 Evidence Hash Reproducibility Matrix.
+- Latest validation: `.venv/bin/python -m pytest -q tests/` -> `381 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
+- Evidence index row added for T26 replay proof.
+- Light review result: no findings.
+- Boundaries remain unchanged: no holdout, live feed, broker/exchange, production, capital-ready, phase-gate, or OOS/performance approval.

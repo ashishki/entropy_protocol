@@ -1,7 +1,7 @@
 # Evidence Index - Entropy Core
 
 Version: 1.0
-Last updated: 2026-05-07
+Last updated: 2026-05-08
 
 This file indexes proof artifacts. It is not authority by itself.
 
@@ -37,8 +37,9 @@ This file indexes proof artifacts. It is not authority by itself.
 | T23 Second Research Evidence Packet | Test result | `tests/integration/test_second_research_packet.py::test_second_research_packet_contains_required_sections`; `tests/integration/test_second_research_packet.py::test_second_research_packet_fails_missing_artifact_or_hash`; `tests/integration/test_second_research_packet.py::test_second_research_packet_blocks_claim_approvals`; `docs/research/second-packet/RESEARCH_EVIDENCE_PACKET.md`; `src/entropy/evidence/first_research_packet.py` | Second research evidence packet contains candidate id, hashes, leakage status, SimBroker evidence, attribution streams, and no-claim labels; fails missing artifacts or hashes; blocks holdout/OOS/performance/production/capital-ready approvals | 2026-05-07: `20 passed`; full baseline `371 passed, 20 skipped` | Yes |
 | T24 Archive Evidence Expansion Review | Review report | `tests/reset/test_archive_evidence_expansion_review.py::test_archive_evidence_expansion_review_contains_required_sections`; `docs/audit/ARCHIVE_EVIDENCE_EXPANSION_REVIEW.md` | Review summarizes expanded archive packet set, validation, limitations, open findings, and next recommendation while preserving holdout/live/broker/production/capital-ready/phase-gate/OOS/performance boundaries | 2026-05-07: `3 passed`; full baseline `374 passed, 20 skipped` | Yes |
 | T25 Roadmap Governance Contract | Test result | `tests/reset/test_roadmap_governance.py::test_tasks_records_planned_roadmap_and_active_phase`; `tests/reset/test_roadmap_governance.py::test_tasks_records_dynamic_roadmap_evaluation_rule`; `tests/reset/test_roadmap_governance.py::test_prompt_and_handoff_record_phase7_boundaries`; `CODEX_LOOP.md`; `docs/tasks.md`; `docs/CODEX_PROMPT.md`; `PHASE_HANDOFF.md` | Roadmap phases 7 through 13 are recorded as planned direction, Phase 7 is active, T26 is next, phase boundaries are autonomous rollover points, roadmap evaluation rewrites/promotes future phases, and real external/capital/production side effects remain blocked | 2026-05-08: `3 passed`; full baseline `377 passed, 20 skipped` | Yes |
+| T26 Archive Packet Replay Contract | Test result | `tests/integration/test_archive_replay.py::test_archive_packet_replay_is_deterministic`; `tests/integration/test_archive_replay.py::test_archive_packet_replay_requires_all_artifacts`; `tests/integration/test_archive_replay.py::test_archive_packet_replay_preserves_no_claim_boundary`; `src/entropy/evidence/archive_replay.py` | First and second archive evidence packets replay deterministically from current fixtures, fail missing packet/manifest/artifact/hash inputs, and preserve archive-only no-claim boundaries | 2026-05-08: `4 passed`; full baseline `381 passed, 20 skipped` | Yes |
 
-T08 through T25 heavy-task, product-bridge, reset-closure, archive evidence, and roadmap governance rows are indexed.
+T08 through T26 heavy-task, product-bridge, reset-closure, archive evidence, roadmap governance, and replay rows are indexed.
 
 ## Pending Evidence
 

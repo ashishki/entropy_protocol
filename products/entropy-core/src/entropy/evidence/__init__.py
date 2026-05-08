@@ -16,6 +16,16 @@ from entropy.evidence.first_research_packet import (
     build_first_research_evidence_packet,
     deterministic_research_packet_json,
 )
+from entropy.evidence.archive_replay import (
+    ARCHIVE_PACKET_REPLAY_SPECS,
+    FIRST_ARCHIVE_PACKET_REPLAY_SPEC,
+    SECOND_ARCHIVE_PACKET_REPLAY_SPEC,
+    ArchivePacketReplayError,
+    ArchivePacketReplayResult,
+    ArchivePacketReplaySpec,
+    replay_archive_research_packet,
+    replay_archive_research_packets,
+)
 from entropy.evidence.binance_canary import (
     BINANCE_CANARY_ID,
     BinanceKlineCanaryResult,
@@ -185,6 +195,7 @@ from entropy.evidence.simbroker_calibration_bootstrap import (
 
 __all__ = [
     "APPROVED_FREE_CRYPTO_SOURCES",
+    "ARCHIVE_PACKET_REPLAY_SPECS",
     "BINANCE_CANARY_ID",
     "CRYPTO_UNIVERSE_ID",
     "DEFAULT_EVIDENCE_INDEX",
@@ -204,6 +215,7 @@ __all__ = [
     "DATA_STABILITY_SIMULATION_ID",
     "FIRST_RESEARCH_EVIDENCE_PACKET_SCHEMA_VERSION",
     "FIRST_RESEARCH_PACKET_NO_CLAIM_LABELS",
+    "FIRST_ARCHIVE_PACKET_REPLAY_SPEC",
     "P4ArtifactInput",
     "P4_BATCH_COLLECTION_ID",
     "P4_BATCH_CONVERSION_ID",
@@ -254,8 +266,12 @@ __all__ = [
     "REJECTED_FREE_SOURCES",
     "SIMBROKER_CALIBRATION_BOOTSTRAP_ID",
     "SOURCE_SELECTION_ID",
+    "SECOND_ARCHIVE_PACKET_REPLAY_SPEC",
     "TASK_IDS",
     "ApprovedEvidenceSource",
+    "ArchivePacketReplayError",
+    "ArchivePacketReplayResult",
+    "ArchivePacketReplaySpec",
     "BinanceArchiveKlinesPath",
     "BinanceKlineCanaryResult",
     "CalibrationQuoteBootstrapResult",
@@ -318,6 +334,8 @@ __all__ = [
     "render_p4_history_probe_summary",
     "render_p4_symbol_conversion_summary",
     "render_p4_scale_plan",
+    "replay_archive_research_packet",
+    "replay_archive_research_packets",
     "run_binance_p4_canary",
     "run_phase1a_scaffold_performance_probe",
     "run_p4_history_probe",

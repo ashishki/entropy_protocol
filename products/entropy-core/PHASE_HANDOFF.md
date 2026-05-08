@@ -7,10 +7,10 @@ manual restart.
 
 - Product: entropy-core
 - Branch: codex/entropy-core-work
-- Active task: T26 Archive Packet Replay Contract
+- Active task: T27 Evidence Hash Reproducibility Matrix
 - Phase: 7 Archive Reproducibility Hardening
-- Last validation: 2026-05-08 T25: `377 passed, 20 skipped`; ruff check clean; ruff format clean; pyright 0 errors; `git diff --check` clean.
-- Git status summary: Phase 7 roadmap governance changes pending commit at handoff update time.
+- Last validation: 2026-05-08 T26: `381 passed, 20 skipped`; ruff check clean; ruff format clean; pyright 0 errors; `git diff --check` clean.
+- Git status summary: T26 archive replay changes pending commit at handoff update time.
 
 ## Completed In This Phase
 
@@ -42,11 +42,11 @@ manual restart.
 - T23 Second Research Evidence Packet completed with no findings.
 - T24 Archive Evidence Expansion Review completed with no findings.
 - T25 Roadmap Governance Contract completed with no findings.
+- T26 Archive Packet Replay Contract completed with no findings.
 
 ## Remaining Work
 
-- T26 Archive Packet Replay Contract is active.
-- T27 Evidence Hash Reproducibility Matrix is pending.
+- T27 Evidence Hash Reproducibility Matrix is active.
 - T28 No-Claim Surface Regression Sweep is pending.
 - T29 Archive Reproducibility Hardening Review is pending.
 - After T29, run deep review, fix findings, validate, evaluate the roadmap, rewrite future phases/tasks if useful, open the next logical active phase, and continue automatically.
