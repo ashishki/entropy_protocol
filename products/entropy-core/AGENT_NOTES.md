@@ -144,3 +144,16 @@ Phase 7 is complete through T28.
 - Evidence index row added for T28 no-claim sweep proof.
 - Light review result: no findings.
 - Boundaries remain unchanged: active docs and replayed packet surfaces expose no restricted approval flags, and roadmap phases 8 through 13 remain planned only.
+
+## 2026-05-08 Phase 7 Boundary and Phase 8 Opened
+
+Phase 7 Archive Reproducibility Hardening is complete through T29.
+
+- Review artifact: `docs/audit/ARCHIVE_REPRODUCIBILITY_REVIEW.md`.
+- Audit index row added for `ARCHIVE-REPRODUCIBILITY-HARDENING`.
+- Active phase: Phase 8 Phase-Gate Readiness Review.
+- Active task: T30 Archive Evidence Sufficiency Gap Matrix.
+- Latest validation: `.venv/bin/python -m pytest -q tests/` -> `390 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
+- Deep review result: PASS; Stop-Ship 0, P0 0, P1 0, P2 0.
+- Roadmap evaluation kept planned Phase 8, limited to readiness and gap analysis.
+- Boundaries remain unchanged: no holdout read, live feed, broker/exchange, production, capital-ready, phase-gate, or OOS/performance approval.

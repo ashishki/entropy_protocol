@@ -2,7 +2,7 @@
 
 Version: 1.0
 Date: 2026-05-08
-Phase: 7
+Phase: 8
 
 Reset state for Entropy Core after archiving the old active workflow. Historical files are available under `docs/legacy/old-workflow/2026-05-07/` but are not read by default.
 
@@ -10,17 +10,17 @@ Reset state for Entropy Core after archiving the old active workflow. Historical
 
 ## Current Phase
 
-- Phase: 7
-- Name: Archive Reproducibility Hardening
-- Business goal: prove existing archive-only evidence packets can be replayed, hash-checked, and governed by a dynamic roadmap evaluation rule.
-- Phase gate: replay, reproducibility matrix, no-claim sweep, and review prove deterministic archive evidence without opening holdout, live, broker/exchange, production, capital-ready, phase-gate, or OOS/performance claim paths.
+- Phase: 8
+- Name: Phase-Gate Readiness Review
+- Business goal: determine whether the archive evidence base is sufficient to support a future human phase-gate discussion without opening holdout or claim surfaces.
+- Phase gate: gap matrix, readiness packet, approval checklist, no-holdout dry run, and review identify missing controls and preserve blocked holdout, live, broker/exchange, production, capital-ready, phase-gate, and OOS/performance claim paths.
 
 ## Current State
 
-- Phase: 7
-- Baseline: 387 passing tests, 20 skipped (T28 local verification on 2026-05-08)
-- Ruff: clean on T28 local verification 2026-05-08
-- Pyright: clean on T28 local verification 2026-05-08
+- Phase: 8
+- Baseline: 390 passing tests, 20 skipped (T29 local verification on 2026-05-08)
+- Ruff: clean on T29 local verification 2026-05-08
+- Pyright: clean on T29 local verification 2026-05-08
 - Last CI: product-local workflow configured; remote CI not yet observed after reset
 - Holdout: locked
 - Live capital: not approved
@@ -40,11 +40,11 @@ Reset state for Entropy Core after archiving the old active workflow. Historical
 
 ## Next Task
 
-T29 Archive Reproducibility Hardening Review.
+T30 Archive Evidence Sufficiency Gap Matrix.
 
-Human decision after T24 opened Phase 7 Archive Reproducibility Hardening and autonomous roadmap rollover. Active scope is T25 through T29; T25 through T28 are complete. After T29, run deep review, fix findings, validate, evaluate the roadmap, rewrite future phases if useful, open the next logical active phase, and continue automatically.
+Phase 7 Archive Reproducibility Hardening is complete through T29. Roadmap evaluation kept Phase 8 Phase-Gate Readiness Review as the next active phase and opened T30. Active Phase 8 scope is T30 through T34; after T34, run deep review, fix findings, validate, evaluate the roadmap, rewrite future phases if useful, open the next logical active phase, and continue automatically.
 
-Archive Evidence Expansion block complete through T24. Roadmap phases 8 through 13 are planned direction and may be rewritten by roadmap evaluation. Do not execute real external side effects, live capital actions, live broker/exchange execution, or credentialed production deployment; replace them with local dry-run/sandbox protocol work unless a future local contract explicitly permits otherwise.
+Archive Evidence Expansion block complete through T24. Phase 8 is readiness analysis only; roadmap phases 9 through 13 are planned direction and may be rewritten by roadmap evaluation. Do not execute real external side effects, holdout reads, live capital actions, live broker/exchange execution, or credentialed production deployment; replace them with local dry-run/sandbox protocol work unless a future local contract explicitly permits otherwise.
 
 ## Fix Queue
 
@@ -168,6 +168,10 @@ none after reset. Legacy D-K findings were closed in the prior workflow, but old
   - Acceptance tests: `tests/reset/test_no_claim_roadmap_sweep.py` passed (`3 passed`).
   - Reset baseline: `.venv/bin/python -m pytest -q tests/` reported `387 passed, 20 skipped`.
   - Quality checks: ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
+- 2026-05-08: T29 Archive Reproducibility Hardening Review completed.
+  - Acceptance tests: `tests/reset/test_archive_reproducibility_review.py` passed (`3 passed`).
+  - Reset baseline: `.venv/bin/python -m pytest -q tests/` reported `390 passed, 20 skipped`.
+  - Quality checks: ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
 
 ## Phase History
 
@@ -189,6 +193,8 @@ none after reset. Legacy D-K findings were closed in the prior workflow, but old
 - 2026-05-08: T26 Archive Packet Replay Contract completed. Next task: T27 Evidence Hash Reproducibility Matrix.
 - 2026-05-08: T27 Evidence Hash Reproducibility Matrix completed. Next task: T28 No-Claim Surface Regression Sweep.
 - 2026-05-08: T28 No-Claim Surface Regression Sweep completed. Next task: T29 Archive Reproducibility Hardening Review.
+- 2026-05-08: Phase 7 Archive Reproducibility Hardening completed. Review artifact: `docs/audit/ARCHIVE_REPRODUCIBILITY_REVIEW.md`. Result: PASS; Stop-Ship 0, P0 0, P1 0, P2 0.
+- 2026-05-08: Roadmap evaluation kept planned Phase 8 Phase-Gate Readiness Review and opened T30 Archive Evidence Sufficiency Gap Matrix.
 - 2026-05-08: Phase boundaries changed from stop points to autonomous rollover points: deep review, fix findings, validate, evaluate roadmap, rewrite future phases, open the next logical active phase, and continue.
 
 ## Profile State: RAG
@@ -238,13 +244,13 @@ none after reset. Legacy D-K findings were closed in the prior workflow, but old
 
 ### Last Evaluation
 
-- Profile: No-Claim Surface Regression Sweep
-- Task: T28 No-Claim Surface Regression Sweep
+- Profile: Archive Reproducibility Hardening Review
+- Task: T29 Archive Reproducibility Hardening Review
 - Date: 2026-05-08
-- Eval Source: `tests/reset/test_no_claim_roadmap_sweep.py`
-- Metric(s): active-doc restricted surface scan, future-phase planned status, prompt/handoff boundary preservation
-- Score: `3 passed`; current baseline `387 passed, 20 skipped`
-- Baseline: T27 evidence hash reproducibility matrix `384 passed, 20 skipped`
+- Eval Source: `tests/reset/test_archive_reproducibility_review.py`
+- Metric(s): review sections, roadmap evaluation, audit index and prompt state
+- Score: `3 passed`; current baseline `390 passed, 20 skipped`
+- Baseline: T28 no-claim surface regression sweep `387 passed, 20 skipped`
 - Delta: +3 passing tests
 - Regression: none known
 
@@ -254,11 +260,11 @@ none
 
 ### Human Decision
 
-Human approval after T24 opened Phase 7 Archive Reproducibility Hardening and recorded a dynamic roadmap for phases 7 through 13. Phase boundaries now roll over automatically after deep review, fixes, validation, and roadmap evaluation. Real external side effects, live capital actions, live broker/exchange execution, and credentialed production deployment remain blocked.
+Human approval after T24 opened Phase 7 Archive Reproducibility Hardening and recorded a dynamic roadmap for phases 7 through 13. Phase 7 roadmap evaluation opened Phase 8 readiness analysis. Phase boundaries now roll over automatically after deep review, fixes, validation, and roadmap evaluation. Real external side effects, holdout reads, live capital actions, live broker/exchange execution, and credentialed production deployment remain blocked.
 
 ### Human Decision Point
 
-Current active task is T29 Archive Reproducibility Hardening Review. Archive Evidence Expansion block is complete through T24, and Phase 7 is complete through T28. Roadmap phases 8 through 13 are planned direction and may be promoted or rewritten automatically by roadmap evaluation. Real external side effects, live capital actions, live broker/exchange execution, and credentialed production deployment remain blocked.
+Current active task is T30 Archive Evidence Sufficiency Gap Matrix. Archive Evidence Expansion block is complete through T24, Phase 7 is complete through T29, and Phase 8 is readiness analysis only. Roadmap phases 9 through 13 are planned direction and may be promoted or rewritten automatically by roadmap evaluation. Real external side effects, holdout reads, live capital actions, live broker/exchange execution, and credentialed production deployment remain blocked.
 
 ## Verification Defaults
 

@@ -1060,7 +1060,7 @@ Owner:      codex
 Phase:      7
 Type:       none
 Depends-On: T28
-Status:     active
+Status:     done 2026-05-08
 
 Objective: |
   Review Phase 7 reproducibility hardening, record open findings, and run the first roadmap evaluation before any next phase is opened.
@@ -1073,7 +1073,7 @@ Acceptance-Criteria:
     description: "Review records a roadmap evaluation that either keeps, modifies, or blocks the planned Phase 8."
     test: "tests/reset/test_archive_reproducibility_review.py::test_archive_reproducibility_review_records_roadmap_evaluation"
   - id: AC-3
-    description: "`docs/CODEX_PROMPT.md` records completion through T29 and returns to a human decision point before any next phase opens."
+    description: "`docs/CODEX_PROMPT.md` records completion through T29 and opens Phase 8 with T30 active while preserving all blocked approval boundaries."
     test: "tests/reset/test_archive_reproducibility_review.py::test_codex_prompt_records_phase7_review_state"
 
 Files:
@@ -1087,4 +1087,175 @@ Context-Refs:
   - docs/audit/ARCHIVE_EVIDENCE_EXPANSION_REVIEW.md
 
 Notes: |
-  Stop after this review. Phase 8 remains planned only until a human explicitly opens it after roadmap evaluation.
+  This review is a phase boundary. Continue automatically after roadmap evaluation unless a blocker is found.
+
+## T30: Archive Evidence Sufficiency Gap Matrix
+
+Owner:      codex
+Phase:      8
+Type:       none
+Depends-On: T29
+Status:     active
+
+Objective: |
+  Build a readiness gap matrix that maps the current archive evidence base to the controls required before any human-approved phase-gate discussion.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Gap matrix lists replay, reproducibility, no-claim, governance, leakage, holdout, and review controls with evidence status."
+    test: "tests/reset/test_phase_gate_readiness_gap_matrix.py::test_gap_matrix_lists_required_controls"
+  - id: AC-2
+    description: "Matrix marks holdout, OOS/performance, live, broker/exchange, production, capital-ready, and phase-gate approvals as blocked."
+    test: "tests/reset/test_phase_gate_readiness_gap_matrix.py::test_gap_matrix_preserves_blocked_boundaries"
+  - id: AC-3
+    description: "Evidence index references the gap matrix and validation tests."
+    test: "tests/reset/test_phase_gate_readiness_gap_matrix.py::test_evidence_index_records_gap_matrix"
+
+Files:
+  - docs/readiness/PHASE_GATE_GAP_MATRIX.md
+  - docs/EVIDENCE_INDEX.md
+  - tests/reset/test_phase_gate_readiness_gap_matrix.py
+
+Context-Refs:
+  - docs/audit/ARCHIVE_REPRODUCIBILITY_REVIEW.md
+  - docs/research/REPRODUCIBILITY_MATRIX.md
+
+Notes: |
+  This task is readiness analysis only. It must not request holdout access or approve any claim surface.
+
+## T31: Phase-Gate Readiness Packet Scaffold
+
+Owner:      codex
+Phase:      8
+Type:       none
+Depends-On: T30
+Status:     pending
+
+Objective: |
+  Create a readiness packet scaffold that assembles current evidence, missing controls, limitations, and explicit non-approval boundaries for a future human phase-gate discussion.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Readiness packet scaffold includes evidence summary, missing controls, limitations, and required human approvals."
+    test: "tests/reset/test_phase_gate_readiness_packet.py::test_readiness_packet_contains_required_sections"
+  - id: AC-2
+    description: "Readiness packet rejects any holdout unlock, OOS/performance, live, broker/exchange, production, capital-ready, or phase-gate approval label."
+    test: "tests/reset/test_phase_gate_readiness_packet.py::test_readiness_packet_rejects_approval_labels"
+  - id: AC-3
+    description: "Packet references the Phase 8 gap matrix and Phase 7 review."
+    test: "tests/reset/test_phase_gate_readiness_packet.py::test_readiness_packet_references_gap_matrix_and_review"
+
+Files:
+  - docs/readiness/PHASE_GATE_READINESS_PACKET.md
+  - tests/reset/test_phase_gate_readiness_packet.py
+
+Context-Refs:
+  - docs/readiness/PHASE_GATE_GAP_MATRIX.md
+  - docs/audit/ARCHIVE_REPRODUCIBILITY_REVIEW.md
+
+Notes: |
+  Scaffold means no approval. The packet is input to a future review only.
+
+## T32: Approval Boundary Checklist
+
+Owner:      codex
+Phase:      8
+Type:       none
+Depends-On: T31
+Status:     pending
+
+Objective: |
+  Record a checklist of explicit human approvals and evidence prerequisites that would be required before holdout, phase-gate, or claim-surface work could be considered.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Checklist lists every required approval boundary and the current blocked status."
+    test: "tests/reset/test_approval_boundary_checklist.py::test_checklist_lists_required_boundaries"
+  - id: AC-2
+    description: "Checklist forbids treating roadmap phases, readiness docs, or archive evidence as approval."
+    test: "tests/reset/test_approval_boundary_checklist.py::test_checklist_rejects_implicit_approval_sources"
+  - id: AC-3
+    description: "`docs/CODEX_PROMPT.md` and `PHASE_HANDOFF.md` preserve the same blocked boundary language."
+    test: "tests/reset/test_approval_boundary_checklist.py::test_prompt_and_handoff_match_boundary_checklist"
+
+Files:
+  - docs/readiness/APPROVAL_BOUNDARY_CHECKLIST.md
+  - docs/CODEX_PROMPT.md
+  - PHASE_HANDOFF.md
+  - tests/reset/test_approval_boundary_checklist.py
+
+Context-Refs:
+  - docs/IMPLEMENTATION_CONTRACT.md#forbidden-actions
+  - docs/ARCHITECTURE.md#human-approval-boundaries
+
+Notes: |
+  The checklist may identify prerequisites only. It must not grant approval.
+
+## T33: Readiness No-Holdout Dry Run
+
+Owner:      codex
+Phase:      8
+Type:       none
+Depends-On: T32
+Status:     pending
+
+Objective: |
+  Add a local dry-run proof that readiness review can assemble evidence without reading or unlocking holdout data.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Dry-run test assembles readiness evidence from archive artifacts without opening a holdout path."
+    test: "tests/reset/test_readiness_no_holdout_dry_run.py::test_readiness_dry_run_uses_archive_only_artifacts"
+  - id: AC-2
+    description: "Dry-run fails if any holdout, live, broker/exchange, production, capital-ready, phase-gate, or OOS/performance approval flag is present."
+    test: "tests/reset/test_readiness_no_holdout_dry_run.py::test_readiness_dry_run_rejects_restricted_flags"
+  - id: AC-3
+    description: "Dry-run output records limitations and missing prerequisites instead of claim conclusions."
+    test: "tests/reset/test_readiness_no_holdout_dry_run.py::test_readiness_dry_run_records_limitations"
+
+Files:
+  - tests/reset/test_readiness_no_holdout_dry_run.py
+  - docs/readiness/PHASE_GATE_READINESS_PACKET.md
+
+Context-Refs:
+  - docs/readiness/APPROVAL_BOUNDARY_CHECKLIST.md
+  - docs/readiness/PHASE_GATE_READINESS_PACKET.md
+
+Notes: |
+  This is local dry-run validation only. No holdout path may be read.
+
+## T34: Phase-Gate Readiness Review
+
+Owner:      codex
+Phase:      8
+Type:       none
+Depends-On: T33
+Status:     pending
+
+Objective: |
+  Review Phase 8 readiness artifacts, record findings, evaluate whether the roadmap should proceed to a holdout access protocol, and preserve blocked boundaries unless the roadmap evaluation identifies a safer next phase.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/audit/PHASE_GATE_READINESS_REVIEW.md` summarizes gap matrix, readiness packet, approval checklist, dry-run evidence, validation, limitations, findings, and roadmap evaluation."
+    test: "tests/reset/test_phase_gate_readiness_review.py::test_phase_gate_readiness_review_contains_required_sections"
+  - id: AC-2
+    description: "Review either keeps, modifies, or blocks the planned Holdout Access Protocol phase."
+    test: "tests/reset/test_phase_gate_readiness_review.py::test_phase_gate_readiness_review_records_roadmap_evaluation"
+  - id: AC-3
+    description: "Audit index and prompt record Phase 8 completion and the next active task selected by roadmap evaluation."
+    test: "tests/reset/test_phase_gate_readiness_review.py::test_phase_gate_readiness_review_updates_state"
+
+Files:
+  - docs/audit/PHASE_GATE_READINESS_REVIEW.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/CODEX_PROMPT.md
+  - tests/reset/test_phase_gate_readiness_review.py
+
+Context-Refs:
+  - docs/readiness/PHASE_GATE_GAP_MATRIX.md
+  - docs/readiness/PHASE_GATE_READINESS_PACKET.md
+  - docs/readiness/APPROVAL_BOUNDARY_CHECKLIST.md
+
+Notes: |
+  This is a phase-boundary review. Continue automatically after roadmap evaluation unless a blocker is found.

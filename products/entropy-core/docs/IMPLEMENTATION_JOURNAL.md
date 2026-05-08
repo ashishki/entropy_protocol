@@ -21,6 +21,15 @@ This file records handoff context. It is not authority.
 
 ## Entries
 
+### 2026-05-08 - T29 - Archive Reproducibility Hardening Review
+
+- Scope: `docs/audit/ARCHIVE_REPRODUCIBILITY_REVIEW.md`, `docs/audit/AUDIT_INDEX.md`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`, `tests/reset/test_archive_reproducibility_review.py`
+- Why this work happened: close Phase 7 with deep review, audit archive entry, roadmap evaluation, and next active phase opening
+- Decisions applied: `D-ROADMAP-001`; `docs/research/REPRODUCIBILITY_MATRIX.md`; `docs/audit/ARCHIVE_EVIDENCE_EXPANSION_REVIEW.md`
+- Evidence collected: T29 acceptance tests passed (`3 passed`); full reset baseline `390 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean
+- Follow-ups: start T30 Archive Evidence Sufficiency Gap Matrix
+- Notes for next agent: Phase 8 is readiness analysis only. It may identify evidence gaps before any future phase-gate discussion, but it must not read holdout data or approve OOS/performance, live, broker/exchange, production, capital-ready, or phase-gate claim surfaces.
+
 ### 2026-05-08 - T28 - No-Claim Surface Regression Sweep
 
 - Scope: `tests/reset/test_no_claim_roadmap_sweep.py`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `docs/EVIDENCE_INDEX.md`, `AGENT_NOTES.md`

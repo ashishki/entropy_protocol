@@ -7,10 +7,10 @@ manual restart.
 
 - Product: entropy-core
 - Branch: codex/entropy-core-work
-- Active task: T29 Archive Reproducibility Hardening Review
-- Phase: 7 Archive Reproducibility Hardening
-- Last validation: 2026-05-08 T28: `387 passed, 20 skipped`; ruff check clean; ruff format clean; pyright 0 errors; `git diff --check` clean.
-- Git status summary: T28 no-claim sweep changes pending commit at handoff update time.
+- Active task: T30 Archive Evidence Sufficiency Gap Matrix
+- Phase: 8 Phase-Gate Readiness Review
+- Last validation: 2026-05-08 T29: `390 passed, 20 skipped`; ruff check clean; ruff format clean; pyright 0 errors; `git diff --check` clean.
+- Git status summary: T29 archive reproducibility review changes pending commit at handoff update time.
 
 ## Completed In This Phase
 
@@ -45,11 +45,16 @@ manual restart.
 - T26 Archive Packet Replay Contract completed with no findings.
 - T27 Evidence Hash Reproducibility Matrix completed with no findings.
 - T28 No-Claim Surface Regression Sweep completed with no findings.
+- T29 Archive Reproducibility Hardening Review completed with no findings.
 
 ## Remaining Work
 
-- T29 Archive Reproducibility Hardening Review is active.
-- After T29, run deep review, fix findings, validate, evaluate the roadmap, rewrite future phases/tasks if useful, open the next logical active phase, and continue automatically.
+- T30 Archive Evidence Sufficiency Gap Matrix is active.
+- T31 Phase-Gate Readiness Packet Scaffold is pending.
+- T32 Approval Boundary Checklist is pending.
+- T33 Readiness No-Holdout Dry Run is pending.
+- T34 Phase-Gate Readiness Review is pending.
+- After T34, run deep review, fix findings, validate, evaluate the roadmap, rewrite future phases/tasks if useful, open the next logical active phase, and continue automatically.
 
 ## Blockers Or Human Decisions
 

@@ -66,11 +66,11 @@ def test_future_phases_are_not_approvals() -> None:
     for phase_number in range(8, 14):
         assert f"| {phase_number} |" in tasks
     assert "future phases are planned until roadmap evaluation promotes or rewrites them" in tasks
-    assert "roadmap phases 8 through 13 are planned direction" in prompt
-    assert "phases 8 through 13 remain planned only" in prompt
-    assert "phase: 8" not in prompt
-    assert "phase: 8" not in handoff
-    assert "active task: t29 archive reproducibility hardening review" in handoff
+    assert "phase 8 is readiness analysis only" in prompt
+    assert "roadmap phases 9 through 13 are planned direction" in prompt
+    assert "phase: 8" in prompt
+    assert "phase: 8 phase-gate readiness review" in handoff
+    assert "active task: t30 archive evidence sufficiency gap matrix" in handoff
 
 
 def test_prompt_and_handoff_preserve_boundaries() -> None:
