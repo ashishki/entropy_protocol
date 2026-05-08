@@ -29,7 +29,8 @@ def test_tasks_records_planned_roadmap_and_active_phase() -> None:
     assert "open the next logical active phase, and continue automatically" in text
     assert "Status:     done 2026-05-08" in _task_section(text, "T26")
     assert "Status:     done 2026-05-08" in _task_section(text, "T27")
-    assert "Status:     active" in _task_section(text, "T28")
+    assert "Status:     done 2026-05-08" in _task_section(text, "T28")
+    assert "Status:     active" in _task_section(text, "T29")
 
 
 def test_tasks_records_dynamic_roadmap_evaluation_rule() -> None:
@@ -59,7 +60,8 @@ def test_prompt_and_handoff_record_phase7_boundaries() -> None:
     combined = f"{prompt}\n{handoff}\n{loop}".lower()
 
     assert "phase: 7" in prompt.lower()
-    assert "t28 no-claim surface regression sweep" in prompt.lower()
+    assert "t29 archive reproducibility hardening review" in prompt.lower()
+    assert "t28 no-claim surface regression sweep completed" in prompt.lower()
     assert "t27 evidence hash reproducibility matrix completed" in prompt.lower()
     assert "t26 archive packet replay contract completed" in prompt.lower()
     assert "phase: 7 archive reproducibility hardening" in handoff.lower()

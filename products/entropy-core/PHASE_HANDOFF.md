@@ -7,10 +7,10 @@ manual restart.
 
 - Product: entropy-core
 - Branch: codex/entropy-core-work
-- Active task: T28 No-Claim Surface Regression Sweep
+- Active task: T29 Archive Reproducibility Hardening Review
 - Phase: 7 Archive Reproducibility Hardening
-- Last validation: 2026-05-08 T27: `384 passed, 20 skipped`; ruff check clean; ruff format clean; pyright 0 errors; `git diff --check` clean.
-- Git status summary: T27 reproducibility matrix changes pending commit at handoff update time.
+- Last validation: 2026-05-08 T28: `387 passed, 20 skipped`; ruff check clean; ruff format clean; pyright 0 errors; `git diff --check` clean.
+- Git status summary: T28 no-claim sweep changes pending commit at handoff update time.
 
 ## Completed In This Phase
 
@@ -44,11 +44,11 @@ manual restart.
 - T25 Roadmap Governance Contract completed with no findings.
 - T26 Archive Packet Replay Contract completed with no findings.
 - T27 Evidence Hash Reproducibility Matrix completed with no findings.
+- T28 No-Claim Surface Regression Sweep completed with no findings.
 
 ## Remaining Work
 
-- T28 No-Claim Surface Regression Sweep is active.
-- T29 Archive Reproducibility Hardening Review is pending.
+- T29 Archive Reproducibility Hardening Review is active.
 - After T29, run deep review, fix findings, validate, evaluate the roadmap, rewrite future phases/tasks if useful, open the next logical active phase, and continue automatically.
 
 ## Blockers Or Human Decisions

@@ -21,6 +21,15 @@ This file records handoff context. It is not authority.
 
 ## Entries
 
+### 2026-05-08 - T28 - No-Claim Surface Regression Sweep
+
+- Scope: `tests/reset/test_no_claim_roadmap_sweep.py`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `docs/EVIDENCE_INDEX.md`, `AGENT_NOTES.md`
+- Why this work happened: prove active archive evidence, bridge, phase plan, prompt, and handoff surfaces do not silently open restricted claim paths before Phase 7 review
+- Decisions applied: `D-ROADMAP-001`; `docs/audit/ARCHIVE_EVIDENCE_EXPANSION_REVIEW.md`; `docs/bridges/hypothesis-backtest.md`
+- Evidence collected: T28 acceptance tests passed (`3 passed`); full reset baseline `387 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean
+- Follow-ups: start T29 Archive Reproducibility Hardening Review
+- Notes for next agent: no-claim sweep scans active docs and replayed packets for concrete approval flags, confirms phases 8 through 13 remain planned roadmap direction, and preserves prompt/handoff boundary language.
+
 ### 2026-05-08 - T27 - Evidence Hash Reproducibility Matrix
 
 - Scope: `docs/research/REPRODUCIBILITY_MATRIX.md`, `docs/EVIDENCE_INDEX.md`, `tests/reset/test_reproducibility_matrix.py`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`

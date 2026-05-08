@@ -1025,7 +1025,7 @@ Owner:      codex
 Phase:      7
 Type:       none
 Depends-On: T27
-Status:     active
+Status:     done 2026-05-08
 
 Objective: |
   Sweep archive evidence, bridge, phase-gate, and reporting surfaces to prove no completed packet or roadmap entry silently opens restricted claim paths.
@@ -1060,7 +1060,7 @@ Owner:      codex
 Phase:      7
 Type:       none
 Depends-On: T28
-Status:     pending
+Status:     active
 
 Objective: |
   Review Phase 7 reproducibility hardening, record open findings, and run the first roadmap evaluation before any next phase is opened.

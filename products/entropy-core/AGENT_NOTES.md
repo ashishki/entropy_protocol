@@ -133,3 +133,14 @@ Phase 7 is complete through T27.
 - Evidence index row added for T27 matrix proof.
 - Light review result: no findings.
 - Boundaries remain unchanged: the matrix is hash bookkeeping only and creates no holdout, OOS/performance, live, broker/exchange, production, capital-ready, or phase-gate approval.
+
+## 2026-05-08 T28 No-Claim Sweep
+
+Phase 7 is complete through T28.
+
+- Completed task: T28 No-Claim Surface Regression Sweep.
+- Active task: T29 Archive Reproducibility Hardening Review.
+- Latest validation: `.venv/bin/python -m pytest -q tests/` -> `387 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
+- Evidence index row added for T28 no-claim sweep proof.
+- Light review result: no findings.
+- Boundaries remain unchanged: active docs and replayed packet surfaces expose no restricted approval flags, and roadmap phases 8 through 13 remain planned only.
