@@ -991,7 +991,7 @@ Owner:      codex
 Phase:      7
 Type:       none
 Depends-On: T26
-Status:     active
+Status:     done 2026-05-08
 
 Objective: |
   Build a matrix of candidate, dataset, code, policy, parameter, and artifact hashes across existing archive evidence packets.
@@ -1025,7 +1025,7 @@ Owner:      codex
 Phase:      7
 Type:       none
 Depends-On: T27
-Status:     pending
+Status:     active
 
 Objective: |
   Sweep archive evidence, bridge, phase-gate, and reporting surfaces to prove no completed packet or roadmap entry silently opens restricted claim paths.

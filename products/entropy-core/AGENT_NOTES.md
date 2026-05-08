@@ -122,3 +122,14 @@ Phase 7 is complete through T26.
 - Evidence index row added for T26 replay proof.
 - Light review result: no findings.
 - Boundaries remain unchanged: no holdout, live feed, broker/exchange, production, capital-ready, phase-gate, or OOS/performance approval.
+
+## 2026-05-08 T27 Reproducibility Matrix
+
+Phase 7 is complete through T27.
+
+- Completed task: T27 Evidence Hash Reproducibility Matrix.
+- Active task: T28 No-Claim Surface Regression Sweep.
+- Latest validation: `.venv/bin/python -m pytest -q tests/` -> `384 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
+- Evidence index row added for T27 matrix proof.
+- Light review result: no findings.
+- Boundaries remain unchanged: the matrix is hash bookkeeping only and creates no holdout, OOS/performance, live, broker/exchange, production, capital-ready, or phase-gate approval.

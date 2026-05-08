@@ -21,6 +21,15 @@ This file records handoff context. It is not authority.
 
 ## Entries
 
+### 2026-05-08 - T27 - Evidence Hash Reproducibility Matrix
+
+- Scope: `docs/research/REPRODUCIBILITY_MATRIX.md`, `docs/EVIDENCE_INDEX.md`, `tests/reset/test_reproducibility_matrix.py`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`
+- Why this work happened: record concrete hash categories across existing archive-only evidence packets and prove the matrix rejects missing, unresolved, invalid, or duplicate rows
+- Decisions applied: `D-ROADMAP-001`; T26 archive packet replay contract
+- Evidence collected: T27 acceptance tests passed (`3 passed`); full reset baseline `384 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean
+- Follow-ups: start T28 No-Claim Surface Regression Sweep
+- Notes for next agent: the matrix is evidence bookkeeping only. It records candidate, dataset, code, policy, parameter, evidence artifact, and replay JSON hashes for the first and second archive packets without ranking hypotheses or opening holdout, OOS/performance, live, broker/exchange, production, capital-ready, or phase-gate approvals.
+
 ### 2026-05-08 - T26 - Archive Packet Replay Contract
 
 - Scope: `src/entropy/evidence/archive_replay.py`, `src/entropy/evidence/__init__.py`, `tests/integration/test_archive_replay.py`, `docs/EVIDENCE_INDEX.md`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`
