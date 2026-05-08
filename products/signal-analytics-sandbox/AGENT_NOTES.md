@@ -209,6 +209,8 @@ Result on 2026-05-07:
   with machine-first pseudo-label bootstrap plus exception review.
 - Recorded D-016: a frontier model may be used only offline to propose
   author-specific lexicon/profile candidates with evidence.
+- Recorded D-018: orchestrator phase review/archive/doc update must advance to
+  the next task and continue unless a concrete stop condition exists.
 - Next orchestrator action: `SAS-AUTO-001: Machine-First Pseudo-Label Bootstrap`.
 - The three pilot sources are customer/potential-customer provided and should
   be handled through the Phase 9 validation loop before any additional

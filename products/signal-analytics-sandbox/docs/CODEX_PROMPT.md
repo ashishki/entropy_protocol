@@ -1,6 +1,6 @@
 # CODEX_PROMPT.md — Signal Analytics Sandbox
 
-Version: 2.27
+Version: 2.28
 Date: 2026-05-08
 Phase: 9
 
@@ -50,6 +50,7 @@ Telegram pilot validates the product hypothesis.
 - **Pilot log (SAS-001 output):** `docs/PILOT_LOG.md` (created by SAS-001)
 - **Pilot development loop:** `docs/PILOT_DEVELOPMENT_LOOP_RU.md`
 - **Audit-grade automation roadmap:** `docs/pilot/AUDIT_GRADE_AUTOMATION_ROADMAP.md`
+- **Orchestrator loop contract:** `docs/prompts/ORCHESTRATOR.md#phase-continuation-contract`
 
 ---
 
@@ -207,6 +208,10 @@ Current Phase 9 evidence update: `bablos79` has 60 public text captures in
   from manual seed labeling toward machine-first pseudo-label bootstrap,
   deterministic validators, author profile discovery, and exception review.
   Next task: `SAS-AUTO-001: Machine-First Pseudo-Label Bootstrap`.
+- 2026-05-08 — Continuous Orchestrator Loop: updated
+  `docs/prompts/ORCHESTRATOR.md` so phase boundaries require deep review,
+  archive, doc update, phase report, explicit next-task advancement, and then
+  immediate continuation unless a concrete stop condition exists.
 
 ---
 

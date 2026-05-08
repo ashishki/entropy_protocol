@@ -130,6 +130,10 @@ Use this file only at a phase boundary, context rollover, or limit recovery.
     `SAS-AUTO-002..005`
   - D-015, D-016, and D-017 in `docs/DECISION_LOG.md`
   - `docs/CODEX_PROMPT.md` next task set to `SAS-AUTO-001`
+- Updated the orchestrator loop contract:
+  - `docs/prompts/ORCHESTRATOR.md` now requires continuous phase advancement
+    after deep review/archive/doc update/phase report.
+  - D-018 records that phase review is a gate opener, not a stopping point.
 
 ## Remaining Work
 
@@ -152,3 +156,5 @@ Do not spawn nested Codex. Resume from `SAS-AUTO-001`. Do not implement parser
 code until pseudo-labels and the author profile exist. Frontier-model output may
 propose pseudo-labels and vocabulary only; it is not final extraction truth. Do
 not write approved ledger records from parser output without exception review.
+After each phase completes, run deep review, archive it, update docs, advance to
+the next task, and continue unless a concrete stop condition is recorded.

@@ -16,8 +16,38 @@ The following steps are NEVER optional regardless of time pressure:
 | Step 4 Deep review | Every phase boundary | Forbidden — deep review is mandatory at phase boundary |
 | Step 6 Archive | After every deep review | Forbidden — audit trail is broken without it |
 | Step 6.5 Doc update | After every phase | Forbidden — docs drift without it |
+| Step 6.7 Continue loop | After archive + doc update + phase report | Forbidden — loop stalls between phases |
 
 Skipping any of these is a violation of the Implementation Contract and must be surfaced as a P1 finding in the next review cycle.
+
+---
+
+## Phase Continuation Contract
+
+The orchestrator loop is continuous across phase boundaries.
+
+After the last task in a phase is complete, the orchestrator must:
+
+1. run the mandatory phase deep review;
+2. archive the review output and update `docs/audit/AUDIT_INDEX.md`;
+3. update phase state, decision log, implementation journal, and handoff docs;
+4. advance `docs/CODEX_PROMPT.md` to the next task in `docs/tasks.md`;
+5. immediately continue the loop with that next task.
+
+Stopping after deep review is allowed only when one of these is true:
+
+- no next task exists in `docs/tasks.md`;
+- a P1/blocker finding prevents continuation;
+- required user/legal/customer input is missing and cannot be inferred;
+- validation fails and the fix is not safely actionable in the current turn;
+- the user explicitly asks the loop to pause or stop.
+
+If none of those stop conditions applies, the correct post-review action is not
+"wait"; it is "advance and continue." A completed deep review is a gate opener,
+not an end state.
+
+At every phase boundary, the final review/archive closeout must include the
+next task ID and the reason it is safe to continue.
 
 ---
 
@@ -809,6 +839,47 @@ fi
 
 ---
 
+### Step 6.7 — Continue Across Phase Boundary
+
+Only runs after Step 6.6 at a phase boundary.
+
+The phase boundary is not a stopping point. After deep review, archive, doc
+update, and phase report are complete, immediately prepare the next task and
+continue the loop unless a stop condition from the Phase Continuation Contract
+applies.
+
+Required actions:
+
+1. Identify the next incomplete task in `docs/tasks.md`.
+2. Update `docs/CODEX_PROMPT.md`:
+   - current phase / next phase status;
+   - `## Next Task`;
+   - immediate instruction;
+   - baseline and validation status;
+   - closeout digest that names the archived deep review.
+3. Update `PHASE_HANDOFF.md` and `AGENT_NOTES.md` with:
+   - completed phase;
+   - archived review path;
+   - next task ID;
+   - blockers, if any.
+4. Print:
+
+```
+PHASE_CONTINUATION
+Completed phase: [N — Name]
+Review archive: docs/archive/PHASE[N]_REVIEW.md
+Next task: [ID — Title]
+Stop condition: none
+Action: continuing loop
+```
+
+5. Return to Step 0 immediately.
+
+If a stop condition applies, print the same block with `Action: paused` and the
+exact blocker. Do not leave the loop in an ambiguous "review complete" state.
+
+---
+
 ### Step 7 — Rate Limit Checkpoint + Loop
 
 **Before looping back — always save checkpoint to memory:**
@@ -831,7 +902,10 @@ Return to Step 0.
 
 Stop and pause policy:
 - Account/model limits until reset are the only unplanned stop condition. Save checkpoint, update `PHASE_HANDOFF.md` if useful, print `RATE_LIMIT_HIT`, and include the best known reset/resume time.
-- Phase boundary is a planned rollover point. Write `PHASE_HANDOFF.md`, update `AGENT_NOTES.md`, record validation and git status, then continue or restart a fresh Codex context in the same tmux window.
+- Phase boundary is a planned rollover point, not a stop. Write
+  `PHASE_HANDOFF.md`, update `AGENT_NOTES.md`, record validation and git
+  status, then continue or restart a fresh Codex context in the same tmux
+  window unless a Phase Continuation Contract stop condition applies.
 - Human gate is a planned pause. Save checkpoint, ask the concrete question, and wait for the operator.
 - Project complete is a planned stop after the final report is written.
 - P0 unresolved after 2 attempts is a planned escalation: save checkpoint, print findings, and wait for operator direction.
