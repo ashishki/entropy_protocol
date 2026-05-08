@@ -1,7 +1,7 @@
 # CODEX_PROMPT.md
 
-Version: 1.7
-Date: 2026-05-07
+Version: 1.8
+Date: 2026-05-08
 Phase: 7
 
 This file is the single source of truth for implementation session state. Every Codex agent reads this file before starting work and updates it at phase boundaries or when the orchestrator records findings.
@@ -21,7 +21,7 @@ This file is the single source of truth for implementation session state. Every 
 - Baseline: 92 passing tests
 - Ruff: clean (`ruff check` and `ruff format --check`)
 - Last CI: workflow configured; remote run not observed from this clone
-- Last updated: 2026-05-07
+- Last updated: 2026-05-08
 - Session tokens (approx): not yet tracked
 - Cumulative phase tokens (approx): not yet tracked
 
@@ -86,7 +86,21 @@ Starter policy decision:
 - Prefer trader custom rules and prop/funded account rules when available.
 - For Phase 7 internal validation, run public samples through these profiles where useful to test explainability across strictness levels.
 
-ADR-001 is filed. Telegram implementation may proceed only inside that ADR's constrained intake boundary. Phase 7 does not require new Telegram behavior.
+ADR-001 is filed. Telegram is an allowed simple demo/intake/delivery surface for Phase 7: a user may upload files, receive an audit id/status, and receive an operator-approved report. Any new Telegram work must stay inside ADR-001 and must not add broker APIs, signal parsing, order blocking, auto-advice, or live trading behavior.
+
+## Future Planned Phases
+
+- Phase 8 - Demo Productization (T33-T36): Telegram happy path, public-sample demo mode, report polish, and two-minute RU/EN demo scripts.
+- Phase 9 - Intake Quality and Operator Speed (T37-T40): policy profile selector, intake file validator, operator runbook CLI, and evidence capture automation.
+- Phase 10 - Conversion Assets (T41-T44): before/after report comparison, objection handling, ICP-specific demo variants, and paid pilot offer page.
+
+Future phase rule:
+
+- Do not skip Phase 7. T30-T32 must produce internal validation evidence before Phase 8 begins.
+- After every phase boundary, run mandatory deep review, archive it, apply required fixes, update state docs, then continue automatically to the next planned phase when no stop-ship finding remains. Do not stop only because a phase completed.
+- If deep review findings, pilot evidence, or implementation discoveries show that the roadmap should change, update `docs/tasks.md`, this file, README, and relevant audit notes before continuing.
+- Demo productization may improve the upload-status-report experience, especially through Telegram, but must stay within ADR-001 and preserve deterministic audit truth.
+- Do not build SaaS accounts, checkout, broker APIs, signal analytics, order blocking, or trading advice unless a later ADR and paid pilot evidence explicitly justify that scope.
 
 Before implementation, the orchestrator should hand Codex a narrow task digest inline:
 
@@ -127,6 +141,7 @@ none
 - Phase 5 Concierge Pilot Workflow complete: T17-T20 delivered end-to-end local audit CLI, Telegram-ready copy packet, retention/delete controls, and anonymized pilot regression fixtures. Baseline moved from 49 to 61 passing tests. Deep review Cycle 5 found P0:0, P1:0, P2:0; Stop-Ship: No.
 - Phase 6 Pilot Validation and Telegram Intake complete: T21-T29 delivered synthetic demo artifacts, pilot intake/workspace conventions, ADR-001, constrained Telegram intake/delivery, operator queue, mocked pilot flow, and business evidence log. Baseline moved from 61 to 88 passing tests. Deep review Cycle 7 found P0:0, P1:0, P2:0; Stop-Ship: No.
 - Phase 7 Internal Validation with Public Samples planned: T30-T32 will define public sample source rules, use soft/medium/hard starter policy profiles, create a reproducible public-sample evidence pack, and decide whether internal product confidence is sufficient to start trader outreach.
+- Future phases planned: Phase 8 Demo Productization (T33-T36), Phase 9 Intake Quality and Operator Speed (T37-T40), and Phase 10 Conversion Assets (T41-T44). These phases improve demo quality and pilot conversion without changing the no-broker, no-signal, no-advice product boundary.
 
 ## Summary State
 

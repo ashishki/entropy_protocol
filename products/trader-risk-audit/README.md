@@ -15,6 +15,7 @@ violated, when they were violated, and how much damage violations created.
 - Current phase: Phase 7 - Internal Validation with Public Samples planned.
 - Completed: Phase 1 foundation through Phase 6 pilot validation, including constrained Telegram intake/delivery and business evidence artifacts.
 - Next task: T30 Public Sample Source Policy.
+- Planned next phases: Phase 8 Demo Productization, Phase 9 Intake Quality and Operator Speed, Phase 10 Conversion Assets.
 - Local baseline: 92 passing tests, 0 skipped.
 - Quality checks: `.venv/bin/ruff check` and `.venv/bin/ruff format --check` are clean.
 - Review status: Phase 6 deep review archived at `docs/archive/PHASE6_REVIEW.md`; Stop-Ship: No.
@@ -49,8 +50,21 @@ violated, when they were violated, and how much damage violations created.
 | Local audit workspace | Complete | Helper creates input/output/operator-notes/artifacts directories and non-sensitive metadata. |
 | Telegram pilot intake/delivery | Complete | ADR-001, disabled-by-default intake handlers, local storage, operator queue, approved delivery abstraction, and mocked E2E flow are covered by tests. |
 | Pilot evidence log | Complete | Russian evidence log and CSV template track qualified calls, paid reports, objections, repeat commitments, and referrals. |
-| Public sample validation | Planned | Phase 7 will define public sample source rules, use soft/medium/hard starter policy profiles, build a reproducible public-sample evidence pack, and decide whether to start trader outreach. |
+| Public sample validation | Planned | Phase 7 will define public sample source rules, use soft/medium/hard starter policy profiles, build a reproducible public-sample evidence pack, optionally demo the upload-status-report loop through Telegram, and decide whether to start trader outreach. |
 | Starter policy profiles | Complete | `docs/STARTER_POLICY_PROFILES_RU.md` and YAML templates define customizable soft, medium, and hard audit presets for internal validation, not trading advice. |
+
+## Development Roadmap
+
+| Phase | Goal | Planned Tasks |
+|-------|------|---------------|
+| 7 | Prove internal confidence before outreach. | T30 public sample source policy, T31 public sample evidence pack, T32 readiness review. |
+| 8 | Make the demo feel like a product. | T33 Telegram demo happy path, T34 public sample demo mode, T35 report polish, T36 two-minute demo scripts. |
+| 9 | Reduce intake and operator friction. | T37 policy profile selector, T38 intake file validator, T39 operator runbook CLI, T40 evidence capture automation. |
+| 10 | Improve paid pilot conversion. | T41 before/after report comparison, T42 objection handling, T43 ICP-specific demo variants, T44 paid pilot offer page. |
+
+Roadmap guardrail: these phases may improve the demo and pilot workflow, but they must not add broker APIs, signal parsing, order blocking, auto-advice, live trading behavior, checkout, accounts, or public SaaS scope without a later ADR and paid pilot evidence.
+
+Loop continuity: after each phase, the orchestrator should run deep review, archive it, apply required fixes, update state docs, and continue to the next planned phase when no stop-ship finding remains. The roadmap may be revised when review findings or validation evidence justify it.
 
 ## Tests
 
@@ -68,7 +82,7 @@ violated, when they were violated, and how much damage violations created.
 - Deterministic violation evaluation.
 - Violation attribution.
 - Markdown/PDF/Telegram-ready report packets.
-- Constrained Telegram pilot intake/delivery after ADR-001.
+- Constrained Telegram pilot/demo intake and delivery after ADR-001.
 - Operator-owned local review queue and workspace convention.
 - Pilot payment/evidence tracking.
 - Public/anonymized internal validation samples before trader outreach.
@@ -83,6 +97,7 @@ violated, when they were violated, and how much damage violations created.
 - AI-generated trading strategies.
 - Public marketplace.
 - Telegram signal analytics, private group scraping, and live alerts.
+- Telegram broker APIs, order blocking, auto-advice, or live trading behavior.
 
 ## Read First
 

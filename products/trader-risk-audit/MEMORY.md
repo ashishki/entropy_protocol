@@ -7,4 +7,6 @@
 - Next task: T30 - Public Sample Source Policy
 - Phase: Internal Validation with Public Samples
 - Review tier next: light after T30; deep at Phase 7 boundary
+- Future phases planned: Phase 8 Demo Productization, Phase 9 Intake Quality and Operator Speed, Phase 10 Conversion Assets.
+- Loop continuity: after phase deep review/archive/fixes, continue to the next planned phase unless stop-ship remains or a new ADR is required.
 - Any blockers: `/tmp/orchestrator_checkpoint.md` is owned by another user and could not be overwritten from this session.
