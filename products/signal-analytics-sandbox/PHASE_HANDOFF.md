@@ -6,12 +6,12 @@ Use this file only at a phase boundary, context rollover, or limit recovery.
 
 - Phase: 9 active; Phase 10 draft automation is scoped but the phase boundary
   is not advanced.
-- Active task: `SAS-AUTO-001: Seed Labels For bablos79 Draft Parser`. Phase 9
+- Active task: `SAS-AUTO-001: Machine-First Pseudo-Label Bootstrap`. Phase 9
   tasks are complete and archived; 60 public `bablos79` captures exist; Phase
   10 draft-extraction assistant plan is now in `docs/tasks.md`.
 - Branch: `codex/signal-analytics-sandbox-work`.
-- Last validation: `.venv/bin/python -m pytest tests/ -q` -> 84 tests passed on 2026-05-07; `.venv/bin/python -m ruff check src/ tests/` and `.venv/bin/python -m pyright` also pass.
-- Git status summary: product-local modified docs/hooks/prompts plus untracked `AGENT_NOTES.md`, `PHASE_HANDOFF.md`, `RUNBOOK.md`, and `tests/`.
+- Last validation: `.venv/bin/python -m pytest tests/ -q` -> 84 tests passed on 2026-05-08; `.venv/bin/python -m ruff check src/ tests/` and `.venv/bin/python -m pyright` also pass.
+- Git status summary: product-local roadmap/task docs modified; new `docs/pilot/AUDIT_GRADE_AUTOMATION_ROADMAP.md` pending commit.
 
 ## Completed In This Phase
 
@@ -125,19 +125,19 @@ Use this file only at a phase boundary, context rollover, or limit recovery.
   - updated capture/extraction logs and decision docs
 - Created Phase 10 plan:
   - `docs/pilot/AUTO_EXTRACTION_DEVELOPMENT_PLAN.md`
+  - `docs/pilot/AUDIT_GRADE_AUTOMATION_ROADMAP.md`
   - `docs/tasks.md` Phase 10 `SAS-AUTO-001`, `SAS-AUTO-001B`, and
     `SAS-AUTO-002..005`
-  - D-015 and D-016 in `docs/DECISION_LOG.md`
+  - D-015, D-016, and D-017 in `docs/DECISION_LOG.md`
   - `docs/CODEX_PROMPT.md` next task set to `SAS-AUTO-001`
 
 ## Remaining Work
 
-- Run `SAS-AUTO-001`: create `docs/pilot/BABLOS79_LABEL_SEED.md` with 10-15
-  representative labeled captures before parser implementation.
-- Then run `SAS-AUTO-001B`: create `docs/pilot/bablos79_LEXICON_DRAFT.md`,
-  `docs/pilot/bablos79_APPROVED_LEXICON.md`, and
-  `workspace/lexicons/bablos79_lexicon_draft.json`.
-- Then run `SAS-AUTO-002` deterministic draft parser library.
+- Run `SAS-AUTO-001`: create `docs/pilot/bablos79_PSEUDO_LABELS.md` and
+  `workspace/extraction/bablos79_pseudo_labels.jsonl` for all 60 captures.
+- Then run `SAS-AUTO-001B`: create `docs/pilot/bablos79_AUTHOR_PROFILE.md`
+  and `workspace/lexicons/bablos79_lexicon_draft.json`.
+- Then run `SAS-AUTO-002` deterministic validators and draft parser library.
 - Keep parser output draft-only and human-reviewed.
 
 ## Blockers Or Human Decisions
@@ -149,6 +149,6 @@ Use this file only at a phase boundary, context rollover, or limit recovery.
 Continue this product from `RUNBOOK.md`, `AGENT_NOTES.md`, this
 `PHASE_HANDOFF.md`, `docs/CODEX_PROMPT.md`, and `docs/tasks.md`.
 Do not spawn nested Codex. Resume from `SAS-AUTO-001`. Do not implement parser
-code until seed labels and the approved author lexicon exist. Frontier-model
-output may propose vocabulary only; it is not final extraction truth. Do not
-write approved ledger records from parser output without human review.
+code until pseudo-labels and the author profile exist. Frontier-model output may
+propose pseudo-labels and vocabulary only; it is not final extraction truth. Do
+not write approved ledger records from parser output without exception review.

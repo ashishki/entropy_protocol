@@ -120,6 +120,15 @@ This file is durable handoff context across agents and sessions. It records what
 - Scope: `docs/pilot/AUTO_EXTRACTION_DEVELOPMENT_PLAN.md`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `docs/DECISION_LOG.md`.
 - Why this work happened: operator approved building a clear parser/automatic extraction path after the first public capture batch existed.
 - Decisions applied: D-015, D-016.
-- Evidence collected: Phase 10 task graph now requires seed labels, offline frontier-model author lexicon discovery with human approval, deterministic parser implementation, draft export, extraction-log merge, and evaluation before any next automation decision.
-- Follow-ups: run `SAS-AUTO-001: Seed Labels For bablos79 Draft Parser` next, then `SAS-AUTO-001B: LLM-Assisted Author Lexicon Discovery`.
-- Notes for next agent: do not implement parser code before `docs/pilot/BABLOS79_LABEL_SEED.md` and `docs/pilot/bablos79_APPROVED_LEXICON.md` exist. Parser output must remain draft-only and human-reviewed.
+- Evidence collected: initial Phase 10 task graph required seed labels, offline frontier-model author lexicon discovery with human approval, deterministic parser implementation, draft export, extraction-log merge, and evaluation before any next automation decision.
+- Follow-ups: superseded on 2026-05-08 by the machine-first pseudo-label bootstrap plan.
+- Notes for next agent: this seed-label-first plan is historical context only; use the 2026-05-08 roadmap entry below.
+
+### 2026-05-08 — Audit-Grade Automation Roadmap
+
+- Scope: `docs/pilot/AUDIT_GRADE_AUTOMATION_ROADMAP.md`, `docs/pilot/AUTO_EXTRACTION_DEVELOPMENT_PLAN.md`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `docs/DECISION_LOG.md`.
+- Why this work happened: operator clarified that the next loop should avoid manual seed labeling and automate the first pass, while keeping audit-grade boundaries through validators and exception review.
+- Decisions applied: D-017; D-015 superseded.
+- Evidence collected: roadmap now defines phases A-M from data foundation through confidence-gated automation; Phase 10 now starts with `SAS-AUTO-001: Machine-First Pseudo-Label Bootstrap`.
+- Follow-ups: run `SAS-AUTO-001` to create `docs/pilot/bablos79_PSEUDO_LABELS.md` and `workspace/extraction/bablos79_pseudo_labels.jsonl` for all 60 captures.
+- Notes for next agent: do not start with `BABLOS79_LABEL_SEED.md`; manual work is now exception review, not seed labeling. Parser code starts after pseudo-labels and `docs/pilot/bablos79_AUTHOR_PROFILE.md` exist.

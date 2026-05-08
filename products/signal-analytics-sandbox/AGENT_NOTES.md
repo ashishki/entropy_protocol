@@ -202,12 +202,14 @@ Result on 2026-05-07:
   extraction for these 60 captures; automation remains deferred.
 - Created `docs/pilot/AUTO_EXTRACTION_DEVELOPMENT_PLAN.md` and Phase 10
   `SAS-AUTO-001`, `SAS-AUTO-001B`, and `SAS-AUTO-002..005` in `docs/tasks.md`
-  for a deterministic draft parser.
-- Recorded D-015: draft-extraction assistant is approved as a narrow,
-  human-reviewed automation path.
+  for a machine-first draft extraction assistant.
+- Added `docs/pilot/AUDIT_GRADE_AUTOMATION_ROADMAP.md` with phases A-M from
+  data foundation through confidence-gated automation.
+- Recorded D-015/D-016 and D-017; D-017 supersedes the seed-label-first start
+  with machine-first pseudo-label bootstrap plus exception review.
 - Recorded D-016: a frontier model may be used only offline to propose
-  author-specific lexicon candidates with evidence and human approval.
-- Next orchestrator action: `SAS-AUTO-001: Seed Labels For bablos79 Draft Parser`.
+  author-specific lexicon/profile candidates with evidence.
+- Next orchestrator action: `SAS-AUTO-001: Machine-First Pseudo-Label Bootstrap`.
 - The three pilot sources are customer/potential-customer provided and should
   be handled through the Phase 9 validation loop before any additional
   automation.

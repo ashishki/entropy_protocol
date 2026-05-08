@@ -7,6 +7,8 @@
 - `https://t.me/pifagortrade`
 
 Главный план пилота: `../PILOT_DEVELOPMENT_LOOP_RU.md`.
+Roadmap автоматизации: `AUDIT_GRADE_AUTOMATION_ROADMAP.md`.
+Текущий Phase 10 план: `AUTO_EXTRACTION_DEVELOPMENT_PLAN.md`.
 
 ## Следующие документы
 
@@ -18,4 +20,5 @@
 4. `EXTRACTION_LOG.md` - какие сигналы утверждены, исключены или спорные.
 5. `CUSTOMER_FEEDBACK.md` - что сказал заказчик после отчета.
 
-Правило: сначала ручной отчет и feedback, потом автоматизация.
+Правило: автоматизация может делать draft/pseudo-labels, validators и review
+queue, но approved ledger и customer-facing claims требуют exception review.

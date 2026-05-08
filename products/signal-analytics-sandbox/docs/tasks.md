@@ -1186,16 +1186,19 @@ Phase 10 is a narrow automation phase justified by the captured first-source
 batch: `workspace/captures/bablos79/` contains 60 public text captures and
 `docs/pilot/EXTRACTION_LOG.md` has `pending_manual_extraction=60`.
 
-This phase builds a deterministic draft parser / triage assistant. It may use a
-frontier model offline for author-specific lexicon discovery, but only as a
-draft candidate generator with evidence and human approval. It must not write
-approved ledger records, treat parser output as truth, introduce LLM-owned final
-extraction, add bot ingestion, scrape private sources, or expand into SaaS.
-Human review remains required before any signal record becomes approved.
+This phase builds a machine-first draft extraction assistant. It may use a
+frontier model offline to generate pseudo-labels and author-specific lexicon
+candidates for every captured public post. Deterministic validators must then
+verify evidence spans, numbers, tickers, and confidence gates. The system must
+not write approved ledger records, treat model/parser output as truth, introduce
+LLM-owned final extraction, add bot ingestion, scrape private sources, or expand
+into SaaS. Human review is moved from full manual seed labeling to exception
+review before any customer-facing claim or approved signal record.
 
 Reference plan: `docs/pilot/AUTO_EXTRACTION_DEVELOPMENT_PLAN.md`.
+Roadmap: `docs/pilot/AUDIT_GRADE_AUTOMATION_ROADMAP.md`.
 
-### SAS-AUTO-001: Seed Labels For bablos79 Draft Parser
+### SAS-AUTO-001: Machine-First Pseudo-Label Bootstrap
 
 Owner:      codex
 Phase:      10
@@ -1203,43 +1206,48 @@ Type:       validation
 Depends-On: SAS-PILOT-007
 
 Objective: |
-  Create a representative hand-labeled seed set from the 60 captured public
-  `bablos79` posts before implementing parser logic. The seed must include clear
-  non-signals, insufficient-field trade mentions, ambiguous candidates, and any
-  obvious review candidates if present.
+  Generate structured pseudo-labels for all 60 captured public `bablos79` posts
+  without manual seed labeling. The frontier model may propose extraction
+  statuses, candidate fields, evidence spans, uncertainty reasons, and lexicon
+  terms, but every row remains draft-only and unapproved.
 
 Acceptance-Criteria:
   - id: AC-1
-    description: "`docs/pilot/BABLOS79_LABEL_SEED.md` exists with 10-15 rows sampled from `workspace/captures/bablos79/`."
-    test: "manual-evidence: seed file has 10-15 capture IDs."
+    description: "`docs/pilot/bablos79_PSEUDO_LABELS.md` exists with one row per captured post from `workspace/captures/bablos79/`."
+    test: "manual-evidence: pseudo-label row count matches `load_captures(Path(\"workspace\"), \"bablos79\")`."
   - id: AC-2
-    description: "Each seed row includes capture_id, evidence_url, text_sha256, short text excerpt, expected suggested status, and reason."
-    test: "manual-evidence: seed table has required columns."
+    description: "`workspace/extraction/bablos79_pseudo_labels.jsonl` exists and each JSONL row includes capture_id, suggested_status, candidate fields, missing_fields, evidence_spans, confidence, uncertainty_reason, lexicon_terms_found, and draft_only=true."
+    test: "manual-evidence: JSONL artifact exists and has required fields."
   - id: AC-3
-    description: "The seed includes at least `not_a_signal`, `insufficient_fields`, and `ambiguous` unless the captured corpus truly lacks one category, in which case the absence is documented."
-    test: "manual-evidence: category coverage section is present."
+    description: "Every non-empty extracted field has at least one evidence span that is intended to be checked against raw capture text in the next task."
+    test: "manual-evidence: pseudo-label schema requires field-level evidence spans."
   - id: AC-4
-    description: "No approved ledger rows are created and no parser output is treated as final truth."
-    test: "manual-evidence: seed file states human-review boundary."
+    description: "Low-confidence, contradictory, or uncertain rows are explicitly marked `needs_review` or include a non-empty uncertainty_reason."
+    test: "manual-evidence: uncertainty/needs-review section is present."
+  - id: AC-5
+    description: "No approved ledger rows are created and no pseudo-label output is treated as final truth."
+    test: "manual-evidence: pseudo-label artifact states draft-only boundary."
 
 Context-Refs:
   - docs/pilot/AUTO_EXTRACTION_DEVELOPMENT_PLAN.md
+  - docs/pilot/AUDIT_GRADE_AUTOMATION_ROADMAP.md
   - docs/pilot/CAPTURE_LOG.md
   - docs/pilot/EXTRACTION_LOG.md
   - docs/pilot/METHODOLOGY_V0.md
 
 Files:
-  - docs/pilot/BABLOS79_LABEL_SEED.md
+  - docs/pilot/bablos79_PSEUDO_LABELS.md
+  - workspace/extraction/bablos79_pseudo_labels.jsonl
   - docs/CODEX_PROMPT.md
   - docs/IMPLEMENTATION_JOURNAL.md
 
 Notes: |
-  This is labeling/planning, not parser implementation. Do not add product code
-  in this task.
+  This is offline pseudo-label generation, not parser implementation. Do not add
+  product code in this task. Do not write approved ledger records.
 
 ---
 
-### SAS-AUTO-001B: LLM-Assisted Author Lexicon Discovery
+### SAS-AUTO-001B: Author Lexicon And Draft Profile Discovery
 
 Owner:      codex
 Phase:      10
@@ -1247,51 +1255,52 @@ Type:       validation
 Depends-On: SAS-AUTO-001
 
 Objective: |
-  Use a frontier model offline to propose `bablos79`-specific extraction terms
-  from the 60 captured public posts. The model output is a review artifact only:
-  it may widen the candidate vocabulary after human approval, but it must not
-  create final extraction rows or become a parser/runtime dependency.
+  Derive a `bablos79`-specific lexicon and draft parser profile from pseudo-
+  labels, raw public captures, and evidence spans. The output is a draft profile
+  for deterministic triage, not approved extraction truth. Terms are classified
+  as `accepted_for_draft`, `needs_review`, or `excluded`.
 
 Acceptance-Criteria:
   - id: AC-1
-    description: "`docs/pilot/bablos79_LEXICON_DRAFT.md` exists and lists candidate terms grouped by extraction category."
-    test: "manual-evidence: draft lexicon artifact exists with category sections."
+    description: "`docs/pilot/bablos79_AUTHOR_PROFILE.md` exists and lists candidate terms grouped by extraction category."
+    test: "manual-evidence: author profile artifact exists with category sections."
   - id: AC-2
     description: "Every candidate includes term, category, evidence_capture_ids, short evidence excerpt, false-positive risk, and confidence."
     test: "manual-evidence: candidate table has required columns."
   - id: AC-3
-    description: "`docs/pilot/bablos79_APPROVED_LEXICON.md` records a human decision for every candidate: approved, rejected, or deferred."
-    test: "manual-evidence: approved lexicon includes decision column and no undecided rows."
+    description: "Every candidate records profile_state as `accepted_for_draft`, `needs_review`, or `excluded`."
+    test: "manual-evidence: profile_state column exists and has no empty rows."
   - id: AC-4
-    description: "Rejected or deferred terms are explicitly excluded from parser fixtures and parser behavior."
-    test: "manual-evidence: exclusion section cites rejected/deferred candidates."
+    description: "`needs_review` and `excluded` terms are explicitly prevented from becoming automatic parser truth."
+    test: "manual-evidence: exclusion/review section cites risky candidates."
   - id: AC-5
     description: "No LLM call is added to parser runtime, CLI export, ledger writing, tests, or any always-on product path."
     test: "manual-evidence: task closeout states LLM usage is offline-only; code review confirms no runtime LLM call was introduced."
 
 Context-Refs:
-  - docs/pilot/BABLOS79_LABEL_SEED.md
+  - docs/pilot/bablos79_PSEUDO_LABELS.md
   - docs/pilot/AUTO_EXTRACTION_DEVELOPMENT_PLAN.md
+  - docs/pilot/AUDIT_GRADE_AUTOMATION_ROADMAP.md
   - docs/pilot/CAPTURE_LOG.md
   - docs/pilot/EXTRACTION_LOG.md
   - workspace/captures/bablos79/
+  - workspace/extraction/bablos79_pseudo_labels.jsonl
 
 Files:
-  - docs/pilot/bablos79_LEXICON_DRAFT.md
-  - docs/pilot/bablos79_APPROVED_LEXICON.md
+  - docs/pilot/bablos79_AUTHOR_PROFILE.md
   - workspace/lexicons/bablos79_lexicon_draft.json
   - docs/CODEX_PROMPT.md
   - docs/IMPLEMENTATION_JOURNAL.md
 
 Notes: |
-  This task may use a frontier model as an offline analyst over public local
-  captures. The model proposes vocabulary only; it does not decide whether a
-  post is a valid signal. Parser implementation starts after this task and can
-  use only approved lexicon entries.
+  This task may use frontier-model output and pseudo-labels as offline analysis
+  over public local captures. The model/profile proposes vocabulary only; it
+  does not decide whether a post is an approved signal. Parser implementation
+  can use only `accepted_for_draft` profile entries.
 
 ---
 
-### SAS-AUTO-002: Deterministic Draft Parser Library
+### SAS-AUTO-002: Deterministic Validators And Draft Parser Library
 
 Owner:      codex
 Phase:      10
@@ -1299,43 +1308,50 @@ Type:       validation
 Depends-On: SAS-AUTO-001B
 
 Objective: |
-  Implement pure deterministic parser functions over `CapturedPost` that suggest
-  extraction statuses and candidate fields for human review. The parser may use
-  the approved `bablos79` author lexicon as static local input. It must preserve
-  evidence fields and must not call an LLM or network.
+  Implement pure deterministic validation and parser functions over
+  `CapturedPost` plus pseudo-label/profile artifacts. Validators must reject
+  unsupported evidence spans, numbers, tickers, and directions. The parser may
+  use only static `accepted_for_draft` author-profile entries and must not call
+  an LLM or network.
 
 Acceptance-Criteria:
   - id: AC-1
-    description: "`parse_draft(post)` returns a structured draft with capture_id, evidence_url, text_sha256, suggested_status, candidate fields, missing_required_fields, reason_codes, and confidence."
-    test: "tests/unit/test_draft_parser.py::test_parse_draft_returns_structured_review_draft"
+    description: "`validate_pseudo_label(post, pseudo_label)` rejects evidence spans and candidate fields that are not present in the raw capture text."
+    test: "tests/unit/test_draft_validation.py::test_validate_pseudo_label_rejects_unsupported_fields"
   - id: AC-2
+    description: "`parse_draft(post, profile)` returns a structured draft with capture_id, evidence_url, text_sha256, suggested_status, candidate fields, missing_required_fields, reason_codes, confidence, and review_required."
+    test: "tests/unit/test_draft_parser.py::test_parse_draft_returns_structured_review_draft"
+  - id: AC-3
     description: "Evidence fields from `CapturedPost` are preserved byte-identically in every draft."
     test: "tests/unit/test_draft_parser.py::test_parse_draft_preserves_evidence_fields"
-  - id: AC-3
-    description: "Seed labels in `docs/pilot/BABLOS79_LABEL_SEED.md` classify deterministically with no time, locale, network, or LLM dependency."
-    test: "tests/unit/test_draft_parser.py::test_seed_labels_classify_deterministically"
   - id: AC-4
+    description: "Pseudo-label fixtures classify deterministically with no time, locale, network, or LLM dependency."
+    test: "tests/unit/test_draft_parser.py::test_pseudo_label_fixtures_classify_deterministically"
+  - id: AC-5
     description: "Parser output never maps directly to final `approved`; complete candidates use `review_candidate` until human review."
     test: "tests/unit/test_draft_parser.py::test_complete_candidate_requires_human_review"
 
 Context-Refs:
-  - docs/pilot/BABLOS79_LABEL_SEED.md
-  - docs/pilot/bablos79_APPROVED_LEXICON.md
+  - docs/pilot/bablos79_PSEUDO_LABELS.md
+  - docs/pilot/bablos79_AUTHOR_PROFILE.md
   - docs/pilot/AUTO_EXTRACTION_DEVELOPMENT_PLAN.md
+  - docs/pilot/AUDIT_GRADE_AUTOMATION_ROADMAP.md
   - src/signal_sandbox/capture/loader.py
   - src/signal_sandbox/extraction/rule.py
   - docs/IMPLEMENTATION_CONTRACT.md
 
 Files:
+  - src/signal_sandbox/extraction/draft_validation.py
   - src/signal_sandbox/extraction/draft_parser.py
+  - tests/unit/test_draft_validation.py
   - tests/unit/test_draft_parser.py
   - docs/CODEX_PROMPT.md
   - docs/IMPLEMENTATION_JOURNAL.md
 
 Notes: |
   Keep this pure and local. No CLI wiring, no ledger writes, no LLM calls.
-  Rejected or deferred lexicon candidates from `SAS-AUTO-001B` must not affect
-  parser behavior.
+  `needs_review` and `excluded` profile terms from `SAS-AUTO-001B` must not
+  become automatic parser truth.
 
 ---
 
@@ -1364,7 +1380,10 @@ Acceptance-Criteria:
 
 Context-Refs:
   - docs/pilot/AUTO_EXTRACTION_DEVELOPMENT_PLAN.md
-  - docs/pilot/BABLOS79_LABEL_SEED.md
+  - docs/pilot/AUDIT_GRADE_AUTOMATION_ROADMAP.md
+  - docs/pilot/bablos79_PSEUDO_LABELS.md
+  - docs/pilot/bablos79_AUTHOR_PROFILE.md
+  - src/signal_sandbox/extraction/draft_validation.py
   - src/signal_sandbox/extraction/draft_parser.py
 
 Files:
@@ -1380,7 +1399,7 @@ Notes: |
 
 ---
 
-### SAS-AUTO-004: Merge Draft Suggestions Into Extraction Log
+### SAS-AUTO-004: Exception Review Queue And Extraction Log Merge
 
 Owner:      codex
 Phase:      10
@@ -1388,9 +1407,11 @@ Type:       validation
 Depends-On: SAS-AUTO-003
 
 Objective: |
-  Update `docs/pilot/EXTRACTION_LOG.md` with parser suggestions while keeping
-  final review status separate from draft status. This measures whether the
-  parser reduces manual review work without approving records automatically.
+  Generate an exception review queue from parser suggestions and update
+  `docs/pilot/EXTRACTION_LOG.md` while keeping final review status separate
+  from draft status. This measures whether the system reduces manual review
+  from full-corpus labeling to targeted review without approving records
+  automatically.
 
 Acceptance-Criteria:
   - id: AC-1
@@ -1403,15 +1424,20 @@ Acceptance-Criteria:
     description: "Rows suggested as `review_candidate` still have reviewer_id=`pending` and final status is not `approved`."
     test: "manual-evidence: human-review boundary preserved."
   - id: AC-4
+    description: "`docs/pilot/bablos79_REVIEW_QUEUE.md` exists and includes all low-confidence, contradictory, customer-facing, and sampled non-signal rows."
+    test: "manual-evidence: review queue artifact exists with inclusion policy."
+  - id: AC-5
     description: "Repeated patterns that could become rule templates are listed without implementing new templates in this task."
     test: "manual-evidence: rule-template candidate section is present."
 
 Context-Refs:
   - docs/pilot/EXTRACTION_DRAFTS_BABLOS79.md
+  - docs/pilot/AUDIT_GRADE_AUTOMATION_ROADMAP.md
   - docs/pilot/METHODOLOGY_V0.md
   - docs/IMPLEMENTATION_CONTRACT.md
 
 Files:
+  - docs/pilot/bablos79_REVIEW_QUEUE.md
   - docs/pilot/EXTRACTION_LOG.md
   - docs/CODEX_PROMPT.md
   - docs/IMPLEMENTATION_JOURNAL.md
@@ -1422,7 +1448,7 @@ Notes: |
 
 ---
 
-### SAS-AUTO-005: Draft Parser Evaluation And Next Decision
+### SAS-AUTO-005: Draft Extraction Evaluation And Next Decision
 
 Owner:      codex
 Phase:      10
@@ -1430,13 +1456,13 @@ Type:       validation
 Depends-On: SAS-AUTO-004
 
 Objective: |
-  Evaluate whether the deterministic draft parser is useful enough to keep,
-  improve, or discard. The decision must cite reviewed rows and measured false
-  positives / useful suggestions.
+  Evaluate whether the machine-first draft extraction pipeline is useful enough
+  to keep, improve, or discard. The decision must cite reviewed exception rows,
+  measured false positives, useful suggestions, and review-load reduction.
 
 Acceptance-Criteria:
   - id: AC-1
-    description: "`docs/pilot/AUTO_EXTRACTION_EVAL.md` records eval source, date, row counts, suggested-status distribution, false-positive notes, and operator-review implications."
+    description: "`docs/pilot/AUTO_EXTRACTION_EVAL.md` records eval source, date, row counts, suggested-status distribution, review-queue size, false-positive notes, and operator-review implications."
     test: "manual-evidence: eval artifact has Date and Eval Source fields."
   - id: AC-2
     description: "`docs/pilot/PILOT_DECISION.md` is updated with one of: keep draft helper, improve parser rules, discard parser, or continue manual-only."
@@ -1448,8 +1474,10 @@ Acceptance-Criteria:
 Context-Refs:
   - docs/pilot/EXTRACTION_LOG.md
   - docs/pilot/EXTRACTION_DRAFTS_BABLOS79.md
+  - docs/pilot/bablos79_REVIEW_QUEUE.md
   - docs/pilot/PAYMENT_SIGNAL_LOG.md
   - docs/pilot/AUTO_EXTRACTION_DEVELOPMENT_PLAN.md
+  - docs/pilot/AUDIT_GRADE_AUTOMATION_ROADMAP.md
 
 Files:
   - docs/pilot/AUTO_EXTRACTION_EVAL.md

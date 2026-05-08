@@ -11,7 +11,8 @@ wedge separate from Entropy Core and Trader Risk Audit.
 - Engineering Phases 1-8 are complete through T20.
 - Phase 9 pilot loop is complete; 60 public `bablos79` text captures now exist
   in `workspace/captures/bablos79/`.
-- Current verdict: continue manual extraction; defer automation.
+- Current direction: Phase 10 machine-first draft extraction with pseudo-labels,
+  deterministic validators, author profile discovery, and exception review.
 - Package target: Python 3.12, installable as `signal-sandbox`.
 - CLI status: `signal-sandbox` exists with stubs for the planned operator workflow.
 - Tests: 84 passing; ruff and pyright pass locally.
@@ -43,8 +44,10 @@ Initial pilot sources:
 
 1. `docs/CODEX_PROMPT.md`
 2. `docs/tasks.md`
-3. `../../docs/PRODUCT_PORTFOLIO.md`
-4. `../../docs/AI_DEVELOPMENT_OPERATING_MODEL.md`
+3. `docs/pilot/AUDIT_GRADE_AUTOMATION_ROADMAP.md`
+4. `docs/pilot/AUTO_EXTRACTION_DEVELOPMENT_PLAN.md`
+5. `../../docs/PRODUCT_PORTFOLIO.md`
+6. `../../docs/AI_DEVELOPMENT_OPERATING_MODEL.md`
 
 ## Local AI Workflow
 

@@ -1,7 +1,7 @@
 # CODEX_PROMPT.md — Signal Analytics Sandbox
 
-Version: 2.26
-Date: 2026-05-07
+Version: 2.27
+Date: 2026-05-08
 Phase: 9
 
 ---
@@ -49,28 +49,30 @@ Telegram pilot validates the product hypothesis.
 - **Legal/risk memo (SAS-002 output):** `docs/legal_risk_memo.md` (created by SAS-002)
 - **Pilot log (SAS-001 output):** `docs/PILOT_LOG.md` (created by SAS-001)
 - **Pilot development loop:** `docs/PILOT_DEVELOPMENT_LOOP_RU.md`
+- **Audit-grade automation roadmap:** `docs/pilot/AUDIT_GRADE_AUTOMATION_ROADMAP.md`
 
 ---
 
 ## Next Task
 
-SAS-AUTO-001: Seed Labels For bablos79 Draft Parser
+SAS-AUTO-001: Machine-First Pseudo-Label Bootstrap
 
-Phase 10 is a narrow deterministic draft-extraction assistant phase. The
-Orchestrator should dispatch `SAS-AUTO-001` from `docs/tasks.md` next.
-After seed labels, run `SAS-AUTO-001B` before implementing parser code so the
-author-specific lexicon is discovered offline and human-approved.
+Phase 10 is a machine-first draft-extraction assistant phase. The Orchestrator
+should dispatch `SAS-AUTO-001` from `docs/tasks.md` next. Do not start with
+manual seed labeling; generate pseudo-labels for all 60 captures first, then
+validate evidence and build an exception review queue.
 
 Immediate instruction:
-- Create `docs/pilot/BABLOS79_LABEL_SEED.md` with 10-15 representative rows
-  sampled from `workspace/captures/bablos79/`.
-- Do not implement parser code until the seed labels and
-  `docs/pilot/bablos79_APPROVED_LEXICON.md` exist.
+- Create `docs/pilot/bablos79_PSEUDO_LABELS.md` and
+  `workspace/extraction/bablos79_pseudo_labels.jsonl` with one draft row per
+  captured post in `workspace/captures/bablos79/`.
+- Do not implement parser code until pseudo-labels and
+  `docs/pilot/bablos79_AUTHOR_PROFILE.md` exist.
 - Do not modify product code.
 - Keep automation draft-only: no approved ledger writes without human review.
 - Do not start bot/SaaS/private scraping/LLM-truth expansion. Frontier-model
-  usage is allowed only as offline lexicon-candidate discovery in
-  `SAS-AUTO-001B`; it must not become runtime extraction truth.
+  usage is allowed only as offline pseudo-label and lexicon/profile discovery;
+  it must not become runtime extraction truth.
 
 Closeout digest for the Orchestrator:
 - T20 implemented the gated LLM extraction adapter with fixed mock clients in CI.
@@ -197,9 +199,14 @@ Current Phase 9 evidence update: `bablos79` has 60 public text captures in
 - 2026-05-07 — Auto Extraction Development Plan: created
   `docs/pilot/AUTO_EXTRACTION_DEVELOPMENT_PLAN.md`, appended Phase 10
   `SAS-AUTO-001`, `SAS-AUTO-001B`, and `SAS-AUTO-002..005` to
-  `docs/tasks.md`, and recorded D-015. Added
-  `SAS-AUTO-001B` and D-016 for offline frontier-model author lexicon discovery
-  with human approval before parser implementation. Next task: seed labels.
+  `docs/tasks.md`, and recorded D-015. Added `SAS-AUTO-001B` and D-016 for
+  offline frontier-model author lexicon discovery. This seed-label-first shape
+  was superseded by the 2026-05-08 machine-first roadmap below.
+- 2026-05-08 — Audit-Grade Automation Roadmap: added
+  `docs/pilot/AUDIT_GRADE_AUTOMATION_ROADMAP.md` and realigned Phase 10 away
+  from manual seed labeling toward machine-first pseudo-label bootstrap,
+  deterministic validators, author profile discovery, and exception review.
+  Next task: `SAS-AUTO-001: Machine-First Pseudo-Label Bootstrap`.
 
 ---
 
