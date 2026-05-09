@@ -590,11 +590,11 @@ Type:       none
 Depends-On: T05, T07, T10, T12, T16
 
 Objective: |
-  Wire the local `audit` CLI command end to end from supported export and policy files to normalized artifacts, violations, attribution, report, and manifest.
+  Wire the local `audit` CLI command end to end from supported export and policy files to normalized artifacts, violations, attribution, report, delivery packet, and manifest.
 
 Acceptance-Criteria:
   - id: AC-1
-    description: "`audit --trades fixture.csv --policy valid_policy.yaml --output-dir tmp` writes normalized trades, violations, attribution, report Markdown, and manifest files."
+    description: "`audit --trades fixture.csv --policy valid_policy.yaml --output-dir tmp` writes normalized trades, violations, attribution, report Markdown, Telegram-ready delivery packet, and manifest files."
     test: "tests/integration/test_audit_cli.py::test_audit_cli_writes_expected_artifacts"
   - id: AC-2
     description: "The audit command exits non-zero and writes no report when policy review items are unresolved."

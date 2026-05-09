@@ -90,9 +90,9 @@ Validation commands:
 .venv/bin/python -m ruff format --check trader_risk_audit tests
 ```
 
-The committed manifest records deterministic artifact hashes. Generated
-timestamps are manifest metadata and are not part of deterministic content-hash
-inputs.
+The committed manifest records deterministic artifact hashes, including the
+Telegram-ready delivery packet. Generated timestamps are manifest metadata and
+are not part of deterministic content-hash inputs.
 
 ## Telegram Demo Boundary
 

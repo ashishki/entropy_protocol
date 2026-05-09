@@ -134,7 +134,7 @@ Violation: P1.
 
 ### Reproducibility
 
-The same immutable export, policy file, configuration, and package version must produce identical normalized trade JSON, violation JSON, attribution JSON, report Markdown, and deterministic content hashes. Generated timestamps may appear in manifests but must be excluded from deterministic content hash inputs.
+The same immutable export, policy file, configuration, and package version must produce identical normalized trade JSON, violation JSON, attribution JSON, report Markdown, delivery packet text, and deterministic content hashes. Generated timestamps may appear in manifests but must be excluded from deterministic content hash inputs.
 
 Violation: P1 for evaluation/report drift; P2 for missing hash metadata.
 

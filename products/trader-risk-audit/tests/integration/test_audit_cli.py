@@ -27,6 +27,7 @@ def test_audit_cli_writes_expected_artifacts(tmp_path: Path) -> None:
         "violations.json",
         "attribution_summary.json",
         "report.md",
+        "telegram_packet.txt",
         "manifest.json",
     }
     assert {path.name for path in output_dir.iterdir()} == expected_files
@@ -40,10 +41,15 @@ def test_audit_cli_writes_expected_artifacts(tmp_path: Path) -> None:
         "violations",
         "attribution_summary",
         "report_markdown",
+        "delivery_packet",
     }
     assert records["report_markdown"]["sha256"]
+    assert records["delivery_packet"]["sha256"]
     assert "This audit is not investment advice" in (
         output_dir / "report.md"
+    ).read_text(encoding="utf-8")
+    assert "Trader Risk Audit Summary" in (
+        output_dir / "telegram_packet.txt"
     ).read_text(encoding="utf-8")
 
 

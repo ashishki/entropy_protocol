@@ -1,11 +1,12 @@
 {
   "artifacts": {
     "attribution_summary": "c0e3fc1d3e29be8c26c6136e4b37c4aeb58c23c974f299190260c01888c06e2e",
+    "delivery_packet": "c1423c6f4a70ecb611251b1298fe48ee1ee30d3c7c57a0a164a4d3c4644a7cb6",
     "normalized_trades": "d05388820af8ea89751540df1070e470b7c61850791f6a491908204f73ef53c2",
     "policy_file": "f8c25ed5ad18a28b691ee5d3b5ee33a0ab79e2bb033ef9de06bb1b6ddaaeee41",
     "report_markdown": "ebbcd9f215011e52a070a32a2746edbfc87da95834e8ce06b75dba49eec513bc",
     "source_export": "92a46be7b84188020c63948259220b1d72ef2de5c94b1b63768b76c1a0df62ab",
     "violations": "4fc46e9fa668b1145a343712489a94596f8b9cc6c0d6b4b3458eddc325cc13e4"
   },
-  "content_hash": "00a4c21b6a6b9d9cd5780a9713d497b5ab6d17f93680e2fab84a3a71e538c298"
+  "content_hash": "8ac1d9b9f755d01e4bc59492e1c81f94e4033c4028ddb64b1fa24f2682e94b4d"
 }

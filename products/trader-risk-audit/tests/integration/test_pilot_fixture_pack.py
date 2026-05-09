@@ -41,6 +41,7 @@ def test_fixture_pack_contains_expected_artifacts() -> None:
         "violations",
         "attribution_summary",
         "report_markdown",
+        "delivery_packet",
     }
     assert manifest_hashes["content_hash"]
 

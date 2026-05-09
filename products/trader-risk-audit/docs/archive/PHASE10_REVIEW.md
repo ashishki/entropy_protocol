@@ -16,7 +16,8 @@ _Date: 2026-05-09 · Scope: T41-T44_
 - Claim boundaries are preserved: no investment advice, no legal/compliance
   advice, no performance promise, no broker control, no order blocking, no live
   risk prevention, and no PMF claim.
-- No new P0/P1/P2 findings were found. Carry-forward `CODE-1` remains open.
+- No new P0/P1/P2 findings were found. Carry-forward `CODE-1` was open in this
+  historical cycle and was later resolved in Cycle 12.
 
 ## P0 Issues
 
@@ -34,10 +35,11 @@ None new.
 
 | ID | Sev | Description | Status | Change |
 |----|-----|-------------|--------|--------|
-| CODE-1 | P2 | Delivery packet hash is absent from generated audit manifests. Core audit hashes remain covered, but `telegram_packet.txt` cannot be verified through the default CLI-generated `manifest.json`. | Open | Still valid; Phase 10 docs did not change default audit manifest behavior. |
+| CODE-1 | P2 | Delivery packet hash was absent from generated audit manifests. Core audit hashes remained covered, but `telegram_packet.txt` could not be verified through the default CLI-generated `manifest.json`. | Resolved after Cycle 12 | Phase 10 docs did not change default audit manifest behavior; Cycle 12 later closed the gap. |
 
 ## Stop-Ship Decision
 
 No - Phase 10 satisfies the conversion-assets gate. All currently planned tasks
 through T44 are complete. Further work should be driven by paid pilot evidence,
-review findings, or an explicit roadmap update.
+review findings, or an explicit roadmap update. The historical CODE-1
+carry-forward was closed in Cycle 12.

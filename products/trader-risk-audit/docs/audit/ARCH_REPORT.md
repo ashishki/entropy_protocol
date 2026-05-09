@@ -1,14 +1,14 @@
-# ARCH_REPORT - Cycle 11
+# ARCH_REPORT - Cycle 12
 _Date: 2026-05-09_
 
 ## Component Verdicts
 
 | Component | Verdict | Note |
 |-----------|---------|------|
-| Before/after comparison | PASS | Shows raw export gaps versus deterministic audit outputs using safe public sample context. |
-| Objection handling | PASS | Answers common paid pilot objections without legal, advice, performance, or live-control promises. |
-| ICP demo variants | PASS | Tailors positioning for three ICPs without splitting product implementation. |
-| Paid pilot offer pages | PASS | Static RU/EN copy states deliverables, inputs, timeline, privacy, price placeholder, and CTA without checkout/SaaS scope. |
+| Audit CLI artifact packaging | PASS | Default `audit` writes `telegram_packet.txt` before manifest generation and records it as `delivery_packet`. |
+| Demo/public sample manifests | PASS | Committed sample manifests include delivery packet hashes and regenerate deterministically. |
+| Pilot fixture hashes | PASS | End-to-end pilot fixture hash expectations include `delivery_packet`. |
+| Documentation state | PASS | Current state docs no longer carry CODE-1 as open. |
 
 ## Contract Compliance
 
@@ -25,7 +25,7 @@ _Date: 2026-05-09_
 | Deterministic Violation Truth | PASS | Docs describe existing deterministic report outputs; no AI-owned truth added. |
 | Human Approval for Ambiguous Inputs | PASS | Offer and scripts preserve operator-approved mapping/review. |
 | Source-Row Traceability | PASS | Conversion assets emphasize source row ids rather than vague claims. |
-| Reproducibility | DRIFT | Carry-forward CODE-1 remains: default CLI-generated manifests still omit `telegram_packet.txt`. |
+| Reproducibility | PASS | CODE-1 is closed: default CLI-generated manifests include `telegram_packet.txt` through a stable `delivery_packet` hash. |
 | Confidential Data Handling | PASS | Assets tell prospects not to send sensitive identifiers/secrets and use public/sample-safe examples. |
 | Report Claim Boundaries | PASS | No advice, performance, live-control, PMF, or guaranteed-improvement claims were added. |
 | Runtime Boundary | PASS | No app, checkout, broker/exchange API, CRM, SaaS account system, or hosted workflow added. |
@@ -38,34 +38,28 @@ _Date: 2026-05-09_
 
 ## Architecture Findings
 
+No open architecture findings.
+
 ### ARCH-1 [P2] - Delivery packet is not included in CLI-generated manifests
 
-Status: Carry-forward open from Cycle 8.
+Status: Closed in Cycle 12.
 
-Symptom: Public/demo packs include `telegram_packet.txt`, and the manifest code
-has an optional `delivery_packet` artifact path, but the default `audit` command
-does not pass a delivery packet to `build_audit_manifest`.
-
-Impact: Reviewers can verify report and core audit artifacts from default
-manifests, but not the Telegram-ready delivery packet. This remains a
-metadata/reproducibility gap rather than a stop-ship issue.
-
-Fix: In a future task, either have the audit/demo flow generate the delivery
-packet before manifest writing and pass `delivery_packet=...`, or create a
-tested demo manifest path that includes the packet hash.
+Resolution: `trader_risk_audit.cli._audit_command` now builds the report model
+once, renders `report.md`, renders deterministic `telegram_packet.txt` with the
+stable report reference `report.md`, and passes the packet path to
+`build_audit_manifest(delivery_packet=...)`. `operator run` reuses the same
+packet instead of overwriting it after manifest creation.
 
 ## Right-Sizing / Runtime Checks
 
 | Check | Verdict | Note |
 |-------|---------|------|
-| Solution shape still appropriate | PASS | Phase 10 adds static conversion assets only. |
+| Solution shape still appropriate | PASS | CODE-1 cleanup keeps the same local batch workflow. |
 | Deterministic-owned areas remain deterministic | PASS | Evaluation/report truth remains deterministic. |
 | Runtime tier unchanged / justified | PASS | Runtime remains T0 local files/CLI. |
 | Human approval boundaries still valid | PASS | Offer copy preserves operator review and mapping approval. |
-| Minimum viable control surface still proportionate | PASS | Further work should be driven by paid pilot evidence. |
+| Minimum viable control surface still proportionate | PASS | The delivery packet is now covered by the same deterministic artifact manifest as the report. |
 
 ## Doc Patches Needed
 
-| File | Section | Change |
-|------|---------|--------|
-| `docs/ARCHITECTURE.md` | Component Table / Data Flow | After fixing ARCH-1, update manifest responsibility/data flow if delivery packet hashing becomes part of the default audit command. |
+None.

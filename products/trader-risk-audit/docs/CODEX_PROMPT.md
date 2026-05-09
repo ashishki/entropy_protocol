@@ -1,6 +1,6 @@
 # CODEX_PROMPT.md
 
-Version: 1.18
+Version: 1.19
 Date: 2026-05-09
 Phase: Complete
 
@@ -13,7 +13,7 @@ This file is the single source of truth for implementation session state. Every 
 - Phase: Complete
 - Name: Planned Roadmap Complete Through Phase 10
 - Business goal: all planned phases are implemented through conversion assets while preserving local-first, deterministic, no-broker, no-signal, no-advice boundaries.
-- Phase gate: T41-T44 complete; before/after report comparison, objection handling, ICP demo variants, and paid pilot offer page are done and Phase 10 boundary review is archived.
+- Phase gate: T41-T44 complete; before/after report comparison, objection handling, ICP demo variants, and paid pilot offer page are done, Phase 10 boundary review is archived, and post-plan CODE-1 manifest cleanup is complete.
 
 ## Current State
 
@@ -22,6 +22,7 @@ This file is the single source of truth for implementation session state. Every 
 - Ruff: clean (`ruff check` and `ruff format --check`)
 - Last CI: workflow configured; remote run not observed from this clone
 - Last updated: 2026-05-09
+- Open findings: none
 - Session tokens (approx): not yet tracked
 - Cumulative phase tokens (approx): not yet tracked
 
@@ -78,17 +79,18 @@ Starter policy decision:
 - T34 completed local `demo public-sample` mode and Telegram sample labeling tests. Baseline after T34: 111 passing tests.
 - T35 completed report readability polish: generated reports now start with an executive summary containing rule count, violation count, affected P&L, and selected policy profile while preserving deterministic violation tables, source-row traceability, limitations, next-review checklist, and claim guard boundaries. Baseline after T35: 114 passing tests.
 - T36 completed RU/EN two-minute demo scripts covering problem, upload, selected profile, report summary, source-row traceability, P&L impact, next pilot ask, profile explanation, and claim boundaries. Baseline after T36: 117 passing tests.
-- Phase 8 deep review Cycle 9 archived at `docs/archive/PHASE8_REVIEW.md`: Stop-Ship No, P0:0, P1:0, P2:0 new; carry-forward `CODE-1` remains open.
+- Phase 8 deep review Cycle 9 archived at `docs/archive/PHASE8_REVIEW.md`: Stop-Ship No, P0:0, P1:0, P2:0 new; historical carry-forward `CODE-1` was later resolved after Phase 10.
 - T37 completed policy profile selector with starter template resolution, custom-policy requirement, non-sensitive workspace metadata, and Telegram `/profiles` copy. Baseline after T37: 120 passing tests.
 - T38 completed intake file validation for CSV structure, extension, size, missing profile/custom policy, Telegram safe feedback, and non-runnable invalid upload status. Baseline after T38: 124 passing tests.
 - T39 completed operator runbook CLI for local workspace prepare/run and queue output references without raw row output or hosted services. Baseline after T39: 127 passing tests.
 - T40 completed evidence capture automation for local customer log append, demo-vs-market evidence separation, and validation gate summaries. Baseline after T40: 130 passing tests.
-- Phase 9 deep review Cycle 10 archived at `docs/archive/PHASE9_REVIEW.md`: Stop-Ship No, P0:0, P1:0, P2:0 new; carry-forward `CODE-1` remains open.
+- Phase 9 deep review Cycle 10 archived at `docs/archive/PHASE9_REVIEW.md`: Stop-Ship No, P0:0, P1:0, P2:0 new; historical carry-forward `CODE-1` was later resolved after Phase 10.
 - T41 completed RU/EN before/after report comparison docs showing raw export gaps versus deterministic audit outputs with source rows, violation-attributed P&L, and paid pilot CTA. Baseline after T41: 133 passing tests.
 - T42 completed RU/EN objection handling pack for privacy, broker/API, advice, journal comparison, pricing, and repeat audit objections while preserving factual claim boundaries and pilot gate references. Baseline after T42: 136 passing tests.
 - T43 completed RU/EN ICP demo variants for prop/funded traders, active crypto discretionary traders, and small teams/coaches, all mapped to the same validation evidence gate and product boundary. Baseline after T43: 139 passing tests.
 - T44 completed RU/EN paid pilot offer pages with deliverables, inputs, timeline, privacy/no-advice boundaries, price placeholder, CTA, and references to demo/comparison/objection/intake assets. Baseline after T44: 142 passing tests.
-- Phase 10 deep review Cycle 11 archived at `docs/archive/PHASE10_REVIEW.md`: Stop-Ship No, P0:0, P1:0, P2:0 new; carry-forward `CODE-1` remains open.
+- Phase 10 deep review Cycle 11 archived at `docs/archive/PHASE10_REVIEW.md`: Stop-Ship No, P0:0, P1:0, P2:0 new; historical carry-forward `CODE-1` was later resolved after Phase 10.
+- Post-plan CODE-1 cleanup complete: default `audit` now writes `telegram_packet.txt`, hashes it as `delivery_packet` in `manifest.json`, and preserves deterministic manifest content hashes across output directories. Baseline remains 142 passing tests.
 
 ADR-001 is filed. Telegram is an allowed simple demo/intake/delivery surface for Phase 7: a user may upload files, receive an audit id/status, and receive an operator-approved report. Any new Telegram work must stay inside ADR-001 and must not add broker APIs, signal parsing, order blocking, auto-advice, or live trading behavior.
 
@@ -122,7 +124,7 @@ empty
 
 | ID | Sev | Description | Files | Status |
 |----|-----|-------------|-------|--------|
-| CODE-1 | P2 | Delivery packet hash is absent from generated audit manifests; core audit hashes remain covered, but Telegram-ready delivery packets cannot be verified through `manifest.json`. | `trader_risk_audit/cli.py`, `demo/public_sample_001/output/manifest.json`, `tests/integration/test_public_sample_pack.py` | Open |
+| none | - | No open findings. CODE-1 was resolved after Phase 10 by adding default delivery packet generation and manifest hashing. | - | Closed |
 
 ## Completed Tasks
 
@@ -163,6 +165,7 @@ empty
 - Phase 8 Demo Productization complete: T33-T36 delivered Telegram demo happy path, public sample demo mode, report readability polish, and RU/EN two-minute demo scripts. Baseline moved from 105 to 117 passing tests. Deep review Cycle 9 found P0:0, P1:0, P2:0 new; Stop-Ship: No.
 - Phase 9 Intake Quality and Operator Speed complete: T37-T40 delivered policy profile selection, intake validation, operator runbook CLI, and evidence capture automation. Baseline moved from 117 to 130 passing tests. Deep review Cycle 10 found P0:0, P1:0, P2:0 new; Stop-Ship: No.
 - Phase 10 Conversion Assets complete: T41-T44 delivered before/after comparison, objection handling, ICP demo variants, and paid pilot offer pages. Baseline moved from 130 to 142 passing tests. Deep review Cycle 11 found P0:0, P1:0, P2:0 new; Stop-Ship: No.
+- Post-plan CODE-1 cleanup complete: default audit manifests now include `delivery_packet`, committed demo/public sample manifests were regenerated, and pilot fixture hashes were updated. Baseline stayed at 142 passing tests.
 
 ## Summary State
 

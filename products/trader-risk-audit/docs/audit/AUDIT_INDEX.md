@@ -16,6 +16,10 @@ Append-only. One row per review cycle.
 | 6 | Phase 6 - Targeted Security Review | 2026-05-07 | T25 | No | 0 | 0 | 0 |
 | 7 | Phase 6 - Pilot Validation and Telegram Intake | 2026-05-07 | T21-T29 | No | 0 | 0 | 0 |
 | 8 | Phase 7 - Internal Validation with Public Samples | 2026-05-08 | T30-T32 | No | 0 | 0 | 1 |
+| 9 | Phase 8 - Demo Productization | 2026-05-09 | T33-T36 | No | 0 | 0 | 0 |
+| 10 | Phase 9 - Intake Quality and Operator Speed | 2026-05-09 | T37-T40 | No | 0 | 0 | 0 |
+| 11 | Phase 10 - Conversion Assets | 2026-05-09 | T41-T44 | No | 0 | 0 | 0 |
+| 12 | Post-plan CODE-1 Cleanup | 2026-05-09 | delivery packet manifest hash | No | 0 | 0 | 0 |
 
 ---
 
@@ -31,6 +35,10 @@ Append-only. One row per review cycle.
 | 6 | `docs/archive/CYCLE6_T25_SECURITY_REVIEW.md` | Phase 6 - Targeted Security Review | OK |
 | 7 | `docs/archive/PHASE6_REVIEW.md` | Phase 6 - Pilot Validation and Telegram Intake | OK |
 | 8 | `docs/archive/PHASE7_REVIEW.md` | Phase 7 - Internal Validation with Public Samples | WARN |
+| 9 | `docs/archive/PHASE8_REVIEW.md` | Phase 8 - Demo Productization | OK |
+| 10 | `docs/archive/PHASE9_REVIEW.md` | Phase 9 - Intake Quality and Operator Speed | OK |
+| 11 | `docs/archive/PHASE10_REVIEW.md` | Phase 10 - Conversion Assets | OK |
+| 12 | `docs/audit/REVIEW_REPORT.md` | Post-plan CODE-1 Cleanup | OK |
 
 ---
 

@@ -19,8 +19,9 @@ _Date: 2026-05-08 · Scope: T30-T32_
 - Runtime remains local-first and T0; no broker/exchange API, order blocking,
   signal parsing, advice, SaaS account system, or AI-owned violation truth was
   added.
-- One P2 metadata/reproducibility finding was found: delivery packet hashes are
-  not included in generated manifests.
+- One P2 metadata/reproducibility finding was found at the time of this cycle:
+  delivery packet hashes were not included in generated manifests. This was
+  resolved after Phase 10 in Cycle 12.
 
 ## P0 Issues
 
@@ -34,7 +35,7 @@ None.
 
 | ID | Description | Files | Status |
 |----|-------------|-------|--------|
-| CODE-1 | Delivery packet hash is absent from generated audit manifests. Core audit hashes remain covered, but `telegram_packet.txt` cannot be verified through `manifest.json`. | `trader_risk_audit/cli.py`, `demo/public_sample_001/output/manifest.json`, `tests/integration/test_public_sample_pack.py` | Open |
+| CODE-1 | Delivery packet hash was absent from generated audit manifests. Core audit hashes remained covered, but `telegram_packet.txt` could not be verified through `manifest.json`. | `trader_risk_audit/cli.py`, `demo/public_sample_001/output/manifest.json`, `tests/integration/test_public_sample_pack.py` | Resolved after Cycle 12 |
 
 ## Carry-Forward Status
 
@@ -46,5 +47,5 @@ None.
 
 No — Phase 7 satisfies the internal validation gate and supports manual outreach
 without expanding into live trading, broker integration, signal analytics, SaaS
-onboarding, or AI-owned violation truth. CODE-1 is a P2 metadata gap and does
-not block Phase 8.
+onboarding, or AI-owned violation truth. CODE-1 was a P2 metadata gap and did
+not block Phase 8; it was resolved after Phase 10.

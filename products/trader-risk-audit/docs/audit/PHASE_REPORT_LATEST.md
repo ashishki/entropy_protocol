@@ -1,4 +1,4 @@
-# Phase 10 Report - Conversion Assets
+# Current Report - Planned Roadmap Complete
 
 ## What Was Built
 
@@ -21,26 +21,29 @@ Finally, it added RU/EN paid pilot offer pages with deliverables, required
 inputs, timeline, privacy boundary, no-advice boundary, pilot price placeholder,
 CTA, and references to the conversion assets.
 
+After Phase 10, the remaining CODE-1 reproducibility debt was closed. The
+default `audit` command now writes `telegram_packet.txt`, includes it as
+`delivery_packet` in `manifest.json`, and keeps content hashes stable across
+different output directories.
+
 ## Validation
 
 - Before Phase 10: 130 passing tests.
 - After Phase 10: 142 passing tests.
 - Ruff check: passed.
 - Ruff format check: passed.
-- Deep review Cycle 11: Stop-Ship No.
+- Deep review Cycle 12: Stop-Ship No.
 
 ## Open Findings
 
-- CODE-1 [P2]: delivery packet hashes are absent from generated audit manifests. The core audit artifacts are still hashed, but `telegram_packet.txt` is not verified through `manifest.json`. This is a metadata/reproducibility gap, not a stop-ship issue.
+- None.
 
 ## Health Verdict
 
-WARN, not RED.
+GREEN.
 
 All currently planned phases are complete. The product remains healthy for
-manual outreach and paid pilot testing. The warning remains delivery-packet
-manifest coverage, which should be fixed before treating Telegram-ready packets
-as formal audit evidence.
+manual outreach and paid pilot testing. There are no open P0/P1/P2 findings.
 
 ## Next Phase
 
@@ -49,9 +52,9 @@ evidence, review findings, or an explicit roadmap update.
 
 ## Notification Summary
 
-Ph10 Conversion Assets DONE
-Built: comparison, objections, ICP variants, paid pilot offer
-Tests: 130->142 pass
-Issues: P1:0 P2:0 new; carry CODE-1
-Health: WARN
+Roadmap DONE + CODE-1 closed
+Built: conversion assets, deterministic packet manifest coverage
+Tests: 142 pass
+Issues: P0:0 P1:0 P2:0 open
+Health: GREEN
 Next: paid pilot outreach or roadmap update

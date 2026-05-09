@@ -69,9 +69,13 @@ def test_demo_pack_regenerates_deterministically(tmp_path: Path) -> None:
         artifact["name"]: artifact["sha256"]
         for artifact in committed_manifest["artifacts"]
     }
-    for artifact_name in REQUIRED_ARTIFACT_NAMES:
+    for artifact_name in (*REQUIRED_ARTIFACT_NAMES, "delivery_packet"):
         assert regenerated_hashes[artifact_name] == committed_hashes[artifact_name]
     assert hash_file(output_dir / "report.md") == committed_hashes["report_markdown"]
+    assert (
+        hash_file(output_dir / "telegram_packet.txt")
+        == committed_hashes["delivery_packet"]
+    )
 
 
 def test_demo_case_contains_synthetic_data_and_claim_boundaries() -> None:

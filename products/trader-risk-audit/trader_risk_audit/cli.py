@@ -40,6 +40,7 @@ from trader_risk_audit.policy.validation import (
     ensure_policy_ready_for_evaluation,
 )
 from trader_risk_audit.reporting.claim_guard import ensure_report_claims_valid
+from trader_risk_audit.reporting.delivery import render_delivery_packet
 from trader_risk_audit.reporting.markdown import render_markdown_report
 from trader_risk_audit.reporting.model import build_report_model
 from trader_risk_audit.storage.retention import (
@@ -336,10 +337,6 @@ def _operator_run_command(args: argparse.Namespace) -> int:
         report_path = output_dir / "report.md"
         packet_path = output_dir / "telegram_packet.txt"
         manifest_path = output_dir / "manifest.json"
-        packet_path.write_text(
-            _operator_delivery_packet(report_path),
-            encoding="utf-8",
-        )
         updated = queue.upsert_request(
             args.audit_id,
             status="ready_for_review",
@@ -417,15 +414,14 @@ def _audit_command(args: argparse.Namespace) -> int:
             )
         )
         attribution = ensure_reconciled(attribute_pnl(trades, violations))
-        report = render_markdown_report(
-            build_report_model(
-                trades=trades,
-                policy=policy,
-                violations=violations,
-                warnings=warnings,
-                attribution=attribution,
-            )
+        report_model = build_report_model(
+            trades=trades,
+            policy=policy,
+            violations=violations,
+            warnings=warnings,
+            attribution=attribution,
         )
+        report = render_markdown_report(report_model)
         ensure_report_claims_valid(report)
 
         output_dir.mkdir(parents=True, exist_ok=True)
@@ -433,6 +429,7 @@ def _audit_command(args: argparse.Namespace) -> int:
         violations_path = output_dir / "violations.json"
         attribution_path = output_dir / "attribution_summary.json"
         report_path = output_dir / "report.md"
+        delivery_packet_path = output_dir / "telegram_packet.txt"
         manifest_path = output_dir / "manifest.json"
 
         audit_id = _audit_id(trades_path, policy_path)
@@ -446,6 +443,14 @@ def _audit_command(args: argparse.Namespace) -> int:
             encoding="utf-8",
         )
         report_path.write_text(report, encoding="utf-8")
+        delivery_packet_path.write_text(
+            render_delivery_packet(
+                model=report_model,
+                report_text=report,
+                report_path=report_path.name,
+            ),
+            encoding="utf-8",
+        )
 
         manifest = build_audit_manifest(
             source_export=trades_path,
@@ -454,6 +459,7 @@ def _audit_command(args: argparse.Namespace) -> int:
             violations=violations_path,
             attribution_summary=attribution_path,
             report_markdown=report_path,
+            delivery_packet=delivery_packet_path,
             command="trader-risk-audit audit",
             command_arguments=(
                 "--trades",
@@ -507,19 +513,6 @@ def _format_operator_run(request) -> str:
         f"- manifest: {request.file_references['manifest']}",
     ]
     return "\n".join(lines)
-
-
-def _operator_delivery_packet(report_path: Path) -> str:
-    report_text = report_path.read_text(encoding="utf-8")
-    ensure_report_claims_valid(report_text)
-    return "\n".join(
-        (
-            "Trader Risk Audit Summary",
-            f"Report: {report_path}",
-            "Operator approval required before delivery.",
-            "This audit is not investment advice and does not control live trading.",
-        )
-    )
 
 
 def _public_sample_paths() -> dict[str, Path]:

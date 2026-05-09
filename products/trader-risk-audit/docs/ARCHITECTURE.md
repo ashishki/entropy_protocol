@@ -1,7 +1,7 @@
 # Architecture - Trader Risk Audit
 
-Version: 1.0
-Last updated: 2026-05-07
+Version: 1.1
+Last updated: 2026-05-09
 Status: Draft
 
 ---
@@ -50,7 +50,7 @@ The highest error cost is false accusation, missed violation, bad P&L attributio
 - Canonical trade schema and risk policy schema with explicit validation errors.
 - Deterministic rule evaluators only; no AI in violation truth or P&L arithmetic.
 - Source-row traceability for every violation.
-- Reproducible artifact manifest and report hash for each completed audit.
+- Reproducible artifact manifest with report and delivery packet hashes for each completed audit.
 - Human approval before accepting ambiguous rule interpretations, sending paid reports, or adding new rule types.
 - Local-only default data handling, anonymized fixtures, no confidential data in logs.
 - CI with ruff, format check, and pytest before implementation work proceeds.
@@ -85,7 +85,7 @@ The highest error cost is false accusation, missed violation, bad P&L attributio
 | Property | Decision |
 |----------|----------|
 | Isolation boundary | T0 local process. Audits run from the product workspace or a local virtual environment controlled by the operator. |
-| Persistence model | Local files only in v1: input exports, normalized artifacts, reports, manifests, and optional SQLite/DuckDB artifacts if later justified. |
+| Persistence model | Local files only in v1: input exports, normalized artifacts, reports, delivery packets, manifests, and optional SQLite/DuckDB artifacts if later justified. |
 | Network model | No network required for core v1. Telegram is disabled by default; ADR-001 permits constrained pilot intake/delivery only. No broker/exchange egress. |
 | Secrets model | No required secrets for core v1. Optional Telegram bot token remains disabled by default and must come from environment variables when enabled. |
 | Runtime mutation boundary | Application runtime may not install packages, modify toolchains, create services, or mutate shell state. Development and CI dependency installation are outside runtime. |
@@ -125,7 +125,7 @@ Retrieval mode is no retrieval for v1. User-provided rules and templates are loa
 | Report model | `trader_risk_audit/reporting/model.py` | Build report sections from normalized trades, policies, violations, and summaries. |
 | Markdown report generator | `trader_risk_audit/reporting/markdown.py` | Render deterministic reports from report models and templates. |
 | Claim guard | `trader_risk_audit/reporting/claim_guard.py` | Block unsupported advice, performance, live-control, or causal claims in report text. |
-| Artifact manifest | `trader_risk_audit/artifacts/manifest.py` | Write reproducible manifests and hashes for inputs, normalized data, violations, and reports. |
+| Artifact manifest | `trader_risk_audit/artifacts/manifest.py` | Write reproducible manifests and hashes for inputs, normalized data, violations, attribution, reports, and delivery packets. |
 | Local workspace | `trader_risk_audit/workspace.py` | Create operator-controlled local audit workspaces with input, output, notes, artifacts, and non-sensitive metadata. |
 | Telegram pilot intake/delivery | `trader_risk_audit/telegram_bot/` | Provide disabled-by-default Telegram intake handlers, local file storage, and approved-report delivery abstractions inside ADR-001 boundaries; no broker control, signal parsing, advice, or unapproved report sending. |
 | Pilot review queue | `trader_risk_audit/pilot_queue.py` | Persist local operator-owned request statuses and non-sensitive file references for manual review and approval gates. |
@@ -145,7 +145,7 @@ Retrieval mode is no retrieval for v1. User-provided rules and templates are loa
 9. Report model assembles violation tables, repeated patterns, worst days, and next-review checklist.
 10. Claim guard verifies report text avoids investment advice, live-control claims, unsupported causal claims, and performance promises.
 11. Markdown generator writes the report and Telegram-ready summary packet.
-12. Manifest writer records input hashes, policy hash, normalized artifact hash, violation hash, report hash, tool version, and generated paths.
+12. Manifest writer records input hashes, policy hash, normalized artifact hash, violation hash, attribution hash, report hash, delivery packet hash, tool version, and generated paths.
 
 ## Tech Stack
 

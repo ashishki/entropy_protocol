@@ -29,6 +29,11 @@
       "name": "report_markdown",
       "path": "demo/public_sample_001/output/report.md",
       "sha256": "e77e514d703b8f949545183a37747bee1967cdf5d28a0ffce2c83217f7d1158d"
+    },
+    {
+      "name": "delivery_packet",
+      "path": "demo/public_sample_001/output/telegram_packet.txt",
+      "sha256": "de5d2d90959599e312300e03f0fceb1f24bca1489e85b9f150b01df04b03cfa9"
     }
   ],
   "command": "trader-risk-audit audit",
@@ -40,8 +45,8 @@
     "--output-dir",
     "demo/public_sample_001/output"
   ],
-  "content_hash": "0656ed074b895c322617652ca1b525fda06c6ffd95ad4a53a99098df1df890a4",
-  "generated_at": "2026-05-09T08:56:11.988455+00:00",
-  "manifest_id": "0656ed074b895c32",
+  "content_hash": "d9be24dc8456c5eebbb5cb336fd0afa992b568bd605ad9941757fe7b31dd750a",
+  "generated_at": "2026-05-09T10:24:26.583727+00:00",
+  "manifest_id": "d9be24dc8456c5ee",
   "package_version": "0.1.0"
 }

@@ -12,5 +12,5 @@ Top violation counts:
 Limitations:
 - None
 
-Report: demo/risk_audit_case_001/output/report.md
+Report: report.md
 This audit is not investment advice and does not control live trading.

@@ -23,6 +23,15 @@ This file records durable handoff context across agents and sessions. It is not 
 
 ## Entries
 
+### 2026-05-09 - CODE-1 - Delivery Packet Manifest Hash
+
+- Scope: `trader_risk_audit/cli.py`, demo/public sample manifests, pilot fixture manifest hashes, integration tests, docs state.
+- Why this work happened: Cycle 8-11 carried a P2 metadata gap where `telegram_packet.txt` was generated for demos but default audit manifests did not hash it.
+- Decisions applied: `D-001`, `D-006`, `D-008`, ADR-001
+- Evidence collected: `.venv/bin/python -m pytest tests/integration/test_audit_cli.py tests/integration/test_demo_pack.py tests/integration/test_public_sample_pack.py tests/integration/test_pilot_fixture_pack.py tests/integration/test_operator_runbook_cli.py -q --tb=short` -> 17 passed; `.venv/bin/python -m pytest tests -q --tb=short` -> 142 passed; `.venv/bin/python -m ruff check trader_risk_audit tests` -> passed; `.venv/bin/python -m ruff format --check trader_risk_audit tests` -> passed.
+- Follow-ups: none.
+- Notes for next agent: `audit` writes `telegram_packet.txt` before manifest generation and records it as `delivery_packet`. The packet uses stable `report.md` text so manifest content hashes do not depend on temporary output directories. `operator run` reuses the same packet instead of overwriting it after manifest creation.
+
 ### 2026-05-09 - T44 - Paid Pilot Offer Page
 
 - Scope: `docs/PAID_PILOT_OFFER_RU.md`, `docs/PAID_PILOT_OFFER_EN.md`, `tests/test_paid_pilot_offer_page.py`, docs state.

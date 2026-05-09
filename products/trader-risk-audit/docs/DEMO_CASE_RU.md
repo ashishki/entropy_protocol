@@ -12,7 +12,7 @@
 - `policy.yaml` - синтетическая risk policy с лимитом дневного убытка, cooldown, forbidden asset и max position size.
 - `output/report.md` - сгенерированный Markdown report.
 - `output/telegram_packet.txt` - Telegram-ready текст для ручного копирования, без отправки ботом.
-- `output/manifest.json` - manifest с content hashes для артефактов локального audit workflow.
+- `output/manifest.json` - manifest с content hashes для артефактов локального audit workflow, включая `telegram_packet.txt`.
 
 ## Как использовать на demo call
 

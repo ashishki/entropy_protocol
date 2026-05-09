@@ -19,7 +19,8 @@ _Date: 2026-05-09 · Scope: T37-T40_
 - Runtime remains T0 local files/CLI; no broker/exchange API, order blocking,
   signal parsing, advice, SaaS account system, checkout, CRM, hosted queue, or
   AI-owned violation truth was added.
-- No new P0/P1/P2 findings were found. Carry-forward `CODE-1` remains open.
+- No new P0/P1/P2 findings were found. Carry-forward `CODE-1` was open in this
+  historical cycle and was later resolved after Phase 10.
 
 ## P0 Issues
 
@@ -37,11 +38,10 @@ None new.
 
 | ID | Sev | Description | Status | Change |
 |----|-----|-------------|--------|--------|
-| CODE-1 | P2 | Delivery packet hash is absent from generated audit manifests. Core audit hashes remain covered, but `telegram_packet.txt` cannot be verified through the default CLI-generated `manifest.json`. | Open | Still valid; Phase 9 did not change default audit manifest behavior. |
+| CODE-1 | P2 | Delivery packet hash was absent from generated audit manifests. Core audit hashes remained covered, but `telegram_packet.txt` could not be verified through the default CLI-generated `manifest.json`. | Resolved after Cycle 12 | Phase 9 did not change default audit manifest behavior; Cycle 12 later closed the gap. |
 
 ## Stop-Ship Decision
 
 No - Phase 9 satisfies the intake/operator-speed gate and can advance to Phase
-10. The remaining CODE-1 metadata gap should be cleaned up before relying on
-delivery packets as formal audit evidence, but it does not block conversion
-asset work.
+10. CODE-1 did not block conversion asset work; Cycle 12 later closed the
+delivery-packet manifest gap before relying on packets as formal audit evidence.

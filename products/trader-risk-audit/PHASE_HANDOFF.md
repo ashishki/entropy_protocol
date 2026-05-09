@@ -4,13 +4,13 @@ Date: 2026-05-09
 
 ## Last Completed
 
-- T44 - Paid Pilot Offer Page
+- Post-plan CODE-1 manifest cleanup
 - Phase: Planned roadmap complete through Phase 10
 - Baseline: 142 pass / 0 skip
 - Ruff: clean
-- Last deep review: Cycle 11 archived at `docs/archive/PHASE10_REVIEW.md`
+- Last deep review: Cycle 12 recorded in `docs/audit/REVIEW_REPORT.md`
 - Stop-Ship: No
-- Open findings: CODE-1 P2 delivery packet hash is absent from generated audit manifests.
+- Open findings: none. CODE-1 P2 is closed.
 
 ## Next
 
@@ -19,7 +19,7 @@ Date: 2026-05-09
 
 ## Validation Commands
 
-- `.venv/bin/python -m pytest tests/test_paid_pilot_offer_page.py -q --tb=short` -> 3 passed
+- `.venv/bin/python -m pytest tests/integration/test_audit_cli.py tests/integration/test_demo_pack.py tests/integration/test_public_sample_pack.py tests/integration/test_pilot_fixture_pack.py tests/integration/test_operator_runbook_cli.py -q --tb=short` -> 17 passed
 - `.venv/bin/python -m pytest tests -q --tb=short` -> 142 passed
 - `.venv/bin/python -m ruff check trader_risk_audit tests` -> passed
 - `.venv/bin/python -m ruff format --check trader_risk_audit tests` -> passed
@@ -41,4 +41,5 @@ Date: 2026-05-09
 - T42 added RU/EN objection handling for privacy, broker/API, no-advice, journal comparison, pricing, repeat audit, and paid pilot gate references.
 - T43 added RU/EN ICP demo variants for prop/funded, crypto discretionary, and team/coach audiences without splitting product scope.
 - T44 added RU/EN paid pilot offer pages. Phase 10 boundary review found no new blockers; all currently planned phases are complete.
+- CODE-1 cleanup added default `telegram_packet.txt` generation to `audit`, records it as `delivery_packet` in `manifest.json`, avoids output-dir-dependent packet text, and updates demo/public sample/pilot fixture hashes.
 - `/tmp/orchestrator_checkpoint.md` is still owned by another user and could not be overwritten from this session; this file and `MEMORY.md` carry the checkpoint state.
