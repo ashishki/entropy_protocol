@@ -213,3 +213,14 @@ Phase 8 is complete through T34. Phase 9 is open as protocol-only holdout access
 - Evidence index row added for T34 review proof.
 - Light/deep review result: no findings.
 - Roadmap decision: keep Phase 9, modified to local protocol-only work. Holdout read/unlock, phase-gate approval, OOS/performance claims, live, broker/exchange, production, and capital-ready paths remain blocked.
+
+## 2026-05-09 T35 Holdout Access Protocol
+
+Phase 9 is complete through T35.
+
+- Completed task: T35 Holdout Access Protocol Deny-By-Default Contract.
+- Active task: T36 Holdout Approval Event Schema Contract.
+- Latest validation: `.venv/bin/python -m pytest -q tests/` -> `408 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
+- Evidence index row added for T35 holdout access protocol proof.
+- Light review result: no findings.
+- Boundaries remain unchanged: Phase 9 is protocol-only; no approval event currently exists; holdout read/unlock, phase-gate approval, OOS/performance claims, live, broker/exchange, production, and capital-ready paths remain blocked.

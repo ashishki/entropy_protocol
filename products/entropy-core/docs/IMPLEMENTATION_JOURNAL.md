@@ -21,6 +21,15 @@ This file records handoff context. It is not authority.
 
 ## Entries
 
+### 2026-05-09 - T35 - Holdout Access Protocol
+
+- Scope: `docs/protocols/HOLDOUT_ACCESS_PROTOCOL.md`, `tests/reset/test_holdout_access_protocol.py`, `docs/tasks.md`, `docs/EVIDENCE_INDEX.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`
+- Why this work happened: define a local denied-by-default holdout access protocol before any future approval schema or holdout access discussion
+- Decisions applied: `docs/audit/PHASE_GATE_READINESS_REVIEW.md`; `docs/readiness/APPROVAL_BOUNDARY_CHECKLIST.md`; `docs/readiness/PHASE_GATE_READINESS_PACKET.md`; `D-ROADMAP-001`
+- Evidence collected: T35 acceptance tests passed (`3 passed`); full reset baseline `408 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean
+- Follow-ups: start T36 Holdout Approval Event Schema Contract
+- Notes for next agent: T35 is protocol scaffold only. It records denied-by-default, rejects roadmap/review/test/readiness artifacts as approval, and preserves that no approval event currently exists.
+
 ### 2026-05-09 - T34 - Phase-Gate Readiness Review
 
 - Scope: `docs/audit/PHASE_GATE_READINESS_REVIEW.md`, `docs/audit/AUDIT_INDEX.md`, `tests/reset/test_phase_gate_readiness_review.py`, `docs/tasks.md`, `docs/EVIDENCE_INDEX.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`

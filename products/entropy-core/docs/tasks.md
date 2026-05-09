@@ -1266,7 +1266,7 @@ Owner:      codex
 Phase:      9
 Type:       none
 Depends-On: T34
-Status:     active
+Status:     done 2026-05-09
 
 Objective: |
   Define a local holdout access protocol scaffold that is denied by default and cannot open or read holdout paths without explicit future human approval records.
@@ -1302,7 +1302,7 @@ Owner:      codex
 Phase:      9
 Type:       none
 Depends-On: T35
-Status:     pending
+Status:     active
 
 Objective: |
   Define the local schema for explicit human holdout approval events without creating or implying any approval.

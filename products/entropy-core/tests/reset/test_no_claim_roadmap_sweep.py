@@ -67,12 +67,13 @@ def test_future_phases_are_not_approvals() -> None:
         assert f"| {phase_number} |" in tasks
     assert "future phases are planned until roadmap evaluation promotes or rewrites them" in tasks
     assert "phase 8 is complete through t34" in prompt
-    assert "phase 9 is holdout access protocol design only" in prompt
+    assert "phase 9 is protocol-only" in prompt
     assert "roadmap phases 10 through 13 are planned direction" in prompt
     assert "phase: 9" in prompt
     assert "phase: 9 holdout access protocol" in handoff
     assert "protocol-only holdout access design" in handoff
-    assert "active task: t35 holdout access protocol deny-by-default contract" in handoff
+    assert "active task: t36 holdout approval event schema contract" in handoff
+    assert "t35 holdout access protocol deny-by-default contract completed" in prompt
 
 
 def test_prompt_and_handoff_preserve_boundaries() -> None:
