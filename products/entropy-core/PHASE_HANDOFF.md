@@ -7,10 +7,10 @@ manual restart.
 
 - Product: entropy-core
 - Branch: codex/entropy-core-work
-- Active task: T37 Holdout Access Audit Logging Contract
+- Active task: T38 Holdout Leakage Guard Protocol Fixture
 - Phase: 9 Holdout Access Protocol
-- Last validation: 2026-05-09 T36: `411 passed, 20 skipped`; ruff check clean; ruff format clean; pyright 0 errors; `git diff --check` clean.
-- Git status summary: T36 holdout approval event schema changes pending commit at handoff update time.
+- Last validation: 2026-05-09 T37: `414 passed, 20 skipped`; ruff check clean; ruff format clean; pyright 0 errors; `git diff --check` clean.
+- Git status summary: T37 holdout access audit logging changes pending commit at handoff update time.
 
 ## Completed In This Phase
 
@@ -53,11 +53,11 @@ manual restart.
 - T34 Phase-Gate Readiness Review completed with no findings.
 - T35 Holdout Access Protocol Deny-By-Default Contract completed with no findings.
 - T36 Holdout Approval Event Schema Contract completed with no findings.
+- T37 Holdout Access Audit Logging Contract completed with no findings.
 
 ## Remaining Work
 
-- T37 Holdout Access Audit Logging Contract is active.
-- T38 Holdout Leakage Guard Protocol Fixture is pending.
+- T38 Holdout Leakage Guard Protocol Fixture is active.
 - T39 Holdout Access Protocol Review is pending.
 - After T39, run deep review, fix findings, validate, evaluate the roadmap, rewrite future phases/tasks if useful, open the next logical active phase, and continue automatically.
 
@@ -71,6 +71,7 @@ manual restart.
 - Phase 8 roadmap evaluation opened Phase 9 as protocol-only holdout access design. No holdout read, holdout unlock, phase-gate approval, or OOS/performance claim is approved.
 - T35 created a denied-by-default local protocol scaffold. Phase 9 is protocol-only with holdout read/unlock still blocked, and no approval event currently exists.
 - T36 defined the approval event schema and invalid fixture classes without creating any approval event.
+- T37 defined audit logging requirements for denied and future approved attempts without exposing raw holdout paths or opening holdout data.
 - Real external side effects, holdout reads, holdout unlocks, live capital actions, live broker/exchange execution, and credentialed production deployment remain blocked; implement local dry-run/sandbox/protocol work instead unless a future local contract explicitly permits otherwise.
 
 ## Resume Instruction

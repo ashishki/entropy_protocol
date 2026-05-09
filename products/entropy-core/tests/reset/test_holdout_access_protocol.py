@@ -94,9 +94,10 @@ def test_prompt_and_handoff_record_protocol_only_phase() -> None:
 
     assert "phase 9 is protocol-only" in combined
     assert "holdout read/unlock still blocked" in combined
-    assert "active task: t37 holdout access audit logging contract" in handoff
+    assert "active task: t38 holdout leakage guard protocol fixture" in handoff
     assert "t35 holdout access protocol deny-by-default contract completed" in prompt
     assert "t36 holdout approval event schema contract completed" in prompt
+    assert "t37 holdout access audit logging contract completed" in prompt
     assert "no approval event currently exists" in prompt
     assert "real external side effects" in combined
     assert "holdout reads" in combined

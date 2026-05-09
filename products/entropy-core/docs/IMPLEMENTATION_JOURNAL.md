@@ -21,6 +21,15 @@ This file records handoff context. It is not authority.
 
 ## Entries
 
+### 2026-05-09 - T37 - Holdout Access Audit Logging
+
+- Scope: `docs/protocols/HOLDOUT_AUDIT_LOGGING_CONTRACT.md`, `tests/reset/test_holdout_audit_logging_contract.py`, `docs/tasks.md`, `docs/EVIDENCE_INDEX.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`
+- Why this work happened: define audit logging requirements for denied and future approved holdout access attempts while preserving no-read behavior
+- Decisions applied: `docs/protocols/HOLDOUT_ACCESS_PROTOCOL.md`; `docs/protocols/HOLDOUT_APPROVAL_EVENT_SCHEMA.md`; `D-ROADMAP-001`
+- Evidence collected: T37 acceptance tests passed (`3 passed`); full reset baseline `414 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean
+- Follow-ups: start T38 Holdout Leakage Guard Protocol Fixture
+- Notes for next agent: T37 records path fingerprints only, rejects raw holdout path/content in logs, and treats denied attempts as audit events without opening holdout data.
+
 ### 2026-05-09 - T36 - Holdout Approval Event Schema
 
 - Scope: `docs/protocols/HOLDOUT_APPROVAL_EVENT_SCHEMA.md`, `tests/reset/test_holdout_approval_event_schema.py`, `docs/tasks.md`, `docs/EVIDENCE_INDEX.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`

@@ -1337,7 +1337,7 @@ Owner:      codex
 Phase:      9
 Type:       none
 Depends-On: T36
-Status:     active
+Status:     done 2026-05-09
 
 Objective: |
   Define audit logging requirements for any future approved holdout access attempt while preserving blocked default behavior.
@@ -1371,7 +1371,7 @@ Owner:      codex
 Phase:      9
 Type:       none
 Depends-On: T37
-Status:     pending
+Status:     active
 
 Objective: |
   Define local leakage guard checks that any future approved holdout access would need to pass before a holdout read could be considered.

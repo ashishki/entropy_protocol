@@ -235,3 +235,14 @@ Phase 9 is complete through T36.
 - Evidence index row added for T36 holdout approval event schema proof.
 - Light review result: no findings.
 - Boundaries remain unchanged: no approval event currently exists; generated, inferred, expired, revoked, or incomplete approval fixtures are rejected; holdout read/unlock, phase-gate approval, OOS/performance claims, live, broker/exchange, production, and capital-ready paths remain blocked.
+
+## 2026-05-09 T37 Holdout Access Audit Logging
+
+Phase 9 is complete through T37.
+
+- Completed task: T37 Holdout Access Audit Logging Contract.
+- Active task: T38 Holdout Leakage Guard Protocol Fixture.
+- Latest validation: `.venv/bin/python -m pytest -q tests/` -> `414 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
+- Evidence index row added for T37 holdout audit logging proof.
+- Light review result: no findings.
+- Boundaries remain unchanged: audit logs may record path fingerprints only, not raw holdout paths or contents; denied attempts do not open/read/unlock holdout data.

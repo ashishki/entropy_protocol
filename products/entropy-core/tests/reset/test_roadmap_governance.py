@@ -38,7 +38,8 @@ def test_tasks_records_planned_roadmap_and_active_phase() -> None:
     assert "Status:     done 2026-05-09" in _task_section(text, "T34")
     assert "Status:     done 2026-05-09" in _task_section(text, "T35")
     assert "Status:     done 2026-05-09" in _task_section(text, "T36")
-    assert "Status:     active" in _task_section(text, "T37")
+    assert "Status:     done 2026-05-09" in _task_section(text, "T37")
+    assert "Status:     active" in _task_section(text, "T38")
 
 
 def test_tasks_records_dynamic_roadmap_evaluation_rule() -> None:
