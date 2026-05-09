@@ -25,6 +25,51 @@ This file is durable handoff context across agents and sessions. It records what
 
 ## Entries
 
+### 2026-05-09 — SAS-MI-019 — Reviewer Coverage Export Pack
+
+- Scope: `src/signal_sandbox/market_ideas/review_coverage.py`, `tests/unit/test_review_coverage_export.py`, `docs/pilot/bablos79_REVIEW_COVERAGE_PACK.md`, `src/signal_sandbox/market_ideas/__init__.py`, `docs/CODEX_PROMPT.md`, `docs/tasks.md`.
+- Why this work happened: ADR-003 selected deterministic reviewer/export improvements as the next tool because the current bottleneck is reviewed evidence coverage across the 60 public `bablos79` captures.
+- Decisions applied: ADR-003; ADR-002 deterministic-truth boundary; PSR-1 public-source-only; PSR-11 no forward-looking claims.
+- Evidence collected: added a deterministic coverage exporter that produces one row per `SourceDocument`, sorted by timestamp/document/capture ID, with MarketIdea review status, evidence refs, deterministic outcome status, missing fields, reviewer action, and reviewer ID. Status buckets separate `needs_evidence_review`, `needs_metric_snapshot`, `needs_interpretation_review`, and `ready_for_customer_sample`. The artifact records 60 public captures as internal review support with no customer-facing claims. Validation after task: 141 passed, 0 skipped; `ruff check src/ tests/` passes; `.venv/bin/pyright` passes.
+- Follow-ups: no further task is defined in `docs/tasks.md`; operator/product decision is required before adding another phase.
+- Notes for next agent: do not treat coverage rows as approved ledger truth or customer-report claims. Any new modality/provider/tool work requires a new scoped task and, if it changes runtime/capability boundaries, an ADR.
+
+### 2026-05-09 — SAS-MI-018 — Modality And Tooling Scope ADR
+
+- Scope: `docs/adr/ADR-003-channel-specific-tools.md`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `docs/IMPLEMENTATION_JOURNAL.md`.
+- Why this work happened: Phase 19 needed to decide which channel-specific tool is justified by current evidence before adding any modality/provider work.
+- Decisions applied: ADR-002 deterministic-truth boundary; Phase 18 decision gate; PSR-1 public-source-only; PSR-11 no forward-looking claims.
+- Evidence collected: ADR-003 compares voice transcription, OCR/image annotation, news/catalyst linking, fund/equity data, reviewer UI/export improvements, and new channel lexicons against the measured bottleneck. It chooses reviewer/export improvements and adds `SAS-MI-019: Reviewer Coverage Export Pack` as the narrow acceptance-tested follow-up. No provider dependency or external service was added. Validation after task: 138 passed, 0 skipped; `ruff check src/ tests/` passes; `.venv/bin/pyright` passes.
+- Follow-ups: run `SAS-MI-019: Reviewer Coverage Export Pack` next.
+- Notes for next agent: the selected next work is deterministic local export only. Do not implement voice/OCR/news/fund data providers, private scraping, broker integration, public leaderboard, marketplace, or forward-looking claims.
+
+### 2026-05-09 — SAS-MI-017 — Sellability And Scope Decision Gate
+
+- Scope: `docs/pilot/AUTHOR_MARKET_REPORT_DECISION.md`, `docs/CODEX_PROMPT.md`, `docs/tasks.md`, `docs/audit/AUDIT_INDEX.md`, `docs/archive/PHASE18_REVIEW.md`.
+- Why this work happened: Phase 18 needed an explicit decision on whether Author Market Report V0 is ready to sell, should iterate internally, should narrow, or should pause before Phase 19 tool/modality scoping.
+- Decisions applied: ADR-002 deterministic-truth boundary; PSR-1 public-source-only; PSR-6 canonical disclaimer; PSR-11 no forward-looking claims; D-018 continuous phase loop.
+- Evidence collected: decision gate records verdict, evidence coverage, customer-feedback status, payment-signal status, implementation risk, exact next bottleneck, and forbidden scope. Verdict is iterate internally, do not sell yet. Validation after task: 138 passed, 0 skipped; `ruff check src/ tests/` passes; `.venv/bin/pyright` passes. Phase 18 deep review archived at `docs/archive/PHASE18_REVIEW.md` with P0/P1/P2 all 0.
+- Follow-ups: run `SAS-MI-018: Modality And Tooling Scope ADR` next.
+- Notes for next agent: Phase 19 is approved only as a scoping ADR. The measured bottleneck is thin evidence coverage across the 60 public `bablos79` captures, not report formatting. Keep private scraping, live trading, broker integration, public leaderboard expansion, marketplace expansion, and forward-looking claims forbidden.
+
+### 2026-05-09 — SAS-MI-016 — Author Market Report Template
+
+- Scope: `src/signal_sandbox/reports/author_market.py`, `tests/unit/test_author_market_report.py`, `docs/pilot/reports/bablos79_AUTHOR_MARKET_REPORT_V0.md`, `docs/CODEX_PROMPT.md`, `docs/tasks.md`.
+- Why this work happened: Phase 18 needed a customer-facing Author Market Report V0 template after the bounded internal analyst memo foundation.
+- Decisions applied: ADR-002 deterministic-truth boundary; PSR-6 canonical disclaimer; PSR-11 no forward-looking claims.
+- Evidence collected: renderer includes channel overview, data coverage, idea taxonomy, deterministic outcomes, evidence examples, limitations, and the canonical non-advice disclaimer. It raises `MissingReportProvenance` when source-document or market-snapshot provenance is absent, and separates trade setup metrics from broader commentary metrics. Validation after task: 138 passed, 0 skipped; `ruff check src/ tests/` passes; `.venv/bin/pyright` passes. Light review PASS.
+- Follow-ups: run `SAS-MI-017: Sellability And Scope Decision Gate` next.
+- Notes for next agent: the decision gate should cite the V0 report artifact, evidence coverage limits, customer/payment status, and implementation risk before approving any next scope.
+
+### 2026-05-09 — SAS-MI-015 — Internal Analyst Memo Export
+
+- Scope: `src/signal_sandbox/batch_analyst/memo.py`, `tests/unit/test_analyst_memo_export.py`, `docs/pilot/BABLOS79_INTERNAL_MARKET_MEMO.md`, `docs/audit/AGENTIC_EVAL.md`, `docs/CODEX_PROMPT.md`, `docs/tasks.md`.
+- Why this work happened: Phase 17 needed an internal analyst memo export after the bounded batch analyst contract.
+- Decisions applied: ADR-002 bounded Agentic profile; deterministic-truth boundary; internal-only analyst output until human review.
+- Evidence collected: memo model validates internal-only usage and interpretive-claim citations against retrieved document IDs or deterministic metric IDs. Validation after task: 135 passed, 0 skipped; `ruff check src/ tests/` passes; `.venv/bin/pyright` passes. Agentic evaluation recorded in `docs/audit/AGENTIC_EVAL.md`. Phase 17 deep review archived at `docs/archive/PHASE17_REVIEW.md` with P0/P1/P2 all 0.
+- Follow-ups: run `SAS-MI-016: Author Market Report Template` next.
+- Notes for next agent: customer-facing report code must keep source-document and market-snapshot provenance mandatory, include the canonical non-advice guardrails, and keep explicit trade setup performance separate from broader commentary behavior.
+
 ### 2026-05-07 — Bootstrap — Phase 1 Governance Package
 
 - Scope: `docs/ARCHITECTURE.md`, `docs/spec.md`, `docs/tasks.md`, `docs/IMPLEMENTATION_CONTRACT.md`, `docs/CODEX_PROMPT.md`, `docs/DECISION_LOG.md`, `docs/IMPLEMENTATION_JOURNAL.md`, `docs/prompts/`, `docs/audit/`, `.github/workflows/ci.yml`, `.claude/commands/orchestrate.md`.

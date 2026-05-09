@@ -1,36 +1,63 @@
-# Phase 16 Report - Deterministic Thesis Evaluation
+# Phase 19 Report — Channel-Specific Modalities And Tools
 
 Date: 2026-05-09
 
 ## What Was Built
 
-Phase 16 added deterministic MarketIdea evaluation and author metrics:
+Phase 19 produced ADR-003 and the Reviewer Coverage Export Pack. ADR-003
+compared voice transcription, OCR/image annotation, news/catalyst linking,
+fund/equity data, reviewer UI/export improvements, and new channel lexicons
+against the measured evidence-coverage bottleneck. It selected deterministic
+reviewer/export improvements.
 
-- asset resolution through the asset registry without guessing;
-- unresolved/ambiguous/no-snapshot outcome statuses;
-- horizon metrics via deterministic market-data metrics;
-- provenance for source document ID, market idea ID, asset ID, snapshot ID, and
-  metric version;
-- aggregate counts by idea type, asset type, horizon status, and review status;
-- directional hit rate only over evaluable directional outcomes;
-- separate null/non-market count and rate.
+`SAS-MI-019` then added a local coverage exporter that maps source documents to
+MarketIdea review status, evidence refs, deterministic outcome status, missing
+fields, reviewer action, and reviewer ID.
 
-## Test Delta
+## Why It Matters
 
-- Before Phase 16: 123 passing tests, 0 skipped.
-- After Phase 16: 129 passing tests, 0 skipped.
-- `ruff check src/ tests/`: pass.
-- `.venv/bin/pyright`: pass.
+The product now has a review surface for the actual blocker: turning 60 public
+captures into reviewed evidence and deterministic outcome coverage before any
+customer-facing report sample or sale. The phase avoids speculative provider or
+modality expansion.
 
-## Open Findings
+## Validation
 
-No P0, P1, or P2 findings were found in the Phase 16 deep review.
+- Before Phase 19: 138 passing tests after Phase 18.
+- After `SAS-MI-018`: 138 passing tests.
+- After `SAS-MI-019`: 141 passing tests.
+- `ruff check src/ tests/` passes.
+- `.venv/bin/pyright` passes.
+- Phase 19 deep review archived at `docs/archive/PHASE19_REVIEW.md`.
+
+## Review Results
+
+- P0: 0
+- P1: 0
+- P2: 0
+- Stop-Ship: No
+
+## Open Risks
+
+Coverage rows are not approved ledger truth and are not customer-facing report
+claims. Human review is still required before using any row in a customer
+sample.
 
 ## Health Verdict
 
-OK. Phase 16 stayed deterministic and local.
+OK. Phase 19 preserved Hybrid / Lean / T0, Tool-Use OFF, context-only RAG,
+bounded/internal Agentic, and the public-source/non-advice boundaries.
 
-## Next Phase / Action
+## Next Phase
 
-Proceed to Phase 17. The next implementation task is
-`SAS-MI-014: Batch Analyst Contract`.
+No next implementation task is defined in `docs/tasks.md`. The loop should stop
+until the operator adds or approves a new task/phase.
+
+## Notification Summary
+
+Ph19 Channel Tools Scope DONE
+Built: ADR-003, reviewer coverage export pack
+Tests: 138->141 pass
+Issues: P1:0 P2:0
+Health: OK
+Next: none defined

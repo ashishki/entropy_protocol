@@ -1,39 +1,43 @@
-# META_ANALYSIS — Cycle 16
+# META_ANALYSIS — Cycle 19
 _Date: 2026-05-09 · Type: full_
 
 ## Project State
 
-Phase 16 (`SAS-MI-012`–`SAS-MI-013`) complete. Next:
-`SAS-MI-014` — Batch Analyst Contract.
-
-Baseline: 129 pass, 0 skip.
+Phase 19 (`SAS-MI-018`-`SAS-MI-019`) is complete pending this review cycle.
+Next: none — no further task is defined in `docs/tasks.md`.
+Baseline: 141 pass, 0 skip.
 
 ## Open Findings
 
 | ID | Sev | Description | Files | Status |
 |----|-----|-------------|-------|--------|
-| none | - | No open findings. | - | - |
+| none | - | No open findings in `CODEX_PROMPT.md` or prior `REVIEW_REPORT.md`. | - | - |
 
 ## PROMPT_1 Scope (architecture)
 
-- MarketIdea deterministic outcome evaluator.
-- Author/channel metrics aggregator.
-- Phase 17 readiness for bounded analyst contract.
+- ADR-003 channel-specific tools scope: chose deterministic reviewer/export
+  improvements and deferred provider/modal expansion.
+- Reviewer coverage export: internal-only coverage rows over source documents,
+  MarketIdea drafts, and deterministic outcomes.
+- Task graph state: no next implementation task is currently defined.
 
 ## PROMPT_2 Scope (code, priority order)
 
-1. `src/signal_sandbox/market_ideas/outcomes.py`
-2. `src/signal_sandbox/market_ideas/author_metrics.py`
-3. `tests/unit/test_market_idea_outcomes.py`
-4. `tests/unit/test_author_metrics.py`
+1. `src/signal_sandbox/market_ideas/review_coverage.py`
+2. `tests/unit/test_review_coverage_export.py`
+3. `src/signal_sandbox/market_ideas/__init__.py`
+4. `docs/adr/ADR-003-channel-specific-tools.md`
+5. `docs/pilot/bablos79_REVIEW_COVERAGE_PACK.md`
+6. `docs/CODEX_PROMPT.md`
+7. `docs/tasks.md`
 
 ## Cycle Type
 
-Full — Phase 16 is complete and Phase 17 is about to begin.
+Full — Phase 19 is complete and must receive deep review/archive/doc update
+before the implementation loop can stop at the no-next-task condition.
 
 ## Notes for PROMPT_3
 
-Confirm outcomes and aggregates are deterministic, local, provenance-rich, and
-do not use LLM/RAG/agent output as metric truth.
-
-META_ANALYSIS.md written. Run PROMPT_1_ARCH.md.
+Verify that the exporter is deterministic, internal-only, non-mutating, and
+does not add providers, source collection, report publication, approved ledger
+writes, market-data writes, or customer-facing claims.

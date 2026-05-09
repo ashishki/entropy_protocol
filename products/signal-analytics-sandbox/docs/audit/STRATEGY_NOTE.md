@@ -1,24 +1,29 @@
-# STRATEGY_NOTE — Phase 16 Review
-_Date: 2026-05-09 · Reviewing: Phase 17 (`SAS-MI-014`)_
+# Strategy Note — Post Phase 19
 
-## Recommendation: Proceed
+Date: 2026-05-09
+Recommendation: Pause
 
-## Check Results
+## Scope
 
-| Check | Verdict | Notes |
-|-------|---------|-------|
-| Phase 0 gate | CLEAR | SAS-001 and SAS-002 remain acknowledged. |
-| Phase coherence | COHERENT | Phase 17 bounded analyst follows deterministic metrics and retrieval context. |
-| Open findings gate | CLEAR | Fix Queue is empty; no P0/P1 findings are open. |
-| Architectural drift | ALIGNED | Phase 16 stayed deterministic and local. |
-| Agentic profile gate | READY | ADR-002 activates bounded Agentic; `SAS-MI-014` is tagged `agent:loop`. |
+Phase 19 is complete. `SAS-MI-018` selected deterministic reviewer/export
+improvements through ADR-003, and `SAS-MI-019` implemented the Reviewer
+Coverage Export Pack.
 
-## Findings / Blockers
+## Rationale
 
-None.
+No further task is defined in `docs/tasks.md`. The next phase should be added
+only after an operator/product decision identifies the next measured bottleneck
+from the coverage pack, customer feedback, or payment evidence.
 
-## Warnings
+## Constraints
 
-- Phase 17 must keep fixed operations, max iterations, auditability, and explicit stop reasons. No shell/tool execution outside application APIs.
+- Preserve Hybrid / Lean / T0.
+- Keep RAG context-only and Agentic bounded/internal.
+- Keep Tool-Use and Planning OFF unless a later ADR changes architecture.
+- Do not add modality providers, external services, private scraping, broker
+  integration, public leaderboard expansion, marketplace behavior, or
+  forward-looking claims without a new scoped task.
 
-STRATEGY_NOTE.md written. Recommendation: Proceed.
+## Decision
+
+Pause the implementation loop pending operator/product direction.

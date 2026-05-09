@@ -4,14 +4,11 @@ Use this file only at a phase boundary, context rollover, or limit recovery.
 
 ## Current State
 
-- Phase: 17 active; Phase 16 deterministic thesis evaluation is
-  complete and archived.
-- Active task: `SAS-MI-015: Internal Analyst Memo Export`.
-  ADR-002, MarketIdea schema, asset registry, market-data store, horizon
-  metrics, source corpus schema, and channel profile registry are complete.
+- Phase: 19 complete and archived.
+- Active task: none defined.
 - Branch: `codex/signal-analytics-sandbox-work`.
-- Last validation: `.venv/bin/python -m pytest tests/ -q` -> 132 tests passed on 2026-05-09; `.venv/bin/python -m ruff check src/ tests/` and `.venv/bin/python -m pyright` also pass.
-- Git status summary: Phase 10 code/docs plus Phase 11+ roadmap/docs are pending commit.
+- Last validation: `.venv/bin/python -m pytest tests/ -q` -> 141 tests passed on 2026-05-09; `ruff check src/ tests/` and `.venv/bin/pyright` also pass.
+- Git status summary: Phase 17, Phase 18, Phase 19, and current closeout docs are pending commit.
 
 ## Completed In This Phase
 
@@ -218,6 +215,20 @@ Use this file only at a phase boundary, context rollover, or limit recovery.
   - ingestion preserves stable `SourceDocument` IDs and citation metadata
   - deterministic vector sidecars and embedding/index metadata are recorded
   - repeated ingestion is idempotent
+- Completed `SAS-MI-009` through `SAS-MI-015`:
+  - cited retrieval API, MarketIdea extraction/export, outcome evaluator,
+    author metrics, bounded batch analyst contract, and internal analyst memo
+    export are complete
+  - Phase 14, 15, 16, and 17 deep reviews are archived through
+    `docs/archive/PHASE17_REVIEW.md`
+  - current baseline is 135 passed, 0 skipped; ruff and pyright pass
+- Completed `SAS-MI-016: Author Market Report Template`:
+  - created `src/signal_sandbox/reports/author_market.py`
+  - created `tests/unit/test_author_market_report.py`
+  - created `docs/pilot/reports/bablos79_AUTHOR_MARKET_REPORT_V0.md`
+  - renderer blocks missing source-document or market-snapshot provenance
+  - explicit trade setup metrics are separated from broader commentary metrics
+  - current baseline is 138 passed, 0 skipped; ruff and pyright pass
   - no approved ledger writer, market-data writer, metric writer, runtime LLM
     call, or network path was added
 - Completed `SAS-MI-009: Cited Retrieval API`:
@@ -277,9 +288,40 @@ Use this file only at a phase boundary, context rollover, or limit recovery.
   - audit log records retrieval, metric read, prompt input, and memo checksums
   - no shell/network/broker/report publisher surface was added
 
+## Recent Phase 18 Closeout
+
+- Completed `SAS-MI-016: Author Market Report Template`:
+  - created `src/signal_sandbox/reports/author_market.py`
+  - created `tests/unit/test_author_market_report.py`
+  - created `docs/pilot/reports/bablos79_AUTHOR_MARKET_REPORT_V0.md`
+  - renderer includes canonical non-advice disclaimer, provenance gates, and
+    separated trade setup / commentary metrics
+- Completed `SAS-MI-017: Sellability And Scope Decision Gate`:
+  - created `docs/pilot/AUTHOR_MARKET_REPORT_DECISION.md`
+  - verdict: iterate internally, do not sell V0 yet
+  - exact bottleneck: reviewed evidence coverage across the 60 public
+    `bablos79` captures, cited MarketIdea rows, deterministic outcome metrics,
+    and customer/payment evidence
+  - Phase 18 deep review archived at `docs/archive/PHASE18_REVIEW.md`
+  - next task is `SAS-MI-018: Modality And Tooling Scope ADR`
+- Completed `SAS-MI-018: Modality And Tooling Scope ADR`:
+  - created `docs/adr/ADR-003-channel-specific-tools.md`
+  - compared voice transcription, OCR/image annotation, news/catalyst linking,
+    fund/equity data, reviewer UI/export improvements, and new lexicons
+  - selected deterministic reviewer/export improvements
+  - added `SAS-MI-019: Reviewer Coverage Export Pack` to `docs/tasks.md`
+  - added no provider dependency or external service
+- Completed `SAS-MI-019: Reviewer Coverage Export Pack`:
+  - created `src/signal_sandbox/market_ideas/review_coverage.py`
+  - created `tests/unit/test_review_coverage_export.py`
+  - created `docs/pilot/bablos79_REVIEW_COVERAGE_PACK.md`
+  - rows are deterministic and separate evidence, metric, interpretation, and
+    customer-sample readiness buckets
+  - Phase 19 deep review archived at `docs/archive/PHASE19_REVIEW.md`
+
 ## Remaining Work
 
-- Implement `SAS-MI-015: Internal Analyst Memo Export`.
+- No implementation task is currently defined in `docs/tasks.md`.
 - Human exception review of `docs/pilot/bablos79_REVIEW_QUEUE.md` remains a
   useful parallel product action, but it no longer blocks planning the broader
   architecture.
@@ -288,14 +330,16 @@ Use this file only at a phase boundary, context rollover, or limit recovery.
 
 - Human review is required before any approved ledger rows, customer-facing
   claims, or final report interpretation.
-- `SAS-MI-007` must preserve profile states and avoid unknown-channel fallback
-  to `bablos79`.
+- Phase 19 selected deterministic reviewer/export improvements. Do not add
+  modality providers, external services, private scraping, broker paths, public
+  leaderboard expansion, marketplace expansion, or forward-looking claims.
+- Operator/product direction is required before adding another phase.
 
 ## Resume Instruction
 
 Continue this product from `RUNBOOK.md`, `AGENT_NOTES.md`, this
 `PHASE_HANDOFF.md`, `docs/CODEX_PROMPT.md`, and `docs/tasks.md`.
-Do not spawn nested Codex. Continue with `SAS-MI-007` from `docs/tasks.md`.
-Do not write approved ledger records from draft/parser output without human
-review. Do not implement vector storage, embeddings, market-data expansion, or
-batch-agent code during the channel profile task.
+Do not spawn nested Codex. Stop until the operator adds or approves the next
+task/phase. Do not write approved ledger records from draft/parser output
+without human review. Do not add modality providers or external services
+without a new scoped task and, where needed, an ADR.

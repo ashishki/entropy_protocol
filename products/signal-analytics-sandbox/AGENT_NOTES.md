@@ -3,6 +3,78 @@
 Date: 2026-05-07
 Agent: Codex
 
+## 2026-05-09 Update — Phase 17 Complete
+
+- Completed `SAS-MI-015: Internal Analyst Memo Export`.
+- Added `src/signal_sandbox/batch_analyst/memo.py` and
+  `tests/unit/test_analyst_memo_export.py`.
+- Added internal pilot memo artifact
+  `docs/pilot/BABLOS79_INTERNAL_MARKET_MEMO.md`.
+- Added `docs/audit/AGENTIC_EVAL.md` with Date, Eval Source, and first
+  memo guard baseline.
+- Phase 17 deep review archived at `docs/archive/PHASE17_REVIEW.md`; P0/P1/P2
+  all 0.
+- Current validation: 135 pytest pass, 0 skipped; ruff and pyright pass.
+- Next task: `SAS-MI-016: Author Market Report Template`.
+
+## 2026-05-09 Update — SAS-MI-016 Complete
+
+- Completed `SAS-MI-016: Author Market Report Template`.
+- Added `src/signal_sandbox/reports/author_market.py`,
+  `tests/unit/test_author_market_report.py`, and
+  `docs/pilot/reports/bablos79_AUTHOR_MARKET_REPORT_V0.md`.
+- Renderer includes the canonical non-advice disclaimer, blocks missing
+  source-document or market-snapshot provenance, and separates explicit trade
+  setup metrics from broader commentary metrics.
+- Current validation: 138 pytest pass, 0 skipped; ruff and pyright pass.
+- Light review PASS.
+- Next task: `SAS-MI-017: Sellability And Scope Decision Gate`.
+
+## 2026-05-09 Update — Phase 18 Complete
+
+- Completed `SAS-MI-017: Sellability And Scope Decision Gate`.
+- Added `docs/pilot/AUTHOR_MARKET_REPORT_DECISION.md`.
+- Verdict: iterate internally, do not sell Author Market Report V0 yet.
+- The exact bottleneck is thin evidence coverage across the 60 public
+  `bablos79` captures: reviewed source-document coverage, cited MarketIdea
+  rows, deterministic outcome metrics, and customer feedback/payment evidence
+  are still needed before selling.
+- Phase 18 deep review archived at `docs/archive/PHASE18_REVIEW.md`; P0/P1/P2
+  all 0.
+- Current validation: 138 pytest pass, 0 skipped; ruff and pyright pass.
+- Next task: `SAS-MI-018: Modality And Tooling Scope ADR`.
+
+## 2026-05-09 Update — SAS-MI-018 Complete
+
+- Completed `SAS-MI-018: Modality And Tooling Scope ADR`.
+- Added `docs/adr/ADR-003-channel-specific-tools.md`.
+- ADR-003 compares voice transcription, OCR/image annotation,
+  news/catalyst linking, fund/equity data, reviewer UI/export improvements,
+  and new channel lexicons against the measured evidence-coverage bottleneck.
+- Chosen next tool category: deterministic reviewer/export improvements.
+- Added `SAS-MI-019: Reviewer Coverage Export Pack` to `docs/tasks.md`.
+- No modality provider, external service, scraper, broker path, report
+  publisher, public leaderboard, marketplace behavior, or forward-looking
+  claim was added.
+- Current validation: 138 pytest pass, 0 skipped; ruff and pyright pass.
+- Next task: `SAS-MI-019: Reviewer Coverage Export Pack`.
+
+## 2026-05-09 Update — Phase 19 Complete
+
+- Completed `SAS-MI-019: Reviewer Coverage Export Pack`.
+- Added `src/signal_sandbox/market_ideas/review_coverage.py`,
+  `tests/unit/test_review_coverage_export.py`, and
+  `docs/pilot/bablos79_REVIEW_COVERAGE_PACK.md`.
+- Export rows are deterministic and include source document/capture IDs,
+  MarketIdea review status, evidence refs, deterministic outcome status,
+  missing fields, reviewer action, and reviewer ID.
+- Status buckets: `needs_evidence_review`, `needs_metric_snapshot`,
+  `needs_interpretation_review`, `ready_for_customer_sample`.
+- Phase 19 deep review archived at `docs/archive/PHASE19_REVIEW.md`; P0/P1/P2
+  all 0.
+- Current validation: 141 pytest pass, 0 skipped; ruff and pyright pass.
+- Next task: none defined. Stop pending operator/product direction.
+
 ## Investigation Summary
 
 - Product path inspected: `products/signal-analytics-sandbox/`.

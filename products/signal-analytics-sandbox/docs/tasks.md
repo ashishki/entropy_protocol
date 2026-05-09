@@ -2009,7 +2009,7 @@ Files:
 
 ---
 
-### SAS-MI-015: Internal Analyst Memo Export
+### SAS-MI-015: Internal Analyst Memo Export ✅
 
 Owner:      codex
 Phase:      17
@@ -2042,7 +2042,7 @@ Files:
 
 ## Phase 18 — Author Market Report V0
 
-### SAS-MI-016: Author Market Report Template
+### SAS-MI-016: Author Market Report Template ✅
 
 Owner:      codex
 Phase:      18
@@ -2074,7 +2074,7 @@ Files:
 
 ---
 
-### SAS-MI-017: Sellability And Scope Decision Gate
+### SAS-MI-017: Sellability And Scope Decision Gate ✅
 
 Owner:      codex
 Phase:      18
@@ -2106,7 +2106,7 @@ Files:
 
 ## Phase 19 — Channel-Specific Modalities And Tools
 
-### SAS-MI-018: Modality And Tooling Scope ADR
+### SAS-MI-018: Modality And Tooling Scope ADR ✅
 
 Owner:      codex
 Phase:      19
@@ -2138,3 +2138,42 @@ Files:
 Notes: |
   Phase 19 is intentionally open-ended. Each tool must earn its way in through
   channel evidence and customer value, not through generic feature expansion.
+
+---
+
+### SAS-MI-019: Reviewer Coverage Export Pack ✅
+
+Owner:      codex
+Phase:      19
+Type:       validation
+Depends-On: SAS-MI-018
+
+Objective: |
+  Build the deterministic reviewer/export pack selected by ADR-003. The pack
+  must show which `bablos79` source documents are ready for a customer sample,
+  which are missing cited MarketIdea evidence, which are missing deterministic
+  metric/outcome coverage, and which require human interpretation review.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Exporter produces one deterministic row per SourceDocument with source_document_id, capture_id, source timestamp, MarketIdea/review status, evidence refs, deterministic metric/outcome status, missing fields, and reviewer_action."
+    test: "tests/unit/test_review_coverage_export.py::test_export_rows_are_complete_and_deterministically_sorted"
+  - id: AC-2
+    description: "Exporter separates status buckets for needs_evidence_review, needs_metric_snapshot, needs_interpretation_review, and ready_for_customer_sample without writing approved ledger rows, reports, market data, or external provider calls."
+    test: "tests/unit/test_review_coverage_export.py::test_status_buckets_do_not_mutate_truth_artifacts"
+  - id: AC-3
+    description: "`docs/pilot/bablos79_REVIEW_COVERAGE_PACK.md` records coverage for the 60 public captures and keeps reviewer_id pending for rows that are not customer-ready."
+    test: "manual-evidence: coverage artifact exists with summary counts and no customer-facing claims."
+
+Files:
+  - src/signal_sandbox/market_ideas/review_coverage.py
+  - tests/unit/test_review_coverage_export.py
+  - docs/pilot/bablos79_REVIEW_COVERAGE_PACK.md
+  - docs/CODEX_PROMPT.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Notes: |
+  This task is a deterministic local export improvement only. It must not add
+  modality providers, external services, private scraping, broker integration,
+  report publication, public leaderboard behavior, marketplace behavior, or
+  forward-looking claims.

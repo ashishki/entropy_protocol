@@ -251,7 +251,8 @@ Phases 14 and 17.
 | Channel profile registry | `src/signal_sandbox/profiles/` | Versioned channel-specific lexicons, modality flags, and review rules; unknown channels do not inherit another channel's parser boundaries. |
 | Retrieval context | `src/signal_sandbox/retrieval/` | Local DuckDB-backed ingestion catalog, deterministic vector sidecars, and cited query API over source documents; context-only and cannot mutate truth artifacts. |
 | Market idea extraction | `src/signal_sandbox/market_ideas/` | Deterministic review-pending MarketIdea drafts for trade setups, directional theses, regime comments, watchlists, catalyst reactions, risk warnings, and non-market content. |
-| Batch analyst (planned) | `src/signal_sandbox/analysis/` | Bounded internal analyst memo workflow with fixed operations, audit log, and explicit stop reason. |
+| Reviewer coverage export | `src/signal_sandbox/market_ideas/review_coverage.py` | Deterministic internal review rows for source-document coverage, MarketIdea review status, evidence refs, deterministic outcome status, missing fields, and reviewer action. |
+| Batch analyst | `src/signal_sandbox/batch_analyst/` | Bounded internal analyst memo workflow with fixed operations, audit log, cited interpretation, internal-only export, and explicit stop reason. |
 | Signal record schema | `src/signal_sandbox/ledger/record.py` | `SignalRecord` Pydantic model + validation rules. |
 | Ledger I/O | `src/signal_sandbox/ledger/io.py` | Read/write ledger files (JSON for raw, Parquet for normalized); idempotent. |
 | Dedup + ambiguity | `src/signal_sandbox/ledger/dedup.py` | Deterministic dedup keys; ambiguity flagging. |

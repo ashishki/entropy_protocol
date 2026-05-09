@@ -1,8 +1,8 @@
 # CODEX_PROMPT.md — Signal Analytics Sandbox
 
-Version: 2.51
+Version: 2.56
 Date: 2026-05-09
-Phase: 17
+Phase: 19
 
 ---
 
@@ -24,8 +24,8 @@ Telegram pilot validates the product hypothesis.
 
 ## Current State
 
-- **Phase:** 17 (Bounded batch analyst)
-- **Baseline:** 132 passing tests, 0 skipped
+- **Phase:** 19 (Channel-Specific Modalities And Tools)
+- **Baseline:** 141 passing tests, 0 skipped
 - **Ruff:** `ruff check src/ tests/` passes
 - **Pyright:** `pyright` passes
 - **Last CI run:** local CI-equivalent commands pass; GitHub run not yet observed
@@ -57,20 +57,71 @@ Telegram pilot validates the product hypothesis.
 
 ## Next Task
 
-`SAS-MI-015: Internal Analyst Memo Export`
+None — current task graph complete
 
-`SAS-MI-014` implemented the bounded batch analyst contract. The next
-implementation task is `SAS-MI-015`.
+`SAS-MI-019` completed the deterministic reviewer coverage export pack selected
+by ADR-003. No further implementation task is currently defined in
+`docs/tasks.md`.
 
 Immediate instruction:
-- Implement `SAS-MI-015` from `docs/tasks.md`.
-- Export an internal analyst memo separating deterministic metrics, cited
-  evidence, interpretation, limitations, and review queue.
-- Every interpretive claim must cite retrieved source documents or deterministic
-  metric IDs.
-- Memo must remain internal and not customer-facing.
+- Stop the implementation loop unless the operator adds or approves the next
+  task/phase.
+- Preserve the current boundaries: no approved ledger rows from draft/parser
+  output, no customer-facing claims from coverage rows, no modality providers,
+  no external services, no private scraping, no broker integration, no public
+  leaderboard, no marketplace behavior, and no forward-looking claims.
 
 Closeout digest for the Orchestrator:
+- SAS-MI-019 added `src/signal_sandbox/market_ideas/review_coverage.py`,
+  `tests/unit/test_review_coverage_export.py`, and
+  `docs/pilot/bablos79_REVIEW_COVERAGE_PACK.md`. The exporter emits one
+  deterministic row per `SourceDocument`, sorted by timestamp/document/capture
+  ID, with MarketIdea review status, evidence refs, deterministic outcome
+  status, missing fields, reviewer action, and reviewer ID. Status buckets are
+  `needs_evidence_review`, `needs_metric_snapshot`,
+  `needs_interpretation_review`, and `ready_for_customer_sample`. The pilot
+  artifact records 60 public captures as internal review support with no
+  customer-facing claims. Validation after task: 141 tests pass, ruff passes,
+  and pyright passes. Phase 19 deep review archived at
+  `docs/archive/PHASE19_REVIEW.md`; Cycle 19 Stop-Ship: No; P0: 0, P1: 0,
+  P2: 0.
+- SAS-MI-018 added `docs/adr/ADR-003-channel-specific-tools.md` and appended
+  `SAS-MI-019: Reviewer Coverage Export Pack` to `docs/tasks.md`. ADR-003
+  compares voice transcription, OCR/image annotation, news/catalyst linking,
+  fund/equity data, reviewer UI/export improvements, and new channel lexicons
+  against the measured bottleneck. It chooses reviewer/export improvements as a
+  deterministic local task and adds no provider dependency or external service.
+  Validation after task: 138 tests pass, ruff passes, and pyright passes.
+  Review skipped as doc-only.
+- SAS-MI-017 added `docs/pilot/AUTHOR_MARKET_REPORT_DECISION.md`. Verdict:
+  iterate internally, do not sell V0 yet. The decision cites report quality,
+  thin evidence coverage, pending customer feedback, no payment signal,
+  controlled implementation risk, and the exact next bottleneck: reviewed
+  evidence coverage across the 60 public `bablos79` captures. It approves only
+  the Phase 19 scoping ADR and keeps private scraping, live trading, broker
+  integration, public leaderboard expansion, marketplace expansion, and
+  forward-looking claims forbidden. Validation after task: 138 tests pass,
+  ruff passes, and pyright passes. Phase 18 deep review archived at
+  `docs/archive/PHASE18_REVIEW.md`; Cycle 18 Stop-Ship: No; P0: 0, P1: 0,
+  P2: 0.
+- SAS-MI-016 added `src/signal_sandbox/reports/author_market.py`,
+  `tests/unit/test_author_market_report.py`, and
+  `docs/pilot/reports/bablos79_AUTHOR_MARKET_REPORT_V0.md`. The renderer
+  includes channel overview, data coverage, idea taxonomy, deterministic
+  outcomes, evidence examples, limitations, and the canonical non-advice
+  disclaimer; refuses missing source-document or market-snapshot provenance;
+  and separates explicit trade setup metrics from broader commentary behavior.
+  Validation after task: 138 tests pass, ruff passes, and pyright passes.
+  Light review passed.
+- SAS-MI-015 added `src/signal_sandbox/batch_analyst/memo.py`,
+  `tests/unit/test_analyst_memo_export.py`,
+  `docs/pilot/BABLOS79_INTERNAL_MARKET_MEMO.md`, and
+  `docs/audit/AGENTIC_EVAL.md`. The memo model separates scope, corpus
+  coverage, retrieved evidence, deterministic metrics, interpretation,
+  limitations, and review queue; validates every interpretive claim against
+  retrieved document IDs or deterministic metric IDs; and rejects
+  `internal_only=false`. Validation after task: 135 tests pass, ruff passes,
+  and pyright passes. Phase 17 deep review found no P0/P1/P2 issues.
 - SAS-MI-014 added `src/signal_sandbox/batch_analyst/`,
   `tests/unit/test_batch_analyst_contract.py`, and
   `docs/specs/BATCH_ANALYST.md`. The contract declares channel/time scope,
@@ -303,115 +354,6 @@ run yet. These artifacts are now the first channel profile/corpus seed.
 
 ## Completed Tasks
 
-- 2026-05-07 — SAS-PILOT-001 Pilot Scope: created
-  `docs/pilot/PILOT_SCOPE.md` for the three public Telegram pilot sources,
-  selected the first source, defined target signal counts, scope exclusions,
-  and customer-centered success/kill criteria. Baseline after: 84 passed,
-  0 skipped. Review: skipped (doc-only patch per orchestrator review exception).
-- 2026-05-07 — SAS-PILOT-002 Methodology V0: created
-  `docs/pilot/METHODOLOGY_V0.md` with required capture fields, signal
-  qualification rules, extraction statuses, ambiguity handling, deterministic
-  outcome semantics, price provenance, and report guardrails. Baseline after:
-  84 passed, 0 skipped. Review: skipped (doc-only patch per orchestrator review
-  exception).
-- 2026-05-07 — SAS-PILOT-003 First Source Capture Plan And Log: created
-  `docs/pilot/CAPTURE_LOG.md` for `https://t.me/bablos79` with capture method,
-  required evidence fields, captured/skipped/blocked/pending status definitions,
-  skip/block reason codes, and a pending operator-input row because no real
-  captures are present. Baseline after: 84 passed, 0 skipped. Review: skipped
-  (doc-only patch per orchestrator review exception).
-- 2026-05-07 — SAS-PILOT-004 First Source Manual Extraction Log: created
-  `docs/pilot/EXTRACTION_LOG.md` for `https://t.me/bablos79` with required
-  extraction fields, status counts, a pending capture row, explicit blocker on
-  operator-supplied public captures, and no fabricated signal candidates.
-  Baseline after: 84 passed, 0 skipped. Review: skipped (doc-only patch per
-  orchestrator review exception).
-- 2026-05-07 — SAS-PILOT-005 First Source Report V0: created
-  `docs/pilot/reports/bablos79_BLOCKED_REPORT_V0.md` because no real captures,
-  extraction rows, approved ledger, price snapshot, or outcomes exist. The memo
-  records source, planned audit window, zero counts, blocker, limitations, and
-  non-advice / historical-only language. Baseline after: 84 passed, 0 skipped.
-  Review: skipped (doc-only patch per orchestrator review exception).
-- 2026-05-07 — SAS-PILOT-006 Customer Feedback And Payment Signal Log: created
-  `docs/pilot/CUSTOMER_FEEDBACK.md` and `docs/pilot/PAYMENT_SIGNAL_LOG.md` with
-  pending rows, past-behavior feedback questions, objection/status definitions,
-  payment-signal categories, refusal reasons, and Telegram-delivery-as-format
-  guardrails. Baseline after: 84 passed, 0 skipped. Review: skipped (doc-only
-  patch per orchestrator review exception).
-- 2026-05-07 — SAS-PILOT-007 Repeat Or Automate Decision: created
-  `docs/pilot/PILOT_DECISION.md` and recorded D-014. Verdict:
-  stop/defer automation until real public captures are supplied for the first
-  source. No new engineering phase is approved. Baseline after: 84 passed,
-  0 skipped. Review: Phase 9 deep review PASS.
-- 2026-05-07 — Public Capture Parse for bablos79: parsed 60 public text posts
-  from unauthenticated Telegram `/s/` pages into
-  `workspace/captures/bablos79/`, wrote
-  `docs/pilot/bablos79_CAPTURE_MANIFEST.json`, updated capture/extraction logs,
-  and revised D-014 to continue manual extraction while deferring automation.
-- 2026-05-07 — Auto Extraction Development Plan: created
-  `docs/pilot/AUTO_EXTRACTION_DEVELOPMENT_PLAN.md`, appended Phase 10
-  `SAS-AUTO-001`, `SAS-AUTO-001B`, and `SAS-AUTO-002..005` to
-  `docs/tasks.md`, and recorded D-015. Added `SAS-AUTO-001B` and D-016 for
-  offline frontier-model author lexicon discovery. This seed-label-first shape
-  was superseded by the 2026-05-08 machine-first roadmap below.
-- 2026-05-08 — Audit-Grade Automation Roadmap: added
-  `docs/pilot/AUDIT_GRADE_AUTOMATION_ROADMAP.md` and realigned Phase 10 away
-  from manual seed labeling toward machine-first pseudo-label bootstrap,
-  deterministic validators, author profile discovery, and exception review.
-  Next task: `SAS-AUTO-001: Machine-First Pseudo-Label Bootstrap`.
-- 2026-05-08 — Continuous Orchestrator Loop: updated
-  `docs/prompts/ORCHESTRATOR.md` so phase boundaries require deep review,
-  archive, doc update, phase report, explicit next-task advancement, and then
-  immediate continuation unless a concrete stop condition exists.
-- 2026-05-08 — SAS-AUTO-001 Machine-First Pseudo-Label Bootstrap: created
-  `docs/pilot/bablos79_PSEUDO_LABELS.md` and
-  `workspace/extraction/bablos79_pseudo_labels.jsonl` with one draft-only
-  pseudo-label row for each of the 60 `bablos79` captures. Suggested status
-  distribution: 50 `not_a_signal`, 7 `insufficient_fields`, 3 `needs_review`;
-  approved ledger rows created: 0. Baseline after: 84 passed, 0 skipped.
-  Review: skipped (doc/workspace artifact plus state-coupled test update per
-  orchestrator review exception).
-- 2026-05-08 — SAS-AUTO-001B Author Lexicon And Draft Profile Discovery:
-  created `docs/pilot/bablos79_AUTHOR_PROFILE.md` and
-  `workspace/lexicons/bablos79_lexicon_draft.json` with 32 evidence-cited
-  draft lexicon/profile candidates grouped by extraction category and
-  classified as `accepted_for_draft`, `needs_review`, or `excluded`. No parser
-  code or runtime LLM path was added. Baseline after: 84 passed, 0 skipped.
-  Review: skipped (doc/workspace artifact patch per orchestrator review
-  exception).
-- 2026-05-08 — SAS-AUTO-002 Deterministic Validators And Draft Parser Library:
-  created `src/signal_sandbox/extraction/draft_validation.py`,
-  `src/signal_sandbox/extraction/draft_parser.py`,
-  `tests/unit/test_draft_validation.py`, and
-  `tests/unit/test_draft_parser.py`. The validator rejects unsupported
-  pseudo-label evidence/candidate fields; the parser produces review-only
-  deterministic drafts from static accepted profile terms, preserves evidence
-  fields, and never maps directly to `approved`. Baseline after: 90 passed,
-  0 skipped. Review: light PASS.
-- 2026-05-08 — SAS-AUTO-003 Draft Export Artifact: created
-  `src/signal_sandbox/extraction/draft_export.py`,
-  `tests/unit/test_draft_export.py`, and
-  `docs/pilot/EXTRACTION_DRAFTS_BABLOS79.md`. The export contains 60
-  deterministic draft-only rows sorted by source timestamp and capture_id, with
-  suggested status, candidate fields, missing fields, reason codes, confidence,
-  evidence_url, text_sha256, and reviewer_id=`pending`. No ledger files were
-  created. Baseline after: 93 passed, 0 skipped. Review: light PASS.
-- 2026-05-08 — SAS-AUTO-004 Exception Review Queue And Extraction Log Merge:
-  updated `docs/pilot/EXTRACTION_LOG.md` with draft suggested status counts and
-  one draft suggestion row per capture while keeping final statuses pending.
-  Created `docs/pilot/bablos79_REVIEW_QUEUE.md` with 23 review rows selected by
-  exception status, low confidence, customer-facing asset candidates,
-  trade-management ambiguity, and deterministic non-signal sampling. Approved
-  ledger rows created: 0. Baseline after: 93 passed, 0 skipped. Review:
-  skipped (doc-only patch per orchestrator review exception).
-- 2026-05-08 — SAS-AUTO-005 Draft Extraction Evaluation And Next Decision:
-  created `docs/pilot/AUTO_EXTRACTION_EVAL.md` and updated
-  `docs/pilot/PILOT_DECISION.md`. The eval records Date, Eval Source, row
-  counts, suggested-status distribution, review-queue size, false-positive
-  notes, and operator-review implications. Verdict: keep the draft helper for
-  internal exception review only; no bot/private scraping/marketplace/copy
-  trading/public leaderboard/LLM-truth expansion. Baseline after: 93 passed,
-  0 skipped. Review: skipped (doc-only patch per orchestrator review exception).
 - 2026-05-09 — Phase 11+ Author Market Intelligence Planning: created
   `docs/pilot/AUTHOR_MARKET_INTELLIGENCE_ROADMAP.md`, appended Phases 11-19
   and tasks `SAS-MI-001..018` to `docs/tasks.md`, updated README/architecture
@@ -532,6 +474,46 @@ run yet. These artifacts are now the first channel profile/corpus seed.
   memo checksums. No shell, network collector, broker, or report publisher
   surface was added. Baseline after: 132 passed, 0 skipped. Review:
   agent-trigger strict review PASS.
+- 2026-05-09 — SAS-MI-015 Internal Analyst Memo Export: created
+  `src/signal_sandbox/batch_analyst/memo.py`,
+  `tests/unit/test_analyst_memo_export.py`,
+  `docs/pilot/BABLOS79_INTERNAL_MARKET_MEMO.md`, and
+  `docs/audit/AGENTIC_EVAL.md`. The memo export separates required sections,
+  validates interpretive-claim citations against retrieved source documents or
+  deterministic metric IDs, and enforces internal-only usage. Baseline after:
+  135 passed, 0 skipped. Review: Phase 17 deep review PASS; archive
+  `docs/archive/PHASE17_REVIEW.md`.
+- 2026-05-09 — SAS-MI-016 Author Market Report Template: created
+  `src/signal_sandbox/reports/author_market.py`,
+  `tests/unit/test_author_market_report.py`, and
+  `docs/pilot/reports/bablos79_AUTHOR_MARKET_REPORT_V0.md`. The renderer
+  outputs the required report sections, includes the canonical non-advice
+  disclaimer, blocks missing source-document or market-snapshot provenance, and
+  separates trade setup metrics from broader commentary metrics. Baseline
+  after: 138 passed, 0 skipped. Review: light PASS.
+- 2026-05-09 — SAS-MI-017 Sellability And Scope Decision Gate: created
+  `docs/pilot/AUTHOR_MARKET_REPORT_DECISION.md`. Verdict: iterate internally,
+  do not sell Author Market Report V0 yet. The decision cites report quality,
+  thin evidence coverage, pending customer feedback, no payment signal,
+  controlled implementation risk, exact next bottleneck, and forbidden
+  expansion scope. Baseline after: 138 passed, 0 skipped. Review: Phase 18
+  deep review PASS; archive `docs/archive/PHASE18_REVIEW.md`.
+- 2026-05-09 — SAS-MI-018 Modality And Tooling Scope ADR: created
+  `docs/adr/ADR-003-channel-specific-tools.md` and appended
+  `SAS-MI-019: Reviewer Coverage Export Pack` to `docs/tasks.md`. The ADR
+  chooses deterministic reviewer/export improvements over voice, OCR, news,
+  fund/equity, and lexicon expansion because the current bottleneck is reviewed
+  evidence coverage across the 60 public `bablos79` captures. Baseline after:
+  138 passed, 0 skipped. Review: skipped as doc-only.
+- 2026-05-09 — SAS-MI-019 Reviewer Coverage Export Pack: created
+  `src/signal_sandbox/market_ideas/review_coverage.py`,
+  `tests/unit/test_review_coverage_export.py`, and
+  `docs/pilot/bablos79_REVIEW_COVERAGE_PACK.md`. The exporter creates one
+  deterministic coverage row per source document, separates evidence/metric/
+  interpretation/customer-sample status buckets, and avoids ledger, report,
+  market-data, provider, or customer-claim side effects. Baseline after:
+  141 passed, 0 skipped. Review: Phase 19 deep review PASS; archive
+  `docs/archive/PHASE19_REVIEW.md`.
 
 ---
 
@@ -551,6 +533,9 @@ orchestrator compaction threshold. Full task definitions remain in
 | T15-T17 | Extraction adapter ABC, manual extraction, and rule extraction templates. | 72 passed, 0 skipped; `docs/archive/PHASE6_REVIEW.md` |
 | T18-T19 | Public exchange OHLCV provider and yfinance prototype provider. | 77 passed, 0 skipped; `docs/archive/PHASE7_REVIEW.md` |
 | T20 | Gated LLM extraction adapter with cost cap and human-review ledger guard. | 84 passed, 0 skipped; `docs/archive/PHASE8_REVIEW.md`; heavy evidence T20 |
+| Phase 9 pilot loop | Pilot scope, methodology, capture/extraction/report blocker logs, customer/payment logs, repeat-or-automate decision, and later public `bablos79` capture parse. | 84 passed, 0 skipped; `docs/archive/PHASE9_REVIEW.md`; 60 public text captures |
+| Phase 10 draft assistant | Machine-first pseudo-labels, author lexicon/profile, deterministic draft validation/parser, draft export, review queue, and draft-helper evaluation. | 93 passed, 0 skipped; `docs/archive/PHASE10_REVIEW.md` |
+| Transition planning | Author Market Intelligence roadmap, continuous orchestrator loop update, and Phase 11+ task graph. | 94 passed, 0 skipped; D-018/D-019/D-020 |
 
 ---
 
@@ -581,8 +566,10 @@ orchestrator compaction threshold. Full task definitions remain in
 ## Agentic State
 
 - Agentic Profile: ON
-- Active agent roles: planned bounded internal batch analyst in Phase 17
-- Loop termination state: pending Phase 17 implementation; ADR-002 requires max iterations, fixed operations, audit log, and explicit stop reason
+- Active agent roles: bounded internal batch analyst implemented for Phase 17
+- Loop termination state: `SAS-MI-014` runner enforces max iterations, fixed
+  operations, audit log, and explicit stop reason; `SAS-MI-015` memo export
+  enforces internal-only cited interpretation
 - Open agentic findings: none
 
 ---
@@ -607,6 +594,16 @@ orchestrator compaction threshold. Full task definitions remain in
 
 ## Evaluation State
 
+### Last Evaluation
+
+- Date: 2026-05-09
+- Task: `SAS-MI-015`
+- Profile: Agentic
+- Eval Source: `.venv/bin/python -m pytest tests/unit/test_analyst_memo_export.py -q`, run 2026-05-09
+- Artifact: `docs/audit/AGENTIC_EVAL.md`
+- Primary metric: memo guard test pass rate = `1.000000` (`3/3`)
+- Result: PASS; first recorded agentic memo-export baseline, no regression.
+
 ### Regression Thresholds
 
 - Default: >15% regression → P0; >5% regression → P1; ≤5% → no finding.
@@ -617,6 +614,9 @@ orchestrator compaction threshold. Full task definitions remain in
 - 2026-05-07 — LLM extraction acceptance rate fixture baseline:
   `1.000000` (`3/3` drafts approved without modification) in
   `tests/eval/test_llm_extraction_quality.py`.
+- 2026-05-09 — Agentic memo guard fixture baseline:
+  `1.000000` (`3/3` memo export guard tests passed) in
+  `tests/unit/test_analyst_memo_export.py`.
 
 ---
 

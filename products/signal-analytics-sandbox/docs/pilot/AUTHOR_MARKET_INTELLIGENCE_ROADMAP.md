@@ -246,6 +246,18 @@ Exit criteria:
 - Each new tool cites the channel/profile bottleneck it solves and ships behind
   a narrow task with acceptance tests.
 
+Implementation status:
+
+- Completed on 2026-05-09 through `SAS-MI-019`.
+- ADR-003 selected deterministic reviewer/export improvements and deferred
+  voice transcription, OCR/image annotation, news/catalyst linking,
+  fund/equity data, and new-channel lexicon expansion.
+- The reviewer coverage export pack records internal coverage status for the
+  60 public `bablos79` captures and does not create approved ledger rows,
+  customer reports, market data, provider calls, or customer-facing claims.
+- No further implementation task is currently defined; the next phase requires
+  operator/product direction.
+
 ---
 
 ## Non-Goals For The New Stage

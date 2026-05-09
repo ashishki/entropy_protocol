@@ -8,22 +8,24 @@ wedge separate from Entropy Core and Trader Risk Audit.
 ## Current Status
 
 - Phase 0 gates are acknowledged for the initial Telegram pilot sources.
-- Engineering Phases 1-10 are complete through `SAS-AUTO-005`.
+- Engineering Phases 1-19 are complete through `SAS-MI-019`.
 - Phase 9 pilot loop is complete; 60 public `bablos79` text captures exist in
   `workspace/captures/bablos79/`.
 - Phase 10 produced draft-only pseudo-labels, an author profile, deterministic
   draft validation/parser/export helpers, a 60-row draft export, a 23-row
   exception review queue, and an evaluation decision to keep the helper only
   for internal exception review.
-- New direction approved for planning: Author Market Intelligence. Phase 10
-  artifacts remain the first channel profile/corpus seed; future work adds
-  market-data, retrieval, market-idea extraction, deterministic thesis
-  evaluation, and bounded batch analysis behind explicit gates.
-- Current next engineering task: `SAS-MI-001: Author Market Intelligence
-  Architecture ADR`.
+- Author Market Intelligence is active. Phase 10 artifacts remain the first
+  channel profile/corpus seed; implemented work now includes asset registry,
+  immutable local market-data store, deterministic horizon metrics, source
+  corpus, channel profiles, local retrieval, MarketIdea extraction/export,
+  deterministic thesis evaluation, author metrics, bounded internal analyst
+  memo export, Author Market Report V0, the sellability decision gate,
+  ADR-003, and the reviewer coverage export pack.
+- Current next engineering task: none defined.
 - Package target: Python 3.12, installable as `signal-sandbox`.
 - CLI status: `signal-sandbox` exists with stubs for the planned operator workflow.
-- Tests: 94 passing; ruff and pyright pass locally.
+- Tests: 141 passing; ruff and pyright pass locally.
 
 ## Scope In
 
