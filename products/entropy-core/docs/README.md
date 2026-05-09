@@ -1,6 +1,6 @@
 # Entropy Core Documentation
 
-**Last updated:** 2026-05-07
+**Last updated:** 2026-05-09
 **Status:** Active core workspace
 
 This directory contains the original governed Entropy Protocol documentation:
@@ -46,6 +46,8 @@ It provides:
 | Handoff | `CODEX_PROMPT.md` | Current core session state |
 | Contract | `IMPLEMENTATION_CONTRACT.md` | Immutable implementation rules |
 | Governance | `governance/` | Research firewall, readiness gate, governor |
+| Approvals | `approvals/` | Human approval requests, intake contracts, and validation decisions |
+| Protocol contracts | `protocols/` | Boundary contracts for broker sandbox, risk controls, and dry-run execution |
 | Audit | `audit/` | Current audit prompts, findings, review reports |
 | Archive | `archive/`, `audit/archive/` | Historical state and audit packets |
 | Audience | `audience/` | External practitioner and architecture briefs |
@@ -65,7 +67,11 @@ workspace under `products/`.
 
 ## Current Boundary
 
-Holdout, production/capital-ready labels, live feeds, broker integration,
+Phase 13 Product Hypothesis Confirmation Decision is complete. The current
+product hypothesis status is `unconfirmed_pending_future_validation`.
+
+The only recommended next validation path is a future human-approved local
+broker sandbox no-capital replay extension. Holdout, production/capital-ready
+labels, live feeds, broker or exchange execution, production credential loading,
 Growth/RDL/RBE activation, and OOS/performance claims remain blocked unless a
 separate explicit core gate opens them.
-
