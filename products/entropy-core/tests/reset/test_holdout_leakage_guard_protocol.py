@@ -77,8 +77,8 @@ def test_state_docs_preserve_holdout_lock_during_guard_protocol() -> None:
     assert "holdout unlock requested: false" in guard
     assert "holdout read: blocked" in guard
     assert "holdout unlock: blocked" in guard
-    assert "current active task is t51 broker sandbox boundary contract" in prompt
-    assert "active task: t51 broker sandbox boundary contract" in handoff
+    assert "current active task is t52 broker sandbox fixture manifest" in prompt
+    assert "active task: t52 broker sandbox fixture manifest" in handoff
     assert "t38 holdout leakage guard protocol fixture completed" in prompt
     assert "t39 holdout access protocol review completed" in prompt
     assert "t40 holdout approval request packet scaffold completed" in prompt

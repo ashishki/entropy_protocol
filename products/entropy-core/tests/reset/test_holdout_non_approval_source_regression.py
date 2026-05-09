@@ -74,8 +74,8 @@ def test_state_docs_record_no_current_approval_event() -> None:
     combined = f"{prompt}\n{handoff}"
 
     assert "no approval event currently exists" in combined
-    assert "current active task is t51 broker sandbox boundary contract" in prompt
-    assert "active task: t51 broker sandbox boundary contract" in handoff
+    assert "current active task is t52 broker sandbox fixture manifest" in prompt
+    assert "active task: t52 broker sandbox fixture manifest" in handoff
     assert "current holdout approval event: present" not in combined
     assert "explicit human holdout approval: present" not in combined
 

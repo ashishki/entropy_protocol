@@ -57,7 +57,7 @@ def test_holdout_access_protocol_review_updates_state() -> None:
     assert "Status:     done 2026-05-09" in _task_section(tasks, "T39")
     assert "Status:     done 2026-05-09" in _task_section(tasks, "T40")
     assert "Status:     done 2026-05-09" in _task_section(tasks, "T41")
-    assert "Status:     active" in _task_section(tasks, "T51")
+    assert "Status:     active" in _task_section(tasks, "T52")
     assert "HOLDOUT-ACCESS-PROTOCOL" in audit_index
     assert "`docs/audit/HOLDOUT_ACCESS_PROTOCOL_REVIEW.md`" in audit_index
 

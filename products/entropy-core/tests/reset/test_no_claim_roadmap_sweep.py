@@ -74,7 +74,7 @@ def test_future_phases_are_not_approvals() -> None:
     assert "phase: 12" in prompt
     assert "phase: 12 broker sandbox and execution risk audit" in handoff
     assert "protocol-only holdout access design" in handoff
-    assert "active task: t51 broker sandbox boundary contract" in handoff
+    assert "active task: t52 broker sandbox fixture manifest" in handoff
     assert "t40 holdout approval request packet scaffold completed" in prompt
     assert "t41 holdout approval evidence intake contract completed" in prompt
     assert "t35 holdout access protocol deny-by-default contract completed" in prompt

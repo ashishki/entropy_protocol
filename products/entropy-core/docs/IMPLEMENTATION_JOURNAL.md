@@ -21,6 +21,15 @@ This file records handoff context. It is not authority.
 
 ## Entries
 
+### 2026-05-09 - T51 - Broker Sandbox Boundary Contract
+
+- Scope: `docs/protocols/BROKER_SANDBOX_BOUNDARY.md`, `tests/reset/test_broker_sandbox_boundary_contract.py`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`
+- Why this work happened: define Phase 12 sandbox-only broker/exchange boundaries before fixture and risk-control work
+- Decisions applied: `docs/audit/LIVE_FEED_READINESS_REVIEW.md`
+- Evidence collected: T51 acceptance tests passed (`3 passed`); full reset baseline `456 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean
+- Follow-ups: start T52 Broker Sandbox Fixture Manifest
+- Notes for next agent: T51 permits only local sandbox scenario review, fixture design, risk-control design, kill-switch audit design, and no-capital dry-run packet assembly. Live orders, live broker/exchange execution, production credentials, live capital, production labels, and holdout access remain blocked.
+
 ### 2026-05-09 - T50 - Live-Feed Dry Run Readiness Review
 
 - Scope: `docs/audit/LIVE_FEED_READINESS_REVIEW.md`, `docs/audit/AUDIT_INDEX.md`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`

@@ -51,8 +51,8 @@ def test_state_docs_record_phase10_no_read_decision_work() -> None:
 
     assert "phase: 12" in prompt
     assert "phase 11 live-feed dry run readiness" in combined
-    assert "current active task is t51 broker sandbox boundary contract" in prompt
-    assert "active task: t51 broker sandbox boundary contract" in handoff
+    assert "current active task is t52 broker sandbox fixture manifest" in prompt
+    assert "active task: t52 broker sandbox fixture manifest" in handoff
     assert "t41 holdout approval evidence intake contract completed" in prompt
     assert "t40 holdout approval request packet scaffold completed" in prompt
     assert "no approval event currently exists" in combined

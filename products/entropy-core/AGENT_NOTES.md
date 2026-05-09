@@ -279,12 +279,12 @@ Phase 10 is complete through T40.
 - Light review result: no findings.
 - Boundaries remain unchanged: the request packet is scaffold-only; no approval event currently exists; holdout read/unlock, OOS/performance, live, broker/exchange, production, and capital-ready paths remain blocked.
 
-## 2026-05-09 T50 Live-Feed Dry Run Readiness Review
+## 2026-05-09 T51 Broker Sandbox Boundary Contract
 
-Phase 10 is complete through T45. Phase 11 is complete through T50. Phase 12 is open.
+Phase 10 is complete through T45. Phase 11 is complete through T50. Phase 12 is complete through T51.
 
-- Completed task: T50 Live-Feed Dry Run Readiness Review.
-- Active task: T51 Broker Sandbox Boundary Contract.
-- Latest validation: `.venv/bin/python -m pytest -q tests/` -> `453 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
+- Completed task: T51 Broker Sandbox Boundary Contract.
+- Active task: T52 Broker Sandbox Fixture Manifest.
+- Latest validation: `.venv/bin/python -m pytest -q tests/` -> `456 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
 - Light review result: no findings.
-- Boundaries remain unchanged: Phase 12 is sandbox-only broker/exchange execution risk audit work; no live orders, live broker/exchange execution, production credentials, live capital, production labels, or holdout access are approved.
+- Boundaries remain unchanged: Phase 12 permits only local sandbox scenario review, fixture design, risk-control design, kill-switch audit design, and no-capital dry-run packet assembly; no live orders, live broker/exchange execution, production credentials, live capital, production labels, or holdout access are approved.

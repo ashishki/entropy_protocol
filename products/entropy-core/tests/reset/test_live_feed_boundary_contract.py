@@ -65,8 +65,8 @@ def test_state_docs_record_phase11_local_only_scope() -> None:
 
     assert "phase: 12" in prompt
     assert "phase: 12 broker sandbox and execution risk audit" in handoff
-    assert "current active task is t51 broker sandbox boundary contract" in prompt
-    assert "active task: t51 broker sandbox boundary contract" in handoff
+    assert "current active task is t52 broker sandbox fixture manifest" in prompt
+    assert "active task: t52 broker sandbox fixture manifest" in handoff
     assert "phase 11 is local-only live-feed dry-run readiness" in combined
     for boundary in (
         "order placement",

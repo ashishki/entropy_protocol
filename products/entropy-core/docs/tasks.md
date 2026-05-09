@@ -1815,7 +1815,7 @@ Owner:      codex
 Phase:      12
 Type:       none
 Depends-On: T50
-Status:     active
+Status:     done 2026-05-09
 
 Objective: |
   Define sandbox-only broker/exchange boundaries before any execution risk artifact work.
@@ -1847,7 +1847,7 @@ Owner:      codex
 Phase:      12
 Type:       none
 Depends-On: T51
-Status:     pending
+Status:     active
 
 Objective: |
   Define deterministic sandbox fixture requirements for broker/exchange execution risk tests without live connectivity.

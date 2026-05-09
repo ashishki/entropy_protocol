@@ -55,8 +55,9 @@ def test_live_feed_readiness_review_updates_state() -> None:
     assert "T51 Broker Sandbox Boundary Contract" in prompt
     assert "Phase 12 Broker Sandbox and Execution Risk Audit" in prompt
     assert "Status:     done 2026-05-09" in _task_section(tasks, "T50")
-    assert "Status:     active" in _task_section(tasks, "T51")
-    assert "Status:     pending" in _task_section(tasks, "T52")
+    assert "Status:     done 2026-05-09" in _task_section(tasks, "T51")
+    assert "Status:     active" in _task_section(tasks, "T52")
+    assert "Status:     pending" in _task_section(tasks, "T53")
     assert "LIVE-FEED-READINESS" in audit_index
     assert "`docs/audit/LIVE_FEED_READINESS_REVIEW.md`" in audit_index
 
