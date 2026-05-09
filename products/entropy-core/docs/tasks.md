@@ -1129,7 +1129,7 @@ Owner:      codex
 Phase:      8
 Type:       none
 Depends-On: T30
-Status:     active
+Status:     done 2026-05-09
 
 Objective: |
   Create a readiness packet scaffold that assembles current evidence, missing controls, limitations, and explicit non-approval boundaries for a future human phase-gate discussion.
@@ -1162,7 +1162,7 @@ Owner:      codex
 Phase:      8
 Type:       none
 Depends-On: T31
-Status:     pending
+Status:     active
 
 Objective: |
   Record a checklist of explicit human approvals and evidence prerequisites that would be required before holdout, phase-gate, or claim-surface work could be considered.

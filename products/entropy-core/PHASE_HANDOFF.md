@@ -7,10 +7,10 @@ manual restart.
 
 - Product: entropy-core
 - Branch: codex/entropy-core-work
-- Active task: T31 Phase-Gate Readiness Packet Scaffold
+- Active task: T32 Approval Boundary Checklist
 - Phase: 8 Phase-Gate Readiness Review
-- Last validation: 2026-05-08 T30: `393 passed, 20 skipped`; ruff check clean; ruff format clean; pyright 0 errors; `git diff --check` clean.
-- Git status summary: T30 readiness gap matrix changes pending commit at handoff update time.
+- Last validation: 2026-05-09 T31: `396 passed, 20 skipped`; ruff check clean; ruff format clean; pyright 0 errors; `git diff --check` clean.
+- Git status summary: T31 readiness packet scaffold changes pending commit at handoff update time.
 
 ## Completed In This Phase
 
@@ -47,11 +47,11 @@ manual restart.
 - T28 No-Claim Surface Regression Sweep completed with no findings.
 - T29 Archive Reproducibility Hardening Review completed with no findings.
 - T30 Archive Evidence Sufficiency Gap Matrix completed with no findings.
+- T31 Phase-Gate Readiness Packet Scaffold completed with no findings.
 
 ## Remaining Work
 
-- T31 Phase-Gate Readiness Packet Scaffold is active.
-- T32 Approval Boundary Checklist is pending.
+- T32 Approval Boundary Checklist is active.
 - T33 Readiness No-Holdout Dry Run is pending.
 - T34 Phase-Gate Readiness Review is pending.
 - After T34, run deep review, fix findings, validate, evaluate the roadmap, rewrite future phases/tasks if useful, open the next logical active phase, and continue automatically.

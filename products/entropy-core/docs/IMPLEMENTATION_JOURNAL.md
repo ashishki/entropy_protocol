@@ -21,6 +21,15 @@ This file records handoff context. It is not authority.
 
 ## Entries
 
+### 2026-05-09 - T31 - Phase-Gate Readiness Packet Scaffold
+
+- Scope: `docs/readiness/PHASE_GATE_READINESS_PACKET.md`, `tests/reset/test_phase_gate_readiness_packet.py`, `docs/EVIDENCE_INDEX.md`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`
+- Why this work happened: scaffold a phase-gate readiness packet that assembles evidence, missing controls, limitations, and approval prerequisites without granting approval
+- Decisions applied: `D-ROADMAP-001`; `docs/readiness/PHASE_GATE_GAP_MATRIX.md`; `docs/audit/ARCHIVE_REPRODUCIBILITY_REVIEW.md`
+- Evidence collected: T31 acceptance tests passed (`3 passed`); full reset baseline `396 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean
+- Follow-ups: start T32 Approval Boundary Checklist
+- Notes for next agent: readiness packet references the Phase 8 gap matrix and Phase 7 review, lists missing controls, and explicitly records all restricted approval flags as false or blocked.
+
 ### 2026-05-08 - T30 - Archive Evidence Sufficiency Gap Matrix
 
 - Scope: `docs/readiness/PHASE_GATE_GAP_MATRIX.md`, `docs/EVIDENCE_INDEX.md`, `tests/reset/test_phase_gate_readiness_gap_matrix.py`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`

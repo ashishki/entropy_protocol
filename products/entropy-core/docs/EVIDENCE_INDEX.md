@@ -1,7 +1,7 @@
 # Evidence Index - Entropy Core
 
 Version: 1.0
-Last updated: 2026-05-08
+Last updated: 2026-05-09
 
 This file indexes proof artifacts. It is not authority by itself.
 
@@ -42,8 +42,9 @@ This file indexes proof artifacts. It is not authority by itself.
 | T28 No-Claim Surface Regression Sweep | Test result | `tests/reset/test_no_claim_roadmap_sweep.py::test_active_docs_do_not_open_restricted_surfaces`; `tests/reset/test_no_claim_roadmap_sweep.py::test_future_phases_are_not_approvals`; `tests/reset/test_no_claim_roadmap_sweep.py::test_prompt_and_handoff_preserve_boundaries` | Active docs and replayed packet surfaces do not expose approval flags; phases 8 through 13 remain planned roadmap direction; prompt and handoff preserve blocked holdout/live/broker/production/capital-ready/phase-gate/OOS-performance boundaries | 2026-05-08: `3 passed`; full baseline `387 passed, 20 skipped` | Yes |
 | T29 Archive Reproducibility Hardening Review | Review report | `tests/reset/test_archive_reproducibility_review.py::test_archive_reproducibility_review_contains_required_sections`; `tests/reset/test_archive_reproducibility_review.py::test_archive_reproducibility_review_records_roadmap_evaluation`; `tests/reset/test_archive_reproducibility_review.py::test_codex_prompt_records_phase7_review_state`; `docs/audit/ARCHIVE_REPRODUCIBILITY_REVIEW.md` | Phase 7 review summarizes replay, reproducibility matrix, no-claim sweep, validation, limitations, findings, and roadmap evaluation; Phase 8 opens with T30 active while restricted approvals remain blocked | 2026-05-08: `3 passed`; full baseline `390 passed, 20 skipped` | Yes |
 | T30 Archive Evidence Sufficiency Gap Matrix | Test result | `tests/reset/test_phase_gate_readiness_gap_matrix.py::test_gap_matrix_lists_required_controls`; `tests/reset/test_phase_gate_readiness_gap_matrix.py::test_gap_matrix_preserves_blocked_boundaries`; `tests/reset/test_phase_gate_readiness_gap_matrix.py::test_evidence_index_records_gap_matrix`; `docs/readiness/PHASE_GATE_GAP_MATRIX.md` | Readiness gap matrix maps replay, reproducibility, no-claim, governance, leakage, holdout, and review controls to evidence status, missing prerequisites, and blocked restricted approval states | 2026-05-08: `3 passed`; full baseline `393 passed, 20 skipped` | Yes |
+| T31 Phase-Gate Readiness Packet Scaffold | Test result | `tests/reset/test_phase_gate_readiness_packet.py::test_readiness_packet_contains_required_sections`; `tests/reset/test_phase_gate_readiness_packet.py::test_readiness_packet_rejects_approval_labels`; `tests/reset/test_phase_gate_readiness_packet.py::test_readiness_packet_references_gap_matrix_and_review`; `docs/readiness/PHASE_GATE_READINESS_PACKET.md` | Readiness packet scaffold assembles evidence summary, missing controls, limitations, human approval prerequisites, and non-approval boundaries while referencing the Phase 8 gap matrix and Phase 7 review | 2026-05-09: `3 passed`; full baseline `396 passed, 20 skipped` | Yes |
 
-T08 through T30 heavy-task, product-bridge, reset-closure, archive evidence, roadmap governance, replay, reproducibility, no-claim sweep, review, and readiness rows are indexed.
+T08 through T31 heavy-task, product-bridge, reset-closure, archive evidence, roadmap governance, replay, reproducibility, no-claim sweep, review, and readiness rows are indexed.
 
 ## Pending Evidence
 

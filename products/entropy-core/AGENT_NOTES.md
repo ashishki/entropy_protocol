@@ -168,3 +168,14 @@ Phase 8 is complete through T30.
 - Evidence index row added for T30 gap matrix proof.
 - Light review result: no findings.
 - Boundaries remain unchanged: T30 is readiness analysis only and does not approve holdout, OOS/performance, live, broker/exchange, production, capital-ready, or phase-gate surfaces.
+
+## 2026-05-09 T31 Readiness Packet Scaffold
+
+Phase 8 is complete through T31.
+
+- Completed task: T31 Phase-Gate Readiness Packet Scaffold.
+- Active task: T32 Approval Boundary Checklist.
+- Latest validation: `.venv/bin/python -m pytest -q tests/` -> `396 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
+- Evidence index row added for T31 readiness packet proof.
+- Light review result: no findings.
+- Boundaries remain unchanged: readiness packet is scaffold-only and grants no holdout, OOS/performance, live, broker/exchange, production, capital-ready, or phase-gate approval.
