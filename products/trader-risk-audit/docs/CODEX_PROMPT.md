@@ -1,8 +1,8 @@
 # CODEX_PROMPT.md
 
-Version: 1.19
+Version: 1.20
 Date: 2026-05-09
-Phase: Complete
+Phase: Planned
 
 This file is the single source of truth for implementation session state. Every Codex agent reads this file before starting work and updates it at phase boundaries or when the orchestrator records findings.
 
@@ -10,14 +10,14 @@ This file is the single source of truth for implementation session state. Every 
 
 ## Current Phase
 
-- Phase: Complete
-- Name: Planned Roadmap Complete Through Phase 10
-- Business goal: all planned phases are implemented through conversion assets while preserving local-first, deterministic, no-broker, no-signal, no-advice boundaries.
-- Phase gate: T41-T44 complete; before/after report comparison, objection handling, ICP demo variants, and paid pilot offer page are done, Phase 10 boundary review is archived, and post-plan CODE-1 manifest cleanup is complete.
+- Phase: Planned
+- Name: Phase 11 - Read-Only Exchange Import Safety
+- Business goal: add a safe roadmap for Binance/Bybit read-only historical trade import while preserving local-first, deterministic, no-trading, no-withdrawal, no-transfer, no-signal, no-advice boundaries.
+- Phase gate: Phase 11 must approve ADR-002, define credential/permission contracts, and create synthetic fixture/redaction policy before any real exchange network path is implemented.
 
 ## Current State
 
-- Phase: Complete
+- Phase: Planned Phase 11
 - Baseline: 142 passing tests
 - Ruff: clean (`ruff check` and `ruff format --check`)
 - Last CI: workflow configured; remote run not observed from this clone
@@ -37,23 +37,25 @@ This file is the single source of truth for implementation session state. Every 
 
 ## Next Task
 
-None - all currently planned tasks through T44 are complete.
+T45 - Read-Only Exchange Import ADR
 
 Task intent:
 
-- Continue only if validation evidence, review findings, or a user request justifies a roadmap update.
-- Do not add SaaS accounts, checkout, broker APIs, signal analytics, order blocking, or trading advice without a new ADR and paid pilot evidence.
+- Convert the read-only Binance/Bybit import idea into an accepted product boundary before code implementation.
+- Allow only historical fills/executions import for post-trade audit.
+- Do not add order placement, order cancellation, withdrawals, transfers, leverage/margin mutation, hosted secrets, SaaS accounts, checkout, signal analytics, order blocking, or trading advice.
 
 Required context before starting:
 
-- `docs/archive/PHASE10_REVIEW.md`
-- `docs/audit/PHASE_REPORT_LATEST.md`
-- `docs/PILOT_EVIDENCE_LOG_RU.md`
-- `STARTUP_PRESSURE_TEST_RU.md#14-final-recommendation`
+- `docs/adr/ADR-002-read-only-exchange-import.md`
+- `docs/EXCHANGE_API_IMPORT_PLAN_RU.md`
+- `docs/IMPLEMENTATION_CONTRACT.md`
+- `docs/ARCHITECTURE.md`
+- Official exchange docs for the endpoint being implemented; do not rely on stale memory.
 
 Immediate scope:
 
-- no immediate implementation scope
+- docs only for T45; no exchange network code yet
 
 Candidate source decision:
 
@@ -94,9 +96,17 @@ Starter policy decision:
 
 ADR-001 is filed. Telegram is an allowed simple demo/intake/delivery surface for Phase 7: a user may upload files, receive an audit id/status, and receive an operator-approved report. Any new Telegram work must stay inside ADR-001 and must not add broker APIs, signal parsing, order blocking, auto-advice, or live trading behavior.
 
+ADR-002 is proposed. Read-only exchange import is a planned local ingestion path for historical Binance/Bybit fills/executions only. It must not add exchange control, trading, withdrawals, transfers, leverage/margin mutation, hosted secret storage, Telegram credential collection, signal analytics, auto-advice, or live trading behavior.
+
 ## Future Planned Phases
 
-No future phase beyond Phase 10 is currently planned in this file.
+| Phase | Name | Tasks | Gate |
+|-------|------|-------|------|
+| 11 | Read-Only Exchange Import Safety | T45-T47 | ADR-002 accepted, credential permission contract defined, exchange fixture/redaction policy in place, no real network calls. |
+| 12 | Exchange Import Core | T48-T50 | Fixture-backed import writes raw snapshot, normalized trades, and import manifest; existing `audit` consumes normalized exchange trades. |
+| 13 | Bybit Read-Only MVP | T51-T54 | Bybit permission checks, execution fetch planning, normalizer, and import-to-audit integration pass with sanitized fixtures. |
+| 14 | Binance Read-Only MVP | T55-T58 | Binance signed account request helper, symbol/window fetch planning, normalizer, and import-to-audit integration pass with sanitized fixtures. |
+| 15 | Operator UX and Pilot Validation | T59-T62 | Runbooks, safety guidance, evidence fields, and deep review confirm pilot-ready boundaries. |
 
 Future phase rule:
 
@@ -104,7 +114,7 @@ Future phase rule:
 - After every phase boundary, run mandatory deep review, archive it, apply required fixes, update state docs, then continue automatically to the next planned phase when no stop-ship finding remains. Do not stop only because a phase completed.
 - If deep review findings, pilot evidence, or implementation discoveries show that the roadmap should change, update `docs/tasks.md`, this file, README, and relevant audit notes before continuing.
 - Demo productization may improve the upload-status-report experience, especially through Telegram, but must stay within ADR-001 and preserve deterministic audit truth.
-- Do not build SaaS accounts, checkout, broker APIs, signal analytics, order blocking, or trading advice unless a later ADR and paid pilot evidence explicitly justify that scope.
+- Do not build SaaS accounts, checkout, exchange write APIs, broker control, signal analytics, order blocking, or trading advice. Read-only exchange import must stay inside ADR-002 and remain a local post-trade ingestion path.
 
 Before implementation, the orchestrator should hand Codex a narrow task digest inline:
 

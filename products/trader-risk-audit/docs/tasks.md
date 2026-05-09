@@ -1,8 +1,8 @@
 # Task Graph - Trader Risk Audit
 
-Version: 1.3
-Last updated: 2026-05-08
-Status: Phase 7 active - internal validation with public samples; Phase 8-10 planned for demo quality and pilot conversion
+Version: 1.4
+Last updated: 2026-05-09
+Status: Phase 11 planned - read-only exchange import safety; Phase 12-15 planned for import core, Bybit MVP, Binance MVP, and pilot validation
 
 ---
 
@@ -20,6 +20,11 @@ Status: Phase 7 active - internal validation with public samples; Phase 8-10 pla
 | 8 | Demo Productization | T33-T36 | Telegram happy path, public-sample demo mode, report polish, and two-minute demo scripts. | A prospect can experience a clear mini-product demo from Telegram entry to approved report without confusing the audit with advice, broker control, or signal analytics. |
 | 9 | Intake Quality and Operator Speed | T37-T40 | Policy profile selection, intake file validation, operator runbook CLI, and evidence capture automation. | A pilot request can move from user upload to operator-ready workspace quickly, with actionable validation errors and disciplined evidence capture. |
 | 10 | Conversion Assets | T41-T44 | Before/after report comparison, objection handling, ICP-specific demo variants, and paid pilot offer page. | The founder can run manual sales calls with concrete assets that explain value, reduce trust objections, and ask for a paid pilot without overclaiming. |
+| 11 | Read-Only Exchange Import Safety | T45-T47 | ADR-002, credential permission contract, and exchange fixture/redaction policy. | The team can plan Binance/Bybit historical-fill import without approving exchange control or real network code before safety gates. |
+| 12 | Exchange Import Core | T48-T50 | Raw snapshot schema, import manifest, normalizer interface, and fixture-backed CLI. | Fixture-backed exchange imports can produce deterministic raw snapshots, normalized trades, and import manifests consumed by the existing audit flow. |
+| 13 | Bybit Read-Only MVP | T51-T54 | Bybit key metadata check, execution fetch planner, normalizer, and import-to-audit integration. | Bybit historical executions can be imported safely from sanitized fixtures with read-only enforcement and deterministic audit outputs. |
+| 14 | Binance Read-Only MVP | T55-T58 | Binance signed account request helper, spot trade fetch planner, normalizer, and import-to-audit integration. | Binance Spot trade history can be imported safely from sanitized fixtures with explicit symbols/time range and deterministic audit outputs. |
+| 15 | Operator UX and Pilot Validation | T59-T62 | Exchange import runbook, safety guidance, evidence fields, and deep review. | Read-only exchange import is ready for founder-led pilot use only after secret handling, permission enforcement, reproducibility, and boundary review pass. |
 
 ---
 
@@ -1566,3 +1571,599 @@ Context-Refs:
 
 Notes: |
   Keep this static and founder-led. Do not build a landing-page app, checkout, account system, or public SaaS flow until paid pilot evidence justifies it.
+
+## T45: Read-Only Exchange Import ADR
+
+Owner:      codex
+Phase:      11
+Type:       docs
+Depends-On: T44
+
+Objective: |
+  Accept and document the read-only exchange import boundary for Binance/Bybit historical trade ingestion without approving exchange control.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "ADR-002 states the allowed read-only import scope and explicitly forbids order write, withdrawal, transfer, leverage/margin mutation, hosted secrets, signal analytics, and advice."
+    test: "manual/docs-review"
+  - id: AC-2
+    description: "The roadmap plan maps read-only import into phased tasks with safety gates before real network calls."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "Decision log and loop state point to ADR-002 as the canonical boundary."
+    test: "manual/docs-review"
+
+Files:
+  - docs/adr/ADR-002-read-only-exchange-import.md
+  - docs/EXCHANGE_API_IMPORT_PLAN_RU.md
+  - docs/DECISION_LOG.md
+  - docs/CODEX_PROMPT.md
+
+Context-Refs:
+  - docs/IMPLEMENTATION_CONTRACT.md
+  - docs/ARCHITECTURE.md
+
+Notes: |
+  This is a scope decision only. Do not add exchange network code in this task.
+
+## T46: Exchange Credential Permission Contract
+
+Owner:      codex
+Phase:      11
+Type:       security
+Depends-On: T45
+
+Objective: |
+  Define a deterministic contract for exchange API credential handling, permission inspection, safe failure modes, and redaction.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "The contract requires read-only keys, rejects detectable trade/withdraw/transfer/account-mutation permissions, and marks unverifiable permissions as needs_operator_review."
+    test: "tests/unit/exchange/test_credentials.py::test_permission_contract_rejects_write_scopes"
+  - id: AC-2
+    description: "Credential objects redact API keys, secrets, signatures, account ids, and raw secret values in repr, logs, errors, and serialized metadata."
+    test: "tests/unit/exchange/test_credentials.py::test_credentials_are_redacted_in_output"
+  - id: AC-3
+    description: "No credential values are written into manifests, queue metadata, workspace metadata, or generated reports."
+    test: "tests/integration/test_exchange_secret_redaction.py::test_exchange_import_does_not_persist_secrets"
+
+Files:
+  - trader_risk_audit/exchange/credentials.py
+  - tests/unit/exchange/test_credentials.py
+  - tests/integration/test_exchange_secret_redaction.py
+  - docs/IMPLEMENTATION_CONTRACT.md
+
+Context-Refs:
+  - docs/adr/ADR-002-read-only-exchange-import.md
+  - docs/IMPLEMENTATION_CONTRACT.md#credentials-and-secrets
+
+Notes: |
+  Use fixture credentials only. Do not contact Binance or Bybit.
+
+## T47: Exchange Fixture and Redaction Policy
+
+Owner:      codex
+Phase:      11
+Type:       tests
+Depends-On: T45
+
+Objective: |
+  Establish the policy and tests for synthetic or sanitized exchange-like raw JSON fixtures before connector code exists.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Fixture policy forbids real API keys, signatures, account ids, balances, customer identifiers, and private notes."
+    test: "tests/test_exchange_fixture_policy.py::test_exchange_fixture_policy_rejects_sensitive_fields"
+  - id: AC-2
+    description: "Committed exchange fixtures are synthetic or explicitly sanitized and pass identifier scans."
+    test: "tests/test_exchange_fixture_policy.py::test_committed_exchange_fixtures_are_sanitized"
+  - id: AC-3
+    description: "The policy documents allowed raw execution fields that can be committed for regression tests."
+    test: "manual/docs-review"
+
+Files:
+  - docs/EXCHANGE_FIXTURE_POLICY_RU.md
+  - tests/test_exchange_fixture_policy.py
+  - tests/fixtures/exchange/
+
+Context-Refs:
+  - docs/adr/ADR-002-read-only-exchange-import.md
+  - docs/PUBLIC_SAMPLE_SOURCE_POLICY_RU.md
+
+Notes: |
+  Fixture policy must be in place before raw exchange snapshot examples are committed.
+
+## T48: Exchange Raw Snapshot Schema and Import Manifest
+
+Owner:      codex
+Phase:      12
+Type:       none
+Depends-On: T46, T47
+
+Objective: |
+  Add deterministic local data structures for raw exchange snapshots and import manifests that can be hashed and audited before normalization.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Raw snapshot schema records exchange, market/category, symbols, time range, fetched pages, source endpoint labels, and raw records without credentials."
+    test: "tests/unit/exchange/test_snapshot_schema.py::test_snapshot_schema_serializes_without_secrets"
+  - id: AC-2
+    description: "Import manifest records raw snapshot hash, normalized output hash, package version, and generated timestamp excluded from deterministic content hash."
+    test: "tests/unit/exchange/test_import_manifest.py::test_import_manifest_hash_is_deterministic"
+  - id: AC-3
+    description: "Manifest validation detects missing or drifted raw snapshot and normalized output files."
+    test: "tests/unit/exchange/test_import_manifest.py::test_import_manifest_detects_artifact_drift"
+
+Files:
+  - trader_risk_audit/exchange/snapshot.py
+  - trader_risk_audit/exchange/manifest.py
+  - tests/unit/exchange/test_snapshot_schema.py
+  - tests/unit/exchange/test_import_manifest.py
+
+Context-Refs:
+  - docs/adr/ADR-002-read-only-exchange-import.md
+  - trader_risk_audit/artifacts/manifest.py
+
+Notes: |
+  Keep import manifests separate from final audit manifests; final audit truth still comes from the existing audit command.
+
+## T49: Exchange Normalizer Interface
+
+Owner:      codex
+Phase:      12
+Type:       none
+Depends-On: T48, T05
+
+Objective: |
+  Add a shared interface that maps exchange-specific raw fills/executions into canonical trade records accepted by the existing audit engine.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Normalizer interface emits canonical trade records with stable source row ids derived from exchange, symbol, execution id/order id, and timestamp."
+    test: "tests/unit/exchange/test_normalizer.py::test_exchange_normalizer_emits_stable_row_ids"
+  - id: AC-2
+    description: "Missing required price, quantity, side, symbol, or timestamp fields produce safe validation errors without raw row leakage."
+    test: "tests/unit/exchange/test_normalizer.py::test_exchange_normalizer_reports_safe_missing_field_errors"
+  - id: AC-3
+    description: "Normalized exchange records serialize byte-identically across repeated runs."
+    test: "tests/unit/exchange/test_normalizer.py::test_exchange_normalization_is_deterministic"
+
+Files:
+  - trader_risk_audit/exchange/normalizer.py
+  - tests/unit/exchange/test_normalizer.py
+  - tests/fixtures/exchange/
+
+Context-Refs:
+  - trader_risk_audit/trades/schema.py
+  - trader_risk_audit/trades/importers.py
+
+Notes: |
+  Do not change evaluator semantics for exchange data in this task.
+
+## T50: Fixture-Backed Exchange Import CLI
+
+Owner:      codex
+Phase:      12
+Type:       cli
+Depends-On: T48, T49
+
+Objective: |
+  Add an `exchange-import` CLI skeleton that runs against local fixture snapshots and writes raw snapshot, normalized trades, and import manifest artifacts.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`exchange-import fixture --snapshot fixture.json --output-dir tmp` writes raw snapshot, normalized trades, and import manifest files."
+    test: "tests/integration/test_exchange_import_cli.py::test_fixture_exchange_import_writes_expected_artifacts"
+  - id: AC-2
+    description: "Running fixture import twice produces identical normalized output hashes and import manifest content hashes."
+    test: "tests/integration/test_exchange_import_cli.py::test_fixture_exchange_import_is_deterministic"
+  - id: AC-3
+    description: "The existing `audit` command can consume the normalized exchange trades from the fixture import."
+    test: "tests/integration/test_exchange_import_to_audit.py::test_fixture_exchange_import_feeds_audit"
+
+Files:
+  - trader_risk_audit/cli.py
+  - trader_risk_audit/exchange/
+  - tests/integration/test_exchange_import_cli.py
+  - tests/integration/test_exchange_import_to_audit.py
+
+Context-Refs:
+  - docs/adr/ADR-002-read-only-exchange-import.md
+  - docs/EXCHANGE_API_IMPORT_PLAN_RU.md
+
+Notes: |
+  This phase still must not make real Binance or Bybit network calls.
+
+## T51: Bybit API Key Metadata Check
+
+Owner:      codex
+Phase:      13
+Type:       security
+Depends-On: T46, T50
+
+Objective: |
+  Implement Bybit API key metadata inspection for read-only enforcement using sanitized tests and mocked HTTP responses.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Bybit permission checker accepts `readOnly == 1` and rejects `readOnly != 1`."
+    test: "tests/unit/exchange/test_bybit_permissions.py::test_bybit_permission_checker_requires_read_only"
+  - id: AC-2
+    description: "Detected wallet transfer, withdraw, order-write, or account mutation permissions return a safe rejection reason."
+    test: "tests/unit/exchange/test_bybit_permissions.py::test_bybit_permission_checker_rejects_write_scopes"
+  - id: AC-3
+    description: "Permission-check failures do not log or persist API credentials."
+    test: "tests/unit/exchange/test_bybit_permissions.py::test_bybit_permission_errors_are_redacted"
+
+Files:
+  - trader_risk_audit/exchange/bybit.py
+  - tests/unit/exchange/test_bybit_permissions.py
+
+Context-Refs:
+  - docs/adr/ADR-002-read-only-exchange-import.md
+
+Notes: |
+  Use mocked HTTP only. Real credential smoke tests require explicit operator action outside CI.
+
+## T52: Bybit Execution Fetch Planner
+
+Owner:      codex
+Phase:      13
+Type:       none
+Depends-On: T51
+
+Objective: |
+  Plan deterministic Bybit execution-history fetches for `spot` and `linear` categories with seven-day windows and cursor pagination.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Planner slices requested date ranges into exchange-valid seven-day windows."
+    test: "tests/unit/exchange/test_bybit_fetch_plan.py::test_bybit_fetch_plan_slices_seven_day_windows"
+  - id: AC-2
+    description: "Paginator follows `nextPageCursor` until exhausted and preserves deterministic page ordering."
+    test: "tests/unit/exchange/test_bybit_fetch_plan.py::test_bybit_cursor_pagination_is_deterministic"
+  - id: AC-3
+    description: "Only execution-history and key-info endpoint labels are present; no order/write endpoint labels are implemented."
+    test: "tests/unit/exchange/test_bybit_fetch_plan.py::test_bybit_client_exposes_no_write_endpoints"
+
+Files:
+  - trader_risk_audit/exchange/bybit.py
+  - tests/unit/exchange/test_bybit_fetch_plan.py
+
+Context-Refs:
+  - docs/adr/ADR-002-read-only-exchange-import.md
+
+Notes: |
+  Fetch planning can be implemented before enabling real network execution.
+
+## T53: Bybit Raw-to-Canonical Normalizer
+
+Owner:      codex
+Phase:      13
+Type:       none
+Depends-On: T49, T52
+
+Objective: |
+  Normalize Bybit execution records into canonical trade records with stable ids, fees, side mapping, symbol mapping, and timestamps.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Bybit execution fixtures normalize to expected canonical trade JSON."
+    test: "tests/unit/exchange/test_bybit_normalizer.py::test_bybit_executions_normalize_to_canonical_trades"
+  - id: AC-2
+    description: "Duplicate or same-timestamp executions preserve deterministic ordering by execution id/order id."
+    test: "tests/unit/exchange/test_bybit_normalizer.py::test_bybit_normalizer_orders_same_timestamp_executions"
+  - id: AC-3
+    description: "Unsupported Bybit execution fields become limitations/warnings rather than guessed audit truth."
+    test: "tests/unit/exchange/test_bybit_normalizer.py::test_bybit_unsupported_fields_are_reported_safely"
+
+Files:
+  - trader_risk_audit/exchange/bybit.py
+  - tests/unit/exchange/test_bybit_normalizer.py
+  - tests/fixtures/exchange/bybit/
+
+Context-Refs:
+  - trader_risk_audit/trades/schema.py
+  - docs/EXCHANGE_FIXTURE_POLICY_RU.md
+
+Notes: |
+  This task should use sanitized fixtures only.
+
+## T54: Bybit Import-to-Audit Integration
+
+Owner:      codex
+Phase:      13
+Type:       integration
+Depends-On: T51, T52, T53
+
+Objective: |
+  Prove the Bybit read-only import path feeds the existing deterministic audit workflow end to end.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Fixture-backed Bybit import writes raw snapshot, normalized trades, import manifest, and then audit report/manifest artifacts."
+    test: "tests/integration/test_bybit_import_to_audit.py::test_bybit_import_feeds_audit"
+  - id: AC-2
+    description: "Bybit import and audit artifacts regenerate with identical hashes across output directories."
+    test: "tests/integration/test_bybit_import_to_audit.py::test_bybit_import_to_audit_is_deterministic"
+  - id: AC-3
+    description: "Audit output includes source-row traceability back to Bybit execution ids without exposing credentials."
+    test: "tests/integration/test_bybit_import_to_audit.py::test_bybit_audit_preserves_safe_traceability"
+
+Files:
+  - trader_risk_audit/exchange/bybit.py
+  - tests/integration/test_bybit_import_to_audit.py
+  - tests/fixtures/exchange/bybit/
+
+Context-Refs:
+  - docs/adr/ADR-002-read-only-exchange-import.md
+  - trader_risk_audit/cli.py
+
+Notes: |
+  Passing this task is the Phase 13 gate.
+
+## T55: Binance Signed Account Request Helper
+
+Owner:      codex
+Phase:      14
+Type:       security
+Depends-On: T46, T50
+
+Objective: |
+  Implement Binance signed account-data request construction for read-only trade-history imports without adding write endpoints.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Signed query construction is deterministic and covered by fixture credentials."
+    test: "tests/unit/exchange/test_binance_signing.py::test_binance_signed_query_is_deterministic"
+  - id: AC-2
+    description: "Signer redacts API key, secret, and signature in repr, errors, and debug output."
+    test: "tests/unit/exchange/test_binance_signing.py::test_binance_signer_redacts_secrets"
+  - id: AC-3
+    description: "Binance client exposes only account trade-history endpoint labels; no order/write/withdraw/transfer endpoints are implemented."
+    test: "tests/unit/exchange/test_binance_signing.py::test_binance_client_exposes_no_write_endpoints"
+
+Files:
+  - trader_risk_audit/exchange/binance.py
+  - tests/unit/exchange/test_binance_signing.py
+
+Context-Refs:
+  - docs/adr/ADR-002-read-only-exchange-import.md
+
+Notes: |
+  Do not use real credentials in tests.
+
+## T56: Binance Spot Trade Fetch Planner
+
+Owner:      codex
+Phase:      14
+Type:       none
+Depends-On: T55
+
+Objective: |
+  Plan deterministic Binance Spot `myTrades` imports by explicit symbols and time ranges.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "CLI requires explicit symbols and date range for Binance spot imports."
+    test: "tests/integration/test_binance_import_cli.py::test_binance_import_requires_symbols_and_range"
+  - id: AC-2
+    description: "Planner builds deterministic symbol/window requests and records source endpoint metadata."
+    test: "tests/unit/exchange/test_binance_fetch_plan.py::test_binance_fetch_plan_is_deterministic"
+  - id: AC-3
+    description: "Pagination/window handling preserves deterministic ordering across symbols and windows."
+    test: "tests/unit/exchange/test_binance_fetch_plan.py::test_binance_fetch_order_is_stable"
+
+Files:
+  - trader_risk_audit/exchange/binance.py
+  - tests/unit/exchange/test_binance_fetch_plan.py
+  - tests/integration/test_binance_import_cli.py
+
+Context-Refs:
+  - docs/adr/ADR-002-read-only-exchange-import.md
+
+Notes: |
+  Binance all-account history is not assumed; symbols are explicit.
+
+## T57: Binance Raw-to-Canonical Normalizer
+
+Owner:      codex
+Phase:      14
+Type:       none
+Depends-On: T49, T56
+
+Objective: |
+  Normalize Binance Spot trade history records into canonical trade records with stable ids, price/quantity/fee mapping, and side inference.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Binance spot trade fixtures normalize to expected canonical trade JSON."
+    test: "tests/unit/exchange/test_binance_normalizer.py::test_binance_trades_normalize_to_canonical_trades"
+  - id: AC-2
+    description: "Stable source row ids include exchange, symbol, order id, trade id, and timestamp."
+    test: "tests/unit/exchange/test_binance_normalizer.py::test_binance_normalizer_emits_stable_row_ids"
+  - id: AC-3
+    description: "Fee, maker/taker, and unsupported fields are preserved or reported without guessing missing audit truth."
+    test: "tests/unit/exchange/test_binance_normalizer.py::test_binance_unsupported_fields_are_reported_safely"
+
+Files:
+  - trader_risk_audit/exchange/binance.py
+  - tests/unit/exchange/test_binance_normalizer.py
+  - tests/fixtures/exchange/binance/
+
+Context-Refs:
+  - trader_risk_audit/trades/schema.py
+  - docs/EXCHANGE_FIXTURE_POLICY_RU.md
+
+Notes: |
+  Keep futures/perps/funding out of the first Binance MVP unless a later task adds them explicitly.
+
+## T58: Binance Import-to-Audit Integration
+
+Owner:      codex
+Phase:      14
+Type:       integration
+Depends-On: T55, T56, T57
+
+Objective: |
+  Prove the Binance Spot read-only import path feeds the existing deterministic audit workflow end to end.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Fixture-backed Binance import writes raw snapshot, normalized trades, import manifest, and then audit report/manifest artifacts."
+    test: "tests/integration/test_binance_import_to_audit.py::test_binance_import_feeds_audit"
+  - id: AC-2
+    description: "Binance import and audit artifacts regenerate with identical hashes across output directories."
+    test: "tests/integration/test_binance_import_to_audit.py::test_binance_import_to_audit_is_deterministic"
+  - id: AC-3
+    description: "Audit output includes source-row traceability back to Binance trade ids without exposing credentials."
+    test: "tests/integration/test_binance_import_to_audit.py::test_binance_audit_preserves_safe_traceability"
+
+Files:
+  - trader_risk_audit/exchange/binance.py
+  - tests/integration/test_binance_import_to_audit.py
+  - tests/fixtures/exchange/binance/
+
+Context-Refs:
+  - docs/adr/ADR-002-read-only-exchange-import.md
+  - trader_risk_audit/cli.py
+
+Notes: |
+  Passing this task is the Phase 14 gate.
+
+## T59: Exchange Import Operator Runbook
+
+Owner:      codex
+Phase:      15
+Type:       docs
+Depends-On: T54, T58
+
+Objective: |
+  Update operator runbooks and pilot intake docs so exchange import is an optional intake path alongside CSV upload.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Runbook explains CSV upload and read-only API import as separate intake methods with different risk and setup steps."
+    test: "tests/test_exchange_import_runbook.py::test_exchange_runbook_covers_csv_and_api_paths"
+  - id: AC-2
+    description: "Docs instruct users to create read-only keys, disable trade/withdraw/transfer permissions, and prefer IP allowlisting."
+    test: "tests/test_exchange_import_runbook.py::test_exchange_runbook_covers_key_safety"
+  - id: AC-3
+    description: "Docs preserve no-advice, no-live-control, no-order-blocking, and local-secret boundaries."
+    test: "tests/test_exchange_import_runbook.py::test_exchange_runbook_preserves_boundaries"
+
+Files:
+  - docs/AUDIT_WORKSPACE_RUNBOOK_RU.md
+  - docs/PILOT_INTAKE_CONTRACT_RU.md
+  - docs/EXCHANGE_API_IMPORT_PLAN_RU.md
+  - tests/test_exchange_import_runbook.py
+
+Context-Refs:
+  - docs/adr/ADR-002-read-only-exchange-import.md
+  - docs/OBJECTION_HANDLING_RU.md
+
+Notes: |
+  Do not create hosted onboarding or public SaaS account flows.
+
+## T60: Exchange Import CLI Safety Guidance
+
+Owner:      codex
+Phase:      15
+Type:       docs
+Depends-On: T59
+
+Objective: |
+  Add safe command examples, setup checklist, and troubleshooting guidance for local exchange imports.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Guidance shows env-var and prompt-based secret input without committing keys to files."
+    test: "tests/test_exchange_import_guidance.py::test_exchange_guidance_avoids_persisted_secrets"
+  - id: AC-2
+    description: "Guidance explains common failure states: non-read-only key, missing symbol/category, time range too wide, rate limit, and permission unverifiable."
+    test: "tests/test_exchange_import_guidance.py::test_exchange_guidance_covers_failure_states"
+  - id: AC-3
+    description: "Guidance points users back to CSV upload if they do not want to create API keys."
+    test: "tests/test_exchange_import_guidance.py::test_exchange_guidance_keeps_csv_fallback"
+
+Files:
+  - docs/EXCHANGE_IMPORT_GUIDE_RU.md
+  - docs/EXCHANGE_IMPORT_GUIDE_EN.md
+  - tests/test_exchange_import_guidance.py
+
+Context-Refs:
+  - docs/adr/ADR-002-read-only-exchange-import.md
+
+Notes: |
+  Keep copy factual; do not imply exchange endorsement.
+
+## T61: Exchange Import Evidence Fields
+
+Owner:      codex
+Phase:      15
+Type:       none
+Depends-On: T59
+
+Objective: |
+  Extend pilot evidence capture so validation can distinguish CSV pilots from read-only exchange-import pilots and track API-setup objections.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Evidence row supports intake method values such as csv_export, bybit_read_only_api, and binance_read_only_api."
+    test: "tests/unit/test_evidence_capture.py::test_evidence_capture_records_intake_method"
+  - id: AC-2
+    description: "Evidence summary can count exchange-import pilots separately from CSV pilots without including raw trade data."
+    test: "tests/unit/test_evidence_capture.py::test_evidence_summary_counts_exchange_imports"
+  - id: AC-3
+    description: "Evidence docs list API key setup objections and safety concerns as non-sensitive fields."
+    test: "tests/test_pilot_evidence_log.py::test_pilot_evidence_log_covers_exchange_import_fields"
+
+Files:
+  - trader_risk_audit/evidence.py
+  - docs/PILOT_EVIDENCE_LOG_RU.md
+  - tests/unit/test_evidence_capture.py
+  - tests/test_pilot_evidence_log.py
+
+Context-Refs:
+  - docs/PILOT_EVIDENCE_LOG_RU.md
+  - docs/adr/ADR-002-read-only-exchange-import.md
+
+Notes: |
+  Do not treat successful API connection as PMF. Payment and repeat-use evidence still matter.
+
+## T62: Exchange Import Deep Review
+
+Owner:      codex
+Phase:      15
+Type:       review
+Depends-On: T59, T60, T61
+
+Objective: |
+  Run a phase-boundary deep review focused on secrets, permissions, reproducibility, deterministic truth, and product boundary after exchange import MVP work.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Review reports P0/P1/P2 findings across code, architecture, security, docs, and tests."
+    test: "manual/review"
+  - id: AC-2
+    description: "Audit index, CODEX prompt, README, evidence index, and phase report are updated with final Phase 15 state."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "Any stop-ship finding is fixed before exchange import is considered pilot-ready."
+    test: "manual/review"
+
+Files:
+  - docs/audit/REVIEW_REPORT.md
+  - docs/audit/ARCH_REPORT.md
+  - docs/audit/PHASE_REPORT_LATEST.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/CODEX_PROMPT.md
+  - README.md
+
+Context-Refs:
+  - docs/prompts/ORCHESTRATOR.md
+  - docs/adr/ADR-002-read-only-exchange-import.md
+  - docs/IMPLEMENTATION_CONTRACT.md
+
+Notes: |
+  This is the release gate for calling read-only exchange import pilot-ready.

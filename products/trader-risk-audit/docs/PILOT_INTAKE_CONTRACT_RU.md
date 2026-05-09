@@ -7,9 +7,11 @@
 trade export и written risk rules, чтобы оператор мог подготовить локальный
 детерминированный audit report.
 
-Это не SaaS onboarding, не создание user account, не подключение к broker или
-exchange API и не автоматическая отправка отчета. Передача файлов и итогового
-report остается ручным pilot workflow до отдельного ADR.
+Это не SaaS onboarding, не создание user account и не автоматическая отправка
+отчета. Текущий стабильный intake использует файлы; ADR-002 отдельно планирует
+будущий read-only exchange import для исторических сделок, но не разрешает
+broker/exchange control, trading, withdrawals, transfers или live account
+management. Передача файлов и итогового report остается ручным pilot workflow.
 
 ## Required Files
 
@@ -21,7 +23,9 @@ report остается ручным pilot workflow до отдельного AD
 3. Заполненный intake request по структуре `templates/intake_request.yaml`.
 
 Не передавайте API keys, passwords, seed phrases, broker tokens, screenshots с
-личными данными, паспортные данные или платежные документы.
+личными данными, паспортные данные или платежные документы через обычный intake.
+Если read-only exchange import будет включен по ADR-002, ключи должны вводиться
+только локально через утвержденный secret path.
 
 ## Required Metadata
 
@@ -71,5 +75,5 @@ delivery требуют явного operator approval до evaluation или de
 ## Privacy and Disclaimer Summary
 
 Pilot inputs and generated reports are local-only by default. Trader Risk Audit
-не является investment advice, не подключается к broker/exchange API, не
+не является investment advice, не управляет broker/exchange account, не
 управляет live orders и не блокирует сделки.

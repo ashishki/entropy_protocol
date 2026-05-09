@@ -23,6 +23,15 @@ This file records durable handoff context across agents and sessions. It is not 
 
 ## Entries
 
+### 2026-05-09 - Roadmap - Read-Only Exchange Import Plan
+
+- Scope: `docs/adr/ADR-002-read-only-exchange-import.md`, `docs/EXCHANGE_API_IMPORT_PLAN_RU.md`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `README.md`, architecture/scope docs.
+- Why this work happened: user requested a safe way to connect Binance/Bybit accounts with limited API permissions and run existing Trader Risk Audit analysis over imported executions.
+- Decisions applied: `D-009`, ADR-002 proposed
+- Evidence collected: official Binance Spot account endpoint/security docs and Bybit V5 execution/API-key metadata docs reviewed; docs-only update, no code tests added.
+- Follow-ups: start T45, then T46-T47 before any real exchange network code.
+- Notes for next agent: read-only import is a planned local ingestion path only. Do not implement order placement, cancellation, withdrawals, transfers, leverage/margin mutation, hosted secrets, Telegram credential collection, signal analytics, or advice.
+
 ### 2026-05-09 - CODE-1 - Delivery Packet Manifest Hash
 
 - Scope: `trader_risk_audit/cli.py`, demo/public sample manifests, pilot fixture manifest hashes, integration tests, docs state.

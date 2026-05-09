@@ -62,6 +62,9 @@ Violation: automatic P1.
 - No credentials, API keys, or secrets in source code.
 - Use environment variables.
 - Document required env vars in `docs/ARCHITECTURE.md` under Runtime Contract.
+- Exchange import credentials, if implemented under ADR-002, must be read-only,
+  local-only, redacted in all output, and never persisted in manifests, logs,
+  queue metadata, workspace metadata, reports, fixtures, or docs.
 
 Violation: automatic P1 and a security incident.
 
@@ -152,9 +155,9 @@ Violation: automatic P1.
 
 ### Runtime Boundary
 
-Application runtime must not install packages, mutate shell state, manage services, call broker/exchange APIs, send Telegram messages, or access credentials. Development tasks and CI may install dependencies using declared files only.
+Application runtime must not install packages, mutate shell state, manage services, call exchange write/control APIs, send Telegram messages without ADR-001 approval, or access credentials outside an approved local secret path. Development tasks and CI may install dependencies using declared files only. ADR-002 permits a future bounded read-only exchange import path for historical fills/executions only.
 
-Violation: automatic P1 for broker/exchange/live-control paths; P2 for unapproved local runtime mutation.
+Violation: automatic P1 for exchange write/control/live-control paths; P2 for unapproved local runtime mutation.
 
 ---
 
@@ -162,8 +165,8 @@ Violation: automatic P1 for broker/exchange/live-control paths; P2 for unapprove
 
 | Boundary | Rule |
 |----------|------|
-| Secrets scope | No secrets are required for core v1. Optional future Telegram credentials must come from environment variables and remain disabled until approved. |
-| Network egress | No network egress in core v1. Broker/exchange egress is forbidden. Telegram bot egress requires ADR/task approval. |
+| Secrets scope | No secrets are required for core CSV audit. Optional future Telegram credentials must come from environment variables and remain disabled until approved. ADR-002 exchange import credentials must be read-only, local, and redacted. |
+| Network egress | No network egress in core CSV audit. Telegram bot egress requires ADR/task approval. ADR-002 permits future bounded read-only exchange egress for historical fills/executions only; exchange write/control egress remains forbidden. |
 | Privileged actions | Accepting rule interpretations, resolving ambiguous exports, adding new rule types, sending paid reports, and enabling any live integration require human approval. |
 | Runtime mutation | Runtime may read local inputs and write local artifacts only. It may not install packages, modify toolchains, start services, or change credentials. |
 | Persistence | Local artifacts are explicit files under operator-controlled directories. Persistent shared services are out of scope. |
@@ -223,7 +226,7 @@ The following actions are never permitted. Violating these generates a P1 findin
 | Merging a PR with failing CI | The CI gate is non-negotiable. |
 | Committing credentials, secrets, real customer exports, or real broker account data | Irreversible exposure risk. |
 | Expanding runtime tier or privilege surface without updating ARCHITECTURE.md and filing an ADR | Runtime escalation is a governance change. |
-| Adding live broker/exchange API calls or order-blocking behavior in v1 | Violates product scope and capital-control boundary. |
+| Adding exchange write/control API calls, withdrawals, transfers, order placement/cancellation, leverage/margin mutation, or order-blocking behavior | Violates product scope and capital-control boundary. |
 | Using AI output as final violation truth, P&L arithmetic, or report claim authority | Violates deterministic audit contract. |
 | Treating retrieval aids as authority over canonical docs | Retrieval surfaces are convenience, not source of truth. |
 | Leaving commented-out code in a commit | Dead code degrades readability; delete it. |

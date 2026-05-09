@@ -1,6 +1,6 @@
 # Architecture - Trader Risk Audit
 
-Version: 1.1
+Version: 1.2
 Last updated: 2026-05-09
 Status: Draft
 
@@ -8,7 +8,7 @@ Status: Draft
 
 ## System Overview
 
-Trader Risk Audit is a local-first, concierge audit workflow for traders who provide executed trade exports and written risk rules, then receive deterministic violation reports with source-row traceability and violation-attributed P&L. It serves active prop-style traders, funded-account traders, systematic retail traders, and small trading teams that need proof of where execution discipline broke down. The system is intentionally batch-oriented, reproducible, and local by default: it does not connect to broker APIs, block orders, make live trading decisions, or use AI to decide violation truth.
+Trader Risk Audit is a local-first, concierge audit workflow for traders who provide executed trade exports or approved read-only exchange history imports plus written risk rules, then receive deterministic violation reports with source-row traceability and violation-attributed P&L. It serves active prop-style traders, funded-account traders, systematic retail traders, and small trading teams that need proof of where execution discipline broke down. The system is intentionally batch-oriented, reproducible, and local by default: it does not control broker/exchange accounts, block orders, make live trading decisions, or use AI to decide violation truth.
 
 ## Capability Profiles
 
@@ -26,7 +26,7 @@ Trader Risk Audit is a local-first, concierge audit workflow for traders who pro
 |----------|-----------|---------------|
 | Primary shape | Workflow orchestration | The product is a known sequence: import export, normalize trades, validate/approve risk policy, run deterministic evaluators, attribute P&L, generate report, package delivery. A workflow is the minimum shape that captures ordered steps and human gates without introducing runtime agency. |
 | Governance level | Standard | Incorrect violations or P&L attribution can damage trader trust, but v1 has no live capital control, no public SaaS surface, and no formal compliance attestation. Standard governance with traceable tasks, tests, CI, audit docs, and one proof-first financial attribution task is proportionate. |
-| Runtime tier | T0 | A local deterministic CLI/script workflow is enough for the first paid pilots. No shell mutation, service reconfiguration, privileged worker, long-lived runtime, broker credentials, or public deployment is needed. |
+| Runtime tier | T0 | A local deterministic CLI/script workflow is enough for the first paid pilots. No shell mutation, service reconfiguration, privileged worker, long-lived runtime, exchange write credential, or public deployment is needed. Planned read-only import is a bounded local network fetch, not an account-control runtime. |
 
 ### Rejected Lower-Complexity Options
 
@@ -39,7 +39,7 @@ Trader Risk Audit is a local-first, concierge audit workflow for traders who pro
 
 ### Runtime Recommendation
 
-T0 is the selected tier. Runtime mutability is not required; package installation happens only during development or CI, not during audit execution. The workflow needs no privileged actions, no broker credentials, no service-to-service network, no persistent mutable worker, and no autonomous recovery path. Recovery is re-run based: the same export, policy file, and audit config must reproduce the same normalized trades, violation records, summary values, and artifact hash. No lower runtime tier exists beneath T0.
+T0 is the selected tier. Runtime mutability is not required; package installation happens only during development or CI, not during audit execution. The workflow needs no privileged actions, no exchange write credentials, no service-to-service network, no persistent mutable worker, and no autonomous recovery path. Recovery is re-run based: the same export or raw exchange snapshot, policy file, and audit config must reproduce the same normalized trades, violation records, summary values, and artifact hash. No lower runtime tier exists beneath T0.
 
 ### Cost / Risk Reasoning
 
@@ -86,8 +86,8 @@ The highest error cost is false accusation, missed violation, bad P&L attributio
 |----------|----------|
 | Isolation boundary | T0 local process. Audits run from the product workspace or a local virtual environment controlled by the operator. |
 | Persistence model | Local files only in v1: input exports, normalized artifacts, reports, delivery packets, manifests, and optional SQLite/DuckDB artifacts if later justified. |
-| Network model | No network required for core v1. Telegram is disabled by default; ADR-001 permits constrained pilot intake/delivery only. No broker/exchange egress. |
-| Secrets model | No required secrets for core v1. Optional Telegram bot token remains disabled by default and must come from environment variables when enabled. |
+| Network model | No network required for core audit. Telegram is disabled by default; ADR-001 permits constrained pilot intake/delivery only. ADR-002 proposes bounded read-only exchange import for historical fills; no exchange write/control egress is approved. |
+| Secrets model | No required secrets for core CSV audit. Optional Telegram bot token remains disabled by default and must come from environment variables when enabled. Planned exchange import credentials must be read-only, local, redacted, and never persisted in manifests/logs/metadata. |
 | Runtime mutation boundary | Application runtime may not install packages, modify toolchains, create services, or mutate shell state. Development and CI dependency installation are outside runtime. |
 | Rollback / recovery model | Re-run an audit from the same export, policy file, and config. Generated artifact hashes must identify output drift. |
 
@@ -126,6 +126,7 @@ Retrieval mode is no retrieval for v1. User-provided rules and templates are loa
 | Markdown report generator | `trader_risk_audit/reporting/markdown.py` | Render deterministic reports from report models and templates. |
 | Claim guard | `trader_risk_audit/reporting/claim_guard.py` | Block unsupported advice, performance, live-control, or causal claims in report text. |
 | Artifact manifest | `trader_risk_audit/artifacts/manifest.py` | Write reproducible manifests and hashes for inputs, normalized data, violations, attribution, reports, and delivery packets. |
+| Planned exchange import | `trader_risk_audit/exchange/` | Future ADR-002 scope for local read-only Binance/Bybit historical fill imports, raw snapshots, import manifests, and normalizers; no order/write/withdraw/transfer endpoints. |
 | Local workspace | `trader_risk_audit/workspace.py` | Create operator-controlled local audit workspaces with input, output, notes, artifacts, and non-sensitive metadata. |
 | Telegram pilot intake/delivery | `trader_risk_audit/telegram_bot/` | Provide disabled-by-default Telegram intake handlers, local file storage, and approved-report delivery abstractions inside ADR-001 boundaries; no broker control, signal parsing, advice, or unapproved report sending. |
 | Pilot review queue | `trader_risk_audit/pilot_queue.py` | Persist local operator-owned request statuses and non-sensitive file references for manual review and approval gates. |
@@ -146,6 +147,22 @@ Retrieval mode is no retrieval for v1. User-provided rules and templates are loa
 10. Claim guard verifies report text avoids investment advice, live-control claims, unsupported causal claims, and performance promises.
 11. Markdown generator writes the report and Telegram-ready summary packet.
 12. Manifest writer records input hashes, policy hash, normalized artifact hash, violation hash, attribution hash, report hash, delivery packet hash, tool version, and generated paths.
+
+## Data Flow - Planned Read-Only Exchange Import
+
+1. User creates a read-only exchange API key and preferably IP-allowlists it.
+2. User provides credentials to a local import command through environment
+   variables or an explicit local prompt.
+3. Importer verifies key permissions where the exchange exposes metadata.
+4. Importer fetches bounded historical fills/executions by explicit exchange,
+   market/category, symbol, and time range.
+5. Importer writes a raw immutable snapshot and import manifest without
+   credentials.
+6. Exchange normalizer maps raw records into canonical trade records.
+7. Existing primary audit path consumes the normalized trades and written risk
+   policy.
+8. Report, delivery packet, and final audit manifest remain deterministic final
+   audit truth.
 
 ## Tech Stack
 
@@ -284,7 +301,7 @@ trader-risk-audit/
 | `TRA_TELEGRAM_BOT_TOKEN` | Optional Telegram token if bot delivery is enabled. Stored in environment only. | empty in `.env.example` | Required only when bot enabled |
 | `TRA_TELEGRAM_CHAT_ID` | Optional Telegram chat id if a future concrete sender needs it. | empty in `.env.example` | No |
 | `TRA_TELEGRAM_WORKSPACE_DIR` | Local operator-controlled workspace for Telegram pilot files. | `./data/telegram_audits` | No |
-| `TRA_LIVE_BROKER_API_ENABLED` | Explicit guard flag; live broker APIs are forbidden in v1. | `false` | No, must be `false` |
+| `TRA_LIVE_BROKER_API_ENABLED` | Explicit guard flag; live broker/exchange control APIs are forbidden. ADR-002 read-only import must use separate local credential handling. | `false` | No, must be `false` |
 | `TRA_ORDER_BLOCKING_ENABLED` | Explicit guard flag; order blocking is forbidden in v1. | `false` | No, must be `false` |
 
 ## Continuity and Retrieval Model
@@ -319,7 +336,9 @@ trader-risk-audit/
 
 ## Non-Goals (v1)
 
-- No live broker or exchange API integration.
+- No live broker or exchange account control.
+- No exchange order placement, order cancellation, withdrawals, transfers,
+  leverage/margin mutation, or hosted secret storage.
 - No order blocking, live risk guard, or capital-control path.
 - No automated strategy trading or AI-generated profitable strategies.
 - No full SaaS dashboard, public marketplace, mobile app, or multi-tenant auth system.

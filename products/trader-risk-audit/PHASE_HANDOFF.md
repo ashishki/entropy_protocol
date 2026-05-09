@@ -4,8 +4,8 @@ Date: 2026-05-09
 
 ## Last Completed
 
-- Post-plan CODE-1 manifest cleanup
-- Phase: Planned roadmap complete through Phase 10
+- Read-only exchange import roadmap update
+- Phase: Phase 11 planned - Read-Only Exchange Import Safety
 - Baseline: 142 pass / 0 skip
 - Ruff: clean
 - Last deep review: Cycle 12 recorded in `docs/audit/REVIEW_REPORT.md`
@@ -14,8 +14,8 @@ Date: 2026-05-09
 
 ## Next
 
-- Next task: none
-- Review tier: none until roadmap update or new task
+- Next task: T45 - Read-Only Exchange Import ADR
+- Review tier: docs/scope review before implementation
 
 ## Validation Commands
 
@@ -42,4 +42,5 @@ Date: 2026-05-09
 - T43 added RU/EN ICP demo variants for prop/funded, crypto discretionary, and team/coach audiences without splitting product scope.
 - T44 added RU/EN paid pilot offer pages. Phase 10 boundary review found no new blockers; all currently planned phases are complete.
 - CODE-1 cleanup added default `telegram_packet.txt` generation to `audit`, records it as `delivery_packet` in `manifest.json`, avoids output-dir-dependent packet text, and updates demo/public sample/pilot fixture hashes.
+- Read-only exchange import roadmap added ADR-002, RU plan, and T45-T62. Next loop must start with safety docs/contracts, not real exchange network code.
 - `/tmp/orchestrator_checkpoint.md` is still owned by another user and could not be overwritten from this session; this file and `MEMORY.md` carry the checkpoint state.

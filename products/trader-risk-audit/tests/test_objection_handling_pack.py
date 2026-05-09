@@ -28,7 +28,7 @@ def test_objection_pack_preserves_claim_boundaries() -> None:
             "not investment advice",
             "no performance promise",
             "does not control live trading",
-            "no broker apis",
+            "broker control",
             "no order blocking",
             "no signal parsing",
         )

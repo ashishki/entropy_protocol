@@ -12,10 +12,10 @@ violated, when they were violated, and how much damage violations created.
 
 ## Current Status
 
-- Current phase: Planned roadmap complete through Phase 10.
+- Current phase: Phase 11 planned - Read-Only Exchange Import Safety.
 - Completed: Phase 1 foundation through Phase 10 conversion assets, including constrained Telegram demo flow, public sample mode, report polish, intake validation, operator CLI, evidence capture, paid pilot conversion docs, and post-plan CODE-1 manifest cleanup.
-- Next task: none; further work should come from paid pilot evidence, review findings, or an explicit roadmap update.
-- Planned next phase: none.
+- Next task: T45 - Read-Only Exchange Import ADR.
+- Planned next phase: Phase 11 starts the Binance/Bybit read-only import roadmap with docs and safety contracts only.
 - Local baseline: 142 passing tests, 0 skipped.
 - Quality checks: `.venv/bin/ruff check` and `.venv/bin/ruff format --check` are clean.
 - Review status: Cycle 12 CODE-1 cleanup review recorded in `docs/audit/REVIEW_REPORT.md`; Stop-Ship: No; no open P0/P1/P2 findings.
@@ -64,6 +64,7 @@ violated, when they were violated, and how much damage violations created.
 | Pilot evidence log | Complete | Russian evidence log and CSV template track qualified calls, paid reports, objections, repeat commitments, and referrals. |
 | Public sample validation | Complete | Source/licensing/privacy policy, `demo/public_sample_001/` evidence pack, and internal readiness review are complete. Verdict: go for manual outreach, not PMF or paid-demand proof. |
 | Starter policy profiles | Complete | `docs/STARTER_POLICY_PROFILES_RU.md` and YAML templates define customizable soft, medium, and hard audit presets for internal validation, not trading advice. |
+| Read-only exchange import | Planned | ADR-002 and `docs/EXCHANGE_API_IMPORT_PLAN_RU.md` define a future local import path for Binance/Bybit historical fills only; no trading, withdrawal, transfer, or hosted secret scope is approved. |
 
 ## Development Roadmap
 
@@ -73,8 +74,13 @@ violated, when they were violated, and how much damage violations created.
 | 8 | Make the demo feel like a product. | T33 Telegram demo happy path, T34 public sample demo mode, T35 report polish, T36 two-minute demo scripts. |
 | 9 | Reduce intake and operator friction. | T37 policy profile selector, T38 intake file validator, T39 operator runbook CLI, T40 evidence capture automation. |
 | 10 | Improve paid pilot conversion. | T41 before/after report comparison, T42 objection handling, T43 ICP-specific demo variants, T44 paid pilot offer page. |
+| 11 | Define read-only exchange import safety boundary. | T45 ADR-002, T46 credential permission contract, T47 exchange fixture/redaction policy. |
+| 12 | Build fixture-backed exchange import core. | T48 raw snapshot schema/import manifest, T49 normalizer interface, T50 fixture-backed CLI. |
+| 13 | Add Bybit read-only import MVP. | T51 key metadata check, T52 execution fetch planner, T53 normalizer, T54 import-to-audit integration. |
+| 14 | Add Binance read-only import MVP. | T55 signed account request helper, T56 spot trade fetch planner, T57 normalizer, T58 import-to-audit integration. |
+| 15 | Prepare operator UX and pilot validation for exchange import. | T59 runbook, T60 safety guidance, T61 evidence fields, T62 deep review. |
 
-Roadmap guardrail: these phases may improve the demo and pilot workflow, but they must not add broker APIs, signal parsing, order blocking, auto-advice, live trading behavior, checkout, accounts, or public SaaS scope without a later ADR and paid pilot evidence.
+Roadmap guardrail: read-only exchange import is allowed only as local historical fill ingestion under ADR-002. These phases must not add order placement, order cancellation, withdrawals, transfers, leverage/margin mutation, signal parsing, order blocking, auto-advice, live trading behavior, checkout, accounts, or public SaaS scope.
 
 Loop continuity: after each phase, the orchestrator should run deep review, archive it, apply required fixes, update state docs, and continue to the next planned phase when no stop-ship finding remains. The roadmap may be revised when review findings or validation evidence justify it.
 
@@ -99,10 +105,12 @@ Loop continuity: after each phase, the orchestrator should run deep review, arch
 - Pilot payment/evidence tracking.
 - Public/anonymized internal validation samples before trader outreach.
 - Soft/medium/hard starter policy profiles as customizable audit presets.
+- Planned local read-only exchange import for historical Binance/Bybit fills under ADR-002.
 
 ## Scope Out
 
-- Live broker/exchange APIs.
+- Live broker/exchange control APIs.
+- Exchange order placement, order cancellation, withdrawals, transfers, leverage/margin mutation, or hosted secret storage.
 - Order blocking.
 - Full SaaS dashboard.
 - Strategy backtesting platform.

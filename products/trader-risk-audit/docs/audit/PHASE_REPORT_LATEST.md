@@ -1,4 +1,4 @@
-# Current Report - Planned Roadmap Complete
+# Current Report - Phase 11 Planned
 
 ## What Was Built
 
@@ -26,6 +26,12 @@ default `audit` command now writes `telegram_packet.txt`, includes it as
 `delivery_packet` in `manifest.json`, and keeps content hashes stable across
 different output directories.
 
+The roadmap now includes a planned read-only exchange import expansion. ADR-002
+and `docs/EXCHANGE_API_IMPORT_PLAN_RU.md` define a local post-trade ingestion
+path for Binance/Bybit historical fills, with no trading, withdrawals,
+transfers, leverage/margin mutation, hosted secrets, signal analytics, or
+advice scope.
+
 ## Validation
 
 - Before Phase 10: 130 passing tests.
@@ -42,19 +48,21 @@ different output directories.
 
 GREEN.
 
-All currently planned phases are complete. The product remains healthy for
-manual outreach and paid pilot testing. There are no open P0/P1/P2 findings.
+The completed product remains healthy for manual outreach and paid pilot
+testing. Phase 11 is planned but not implemented. There are no open P0/P1/P2
+findings.
 
 ## Next Phase
 
-No next phase is currently planned. Further work should come from paid pilot
-evidence, review findings, or an explicit roadmap update.
+Phase 11 - Read-Only Exchange Import Safety. Start with T45 ADR-002 acceptance,
+then T46 credential permission contract and T47 exchange fixture/redaction
+policy. Do not add real exchange network code before T45-T47 are complete.
 
 ## Notification Summary
 
-Roadmap DONE + CODE-1 closed
-Built: conversion assets, deterministic packet manifest coverage
+Phase 11 PLANNED
+Built: conversion assets, deterministic packet manifest coverage, exchange import roadmap
 Tests: 142 pass
 Issues: P0:0 P1:0 P2:0 open
 Health: GREEN
-Next: paid pilot outreach or roadmap update
+Next: T45 read-only exchange import ADR

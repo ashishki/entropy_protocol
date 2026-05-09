@@ -14,8 +14,10 @@ payment identifiers, API keys, passwords, seed phrases, or raw private notes."
 
 Objection: "Can you connect to my broker?"
 
-Answer: "No broker API for this pilot. The workflow uses exported files. It has
-no broker APIs, no exchange API, no order blocking, and no live account access."
+Answer: "The current stable pilot uses exported files. The next planned roadmap
+may add read-only Binance/Bybit import for historical fills, but that is not
+broker control: no trading permission, no withdrawals, no transfers, no order
+blocking, and no live account access."
 
 ## No Advice
 

@@ -14,8 +14,10 @@ identifiers, API keys, passwords, seed phrases или raw private notes."
 
 Objection: "Можете подключиться к broker?"
 
-Ответ: "No broker API для pilot. Workflow использует exported files. Здесь no
-broker APIs, no exchange API, no order blocking и no live account access."
+Ответ: "Текущий stable pilot использует exported files. Следующая planned
+roadmap может добавить read-only Binance/Bybit import для historical fills, но
+это не broker control: no trading permission, no withdrawals, no transfers, no
+order blocking и no live account access."
 
 ## No Advice
 
