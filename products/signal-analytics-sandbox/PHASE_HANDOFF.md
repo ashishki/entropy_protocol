@@ -4,11 +4,11 @@ Use this file only at a phase boundary, context rollover, or limit recovery.
 
 ## Current State
 
-- Phase: 19 complete and archived.
-- Active task: none defined.
+- Phase: 20 planned.
+- Active task: `SAS-MEDIA-001: Media Scope ADR And Legal Addendum`.
 - Branch: `codex/signal-analytics-sandbox-work`.
 - Last validation: `.venv/bin/python -m pytest tests/ -q` -> 141 tests passed on 2026-05-09; `ruff check src/ tests/` and `.venv/bin/pyright` also pass.
-- Git status summary: Phase 17, Phase 18, Phase 19, and current closeout docs are pending commit.
+- Git status summary: Phase 20 planning docs are pending commit.
 
 ## Completed In This Phase
 
@@ -321,7 +321,7 @@ Use this file only at a phase boundary, context rollover, or limit recovery.
 
 ## Remaining Work
 
-- No implementation task is currently defined in `docs/tasks.md`.
+- Implement `SAS-MEDIA-001: Media Scope ADR And Legal Addendum`.
 - Human exception review of `docs/pilot/bablos79_REVIEW_QUEUE.md` remains a
   useful parallel product action, but it no longer blocks planning the broader
   architecture.
@@ -333,13 +333,14 @@ Use this file only at a phase boundary, context rollover, or limit recovery.
 - Phase 19 selected deterministic reviewer/export improvements. Do not add
   modality providers, external services, private scraping, broker paths, public
   leaderboard expansion, marketplace expansion, or forward-looking claims.
-- Operator/product direction is required before adding another phase.
+- Phase 20 has been added for Telegram media evidence. Start with ADR/legal
+  retention before any media provider code.
 
 ## Resume Instruction
 
 Continue this product from `RUNBOOK.md`, `AGENT_NOTES.md`, this
 `PHASE_HANDOFF.md`, `docs/CODEX_PROMPT.md`, and `docs/tasks.md`.
-Do not spawn nested Codex. Stop until the operator adds or approves the next
-task/phase. Do not write approved ledger records from draft/parser output
-without human review. Do not add modality providers or external services
-without a new scoped task and, where needed, an ADR.
+Do not spawn nested Codex. Continue with `SAS-MEDIA-001` from `docs/tasks.md`.
+Do not write approved ledger records from transcript/OCR output without human
+review. Do not add Telegram voice, Whisper, OCR, image analysis, or any media
+provider code before the ADR/legal addendum task is complete.

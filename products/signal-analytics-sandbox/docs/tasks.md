@@ -28,6 +28,7 @@ Phases:
 - **Phase 17** — Bounded batch analyst.
 - **Phase 18** — Author Market Report V0.
 - **Phase 19** — Channel-specific modalities and tools.
+- **Phase 20** — Telegram media evidence: voice and image/OCR drafts.
 
 ---
 
@@ -2177,3 +2178,303 @@ Notes: |
   modality providers, external services, private scraping, broker integration,
   report publication, public leaderboard behavior, marketplace behavior, or
   forward-looking claims.
+
+---
+
+## Phase 20 — Telegram Media Evidence: Voice And Image/OCR Drafts
+
+### SAS-MEDIA-001: Media Scope ADR And Legal Addendum
+
+Owner:      codex
+Phase:      20
+Type:       governance
+Depends-On: SAS-MI-019
+
+Objective: |
+  Authorize the exact media evidence posture before any media provider code
+  lands. The ADR must decide allowed Telegram media sources, operator-forwarded
+  vs public-channel capture rules, raw media retention, transcript/OCR draft
+  status, managed Whisper posture, OCR/image analysis posture, cost/approval
+  gates, and rollback.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/adr/ADR-004-media-evidence-pipeline.md` exists and references the Dream_Motif_Interpreter voice pattern files used as implementation guidance."
+    test: "manual-evidence: ADR includes reference section with file paths."
+  - id: AC-2
+    description: "`docs/legal_risk_memo.md` is updated with explicit voice/audio/image/OCR posture, allowed public/operator-forwarded media capture, forbidden private/authenticated sources, raw-media retention, and deletion triggers."
+    test: "manual-evidence: legal memo §Media Evidence is present."
+  - id: AC-3
+    description: "ADR keeps runtime T0 and states that transcript/OCR outputs are draft evidence only, review-required, and cannot write approved ledger rows or customer-facing claims."
+    test: "manual-evidence: ADR boundary section present."
+
+Files:
+  - docs/adr/ADR-004-media-evidence-pipeline.md
+  - docs/legal_risk_memo.md
+  - docs/pilot/MEDIA_MODALITY_DEVELOPMENT_PLAN.md
+  - docs/CODEX_PROMPT.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Notes: |
+  Use Dream_Motif_Interpreter as a pattern reference for Telegram voice
+  download, acknowledgement, transcription worker, and cleanup. Do not copy its
+  domain model, database schema, or assistant behavior.
+
+---
+
+### SAS-MEDIA-002: MediaArtifact Schema And Manifest
+
+Owner:      codex
+Phase:      20
+Type:       validation
+Depends-On: SAS-MEDIA-001
+
+Objective: |
+  Add a deterministic local schema for media artifacts linked to captures and
+  source documents. The schema must represent voice/audio/images without adding
+  Telegram, Whisper, OCR, or provider calls.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`MediaArtifact` records media_id, source_id, capture_id, source_document_id, modality, original_url_or_file_id, local_path, media_sha256, mime_type, duration_seconds or image dimensions when available, retention_state, created_at_utc, and draft refs."
+    test: "tests/unit/test_media_artifact.py::test_media_artifact_schema_requires_provenance"
+  - id: AC-2
+    description: "Manifest export writes deterministic Markdown/JSON rows sorted by source timestamp, source_document_id, and media_id."
+    test: "tests/unit/test_media_artifact.py::test_media_manifest_is_deterministically_sorted"
+  - id: AC-3
+    description: "Schema rejects artifacts without capture/source linkage or checksum and does not create transcript/OCR/provider outputs."
+    test: "tests/unit/test_media_artifact.py::test_media_artifact_rejects_unlinked_or_unhashed_media"
+
+Files:
+  - src/signal_sandbox/media/artifact.py
+  - src/signal_sandbox/media/__init__.py
+  - tests/unit/test_media_artifact.py
+  - docs/specs/MEDIA_ARTIFACTS.md
+  - docs/CODEX_PROMPT.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Notes: |
+  This is metadata only. Raw media files remain local operator-controlled
+  inputs. No provider dependency is added in this task.
+
+---
+
+### SAS-MEDIA-003: Telegram Voice Acquisition Adapter
+
+Owner:      codex
+Phase:      20
+Type:       validation
+Depends-On: SAS-MEDIA-002
+
+Objective: |
+  Adapt the proven Telegram voice download pattern for operator-authorized
+  public evidence. The adapter downloads Telegram voice media to local
+  temporary storage, records a `MediaArtifact`, and stops. It does not
+  transcribe audio.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Adapter accepts an injected Telegram client with `get_file(file_id)` and downloads voice `.ogg` to configured local media dir with deterministic event metadata and SHA-256."
+    test: "tests/unit/test_telegram_voice_acquisition.py::test_downloads_voice_with_injected_client"
+  - id: AC-2
+    description: "Adapter rejects missing source/capture linkage, non-public or non-operator-authorized media, and missing legal media authorization."
+    test: "tests/unit/test_telegram_voice_acquisition.py::test_rejects_unauthorized_or_unlinked_voice"
+  - id: AC-3
+    description: "Download failures return typed errors and do not persist partial artifacts."
+    test: "tests/unit/test_telegram_voice_acquisition.py::test_download_failure_has_no_partial_artifact"
+
+Files:
+  - src/signal_sandbox/media/telegram_voice.py
+  - tests/unit/test_telegram_voice_acquisition.py
+  - docs/specs/MEDIA_ARTIFACTS.md
+  - docs/CODEX_PROMPT.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Notes: |
+  Reference Dream_Motif_Interpreter `app/telegram/voice.py` and
+  `app/telegram/handlers.py` for lifecycle shape. CI must use fake clients; no
+  real Telegram network call is allowed in tests.
+
+---
+
+### SAS-MEDIA-004: Whisper Transcript Draft Adapter
+
+Owner:      codex
+Phase:      20
+Type:       validation
+Depends-On: SAS-MEDIA-003
+
+Objective: |
+  Add a gated transcription adapter for local voice artifacts using managed
+  Whisper-style transcription through an injected client. Transcripts are draft
+  evidence only and must require human review before downstream use.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Adapter requires both environment enablement and per-run approval before invoking the transcription client; disabled runs return an explicit skipped status."
+    test: "tests/unit/test_whisper_transcript_adapter.py::test_double_gate_required"
+  - id: AC-2
+    description: "Successful transcription writes a draft transcript artifact with media_id, transcript_id, provider/model, transcript_sha256, source media checksum, status=draft_pending_review, and reviewer_id=pending."
+    test: "tests/unit/test_whisper_transcript_adapter.py::test_transcript_preserves_media_provenance"
+  - id: AC-3
+    description: "Provider failure records a typed failure status, does not create an approved transcript, and leaves raw media cleanup decision to the retention policy."
+    test: "tests/unit/test_whisper_transcript_adapter.py::test_provider_failure_is_not_truth"
+  - id: AC-4
+    description: "Successful transcription deletes or marks raw audio according to ADR-004 retention policy and logs no raw transcript text in logger extras."
+    test: "tests/unit/test_whisper_transcript_adapter.py::test_success_follows_retention_and_logging_policy"
+
+Files:
+  - src/signal_sandbox/media/transcription.py
+  - tests/unit/test_whisper_transcript_adapter.py
+  - docs/specs/MEDIA_ARTIFACTS.md
+  - docs/audit/MEDIA_EVAL.md
+  - docs/CODEX_PROMPT.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Notes: |
+  Reference Dream_Motif_Interpreter `app/workers/transcribe.py` for provider
+  boundary and cleanup thinking. Do not route transcripts directly to reports
+  or approved MarketIdea rows.
+
+---
+
+### SAS-MEDIA-005: Image Evidence Inventory And OCR Scope
+
+Owner:      codex
+Phase:      20
+Type:       governance
+Depends-On: SAS-MEDIA-002
+
+Objective: |
+  Inventory image/screenshot evidence needs for `bablos79` before implementing
+  OCR or image annotation. Decide whether text OCR is enough or chart/image
+  annotation is required.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/bablos79_MEDIA_INVENTORY.md` lists known media gaps by source/capture, modality, blocker type, expected evidence value, and whether OCR/transcription/manual review is needed."
+    test: "manual-evidence: inventory artifact exists with required columns."
+  - id: AC-2
+    description: "Inventory separates image text OCR from chart interpretation and forbids chart-derived trading claims without human review."
+    test: "manual-evidence: inventory has OCR vs image-annotation decision section."
+  - id: AC-3
+    description: "If OCR is approved, the next OCR task has acceptance tests and does not add public report claims."
+    test: "manual-evidence: docs/tasks.md OCR follow-up remains scoped."
+
+Files:
+  - docs/pilot/bablos79_MEDIA_INVENTORY.md
+  - docs/tasks.md
+  - docs/CODEX_PROMPT.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Notes: |
+  This is a gate task. It may approve OCR draft extraction, but not autonomous
+  chart interpretation or customer-facing claims.
+
+---
+
+### SAS-MEDIA-006: OCR Draft Adapter
+
+Owner:      codex
+Phase:      20
+Type:       validation
+Depends-On: SAS-MEDIA-005
+
+Objective: |
+  Add review-required OCR draft extraction for local image artifacts when
+  Phase 20 inventory shows image text blocks report coverage. OCR output is
+  draft evidence only.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Adapter accepts local image `MediaArtifact` rows and an injected OCR client; CI uses fake OCR client and no network/provider call."
+    test: "tests/unit/test_ocr_draft_adapter.py::test_ocr_uses_injected_client"
+  - id: AC-2
+    description: "OCR output records media_id, ocr_id, provider/model, text_sha256, source media checksum, bounding metadata when available, status=draft_pending_review, and reviewer_id=pending."
+    test: "tests/unit/test_ocr_draft_adapter.py::test_ocr_preserves_media_provenance"
+  - id: AC-3
+    description: "Adapter refuses chart interpretation labels, price levels, or trade claims unless they are stored as review-required notes, not approved truth."
+    test: "tests/unit/test_ocr_draft_adapter.py::test_chart_claims_are_review_required"
+
+Files:
+  - src/signal_sandbox/media/ocr.py
+  - tests/unit/test_ocr_draft_adapter.py
+  - docs/specs/MEDIA_ARTIFACTS.md
+  - docs/audit/MEDIA_EVAL.md
+  - docs/CODEX_PROMPT.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Notes: |
+  Do not add OCR output to customer-facing reports until a later review task
+  marks evidence as ready.
+
+---
+
+### SAS-MEDIA-007: Multimodal SourceDocument Join
+
+Owner:      codex
+Phase:      20
+Type:       validation
+Depends-On: SAS-MEDIA-004, SAS-MEDIA-006
+
+Objective: |
+  Link reviewed or draft transcript/OCR artifacts into `SourceDocument`
+  references and retrieval context without rewriting original capture text or
+  hashes.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Join helper returns enriched SourceDocument copies with transcript_refs and ocr_refs populated from media artifacts while preserving original text, evidence_url, and text_sha256 byte-identically."
+    test: "tests/unit/test_multimodal_source_join.py::test_join_preserves_original_source_document"
+  - id: AC-2
+    description: "Join helper rejects transcript/OCR artifacts whose source media checksum or capture linkage does not match the SourceDocument."
+    test: "tests/unit/test_multimodal_source_join.py::test_join_rejects_mismatched_media_refs"
+  - id: AC-3
+    description: "Retrieval context may cite transcript/OCR refs but cannot mutate approved MarketIdea rows, outcomes, or reports."
+    test: "tests/unit/test_multimodal_source_join.py::test_join_has_no_truth_artifact_side_effects"
+
+Files:
+  - src/signal_sandbox/media/source_join.py
+  - tests/unit/test_multimodal_source_join.py
+  - docs/specs/SOURCE_CORPUS.md
+  - docs/specs/MEDIA_ARTIFACTS.md
+  - docs/CODEX_PROMPT.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Notes: |
+  Original text captures remain canonical. Media-derived text is additional
+  draft evidence with separate provenance.
+
+---
+
+### SAS-MEDIA-008: Multimodal Coverage Pack And Decision Gate
+
+Owner:      codex
+Phase:      20
+Type:       validation
+Depends-On: SAS-MEDIA-007
+
+Objective: |
+  Extend reviewer coverage to show text, transcript, and OCR readiness, then
+  decide whether multimodal evidence now justifies a customer sample report.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/bablos79_MULTIMODAL_COVERAGE_PACK.md` records text/transcript/OCR coverage counts, review-required rows, ready-for-customer-sample rows, and missing evidence reasons."
+    test: "manual-evidence: multimodal coverage artifact exists with required sections."
+  - id: AC-2
+    description: "`docs/pilot/MEDIA_MODALITY_DECISION.md` decides continue/iterate/pause and cites media coverage, transcript/OCR quality, customer value, cost/risk, and next action."
+    test: "manual-evidence: decision artifact exists with required fields."
+  - id: AC-3
+    description: "Phase 20 deep review/archive/doc update is completed before any Phase 21 task begins."
+    test: "manual-evidence: archive and audit index updated."
+
+Files:
+  - docs/pilot/bablos79_MULTIMODAL_COVERAGE_PACK.md
+  - docs/pilot/MEDIA_MODALITY_DECISION.md
+  - docs/CODEX_PROMPT.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Notes: |
+  Customer-facing report use remains blocked unless the decision records
+  reviewed evidence coverage and human approval.

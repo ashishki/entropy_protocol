@@ -75,6 +75,19 @@ Agent: Codex
 - Current validation: 141 pytest pass, 0 skipped; ruff and pyright pass.
 - Next task: none defined. Stop pending operator/product direction.
 
+## 2026-05-09 Update — Phase 20 Media Planning Added
+
+- Added `docs/pilot/MEDIA_MODALITY_DEVELOPMENT_PLAN.md`.
+- Added Phase 20 to `docs/tasks.md`: `SAS-MEDIA-001..008`.
+- Updated next task to `SAS-MEDIA-001: Media Scope ADR And Legal Addendum`.
+- Phase 20 covers Telegram voice/audio and image/OCR evidence, starting with
+  ADR/legal retention before any provider code.
+- Implementation reference: `Dream_Motif_Interpreter` voice pipeline
+  (`docs/VOICE_PIPELINE.md`, `app/telegram/voice.py`,
+  `app/telegram/handlers.py`, `app/workers/transcribe.py`).
+- Boundary: transcription/OCR outputs remain draft evidence, review-required,
+  and cannot write approved ledger rows or customer-facing report claims.
+
 ## Investigation Summary
 
 - Product path inspected: `products/signal-analytics-sandbox/`.

@@ -9,6 +9,8 @@ wedge separate from Entropy Core and Trader Risk Audit.
 
 - Phase 0 gates are acknowledged for the initial Telegram pilot sources.
 - Engineering Phases 1-19 are complete through `SAS-MI-019`.
+- Phase 20 is planned for Telegram media evidence: voice/audio transcription
+  drafts and image/OCR drafts.
 - Phase 9 pilot loop is complete; 60 public `bablos79` text captures exist in
   `workspace/captures/bablos79/`.
 - Phase 10 produced draft-only pseudo-labels, an author profile, deterministic
@@ -22,7 +24,7 @@ wedge separate from Entropy Core and Trader Risk Audit.
   deterministic thesis evaluation, author metrics, bounded internal analyst
   memo export, Author Market Report V0, the sellability decision gate,
   ADR-003, and the reviewer coverage export pack.
-- Current next engineering task: none defined.
+- Current next engineering task: `SAS-MEDIA-001: Media Scope ADR And Legal Addendum`.
 - Package target: Python 3.12, installable as `signal-sandbox`.
 - CLI status: `signal-sandbox` exists with stubs for the planned operator workflow.
 - Tests: 141 passing; ruff and pyright pass locally.
@@ -57,8 +59,9 @@ Initial pilot sources:
 3. `docs/pilot/AUDIT_GRADE_AUTOMATION_ROADMAP.md`
 4. `docs/pilot/AUTO_EXTRACTION_DEVELOPMENT_PLAN.md`
 5. `docs/pilot/AUTHOR_MARKET_INTELLIGENCE_ROADMAP.md`
-6. `../../docs/PRODUCT_PORTFOLIO.md`
-7. `../../docs/AI_DEVELOPMENT_OPERATING_MODEL.md`
+6. `docs/pilot/MEDIA_MODALITY_DEVELOPMENT_PLAN.md`
+7. `../../docs/PRODUCT_PORTFOLIO.md`
+8. `../../docs/AI_DEVELOPMENT_OPERATING_MODEL.md`
 
 ## Local AI Workflow
 

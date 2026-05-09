@@ -274,5 +274,5 @@ Implementation status:
 
 ## Immediate Next Task
 
-Run `SAS-MI-001: Author Market Intelligence Architecture ADR` from
-`docs/tasks.md`.
+Run `SAS-MEDIA-001: Media Scope ADR And Legal Addendum` from `docs/tasks.md`.
+The phase plan is in `docs/pilot/MEDIA_MODALITY_DEVELOPMENT_PLAN.md`.

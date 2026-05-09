@@ -1,8 +1,8 @@
 # CODEX_PROMPT.md — Signal Analytics Sandbox
 
-Version: 2.56
+Version: 2.57
 Date: 2026-05-09
-Phase: 19
+Phase: 20
 
 ---
 
@@ -24,7 +24,7 @@ Telegram pilot validates the product hypothesis.
 
 ## Current State
 
-- **Phase:** 19 (Channel-Specific Modalities And Tools)
+- **Phase:** 20 (Telegram Media Evidence: Voice And Image/OCR Drafts)
 - **Baseline:** 141 passing tests, 0 skipped
 - **Ruff:** `ruff check src/ tests/` passes
 - **Pyright:** `pyright` passes
@@ -51,27 +51,42 @@ Telegram pilot validates the product hypothesis.
 - **Pilot development loop:** `docs/PILOT_DEVELOPMENT_LOOP_RU.md`
 - **Audit-grade automation roadmap:** `docs/pilot/AUDIT_GRADE_AUTOMATION_ROADMAP.md`
 - **Author Market Intelligence roadmap:** `docs/pilot/AUTHOR_MARKET_INTELLIGENCE_ROADMAP.md`
+- **Media modality development plan:** `docs/pilot/MEDIA_MODALITY_DEVELOPMENT_PLAN.md`
 - **Orchestrator loop contract:** `docs/prompts/ORCHESTRATOR.md#phase-continuation-contract`
 
 ---
 
 ## Next Task
 
-None — current task graph complete
+`SAS-MEDIA-001: Media Scope ADR And Legal Addendum`
 
-`SAS-MI-019` completed the deterministic reviewer coverage export pack selected
-by ADR-003. No further implementation task is currently defined in
-`docs/tasks.md`.
+The operator identified channel media as the next bottleneck: `bablos79` has
+images/screenshots and voice/audio that the current text-only path does not
+analyze. Phase 20 has been added to `docs/tasks.md`.
 
 Immediate instruction:
-- Stop the implementation loop unless the operator adds or approves the next
-  task/phase.
-- Preserve the current boundaries: no approved ledger rows from draft/parser
-  output, no customer-facing claims from coverage rows, no modality providers,
-  no external services, no private scraping, no broker integration, no public
-  leaderboard, no marketplace behavior, and no forward-looking claims.
+- Implement `SAS-MEDIA-001` from `docs/tasks.md`.
+- Create `docs/adr/ADR-004-media-evidence-pipeline.md`.
+- Update `docs/legal_risk_memo.md` with explicit voice/audio/image/OCR media
+  posture, allowed public/operator-forwarded capture, forbidden private or
+  authenticated sources, raw-media retention, and deletion triggers.
+- Reference the Dream_Motif_Interpreter voice pattern for Telegram
+  `voice.file_id` download, media event/status, Whisper transcription boundary,
+  and cleanup; do not copy its domain model or assistant behavior.
+- Keep transcript/OCR output as draft evidence only, review-required, and
+  forbidden from writing approved ledger rows or customer-facing claims.
 
 Closeout digest for the Orchestrator:
+- Phase 20 planning added `docs/pilot/MEDIA_MODALITY_DEVELOPMENT_PLAN.md` and
+  tasks `SAS-MEDIA-001..008` to `docs/tasks.md`. The phase is scoped to
+  Telegram media evidence: media legal/ADR gate, MediaArtifact schema, Telegram
+  voice acquisition, gated Whisper transcript drafts, image/OCR inventory, OCR
+  draft adapter, multimodal SourceDocument join, and multimodal coverage/decision
+  gate. Dream_Motif_Interpreter is the implementation reference for Telegram
+  voice mechanics (`docs/VOICE_PIPELINE.md`, `app/telegram/voice.py`,
+  `app/telegram/handlers.py`, `app/workers/transcribe.py`), adapted to this
+  product's public-source and draft-evidence boundaries. No media provider code
+  has been implemented yet.
 - SAS-MI-019 added `src/signal_sandbox/market_ideas/review_coverage.py`,
   `tests/unit/test_review_coverage_export.py`, and
   `docs/pilot/bablos79_REVIEW_COVERAGE_PACK.md`. The exporter emits one

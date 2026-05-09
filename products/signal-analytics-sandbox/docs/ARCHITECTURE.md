@@ -228,6 +228,12 @@ vector/index sidecar files as the first retrieval substrate. Activation is a
 governance decision only; implementation still waits for the scoped tasks in
 Phases 14 and 17.
 
+Phase 20 note: Telegram media evidence is planned for voice/audio and
+image/OCR drafts. Media work must start with `SAS-MEDIA-001` and ADR-004 before
+provider code lands. Raw media, transcript text, and OCR output are draft
+evidence only until human review; they cannot approve records, compute
+outcomes, or create customer-facing claims.
+
 ---
 
 ## Component Table
