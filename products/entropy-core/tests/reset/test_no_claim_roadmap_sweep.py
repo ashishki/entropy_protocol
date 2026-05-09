@@ -74,7 +74,7 @@ def test_future_phases_are_not_approvals() -> None:
     assert "phase: 11" in prompt
     assert "phase: 11 live-feed dry run readiness" in handoff
     assert "protocol-only holdout access design" in handoff
-    assert "active task: t48 live-feed adapter dry-run contract" in handoff
+    assert "active task: t49 live-feed observability packet" in handoff
     assert "t40 holdout approval request packet scaffold completed" in prompt
     assert "t41 holdout approval evidence intake contract completed" in prompt
     assert "t35 holdout access protocol deny-by-default contract completed" in prompt

@@ -58,8 +58,9 @@ def test_holdout_approval_decision_review_updates_state() -> None:
     assert "Status:     done 2026-05-09" in _task_section(tasks, "T45")
     assert "Status:     done 2026-05-09" in _task_section(tasks, "T46")
     assert "Status:     done 2026-05-09" in _task_section(tasks, "T47")
-    assert "Status:     active" in _task_section(tasks, "T48")
-    assert "Status:     pending" in _task_section(tasks, "T49")
+    assert "Status:     done 2026-05-09" in _task_section(tasks, "T48")
+    assert "Status:     active" in _task_section(tasks, "T49")
+    assert "Status:     pending" in _task_section(tasks, "T50")
     assert "HOLDOUT-APPROVAL-DECISION" in audit_index
     assert "`docs/audit/HOLDOUT_APPROVAL_DECISION_REVIEW.md`" in audit_index
 

@@ -66,7 +66,7 @@ def test_codex_prompt_records_phase7_review_state() -> None:
     assert "Status:     done 2026-05-09" in _task_section(tasks, "T39")
     assert "Status:     done 2026-05-09" in _task_section(tasks, "T40")
     assert "Status:     done 2026-05-09" in _task_section(tasks, "T41")
-    assert "Status:     active" in _task_section(tasks, "T48")
+    assert "Status:     active" in _task_section(tasks, "T49")
 
 
 def _task_section(text: str, task_id: str) -> str:

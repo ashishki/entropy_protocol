@@ -1717,7 +1717,7 @@ Owner:      codex
 Phase:      11
 Type:       none
 Depends-On: T47
-Status:     active
+Status:     done 2026-05-09
 
 Objective: |
   Define adapter dry-run checks that exercise local parsing and normalization boundaries without live connectivity or order paths.
@@ -1749,7 +1749,7 @@ Owner:      codex
 Phase:      11
 Type:       none
 Depends-On: T48
-Status:     pending
+Status:     active
 
 Objective: |
   Define local observability evidence for dry-run feed readiness, including logging, counters, and failure states without external side effects.

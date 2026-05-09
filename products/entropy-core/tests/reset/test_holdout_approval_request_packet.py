@@ -51,8 +51,8 @@ def test_state_docs_record_phase10_no_read_decision_work() -> None:
 
     assert "phase: 11" in prompt
     assert "phase 11 live-feed dry run readiness" in combined
-    assert "current active task is t48 live-feed adapter dry-run contract" in prompt
-    assert "active task: t48 live-feed adapter dry-run contract" in handoff
+    assert "current active task is t49 live-feed observability packet" in prompt
+    assert "active task: t49 live-feed observability packet" in handoff
     assert "t41 holdout approval evidence intake contract completed" in prompt
     assert "t40 holdout approval request packet scaffold completed" in prompt
     assert "no approval event currently exists" in combined

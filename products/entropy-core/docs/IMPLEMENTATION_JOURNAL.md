@@ -21,6 +21,15 @@ This file records handoff context. It is not authority.
 
 ## Entries
 
+### 2026-05-09 - T48 - Live-Feed Adapter Dry-Run Contract
+
+- Scope: `docs/protocols/LIVE_FEED_ADAPTER_DRY_RUN_CONTRACT.md`, `tests/reset/test_live_feed_adapter_dry_run_contract.py`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`
+- Why this work happened: define local adapter dry-run checks before observability packet work
+- Decisions applied: `docs/protocols/LIVE_FEED_FIXTURE_MANIFEST.md`
+- Evidence collected: T48 acceptance tests passed (`3 passed`); full reset baseline `447 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean
+- Follow-ups: start T49 Live-Feed Observability Packet
+- Notes for next agent: T48 covers local parser, normalization, clock, replay, failure-state, and idempotence checks. Network sockets, credentials, live feed connectivity, orders, broker/exchange execution, capital actions, production labels, and holdout access remain blocked.
+
 ### 2026-05-09 - T47 - Live-Feed Fixture Manifest
 
 - Scope: `docs/protocols/LIVE_FEED_FIXTURE_MANIFEST.md`, `tests/reset/test_live_feed_fixture_manifest.py`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`
