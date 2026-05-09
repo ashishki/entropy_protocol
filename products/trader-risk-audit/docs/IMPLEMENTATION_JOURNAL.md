@@ -1,7 +1,7 @@
 # Implementation Journal - Trader Risk Audit
 
 Version: 1.0
-Last updated: 2026-05-08
+Last updated: 2026-05-09
 Status: append-only
 
 This file records durable handoff context across agents and sessions. It is not the source of truth for architecture, policy, or task contracts.
@@ -22,6 +22,96 @@ This file records durable handoff context across agents and sessions. It is not 
 ```
 
 ## Entries
+
+### 2026-05-09 - T42 - Objection Handling Pack
+
+- Scope: `docs/OBJECTION_HANDLING_RU.md`, `docs/OBJECTION_HANDLING_EN.md`, `tests/test_objection_handling_pack.py`, docs state.
+- Why this work happened: Phase 10 needed concise sales enablement for common pilot objections without drifting into legal, investment, performance, or live-control promises.
+- Decisions applied: `D-001`, `D-006`, `D-008`, ADR-001
+- Evidence collected: `.venv/bin/python -m pytest tests/test_objection_handling_pack.py -q --tb=short` -> 3 passed; `.venv/bin/python -m pytest tests -q --tb=short` -> 136 passed; `.venv/bin/python -m ruff check trader_risk_audit tests` -> passed; `.venv/bin/python -m ruff format --check trader_risk_audit tests` -> passed.
+- Follow-ups: implement T43 ICP-Specific Demo Variants.
+- Notes for next agent: objection docs answer privacy, no broker API, no advice, journal comparison, pricing, and repeat-audit questions; they point back to pilot intake and the 10/5/3/2 paid pilot evidence gate.
+
+### 2026-05-09 - T41 - Before/After Report Comparison
+
+- Scope: `docs/BEFORE_AFTER_REPORT_COMPARISON_RU.md`, `docs/BEFORE_AFTER_REPORT_COMPARISON_EN.md`, `tests/test_before_after_comparison.py`, docs state.
+- Why this work happened: Phase 10 needed a conversion asset that explains why a deterministic audit report is more useful than raw export rows.
+- Decisions applied: `D-001`, `D-006`, `D-008`
+- Evidence collected: `.venv/bin/python -m pytest tests/test_before_after_comparison.py -q --tb=short` -> 3 passed; `.venv/bin/python -m pytest tests -q --tb=short` -> 133 passed; `.venv/bin/python -m ruff check trader_risk_audit tests` -> passed; `.venv/bin/python -m ruff format --check trader_risk_audit tests` -> passed.
+- Follow-ups: implement T42 Objection Handling Pack.
+- Notes for next agent: comparison docs use only public sample context and emphasize deterministic rule checks, source row ids, violation-attributed P&L, limitations, and paid pilot CTA without advice/performance/live-control claims.
+
+### 2026-05-09 - T40 - Evidence Capture Automation
+
+- Scope: `trader_risk_audit/evidence.py`, `trader_risk_audit/cli.py`, `docs/PILOT_EVIDENCE_LOG_RU.md`, `tests/unit/test_evidence_capture.py`, docs state.
+- Why this work happened: Phase 9 needed local evidence capture so delivered reports are followed by paid status, objections, repeat intent, referrals, and gate counts.
+- Decisions applied: `D-001`, `D-006`, `D-008`
+- Evidence collected: `.venv/bin/python -m pytest tests/unit/test_evidence_capture.py -q --tb=short` -> 3 passed; `.venv/bin/python -m pytest tests -q --tb=short` -> 130 passed; `.venv/bin/python -m ruff check trader_risk_audit tests` -> passed; `.venv/bin/python -m ruff format --check trader_risk_audit tests` -> passed.
+- Follow-ups: Phase 9 boundary deep review completed; continue to T41 Before/After Report Comparison.
+- Notes for next agent: `evidence append` writes local CSV rows using the existing customer log fields; obvious identifiers/raw rows are rejected. `evidence summary` excludes `public_sample_demo`, `internal_demo`, and `demo_artifact` rows from market-validation counts.
+
+### 2026-05-09 - T39 - Operator Runbook CLI
+
+- Scope: `trader_risk_audit/cli.py`, `docs/AUDIT_WORKSPACE_RUNBOOK_RU.md`, `tests/integration/test_operator_runbook_cli.py`, docs state.
+- Why this work happened: Phase 9 needed a scriptable operator path from intake files to local audit outputs and queue references.
+- Decisions applied: `D-001`, `D-006`, `D-008`, ADR-001
+- Evidence collected: `.venv/bin/python -m pytest tests/integration/test_operator_runbook_cli.py tests/unit/test_workspace_layout.py -q --tb=short` -> 6 passed; `.venv/bin/python -m pytest tests -q --tb=short` -> 127 passed; `.venv/bin/python -m ruff check trader_risk_audit tests` -> passed; `.venv/bin/python -m ruff format --check trader_risk_audit tests` -> passed.
+- Follow-ups: implement T40 Evidence Capture Automation, then run the Phase 9 boundary deep review.
+- Notes for next agent: `operator prepare` copies intake files into a local workspace and records `ready_to_run`; `operator run` executes local audit, writes a delivery packet, and records report/packet/manifest refs with `ready_for_review`. CLI output stays at status/path references only.
+
+### 2026-05-09 - T38 - Intake File Validator
+
+- Scope: `trader_risk_audit/intake.py`, `trader_risk_audit/telegram_bot/storage.py`, `trader_risk_audit/telegram_bot/handlers.py`, `tests/unit/test_intake_file_validator.py`, `tests/unit/telegram_bot/test_intake_validation.py`, docs state.
+- Why this work happened: Phase 9 needed earlier intake feedback so invalid files are not treated as runnable operator work.
+- Decisions applied: `D-001`, `D-006`, `D-008`, ADR-001
+- Evidence collected: `.venv/bin/python -m pytest tests/unit/test_intake_file_validator.py tests/unit/telegram_bot/test_intake_validation.py tests/unit/telegram_bot/test_handlers.py tests/integration/test_telegram_demo_happy_path.py -q --tb=short` -> 10 passed; `.venv/bin/python -m pytest tests -q --tb=short` -> 124 passed; `.venv/bin/python -m ruff check trader_risk_audit tests` -> passed; `.venv/bin/python -m ruff format --check trader_risk_audit tests` -> passed.
+- Follow-ups: implement T39 Operator Runbook CLI.
+- Notes for next agent: `validate_intake_files` reports safe issue messages for missing CSV columns, unsupported extensions, size limit, missing profile, and missing custom policy. Telegram stores invalid uploads locally with `needs_user_fix` and returns concise feedback without raw rows.
+
+### 2026-05-09 - T37 - Policy Profile Selector
+
+- Scope: `trader_risk_audit/policy/profiles.py`, `trader_risk_audit/workspace.py`, `trader_risk_audit/telegram_bot/handlers.py`, `tests/unit/test_policy_profile_selector.py`, docs state.
+- Why this work happened: Phase 9 needed profile selection recorded during intake without replacing trader-owned written rules or adding advice claims.
+- Decisions applied: `D-001`, `D-006`, `D-008`, ADR-001
+- Evidence collected: `.venv/bin/python -m pytest tests/unit/test_policy_profile_selector.py tests/unit/test_workspace_layout.py tests/unit/telegram_bot/test_handlers.py -q --tb=short` -> 9 passed; `.venv/bin/python -m pytest tests -q --tb=short` -> 120 passed; `.venv/bin/python -m ruff check trader_risk_audit tests` -> passed; `.venv/bin/python -m ruff format --check trader_risk_audit tests` -> passed.
+- Follow-ups: implement T38 Intake File Validator.
+- Notes for next agent: `resolve_policy_profile` maps `soft`, `medium`, and `hard` to committed starter YAML templates; `custom` requires an explicit policy path. Workspace metadata stores only selected profile/source/path labels, with absolute paths reduced to file names.
+
+### 2026-05-09 - T36 - Two-Minute Demo Script
+
+- Scope: `docs/DEMO_SCRIPT_RU.md`, `docs/DEMO_SCRIPT_EN.md`, `tests/test_demo_script.py`, docs state.
+- Why this work happened: Phase 8 needed founder-ready RU/EN scripts that turn the demo into a clear two-minute paid-pilot ask without drifting into feature discussion or unsupported claims.
+- Decisions applied: `D-001`, `D-006`, `D-008`, ADR-001
+- Evidence collected: `.venv/bin/python -m pytest tests/test_demo_script.py -q --tb=short` -> 3 passed; `.venv/bin/python -m pytest tests -q --tb=short` -> 117 passed; `.venv/bin/python -m ruff check trader_risk_audit tests` -> passed; `.venv/bin/python -m ruff format --check trader_risk_audit tests` -> passed.
+- Follow-ups: Phase 8 boundary deep review completed; continue to T37 Policy Profile Selector.
+- Notes for next agent: demo scripts explicitly push to real export, written rules, mapping approval, and one paid manual audit. They label the public sample as not market validation/PMF evidence and keep no-advice/no-live-control/no-broker/no-signal/no-order-blocking boundaries.
+
+### 2026-05-09 - T35 - Report Polish for Demo Readability
+
+- Scope: `trader_risk_audit/reporting/model.py`, `trader_risk_audit/reporting/markdown.py`, report fixtures, `tests/unit/reporting/test_demo_report_readability.py`, docs state.
+- Why this work happened: Phase 8 needed audit reports to be readable in a two-minute founder-led demo without weakening deterministic evidence or claim boundaries.
+- Decisions applied: `D-001`, `D-006`, `D-008`, ADR-001
+- Evidence collected: `.venv/bin/python -m pytest tests/unit/reporting/test_demo_report_readability.py tests/unit/reporting/test_markdown_report.py tests/unit/reporting/test_report_model.py -q --tb=short` -> 9 passed; `.venv/bin/python -m pytest tests -q --tb=short` -> 114 passed; `.venv/bin/python -m ruff check trader_risk_audit tests` -> passed; `.venv/bin/python -m ruff format --check trader_risk_audit tests` -> passed.
+- Follow-ups: implement T36 Two-Minute Demo Script, then run the Phase 8 boundary deep review.
+- Notes for next agent: reports now begin with `Executive Summary` showing rules reviewed, violations recorded, affected P&L, and selected policy profile. This is a presentation layer change only; source-row traceability, claim guard validation, and local-only scope remain unchanged.
+
+### 2026-05-09 - T34 - Public Sample Demo Mode
+
+- Scope: `trader_risk_audit/cli.py`, `trader_risk_audit/telegram_bot/handlers.py`, `docs/PUBLIC_SAMPLE_EVIDENCE_RU.md`, `tests/integration/test_public_sample_demo_mode.py`, docs state.
+- Why this work happened: Phase 8 needed a local demo mode that shows the public sample audit before a prospect sends private files.
+- Decisions applied: `D-001`, `D-006`, `D-008`, ADR-001
+- Evidence collected: `.venv/bin/python -m pytest tests/integration/test_public_sample_demo_mode.py tests/integration/test_telegram_demo_happy_path.py tests/test_baseline_smoke.py -q --tb=short` -> 9 passed; `.venv/bin/python -m pytest tests -q --tb=short` -> 111 passed; `.venv/bin/python -m ruff check trader_risk_audit tests` -> passed; `.venv/bin/python -m ruff format --check trader_risk_audit tests` -> passed.
+- Follow-ups: implement T35 Report Polish for Demo Readability.
+- Notes for next agent: `demo public-sample` is read-only and reuses `demo/public_sample_001/output/report.md` plus `telegram_packet.txt`; it does not create a separate report format or count the public sample as prospect/paid/PMF evidence.
+
+### 2026-05-09 - T33 - Telegram Demo Happy Path
+
+- Scope: `trader_risk_audit/telegram_bot/handlers.py`, `trader_risk_audit/telegram_bot/delivery.py`, `tests/integration/test_telegram_demo_happy_path.py`, `docs/TELEGRAM_DEMO_FLOW_RU.md`, docs state.
+- Why this work happened: Phase 8 needed a coherent mocked Telegram demo path from `/start` and `/new_audit` through public sample selection, audit id/status, and operator-approved delivery copy.
+- Decisions applied: `D-001`, `D-006`, `D-008`, ADR-001
+- Evidence collected: `.venv/bin/python -m pytest tests/integration/test_telegram_demo_happy_path.py tests/integration/test_telegram_pilot_flow.py tests/unit/telegram_bot -q --tb=short` -> 12 passed; `.venv/bin/python -m pytest tests -q --tb=short` -> 108 passed; `.venv/bin/python -m ruff check trader_risk_audit tests` -> passed; `.venv/bin/python -m ruff format --check trader_risk_audit tests` -> passed.
+- Follow-ups: implement T34 Public Sample Demo Mode.
+- Notes for next agent: T33 added `TelegramDemoSample`, `/demo_sample`, and `build_approved_delivery_copy`. It remains mocked/local and does not add real Telegram network access, broker APIs, signal parsing, order blocking, auto-advice, or live trading behavior.
 
 ### 2026-05-08 - T32 - Internal Outreach Readiness Review
 

@@ -12,13 +12,13 @@ violated, when they were violated, and how much damage violations created.
 
 ## Current Status
 
-- Current phase: Phase 8 - Demo Productization active.
-- Completed: Phase 1 foundation through Phase 7 internal validation, including constrained Telegram intake/delivery, public sample evidence, and business evidence artifacts.
-- Next task: T33 Telegram Demo Happy Path.
-- Planned next phases: Phase 9 Intake Quality and Operator Speed, Phase 10 Conversion Assets.
-- Local baseline: 105 passing tests, 0 skipped.
+- Current phase: Phase 10 - Conversion Assets active.
+- Completed: Phase 1 foundation through Phase 9 intake/operator speed, including constrained Telegram demo flow, public sample mode, report polish, intake validation, operator CLI, and evidence capture.
+- Next task: T43 ICP-Specific Demo Variants.
+- Planned next phase: none after active Phase 10 unless validation evidence changes the roadmap.
+- Local baseline: 136 passing tests, 0 skipped.
 - Quality checks: `.venv/bin/ruff check` and `.venv/bin/ruff format --check` are clean.
-- Review status: Phase 7 deep review archived at `docs/archive/PHASE7_REVIEW.md`; Stop-Ship: No; one P2 metadata finding remains open.
+- Review status: Phase 9 deep review archived at `docs/archive/PHASE9_REVIEW.md`; Stop-Ship: No; one P2 metadata finding remains open.
 
 ## Features
 
@@ -49,6 +49,16 @@ violated, when they were violated, and how much damage violations created.
 | Pilot intake contract | Complete | Russian intake contract and templates capture required files, metadata, privacy boundaries, and human approval rules. |
 | Local audit workspace | Complete | Helper creates input/output/operator-notes/artifacts directories and non-sensitive metadata. |
 | Telegram pilot intake/delivery | Complete | ADR-001, disabled-by-default intake handlers, local storage, operator queue, approved delivery abstraction, and mocked E2E flow are covered by tests. |
+| Telegram demo happy path | Complete | `/start`, `/new_audit`, `/demo_sample`, upload/status, mocked approved delivery, and ADR-001 boundaries are covered without network access. |
+| Public sample demo mode | Complete | `demo public-sample` and `/demo_sample` expose the public sample summary, source label, starter profile, report path, and packet path without treating it as prospect evidence. |
+| Report demo readability | Complete | Reports now start with a compact executive summary before the detailed sections while preserving traceable violation tables, P&L attribution, limitations, and claim guard boundaries. |
+| Two-minute demo scripts | Complete | RU/EN founder scripts cover problem, upload, selected profile, report summary, evidence traceability, P&L impact, next pilot ask, and claim boundaries. |
+| Policy profile selector | Complete | `soft`, `medium`, and `hard` resolve to committed starter templates; `custom` requires explicit written rules; workspace metadata records non-sensitive profile labels. |
+| Intake file validator | Complete | Local validation reports safe, actionable errors for missing CSV fields, unsupported file types, size limits, missing profile/custom policy, and non-runnable Telegram uploads. |
+| Operator runbook CLI | Complete | Local `operator prepare` and `operator run` commands create workspaces, show safe next actions, run deterministic audits, and register report/packet/manifest references. |
+| Evidence capture | Complete | Local `evidence append` and `evidence summary` commands record non-sensitive customer log rows and gate counts while excluding demo evidence. |
+| Before/after comparison | Complete | RU/EN docs compare raw export gaps with deterministic audit outputs, source rows, violation-attributed P&L, and a paid pilot CTA. |
+| Objection handling | Complete | RU/EN docs answer privacy, broker/API, no-advice, journal, pricing, and repeat-audit objections while pointing to the pilot gate. |
 | Pilot evidence log | Complete | Russian evidence log and CSV template track qualified calls, paid reports, objections, repeat commitments, and referrals. |
 | Public sample validation | Complete | Source/licensing/privacy policy, `demo/public_sample_001/` evidence pack, and internal readiness review are complete. Verdict: go for manual outreach, not PMF or paid-demand proof. |
 | Starter policy profiles | Complete | `docs/STARTER_POLICY_PROFILES_RU.md` and YAML templates define customizable soft, medium, and hard audit presets for internal validation, not trading advice. |
@@ -70,7 +80,7 @@ Loop continuity: after each phase, the orchestrator should run deep review, arch
 
 | Command | Current Result |
 |---------|----------------|
-| `.venv/bin/python -m pytest tests -q --tb=short` | 105 passed |
+| `.venv/bin/python -m pytest tests -q --tb=short` | 136 passed |
 | `.venv/bin/ruff check` | passed |
 | `.venv/bin/ruff format --check` | passed |
 

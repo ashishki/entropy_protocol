@@ -1,8 +1,8 @@
 # CODEX_PROMPT.md
 
-Version: 1.13
-Date: 2026-05-08
-Phase: 8
+Version: 1.17
+Date: 2026-05-09
+Phase: 10
 
 This file is the single source of truth for implementation session state. Every Codex agent reads this file before starting work and updates it at phase boundaries or when the orchestrator records findings.
 
@@ -10,18 +10,18 @@ This file is the single source of truth for implementation session state. Every 
 
 ## Current Phase
 
-- Phase: 8
-- Name: Demo Productization
-- Business goal: make the founder-led demo feel like a coherent mini-product from Telegram entry to approved report without confusing public/internal samples with paid pilot evidence or expanding into advice, broker control, signal analytics, or SaaS scope.
-- Phase gate: T33-T36 complete; the team has a Telegram demo happy path, public sample demo mode, polished report readability, and RU/EN two-minute scripts that push toward real export/rules and paid pilot commitment.
+- Phase: 10
+- Name: Conversion Assets
+- Business goal: improve paid pilot conversion by making the audit value, objections, ICP fit, and offer clear without expanding into SaaS, advice, broker control, signal analytics, or checkout scope.
+- Phase gate: T41-T44 complete; the team has before/after report comparison, objection handling, ICP demo variants, and a paid pilot offer page that push qualified prospects toward real export/rules and manual paid audits.
 
 ## Current State
 
-- Phase: 8
-- Baseline: 105 passing tests
+- Phase: 10
+- Baseline: 136 passing tests
 - Ruff: clean (`ruff check` and `ruff format --check`)
 - Last CI: workflow configured; remote run not observed from this clone
-- Last updated: 2026-05-08
+- Last updated: 2026-05-09
 - Session tokens (approx): not yet tracked
 - Cumulative phase tokens (approx): not yet tracked
 
@@ -36,29 +36,28 @@ This file is the single source of truth for implementation session state. Every 
 
 ## Next Task
 
-T33 - Telegram Demo Happy Path
+T43 - ICP-Specific Demo Variants
 
 Task intent:
 
-- Turn the existing Telegram pilot pieces into a coherent demo happy path: start an audit, upload files or choose a demo sample, receive an audit id/status, and receive an operator-approved report.
-- Support `/start`, `/new_audit`, file upload guidance, audit id/status response, and approved report delivery copy without requiring real network access in tests.
-- Keep the user-facing path clear without exposing raw trade rows, Telegram handles, broker account ids, or private notes.
-- Stay inside ADR-001: no broker APIs, signal parsing, order blocking, auto-advice, or live trading behavior.
+- Prepare targeted demo variants for prop/funded traders, active crypto discretionary traders, and small teams/coaches.
+- Each ICP variant should state likely pain, current workaround, demo angle, required proof, and paid pilot ask.
+- Preserve the same product boundary: post-trade audit, no broker control, no signal analytics, no advice.
+- Map every variant to the same validation evidence gate rather than vanity metrics.
 
 Required context before starting:
 
-- `docs/IMPLEMENTATION_CONTRACT.md`
-- `docs/tasks.md#t33-telegram-demo-happy-path`
-- `docs/adr/ADR-001-telegram-intake-delivery.md`
-- `docs/PUBLIC_SAMPLE_EVIDENCE_RU.md`
-- `docs/IMPLEMENTATION_CONTRACT.md#confidential-data-handling`
+- `docs/tasks.md#t43-icp-specific-demo-variants`
+- `STARTUP_PRESSURE_TEST_RU.md#4-wedge-comparison`
+- `docs/PILOT_EVIDENCE_LOG_RU.md`
+- `docs/OBJECTION_HANDLING_RU.md`
+- `docs/OBJECTION_HANDLING_EN.md`
 
 Immediate scope:
 
-- `trader_risk_audit/telegram_bot/handlers.py`
-- `trader_risk_audit/telegram_bot/delivery.py`
-- `tests/integration/test_telegram_demo_happy_path.py`
-- `docs/TELEGRAM_DEMO_FLOW_RU.md`
+- `docs/ICP_DEMO_VARIANTS_RU.md`
+- `docs/ICP_DEMO_VARIANTS_EN.md`
+- `tests/test_icp_demo_variants.py`
 
 Candidate source decision:
 
@@ -80,13 +79,24 @@ Starter policy decision:
 - Starter profile reference remains `docs/STARTER_POLICY_PROFILES_RU.md`; Phase 7 treats `soft`, `medium`, and `hard` as customizable audit presets only.
 - T32 completed `docs/INTERNAL_VALIDATION_REVIEW_RU.md` and readiness review tests. Baseline after T32: 105 passing tests.
 - Phase 7 deep review Cycle 8 archived at `docs/archive/PHASE7_REVIEW.md`: Stop-Ship No, P0:0, P1:0, P2:1 (`CODE-1` delivery packet hash absent from generated manifests).
+- T33 completed Telegram demo happy path with mocked-client tests and `docs/TELEGRAM_DEMO_FLOW_RU.md`. Baseline after T33: 108 passing tests.
+- T34 completed local `demo public-sample` mode and Telegram sample labeling tests. Baseline after T34: 111 passing tests.
+- T35 completed report readability polish: generated reports now start with an executive summary containing rule count, violation count, affected P&L, and selected policy profile while preserving deterministic violation tables, source-row traceability, limitations, next-review checklist, and claim guard boundaries. Baseline after T35: 114 passing tests.
+- T36 completed RU/EN two-minute demo scripts covering problem, upload, selected profile, report summary, source-row traceability, P&L impact, next pilot ask, profile explanation, and claim boundaries. Baseline after T36: 117 passing tests.
+- Phase 8 deep review Cycle 9 archived at `docs/archive/PHASE8_REVIEW.md`: Stop-Ship No, P0:0, P1:0, P2:0 new; carry-forward `CODE-1` remains open.
+- T37 completed policy profile selector with starter template resolution, custom-policy requirement, non-sensitive workspace metadata, and Telegram `/profiles` copy. Baseline after T37: 120 passing tests.
+- T38 completed intake file validation for CSV structure, extension, size, missing profile/custom policy, Telegram safe feedback, and non-runnable invalid upload status. Baseline after T38: 124 passing tests.
+- T39 completed operator runbook CLI for local workspace prepare/run and queue output references without raw row output or hosted services. Baseline after T39: 127 passing tests.
+- T40 completed evidence capture automation for local customer log append, demo-vs-market evidence separation, and validation gate summaries. Baseline after T40: 130 passing tests.
+- Phase 9 deep review Cycle 10 archived at `docs/archive/PHASE9_REVIEW.md`: Stop-Ship No, P0:0, P1:0, P2:0 new; carry-forward `CODE-1` remains open.
+- T41 completed RU/EN before/after report comparison docs showing raw export gaps versus deterministic audit outputs with source rows, violation-attributed P&L, and paid pilot CTA. Baseline after T41: 133 passing tests.
+- T42 completed RU/EN objection handling pack for privacy, broker/API, advice, journal comparison, pricing, and repeat audit objections while preserving factual claim boundaries and pilot gate references. Baseline after T42: 136 passing tests.
 
 ADR-001 is filed. Telegram is an allowed simple demo/intake/delivery surface for Phase 7: a user may upload files, receive an audit id/status, and receive an operator-approved report. Any new Telegram work must stay inside ADR-001 and must not add broker APIs, signal parsing, order blocking, auto-advice, or live trading behavior.
 
 ## Future Planned Phases
 
-- Phase 9 - Intake Quality and Operator Speed (T37-T40): policy profile selector, intake file validator, operator runbook CLI, and evidence capture automation.
-- Phase 10 - Conversion Assets (T41-T44): before/after report comparison, objection handling, ICP-specific demo variants, and paid pilot offer page.
+No future phase beyond Phase 10 is currently planned in this file.
 
 Future phase rule:
 
@@ -134,13 +144,24 @@ empty
 - T30: Public Sample Source Policy
 - T31: Public Sample Evidence Pack
 - T32: Internal Outreach Readiness Review
+- T33: Telegram Demo Happy Path
+- T34: Public Sample Demo Mode
+- T35: Report Polish for Demo Readability
+- T36: Two-Minute Demo Script
+- T37: Policy Profile Selector
+- T38: Intake File Validator
+- T39: Operator Runbook CLI
+- T40: Evidence Capture Automation
+- T41: Before/After Report Comparison
+- T42: Objection Handling Pack
 
 ## Phase History
 
 - Phase 5 Concierge Pilot Workflow complete: T17-T20 delivered end-to-end local audit CLI, Telegram-ready copy packet, retention/delete controls, and anonymized pilot regression fixtures. Baseline moved from 49 to 61 passing tests. Deep review Cycle 5 found P0:0, P1:0, P2:0; Stop-Ship: No.
 - Phase 6 Pilot Validation and Telegram Intake complete: T21-T29 delivered synthetic demo artifacts, pilot intake/workspace conventions, ADR-001, constrained Telegram intake/delivery, operator queue, mocked pilot flow, and business evidence log. Baseline moved from 61 to 88 passing tests. Deep review Cycle 7 found P0:0, P1:0, P2:0; Stop-Ship: No.
 - Phase 7 Internal Validation with Public Samples complete: T30-T32 delivered source policy, starter profile boundaries, `demo/public_sample_001/`, public sample evidence docs, and a go decision for manual outreach. Baseline moved from 92 to 105 passing tests. Deep review Cycle 8 found P0:0, P1:0, P2:1; Stop-Ship: No.
-- Future phases planned: Phase 9 Intake Quality and Operator Speed (T37-T40) and Phase 10 Conversion Assets (T41-T44). These phases improve demo quality and pilot conversion without changing the no-broker, no-signal, no-advice product boundary.
+- Phase 8 Demo Productization complete: T33-T36 delivered Telegram demo happy path, public sample demo mode, report readability polish, and RU/EN two-minute demo scripts. Baseline moved from 105 to 117 passing tests. Deep review Cycle 9 found P0:0, P1:0, P2:0 new; Stop-Ship: No.
+- Phase 9 Intake Quality and Operator Speed complete: T37-T40 delivered policy profile selection, intake validation, operator runbook CLI, and evidence capture automation. Baseline moved from 117 to 130 passing tests. Deep review Cycle 10 found P0:0, P1:0, P2:0 new; Stop-Ship: No.
 
 ## Summary State
 

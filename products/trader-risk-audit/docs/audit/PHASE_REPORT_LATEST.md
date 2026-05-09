@@ -1,22 +1,35 @@
-# Phase 7 Report - Internal Validation with Public Samples
+# Phase 9 Report - Intake Quality and Operator Speed
 
 ## What Was Built
 
-Phase 7 created the internal validation bridge between the existing deterministic audit workflow and real trader outreach.
+Phase 9 reduced intake and operator friction while preserving the local-first
+manual audit boundary.
 
-The phase added a Russian public sample source policy that defines acceptable public/anonymized source types, required source metadata, license/terms checks, privacy rejection rules, and evidence labels. It also locked in the `soft`, `medium`, and `hard` starter profiles as customizable audit presets, not trading advice or replacements for trader/prop rules.
+The phase added a policy profile selector for `soft`, `medium`, `hard`, and
+`custom`. Starter profiles resolve to committed YAML templates, while custom
+requires an explicit policy/rules path. Workspace metadata records only
+non-sensitive profile labels.
 
-The phase then added `demo/public_sample_001/`: a compact public-like evidence pack with source metadata, trade rows, hard starter profile policy, generated audit outputs, a Telegram-ready packet, and a manifest. The pack demonstrates max daily loss, max drawdown, cooldown, max position size, and forbidden asset scenarios while staying labeled as internal/demo evidence.
+It added intake validation for uploaded files. The validator reports safe
+actionable errors for missing CSV fields, unsupported file types, size limits,
+missing profile, and missing custom rules. Telegram invalid uploads are stored
+locally as `needs_user_fix`, not runnable work.
 
-Finally, the internal readiness review concluded: go for manual trader outreach. That means the founder can start warm/semi-warm outreach, run past-behavior calls, ask for real exports and written rules, and sell manual audits. It does not mean PMF or paid demand has been proven.
+It added a local operator CLI. `operator prepare` creates a workspace and queue
+request; `operator run` executes the deterministic audit and records report,
+delivery packet, and manifest references for review.
+
+Finally, it added local evidence capture. Operators can append customer-log rows
+and summarize the validation gate while excluding public sample/demo rows from
+qualified prospect, paid pilot, repeat, and referral counts.
 
 ## Validation
 
-- Before Phase 7: 92 passing tests.
-- After Phase 7: 105 passing tests.
+- Before Phase 9: 117 passing tests.
+- After Phase 9: 130 passing tests.
 - Ruff check: passed.
 - Ruff format check: passed.
-- Deep review Cycle 8: Stop-Ship No.
+- Deep review Cycle 10: Stop-Ship No.
 
 ## Open Findings
 
@@ -26,19 +39,24 @@ Finally, the internal readiness review concluded: go for manual trader outreach.
 
 WARN, not RED.
 
-The product is healthy enough to proceed into Phase 8 and to support manual outreach. The warning is that delivery-packet manifest coverage should be cleaned up before relying heavily on Telegram-ready packets as audit evidence.
+The product is healthy enough to proceed into Phase 10 and to support manual
+outreach. The warning is still that delivery-packet manifest coverage should be
+cleaned up before relying heavily on Telegram-ready packets as formal audit
+evidence.
 
 ## Next Phase
 
-Phase 8 - Demo Productization.
+Phase 10 - Conversion Assets.
 
-Next task: T33 Telegram Demo Happy Path. The focus is to make the demo path coherent from Telegram entry to operator-approved report delivery while staying inside ADR-001 and preserving deterministic audit truth.
+Next task: T41 Before/After Report Comparison. The focus is to show the value
+of deterministic rule breach/source-row/P&L evidence compared with raw exports
+without advice or performance claims.
 
 ## Notification Summary
 
-Ph7 Internal Validation DONE
-Built: source policy, public sample pack, readiness review
-Tests: 92->105 pass
-Issues: P1:0 P2:1
+Ph9 Intake Quality DONE
+Built: profile selector, intake validator, operator CLI, evidence capture
+Tests: 117->130 pass
+Issues: P1:0 P2:0 new; carry CODE-1
 Health: WARN
-Next: Ph8 Demo Productization
+Next: Ph10 Conversion Assets
