@@ -7,10 +7,10 @@ manual restart.
 
 - Product: entropy-core
 - Branch: codex/entropy-core-work
-- Active task: T52 Broker Sandbox Fixture Manifest
-- Phase: 12 Broker Sandbox and Execution Risk Audit
-- Last validation: 2026-05-09 T51: `456 passed, 20 skipped`; ruff check clean; ruff format clean; pyright 0 errors; `git diff --check` clean.
-- Git status summary: T51 broker sandbox boundary contract changes pending commit at handoff update time.
+- Active task: checkpoint after Phase 13 Product Hypothesis Confirmation Decision
+- Phase: 13 Product Hypothesis Confirmation Decision
+- Last validation: 2026-05-09 T62: `489 passed, 20 skipped`; ruff check clean; ruff format clean; pyright 0 errors; `git diff --check` clean.
+- Git status summary: T62 product hypothesis confirmation decision review changes pending commit at handoff update time.
 
 ## Completed In This Phase
 
@@ -68,15 +68,25 @@ manual restart.
 - T49 Live-Feed Observability Packet completed with no findings.
 - T50 Live-Feed Dry Run Readiness Review completed with no findings.
 - T51 Broker Sandbox Boundary Contract completed with no findings.
+- T52 Broker Sandbox Fixture Manifest completed with no findings.
+- T53 Execution Risk Control Contract completed with no findings.
+- T54 Kill-Switch Audit Log Contract completed with no findings.
+- T55 Sandbox Execution No-Capital Dry Run completed with no findings.
+- T56 Broker Sandbox Readiness Review completed with no findings.
+- T57 Product Hypothesis Confirmation Request Packet completed with no findings.
+- T58 Product Validation Approval Intake Contract completed with no findings.
+- T59 Product Hypothesis Validation Path Decision completed with no findings.
+- T60 Production Capital Non-Approval Regression completed with no findings.
+- T61 Local Next Validation Plan Packet completed with no findings.
+- T62 Product Hypothesis Confirmation Decision Review completed with no findings.
 
 ## Remaining Work
 
-- T52 Broker Sandbox Fixture Manifest is active.
-- T53 Execution Risk Control Contract is pending.
-- T54 Kill-Switch Audit Log Contract is pending.
-- T55 Sandbox Execution No-Capital Dry Run is pending.
-- T56 Broker Sandbox Readiness Review is pending.
-- After T56, run deep review, fix findings, validate, evaluate the roadmap, rewrite future phases/tasks if useful, open the next logical active phase, and continue automatically.
+- Phase 13 Product Hypothesis Confirmation Decision is complete.
+- product hypothesis status: unconfirmed_pending_future_validation.
+- Next human decision required: whether to authorize a future local broker sandbox no-capital replay extension task.
+- No next active implementation task is open.
+- Phase 13 is local-only approval decision work. No live orders, no broker/exchange execution, no production credentials, no live capital, and no holdout access are approved.
 
 ## Blockers Or Human Decisions
 
@@ -103,6 +113,7 @@ manual restart.
 - T49 defined local observability fields, counters, failure states, redaction boundaries, and readiness limitations. No secrets, orders, capital actions, external telemetry, production labels, or holdout access are approved.
 - T50 closed Phase 11 and opened Phase 12 as sandbox-only broker/exchange execution risk audit work. No live orders, live broker/exchange execution, production credentials, live capital, production labels, or holdout access are approved.
 - T51 defined the broker sandbox boundary as sandbox-only. No live orders, live broker/exchange execution, production credentials, live capital, production labels, or holdout access are approved.
+- Operator approval on 2026-05-09: rewrite Phase 13 as local-only production/capital approval decision work with the explicit goal of defining the safest next validation step toward product hypothesis confirmation. No live orders, no broker/exchange execution, no production credentials, no live capital, and no holdout access are approved.
 - Real external side effects, holdout reads, holdout unlocks, live capital actions, live broker/exchange execution, and credentialed production deployment remain blocked; implement local dry-run/sandbox/protocol work instead unless a future local contract explicitly permits otherwise.
 
 ## Resume Instruction

@@ -22,7 +22,7 @@ Status: active roadmap task graph
 | 10 | Holdout Approval Decision Packet | T40-T45 | Assemble no-read approval request and decision evidence before any future holdout access approval could be considered. | Packet proves explicit approval is absent or bounded, non-approval sources are rejected, and holdout remains unread unless a future human approval event and controls exist. |
 | 11 | Live-Feed Dry Run Readiness | T46-T50 | Prepare live market data ingestion checks without broker orders, exchange execution, or live capital. | Live-feed path is observable and gated; no order placement, broker integration, or capital deployment is enabled. |
 | 12 | Broker Sandbox and Execution Risk Audit | T51-T56 | Sandbox-only broker/exchange integration, execution risk controls, and kill-switch audit. | Sandbox execution is isolated; live capital remains blocked; risk controls and audit logs are mandatory. |
-| 13 | Production and Capital Gate | T57-T64 | Final human-governed production/capital readiness review. | Production/capital-ready labels require explicit gate approval, full evidence packet, risk signoff, and rollback plan. |
+| 13 | Product Hypothesis Confirmation Decision | T57-T62 | Local-only approval decision work for defining the safest next validation step toward product hypothesis confirmation. | No production, capital, live order, broker/exchange execution, production credential, or holdout access path opens without explicit future human approval and a bounded task contract. |
 
 ## Roadmap Governance
 
@@ -1847,7 +1847,7 @@ Owner:      codex
 Phase:      12
 Type:       none
 Depends-On: T51
-Status:     active
+Status:     done 2026-05-09
 
 Objective: |
   Define deterministic sandbox fixture requirements for broker/exchange execution risk tests without live connectivity.
@@ -1879,7 +1879,7 @@ Owner:      codex
 Phase:      12
 Type:       none
 Depends-On: T52
-Status:     pending
+Status:     done 2026-05-09
 
 Objective: |
   Define sandbox execution risk controls for order validation, limits, rejection, and deterministic audit behavior.
@@ -1911,7 +1911,7 @@ Owner:      codex
 Phase:      12
 Type:       none
 Depends-On: T53
-Status:     pending
+Status:     done 2026-05-09
 
 Objective: |
   Define sandbox kill-switch audit requirements and fail-closed evidence without live capital or live order paths.
@@ -1943,7 +1943,7 @@ Owner:      codex
 Phase:      12
 Type:       none
 Depends-On: T54
-Status:     pending
+Status:     done 2026-05-09
 
 Objective: |
   Assemble sandbox execution risk artifacts into a local no-capital dry run without live orders or live connectivity.
@@ -1975,7 +1975,7 @@ Owner:      codex
 Phase:      12
 Type:       none
 Depends-On: T55
-Status:     pending
+Status:     done 2026-05-09
 
 Objective: |
   Review Phase 12 broker sandbox and execution risk audit artifacts and evaluate the next roadmap step without enabling production or capital.
@@ -2002,3 +2002,198 @@ Context-Refs:
 
 Notes: |
   Review only. Do not enable production, live capital, or live orders.
+
+## T57: Product Hypothesis Confirmation Request Packet
+
+Owner:      codex
+Phase:      13
+Type:       none
+Depends-On: T56
+Status:     done 2026-05-09
+
+Objective: |
+  Assemble a local-only request packet that states the product hypothesis confirmation goal, current evidence, missing approvals, and safest next validation options without opening production, capital, live orders, broker/exchange execution, production credentials, or holdout access.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Packet lists current evidence from archive, readiness, holdout protocol, live-feed dry-run, and broker sandbox phases."
+    test: "tests/reset/test_product_hypothesis_confirmation_request.py::test_product_hypothesis_request_lists_current_evidence"
+  - id: AC-2
+    description: "Packet records missing approvals and rejects production/capital/live/holdout actions."
+    test: "tests/reset/test_product_hypothesis_confirmation_request.py::test_product_hypothesis_request_rejects_restricted_actions"
+  - id: AC-3
+    description: "Prompt and handoff open Phase 13 as local-only hypothesis confirmation decision work."
+    test: "tests/reset/test_product_hypothesis_confirmation_request.py::test_state_docs_open_phase13_local_only_decision_work"
+
+Files:
+  - docs/approvals/PRODUCT_HYPOTHESIS_CONFIRMATION_REQUEST.md
+  - tests/reset/test_product_hypothesis_confirmation_request.py
+
+Context-Refs:
+  - docs/audit/BROKER_SANDBOX_READINESS_REVIEW.md
+
+Notes: |
+  Request packet only. Do not read holdout, place orders, load credentials, connect to broker/exchange systems, or activate capital.
+
+## T58: Product Validation Approval Intake Contract
+
+Owner:      codex
+Phase:      13
+Type:       none
+Depends-On: T57
+Status:     done 2026-05-09
+
+Objective: |
+  Define local-only intake requirements for any future validation approval event before holdout, live-feed, broker sandbox execution, production, or capital validation could be considered.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Contract lists required approval fields, evidence references, risk owner, scope, expiry, and revocation fields."
+    test: "tests/reset/test_product_validation_approval_intake_contract.py::test_product_validation_intake_lists_required_fields"
+  - id: AC-2
+    description: "Contract rejects incomplete, generated, inferred, stale, revoked, or overbroad validation approvals."
+    test: "tests/reset/test_product_validation_approval_intake_contract.py::test_product_validation_intake_rejects_invalid_approvals"
+  - id: AC-3
+    description: "Contract preserves current no-approval state and blocked restricted actions."
+    test: "tests/reset/test_product_validation_approval_intake_contract.py::test_product_validation_intake_preserves_no_approval_state"
+
+Files:
+  - docs/approvals/PRODUCT_VALIDATION_APPROVAL_INTAKE_CONTRACT.md
+  - tests/reset/test_product_validation_approval_intake_contract.py
+
+Context-Refs:
+  - docs/approvals/PRODUCT_HYPOTHESIS_CONFIRMATION_REQUEST.md
+
+Notes: |
+  Intake contract only. Do not create an approval event.
+
+## T59: Product Hypothesis Validation Path Decision
+
+Owner:      codex
+Phase:      13
+Type:       none
+Depends-On: T58
+Status:     done 2026-05-09
+
+Objective: |
+  Record the current deterministic decision for the safest next validation path toward product hypothesis confirmation.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Decision packet compares archive-only, no-read holdout, live-feed dry-run, broker sandbox, and production/capital paths."
+    test: "tests/reset/test_product_hypothesis_validation_path_decision.py::test_validation_path_decision_compares_options"
+  - id: AC-2
+    description: "Decision packet selects only approved local/no-effect next steps and blocks restricted paths."
+    test: "tests/reset/test_product_hypothesis_validation_path_decision.py::test_validation_path_decision_selects_safe_next_step"
+  - id: AC-3
+    description: "Decision packet records that product hypothesis is not confirmed yet."
+    test: "tests/reset/test_product_hypothesis_validation_path_decision.py::test_validation_path_decision_records_not_confirmed"
+
+Files:
+  - docs/approvals/PRODUCT_HYPOTHESIS_VALIDATION_PATH_DECISION.md
+  - tests/reset/test_product_hypothesis_validation_path_decision.py
+
+Context-Refs:
+  - docs/approvals/PRODUCT_VALIDATION_APPROVAL_INTAKE_CONTRACT.md
+
+Notes: |
+  Decision packet only. Do not execute validation actions.
+
+## T60: Production Capital Non-Approval Regression
+
+Owner:      codex
+Phase:      13
+Type:       none
+Depends-On: T59
+Status:     done 2026-05-09
+
+Objective: |
+  Add regression coverage proving Phase 13 docs, reviews, tests, and request packets are not approval sources for production, capital, live order, broker/exchange execution, production credential, or holdout access.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Regression rejects roadmap, review, test, and request-packet approval sources."
+    test: "tests/reset/test_production_capital_non_approval_regression.py::test_non_approval_sources_are_rejected"
+  - id: AC-2
+    description: "Regression proves restricted action flags remain absent from active docs."
+    test: "tests/reset/test_production_capital_non_approval_regression.py::test_restricted_action_flags_remain_absent"
+  - id: AC-3
+    description: "Prompt and handoff preserve no-current-approval state."
+    test: "tests/reset/test_production_capital_non_approval_regression.py::test_state_docs_preserve_no_current_approval"
+
+Files:
+  - tests/reset/test_production_capital_non_approval_regression.py
+  - docs/CODEX_PROMPT.md
+  - PHASE_HANDOFF.md
+
+Context-Refs:
+  - docs/approvals/PRODUCT_HYPOTHESIS_VALIDATION_PATH_DECISION.md
+
+Notes: |
+  Regression only. Do not grant approval.
+
+## T61: Local Next Validation Plan Packet
+
+Owner:      codex
+Phase:      13
+Type:       none
+Depends-On: T60
+Status:     done 2026-05-09
+
+Objective: |
+  Assemble a local-only next validation plan packet that can be reviewed by a human before any future holdout, sandbox, live, production, or capital validation is approved.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Plan lists objective, hypothesis, evidence inputs, validation options, prerequisites, risks, rollback, and blocked actions."
+    test: "tests/reset/test_local_next_validation_plan_packet.py::test_next_validation_plan_lists_required_sections"
+  - id: AC-2
+    description: "Plan records no current approval and no claim of product hypothesis confirmation."
+    test: "tests/reset/test_local_next_validation_plan_packet.py::test_next_validation_plan_records_no_confirmation"
+  - id: AC-3
+    description: "Plan rejects live/capital/production/holdout execution unless future explicit approval exists."
+    test: "tests/reset/test_local_next_validation_plan_packet.py::test_next_validation_plan_rejects_restricted_execution"
+
+Files:
+  - docs/approvals/LOCAL_NEXT_VALIDATION_PLAN_PACKET.md
+  - tests/reset/test_local_next_validation_plan_packet.py
+
+Context-Refs:
+  - docs/approvals/PRODUCT_HYPOTHESIS_VALIDATION_PATH_DECISION.md
+
+Notes: |
+  Plan packet only. Do not execute the plan.
+
+## T62: Product Hypothesis Confirmation Decision Review
+
+Owner:      codex
+Phase:      13
+Type:       none
+Depends-On: T61
+Status:     done 2026-05-09
+
+Objective: |
+  Review Phase 13 local-only product hypothesis confirmation decision artifacts and record the next human decision point.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Review summarizes request, intake, path decision, non-approval regression, validation plan, validation, limitations, findings, and next decision point."
+    test: "tests/reset/test_product_hypothesis_confirmation_decision_review.py::test_confirmation_decision_review_contains_required_sections"
+  - id: AC-2
+    description: "Review records whether product hypothesis is confirmed, rejected, or still unconfirmed pending future validation."
+    test: "tests/reset/test_product_hypothesis_confirmation_decision_review.py::test_confirmation_decision_review_records_status"
+  - id: AC-3
+    description: "Audit index and prompt record Phase 13 completion and the required next human decision."
+    test: "tests/reset/test_product_hypothesis_confirmation_decision_review.py::test_confirmation_decision_review_updates_state"
+
+Files:
+  - docs/audit/PRODUCT_HYPOTHESIS_CONFIRMATION_DECISION_REVIEW.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/CODEX_PROMPT.md
+  - tests/reset/test_product_hypothesis_confirmation_decision_review.py
+
+Context-Refs:
+  - docs/approvals/LOCAL_NEXT_VALIDATION_PLAN_PACKET.md
+
+Notes: |
+  Review only. Do not approve production, capital, live orders, broker/exchange execution, production credentials, or holdout access.

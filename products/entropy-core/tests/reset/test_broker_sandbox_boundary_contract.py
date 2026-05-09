@@ -72,10 +72,15 @@ def test_state_docs_record_phase12_sandbox_only_scope() -> None:
     handoff = PHASE_HANDOFF.read_text(encoding="utf-8").lower()
     combined = f"{prompt}\n{handoff}"
 
-    assert "phase: 12" in prompt
-    assert "phase: 12 broker sandbox and execution risk audit" in handoff
-    assert "current active task is t52 broker sandbox fixture manifest" in prompt
-    assert "active task: t52 broker sandbox fixture manifest" in handoff
+    assert "phase: 13" in prompt
+    assert "phase: 13 product hypothesis confirmation decision" in handoff
+    assert (
+        "current active task is checkpoint after phase 13 product hypothesis confirmation decision"
+        in prompt
+    )
+    assert (
+        "active task: checkpoint after phase 13 product hypothesis confirmation decision" in handoff
+    )
     assert "phase 12 is sandbox-only broker/exchange execution risk audit" in combined
     for boundary in (
         "live order placement",

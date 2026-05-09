@@ -2,7 +2,7 @@
 
 Version: 1.0
 Date: 2026-05-09
-Phase: 12
+Phase: 13
 
 Reset state for Entropy Core after archiving the old active workflow. Historical files are available under `docs/legacy/old-workflow/2026-05-07/` but are not read by default.
 
@@ -10,17 +10,17 @@ Reset state for Entropy Core after archiving the old active workflow. Historical
 
 ## Current Phase
 
-- Phase: 12
-- Name: Broker Sandbox and Execution Risk Audit
-- Business goal: define sandbox-only broker/exchange execution risk controls without live orders, production credentials, live capital, production labels, or holdout access.
-- Phase gate: sandbox boundary, fixture manifest, execution risk controls, kill-switch audit, no-capital dry run, and review prove broker sandbox work remains isolated and no-capital.
+- Phase: 13
+- Name: Product Hypothesis Confirmation Decision
+- Business goal: define the safest next validation step toward product hypothesis confirmation using local-only approval decision work.
+- Phase gate: request, intake, validation-path decision, non-approval regression, validation plan, and review prove no production/capital/live/holdout path opens without explicit future approval.
 
 ## Current State
 
-- Phase: 12
-- Baseline: 456 passing tests, 20 skipped (T51 local verification on 2026-05-09)
-- Ruff: clean on T51 local verification 2026-05-09
-- Pyright: clean on T51 local verification 2026-05-09
+- Phase: 13
+- Baseline: 489 passing tests, 20 skipped (T62 local verification on 2026-05-09)
+- Ruff: clean on T62 local verification 2026-05-09
+- Pyright: clean on T62 local verification 2026-05-09
 - Last CI: product-local workflow configured; remote CI not yet observed after reset
 - Holdout: locked
 - Live capital: not approved
@@ -40,13 +40,13 @@ Reset state for Entropy Core after archiving the old active workflow. Historical
 
 ## Next Task
 
-T52 Broker Sandbox Fixture Manifest.
+Checkpoint after Phase 13 Product Hypothesis Confirmation Decision.
 
 Phase 11 Live-Feed Dry Run Readiness Review is complete through T50. Roadmap evaluation opened Phase 12 as sandbox-only broker/exchange execution risk audit work.
 
-T35 Holdout Access Protocol Deny-By-Default Contract completed on 2026-05-09. T36 Holdout Approval Event Schema Contract completed on 2026-05-09. T37 Holdout Access Audit Logging Contract completed on 2026-05-09. T38 Holdout Leakage Guard Protocol Fixture completed on 2026-05-09. T39 Holdout Access Protocol Review completed on 2026-05-09. T40 Holdout Approval Request Packet Scaffold completed on 2026-05-09. T41 Holdout Approval Evidence Intake Contract completed on 2026-05-09. T42 Holdout Approval Absence Denial Packet completed on 2026-05-09. T43 Holdout Non-Approval Source Regression completed on 2026-05-09. T44 Holdout Decision No-Read Dry Run completed on 2026-05-09. T45 Holdout Approval Decision Review completed on 2026-05-09. T46 Live-Feed Boundary Contract completed on 2026-05-09. T47 Live-Feed Fixture Manifest completed on 2026-05-09. T48 Live-Feed Adapter Dry-Run Contract completed on 2026-05-09. T49 Live-Feed Observability Packet completed on 2026-05-09. T50 Live-Feed Dry Run Readiness Review completed on 2026-05-09. T51 Broker Sandbox Boundary Contract completed on 2026-05-09. Phase 12 Broker Sandbox and Execution Risk Audit is open. Active Phase 12 scope is T51 through T56; T52 is active. After T56, run deep review, fix findings, validate, evaluate the roadmap, rewrite future phases if useful, open the next logical active phase, and continue automatically.
+T35 Holdout Access Protocol Deny-By-Default Contract completed on 2026-05-09. T36 Holdout Approval Event Schema Contract completed on 2026-05-09. T37 Holdout Access Audit Logging Contract completed on 2026-05-09. T38 Holdout Leakage Guard Protocol Fixture completed on 2026-05-09. T39 Holdout Access Protocol Review completed on 2026-05-09. T40 Holdout Approval Request Packet Scaffold completed on 2026-05-09. T41 Holdout Approval Evidence Intake Contract completed on 2026-05-09. T42 Holdout Approval Absence Denial Packet completed on 2026-05-09. T43 Holdout Non-Approval Source Regression completed on 2026-05-09. T44 Holdout Decision No-Read Dry Run completed on 2026-05-09. T45 Holdout Approval Decision Review completed on 2026-05-09. T46 Live-Feed Boundary Contract completed on 2026-05-09. T47 Live-Feed Fixture Manifest completed on 2026-05-09. T48 Live-Feed Adapter Dry-Run Contract completed on 2026-05-09. T49 Live-Feed Observability Packet completed on 2026-05-09. T50 Live-Feed Dry Run Readiness Review completed on 2026-05-09. T51 Broker Sandbox Boundary Contract completed on 2026-05-09. T52 Broker Sandbox Fixture Manifest completed on 2026-05-09. T53 Execution Risk Control Contract completed on 2026-05-09. T54 Kill-Switch Audit Log Contract completed on 2026-05-09. T55 Sandbox Execution No-Capital Dry Run completed on 2026-05-09. T56 Broker Sandbox Readiness Review completed on 2026-05-09. T57 Product Hypothesis Confirmation Request Packet completed on 2026-05-09. T58 Product Validation Approval Intake Contract completed on 2026-05-09. T59 Product Hypothesis Validation Path Decision completed on 2026-05-09. T60 Production Capital Non-Approval Regression completed on 2026-05-09. T61 Local Next Validation Plan Packet completed on 2026-05-09. T62 Product Hypothesis Confirmation Decision Review completed on 2026-05-09. Phase 13 Product Hypothesis Confirmation Decision is closed. product hypothesis status: unconfirmed_pending_future_validation. Next human decision required: whether to authorize a future local broker sandbox no-capital replay extension task.
 
-Archive Evidence Expansion block complete through T24, Phase 7 complete through T29, Phase 8 complete through T34, Phase 9 complete through T39, Phase 10 complete through T45, and Phase 11 complete through T50. Phase 11 is local-only live-feed dry-run readiness and is closed. Phase 12 is sandbox-only broker/exchange execution risk audit with holdout read/unlock, live broker/exchange execution, live orders, live capital, production labels, and credentialed deployment still blocked; roadmap phase 13 remains planned direction and may be rewritten by roadmap evaluation. No approval event currently exists. Do not execute real external side effects, holdout reads, holdout unlocks, live capital actions, live broker/exchange execution, live order placement, or credentialed production deployment; replace them with local dry-run/sandbox/protocol work unless a future local contract explicitly permits otherwise.
+Archive Evidence Expansion block complete through T24, Phase 7 complete through T29, Phase 8 complete through T34, Phase 9 complete through T39, Phase 10 complete through T45, Phase 11 complete through T50, and Phase 12 complete through T56. Phase 11 is local-only live-feed dry-run readiness and is closed. Phase 12 is sandbox-only broker/exchange execution risk audit and is closed. Phase 13 is local-only approval decision work for defining the safest next validation step toward product hypothesis confirmation. No approval event currently exists. Do not execute real external side effects, holdout reads, holdout unlocks, live capital actions, live broker/exchange execution, live order placement, production credential loading, or credentialed production deployment. No live orders, no broker/exchange execution, no production credentials, no live capital, and no holdout access are approved.
 
 ## Fix Queue
 
@@ -262,6 +262,50 @@ none after reset. Legacy D-K findings were closed in the prior workflow, but old
   - Acceptance tests: `tests/reset/test_broker_sandbox_boundary_contract.py` passed (`3 passed`).
   - Reset baseline: `.venv/bin/python -m pytest -q tests/` reported `456 passed, 20 skipped`.
   - Quality checks: ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
+- 2026-05-09: T52 Broker Sandbox Fixture Manifest completed.
+  - Acceptance tests: `tests/reset/test_broker_sandbox_fixture_manifest.py` passed (`3 passed`).
+  - Reset baseline: `.venv/bin/python -m pytest -q tests/` reported `459 passed, 20 skipped`.
+  - Quality checks: ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
+- 2026-05-09: T53 Execution Risk Control Contract completed.
+  - Acceptance tests: `tests/reset/test_execution_risk_control_contract.py` passed (`3 passed`).
+  - Reset baseline: `.venv/bin/python -m pytest -q tests/` reported `462 passed, 20 skipped`.
+  - Quality checks: ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
+- 2026-05-09: T54 Kill-Switch Audit Log Contract completed.
+  - Acceptance tests: `tests/reset/test_kill_switch_audit_log_contract.py` passed (`3 passed`).
+  - Reset baseline: `.venv/bin/python -m pytest -q tests/` reported `465 passed, 20 skipped`.
+  - Quality checks: ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
+- 2026-05-09: T55 Sandbox Execution No-Capital Dry Run completed.
+  - Acceptance tests: `tests/reset/test_sandbox_execution_no_capital_dry_run.py` passed (`3 passed`).
+  - Reset baseline: `.venv/bin/python -m pytest -q tests/` reported `468 passed, 20 skipped`.
+  - Quality checks: ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
+- 2026-05-09: T56 Broker Sandbox Readiness Review completed.
+  - Acceptance tests: `tests/reset/test_broker_sandbox_readiness_review.py` passed (`3 passed`).
+  - Reset baseline: `.venv/bin/python -m pytest -q tests/` reported `471 passed, 20 skipped`.
+  - Quality checks: ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
+- 2026-05-09: T57 Product Hypothesis Confirmation Request Packet completed.
+  - Acceptance tests: `tests/reset/test_product_hypothesis_confirmation_request.py` passed (`3 passed`).
+  - Reset baseline: `.venv/bin/python -m pytest -q tests/` reported `474 passed, 20 skipped`.
+  - Quality checks: ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
+- 2026-05-09: T58 Product Validation Approval Intake Contract completed.
+  - Acceptance tests: `tests/reset/test_product_validation_approval_intake_contract.py` passed (`3 passed`).
+  - Reset baseline: `.venv/bin/python -m pytest -q tests/` reported `477 passed, 20 skipped`.
+  - Quality checks: ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
+- 2026-05-09: T59 Product Hypothesis Validation Path Decision completed.
+  - Acceptance tests: `tests/reset/test_product_hypothesis_validation_path_decision.py` passed (`3 passed`).
+  - Reset baseline: `.venv/bin/python -m pytest -q tests/` reported `480 passed, 20 skipped`.
+  - Quality checks: ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
+- 2026-05-09: T60 Production Capital Non-Approval Regression completed.
+  - Acceptance tests: `tests/reset/test_production_capital_non_approval_regression.py` passed (`3 passed`).
+  - Reset baseline: `.venv/bin/python -m pytest -q tests/` reported `483 passed, 20 skipped`.
+  - Quality checks: ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
+- 2026-05-09: T61 Local Next Validation Plan Packet completed.
+  - Acceptance tests: `tests/reset/test_local_next_validation_plan_packet.py` passed (`3 passed`).
+  - Reset baseline: `.venv/bin/python -m pytest -q tests/` reported `486 passed, 20 skipped`.
+  - Quality checks: ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
+- 2026-05-09: T62 Product Hypothesis Confirmation Decision Review completed.
+  - Acceptance tests: `tests/reset/test_product_hypothesis_confirmation_decision_review.py` passed (`3 passed`).
+  - Reset baseline: `.venv/bin/python -m pytest -q tests/` reported `489 passed, 20 skipped`.
+  - Quality checks: ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
 
 ## Phase History
 
@@ -313,6 +357,19 @@ none after reset. Legacy D-K findings were closed in the prior workflow, but old
 - 2026-05-09: Roadmap evaluation modified planned Phase 12 into sandbox-only broker/exchange execution risk audit work and opened T51 Broker Sandbox Boundary Contract.
 - 2026-05-09: T50 Live-Feed Dry Run Readiness Review completed. Next task: T51 Broker Sandbox Boundary Contract.
 - 2026-05-09: T51 Broker Sandbox Boundary Contract completed. Next task: T52 Broker Sandbox Fixture Manifest.
+- 2026-05-09: T52 Broker Sandbox Fixture Manifest completed. Next task: T53 Execution Risk Control Contract.
+- 2026-05-09: T53 Execution Risk Control Contract completed. Next task: T54 Kill-Switch Audit Log Contract.
+- 2026-05-09: T54 Kill-Switch Audit Log Contract completed. Next task: T55 Sandbox Execution No-Capital Dry Run.
+- 2026-05-09: T55 Sandbox Execution No-Capital Dry Run completed. Next task: T56 Broker Sandbox Readiness Review.
+- 2026-05-09: Phase 12 Broker Sandbox and Execution Risk Audit completed. Review artifact: `docs/audit/BROKER_SANDBOX_READINESS_REVIEW.md`. Result: PASS; Stop-Ship 0, P0 0, P1 0, P2 0.
+- 2026-05-09: Roadmap evaluation blocked Phase 13 Production and Capital Gate pending explicit human approval and a local-only task rewrite. Checkpoint before production/capital work.
+- 2026-05-09: Operator approved rewriting Phase 13 as local-only product hypothesis confirmation decision work with no live orders, no broker/exchange execution, no production credentials, no live capital, and no holdout access.
+- 2026-05-09: T57 Product Hypothesis Confirmation Request Packet completed. Next task: T58 Product Validation Approval Intake Contract.
+- 2026-05-09: T58 Product Validation Approval Intake Contract completed. Next task: T59 Product Hypothesis Validation Path Decision.
+- 2026-05-09: T59 Product Hypothesis Validation Path Decision completed. Next task: T60 Production Capital Non-Approval Regression.
+- 2026-05-09: T60 Production Capital Non-Approval Regression completed. Next task: T61 Local Next Validation Plan Packet.
+- 2026-05-09: T61 Local Next Validation Plan Packet completed. Next task: T62 Product Hypothesis Confirmation Decision Review.
+- 2026-05-09: Phase 13 Product Hypothesis Confirmation Decision completed. Review artifact: `docs/audit/PRODUCT_HYPOTHESIS_CONFIRMATION_DECISION_REVIEW.md`. product hypothesis status: unconfirmed_pending_future_validation. Next human decision required before further validation execution.
 - 2026-05-08: Phase boundaries changed from stop points to autonomous rollover points: deep review, fix findings, validate, evaluate roadmap, rewrite future phases, open the next logical active phase, and continue.
 
 ## Profile State: RAG
@@ -362,13 +419,13 @@ none after reset. Legacy D-K findings were closed in the prior workflow, but old
 
 ### Last Evaluation
 
-- Profile: Broker Sandbox Boundary Contract
-- Task: T51 Broker Sandbox Boundary Contract
+- Profile: Product Hypothesis Confirmation Decision Review
+- Task: T62 Product Hypothesis Confirmation Decision Review
 - Date: 2026-05-09
-- Eval Source: `tests/reset/test_broker_sandbox_boundary_contract.py`
-- Metric(s): allowed sandbox operations, blocked live effects, Phase 12 sandbox-only state
-- Score: `3 passed`; current baseline `456 passed, 20 skipped`
-- Baseline: T50 live-feed readiness review `453 passed, 20 skipped`
+- Eval Source: `tests/reset/test_product_hypothesis_confirmation_decision_review.py`
+- Metric(s): review sections, confirmation status, audit/prompt state
+- Score: `3 passed`; current baseline `489 passed, 20 skipped`
+- Baseline: T61 local next validation plan packet `486 passed, 20 skipped`
 - Delta: +3 passing tests
 - Regression: none known
 
@@ -382,7 +439,7 @@ Human approval after T24 opened Phase 7 Archive Reproducibility Hardening and re
 
 ### Human Decision Point
 
-Current active task is T52 Broker Sandbox Fixture Manifest. Archive Evidence Expansion block is complete through T24, Phase 7 is complete through T29, Phase 8 is complete through T34, Phase 9 is complete through T39, Phase 10 is complete through T45, Phase 11 is complete through T50, and Phase 12 is complete through T51. Phase 12 is sandbox-only broker/exchange execution risk audit and does not approve live orders, live broker/exchange execution, live capital, credentialed production deployment, production labels, or holdout access. No approval event currently exists. Roadmap phase 13 is planned direction and may be promoted or rewritten automatically by roadmap evaluation. Real external side effects, holdout reads, holdout unlocks, live order placement, live capital actions, live broker/exchange execution, and credentialed production deployment remain blocked.
+Current active task is checkpoint after Phase 13 Product Hypothesis Confirmation Decision. Archive Evidence Expansion block is complete through T24, Phase 7 is complete through T29, Phase 8 is complete through T34, Phase 9 is complete through T39, Phase 10 is complete through T45, Phase 11 is complete through T50, Phase 12 is complete through T56, and Phase 13 is complete through T62. product hypothesis status: unconfirmed_pending_future_validation. Next human decision required before any further validation execution. No approval event currently exists. Real external side effects, holdout reads, holdout unlocks, live order placement, live capital actions, live broker/exchange execution, production credential loading, and credentialed production deployment remain blocked.
 
 ## Verification Defaults
 

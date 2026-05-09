@@ -51,7 +51,7 @@ def test_holdout_approval_decision_review_updates_state() -> None:
     tasks = TASKS.read_text(encoding="utf-8")
     audit_index = AUDIT_INDEX.read_text(encoding="utf-8")
 
-    assert "Phase: 12" in prompt
+    assert "Phase: 13" in prompt
     assert "T45 Holdout Approval Decision Review completed" in prompt
     assert "T46 Live-Feed Boundary Contract" in prompt
     assert "Phase 11 Live-Feed Dry Run Readiness" in prompt
@@ -62,7 +62,7 @@ def test_holdout_approval_decision_review_updates_state() -> None:
     assert "Status:     done 2026-05-09" in _task_section(tasks, "T49")
     assert "Status:     done 2026-05-09" in _task_section(tasks, "T50")
     assert "Status:     done 2026-05-09" in _task_section(tasks, "T51")
-    assert "Status:     active" in _task_section(tasks, "T52")
+    assert "Status:     done 2026-05-09" in _task_section(tasks, "T56")
     assert "HOLDOUT-APPROVAL-DECISION" in audit_index
     assert "`docs/audit/HOLDOUT_APPROVAL_DECISION_REVIEW.md`" in audit_index
 

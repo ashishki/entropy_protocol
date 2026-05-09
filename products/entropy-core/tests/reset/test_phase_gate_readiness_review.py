@@ -51,7 +51,7 @@ def test_phase_gate_readiness_review_updates_state() -> None:
     prompt = CODEX_PROMPT.read_text(encoding="utf-8")
     tasks = TASKS.read_text(encoding="utf-8")
 
-    assert "Phase: 12" in prompt
+    assert "Phase: 13" in prompt
     assert "T34 Phase-Gate Readiness Review completed" in prompt
     assert "T35 Holdout Access Protocol Deny-By-Default Contract" in prompt
     assert "Phase 9 Holdout Access Protocol" in prompt
@@ -63,7 +63,7 @@ def test_phase_gate_readiness_review_updates_state() -> None:
     assert "Status:     done 2026-05-09" in _task_section(tasks, "T39")
     assert "Status:     done 2026-05-09" in _task_section(tasks, "T40")
     assert "Status:     done 2026-05-09" in _task_section(tasks, "T41")
-    assert "Status:     active" in _task_section(tasks, "T52")
+    assert "Status:     done 2026-05-09" in _task_section(tasks, "T56")
     assert "No holdout path may be opened or read" in _task_section(tasks, "T35")
 
 

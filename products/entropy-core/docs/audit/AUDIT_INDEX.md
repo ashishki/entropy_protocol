@@ -17,6 +17,8 @@ Append-only. One row per reset-era review cycle.
 | HOLDOUT-ACCESS-PROTOCOL | 9 | 2026-05-09 | T35-T39 Holdout Access Protocol | 0 | 0 | 0 | 0 |
 | HOLDOUT-APPROVAL-DECISION | 10 | 2026-05-09 | T40-T45 Holdout Approval Decision Packet | 0 | 0 | 0 | 0 |
 | LIVE-FEED-READINESS | 11 | 2026-05-09 | T46-T50 Live-Feed Dry Run Readiness | 0 | 0 | 0 | 0 |
+| BROKER-SANDBOX-READINESS | 12 | 2026-05-09 | T51-T56 Broker Sandbox and Execution Risk Audit | 0 | 0 | 0 | 0 |
+| PRODUCT-HYPOTHESIS-CONFIRMATION-DECISION | 13 | 2026-05-09 | T57-T62 Product Hypothesis Confirmation Decision | 0 | 0 | 0 | 0 |
 
 ## Archive
 
@@ -33,6 +35,8 @@ Append-only. One row per reset-era review cycle.
 | HOLDOUT-ACCESS-PROTOCOL | `docs/audit/HOLDOUT_ACCESS_PROTOCOL_REVIEW.md` | 9 | PASS |
 | HOLDOUT-APPROVAL-DECISION | `docs/audit/HOLDOUT_APPROVAL_DECISION_REVIEW.md` | 10 | PASS |
 | LIVE-FEED-READINESS | `docs/audit/LIVE_FEED_READINESS_REVIEW.md` | 11 | PASS |
+| BROKER-SANDBOX-READINESS | `docs/audit/BROKER_SANDBOX_READINESS_REVIEW.md` | 12 | PASS |
+| PRODUCT-HYPOTHESIS-CONFIRMATION-DECISION | `docs/audit/PRODUCT_HYPOTHESIS_CONFIRMATION_DECISION_REVIEW.md` | 13 | PASS |
 
 ## Notes
 

@@ -288,3 +288,116 @@ Phase 10 is complete through T45. Phase 11 is complete through T50. Phase 12 is 
 - Latest validation: `.venv/bin/python -m pytest -q tests/` -> `456 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
 - Light review result: no findings.
 - Boundaries remain unchanged: Phase 12 permits only local sandbox scenario review, fixture design, risk-control design, kill-switch audit design, and no-capital dry-run packet assembly; no live orders, live broker/exchange execution, production credentials, live capital, production labels, or holdout access are approved.
+
+## 2026-05-09 T52 Broker Sandbox Fixture Manifest
+
+Phase 12 is complete through T52.
+
+- Completed task: T52 Broker Sandbox Fixture Manifest.
+- Active task: T53 Execution Risk Control Contract.
+- Latest validation: `.venv/bin/python -m pytest -q tests/` -> `459 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
+- Light review result: no findings.
+- Boundaries remain unchanged: the fixture manifest defines checked-in deterministic sandbox order scenarios, hashes, replay constraints, rejected live effects, and no-capital scope binding only. No live orders, live broker/exchange execution, production credentials, live capital, production labels, or holdout access are approved.
+
+## 2026-05-09 T53 Execution Risk Control Contract
+
+Phase 12 is complete through T53.
+
+- Completed task: T53 Execution Risk Control Contract.
+- Active task: T54 Kill-Switch Audit Log Contract.
+- Latest validation: `.venv/bin/python -m pytest -q tests/` -> `462 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
+- Light review result: no findings.
+- Boundaries remain unchanged: the execution risk control contract defines sandbox order validation, limit enforcement, rejection states, deterministic audit fields, and no-capital boundaries only. No live orders, live broker/exchange execution, production credentials, live capital, production labels, or holdout access are approved.
+
+## 2026-05-09 T54 Kill-Switch Audit Log Contract
+
+Phase 12 is complete through T54.
+
+- Completed task: T54 Kill-Switch Audit Log Contract.
+- Active task: T55 Sandbox Execution No-Capital Dry Run.
+- Latest validation: `.venv/bin/python -m pytest -q tests/` -> `465 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
+- Light review result: no findings.
+- Boundaries remain unchanged: the kill-switch audit log contract defines deterministic trigger, state transition, actor fingerprint, append-only log hash, and fail-closed behavior only. No live order telemetry, live broker/exchange execution, production credentials, live capital, production labels, or holdout access are approved.
+
+## 2026-05-09 T55 Sandbox Execution No-Capital Dry Run
+
+Phase 12 is complete through T55.
+
+- Completed task: T55 Sandbox Execution No-Capital Dry Run.
+- Active task: T56 Broker Sandbox Readiness Review.
+- Latest validation: `.venv/bin/python -m pytest -q tests/` -> `468 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
+- Light review result: no findings.
+- Boundaries remain unchanged: the dry run assembles sandbox boundary, fixture manifest, execution risk control, and kill-switch artifacts into a local no-capital packet only. No sandbox or live orders were emitted from code; no live broker/exchange execution, production credentials, live capital, production labels, or holdout access are approved.
+
+## 2026-05-09 T56 Broker Sandbox Readiness Review
+
+Phase 12 is complete through T56. Phase 13 is blocked pending operator direction.
+
+- Completed task: T56 Broker Sandbox Readiness Review.
+- Active task: checkpoint before Phase 13 Production and Capital Gate.
+- Latest validation: `.venv/bin/python -m pytest -q tests/` -> `471 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
+- Light/deep review result: no findings.
+- Roadmap decision: block Phase 13 production/capital work pending explicit human approval and a local-only task rewrite.
+- Boundaries remain unchanged: no production/capital task is active; live orders, live broker/exchange execution, production credentials, live capital, production labels, capital-ready labels, and holdout access remain blocked.
+
+## 2026-05-09 T57 Product Hypothesis Confirmation Request
+
+Operator approved rewriting Phase 13 as local-only product hypothesis confirmation decision work.
+
+- Completed task: T57 Product Hypothesis Confirmation Request Packet.
+- Active task: T58 Product Validation Approval Intake Contract.
+- Latest validation: `.venv/bin/python -m pytest -q tests/` -> `474 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
+- Light review result: no findings.
+- Boundaries remain unchanged: Phase 13 request work is local-only and does not confirm the product hypothesis. No live orders, broker/exchange execution, production credentials, live capital, production labels, capital-ready labels, or holdout access are approved.
+
+## 2026-05-09 T58 Product Validation Approval Intake
+
+Phase 13 is complete through T58.
+
+- Completed task: T58 Product Validation Approval Intake Contract.
+- Active task: T59 Product Hypothesis Validation Path Decision.
+- Latest validation: `.venv/bin/python -m pytest -q tests/` -> `477 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
+- Light review result: no findings.
+- Boundaries remain unchanged: the intake contract defines future approval requirements and rejects missing, generated, inferred, stale, revoked, incomplete, and overbroad approvals. No approval event currently exists and no restricted action is approved.
+
+## 2026-05-09 T59 Product Hypothesis Validation Path Decision
+
+Phase 13 is complete through T59.
+
+- Completed task: T59 Product Hypothesis Validation Path Decision.
+- Active task: T60 Production Capital Non-Approval Regression.
+- Latest validation: `.venv/bin/python -m pytest -q tests/` -> `480 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
+- Light review result: no findings.
+- Boundaries remain unchanged: the selected next step is local planning only. Product hypothesis status remains not confirmed; holdout/OOS, live execution, capital deployment, production labels, and capital-ready labels remain blocked.
+
+## 2026-05-09 T60 Production Capital Non-Approval Regression
+
+Phase 13 is complete through T60.
+
+- Completed task: T60 Production Capital Non-Approval Regression.
+- Active task: T61 Local Next Validation Plan Packet.
+- Latest validation: `.venv/bin/python -m pytest -q tests/` -> `483 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
+- Light review result: no findings.
+- Boundaries remain unchanged: Phase 13 artifacts, roadmap rows, reviews, tests, protocol docs, readiness artifacts, generated scaffolds, and local dry-run packets are not approval sources. Restricted action flags remain absent.
+
+## 2026-05-09 T61 Local Next Validation Plan Packet
+
+Phase 13 is complete through T61.
+
+- Completed task: T61 Local Next Validation Plan Packet.
+- Active task: T62 Product Hypothesis Confirmation Decision Review.
+- Latest validation: `.venv/bin/python -m pytest -q tests/` -> `486 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
+- Light review result: no findings.
+- Boundaries remain unchanged: the recommended next step is a local broker sandbox no-capital replay extension plan only. The plan is not executed and does not confirm or reject the product hypothesis.
+
+## 2026-05-09 T62 Product Hypothesis Confirmation Decision Review
+
+Phase 13 is complete through T62.
+
+- Completed task: T62 Product Hypothesis Confirmation Decision Review.
+- Active task: checkpoint after Phase 13 Product Hypothesis Confirmation Decision.
+- Latest validation: `.venv/bin/python -m pytest -q tests/` -> `489 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
+- Light/deep review result: no findings.
+- product hypothesis status: unconfirmed_pending_future_validation.
+- Next human decision required: whether to authorize a future local broker sandbox no-capital replay extension task.
+- Boundaries remain unchanged: no next validation execution is approved; holdout/OOS, live feed activation, live order placement, broker/exchange execution, production credentials, live capital, production labels, and capital-ready labels remain blocked.
