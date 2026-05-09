@@ -224,3 +224,14 @@ Phase 9 is complete through T35.
 - Evidence index row added for T35 holdout access protocol proof.
 - Light review result: no findings.
 - Boundaries remain unchanged: Phase 9 is protocol-only; no approval event currently exists; holdout read/unlock, phase-gate approval, OOS/performance claims, live, broker/exchange, production, and capital-ready paths remain blocked.
+
+## 2026-05-09 T36 Holdout Approval Event Schema
+
+Phase 9 is complete through T36.
+
+- Completed task: T36 Holdout Approval Event Schema Contract.
+- Active task: T37 Holdout Access Audit Logging Contract.
+- Latest validation: `.venv/bin/python -m pytest -q tests/` -> `411 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
+- Evidence index row added for T36 holdout approval event schema proof.
+- Light review result: no findings.
+- Boundaries remain unchanged: no approval event currently exists; generated, inferred, expired, revoked, or incomplete approval fixtures are rejected; holdout read/unlock, phase-gate approval, OOS/performance claims, live, broker/exchange, production, and capital-ready paths remain blocked.

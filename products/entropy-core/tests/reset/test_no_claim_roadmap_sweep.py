@@ -72,8 +72,9 @@ def test_future_phases_are_not_approvals() -> None:
     assert "phase: 9" in prompt
     assert "phase: 9 holdout access protocol" in handoff
     assert "protocol-only holdout access design" in handoff
-    assert "active task: t36 holdout approval event schema contract" in handoff
+    assert "active task: t37 holdout access audit logging contract" in handoff
     assert "t35 holdout access protocol deny-by-default contract completed" in prompt
+    assert "t36 holdout approval event schema contract completed" in prompt
 
 
 def test_prompt_and_handoff_preserve_boundaries() -> None:

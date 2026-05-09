@@ -1302,7 +1302,7 @@ Owner:      codex
 Phase:      9
 Type:       none
 Depends-On: T35
-Status:     active
+Status:     done 2026-05-09
 
 Objective: |
   Define the local schema for explicit human holdout approval events without creating or implying any approval.
@@ -1337,7 +1337,7 @@ Owner:      codex
 Phase:      9
 Type:       none
 Depends-On: T36
-Status:     pending
+Status:     active
 
 Objective: |
   Define audit logging requirements for any future approved holdout access attempt while preserving blocked default behavior.

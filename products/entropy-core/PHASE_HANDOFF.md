@@ -7,10 +7,10 @@ manual restart.
 
 - Product: entropy-core
 - Branch: codex/entropy-core-work
-- Active task: T36 Holdout Approval Event Schema Contract
+- Active task: T37 Holdout Access Audit Logging Contract
 - Phase: 9 Holdout Access Protocol
-- Last validation: 2026-05-09 T35: `408 passed, 20 skipped`; ruff check clean; ruff format clean; pyright 0 errors; `git diff --check` clean.
-- Git status summary: T35 holdout access protocol changes pending commit at handoff update time.
+- Last validation: 2026-05-09 T36: `411 passed, 20 skipped`; ruff check clean; ruff format clean; pyright 0 errors; `git diff --check` clean.
+- Git status summary: T36 holdout approval event schema changes pending commit at handoff update time.
 
 ## Completed In This Phase
 
@@ -52,11 +52,11 @@ manual restart.
 - T33 Readiness No-Holdout Dry Run completed with no findings.
 - T34 Phase-Gate Readiness Review completed with no findings.
 - T35 Holdout Access Protocol Deny-By-Default Contract completed with no findings.
+- T36 Holdout Approval Event Schema Contract completed with no findings.
 
 ## Remaining Work
 
-- T36 Holdout Approval Event Schema Contract is active.
-- T37 Holdout Access Audit Logging Contract is pending.
+- T37 Holdout Access Audit Logging Contract is active.
 - T38 Holdout Leakage Guard Protocol Fixture is pending.
 - T39 Holdout Access Protocol Review is pending.
 - After T39, run deep review, fix findings, validate, evaluate the roadmap, rewrite future phases/tasks if useful, open the next logical active phase, and continue automatically.
@@ -70,6 +70,7 @@ manual restart.
 - Human decision after T24 recorded on 2026-05-08: record roadmap phases 7 through 13, open Phase 7, and allow autonomous phase rollover after deep review, fixes, validation, and roadmap evaluation.
 - Phase 8 roadmap evaluation opened Phase 9 as protocol-only holdout access design. No holdout read, holdout unlock, phase-gate approval, or OOS/performance claim is approved.
 - T35 created a denied-by-default local protocol scaffold. Phase 9 is protocol-only with holdout read/unlock still blocked, and no approval event currently exists.
+- T36 defined the approval event schema and invalid fixture classes without creating any approval event.
 - Real external side effects, holdout reads, holdout unlocks, live capital actions, live broker/exchange execution, and credentialed production deployment remain blocked; implement local dry-run/sandbox/protocol work instead unless a future local contract explicitly permits otherwise.
 
 ## Resume Instruction
