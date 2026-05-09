@@ -1162,7 +1162,7 @@ Owner:      codex
 Phase:      8
 Type:       none
 Depends-On: T31
-Status:     active
+Status:     done 2026-05-09
 
 Objective: |
   Record a checklist of explicit human approvals and evidence prerequisites that would be required before holdout, phase-gate, or claim-surface work could be considered.
@@ -1197,7 +1197,7 @@ Owner:      codex
 Phase:      8
 Type:       none
 Depends-On: T32
-Status:     pending
+Status:     active
 
 Objective: |
   Add a local dry-run proof that readiness review can assemble evidence without reading or unlocking holdout data.

@@ -21,6 +21,15 @@ This file records handoff context. It is not authority.
 
 ## Entries
 
+### 2026-05-09 - T32 - Approval Boundary Checklist
+
+- Scope: `docs/readiness/APPROVAL_BOUNDARY_CHECKLIST.md`, `tests/reset/test_approval_boundary_checklist.py`, `docs/EVIDENCE_INDEX.md`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`
+- Why this work happened: record explicit human approval boundaries, blocked status, evidence prerequisites, and non-approval sources before no-holdout dry-run validation
+- Decisions applied: `docs/ARCHITECTURE.md#human-approval-boundaries`; `docs/IMPLEMENTATION_CONTRACT.md#forbidden-actions`; `D-ROADMAP-001`
+- Evidence collected: T32 acceptance tests passed (`3 passed`); full reset baseline `399 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean
+- Follow-ups: start T33 Readiness No-Holdout Dry Run
+- Notes for next agent: checklist confirms roadmap phases, readiness docs, archive evidence, passing tests, and review recommendations are not approval sources. Prompt and handoff must keep external side effects, holdout reads, live capital, live broker/exchange execution, and credentialed production deployment blocked.
+
 ### 2026-05-09 - T31 - Phase-Gate Readiness Packet Scaffold
 
 - Scope: `docs/readiness/PHASE_GATE_READINESS_PACKET.md`, `tests/reset/test_phase_gate_readiness_packet.py`, `docs/EVIDENCE_INDEX.md`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`

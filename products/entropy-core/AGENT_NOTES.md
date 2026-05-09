@@ -179,3 +179,14 @@ Phase 8 is complete through T31.
 - Evidence index row added for T31 readiness packet proof.
 - Light review result: no findings.
 - Boundaries remain unchanged: readiness packet is scaffold-only and grants no holdout, OOS/performance, live, broker/exchange, production, capital-ready, or phase-gate approval.
+
+## 2026-05-09 T32 Approval Boundary Checklist
+
+Phase 8 is complete through T32.
+
+- Completed task: T32 Approval Boundary Checklist.
+- Active task: T33 Readiness No-Holdout Dry Run.
+- Latest validation: `.venv/bin/python -m pytest -q tests/` -> `399 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
+- Evidence index row added for T32 approval checklist proof.
+- Light review result: no findings.
+- Boundaries remain unchanged: roadmap phases, readiness docs, archive evidence, passing tests, and review recommendations are not approval sources.

@@ -18,9 +18,9 @@ Reset state for Entropy Core after archiving the old active workflow. Historical
 ## Current State
 
 - Phase: 8
-- Baseline: 396 passing tests, 20 skipped (T31 local verification on 2026-05-09)
-- Ruff: clean on T31 local verification 2026-05-09
-- Pyright: clean on T31 local verification 2026-05-09
+- Baseline: 399 passing tests, 20 skipped (T32 local verification on 2026-05-09)
+- Ruff: clean on T32 local verification 2026-05-09
+- Pyright: clean on T32 local verification 2026-05-09
 - Last CI: product-local workflow configured; remote CI not yet observed after reset
 - Holdout: locked
 - Live capital: not approved
@@ -40,9 +40,9 @@ Reset state for Entropy Core after archiving the old active workflow. Historical
 
 ## Next Task
 
-T32 Approval Boundary Checklist.
+T33 Readiness No-Holdout Dry Run.
 
-Phase 7 Archive Reproducibility Hardening is complete through T29. Roadmap evaluation kept Phase 8 Phase-Gate Readiness Review as the next active phase. Active Phase 8 scope is T30 through T34; T30 and T31 are complete. After T34, run deep review, fix findings, validate, evaluate the roadmap, rewrite future phases if useful, open the next logical active phase, and continue automatically.
+Phase 7 Archive Reproducibility Hardening is complete through T29. Roadmap evaluation kept Phase 8 Phase-Gate Readiness Review as the next active phase. Active Phase 8 scope is T30 through T34; T30 through T32 are complete. After T34, run deep review, fix findings, validate, evaluate the roadmap, rewrite future phases if useful, open the next logical active phase, and continue automatically.
 
 Archive Evidence Expansion block complete through T24. Phase 8 is readiness analysis only; roadmap phases 9 through 13 are planned direction and may be rewritten by roadmap evaluation. Do not execute real external side effects, holdout reads, live capital actions, live broker/exchange execution, or credentialed production deployment; replace them with local dry-run/sandbox protocol work unless a future local contract explicitly permits otherwise.
 
@@ -180,6 +180,10 @@ none after reset. Legacy D-K findings were closed in the prior workflow, but old
   - Acceptance tests: `tests/reset/test_phase_gate_readiness_packet.py` passed (`3 passed`).
   - Reset baseline: `.venv/bin/python -m pytest -q tests/` reported `396 passed, 20 skipped`.
   - Quality checks: ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
+- 2026-05-09: T32 Approval Boundary Checklist completed.
+  - Acceptance tests: `tests/reset/test_approval_boundary_checklist.py` passed (`3 passed`).
+  - Reset baseline: `.venv/bin/python -m pytest -q tests/` reported `399 passed, 20 skipped`.
+  - Quality checks: ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
 
 ## Phase History
 
@@ -205,6 +209,7 @@ none after reset. Legacy D-K findings were closed in the prior workflow, but old
 - 2026-05-08: Roadmap evaluation kept planned Phase 8 Phase-Gate Readiness Review and opened T30 Archive Evidence Sufficiency Gap Matrix.
 - 2026-05-08: T30 Archive Evidence Sufficiency Gap Matrix completed. Next task: T31 Phase-Gate Readiness Packet Scaffold.
 - 2026-05-09: T31 Phase-Gate Readiness Packet Scaffold completed. Next task: T32 Approval Boundary Checklist.
+- 2026-05-09: T32 Approval Boundary Checklist completed. Next task: T33 Readiness No-Holdout Dry Run.
 - 2026-05-08: Phase boundaries changed from stop points to autonomous rollover points: deep review, fix findings, validate, evaluate roadmap, rewrite future phases, open the next logical active phase, and continue.
 
 ## Profile State: RAG
@@ -254,13 +259,13 @@ none after reset. Legacy D-K findings were closed in the prior workflow, but old
 
 ### Last Evaluation
 
-- Profile: Phase-Gate Readiness Packet Scaffold
-- Task: T31 Phase-Gate Readiness Packet Scaffold
+- Profile: Approval Boundary Checklist
+- Task: T32 Approval Boundary Checklist
 - Date: 2026-05-09
-- Eval Source: `tests/reset/test_phase_gate_readiness_packet.py`
-- Metric(s): required sections, approval-label rejection, gap-matrix/review references
-- Score: `3 passed`; current baseline `396 passed, 20 skipped`
-- Baseline: T30 archive evidence sufficiency gap matrix `393 passed, 20 skipped`
+- Eval Source: `tests/reset/test_approval_boundary_checklist.py`
+- Metric(s): required approval boundaries, implicit approval rejection, prompt/handoff boundary alignment
+- Score: `3 passed`; current baseline `399 passed, 20 skipped`
+- Baseline: T31 phase-gate readiness packet scaffold `396 passed, 20 skipped`
 - Delta: +3 passing tests
 - Regression: none known
 
@@ -274,7 +279,7 @@ Human approval after T24 opened Phase 7 Archive Reproducibility Hardening and re
 
 ### Human Decision Point
 
-Current active task is T32 Approval Boundary Checklist. Archive Evidence Expansion block is complete through T24, Phase 7 is complete through T29, and Phase 8 is readiness analysis only. Roadmap phases 9 through 13 are planned direction and may be promoted or rewritten automatically by roadmap evaluation. Real external side effects, holdout reads, live capital actions, live broker/exchange execution, and credentialed production deployment remain blocked.
+Current active task is T33 Readiness No-Holdout Dry Run. Archive Evidence Expansion block is complete through T24, Phase 7 is complete through T29, and Phase 8 is readiness analysis only. Roadmap phases 9 through 13 are planned direction and may be promoted or rewritten automatically by roadmap evaluation. Real external side effects, holdout reads, live capital actions, live broker/exchange execution, and credentialed production deployment remain blocked.
 
 ## Verification Defaults
 
