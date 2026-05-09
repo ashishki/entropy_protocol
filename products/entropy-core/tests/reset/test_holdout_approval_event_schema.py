@@ -76,8 +76,8 @@ def test_state_docs_record_no_current_holdout_approval_event() -> None:
     assert "explicit human holdout approval: absent" in schema
     assert "holdout read: blocked" in schema
     assert "holdout unlock: blocked" in schema
-    assert "current active task is t50 live-feed dry run readiness review" in prompt
-    assert "active task: t50 live-feed dry run readiness review" in handoff
+    assert "current active task is t51 broker sandbox boundary contract" in prompt
+    assert "active task: t51 broker sandbox boundary contract" in handoff
     assert "t36 holdout approval event schema contract completed" in prompt
     assert "t37 holdout access audit logging contract completed" in prompt
     assert "t38 holdout leakage guard protocol fixture completed" in prompt

@@ -1781,7 +1781,7 @@ Owner:      codex
 Phase:      11
 Type:       none
 Depends-On: T49
-Status:     active
+Status:     done 2026-05-09
 
 Objective: |
   Review Phase 11 live-feed dry-run readiness artifacts and evaluate the next roadmap step without enabling broker/exchange execution or capital.
@@ -1808,3 +1808,197 @@ Context-Refs:
 
 Notes: |
   Review only. Do not enable broker/exchange execution or capital.
+
+## T51: Broker Sandbox Boundary Contract
+
+Owner:      codex
+Phase:      12
+Type:       none
+Depends-On: T50
+Status:     active
+
+Objective: |
+  Define sandbox-only broker/exchange boundaries before any execution risk artifact work.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Boundary records allowed sandbox-only operations and required local controls."
+    test: "tests/reset/test_broker_sandbox_boundary_contract.py::test_broker_sandbox_boundary_records_allowed_operations"
+  - id: AC-2
+    description: "Boundary blocks live orders, production credentials, live capital, production labels, and holdout access."
+    test: "tests/reset/test_broker_sandbox_boundary_contract.py::test_broker_sandbox_boundary_blocks_live_effects"
+  - id: AC-3
+    description: "Prompt and handoff record Phase 12 as sandbox-only execution risk audit."
+    test: "tests/reset/test_broker_sandbox_boundary_contract.py::test_state_docs_record_phase12_sandbox_only_scope"
+
+Files:
+  - docs/protocols/BROKER_SANDBOX_BOUNDARY.md
+  - tests/reset/test_broker_sandbox_boundary_contract.py
+
+Context-Refs:
+  - docs/audit/LIVE_FEED_READINESS_REVIEW.md
+
+Notes: |
+  Boundary only. Do not connect to live broker/exchange execution or capital.
+
+## T52: Broker Sandbox Fixture Manifest
+
+Owner:      codex
+Phase:      12
+Type:       none
+Depends-On: T51
+Status:     pending
+
+Objective: |
+  Define deterministic sandbox fixture requirements for broker/exchange execution risk tests without live connectivity.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Manifest records fixture identity, order scenario class, hashes, schema, and replay constraints."
+    test: "tests/reset/test_broker_sandbox_fixture_manifest.py::test_broker_sandbox_fixture_manifest_records_required_fields"
+  - id: AC-2
+    description: "Manifest rejects production credentials, live orders, live capital, and holdout access."
+    test: "tests/reset/test_broker_sandbox_fixture_manifest.py::test_broker_sandbox_fixture_manifest_rejects_live_effects"
+  - id: AC-3
+    description: "Manifest binds fixtures to sandbox-only scope and risk-audit boundaries."
+    test: "tests/reset/test_broker_sandbox_fixture_manifest.py::test_broker_sandbox_fixture_manifest_binds_scope"
+
+Files:
+  - docs/protocols/BROKER_SANDBOX_FIXTURE_MANIFEST.md
+  - tests/reset/test_broker_sandbox_fixture_manifest.py
+
+Context-Refs:
+  - docs/protocols/BROKER_SANDBOX_BOUNDARY.md
+
+Notes: |
+  Manifest only. Do not open broker/exchange connectivity.
+
+## T53: Execution Risk Control Contract
+
+Owner:      codex
+Phase:      12
+Type:       none
+Depends-On: T52
+Status:     pending
+
+Objective: |
+  Define sandbox execution risk controls for order validation, limits, rejection, and deterministic audit behavior.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Contract records sandbox order validation, limits, rejection, and risk state fields."
+    test: "tests/reset/test_execution_risk_control_contract.py::test_execution_risk_contract_records_controls"
+  - id: AC-2
+    description: "Contract rejects live order placement, production credentials, live capital, and production labels."
+    test: "tests/reset/test_execution_risk_control_contract.py::test_execution_risk_contract_rejects_live_effects"
+  - id: AC-3
+    description: "Contract records deterministic audit and no-capital boundaries."
+    test: "tests/reset/test_execution_risk_control_contract.py::test_execution_risk_contract_records_audit_boundaries"
+
+Files:
+  - docs/protocols/EXECUTION_RISK_CONTROL_CONTRACT.md
+  - tests/reset/test_execution_risk_control_contract.py
+
+Context-Refs:
+  - docs/protocols/BROKER_SANDBOX_FIXTURE_MANIFEST.md
+
+Notes: |
+  Risk contract only. Do not place orders.
+
+## T54: Kill-Switch Audit Log Contract
+
+Owner:      codex
+Phase:      12
+Type:       none
+Depends-On: T53
+Status:     pending
+
+Objective: |
+  Define sandbox kill-switch audit requirements and fail-closed evidence without live capital or live order paths.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Contract records kill-switch trigger, state, actor, timestamp, and audit fields."
+    test: "tests/reset/test_kill_switch_audit_log_contract.py::test_kill_switch_contract_records_required_fields"
+  - id: AC-2
+    description: "Contract records fail-closed behavior and blocks order/capital activation."
+    test: "tests/reset/test_kill_switch_audit_log_contract.py::test_kill_switch_contract_records_fail_closed_behavior"
+  - id: AC-3
+    description: "Contract rejects secrets, production credentials, raw account identifiers, and holdout data."
+    test: "tests/reset/test_kill_switch_audit_log_contract.py::test_kill_switch_contract_rejects_sensitive_surfaces"
+
+Files:
+  - docs/protocols/KILL_SWITCH_AUDIT_LOG_CONTRACT.md
+  - tests/reset/test_kill_switch_audit_log_contract.py
+
+Context-Refs:
+  - docs/protocols/EXECUTION_RISK_CONTROL_CONTRACT.md
+
+Notes: |
+  Audit contract only. Do not emit live order telemetry.
+
+## T55: Sandbox Execution No-Capital Dry Run
+
+Owner:      codex
+Phase:      12
+Type:       none
+Depends-On: T54
+Status:     pending
+
+Objective: |
+  Assemble sandbox execution risk artifacts into a local no-capital dry run without live orders or live connectivity.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Dry run assembles sandbox boundary, fixture, risk control, and kill-switch artifacts."
+    test: "tests/reset/test_sandbox_execution_no_capital_dry_run.py::test_sandbox_dry_run_assembles_artifacts"
+  - id: AC-2
+    description: "Dry run rejects live orders, production credentials, live capital, and production claims."
+    test: "tests/reset/test_sandbox_execution_no_capital_dry_run.py::test_sandbox_dry_run_rejects_live_effects"
+  - id: AC-3
+    description: "Dry run records no holdout access and no capital-ready conclusion."
+    test: "tests/reset/test_sandbox_execution_no_capital_dry_run.py::test_sandbox_dry_run_records_limitations"
+
+Files:
+  - docs/protocols/SANDBOX_EXECUTION_NO_CAPITAL_DRY_RUN.md
+  - tests/reset/test_sandbox_execution_no_capital_dry_run.py
+
+Context-Refs:
+  - docs/protocols/KILL_SWITCH_AUDIT_LOG_CONTRACT.md
+
+Notes: |
+  Dry run only. Do not place live or sandbox orders from code.
+
+## T56: Broker Sandbox Readiness Review
+
+Owner:      codex
+Phase:      12
+Type:       none
+Depends-On: T55
+Status:     pending
+
+Objective: |
+  Review Phase 12 broker sandbox and execution risk audit artifacts and evaluate the next roadmap step without enabling production or capital.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Review summarizes sandbox boundary, fixture manifest, risk controls, kill-switch contract, dry run, validation, limitations, findings, and roadmap evaluation."
+    test: "tests/reset/test_broker_sandbox_readiness_review.py::test_broker_sandbox_readiness_review_contains_required_sections"
+  - id: AC-2
+    description: "Review records whether to keep, modify, or block the production/capital gate phase."
+    test: "tests/reset/test_broker_sandbox_readiness_review.py::test_broker_sandbox_readiness_review_records_roadmap_evaluation"
+  - id: AC-3
+    description: "Audit index and prompt record Phase 12 completion and the next active task selected by roadmap evaluation."
+    test: "tests/reset/test_broker_sandbox_readiness_review.py::test_broker_sandbox_readiness_review_updates_state"
+
+Files:
+  - docs/audit/BROKER_SANDBOX_READINESS_REVIEW.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/CODEX_PROMPT.md
+  - tests/reset/test_broker_sandbox_readiness_review.py
+
+Context-Refs:
+  - docs/protocols/SANDBOX_EXECUTION_NO_CAPITAL_DRY_RUN.md
+
+Notes: |
+  Review only. Do not enable production, live capital, or live orders.

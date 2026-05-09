@@ -7,10 +7,10 @@ manual restart.
 
 - Product: entropy-core
 - Branch: codex/entropy-core-work
-- Active task: T50 Live-Feed Dry Run Readiness Review
-- Phase: 11 Live-Feed Dry Run Readiness
-- Last validation: 2026-05-09 T49: `450 passed, 20 skipped`; ruff check clean; ruff format clean; pyright 0 errors; `git diff --check` clean.
-- Git status summary: T49 live-feed observability packet changes pending commit at handoff update time.
+- Active task: T51 Broker Sandbox Boundary Contract
+- Phase: 12 Broker Sandbox and Execution Risk Audit
+- Last validation: 2026-05-09 T50: `453 passed, 20 skipped`; ruff check clean; ruff format clean; pyright 0 errors; `git diff --check` clean.
+- Git status summary: T50 live-feed readiness review changes pending commit at handoff update time.
 
 ## Completed In This Phase
 
@@ -66,11 +66,17 @@ manual restart.
 - T47 Live-Feed Fixture Manifest completed with no findings.
 - T48 Live-Feed Adapter Dry-Run Contract completed with no findings.
 - T49 Live-Feed Observability Packet completed with no findings.
+- T50 Live-Feed Dry Run Readiness Review completed with no findings.
 
 ## Remaining Work
 
-- T50 Live-Feed Dry Run Readiness Review is active.
-- After T50, run deep review, fix findings, validate, evaluate the roadmap, rewrite future phases/tasks if useful, open the next logical active phase, and continue automatically.
+- T51 Broker Sandbox Boundary Contract is active.
+- T52 Broker Sandbox Fixture Manifest is pending.
+- T53 Execution Risk Control Contract is pending.
+- T54 Kill-Switch Audit Log Contract is pending.
+- T55 Sandbox Execution No-Capital Dry Run is pending.
+- T56 Broker Sandbox Readiness Review is pending.
+- After T56, run deep review, fix findings, validate, evaluate the roadmap, rewrite future phases/tasks if useful, open the next logical active phase, and continue automatically.
 
 ## Blockers Or Human Decisions
 
@@ -95,6 +101,7 @@ manual restart.
 - T47 defined deterministic local fixture manifest requirements. No live pulls, live credentials, broker/exchange execution, capital actions, production labels, or holdout access are approved.
 - T48 defined local adapter dry-run checks for fixture parsing, normalization, clock, replay, failure-state, and idempotence behavior. No sockets, credentials, orders, broker/exchange execution, capital actions, production labels, or holdout access are approved.
 - T49 defined local observability fields, counters, failure states, redaction boundaries, and readiness limitations. No secrets, orders, capital actions, external telemetry, production labels, or holdout access are approved.
+- T50 closed Phase 11 and opened Phase 12 as sandbox-only broker/exchange execution risk audit work. No live orders, live broker/exchange execution, production credentials, live capital, production labels, or holdout access are approved.
 - Real external side effects, holdout reads, holdout unlocks, live capital actions, live broker/exchange execution, and credentialed production deployment remain blocked; implement local dry-run/sandbox/protocol work instead unless a future local contract explicitly permits otherwise.
 
 ## Resume Instruction

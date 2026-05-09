@@ -16,6 +16,7 @@ Append-only. One row per reset-era review cycle.
 | PHASE-GATE-READINESS-REVIEW | 8 | 2026-05-09 | T30-T34 Phase-Gate Readiness Review | 0 | 0 | 0 | 0 |
 | HOLDOUT-ACCESS-PROTOCOL | 9 | 2026-05-09 | T35-T39 Holdout Access Protocol | 0 | 0 | 0 | 0 |
 | HOLDOUT-APPROVAL-DECISION | 10 | 2026-05-09 | T40-T45 Holdout Approval Decision Packet | 0 | 0 | 0 | 0 |
+| LIVE-FEED-READINESS | 11 | 2026-05-09 | T46-T50 Live-Feed Dry Run Readiness | 0 | 0 | 0 | 0 |
 
 ## Archive
 
@@ -31,6 +32,7 @@ Append-only. One row per reset-era review cycle.
 | PHASE-GATE-READINESS-REVIEW | `docs/audit/PHASE_GATE_READINESS_REVIEW.md` | 8 | PASS |
 | HOLDOUT-ACCESS-PROTOCOL | `docs/audit/HOLDOUT_ACCESS_PROTOCOL_REVIEW.md` | 9 | PASS |
 | HOLDOUT-APPROVAL-DECISION | `docs/audit/HOLDOUT_APPROVAL_DECISION_REVIEW.md` | 10 | PASS |
+| LIVE-FEED-READINESS | `docs/audit/LIVE_FEED_READINESS_REVIEW.md` | 11 | PASS |
 
 ## Notes
 

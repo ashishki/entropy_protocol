@@ -2,7 +2,7 @@
 
 Version: 1.0
 Date: 2026-05-09
-Phase: 11
+Phase: 12
 
 Reset state for Entropy Core after archiving the old active workflow. Historical files are available under `docs/legacy/old-workflow/2026-05-07/` but are not read by default.
 
@@ -10,17 +10,17 @@ Reset state for Entropy Core after archiving the old active workflow. Historical
 
 ## Current Phase
 
-- Phase: 11
-- Name: Live-Feed Dry Run Readiness
-- Business goal: define local live-feed readiness boundaries without broker orders, exchange execution, live capital, credentials, production labels, or holdout access.
-- Phase gate: boundary contract, fixture manifest, adapter dry-run contract, observability packet, and review prove live-feed readiness remains local-only and no-order.
+- Phase: 12
+- Name: Broker Sandbox and Execution Risk Audit
+- Business goal: define sandbox-only broker/exchange execution risk controls without live orders, production credentials, live capital, production labels, or holdout access.
+- Phase gate: sandbox boundary, fixture manifest, execution risk controls, kill-switch audit, no-capital dry run, and review prove broker sandbox work remains isolated and no-capital.
 
 ## Current State
 
-- Phase: 11
-- Baseline: 450 passing tests, 20 skipped (T49 local verification on 2026-05-09)
-- Ruff: clean on T49 local verification 2026-05-09
-- Pyright: clean on T49 local verification 2026-05-09
+- Phase: 12
+- Baseline: 453 passing tests, 20 skipped (T50 local verification on 2026-05-09)
+- Ruff: clean on T50 local verification 2026-05-09
+- Pyright: clean on T50 local verification 2026-05-09
 - Last CI: product-local workflow configured; remote CI not yet observed after reset
 - Holdout: locked
 - Live capital: not approved
@@ -40,13 +40,13 @@ Reset state for Entropy Core after archiving the old active workflow. Historical
 
 ## Next Task
 
-T50 Live-Feed Dry Run Readiness Review.
+T51 Broker Sandbox Boundary Contract.
 
-Phase 10 Holdout Approval Decision Review is complete through T45. Roadmap evaluation opened Phase 11 as local-only live-feed dry-run readiness.
+Phase 11 Live-Feed Dry Run Readiness Review is complete through T50. Roadmap evaluation opened Phase 12 as sandbox-only broker/exchange execution risk audit work.
 
-T35 Holdout Access Protocol Deny-By-Default Contract completed on 2026-05-09. T36 Holdout Approval Event Schema Contract completed on 2026-05-09. T37 Holdout Access Audit Logging Contract completed on 2026-05-09. T38 Holdout Leakage Guard Protocol Fixture completed on 2026-05-09. T39 Holdout Access Protocol Review completed on 2026-05-09. T40 Holdout Approval Request Packet Scaffold completed on 2026-05-09. T41 Holdout Approval Evidence Intake Contract completed on 2026-05-09. T42 Holdout Approval Absence Denial Packet completed on 2026-05-09. T43 Holdout Non-Approval Source Regression completed on 2026-05-09. T44 Holdout Decision No-Read Dry Run completed on 2026-05-09. T45 Holdout Approval Decision Review completed on 2026-05-09. T46 Live-Feed Boundary Contract completed on 2026-05-09. T47 Live-Feed Fixture Manifest completed on 2026-05-09. T48 Live-Feed Adapter Dry-Run Contract completed on 2026-05-09. T49 Live-Feed Observability Packet completed on 2026-05-09. Phase 11 Live-Feed Dry Run Readiness is open. Active Phase 11 scope is T46 through T50; T50 is active. After T50, run deep review, fix findings, validate, evaluate the roadmap, rewrite future phases if useful, open the next logical active phase, and continue automatically.
+T35 Holdout Access Protocol Deny-By-Default Contract completed on 2026-05-09. T36 Holdout Approval Event Schema Contract completed on 2026-05-09. T37 Holdout Access Audit Logging Contract completed on 2026-05-09. T38 Holdout Leakage Guard Protocol Fixture completed on 2026-05-09. T39 Holdout Access Protocol Review completed on 2026-05-09. T40 Holdout Approval Request Packet Scaffold completed on 2026-05-09. T41 Holdout Approval Evidence Intake Contract completed on 2026-05-09. T42 Holdout Approval Absence Denial Packet completed on 2026-05-09. T43 Holdout Non-Approval Source Regression completed on 2026-05-09. T44 Holdout Decision No-Read Dry Run completed on 2026-05-09. T45 Holdout Approval Decision Review completed on 2026-05-09. T46 Live-Feed Boundary Contract completed on 2026-05-09. T47 Live-Feed Fixture Manifest completed on 2026-05-09. T48 Live-Feed Adapter Dry-Run Contract completed on 2026-05-09. T49 Live-Feed Observability Packet completed on 2026-05-09. T50 Live-Feed Dry Run Readiness Review completed on 2026-05-09. Phase 12 Broker Sandbox and Execution Risk Audit is open. Active Phase 12 scope is T51 through T56; T51 is active. After T56, run deep review, fix findings, validate, evaluate the roadmap, rewrite future phases if useful, open the next logical active phase, and continue automatically.
 
-Archive Evidence Expansion block complete through T24, Phase 7 complete through T29, Phase 8 complete through T34, Phase 9 complete through T39, and Phase 10 complete through T45. Phase 11 is local-only live-feed dry-run readiness with holdout read/unlock, broker/exchange execution, orders, live capital, production labels, and credentialed deployment still blocked; roadmap phases 12 through 13 remain planned direction and may be rewritten by roadmap evaluation. No approval event currently exists. Do not execute real external side effects, holdout reads, holdout unlocks, live capital actions, live broker/exchange execution, order placement, or credentialed production deployment; replace them with local dry-run/sandbox/protocol work unless a future local contract explicitly permits otherwise.
+Archive Evidence Expansion block complete through T24, Phase 7 complete through T29, Phase 8 complete through T34, Phase 9 complete through T39, Phase 10 complete through T45, and Phase 11 complete through T50. Phase 11 is local-only live-feed dry-run readiness and is closed. Phase 12 is sandbox-only broker/exchange execution risk audit with holdout read/unlock, live broker/exchange execution, live orders, live capital, production labels, and credentialed deployment still blocked; roadmap phase 13 remains planned direction and may be rewritten by roadmap evaluation. No approval event currently exists. Do not execute real external side effects, holdout reads, holdout unlocks, live capital actions, live broker/exchange execution, live order placement, or credentialed production deployment; replace them with local dry-run/sandbox/protocol work unless a future local contract explicitly permits otherwise.
 
 ## Fix Queue
 
@@ -254,6 +254,10 @@ none after reset. Legacy D-K findings were closed in the prior workflow, but old
   - Acceptance tests: `tests/reset/test_live_feed_observability_packet.py` passed (`3 passed`).
   - Reset baseline: `.venv/bin/python -m pytest -q tests/` reported `450 passed, 20 skipped`.
   - Quality checks: ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
+- 2026-05-09: T50 Live-Feed Dry Run Readiness Review completed.
+  - Acceptance tests: `tests/reset/test_live_feed_readiness_review.py` passed (`3 passed`).
+  - Reset baseline: `.venv/bin/python -m pytest -q tests/` reported `453 passed, 20 skipped`.
+  - Quality checks: ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
 
 ## Phase History
 
@@ -301,6 +305,9 @@ none after reset. Legacy D-K findings were closed in the prior workflow, but old
 - 2026-05-09: T47 Live-Feed Fixture Manifest completed. Next task: T48 Live-Feed Adapter Dry-Run Contract.
 - 2026-05-09: T48 Live-Feed Adapter Dry-Run Contract completed. Next task: T49 Live-Feed Observability Packet.
 - 2026-05-09: T49 Live-Feed Observability Packet completed. Next task: T50 Live-Feed Dry Run Readiness Review.
+- 2026-05-09: Phase 11 Live-Feed Dry Run Readiness completed. Review artifact: `docs/audit/LIVE_FEED_READINESS_REVIEW.md`. Result: PASS; Stop-Ship 0, P0 0, P1 0, P2 0.
+- 2026-05-09: Roadmap evaluation modified planned Phase 12 into sandbox-only broker/exchange execution risk audit work and opened T51 Broker Sandbox Boundary Contract.
+- 2026-05-09: T50 Live-Feed Dry Run Readiness Review completed. Next task: T51 Broker Sandbox Boundary Contract.
 - 2026-05-08: Phase boundaries changed from stop points to autonomous rollover points: deep review, fix findings, validate, evaluate roadmap, rewrite future phases, open the next logical active phase, and continue.
 
 ## Profile State: RAG
@@ -350,13 +357,13 @@ none after reset. Legacy D-K findings were closed in the prior workflow, but old
 
 ### Last Evaluation
 
-- Profile: Live-Feed Observability Packet
-- Task: T49 Live-Feed Observability Packet
+- Profile: Live-Feed Dry Run Readiness Review
+- Task: T50 Live-Feed Dry Run Readiness Review
 - Date: 2026-05-09
-- Eval Source: `tests/reset/test_live_feed_observability_packet.py`
-- Metric(s): observability fields, sensitive/external effect rejection, readiness limitations
-- Score: `3 passed`; current baseline `450 passed, 20 skipped`
-- Baseline: T48 live-feed adapter dry-run contract `447 passed, 20 skipped`
+- Eval Source: `tests/reset/test_live_feed_readiness_review.py`
+- Metric(s): review sections, roadmap evaluation, state update
+- Score: `3 passed`; current baseline `453 passed, 20 skipped`
+- Baseline: T49 live-feed observability packet `450 passed, 20 skipped`
 - Delta: +3 passing tests
 - Regression: none known
 
@@ -370,7 +377,7 @@ Human approval after T24 opened Phase 7 Archive Reproducibility Hardening and re
 
 ### Human Decision Point
 
-Current active task is T50 Live-Feed Dry Run Readiness Review. Archive Evidence Expansion block is complete through T24, Phase 7 is complete through T29, Phase 8 is complete through T34, Phase 9 is complete through T39, Phase 10 is complete through T45, and Phase 11 is complete through T49. Phase 11 is local-only live-feed dry-run readiness and does not approve orders, broker/exchange execution, live capital, credentialed production deployment, or holdout access. No approval event currently exists. Roadmap phases 12 through 13 are planned direction and may be promoted or rewritten automatically by roadmap evaluation. Real external side effects, holdout reads, holdout unlocks, order placement, live capital actions, live broker/exchange execution, and credentialed production deployment remain blocked.
+Current active task is T51 Broker Sandbox Boundary Contract. Archive Evidence Expansion block is complete through T24, Phase 7 is complete through T29, Phase 8 is complete through T34, Phase 9 is complete through T39, Phase 10 is complete through T45, and Phase 11 is complete through T50. Phase 12 is sandbox-only broker/exchange execution risk audit and does not approve live orders, live broker/exchange execution, live capital, credentialed production deployment, production labels, or holdout access. No approval event currently exists. Roadmap phase 13 is planned direction and may be promoted or rewritten automatically by roadmap evaluation. Real external side effects, holdout reads, holdout unlocks, live order placement, live capital actions, live broker/exchange execution, and credentialed production deployment remain blocked.
 
 ## Verification Defaults
 

@@ -70,11 +70,11 @@ def test_future_phases_are_not_approvals() -> None:
     assert "phase 9 complete through t39" in prompt
     assert "phase 10 complete through t45" in prompt
     assert "phase 11 is local-only live-feed dry-run readiness" in prompt
-    assert "roadmap phases 12 through 13 remain planned direction" in prompt
-    assert "phase: 11" in prompt
-    assert "phase: 11 live-feed dry run readiness" in handoff
+    assert "roadmap phase 13 remains planned direction" in prompt
+    assert "phase: 12" in prompt
+    assert "phase: 12 broker sandbox and execution risk audit" in handoff
     assert "protocol-only holdout access design" in handoff
-    assert "active task: t50 live-feed dry run readiness review" in handoff
+    assert "active task: t51 broker sandbox boundary contract" in handoff
     assert "t40 holdout approval request packet scaffold completed" in prompt
     assert "t41 holdout approval evidence intake contract completed" in prompt
     assert "t35 holdout access protocol deny-by-default contract completed" in prompt
