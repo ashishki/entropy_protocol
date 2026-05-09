@@ -4,14 +4,13 @@ Use this file only at a phase boundary, context rollover, or limit recovery.
 
 ## Current State
 
-- Phase: 9 active; Phase 10 draft automation is scoped but the phase boundary
-  is not advanced.
-- Active task: `SAS-AUTO-001: Machine-First Pseudo-Label Bootstrap`. Phase 9
-  tasks are complete and archived; 60 public `bablos79` captures exist; Phase
-  10 draft-extraction assistant plan is now in `docs/tasks.md`.
+- Phase: 11 planned/active; Phase 10 draft extraction assistant is complete
+  and archived.
+- Active task: `SAS-MI-001: Author Market Intelligence Architecture ADR`.
+  Phase 10 artifacts are preserved as the first channel profile/corpus seed.
 - Branch: `codex/signal-analytics-sandbox-work`.
-- Last validation: `.venv/bin/python -m pytest tests/ -q` -> 84 tests passed on 2026-05-08; `.venv/bin/python -m ruff check src/ tests/` and `.venv/bin/python -m pyright` also pass.
-- Git status summary: product-local roadmap/task docs modified; new `docs/pilot/AUDIT_GRADE_AUTOMATION_ROADMAP.md` pending commit.
+- Last validation: `.venv/bin/python -m pytest tests/ -q` -> 94 tests passed on 2026-05-09; `.venv/bin/python -m ruff check src/ tests/` and `.venv/bin/python -m pyright` also pass.
+- Git status summary: Phase 10 code/docs plus Phase 11+ roadmap/docs are pending commit.
 
 ## Completed In This Phase
 
@@ -134,27 +133,38 @@ Use this file only at a phase boundary, context rollover, or limit recovery.
   - `docs/prompts/ORCHESTRATOR.md` now requires continuous phase advancement
     after deep review/archive/doc update/phase report.
   - D-018 records that phase review is a gate opener, not a stopping point.
+- Completed Phase 10:
+  - `SAS-AUTO-001..005` produced pseudo-labels, author profile, deterministic
+    draft validation/parser/export helpers, review queue, and eval decision.
+  - Phase 10 deep review archived at `docs/archive/PHASE10_REVIEW.md` with
+    Stop-Ship No and P0/P1/P2 all 0.
+- Planned Phase 11+ Author Market Intelligence stage:
+  - created `docs/pilot/AUTHOR_MARKET_INTELLIGENCE_ROADMAP.md`
+  - appended Phases 11-19 and tasks `SAS-MI-001..018` to `docs/tasks.md`
+  - recorded D-019/D-020 in `docs/DECISION_LOG.md`
+  - updated README, architecture, prompt, journal, memory, and notes for the
+    new stage.
 
 ## Remaining Work
 
-- Run `SAS-AUTO-001`: create `docs/pilot/bablos79_PSEUDO_LABELS.md` and
-  `workspace/extraction/bablos79_pseudo_labels.jsonl` for all 60 captures.
-- Then run `SAS-AUTO-001B`: create `docs/pilot/bablos79_AUTHOR_PROFILE.md`
-  and `workspace/lexicons/bablos79_lexicon_draft.json`.
-- Then run `SAS-AUTO-002` deterministic validators and draft parser library.
-- Keep parser output draft-only and human-reviewed.
+- Run `SAS-MI-001: Author Market Intelligence Architecture ADR`.
+- Human exception review of `docs/pilot/bablos79_REVIEW_QUEUE.md` remains a
+  useful parallel product action, but it no longer blocks planning the broader
+  architecture.
 
 ## Blockers Or Human Decisions
 
-- None.
+- Human review is required before any approved ledger rows, customer-facing
+  claims, or final report interpretation.
+- `SAS-MI-001` must decide capability-profile activation and runtime/storage
+  boundaries before RAG/vector/agent-loop implementation begins.
 
 ## Resume Instruction
 
 Continue this product from `RUNBOOK.md`, `AGENT_NOTES.md`, this
 `PHASE_HANDOFF.md`, `docs/CODEX_PROMPT.md`, and `docs/tasks.md`.
-Do not spawn nested Codex. Resume from `SAS-AUTO-001`. Do not implement parser
-code until pseudo-labels and the author profile exist. Frontier-model output may
-propose pseudo-labels and vocabulary only; it is not final extraction truth. Do
-not write approved ledger records from parser output without exception review.
-After each phase completes, run deep review, archive it, update docs, advance to
-the next task, and continue unless a concrete stop condition is recorded.
+Do not spawn nested Codex. Continue with `SAS-MI-001` from `docs/tasks.md`.
+Do not write approved ledger records from draft/parser output without human
+review. Do not implement vector storage, embeddings, market-data expansion, or
+batch-agent code before the ADR updates the architecture and capability
+profiles.

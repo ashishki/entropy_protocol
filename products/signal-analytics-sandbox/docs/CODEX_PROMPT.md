@@ -1,8 +1,8 @@
 # CODEX_PROMPT.md — Signal Analytics Sandbox
 
-Version: 2.28
-Date: 2026-05-08
-Phase: 9
+Version: 2.36
+Date: 2026-05-09
+Phase: 11
 
 ---
 
@@ -24,12 +24,12 @@ Telegram pilot validates the product hypothesis.
 
 ## Current State
 
-- **Phase:** 9 (Phase 10 draft automation scoped; phase boundary not advanced)
-- **Baseline:** 84 passing tests, 0 skipped
+- **Phase:** 11 (Author Market Intelligence architecture reset)
+- **Baseline:** 94 passing tests, 0 skipped
 - **Ruff:** `ruff check src/ tests/` passes
 - **Pyright:** `pyright` passes
 - **Last CI run:** local CI-equivalent commands pass; GitHub run not yet observed
-- **Last updated:** 2026-05-07
+- **Last updated:** 2026-05-09
 - **Session tokens (approx):** not yet tracked
 - **Cumulative phase tokens (approx):** not yet tracked
 
@@ -50,32 +50,86 @@ Telegram pilot validates the product hypothesis.
 - **Pilot log (SAS-001 output):** `docs/PILOT_LOG.md` (created by SAS-001)
 - **Pilot development loop:** `docs/PILOT_DEVELOPMENT_LOOP_RU.md`
 - **Audit-grade automation roadmap:** `docs/pilot/AUDIT_GRADE_AUTOMATION_ROADMAP.md`
+- **Author Market Intelligence roadmap:** `docs/pilot/AUTHOR_MARKET_INTELLIGENCE_ROADMAP.md`
 - **Orchestrator loop contract:** `docs/prompts/ORCHESTRATOR.md#phase-continuation-contract`
 
 ---
 
 ## Next Task
 
-SAS-AUTO-001: Machine-First Pseudo-Label Bootstrap
+`SAS-MI-001: Author Market Intelligence Architecture ADR`
 
-Phase 10 is a machine-first draft-extraction assistant phase. The Orchestrator
-should dispatch `SAS-AUTO-001` from `docs/tasks.md` next. Do not start with
-manual seed labeling; generate pseudo-labels for all 60 captures first, then
-validate evidence and build an exception review queue.
+The product direction now expands from strict signal extraction to Author Market
+Intelligence: evaluate public market authors across explicit trade setups,
+directional theses, market-regime commentary, watchlists, risk warnings, and
+news/catalyst reactions. Phase 10 is not discarded; its `bablos79` captures,
+pseudo-labels, author profile, lexicon draft, parser helpers, draft export, and
+review queue are the first channel profile/corpus seed.
 
 Immediate instruction:
-- Create `docs/pilot/bablos79_PSEUDO_LABELS.md` and
-  `workspace/extraction/bablos79_pseudo_labels.jsonl` with one draft row per
-  captured post in `workspace/captures/bablos79/`.
-- Do not implement parser code until pseudo-labels and
-  `docs/pilot/bablos79_AUTHOR_PROFILE.md` exist.
-- Do not modify product code.
-- Keep automation draft-only: no approved ledger writes without human review.
-- Do not start bot/SaaS/private scraping/LLM-truth expansion. Frontier-model
-  usage is allowed only as offline pseudo-label and lexicon/profile discovery;
-  it must not become runtime extraction truth.
+- Run `SAS-MI-001` from `docs/tasks.md`.
+- Create `docs/adr/ADR-002-author-market-intelligence.md`.
+- Update `docs/ARCHITECTURE.md` capability profiles only according to the ADR.
+- Do not implement vector storage, embeddings, market-data expansion, or
+  batch-agent code before the ADR is accepted.
+- Keep Phase 10 automation draft-only: no approved ledger writes without human
+  review.
+- Do not start bot/SaaS/private scraping/copy-trading/broker/public-leaderboard
+  expansion. RAG may provide context only after ADR activation; deterministic
+  market data remains the source of prices, returns, and outcome metrics.
 
 Closeout digest for the Orchestrator:
+- Phase 11+ planning created
+  `docs/pilot/AUTHOR_MARKET_INTELLIGENCE_ROADMAP.md`, appended Phases 11-19
+  and tasks `SAS-MI-001..018` to `docs/tasks.md`, updated the README and
+  architecture pointers, and recorded D-019/D-020.
+- The first next task is the architecture gate. RAG/Planning/Agentic profiles
+  remain OFF until `SAS-MI-001` decides and records activation.
+- Phase 10 deep review archived at `docs/archive/PHASE10_REVIEW.md`; Cycle 10
+  Stop-Ship: No; P0: 0, P1: 0, P2: 0.
+- SAS-AUTO-005 created `docs/pilot/AUTO_EXTRACTION_EVAL.md` and updated
+  `docs/pilot/PILOT_DECISION.md`. Verdict: keep the draft helper for internal
+  exception review only; no scope expansion. The exact remaining bottleneck is
+  human review of 23 queued rows plus sampled verification of 37 non-queued
+  rows. Review skipped as doc-only.
+- SAS-AUTO-004 updated `docs/pilot/EXTRACTION_LOG.md` with draft suggested
+  status counts and one draft suggestion row per capture while preserving final
+  extraction status as `pending_manual_extraction`.
+- SAS-AUTO-004 created `docs/pilot/bablos79_REVIEW_QUEUE.md` with 23 queue rows:
+  all exception/low-confidence/customer-facing candidate rows plus a deterministic
+  non-signal quality-control sample. Reviewer IDs remain `pending`; approved
+  ledger rows created: 0. Review skipped as doc-only.
+- SAS-AUTO-003 implemented `src/signal_sandbox/extraction/draft_export.py`,
+  `tests/unit/test_draft_export.py`, and
+  `docs/pilot/EXTRACTION_DRAFTS_BABLOS79.md`. The export has one row per
+  captured post, sorted by source timestamp and capture_id, with
+  reviewer_id=`pending` on every row. Suggested status distribution:
+  43 `not_a_signal`, 16 `insufficient_fields`, 1 `needs_review`.
+- SAS-AUTO-003 validation: 93 tests pass, `ruff check src/ tests/` passes, and
+  `.venv/bin/pyright` passes. No ledger files were created. Light review passed
+  with no issues.
+- SAS-AUTO-002 implemented `src/signal_sandbox/extraction/draft_validation.py`
+  and `src/signal_sandbox/extraction/draft_parser.py` with focused unit tests.
+  `validate_pseudo_label()` rejects unsupported spans/candidate fields, and
+  `parse_draft()` preserves capture_id, evidence_url, and text_sha256 while
+  returning review-only statuses. Complete candidates use `review_candidate`
+  with `review_required=True`; no `approved` status is produced.
+- SAS-AUTO-002 validation: 90 tests pass, `ruff check src/ tests/` passes, and
+  `.venv/bin/pyright` passes. Light review passed with no issues.
+- SAS-AUTO-001B generated `docs/pilot/bablos79_AUTHOR_PROFILE.md` and
+  `workspace/lexicons/bablos79_lexicon_draft.json` with 32 candidate terms:
+  17 `accepted_for_draft`, 9 `needs_review`, and 6 `excluded`.
+- SAS-AUTO-001B validation confirmed every lexicon candidate includes term,
+  category, evidence_capture_ids, evidence_excerpts, false_positive_risk,
+  confidence, and profile_state. No parser code, runtime LLM calls, CLI export,
+  ledger writes, or approved extraction truth were introduced.
+- SAS-AUTO-001 generated `docs/pilot/bablos79_PSEUDO_LABELS.md` and
+  `workspace/extraction/bablos79_pseudo_labels.jsonl` with 60 draft-only rows:
+  50 `not_a_signal`, 7 `insufficient_fields`, and 3 `needs_review`.
+- SAS-AUTO-001 validation confirmed the JSONL row count matches the 60 local
+  captures, required fields are present, all rows are `draft_only=true` /
+  `approval_state="unapproved"`, and all evidence-span text appears in the raw
+  capture text.
 - T20 implemented the gated LLM extraction adapter with fixed mock clients in CI.
 - Activation requires both `SIGNAL_SANDBOX_ENABLE_LLM=1` and per-run `llm_approved=True`.
 - Every successful result is `draft_pending_review` with `adapter_id="llm/<provider>/<model>"`.
@@ -125,8 +179,8 @@ none
 
 ## Summary State
 
-Phase 1 through Phase 8 are complete. The deterministic sandbox baseline is 84
-passing tests, 0 skipped; `ruff check src/ tests/` and `pyright` pass locally.
+Phase 1 through Phase 10 are complete. The deterministic sandbox baseline is 94
+passing tests, 0 skipped; `ruff check src/ tests/` and `.venv/bin/pyright` pass locally.
 The implemented surface includes:
 
 - installable Python package and CLI skeleton;
@@ -136,17 +190,25 @@ The implemented surface includes:
   public provider, yfinance prototype provider, snapshot persistence, outcome
   matcher, aggregator, and Markdown report renderer;
 - manual, rule, and gated LLM extraction adapters;
+- draft pseudo-label, author-profile, deterministic draft validation/parser,
+  draft export, exception-review queue, and draft-helper evaluation artifacts;
 - Phase 4 through Phase 8 deep review archives and heavy-task evidence for
   T12, T14, and T20.
 
-Phase 9 is now a validation-first Telegram pilot loop for the three
-operator/customer-provided public Telegram sources in `docs/PILOT_LOG.md`.
-Product-code expansion remains blocked until pilot evidence identifies a
-measured bottleneck.
+Phase 11 is now a planning/architecture reset for Author Market Intelligence.
+The new roadmap keeps the signal-audit core and Phase 10 draft helper, then
+adds gated work toward asset universe, market-data store, source corpus, RAG
+context, market-idea extraction, deterministic thesis evaluation, bounded batch
+analysis, and an Author Market Report V0.
 
-Current Phase 9 evidence update: `bablos79` has 60 public text captures in
+Current pilot evidence update: `bablos79` has 60 public text captures in
 `workspace/captures/bablos79/`, validated by `load_captures(Path("workspace"),
-"bablos79")`. Manual extraction has not run yet.
+"bablos79")`. `SAS-AUTO-001` added draft-only pseudo-labels for every captured
+post, `SAS-AUTO-001B` added a draft author lexicon/profile, `SAS-AUTO-002`
+added pure deterministic draft validation/parser helpers, and `SAS-AUTO-003`
+exported review-pending draft rows. `SAS-AUTO-004` added the exception review
+queue and draft-vs-final counts. Manual approval / ledger extraction has not
+run yet. These artifacts are now the first channel profile/corpus seed.
 
 ---
 
@@ -212,6 +274,61 @@ Current Phase 9 evidence update: `bablos79` has 60 public text captures in
   `docs/prompts/ORCHESTRATOR.md` so phase boundaries require deep review,
   archive, doc update, phase report, explicit next-task advancement, and then
   immediate continuation unless a concrete stop condition exists.
+- 2026-05-08 — SAS-AUTO-001 Machine-First Pseudo-Label Bootstrap: created
+  `docs/pilot/bablos79_PSEUDO_LABELS.md` and
+  `workspace/extraction/bablos79_pseudo_labels.jsonl` with one draft-only
+  pseudo-label row for each of the 60 `bablos79` captures. Suggested status
+  distribution: 50 `not_a_signal`, 7 `insufficient_fields`, 3 `needs_review`;
+  approved ledger rows created: 0. Baseline after: 84 passed, 0 skipped.
+  Review: skipped (doc/workspace artifact plus state-coupled test update per
+  orchestrator review exception).
+- 2026-05-08 — SAS-AUTO-001B Author Lexicon And Draft Profile Discovery:
+  created `docs/pilot/bablos79_AUTHOR_PROFILE.md` and
+  `workspace/lexicons/bablos79_lexicon_draft.json` with 32 evidence-cited
+  draft lexicon/profile candidates grouped by extraction category and
+  classified as `accepted_for_draft`, `needs_review`, or `excluded`. No parser
+  code or runtime LLM path was added. Baseline after: 84 passed, 0 skipped.
+  Review: skipped (doc/workspace artifact patch per orchestrator review
+  exception).
+- 2026-05-08 — SAS-AUTO-002 Deterministic Validators And Draft Parser Library:
+  created `src/signal_sandbox/extraction/draft_validation.py`,
+  `src/signal_sandbox/extraction/draft_parser.py`,
+  `tests/unit/test_draft_validation.py`, and
+  `tests/unit/test_draft_parser.py`. The validator rejects unsupported
+  pseudo-label evidence/candidate fields; the parser produces review-only
+  deterministic drafts from static accepted profile terms, preserves evidence
+  fields, and never maps directly to `approved`. Baseline after: 90 passed,
+  0 skipped. Review: light PASS.
+- 2026-05-08 — SAS-AUTO-003 Draft Export Artifact: created
+  `src/signal_sandbox/extraction/draft_export.py`,
+  `tests/unit/test_draft_export.py`, and
+  `docs/pilot/EXTRACTION_DRAFTS_BABLOS79.md`. The export contains 60
+  deterministic draft-only rows sorted by source timestamp and capture_id, with
+  suggested status, candidate fields, missing fields, reason codes, confidence,
+  evidence_url, text_sha256, and reviewer_id=`pending`. No ledger files were
+  created. Baseline after: 93 passed, 0 skipped. Review: light PASS.
+- 2026-05-08 — SAS-AUTO-004 Exception Review Queue And Extraction Log Merge:
+  updated `docs/pilot/EXTRACTION_LOG.md` with draft suggested status counts and
+  one draft suggestion row per capture while keeping final statuses pending.
+  Created `docs/pilot/bablos79_REVIEW_QUEUE.md` with 23 review rows selected by
+  exception status, low confidence, customer-facing asset candidates,
+  trade-management ambiguity, and deterministic non-signal sampling. Approved
+  ledger rows created: 0. Baseline after: 93 passed, 0 skipped. Review:
+  skipped (doc-only patch per orchestrator review exception).
+- 2026-05-08 — SAS-AUTO-005 Draft Extraction Evaluation And Next Decision:
+  created `docs/pilot/AUTO_EXTRACTION_EVAL.md` and updated
+  `docs/pilot/PILOT_DECISION.md`. The eval records Date, Eval Source, row
+  counts, suggested-status distribution, review-queue size, false-positive
+  notes, and operator-review implications. Verdict: keep the draft helper for
+  internal exception review only; no bot/private scraping/marketplace/copy
+  trading/public leaderboard/LLM-truth expansion. Baseline after: 93 passed,
+  0 skipped. Review: skipped (doc-only patch per orchestrator review exception).
+- 2026-05-09 — Phase 11+ Author Market Intelligence Planning: created
+  `docs/pilot/AUTHOR_MARKET_INTELLIGENCE_ROADMAP.md`, appended Phases 11-19
+  and tasks `SAS-MI-001..018` to `docs/tasks.md`, updated README/architecture
+  pointers, and recorded D-019/D-020. Validation after: 94 passed, 0 skipped;
+  `ruff check src/ tests/` and `.venv/bin/pyright` pass. Review: skipped
+  (planning/doc-only patch).
 
 ---
 
@@ -241,9 +358,9 @@ orchestrator compaction threshold. Full task definitions remain in
 - Retrieval baseline: n/a
 - Open retrieval findings: none
 - Index schema version: n/a
-- Pending reindex actions: none
-- Retrieval-related next tasks: none
-- Retrieval-driven tasks: none
+- Pending reindex actions: none until `SAS-MI-001` and Phase 14
+- Retrieval-related next tasks: `SAS-MI-001` ADR gate, then `SAS-MI-008..009` if ADR activates RAG
+- Retrieval-driven tasks: none active yet
 
 ---
 
@@ -261,7 +378,7 @@ orchestrator compaction threshold. Full task definitions remain in
 - Agentic Profile: OFF
 - Active agent roles: n/a
 - Loop termination state: n/a
-- Open agentic findings: none
+- Open agentic findings: none; bounded batch analyst is planned for Phase 17 after ADR/profile activation
 
 ---
 
@@ -269,7 +386,7 @@ orchestrator compaction threshold. Full task definitions remain in
 
 - Planning Profile: OFF
 - Plan schema version: n/a
-- Open plan findings: none
+- Open plan findings: none; `SAS-MI-001` decides whether roadmap/batch planning activates the profile
 
 ---
 

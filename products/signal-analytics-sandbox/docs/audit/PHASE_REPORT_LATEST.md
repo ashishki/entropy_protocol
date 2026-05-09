@@ -1,68 +1,52 @@
-# Phase 9 Report - Customer-Backed Telegram Pilot Loop
+# Phase 10 Report - Draft Extraction Assistant
 
-Date: 2026-05-07
-Health: OK for engineering boundaries; WARN for business validation
+Date: 2026-05-08
 
-## What Changed
+## What Was Built
 
-Phase 9 turned the completed sandbox into a validation-first pilot loop for the
-three public Telegram sources supplied by the operator/customer context:
+Phase 10 turned the captured `bablos79` public Telegram batch into a draft-only
+extraction workflow. It created pseudo-labels for all 60 captures, derived a
+source-specific author lexicon/profile, implemented deterministic draft
+validation/parser/export helpers, exported one review-pending draft row per
+capture, built a 23-row exception review queue, and recorded an evaluation
+decision.
 
-- `https://t.me/bablos79`
-- `https://t.me/nemphiscrypts`
-- `https://t.me/pifagortrade`
+The workflow remains an audit helper, not extraction truth. No approved ledger
+rows were created, no customer-facing performance metrics were produced, and
+every draft row keeps reviewer_id=`pending`.
 
-The loop created concrete pilot artifacts under `docs/pilot/`:
+## Test Delta
 
-- `PILOT_SCOPE.md`
-- `METHODOLOGY_V0.md`
-- `CAPTURE_LOG.md`
-- `EXTRACTION_LOG.md`
-- `reports/bablos79_BLOCKED_REPORT_V0.md`
-- `CUSTOMER_FEEDBACK.md`
-- `PAYMENT_SIGNAL_LOG.md`
-- `PILOT_DECISION.md`
+- Before Phase 10 code work: 84 passing tests, 0 skipped.
+- After Phase 10: 94 passing tests, 0 skipped.
+- `ruff check src/ tests/`: pass.
+- `.venv/bin/pyright`: pass.
 
-The first source is `bablos79`, chosen by deterministic `PILOT_LOG` ordering
-rather than expected performance.
+## Open Findings
 
-## Result
+No P0, P1, or P2 findings were found in the Phase 10 deep review.
 
-The original Phase 9 gate was blocked before real analysis. After operator
-instruction, the public first source was parsed from unauthenticated Telegram
-`/s/` pages:
+## Health Verdict
 
-- captured public posts: 60
-- extracted candidates: 0
-- approved/evaluable records: 0
-- customer decision impact: none
-- payment signal: none
+OK. The implementation stayed inside the declared Hybrid / Lean / T0 shape:
+local deterministic helpers, no runtime LLM calls, no network collection, no
+private scraping, no bot/service expansion, and no ledger writes before human
+review.
 
-The current decision is `continue manual extraction; defer automation`. No bot,
-parser expansion, SaaS, leaderboard, marketplace, private scraping, copy
-trading, broker integration, or new engineering phase is approved.
+## Next Phase / Action
 
-## Validation
+There is no next engineering task in `docs/tasks.md`. The next product action
+is human exception review of `docs/pilot/bablos79_REVIEW_QUEUE.md` (23 rows)
+plus sampled verification of the 37 non-queued rows in
+`docs/pilot/EXTRACTION_DRAFTS_BABLOS79.md`.
 
-- Tests: 84 passed, 0 skipped
-- Ruff: pass
-- Pyright: pass
-- Deep review: Cycle 9 PASS
-- Archive: `docs/archive/PHASE9_REVIEW.md`
-- P0/P1/P2 findings: 0/0/0
+Notification summary:
 
-## Next
-
-Manual extraction must classify the 60 captured rows in
-`docs/pilot/EXTRACTION_LOG.md`. Only complete, human-reviewed rows may become
-approved records. If extraction finds no defensible signals, record that blocker
-before moving to the second or third source.
-
-## Notification Summary
-
-Ph9 Pilot DONE
-Built: scope/methodology/logs, 60 captures + decision
-Tests: 84->84 pass
+```text
+Ph10 Draft Helper DONE
+Built: pseudo-labels, author profile, parser/export, 23-row review queue
+Tests: 84->94 pass
 Issues: P1:0 P2:0
-Health: WARN
-Next: manual extraction for bablos79
+Health: OK
+Next: human exception review
+```

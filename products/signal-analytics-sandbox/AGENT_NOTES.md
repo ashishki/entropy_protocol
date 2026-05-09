@@ -211,9 +211,32 @@ Result on 2026-05-07:
   author-specific lexicon/profile candidates with evidence.
 - Recorded D-018: orchestrator phase review/archive/doc update must advance to
   the next task and continue unless a concrete stop condition exists.
-- Next orchestrator action: `SAS-AUTO-001: Machine-First Pseudo-Label Bootstrap`.
+- Phase 10 completed:
+  - `SAS-AUTO-001` created pseudo-labels for all 60 captures.
+  - `SAS-AUTO-001B` created the author profile and lexicon draft.
+  - `SAS-AUTO-002` added deterministic draft validation/parser helpers.
+  - `SAS-AUTO-003` exported 60 review-pending draft rows.
+  - `SAS-AUTO-004` created a 23-row review queue and separated draft vs final
+    status counts.
+  - `SAS-AUTO-005` recorded the eval/decision: keep draft helper for internal
+    exception review only; no scope expansion.
+  - Phase 10 deep review archived at `docs/archive/PHASE10_REVIEW.md`; Stop-Ship
+    No; P0/P1/P2 all 0.
+- At Phase 10 close, the next product action was human exception review of
+  `docs/pilot/bablos79_REVIEW_QUEUE.md`; the 2026-05-09 roadmap update below
+  supersedes the "no next engineering task" state.
+- 2026-05-09: Planned the next stage as Author Market Intelligence:
+  - Created `docs/pilot/AUTHOR_MARKET_INTELLIGENCE_ROADMAP.md`.
+  - Appended Phases 11-19 and tasks `SAS-MI-001..018` to `docs/tasks.md`.
+  - Updated `README.md`, `docs/ARCHITECTURE.md`, `docs/CODEX_PROMPT.md`,
+    `docs/DECISION_LOG.md`, `docs/IMPLEMENTATION_JOURNAL.md`,
+    `PHASE_HANDOFF.md`, and `MEMORY.md`.
+  - Recorded D-019/D-020: Phase 10 remains the first channel profile/corpus
+    seed; RAG/Planning/Agentic implementation requires `SAS-MI-001` ADR first.
+  - Next task is now `SAS-MI-001: Author Market Intelligence Architecture ADR`.
 - The three pilot sources are customer/potential-customer provided and should
   be handled through the Phase 9 validation loop before any additional
   automation.
-- Do not build bot/SaaS/parser expansion until `SAS-PILOT-007` identifies a
-  measured bottleneck and a narrow follow-up task.
+- Do not build bot/SaaS/private scraping/copy trading/broker/public leaderboard
+  expansion. Do not implement vector storage, embeddings, market-data expansion,
+  or batch-agent code before `SAS-MI-001`.

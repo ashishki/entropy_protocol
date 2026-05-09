@@ -1,8 +1,8 @@
 # Architecture — Signal Analytics Sandbox
 
-Version: 1.0
-Last updated: 2026-05-07
-Status: Phase 9 complete (automation deferred pending public captures)
+Version: 1.1
+Last updated: 2026-05-09
+Status: Phase 10 complete; Phase 11 Author Market Intelligence architecture reset planned
 
 ---
 
@@ -11,6 +11,17 @@ Status: Phase 9 complete (automation deferred pending public captures)
 Signal Analytics Sandbox is a public-source signal-source audit product. An operator points the system at a public Telegram channel, X account, or website ledger; the system turns messy historical trading calls into a structured signal ledger, deterministically matches them against historical market data, and produces an evidence-backed audit report showing what the source actually did historically. The product serves traders evaluating signal sources, market researchers, and small due-diligence teams. It is a local-first Python library + CLI in v1; it is not a trading bot, copy-trading system, scraper, investment-advice product, or evidence source for Entropy Core.
 
 The system is structured as a deterministic core (schema validation, ledger normalization, outcome matching, return calculation, report generation) wrapped by adapters at two boundaries: the **price-data adapter layer** (operator-file, ccxt-style public exchange OHLCV, optional paid data, optional yfinance-prototype) and the **extraction adapter layer** (manual, rule/regex parser, optional gated LLM draft). The deterministic core is single-source-of-truth; adapters are replaceable and never mutate ledger or outcome semantics on their own.
+
+Phase 11 expands the product target to **Author Market Intelligence**. The new
+direction keeps the Phase 10 draft extraction work as the first channel profile
+and adds a planned path toward source-corpus normalization, local retrieval,
+market-idea extraction, deterministic thesis evaluation, and bounded batch
+analysis. The first Phase 11 task (`SAS-MI-001`) must decide capability-profile
+activation and runtime/storage choices through ADR before any RAG, vector store,
+or agent-loop implementation begins.
+
+See `docs/pilot/AUTHOR_MARKET_INTELLIGENCE_ROADMAP.md` for the detailed
+development roadmap.
 
 ---
 
@@ -194,6 +205,11 @@ Rules:
 
 **Compliance OFF — Justification.** No PHI, PII (beyond public-author handles), PAN, or government-classified data. No HIPAA/SOC 2/PCI/GDPR framework applies. ToS-respect, public-source-only, and non-advice-claim rules are encoded as project-specific contract rules in `docs/IMPLEMENTATION_CONTRACT.md`.
 
+Phase 11 note: RAG, Planning, and Agentic profiles remain OFF until
+`SAS-MI-001` records an ADR and updates this table. The roadmap intentionally
+plans RAG and a bounded batch analyst, but implementation must not precede the
+profile/runtime decision.
+
 ---
 
 ## Component Table
@@ -207,6 +223,9 @@ Rules:
 | Manual extraction | `src/signal_sandbox/extraction/manual.py` | CLI-driven manual entry; pre-fills evidence fields. |
 | Rule extraction | `src/signal_sandbox/extraction/rule.py` | Regex/template adapters keyed by source format. |
 | LLM extraction (opt-in) | `src/signal_sandbox/extraction/llm.py` | Gated, cost-capped LLM adapter; not active by default. |
+| Draft validation | `src/signal_sandbox/extraction/draft_validation.py` | Deterministically verifies pseudo-label evidence spans and candidate fields against raw capture text. |
+| Draft parser | `src/signal_sandbox/extraction/draft_parser.py` | Pure/local parser over `CapturedPost` plus static accepted author-profile terms; returns review-only draft statuses. |
+| Draft export | `src/signal_sandbox/extraction/draft_export.py` | Deterministically renders review-pending draft rows; never writes approved ledger records. |
 | Signal record schema | `src/signal_sandbox/ledger/record.py` | `SignalRecord` Pydantic model + validation rules. |
 | Ledger I/O | `src/signal_sandbox/ledger/io.py` | Read/write ledger files (JSON for raw, Parquet for normalized); idempotent. |
 | Dedup + ambiguity | `src/signal_sandbox/ledger/dedup.py` | Deterministic dedup keys; ambiguity flagging. |
@@ -456,4 +475,6 @@ No real secrets in source. Example values document format only.
 - No public SaaS surface, no hosted deployment, no multi-tenant runtime.
 - No contribution to Entropy Core's phase-gate evidence — Signal Analytics Sandbox is a separate validation product.
 - No T1/T2/T3 runtime in v1; runtime escalation requires an ADR.
-- No RAG, Tool-Use, Agentic, Planning, or Compliance profile in v1; profile activation requires an ADR.
+- No RAG, Tool-Use, Agentic, Planning, or Compliance profile is active until an
+  ADR updates the capability table. Phase 11 is the next ADR gate for Author
+  Market Intelligence.

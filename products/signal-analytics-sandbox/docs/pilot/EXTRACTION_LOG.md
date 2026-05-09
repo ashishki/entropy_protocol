@@ -1,16 +1,14 @@
 # Extraction Log - First Telegram Source
 
 Дата: 2026-05-07
-Статус: ready for manual extraction
+Статус: draft suggestions exported; final extraction still pending
 First source: `bablos79` (`https://t.me/bablos79`)
 
 ## Current Extraction State
 
-Extraction is ready to begin. `docs/pilot/CAPTURE_LOG.md` now records 60
-captured public text posts from unauthenticated Telegram `/s/` pages.
+Draft parser suggestions now exist for all 60 captured public text posts from unauthenticated Telegram `/s/` pages. Final extraction status remains pending: no signal candidates are approved, rejected, or ledger-ready until human review records a final status.
 
-No signal candidates are approved, rejected, or inferred yet. The next step is
-manual review of each capture against `docs/pilot/METHODOLOGY_V0.md`.
+The next step is exception review using `docs/pilot/bablos79_REVIEW_QUEUE.md` against `docs/pilot/METHODOLOGY_V0.md`.
 
 ## Required Extraction Fields
 
@@ -45,6 +43,83 @@ Every extraction row must contain these fields once real captures exist:
 | `needs_rule_template` | 0 | No repeated source format classified yet. |
 | `pending_capture` | 0 | Public captures now exist. |
 | `pending_manual_extraction` | 60 | Captured rows awaiting manual review. |
+
+## Draft Suggestion Counts (Parser Output)
+
+These counts are draft parser suggestions only. They are separate from final extraction status counts above; no final status is approved, rejected, or ledger-ready until human review.
+
+| Draft suggested status | Count | Final-status impact |
+|------------------------|------:|---------------------|
+| `review_candidate` | 0 | none - reviewer_id remains `pending` |
+| `needs_review` | 1 | none - reviewer_id remains `pending` |
+| `insufficient_fields` | 16 | none - reviewer_id remains `pending` |
+| `not_a_signal` | 43 | none - reviewer_id remains `pending` |
+| `rejected_draft` | 0 | none - reviewer_id remains `pending` |
+
+## Draft Suggestion Rows
+
+| capture_id | draft_suggested_status | parser_confidence | reviewer_id | parser_notes |
+|------------|------------------------|-------------------|-------------|--------------|
+| `bablos79-10442` | `insufficient_fields` | 0.44 | `pending` | asset_alias_detected, missing_direction, missing_entry, missing_stop, missing_target |
+| `bablos79-10443` | `insufficient_fields` | 0.44 | `pending` | asset_alias_detected, missing_direction, missing_entry, missing_stop, missing_target |
+| `bablos79-10444` | `not_a_signal` | 0.72 | `pending` | missing_asset_symbol, missing_direction, missing_entry, missing_stop, missing_target |
+| `bablos79-10445` | `not_a_signal` | 0.72 | `pending` | missing_asset_symbol, missing_direction, missing_entry, missing_stop, missing_target |
+| `bablos79-10446` | `insufficient_fields` | 0.44 | `pending` | asset_alias_detected, missing_direction, missing_entry, missing_stop, missing_target |
+| `bablos79-10447` | `not_a_signal` | 0.72 | `pending` | missing_asset_symbol, missing_direction, missing_entry, missing_stop, missing_target |
+| `bablos79-10448` | `not_a_signal` | 0.72 | `pending` | missing_asset_symbol, missing_direction, missing_entry, missing_stop, missing_target |
+| `bablos79-10449` | `not_a_signal` | 0.72 | `pending` | missing_asset_symbol, missing_direction, missing_entry, missing_stop, missing_target |
+| `bablos79-10450` | `insufficient_fields` | 0.49 | `pending` | asset_alias_detected, direction_short_term, missing_entry, missing_stop, missing_target |
+| `bablos79-10451` | `not_a_signal` | 0.72 | `pending` | missing_asset_symbol, missing_direction, missing_entry, missing_stop, missing_target |
+| `bablos79-10452` | `not_a_signal` | 0.72 | `pending` | missing_asset_symbol, missing_direction, missing_entry, missing_stop, missing_target |
+| `bablos79-10453` | `insufficient_fields` | 0.44 | `pending` | asset_alias_detected, missing_direction, missing_entry, missing_stop, missing_target |
+| `bablos79-10454` | `not_a_signal` | 0.72 | `pending` | missing_asset_symbol, missing_direction, missing_entry, missing_stop, missing_target |
+| `bablos79-10455` | `not_a_signal` | 0.72 | `pending` | missing_asset_symbol, missing_direction, missing_entry, missing_stop, missing_target |
+| `bablos79-10456` | `not_a_signal` | 0.72 | `pending` | missing_asset_symbol, missing_direction, missing_entry, missing_stop, missing_target |
+| `bablos79-10457` | `not_a_signal` | 0.72 | `pending` | missing_asset_symbol, missing_direction, missing_entry, missing_stop, missing_target |
+| `bablos79-10458` | `insufficient_fields` | 0.44 | `pending` | asset_alias_detected, missing_direction, missing_entry, missing_stop, missing_target |
+| `bablos79-10459` | `needs_review` | 0.42 | `pending` | asset_alias_detected, direction_short_term, uncertainty_marker_detected, missing_entry, missing_stop |
+| `bablos79-10460` | `not_a_signal` | 0.72 | `pending` | missing_asset_symbol, missing_direction, missing_entry, missing_stop, missing_target |
+| `bablos79-10461` | `not_a_signal` | 0.72 | `pending` | missing_asset_symbol, missing_direction, missing_entry, missing_stop, missing_target |
+| `bablos79-10463` | `not_a_signal` | 0.72 | `pending` | missing_asset_symbol, missing_direction, missing_entry, missing_stop, missing_target |
+| `bablos79-10464` | `insufficient_fields` | 0.44 | `pending` | asset_alias_detected, close_or_reduce_term, close_or_reduce_requires_original_setup, missing_direction, missing_entry |
+| `bablos79-10465` | `not_a_signal` | 0.72 | `pending` | missing_asset_symbol, missing_direction, missing_entry, missing_stop, missing_target |
+| `bablos79-10466` | `not_a_signal` | 0.72 | `pending` | missing_asset_symbol, missing_direction, missing_entry, missing_stop, missing_target |
+| `bablos79-10467` | `insufficient_fields` | 0.44 | `pending` | asset_alias_detected, missing_direction, missing_entry, missing_stop, missing_target |
+| `bablos79-10468` | `not_a_signal` | 0.72 | `pending` | missing_asset_symbol, missing_direction, missing_entry, missing_stop, missing_target |
+| `bablos79-10469` | `not_a_signal` | 0.72 | `pending` | missing_asset_symbol, missing_direction, missing_entry, missing_stop, missing_target |
+| `bablos79-10470` | `not_a_signal` | 0.72 | `pending` | missing_asset_symbol, missing_direction, missing_entry, missing_stop, missing_target |
+| `bablos79-10471` | `not_a_signal` | 0.72 | `pending` | missing_asset_symbol, missing_direction, missing_entry, missing_stop, missing_target |
+| `bablos79-10472` | `not_a_signal` | 0.72 | `pending` | missing_asset_symbol, missing_direction, missing_entry, missing_stop, missing_target |
+| `bablos79-10475` | `not_a_signal` | 0.72 | `pending` | missing_asset_symbol, missing_direction, missing_entry, missing_stop, missing_target |
+| `bablos79-10476` | `not_a_signal` | 0.72 | `pending` | missing_asset_symbol, missing_direction, missing_entry, missing_stop, missing_target |
+| `bablos79-10477` | `not_a_signal` | 0.72 | `pending` | missing_asset_symbol, missing_direction, missing_entry, missing_stop, missing_target |
+| `bablos79-10478` | `not_a_signal` | 0.72 | `pending` | missing_asset_symbol, missing_direction, missing_entry, missing_stop, missing_target |
+| `bablos79-10479` | `not_a_signal` | 0.72 | `pending` | missing_asset_symbol, missing_direction, missing_entry, missing_stop, missing_target |
+| `bablos79-10482` | `not_a_signal` | 0.72 | `pending` | missing_asset_symbol, missing_direction, missing_entry, missing_stop, missing_target |
+| `bablos79-10483` | `not_a_signal` | 0.72 | `pending` | missing_asset_symbol, missing_direction, missing_entry, missing_stop, missing_target |
+| `bablos79-10485` | `not_a_signal` | 0.72 | `pending` | missing_asset_symbol, missing_direction, missing_entry, missing_stop, missing_target |
+| `bablos79-10486` | `not_a_signal` | 0.72 | `pending` | missing_asset_symbol, missing_direction, missing_entry, missing_stop, missing_target |
+| `bablos79-10487` | `not_a_signal` | 0.72 | `pending` | missing_asset_symbol, missing_direction, missing_entry, missing_stop, missing_target |
+| `bablos79-10488` | `not_a_signal` | 0.72 | `pending` | missing_asset_symbol, missing_direction, missing_entry, missing_stop, missing_target |
+| `bablos79-10489` | `insufficient_fields` | 0.44 | `pending` | asset_alias_detected, missing_direction, missing_entry, missing_stop, missing_target |
+| `bablos79-10490` | `insufficient_fields` | 0.44 | `pending` | asset_alias_detected, missing_direction, missing_entry, missing_stop, missing_target |
+| `bablos79-10491` | `not_a_signal` | 0.72 | `pending` | missing_asset_symbol, missing_direction, missing_entry, missing_stop, missing_target |
+| `bablos79-10492` | `insufficient_fields` | 0.44 | `pending` | asset_alias_detected, missing_direction, missing_entry, missing_stop, missing_target |
+| `bablos79-10493` | `not_a_signal` | 0.72 | `pending` | missing_asset_symbol, missing_direction, missing_entry, missing_stop, missing_target |
+| `bablos79-10495` | `not_a_signal` | 0.72 | `pending` | missing_asset_symbol, missing_direction, missing_entry, missing_stop, missing_target |
+| `bablos79-10496` | `not_a_signal` | 0.72 | `pending` | missing_asset_symbol, missing_direction, missing_entry, missing_stop, missing_target |
+| `bablos79-10497` | `insufficient_fields` | 0.44 | `pending` | asset_alias_detected, missing_direction, missing_entry, missing_stop, missing_target |
+| `bablos79-10498` | `not_a_signal` | 0.72 | `pending` | missing_asset_symbol, missing_direction, missing_entry, missing_stop, missing_target |
+| `bablos79-10499` | `insufficient_fields` | 0.44 | `pending` | asset_alias_detected, close_or_reduce_term, close_or_reduce_requires_original_setup, missing_direction, missing_entry |
+| `bablos79-10500` | `insufficient_fields` | 0.44 | `pending` | asset_alias_detected, close_or_reduce_term, close_or_reduce_requires_original_setup, missing_direction, missing_entry |
+| `bablos79-10501` | `insufficient_fields` | 0.44 | `pending` | asset_alias_detected, close_or_reduce_term, close_or_reduce_requires_original_setup, missing_direction, missing_entry |
+| `bablos79-10502` | `not_a_signal` | 0.72 | `pending` | missing_asset_symbol, missing_direction, missing_entry, missing_stop, missing_target |
+| `bablos79-10503` | `not_a_signal` | 0.72 | `pending` | missing_asset_symbol, missing_direction, missing_entry, missing_stop, missing_target |
+| `bablos79-10504` | `insufficient_fields` | 0.39 | `pending` | close_or_reduce_term, close_or_reduce_requires_original_setup, missing_asset_symbol, missing_direction, missing_entry |
+| `bablos79-10505` | `not_a_signal` | 0.72 | `pending` | missing_asset_symbol, missing_direction, missing_entry, missing_stop, missing_target |
+| `bablos79-10506` | `not_a_signal` | 0.72 | `pending` | missing_asset_symbol, missing_direction, missing_entry, missing_stop, missing_target |
+| `bablos79-10507` | `not_a_signal` | 0.72 | `pending` | missing_asset_symbol, missing_direction, missing_entry, missing_stop, missing_target |
+| `bablos79-10508` | `not_a_signal` | 0.72 | `pending` | missing_asset_symbol, missing_direction, missing_entry, missing_stop, missing_target |
 
 ## Extraction Rows
 

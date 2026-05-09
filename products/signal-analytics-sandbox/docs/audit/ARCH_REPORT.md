@@ -1,74 +1,74 @@
-# ARCH_REPORT — Cycle 9
-_Date: 2026-05-07_
+# ARCH_REPORT — Cycle 10
+_Date: 2026-05-08_
 
 ## Component Verdicts
 
 | Component | Verdict | Note |
 |-----------|---------|------|
-| Phase 9 pilot docs | PASS | Documentation-only validation loop; no application component or runtime expansion added. |
-| Pilot capture/extraction/report logs | PASS | Logs preserve operator-supplied public capture boundary and explicitly avoid fabricated data. |
-| Pilot decision gate | PASS | `PILOT_DECISION.md` stops/defers automation until real captures and customer/payment evidence exist. |
-| State surfaces | PASS | `CODEX_PROMPT.md`, `tasks.md`, `DECISION_LOG.md`, and journal align on stop/defer verdict. |
-| Regression guard test | PASS | Test update keeps phase-boundary guard aligned with current Phase 9 state. |
+| Draft pseudo-label validation | PASS | Deterministic text-support checks over local `CapturedPost` and pseudo-label mappings. |
+| Draft parser | PASS | Static accepted profile terms produce review-only draft statuses; no LLM, network, CLI, or ledger boundary crossed. |
+| Draft export | PASS | Deterministic sort and Markdown rendering; every row remains reviewer_id=`pending`. |
+| Pilot artifacts | PASS | Artifacts preserve draft-only boundary and keep final extraction status separate from draft suggestions. |
 
 ## Contract Compliance
 
 | Rule | Verdict | Note |
 |------|---------|------|
-| SQL Safety | PASS | No SQL surface introduced. |
-| Async Redis | PASS | No Redis surface introduced. |
-| Authorization | PASS | No API or multi-user surface introduced. |
-| PII Policy | PASS | Docs mention public source URLs as pilot evidence, not logs/spans/metrics. |
-| Credentials and Secrets | PASS | No credentials or secrets introduced. |
-| Shared Tracing Module | PASS | No tracing changes. |
-| CI Gate | PASS | Local tests, ruff, and pyright pass. |
-| Observability | PASS | No adapter/runtime code changed. |
-| PSR-1 Public-Source-Only | PASS | Phase 9 docs repeatedly block private, paywalled, login-walled, and authenticated capture. |
-| PSR-2 Reproducibility | PASS | No deterministic core changes; methodology preserves immutable snapshots and byte-identical reruns. |
-| PSR-3 LLM Output Is Never Truth | PASS | Methodology says LLM drafts require human review and no LLM output is final truth. |
-| PSR-4 Cost-Cap Enforcement | PASS | No paid adapter changes. |
-| PSR-5 Snapshot Immutability | PASS | No snapshot code changes. |
-| PSR-6 Disclaimer Integrity | PASS | No disclaimer/report renderer code changes; blocked memo includes non-advice language. |
-| PSR-7 Outcome Rule Citation | PASS | No outcome rule changes; methodology requires rule IDs for outcomes. |
-| PSR-8 Evidence Field Preservation | PASS | Capture/extraction docs require URL/timestamp/hash preservation before extraction. |
-| PSR-9 Append-Only Rule and Template Versioning | PASS | No registry/template code changes. |
-| PSR-10 Phase 0 Gate | PASS | Phase 0 gates are acknowledged; Phase 9 is validation documentation. |
-| PSR-11 No Forward-Looking Claims | PASS | Pilot report memo forbids future-performance claims; no app report/outcome strings changed. |
+| SQL Safety | PASS | No SQL surface in scope. |
+| Async Redis | PASS | No Redis surface in scope. |
+| Authorization | PASS | No API/auth surface introduced. |
+| PII Policy | PASS | No logging/span/metrics code added. |
+| Credentials and Secrets | PASS | Secret scan found no keys/tokens in scoped code/tests. |
+| Shared Tracing Module | PASS | No tracing implementation added. |
+| CI Gate | PASS | Local validation passes: 94 tests, ruff, pyright. |
+| Observability | PASS | No external adapter calls added; file rendering helper is local deterministic export. |
+| PSR-1 Public-Source-Only | PASS | No capture/fetching/scraping code added. |
+| PSR-2 Reproducibility | PASS | Draft export sorts by timestamp/capture_id; no per-write timestamps in rendered output. |
+| PSR-3 LLM Output Is Never Truth | PASS | Parser/export produce draft/review statuses only; no ledger write path. |
+| PSR-4 Cost-Cap Enforcement | PASS | No paid adapter path added. |
+| PSR-5 Snapshot Immutability | PASS | Snapshot code untouched. |
+| PSR-6 Disclaimer Integrity | PASS | Report disclaimer code untouched. |
+| PSR-7 Outcome Rule Citation | PASS | Outcome code untouched. |
+| PSR-8 Evidence Field Preservation | PASS | Parser/export preserve capture_id, evidence_url, and text_sha256 from `CapturedPost`. |
+| PSR-9 Append-Only Rule and Template Versioning | PASS | Rule registries/templates untouched. |
+| PSR-10 Phase 0 Gate | PASS | Phase 0 gates remain acknowledged. |
+| PSR-11 No Forward-Looking Claims | PASS | No report/outcome strings changed. |
 
 ## ADR Compliance
 
 | ADR | Verdict | Note |
 |-----|---------|------|
-| ADR-001 | PASS | Snapshot serialization decision unaffected; no price snapshot code changed. |
+| ADR-001 snapshot serialization | PASS | Snapshot serialization untouched. |
 
 ## Architecture Findings
 
-none
+None.
 
 ## Right-Sizing / Runtime Checks
 
 | Check | Verdict | Note |
 |-------|---------|------|
-| Solution shape still Hybrid | PASS | No new behavior beyond deterministic core + validation workflow docs. |
-| Deterministic-owned areas remain deterministic | PASS | No deterministic runtime code changed; methodology preserves deterministic outcomes. |
-| Runtime tier still T0 | PASS | No service, daemon, shell mutation, privilege, or hosted surface added. |
-| LLM adapter still gated | PASS | No LLM adapter code changed; docs preserve human-review gate. |
-| Public-source-only boundary intact (PSR-1) | PASS | Capture/extraction/report/decision docs reject private/authenticated/paywalled sources. |
+| Solution shape still Hybrid | PASS | Deterministic helper modules support bounded human-review workflow. |
+| Deterministic-owned areas remain deterministic | PASS | Draft validation/parser/export are pure/local and LLM-free. |
+| Runtime tier still T0 | PASS | No daemon, shell mutation, privilege expansion, or persistent worker. |
+| LLM adapter still gated | PASS | LLM adapter untouched; new code imports no LLM provider. |
+| Public-source-only boundary intact (PSR-1) | PASS | New code reads local captures/artifacts only. |
 
 ## Reproducibility / Integrity Checks
 
 | Check | Verdict | Note |
 |-------|---------|------|
-| No new non-determinism sources | PASS | No runtime output generation code changed. |
-| Decimal discipline preserved | PASS | Outcomes/aggregator unchanged. |
-| Snapshots immutable on disk | PASS | Snapshot code unchanged. |
-| Disclaimer canonical | PASS | Canonical disclaimer file and renderer unchanged. |
-| Outcome rule registry append-only | PASS | Registry unchanged. |
-| Extraction rule templates append-only | PASS | Templates unchanged. |
-| All capability profiles still OFF | PASS | No RAG/tool-use/agent/planning/compliance behavior added. |
+| No new non-determinism sources | PASS | Export rows are sorted; no runtime timestamps in output. |
+| Decimal discipline preserved | PASS | Outcome/metric arithmetic untouched. |
+| Snapshots immutable on disk | PASS | Snapshot code untouched. |
+| Disclaimer canonical | PASS | Report disclaimer code untouched. |
+| Outcome rule registry append-only | PASS | Outcome registry untouched. |
+| Extraction rule templates append-only | PASS | Rule templates untouched. |
+| All capability profiles still OFF | PASS | No retrieval, tool-call, agent loop, planning, or compliance framework behavior added. |
 
 ## Doc Patches Needed
 
 | File | Section | Change |
 |------|---------|--------|
-| none | - | No architecture/spec patch required for documentation-only Phase 9. |
+| `docs/ARCHITECTURE.md` | Component Table | Add Phase 10 draft validation/parser/export helper components. |
+| `README.md` | Current status / feature list | Refresh baseline and Phase 10 draft-helper artifacts. |

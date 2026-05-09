@@ -1,7 +1,7 @@
 # Decision Log — Signal Analytics Sandbox
 
 Version: 1.0
-Last updated: 2026-05-08
+Last updated: 2026-05-09
 
 This file is a lightweight retrieval surface. It is not the source of truth. If an entry conflicts with a canonical document (`docs/ARCHITECTURE.md`, `docs/IMPLEMENTATION_CONTRACT.md`, `docs/spec.md`, `docs/tasks.md`, ADRs), the canonical document wins and this file must be corrected.
 
@@ -38,6 +38,8 @@ This file is a lightweight retrieval surface. It is not the source of truth. If 
 | D-016 | 2026-05-07 | Active | Frontier model may be used offline for author-specific lexicon/profile discovery before parser implementation | A short hard-coded Russian trading lexicon is likely to miss each author's idioms. Model output is allowed only as evidence-cited candidate vocabulary/profile data; runtime parser, exports, tests, and ledger writes remain deterministic and non-LLM. | `docs/tasks.md#sas-auto-001b-author-lexicon-and-draft-profile-discovery`, `docs/pilot/AUTO_EXTRACTION_DEVELOPMENT_PLAN.md` | none |
 | D-017 | 2026-05-08 | Active | Phase 10 starts with machine-first pseudo-label bootstrap instead of manual seed labeling | The desired workflow is automation-first: frontier model drafts labels for all captured posts, deterministic validators reject unsupported fields, and humans review only exceptions or customer-facing claims. This preserves auditability while avoiding full manual seed labeling. | `docs/pilot/AUDIT_GRADE_AUTOMATION_ROADMAP.md`, `docs/tasks.md#sas-auto-001-machine-first-pseudo-label-bootstrap`, `docs/pilot/AUTO_EXTRACTION_DEVELOPMENT_PLAN.md` | D-015 |
 | D-018 | 2026-05-08 | Active | Orchestrator loop must continue across phase boundaries after deep review/archive/doc update | The product uses a full AI development cycle. A completed phase review is a gate opener, not an end state; the loop must advance `docs/CODEX_PROMPT.md` to the next task and continue unless there is no next task, a blocker, missing human/legal/customer input, failed validation, rate limits, or an explicit user stop. | `docs/prompts/ORCHESTRATOR.md#phase-continuation-contract` | none |
+| D-019 | 2026-05-09 | Active | Product direction expands to Author Market Intelligence while preserving Phase 10 as the first channel profile | The first reviewed group is broader than strict trade signals: it includes market regime commentary, voice-analysis behavior, news reactions, and occasional visible trade entries. The roadmap therefore adds market-data comparison, source corpus, retrieval, market-idea extraction, deterministic thesis evaluation, and bounded batch analysis without discarding current artifacts. | `docs/pilot/AUTHOR_MARKET_INTELLIGENCE_ROADMAP.md`, `docs/tasks.md#phase-11--author-market-intelligence-architecture-reset` | none |
+| D-020 | 2026-05-09 | Active | RAG/Planning/Agentic implementation requires a Phase 11 ADR before profile activation | RAG and batch analysis are now plausible product capabilities, but they change runtime/storage/control boundaries. `SAS-MI-001` must decide storage substrate, profile statuses, and agent boundaries before vector storage, embeddings, or loop code is added. | `docs/tasks.md#sas-mi-001-author-market-intelligence-architecture-adr`, `docs/ARCHITECTURE.md#capability-profiles` | D-004 (when ADR updates profiles) |
 
 ---
 

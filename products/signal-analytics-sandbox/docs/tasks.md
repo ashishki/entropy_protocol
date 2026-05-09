@@ -1,7 +1,7 @@
 # Tasks — Signal Analytics Sandbox
 
 Version: 1.0
-Last updated: 2026-05-07
+Last updated: 2026-05-09
 
 This task graph is the implementation contract. Acceptance criteria are testable; vague phrases are forbidden (see `templates/tasks_schema.md` §Acceptance Criteria Rules).
 
@@ -17,6 +17,17 @@ Phases:
 - **Phase 6** — Manual + rule extraction adapters.
 - **Phase 7** — Additional price adapters (exchange-public, yfinance-dev).
 - **Phase 8** — Gated LLM extraction adapter (heavy-task).
+- **Phase 9** — First public-source pilot loop and blocked report.
+- **Phase 10** — Draft extraction assistant for captured Telegram posts.
+- **Phase 11** — Author Market Intelligence architecture reset.
+- **Phase 12** — Asset universe and market-data foundation.
+- **Phase 13** — Universal source corpus and channel profiles.
+- **Phase 14** — Local RAG context layer.
+- **Phase 15** — Market idea extraction.
+- **Phase 16** — Deterministic thesis evaluation.
+- **Phase 17** — Bounded batch analyst.
+- **Phase 18** — Author Market Report V0.
+- **Phase 19** — Channel-specific modalities and tools.
 
 ---
 
@@ -1198,7 +1209,7 @@ review before any customer-facing claim or approved signal record.
 Reference plan: `docs/pilot/AUTO_EXTRACTION_DEVELOPMENT_PLAN.md`.
 Roadmap: `docs/pilot/AUDIT_GRADE_AUTOMATION_ROADMAP.md`.
 
-### SAS-AUTO-001: Machine-First Pseudo-Label Bootstrap
+### SAS-AUTO-001: Machine-First Pseudo-Label Bootstrap ✅
 
 Owner:      codex
 Phase:      10
@@ -1247,7 +1258,7 @@ Notes: |
 
 ---
 
-### SAS-AUTO-001B: Author Lexicon And Draft Profile Discovery
+### SAS-AUTO-001B: Author Lexicon And Draft Profile Discovery ✅
 
 Owner:      codex
 Phase:      10
@@ -1300,7 +1311,7 @@ Notes: |
 
 ---
 
-### SAS-AUTO-002: Deterministic Validators And Draft Parser Library
+### SAS-AUTO-002: Deterministic Validators And Draft Parser Library ✅
 
 Owner:      codex
 Phase:      10
@@ -1355,7 +1366,7 @@ Notes: |
 
 ---
 
-### SAS-AUTO-003: Draft Export Artifact
+### SAS-AUTO-003: Draft Export Artifact ✅
 
 Owner:      codex
 Phase:      10
@@ -1399,7 +1410,7 @@ Notes: |
 
 ---
 
-### SAS-AUTO-004: Exception Review Queue And Extraction Log Merge
+### SAS-AUTO-004: Exception Review Queue And Extraction Log Merge ✅
 
 Owner:      codex
 Phase:      10
@@ -1448,7 +1459,7 @@ Notes: |
 
 ---
 
-### SAS-AUTO-005: Draft Extraction Evaluation And Next Decision
+### SAS-AUTO-005: Draft Extraction Evaluation And Next Decision ✅
 
 Owner:      codex
 Phase:      10
@@ -1487,3 +1498,643 @@ Files:
 
 Notes: |
   This is the Phase 10 decision gate. Do not silently widen the product.
+
+---
+
+## Phase 11 — Author Market Intelligence Architecture Reset
+
+### SAS-MI-001: Author Market Intelligence Architecture ADR
+
+Owner:      codex
+Phase:      11
+Type:       governance
+Depends-On: SAS-AUTO-005
+
+Objective: |
+  Convert the new product direction into an explicit architecture decision
+  before implementation expands. The ADR must decide whether Author Market
+  Intelligence activates RAG, Planning, and/or Agentic profiles; choose the
+  first local retrieval/runtime substrate; and preserve Phase 10 artifacts as
+  the first channel profile rather than replacing them.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/adr/ADR-002-author-market-intelligence.md` exists and records scope, non-goals, runtime tier, capability-profile changes, RAG storage choice, batch-agent boundaries, and rollback plan."
+    test: "manual-evidence: ADR exists with required headings."
+  - id: AC-2
+    description: "`docs/ARCHITECTURE.md` capability-profile table and justifications are updated to match the ADR exactly."
+    test: "manual-evidence: Architecture profile statuses match ADR."
+  - id: AC-3
+    description: "ADR explicitly states that RAG output is context-only and cannot produce final prices, returns, approved records, or outcome metrics."
+    test: "manual-evidence: ADR has deterministic-truth boundary."
+  - id: AC-4
+    description: "ADR cites `docs/pilot/AUTHOR_MARKET_INTELLIGENCE_ROADMAP.md` and Phase 10 artifacts as the initial corpus/profile seed."
+    test: "manual-evidence: roadmap and Phase 10 files are referenced."
+  - id: AC-5
+    description: "`docs/CODEX_PROMPT.md` is advanced to `SAS-MI-002` only after this ADR and architecture update are complete."
+    test: "manual-evidence: Next Task names `SAS-MI-002`."
+
+Context-Refs:
+  - docs/pilot/AUTHOR_MARKET_INTELLIGENCE_ROADMAP.md
+  - docs/pilot/bablos79_AUTHOR_PROFILE.md
+  - docs/pilot/EXTRACTION_DRAFTS_BABLOS79.md
+  - docs/pilot/AUTO_EXTRACTION_EVAL.md
+  - docs/ARCHITECTURE.md
+  - docs/DECISION_LOG.md
+
+Files:
+  - docs/adr/ADR-002-author-market-intelligence.md
+  - docs/ARCHITECTURE.md
+  - docs/DECISION_LOG.md
+  - docs/CODEX_PROMPT.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Notes: |
+  This task is a gate. Do not implement vector storage, embeddings, market-data
+  adapters, or agent loops until the ADR is accepted.
+
+---
+
+### SAS-MI-002: MarketIdea Schema And Metrics Contract
+
+Owner:      codex
+Phase:      11
+Type:       validation
+Depends-On: SAS-MI-001
+
+Objective: |
+  Specify the `MarketIdea` record and the deterministic metric contract for
+  evaluating author commentary. The schema must cover explicit trade setups,
+  soft directional views, market-regime comments, watchlists, catalyst/news
+  reactions, risk warnings, and non-market content without overstating evidence.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/specs/MARKET_IDEA_SCHEMA.md` defines required fields, optional fields, enum values, evidence-span rules, approval states, and examples."
+    test: "manual-evidence: spec exists with schema table and examples."
+  - id: AC-2
+    description: "Schema separates explicit trade signals from softer thesis/commentary categories."
+    test: "manual-evidence: enum definitions include trade_setup, directional_thesis, market_regime, watchlist, catalyst_reaction, risk_warning, non_market."
+  - id: AC-3
+    description: "Spec defines deterministic evaluation horizons and labels which fields are human/LLM-assisted drafts only."
+    test: "manual-evidence: metric contract section is present."
+  - id: AC-4
+    description: "Spec defines a review queue policy for ambiguous, high-impact, customer-facing, and unsupported claims."
+    test: "manual-evidence: review policy section is present."
+  - id: AC-5
+    description: "`docs/CODEX_PROMPT.md` is advanced to `SAS-MI-003` only after the schema and metric contract are complete."
+    test: "manual-evidence: Next Task names `SAS-MI-003`."
+
+Context-Refs:
+  - docs/pilot/AUTHOR_MARKET_INTELLIGENCE_ROADMAP.md
+  - docs/pilot/METHODOLOGY_V0.md
+  - docs/pilot/bablos79_REVIEW_QUEUE.md
+  - src/signal_sandbox/ledger/record.py
+  - src/signal_sandbox/outcomes/
+
+Files:
+  - docs/specs/MARKET_IDEA_SCHEMA.md
+  - docs/CODEX_PROMPT.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Notes: |
+  This task is a specification task. Do not add product code yet unless the ADR
+  from `SAS-MI-001` explicitly requires a tiny validation fixture.
+
+---
+
+## Phase 12 — Asset Universe And Market-Data Foundation
+
+### SAS-MI-003: Asset Universe And Alias Registry
+
+Owner:      codex
+Phase:      12
+Type:       validation
+Depends-On: SAS-MI-002
+
+Objective: |
+  Implement the first canonical asset universe for crypto, funds, equities,
+  indices, and unresolved mentions. The registry must resolve aliases from
+  author text to canonical asset IDs while preserving uncertainty and evidence.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`Asset` and `AssetAlias` schemas exist with canonical_id, instrument_type, provider_symbols, aliases, exchange/venue where applicable, and provenance."
+    test: "tests/unit/test_asset_registry.py::test_asset_alias_schema_round_trip"
+  - id: AC-2
+    description: "Alias resolution returns exact, ambiguous, or unresolved with evidence instead of guessing."
+    test: "tests/unit/test_asset_registry.py::test_alias_resolution_never_guesses"
+  - id: AC-3
+    description: "Seed registry covers BTC, ETH, SOL, SPY, QQQ, major crypto tickers observed in the pilot captures, and an unresolved fallback path."
+    test: "tests/unit/test_asset_registry.py::test_seed_registry_contains_required_assets"
+  - id: AC-4
+    description: "No market data is fetched in this task."
+    test: "manual-evidence: closeout states no network/data fetch was added."
+
+Files:
+  - src/signal_sandbox/assets/
+  - tests/unit/test_asset_registry.py
+  - docs/specs/ASSET_UNIVERSE.md
+  - docs/CODEX_PROMPT.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+---
+
+### SAS-MI-004: Market Data Store Contract
+
+Owner:      codex
+Phase:      12
+Type:       validation
+Depends-On: SAS-MI-003
+
+Objective: |
+  Define and implement the local market-data store interface used by thesis
+  evaluation. The store must preserve provider, symbol, time range, resolution,
+  checksum, licensing/provenance, and immutable snapshot semantics.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Market-data store protocol supports write_snapshot, load_snapshot, list_snapshots, and checksum verification."
+    test: "tests/unit/test_market_data_store.py::test_snapshot_round_trip_with_checksum"
+  - id: AC-2
+    description: "Snapshots record provider, canonical asset ID, provider symbol, timeframe, source timestamp range, captured_at, and data_sha256."
+    test: "tests/unit/test_market_data_store.py::test_snapshot_metadata_required_fields"
+  - id: AC-3
+    description: "Attempting to overwrite an existing snapshot with different bytes fails unless a new snapshot ID is used."
+    test: "tests/unit/test_market_data_store.py::test_snapshot_overwrite_rejected"
+  - id: AC-4
+    description: "Store accepts operator-provided local OHLCV fixtures before any new paid or network provider."
+    test: "tests/unit/test_market_data_store.py::test_operator_file_fixture_supported"
+
+Files:
+  - src/signal_sandbox/market_data/
+  - tests/unit/test_market_data_store.py
+  - docs/specs/MARKET_DATA_STORE.md
+  - docs/CODEX_PROMPT.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+---
+
+### SAS-MI-005: Deterministic Horizon Metrics
+
+Owner:      codex
+Phase:      12
+Type:       validation
+Depends-On: SAS-MI-004
+
+Objective: |
+  Implement deterministic horizon metrics for market ideas without using LLM,
+  RAG, or analyst summaries. Metrics must support multiple horizons and record
+  unresolved/insufficient-data cases explicitly.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Horizon evaluator computes 1d, 3d, 7d, and 30d returns from a post timestamp when matching OHLCV exists."
+    test: "tests/unit/test_horizon_metrics.py::test_horizon_returns_are_deterministic"
+  - id: AC-2
+    description: "Evaluator computes max favorable excursion and max adverse excursion over each horizon."
+    test: "tests/unit/test_horizon_metrics.py::test_mfe_mae_by_horizon"
+  - id: AC-3
+    description: "Insufficient data, unresolved asset, and non-directional idea cases return explicit status codes."
+    test: "tests/unit/test_horizon_metrics.py::test_unresolved_cases_are_explicit"
+  - id: AC-4
+    description: "No LLM or retrieval dependency exists in horizon metric code."
+    test: "manual-evidence: imports/code review show deterministic-only dependencies."
+
+Files:
+  - src/signal_sandbox/market_data/metrics.py
+  - tests/unit/test_horizon_metrics.py
+  - docs/CODEX_PROMPT.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+---
+
+## Phase 13 — Universal Source Corpus And Channel Profiles
+
+### SAS-MI-006: SourceDocument Corpus Schema
+
+Owner:      codex
+Phase:      13
+Type:       validation
+Depends-On: SAS-MI-005
+
+Objective: |
+  Normalize public posts, transcripts, OCR references, images metadata, and
+  channel context into a `SourceDocument` corpus schema that downstream
+  extraction and retrieval can share.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`SourceDocument` schema preserves capture_id, source_id, author, timestamp, text, evidence_url, text_sha256, media_refs, transcript_refs, ocr_refs, and metadata."
+    test: "tests/unit/test_source_document.py::test_source_document_required_fields"
+  - id: AC-2
+    description: "Existing `CapturedPost` fixtures convert to `SourceDocument` without losing evidence URL or text hash."
+    test: "tests/unit/test_source_document.py::test_captured_post_conversion_preserves_evidence"
+  - id: AC-3
+    description: "Voice/OCR references are optional evidence links; no transcription/OCR provider is introduced."
+    test: "tests/unit/test_source_document.py::test_modal_refs_are_optional"
+
+Files:
+  - src/signal_sandbox/corpus/
+  - tests/unit/test_source_document.py
+  - docs/specs/SOURCE_CORPUS.md
+  - docs/CODEX_PROMPT.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+---
+
+### SAS-MI-007: Channel Profile Registry
+
+Owner:      codex
+Phase:      13
+Type:       validation
+Depends-On: SAS-MI-006
+
+Objective: |
+  Convert the Phase 10 `bablos79` author profile into a versioned channel
+  profile registry. The registry must allow channel-specific lexicons,
+  extraction hints, modality needs, review rules, and parser boundaries.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Channel profile schema stores channel_id, source URLs, profile version, accepted draft terms, needs-review terms, excluded terms, modality flags, and review rules."
+    test: "tests/unit/test_channel_profile.py::test_channel_profile_schema"
+  - id: AC-2
+    description: "`bablos79` Phase 10 profile imports into registry format with profile_state preserved."
+    test: "tests/unit/test_channel_profile.py::test_bablos79_profile_import_preserves_states"
+  - id: AC-3
+    description: "Unknown channel lookup returns no profile instead of falling back to `bablos79` rules."
+    test: "tests/unit/test_channel_profile.py::test_unknown_channel_has_no_default_profile"
+
+Files:
+  - src/signal_sandbox/profiles/
+  - tests/unit/test_channel_profile.py
+  - docs/specs/CHANNEL_PROFILES.md
+  - docs/CODEX_PROMPT.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+---
+
+## Phase 14 — Local RAG Context Layer
+
+### SAS-MI-008: Local Retrieval Store Prototype
+
+Owner:      codex
+Phase:      14
+Type:       rag:ingestion
+Depends-On: SAS-MI-007
+
+Objective: |
+  Implement the ADR-approved local retrieval store over `SourceDocument`
+  records. The prototype must ingest local corpus fixtures and expose cited
+  retrieval results without affecting approved ledgers or deterministic metrics.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Retrieval store ingests `SourceDocument` fixtures with stable document IDs and embedding/index metadata."
+    test: "tests/unit/test_retrieval_store.py::test_ingest_preserves_document_ids"
+  - id: AC-2
+    description: "Repeated ingestion of the same document is idempotent."
+    test: "tests/unit/test_retrieval_store.py::test_ingest_is_idempotent"
+  - id: AC-3
+    description: "Retrieval metadata records embedding model/provider/version or deterministic test-embedding fixture ID."
+    test: "tests/unit/test_retrieval_store.py::test_embedding_metadata_recorded"
+  - id: AC-4
+    description: "Store code cannot import ledger outcome writers or mutate approved records."
+    test: "manual-evidence: dependency check/code review."
+
+Files:
+  - src/signal_sandbox/retrieval/
+  - tests/unit/test_retrieval_store.py
+  - docs/CODEX_PROMPT.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+---
+
+### SAS-MI-009: Cited Retrieval API
+
+Owner:      codex
+Phase:      14
+Type:       rag:query
+Depends-On: SAS-MI-008
+
+Objective: |
+  Provide a retrieval API for batch analysis that returns cited corpus snippets,
+  scores, document IDs, and filters by author/channel, asset, timestamp window,
+  and idea type where metadata exists.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Query API returns document_id, snippet, score, source timestamp, evidence URL, and text_sha256 for every result."
+    test: "tests/unit/test_retrieval_query.py::test_query_results_are_cited"
+  - id: AC-2
+    description: "Filters for channel_id and timestamp window are deterministic."
+    test: "tests/unit/test_retrieval_query.py::test_channel_and_time_filters"
+  - id: AC-3
+    description: "No result is returned without a traceable source document ID."
+    test: "tests/unit/test_retrieval_query.py::test_uncited_results_rejected"
+
+Files:
+  - src/signal_sandbox/retrieval/query.py
+  - tests/unit/test_retrieval_query.py
+  - docs/CODEX_PROMPT.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+---
+
+## Phase 15 — Market Idea Extraction
+
+### SAS-MI-010: MarketIdea Draft Extractor
+
+Owner:      codex
+Phase:      15
+Type:       extraction
+Depends-On: SAS-MI-009
+
+Objective: |
+  Implement draft extraction from `SourceDocument` to `MarketIdeaDraft` using
+  deterministic rules and channel profiles first. LLM extraction may remain
+  behind existing gates, but output must be draft-only.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Extractor classifies fixtures into trade_setup, directional_thesis, market_regime, watchlist, catalyst_reaction, risk_warning, and non_market."
+    test: "tests/unit/test_market_idea_extractor.py::test_market_idea_categories"
+  - id: AC-2
+    description: "Drafts preserve evidence spans for asset, direction, horizon, risk/invalidation, and catalyst when present."
+    test: "tests/unit/test_market_idea_extractor.py::test_evidence_spans_preserved"
+  - id: AC-3
+    description: "Drafts never become approved records automatically."
+    test: "tests/unit/test_market_idea_extractor.py::test_drafts_are_unapproved"
+
+Files:
+  - src/signal_sandbox/market_ideas/
+  - tests/unit/test_market_idea_extractor.py
+  - docs/CODEX_PROMPT.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+---
+
+### SAS-MI-011: MarketIdea Batch Draft Export
+
+Owner:      codex
+Phase:      15
+Type:       extraction
+Depends-On: SAS-MI-010
+
+Objective: |
+  Export a batch of `MarketIdeaDraft` rows for a channel slice, including
+  parser status, review queue reason, evidence references, candidate assets,
+  and suggested evaluation horizons.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Batch export contains one row per input source document and clearly separates draft status from final review status."
+    test: "tests/unit/test_market_idea_export.py::test_batch_export_one_row_per_document"
+  - id: AC-2
+    description: "Ambiguous assets, customer-facing claims, unsupported directions, and high-impact claims are queued for review."
+    test: "tests/unit/test_market_idea_export.py::test_review_queue_policy"
+  - id: AC-3
+    description: "Export does not write approved ledgers or outcome reports."
+    test: "tests/unit/test_market_idea_export.py::test_export_has_no_approved_side_effects"
+
+Files:
+  - src/signal_sandbox/market_ideas/export.py
+  - tests/unit/test_market_idea_export.py
+  - docs/pilot/MARKET_IDEA_DRAFTS_BABLOS79.md
+  - docs/CODEX_PROMPT.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+---
+
+## Phase 16 — Deterministic Thesis Evaluation
+
+### SAS-MI-012: MarketIdea Outcome Evaluator
+
+Owner:      codex
+Phase:      16
+Type:       validation
+Depends-On: SAS-MI-011
+
+Objective: |
+  Join reviewed or draft market ideas to canonical assets and market-data
+  snapshots, then compute deterministic horizon outcomes while preserving
+  unresolved cases.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Evaluator resolves candidate assets through the asset registry and returns unresolved/ambiguous status without guessing."
+    test: "tests/unit/test_market_idea_outcomes.py::test_asset_resolution_statuses"
+  - id: AC-2
+    description: "Evaluator computes horizon outcomes using the deterministic metrics from `SAS-MI-005`."
+    test: "tests/unit/test_market_idea_outcomes.py::test_outcomes_use_horizon_metrics"
+  - id: AC-3
+    description: "Every outcome records source document ID, market idea ID, asset ID, snapshot ID, and metric version."
+    test: "tests/unit/test_market_idea_outcomes.py::test_outcome_provenance_required"
+
+Files:
+  - src/signal_sandbox/market_ideas/outcomes.py
+  - tests/unit/test_market_idea_outcomes.py
+  - docs/CODEX_PROMPT.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+---
+
+### SAS-MI-013: Author Metrics Aggregator
+
+Owner:      codex
+Phase:      16
+Type:       validation
+Depends-On: SAS-MI-012
+
+Objective: |
+  Aggregate market idea outcomes into author/channel metrics that distinguish
+  coverage, resolvability, directional behavior, risk framing, and null-content
+  rates.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Aggregator computes counts by idea type, asset type, horizon status, and review status."
+    test: "tests/unit/test_author_metrics.py::test_counts_by_type_and_status"
+  - id: AC-2
+    description: "Aggregator computes directional hit rate only for evaluable directional ideas."
+    test: "tests/unit/test_author_metrics.py::test_hit_rate_excludes_non_directional"
+  - id: AC-3
+    description: "Aggregator reports null/unclear/non-market rate separately from failed ideas."
+    test: "tests/unit/test_author_metrics.py::test_null_content_rate_separate"
+
+Files:
+  - src/signal_sandbox/market_ideas/author_metrics.py
+  - tests/unit/test_author_metrics.py
+  - docs/CODEX_PROMPT.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+---
+
+## Phase 17 — Bounded Batch Analyst
+
+### SAS-MI-014: Batch Analyst Contract
+
+Owner:      codex
+Phase:      17
+Type:       agent:loop
+Depends-On: SAS-MI-013
+
+Objective: |
+  Define and implement a bounded batch analyst contract that can retrieve
+  context, inspect deterministic metrics, draft an internal memo, and stop.
+  It must not mutate ledgers, fetch undeclared sources, publish reports, or run
+  shell/tool actions outside declared application APIs.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Batch job schema declares input channel/time window, allowed tools, max iterations, max retrieved documents, cost cap, and stop reasons."
+    test: "tests/unit/test_batch_analyst_contract.py::test_batch_job_schema"
+  - id: AC-2
+    description: "Runner stops on max iterations, missing required data, cost cap, or completed memo."
+    test: "tests/unit/test_batch_analyst_contract.py::test_runner_stop_reasons"
+  - id: AC-3
+    description: "Runner audit log records every retrieval, metric read, prompt input checksum, and generated memo checksum."
+    test: "tests/unit/test_batch_analyst_contract.py::test_audit_log_records_steps"
+  - id: AC-4
+    description: "Runner cannot call shell, network collectors, broker APIs, or report publishers."
+    test: "manual-evidence: dependency and tool surface review."
+
+Files:
+  - src/signal_sandbox/batch_analyst/
+  - tests/unit/test_batch_analyst_contract.py
+  - docs/specs/BATCH_ANALYST.md
+  - docs/CODEX_PROMPT.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+---
+
+### SAS-MI-015: Internal Analyst Memo Export
+
+Owner:      codex
+Phase:      17
+Type:       agent:loop
+Depends-On: SAS-MI-014
+
+Objective: |
+  Export an internal analyst memo that separates deterministic metrics,
+  cited evidence, and model/analyst interpretation.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Memo contains sections for scope, corpus coverage, retrieved evidence, deterministic metrics, interpretation, limitations, and review queue."
+    test: "tests/unit/test_analyst_memo_export.py::test_memo_sections"
+  - id: AC-2
+    description: "Every interpretive claim cites either retrieved source documents or deterministic metric IDs."
+    test: "tests/unit/test_analyst_memo_export.py::test_interpretive_claims_are_cited"
+  - id: AC-3
+    description: "Memo is marked internal and not customer-facing."
+    test: "tests/unit/test_analyst_memo_export.py::test_memo_internal_only"
+
+Files:
+  - src/signal_sandbox/batch_analyst/memo.py
+  - tests/unit/test_analyst_memo_export.py
+  - docs/pilot/BABLOS79_INTERNAL_MARKET_MEMO.md
+  - docs/CODEX_PROMPT.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+---
+
+## Phase 18 — Author Market Report V0
+
+### SAS-MI-016: Author Market Report Template
+
+Owner:      codex
+Phase:      18
+Type:       validation
+Depends-On: SAS-MI-015
+
+Objective: |
+  Build a customer-facing report template that combines channel profile,
+  corpus coverage, thesis categories, deterministic outcome metrics, evidence
+  examples, limitations, and non-advice guardrails.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Report renderer outputs Markdown with channel overview, data coverage, idea taxonomy, deterministic outcomes, evidence examples, limitations, and non-advice disclaimer."
+    test: "tests/unit/test_author_market_report.py::test_report_sections"
+  - id: AC-2
+    description: "Report refuses to render if required provenance for source documents or market snapshots is missing."
+    test: "tests/unit/test_author_market_report.py::test_missing_provenance_blocks_report"
+  - id: AC-3
+    description: "Report separates explicit trade setup performance from broader market commentary behavior."
+    test: "tests/unit/test_author_market_report.py::test_trade_and_commentary_metrics_separate"
+
+Files:
+  - src/signal_sandbox/reports/author_market.py
+  - tests/unit/test_author_market_report.py
+  - docs/pilot/reports/bablos79_AUTHOR_MARKET_REPORT_V0.md
+  - docs/CODEX_PROMPT.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+---
+
+### SAS-MI-017: Sellability And Scope Decision Gate
+
+Owner:      codex
+Phase:      18
+Type:       validation
+Depends-On: SAS-MI-016
+
+Objective: |
+  Decide whether Author Market Report V0 should be sold, iterated internally,
+  narrowed to one vertical, or paused. The decision must cite report quality,
+  evidence coverage, customer feedback, and implementation risk.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/AUTHOR_MARKET_REPORT_DECISION.md` records verdict, evidence coverage, customer-feedback status, payment-signal status, and next action."
+    test: "manual-evidence: decision artifact exists with required fields."
+  - id: AC-2
+    description: "If next work is approved, it names the exact bottleneck and forbids private scraping, live trading, broker integration, and public leaderboard expansion."
+    test: "manual-evidence: next-scope section is present."
+  - id: AC-3
+    description: "Phase 18 deep review/archive/doc update is completed before Phase 19 begins."
+    test: "manual-evidence: archive and audit index updated."
+
+Files:
+  - docs/pilot/AUTHOR_MARKET_REPORT_DECISION.md
+  - docs/CODEX_PROMPT.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+---
+
+## Phase 19 — Channel-Specific Modalities And Tools
+
+### SAS-MI-018: Modality And Tooling Scope ADR
+
+Owner:      codex
+Phase:      19
+Type:       governance
+Depends-On: SAS-MI-017
+
+Objective: |
+  Decide which channel-specific tools are justified by evidence: voice
+  transcription, OCR/image annotation, news/catalyst linker, fund/equity data,
+  reviewer UI/export improvements, or new channel lexicons.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "ADR lists candidate tools, measured channel/profile bottleneck, expected user value, cost/risk, and chosen next task."
+    test: "manual-evidence: ADR exists with candidate table."
+  - id: AC-2
+    description: "No modality provider or external service is added in this ADR task."
+    test: "manual-evidence: closeout states no provider dependency was added."
+  - id: AC-3
+    description: "Chosen next tool has a narrow acceptance-tested task before implementation."
+    test: "manual-evidence: docs/tasks.md contains the selected follow-up task."
+
+Files:
+  - docs/adr/ADR-003-channel-specific-tools.md
+  - docs/tasks.md
+  - docs/CODEX_PROMPT.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Notes: |
+  Phase 19 is intentionally open-ended. Each tool must earn its way in through
+  channel evidence and customer value, not through generic feature expansion.

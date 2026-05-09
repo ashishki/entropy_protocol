@@ -1,53 +1,48 @@
-# META_ANALYSIS — Cycle 9
-_Date: 2026-05-07 · Type: full_
+# META_ANALYSIS — Cycle 10
+_Date: 2026-05-08 · Type: full_
 
 ## Project State
 
-Phase 9 (`SAS-PILOT-001` through `SAS-PILOT-007`) is complete. Next: no codex
-task is approved; operator must supply real public captures for
-`https://t.me/bablos79` before further pilot execution.
+Phase 10 (`SAS-AUTO-001`–`SAS-AUTO-005`) is complete. Next: no next
+engineering task in `docs/tasks.md`; product action is human exception review
+of `docs/pilot/bablos79_REVIEW_QUEUE.md`.
 
-Baseline: 84 pass, 0 skip.
+Baseline: 94 pass, 0 skip.
 
 ## Open Findings
 
 | ID | Sev | Description | Files | Status |
 |----|-----|-------------|-------|--------|
-| none | - | No open P0/P1/P2 findings in `docs/CODEX_PROMPT.md`. | - | - |
+| none | - | No open findings in `docs/CODEX_PROMPT.md` or prior review report. | - | - |
 
 ## PROMPT_1 Scope (architecture)
 
-- Phase 9 pilot validation docs: verify they preserve public-source-only,
-  validation-first, no-advice, no-forward-looking, and no-automation boundaries.
-- Pilot decision gate: verify `docs/pilot/PILOT_DECISION.md` does not approve
-  engineering expansion without evidence.
-- State surfaces: verify `docs/CODEX_PROMPT.md`, `docs/tasks.md`,
-  `docs/DECISION_LOG.md`, and `docs/IMPLEMENTATION_JOURNAL.md` align with the
-  Phase 9 stop/defer verdict.
+- Draft extraction validation: new deterministic pseudo-label validation helper
+  in `src/signal_sandbox/extraction/draft_validation.py`.
+- Draft extraction parser: new deterministic review-only parser in
+  `src/signal_sandbox/extraction/draft_parser.py`.
+- Draft export: new deterministic Markdown export helper in
+  `src/signal_sandbox/extraction/draft_export.py`.
+- Pilot artifacts: pseudo-label, author-profile, draft export, review queue,
+  evaluation, and pilot decision artifacts under `docs/pilot/` and
+  `workspace/`.
 
 ## PROMPT_2 Scope (code, priority order)
 
-1. `docs/pilot/PILOT_SCOPE.md` (new)
-2. `docs/pilot/METHODOLOGY_V0.md` (new)
-3. `docs/pilot/CAPTURE_LOG.md` (new)
-4. `docs/pilot/EXTRACTION_LOG.md` (new)
-5. `docs/pilot/reports/bablos79_BLOCKED_REPORT_V0.md` (new)
-6. `docs/pilot/CUSTOMER_FEEDBACK.md` (new)
-7. `docs/pilot/PAYMENT_SIGNAL_LOG.md` (new)
-8. `docs/pilot/PILOT_DECISION.md` (new)
-9. `docs/CODEX_PROMPT.md` (changed)
-10. `docs/tasks.md` (changed)
-11. `docs/DECISION_LOG.md` (changed)
-12. `docs/IMPLEMENTATION_JOURNAL.md` (changed)
-13. `tests/test_workspace_validation.py` (changed regression guard test)
+1. `src/signal_sandbox/extraction/draft_validation.py` (new)
+2. `src/signal_sandbox/extraction/draft_parser.py` (new)
+3. `src/signal_sandbox/extraction/draft_export.py` (new)
+4. `tests/unit/test_draft_validation.py` (new)
+5. `tests/unit/test_draft_parser.py` (new)
+6. `tests/unit/test_draft_export.py` (new)
+7. `tests/test_workspace_validation.py` (state-coupled update)
 
 ## Cycle Type
 
-Full — Phase 9 boundary is complete and requires deep review/archive.
+Full — Phase 10 completed and requires phase-boundary deep review.
 
 ## Notes for PROMPT_3
 
-Consolidation focus: there should be no P0/P1 unless review finds a concrete
-contract violation. Expected health is OK/WARN: the pilot did not validate
-customer value, but the decision correctly stops automation until public
-captures and customer/payment evidence exist.
+Consolidation focus: verify draft-only/human-review boundaries, no runtime LLM
+or network path, no approved ledger write, and whether architecture docs need
+component-table updates for the new draft helper modules.

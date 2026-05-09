@@ -1,8 +1,8 @@
 # MEMORY - Signal Analytics Sandbox
 
-Last completed: T20 - LLMExtractionAdapter at 2026-05-07
-Baseline: 84 pass / 0 skip
-Next task: none - docs/tasks.md task graph complete
-Phase: Phase 8 - complete
-Review tier next: none unless new scope is added
-Any blockers: none.
+Last completed: Phase 11+ Author Market Intelligence roadmap planning at 2026-05-09
+Baseline: 94 pass / 0 skip
+Next task: SAS-MI-001 - Author Market Intelligence Architecture ADR
+Phase: Phase 11 - Author Market Intelligence Architecture Reset
+Review tier next: deep
+Any blockers: none. RAG/Planning/Agentic remain OFF until SAS-MI-001 records an ADR and updates docs/ARCHITECTURE.md.
