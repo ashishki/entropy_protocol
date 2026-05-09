@@ -21,6 +21,15 @@ This file records handoff context. It is not authority.
 
 ## Entries
 
+### 2026-05-09 - T40 - Holdout Approval Request Packet
+
+- Scope: `docs/approvals/HOLDOUT_APPROVAL_REQUEST_PACKET.md`, `tests/reset/test_holdout_approval_request_packet.py`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`
+- Why this work happened: scaffold no-read approval request evidence for Phase 10 without creating approval
+- Decisions applied: `docs/audit/HOLDOUT_ACCESS_PROTOCOL_REVIEW.md`; `docs/protocols/HOLDOUT_ACCESS_PROTOCOL.md`; `docs/protocols/HOLDOUT_APPROVAL_EVENT_SCHEMA.md`; `docs/protocols/HOLDOUT_AUDIT_LOGGING_CONTRACT.md`; `docs/protocols/HOLDOUT_LEAKAGE_GUARD_PROTOCOL.md`
+- Evidence collected: T40 acceptance tests passed (`3 passed`); full reset baseline `423 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean
+- Follow-ups: start T41 Holdout Approval Evidence Intake Contract
+- Notes for next agent: T40 is a request packet scaffold only. No approval event currently exists, and holdout read/unlock remains blocked.
+
 ### 2026-05-09 - T39 - Holdout Access Protocol Review
 
 - Scope: `docs/audit/HOLDOUT_ACCESS_PROTOCOL_REVIEW.md`, `docs/audit/AUDIT_INDEX.md`, `tests/reset/test_holdout_access_protocol_review.py`, `docs/tasks.md`, `docs/EVIDENCE_INDEX.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`

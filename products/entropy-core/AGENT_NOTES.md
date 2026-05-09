@@ -268,3 +268,13 @@ Phase 9 is complete through T39. Phase 10 is open as no-read holdout approval de
 - Evidence index row added for T39 review proof.
 - Light/deep review result: no findings.
 - Roadmap decision: modify planned Phase 10 into Holdout Approval Decision Packet. No approval event currently exists; holdout read/unlock, phase-gate approval, OOS/performance claims, live, broker/exchange, production, and capital-ready paths remain blocked.
+
+## 2026-05-09 T40 Holdout Approval Request Packet
+
+Phase 10 is complete through T40.
+
+- Completed task: T40 Holdout Approval Request Packet Scaffold.
+- Active task: T41 Holdout Approval Evidence Intake Contract.
+- Latest validation: `.venv/bin/python -m pytest -q tests/` -> `423 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
+- Light review result: no findings.
+- Boundaries remain unchanged: the request packet is scaffold-only; no approval event currently exists; holdout read/unlock, OOS/performance, live, broker/exchange, production, and capital-ready paths remain blocked.

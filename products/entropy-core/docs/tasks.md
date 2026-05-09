@@ -1444,7 +1444,7 @@ Owner:      codex
 Phase:      10
 Type:       none
 Depends-On: T39
-Status:     active
+Status:     done 2026-05-09
 
 Objective: |
   Scaffold a no-read holdout approval request packet that assembles Phase 9 protocol evidence, missing approvals, and blocked boundaries without creating approval.
@@ -1482,7 +1482,7 @@ Owner:      codex
 Phase:      10
 Type:       none
 Depends-On: T40
-Status:     pending
+Status:     active
 
 Objective: |
   Define local intake checks for a future explicit holdout approval event while rejecting absent, generated, inferred, expired, revoked, stale, or scope-mismatched evidence.
