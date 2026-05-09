@@ -21,6 +21,15 @@ This file records handoff context. It is not authority.
 
 ## Entries
 
+### 2026-05-09 - T47 - Live-Feed Fixture Manifest
+
+- Scope: `docs/protocols/LIVE_FEED_FIXTURE_MANIFEST.md`, `tests/reset/test_live_feed_fixture_manifest.py`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`
+- Why this work happened: define deterministic local market-data fixture requirements before adapter dry-run work
+- Decisions applied: `docs/protocols/LIVE_FEED_DRY_RUN_BOUNDARY.md`
+- Evidence collected: T47 acceptance tests passed (`3 passed`); full reset baseline `444 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean
+- Follow-ups: start T48 Live-Feed Adapter Dry-Run Contract
+- Notes for next agent: T47 binds fixtures to checked-in deterministic sources, hashes, schema, and replay constraints. Live pulls, credentials, broker/exchange execution, capital actions, production labels, and holdout access remain blocked.
+
 ### 2026-05-09 - T46 - Live-Feed Boundary Contract
 
 - Scope: `docs/protocols/LIVE_FEED_DRY_RUN_BOUNDARY.md`, `tests/reset/test_live_feed_boundary_contract.py`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`

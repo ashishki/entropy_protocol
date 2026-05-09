@@ -74,8 +74,8 @@ def test_state_docs_record_no_current_approval_event() -> None:
     combined = f"{prompt}\n{handoff}"
 
     assert "no approval event currently exists" in combined
-    assert "current active task is t47 live-feed fixture manifest" in prompt
-    assert "active task: t47 live-feed fixture manifest" in handoff
+    assert "current active task is t48 live-feed adapter dry-run contract" in prompt
+    assert "active task: t48 live-feed adapter dry-run contract" in handoff
     assert "current holdout approval event: present" not in combined
     assert "explicit human holdout approval: present" not in combined
 

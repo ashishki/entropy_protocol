@@ -1685,7 +1685,7 @@ Owner:      codex
 Phase:      11
 Type:       none
 Depends-On: T46
-Status:     active
+Status:     done 2026-05-09
 
 Objective: |
   Define deterministic local market-data fixture manifest requirements for live-feed dry-run readiness without pulling live data.
@@ -1717,7 +1717,7 @@ Owner:      codex
 Phase:      11
 Type:       none
 Depends-On: T47
-Status:     pending
+Status:     active
 
 Objective: |
   Define adapter dry-run checks that exercise local parsing and normalization boundaries without live connectivity or order paths.

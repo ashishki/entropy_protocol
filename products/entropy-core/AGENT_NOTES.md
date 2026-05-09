@@ -279,12 +279,12 @@ Phase 10 is complete through T40.
 - Light review result: no findings.
 - Boundaries remain unchanged: the request packet is scaffold-only; no approval event currently exists; holdout read/unlock, OOS/performance, live, broker/exchange, production, and capital-ready paths remain blocked.
 
-## 2026-05-09 T46 Live-Feed Boundary Contract
+## 2026-05-09 T47 Live-Feed Fixture Manifest
 
-Phase 10 is complete through T45. Phase 11 is complete through T46.
+Phase 10 is complete through T45. Phase 11 is complete through T47.
 
-- Completed task: T46 Live-Feed Boundary Contract.
-- Active task: T47 Live-Feed Fixture Manifest.
-- Latest validation: `.venv/bin/python -m pytest -q tests/` -> `441 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
+- Completed task: T47 Live-Feed Fixture Manifest.
+- Active task: T48 Live-Feed Adapter Dry-Run Contract.
+- Latest validation: `.venv/bin/python -m pytest -q tests/` -> `444 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
 - Light review result: no findings.
-- Boundaries remain unchanged: Phase 11 allows only local fixture schema review, deterministic replay, parsing, normalization, clock validation, logging, and failure-state design; no live feed connection, order placement, broker/exchange execution, credentials, live capital, production labels, or holdout access are approved.
+- Boundaries remain unchanged: fixtures are checked-in deterministic sources bound by hash, schema, and replay constraints; no live pulls, credentials, broker/exchange execution, capital actions, production labels, or holdout access are approved.

@@ -7,10 +7,10 @@ manual restart.
 
 - Product: entropy-core
 - Branch: codex/entropy-core-work
-- Active task: T47 Live-Feed Fixture Manifest
+- Active task: T48 Live-Feed Adapter Dry-Run Contract
 - Phase: 11 Live-Feed Dry Run Readiness
-- Last validation: 2026-05-09 T46: `441 passed, 20 skipped`; ruff check clean; ruff format clean; pyright 0 errors; `git diff --check` clean.
-- Git status summary: T46 live-feed boundary contract changes pending commit at handoff update time.
+- Last validation: 2026-05-09 T47: `444 passed, 20 skipped`; ruff check clean; ruff format clean; pyright 0 errors; `git diff --check` clean.
+- Git status summary: T47 live-feed fixture manifest changes pending commit at handoff update time.
 
 ## Completed In This Phase
 
@@ -63,11 +63,11 @@ manual restart.
 - T44 Holdout Decision No-Read Dry Run completed with no findings.
 - T45 Holdout Approval Decision Review completed with no findings.
 - T46 Live-Feed Boundary Contract completed with no findings.
+- T47 Live-Feed Fixture Manifest completed with no findings.
 
 ## Remaining Work
 
-- T47 Live-Feed Fixture Manifest is active.
-- T48 Live-Feed Adapter Dry-Run Contract is pending.
+- T48 Live-Feed Adapter Dry-Run Contract is active.
 - T49 Live-Feed Observability Packet is pending.
 - T50 Live-Feed Dry Run Readiness Review is pending.
 - After T50, run deep review, fix findings, validate, evaluate the roadmap, rewrite future phases/tasks if useful, open the next logical active phase, and continue automatically.
@@ -92,6 +92,7 @@ manual restart.
 - T44 assembled a local no-read decision dry run and recorded current denial. No approval event currently exists; holdout read/unlock remain blocked.
 - T45 closed Phase 10, blocked the future approved holdout evaluation phase, and opened Phase 11 as local-only live-feed dry-run readiness. No orders, broker/exchange execution, credentials, live capital, production labels, or holdout access are approved.
 - T46 defined the Phase 11 live-feed dry-run boundary as local-only. No live feed connection, order placement, broker/exchange execution, credentials, live capital, production labels, or holdout access are approved.
+- T47 defined deterministic local fixture manifest requirements. No live pulls, live credentials, broker/exchange execution, capital actions, production labels, or holdout access are approved.
 - Real external side effects, holdout reads, holdout unlocks, live capital actions, live broker/exchange execution, and credentialed production deployment remain blocked; implement local dry-run/sandbox/protocol work instead unless a future local contract explicitly permits otherwise.
 
 ## Resume Instruction

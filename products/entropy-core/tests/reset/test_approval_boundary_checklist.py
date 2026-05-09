@@ -84,8 +84,8 @@ def test_prompt_and_handoff_match_boundary_checklist() -> None:
     ):
         assert boundary in checklist
         assert boundary in combined
-    assert "current active task is t47 live-feed fixture manifest" in prompt
-    assert "active task: t47 live-feed fixture manifest" in handoff
+    assert "current active task is t48 live-feed adapter dry-run contract" in prompt
+    assert "active task: t48 live-feed adapter dry-run contract" in handoff
     assert "t40 holdout approval request packet scaffold completed" in prompt
     assert "t41 holdout approval evidence intake contract completed" in prompt
     assert "t39 holdout access protocol review completed" in prompt
