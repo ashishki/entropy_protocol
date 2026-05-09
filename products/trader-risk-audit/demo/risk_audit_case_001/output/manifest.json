@@ -1,0 +1,52 @@
+{
+  "artifacts": [
+    {
+      "name": "source_export",
+      "path": "demo/risk_audit_case_001/trades.csv",
+      "sha256": "1dc42db828712097c287f378522c13457d7174c21859436aa2a8e0b1c0b5c130"
+    },
+    {
+      "name": "policy_file",
+      "path": "demo/risk_audit_case_001/policy.yaml",
+      "sha256": "c89ecb85e5db4c8a7bc865deacfb4dfd2c1e5af18c8d8c68a673a68920b31516"
+    },
+    {
+      "name": "normalized_trades",
+      "path": "demo/risk_audit_case_001/output/normalized_trades.json",
+      "sha256": "d3d0f41dc9cabd16adb6ba96b41f0f957479db1ad7966f35af94e2492a056834"
+    },
+    {
+      "name": "violations",
+      "path": "demo/risk_audit_case_001/output/violations.json",
+      "sha256": "b5acf6cb4529982cc26fc69f5e1a11a46ecf9e4f6568642bb3fdfbf73192e531"
+    },
+    {
+      "name": "attribution_summary",
+      "path": "demo/risk_audit_case_001/output/attribution_summary.json",
+      "sha256": "807cad682f7ecaa703bc4066c6b70970f785281c9eda5b1e43049d78396abe37"
+    },
+    {
+      "name": "report_markdown",
+      "path": "demo/risk_audit_case_001/output/report.md",
+      "sha256": "b7c56f0d4067111f9f720a8114cdaffd03df34408d7982126fdc1d963f5d2dbe"
+    },
+    {
+      "name": "delivery_packet",
+      "path": "demo/risk_audit_case_001/output/telegram_packet.txt",
+      "sha256": "367b1c579dc925d545c61a0f1f1ea9159c57bac2b1848054bf3c8a63ae2d1bf2"
+    }
+  ],
+  "command": "trader-risk-audit audit",
+  "command_arguments": [
+    "--trades",
+    "demo/risk_audit_case_001/trades.csv",
+    "--policy",
+    "demo/risk_audit_case_001/policy.yaml",
+    "--output-dir",
+    "demo/risk_audit_case_001/output"
+  ],
+  "content_hash": "a1677307d65000f87124162ff718d1dce5b4e016eae3eb2aa1a1dbf8c2b1b78b",
+  "generated_at": "2026-05-09T10:24:26.432360+00:00",
+  "manifest_id": "a1677307d65000f8",
+  "package_version": "0.1.0"
+}

@@ -1,0 +1,13 @@
+schema_version: "1"
+account_scope:
+  - acct_demo_001
+timezone: UTC
+session:
+  start: "09:30"
+  end: "16:00"
+rules:
+  - rule_id: rule_news_sentiment
+    type: news_sentiment
+    threshold: "1"
+    unit: score
+    params: {}

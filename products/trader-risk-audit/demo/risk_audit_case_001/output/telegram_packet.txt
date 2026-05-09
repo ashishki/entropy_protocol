@@ -1,0 +1,16 @@
+Trader Risk Audit Summary
+Trades reviewed: 10
+Violations recorded: 13
+Violating P&L: 121
+
+Top violation counts:
+- demo_cooldown_after_loss: 5
+- demo_max_daily_loss: 4
+- demo_forbidden_asset: 2
+- demo_max_position_size: 2
+
+Limitations:
+- None
+
+Report: report.md
+This audit is not investment advice and does not control live trading.

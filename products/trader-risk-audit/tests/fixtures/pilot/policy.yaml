@@ -1,0 +1,25 @@
+schema_version: "1"
+account_scope:
+  - demo
+timezone: UTC
+session:
+  start: "09:30"
+  end: "16:00"
+rules:
+  - rule_id: rule_forbidden_assets
+    type: forbidden_assets
+    threshold: null
+    unit: symbol
+    params:
+      symbols:
+        - BTCUSD
+  - rule_id: rule_max_position_size
+    type: max_position_size
+    threshold: "1000"
+    unit: USD
+    params: {}
+  - rule_id: rule_max_leverage
+    type: max_leverage
+    threshold: "5"
+    unit: ratio
+    params: {}

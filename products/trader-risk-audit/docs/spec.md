@@ -1,7 +1,7 @@
 # Specification - Trader Risk Audit
 
-Version: 1.0
-Last updated: 2026-05-07
+Version: 1.1
+Last updated: 2026-05-09
 Status: Draft
 
 ---
@@ -164,3 +164,34 @@ Out of scope for v1:
 - Hosted retention policy enforcement.
 - Legal hold workflow.
 - Customer self-service deletion portal.
+
+## Feature Area 9 - Local Read-Only Exchange Import
+
+Description: Provide a bounded local import path for sanitized or approved
+read-only exchange execution history so the existing deterministic audit engine
+can consume normalized exchange trades.
+
+Acceptance criteria:
+
+1. Raw exchange snapshots record exchange, market/category, symbols, explicit
+   time range, fetched pages, endpoint labels, and raw records without
+   credentials.
+2. Exchange import manifests hash the raw snapshot and normalized output while
+   excluding generated timestamps from deterministic content hashes.
+3. Exchange normalizers map raw fills/executions into canonical `TradeRecord`
+   objects without changing evaluator semantics.
+4. Fixture-backed import writes raw snapshot, normalized trade CSV, and import
+   manifest artifacts that the existing `audit` command can consume.
+5. Read-only permission checks reject detectable order-write, withdrawal,
+   transfer, leverage/margin, or account-mutation permissions before real
+   connector use.
+
+Out of scope for v1:
+
+- Exchange order placement, amend, cancel, or close-position calls.
+- Withdrawals, transfers, leverage/margin changes, hosted secret storage, or
+  Telegram credential collection.
+- Real exchange network calls before the specific Bybit/Binance connector tasks
+  and safety gates approve them.
+- Portfolio tracking, live alerts, signal analytics, order blocking, trading
+  advice, or AI-owned violation truth.

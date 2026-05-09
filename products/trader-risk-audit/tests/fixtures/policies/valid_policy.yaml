@@ -1,0 +1,20 @@
+schema_version: "1"
+account_scope:
+  - acct_demo_001
+timezone: UTC
+session:
+  start: "09:30"
+  end: "16:00"
+rules:
+  - rule_id: rule_max_daily_loss
+    type: max_daily_loss
+    threshold: "500"
+    unit: USD
+    params: {}
+  - rule_id: rule_forbidden_assets
+    type: forbidden_assets
+    threshold: null
+    unit: symbol
+    params:
+      symbols:
+        - BTCUSD
