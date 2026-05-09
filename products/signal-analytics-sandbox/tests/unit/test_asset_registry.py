@@ -100,8 +100,7 @@ def test_seed_registry_contains_required_assets() -> None:
 
     assert {asset.canonical_id for asset in registry.assets} >= required
     assert (
-        registry.resolve_alias("#BTC", evidence="seed").status
-        == ResolutionStatus.EXACT
+        registry.resolve_alias("#BTC", evidence="seed").status == ResolutionStatus.EXACT
     )
     assert (
         registry.resolve_alias("btc", evidence="seed").matches[0].canonical_id

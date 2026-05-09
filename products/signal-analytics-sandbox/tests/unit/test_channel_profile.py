@@ -61,7 +61,11 @@ def test_bablos79_profile_import_preserves_states() -> None:
 
 def test_unknown_channel_has_no_default_profile() -> None:
     registry = ChannelProfileRegistry(
-        [import_bablos79_profile(Path("workspace/lexicons/bablos79_lexicon_draft.json"))]
+        [
+            import_bablos79_profile(
+                Path("workspace/lexicons/bablos79_lexicon_draft.json")
+            )
+        ]
     )
 
     assert registry.get("bablos79") is not None

@@ -30,33 +30,45 @@ def test_runner_stop_reasons() -> None:
     runner = BatchAnalystRunner()
     job = _job()
 
-    assert runner.run(
-        job,
-        retrieved_document_ids=["doc-1"],
-        metric_ids=["metric-1"],
-        prompt_input="prompt",
-        iterations_used=3,
-    ).stop_reason == StopReason.MAX_ITERATIONS
-    assert runner.run(
-        job,
-        retrieved_document_ids=[],
-        metric_ids=["metric-1"],
-        prompt_input="prompt",
-    ).stop_reason == StopReason.MISSING_REQUIRED_DATA
-    assert runner.run(
-        job,
-        retrieved_document_ids=["doc-1"],
-        metric_ids=["metric-1"],
-        prompt_input="prompt",
-        cost_used_usd=Decimal("1.00"),
-    ).stop_reason == StopReason.COST_CAP
-    assert runner.run(
-        job,
-        retrieved_document_ids=["doc-1"],
-        metric_ids=["metric-1"],
-        prompt_input="prompt",
-        generated_memo="internal memo",
-    ).stop_reason == StopReason.COMPLETED_MEMO
+    assert (
+        runner.run(
+            job,
+            retrieved_document_ids=["doc-1"],
+            metric_ids=["metric-1"],
+            prompt_input="prompt",
+            iterations_used=3,
+        ).stop_reason
+        == StopReason.MAX_ITERATIONS
+    )
+    assert (
+        runner.run(
+            job,
+            retrieved_document_ids=[],
+            metric_ids=["metric-1"],
+            prompt_input="prompt",
+        ).stop_reason
+        == StopReason.MISSING_REQUIRED_DATA
+    )
+    assert (
+        runner.run(
+            job,
+            retrieved_document_ids=["doc-1"],
+            metric_ids=["metric-1"],
+            prompt_input="prompt",
+            cost_used_usd=Decimal("1.00"),
+        ).stop_reason
+        == StopReason.COST_CAP
+    )
+    assert (
+        runner.run(
+            job,
+            retrieved_document_ids=["doc-1"],
+            metric_ids=["metric-1"],
+            prompt_input="prompt",
+            generated_memo="internal memo",
+        ).stop_reason
+        == StopReason.COMPLETED_MEMO
+    )
 
 
 def test_audit_log_records_steps() -> None:

@@ -39,9 +39,9 @@ def test_missing_provenance_blocks_report() -> None:
 
 def test_trade_and_commentary_metrics_separate() -> None:
     rendered = render_author_market_report(_report())
-    trade_section = rendered.split(
-        "### Explicit Trade Setup Performance", maxsplit=1
-    )[1].split("### Broader Market Commentary Behavior", maxsplit=1)[0]
+    trade_section = rendered.split("### Explicit Trade Setup Performance", maxsplit=1)[
+        1
+    ].split("### Broader Market Commentary Behavior", maxsplit=1)[0]
     commentary_section = rendered.split(
         "### Broader Market Commentary Behavior", maxsplit=1
     )[1].split("## Evidence Examples", maxsplit=1)[0]

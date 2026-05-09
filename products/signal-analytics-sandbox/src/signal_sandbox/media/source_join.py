@@ -30,9 +30,7 @@ def join_multimodal_source_document(
     return document.model_copy(
         update={
             "media_refs": _unique([*document.media_refs, *media_refs]),
-            "transcript_refs": _unique(
-                [*document.transcript_refs, *transcript_refs]
-            ),
+            "transcript_refs": _unique([*document.transcript_refs, *transcript_refs]),
             "ocr_refs": _unique([*document.ocr_refs, *ocr_refs]),
         }
     )

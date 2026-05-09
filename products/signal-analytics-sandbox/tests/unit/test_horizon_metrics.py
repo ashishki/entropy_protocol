@@ -75,9 +75,7 @@ def test_unresolved_cases_are_explicit() -> None:
         direction=Direction.LONG,
     )
 
-    assert {metric.status for metric in unresolved} == {
-        HorizonStatus.UNRESOLVED_ASSET
-    }
+    assert {metric.status for metric in unresolved} == {HorizonStatus.UNRESOLVED_ASSET}
     assert {metric.status for metric in non_directional} == {
         HorizonStatus.NON_DIRECTIONAL
     }

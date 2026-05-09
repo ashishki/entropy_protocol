@@ -35,9 +35,7 @@ class ChannelProfile(BaseModel):
 
 class ChannelProfileRegistry:
     def __init__(self, profiles: list[ChannelProfile] | None = None):
-        self._profiles = {
-            profile.channel_id: profile for profile in profiles or []
-        }
+        self._profiles = {profile.channel_id: profile for profile in profiles or []}
 
     def get(self, channel_id: str) -> ChannelProfile | None:
         return self._profiles.get(channel_id)

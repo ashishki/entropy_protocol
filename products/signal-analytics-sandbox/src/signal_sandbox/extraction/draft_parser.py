@@ -40,8 +40,7 @@ def parse_draft(post: CapturedPost, profile: Mapping[str, Any]) -> ReviewDraft:
     assets = [
         term["term"].lstrip("#").upper()
         for term in accepted_terms
-        if term["category"] == "asset_alias"
-        and term["term"].casefold() in text_folded
+        if term["category"] == "asset_alias" and term["term"].casefold() in text_folded
     ]
     direction, direction_reason = _detect_direction(text_folded, accepted_terms)
     entry = _find_labeled_number(text, ("entry", "вход", "взял по", "купил по"))

@@ -60,9 +60,10 @@ def test_transcript_preserves_media_provenance(tmp_path: Path) -> None:
     assert transcript.media_id == media.media_id
     assert transcript.provider == "fake-whisper"
     assert transcript.model == "whisper-test"
-    assert transcript.transcript_sha256 == hashlib.sha256(
-        transcript_text.encode("utf-8")
-    ).hexdigest()
+    assert (
+        transcript.transcript_sha256
+        == hashlib.sha256(transcript_text.encode("utf-8")).hexdigest()
+    )
     assert transcript.source_media_sha256 == media.media_sha256
     assert transcript.status == DraftTranscriptStatus.DRAFT_PENDING_REVIEW
     assert transcript.reviewer_id == "pending"
