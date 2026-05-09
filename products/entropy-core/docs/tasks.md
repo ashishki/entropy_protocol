@@ -1371,7 +1371,7 @@ Owner:      codex
 Phase:      9
 Type:       none
 Depends-On: T37
-Status:     active
+Status:     done 2026-05-09
 
 Objective: |
   Define local leakage guard checks that any future approved holdout access would need to pass before a holdout read could be considered.
@@ -1407,7 +1407,7 @@ Owner:      codex
 Phase:      9
 Type:       none
 Depends-On: T38
-Status:     pending
+Status:     active
 
 Objective: |
   Review Phase 9 protocol artifacts, record findings, and evaluate whether any future phase may request explicit human holdout approval.

@@ -21,6 +21,15 @@ This file records handoff context. It is not authority.
 
 ## Entries
 
+### 2026-05-09 - T38 - Holdout Leakage Guard Protocol
+
+- Scope: `docs/protocols/HOLDOUT_LEAKAGE_GUARD_PROTOCOL.md`, `tests/reset/test_holdout_leakage_guard_protocol.py`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`
+- Why this work happened: define local leakage guard inputs and fail-closed fixtures required before any future holdout read could be considered
+- Decisions applied: `src/entropy/walkforward/leakage.py`; `src/entropy/data/holdout.py`; `docs/protocols/HOLDOUT_ACCESS_PROTOCOL.md`; `D-ROADMAP-001`
+- Evidence collected: T38 acceptance tests passed (`3 passed`); full reset baseline `417 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean
+- Follow-ups: start T39 Holdout Access Protocol Review
+- Notes for next agent: T38 is fixture/protocol only. Guard status remains incomplete, no approval event exists, and holdout read/unlock remains blocked.
+
 ### 2026-05-09 - T37 - Holdout Access Audit Logging
 
 - Scope: `docs/protocols/HOLDOUT_AUDIT_LOGGING_CONTRACT.md`, `tests/reset/test_holdout_audit_logging_contract.py`, `docs/tasks.md`, `docs/EVIDENCE_INDEX.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`

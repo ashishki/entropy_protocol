@@ -246,3 +246,13 @@ Phase 9 is complete through T37.
 - Evidence index row added for T37 holdout audit logging proof.
 - Light review result: no findings.
 - Boundaries remain unchanged: audit logs may record path fingerprints only, not raw holdout paths or contents; denied attempts do not open/read/unlock holdout data.
+
+## 2026-05-09 T38 Holdout Leakage Guard Protocol
+
+Phase 9 is complete through T38.
+
+- Completed task: T38 Holdout Leakage Guard Protocol Fixture.
+- Active task: T39 Holdout Access Protocol Review.
+- Latest validation: `.venv/bin/python -m pytest -q tests/` -> `417 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
+- Light review result: no findings.
+- Boundaries remain unchanged: guard status is incomplete; missing approval, stale hashes, partition overlap, prior holdout read, and unresolved evidence fail closed; no holdout read/unlock was executed.
