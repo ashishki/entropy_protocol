@@ -49,10 +49,10 @@ def test_state_docs_record_phase10_no_read_decision_work() -> None:
     handoff = PHASE_HANDOFF.read_text(encoding="utf-8").lower()
     combined = f"{prompt}\n{handoff}"
 
-    assert "phase: 10" in prompt
-    assert "phase 10 holdout approval decision packet" in combined
-    assert "current active task is t45 holdout approval decision review" in prompt
-    assert "active task: t45 holdout approval decision review" in handoff
+    assert "phase: 11" in prompt
+    assert "phase 11 live-feed dry run readiness" in combined
+    assert "current active task is t46 live-feed boundary contract" in prompt
+    assert "active task: t46 live-feed boundary contract" in handoff
     assert "t41 holdout approval evidence intake contract completed" in prompt
     assert "t40 holdout approval request packet scaffold completed" in prompt
     assert "no approval event currently exists" in combined

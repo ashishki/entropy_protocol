@@ -279,12 +279,12 @@ Phase 10 is complete through T40.
 - Light review result: no findings.
 - Boundaries remain unchanged: the request packet is scaffold-only; no approval event currently exists; holdout read/unlock, OOS/performance, live, broker/exchange, production, and capital-ready paths remain blocked.
 
-## 2026-05-09 T44 Holdout Decision No-Read Dry Run
+## 2026-05-09 T45 Holdout Approval Decision Review
 
-Phase 10 is complete through T44.
+Phase 10 is complete through T45. Phase 11 is open.
 
-- Completed task: T44 Holdout Decision No-Read Dry Run.
-- Active task: T45 Holdout Approval Decision Review.
-- Latest validation: `.venv/bin/python -m pytest -q tests/` -> `435 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
+- Completed task: T45 Holdout Approval Decision Review.
+- Active task: T46 Live-Feed Boundary Contract.
+- Latest validation: `.venv/bin/python -m pytest -q tests/` -> `438 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
 - Light review result: no findings.
-- Boundaries remain unchanged: the decision dry run assembled only local no-read evidence and recorded denial; no approval event currently exists; holdout read/unlock, OOS/performance, live, broker/exchange, production, and capital-ready paths remain blocked.
+- Boundaries remain unchanged: future approved holdout evaluation is blocked; Phase 11 is local-only live-feed readiness; no order placement, broker/exchange execution, credentials, live capital, production labels, or holdout access are approved.

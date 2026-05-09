@@ -21,6 +21,15 @@ This file records handoff context. It is not authority.
 
 ## Entries
 
+### 2026-05-09 - T45 - Holdout Approval Decision Review
+
+- Scope: `docs/audit/HOLDOUT_APPROVAL_DECISION_REVIEW.md`, `docs/audit/AUDIT_INDEX.md`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`
+- Why this work happened: close Phase 10 approval decision work and evaluate the next roadmap phase without opening holdout
+- Decisions applied: `docs/approvals/HOLDOUT_DECISION_DRY_RUN.md`; `docs/audit/HOLDOUT_ACCESS_PROTOCOL_REVIEW.md`
+- Evidence collected: T45 acceptance tests passed (`3 passed`); full reset baseline `438 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean
+- Follow-ups: start T46 Live-Feed Boundary Contract
+- Notes for next agent: T45 blocks future approved holdout evaluation and opens Phase 11 as local-only live-feed readiness. No order placement, broker/exchange execution, credentials, live capital, production labels, or holdout access are approved.
+
 ### 2026-05-09 - T44 - Holdout Decision No-Read Dry Run
 
 - Scope: `docs/approvals/HOLDOUT_DECISION_DRY_RUN.md`, `tests/reset/test_holdout_decision_no_read_dry_run.py`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`

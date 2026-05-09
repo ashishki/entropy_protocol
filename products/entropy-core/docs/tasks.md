@@ -1617,7 +1617,7 @@ Owner:      codex
 Phase:      10
 Type:       none
 Depends-On: T44
-Status:     active
+Status:     done 2026-05-09
 
 Objective: |
   Review Phase 10 approval decision artifacts and evaluate whether a future explicit human holdout approval request may be presented.
@@ -1645,3 +1645,166 @@ Context-Refs:
 
 Notes: |
   This is a phase-boundary review. Continue automatically after roadmap evaluation unless a blocker is found.
+
+## T46: Live-Feed Boundary Contract
+
+Owner:      codex
+Phase:      11
+Type:       none
+Depends-On: T45
+Status:     active
+
+Objective: |
+  Define the local live-feed dry-run boundary so market-data readiness work cannot place orders, connect to broker/exchange execution, deploy credentials, activate live capital, or alter holdout status.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Boundary contract records allowed local fixture and dry-run operations."
+    test: "tests/reset/test_live_feed_boundary_contract.py::test_live_feed_boundary_contract_records_allowed_operations"
+  - id: AC-2
+    description: "Boundary contract blocks orders, broker/exchange execution, credentials, live capital, production labels, and holdout access."
+    test: "tests/reset/test_live_feed_boundary_contract.py::test_live_feed_boundary_contract_blocks_external_effects"
+  - id: AC-3
+    description: "Prompt and handoff record Phase 11 as local-only live-feed readiness."
+    test: "tests/reset/test_live_feed_boundary_contract.py::test_state_docs_record_phase11_local_only_scope"
+
+Files:
+  - docs/protocols/LIVE_FEED_DRY_RUN_BOUNDARY.md
+  - tests/reset/test_live_feed_boundary_contract.py
+
+Context-Refs:
+  - docs/audit/HOLDOUT_APPROVAL_DECISION_REVIEW.md
+  - docs/ARCHITECTURE.md
+
+Notes: |
+  Boundary only. Do not connect to live feeds, broker/exchange execution, credentials, or capital.
+
+## T47: Live-Feed Fixture Manifest
+
+Owner:      codex
+Phase:      11
+Type:       none
+Depends-On: T46
+Status:     pending
+
+Objective: |
+  Define deterministic local market-data fixture manifest requirements for live-feed dry-run readiness without pulling live data.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Manifest records fixture identity, source class, hashes, schema, and replay constraints."
+    test: "tests/reset/test_live_feed_fixture_manifest.py::test_live_feed_fixture_manifest_records_required_fields"
+  - id: AC-2
+    description: "Manifest rejects live credentials, live network pulls, broker/exchange execution, and capital actions."
+    test: "tests/reset/test_live_feed_fixture_manifest.py::test_live_feed_fixture_manifest_rejects_live_effects"
+  - id: AC-3
+    description: "Manifest binds fixtures to local dry-run scope and no-holdout state."
+    test: "tests/reset/test_live_feed_fixture_manifest.py::test_live_feed_fixture_manifest_binds_local_scope"
+
+Files:
+  - docs/protocols/LIVE_FEED_FIXTURE_MANIFEST.md
+  - tests/reset/test_live_feed_fixture_manifest.py
+
+Context-Refs:
+  - docs/protocols/LIVE_FEED_DRY_RUN_BOUNDARY.md
+
+Notes: |
+  Manifest only. Do not fetch live market data.
+
+## T48: Live-Feed Adapter Dry-Run Contract
+
+Owner:      codex
+Phase:      11
+Type:       none
+Depends-On: T47
+Status:     pending
+
+Objective: |
+  Define adapter dry-run checks that exercise local parsing and normalization boundaries without live connectivity or order paths.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Contract records local parser, normalization, clock, and replay checks."
+    test: "tests/reset/test_live_feed_adapter_dry_run_contract.py::test_adapter_dry_run_contract_records_local_checks"
+  - id: AC-2
+    description: "Contract rejects network sockets, credentials, order placement, and broker/exchange execution."
+    test: "tests/reset/test_live_feed_adapter_dry_run_contract.py::test_adapter_dry_run_contract_rejects_external_paths"
+  - id: AC-3
+    description: "Contract records no production or capital-ready claim."
+    test: "tests/reset/test_live_feed_adapter_dry_run_contract.py::test_adapter_dry_run_contract_rejects_claims"
+
+Files:
+  - docs/protocols/LIVE_FEED_ADAPTER_DRY_RUN_CONTRACT.md
+  - tests/reset/test_live_feed_adapter_dry_run_contract.py
+
+Context-Refs:
+  - docs/protocols/LIVE_FEED_FIXTURE_MANIFEST.md
+
+Notes: |
+  Contract only. Do not connect to any external feed.
+
+## T49: Live-Feed Observability Packet
+
+Owner:      codex
+Phase:      11
+Type:       none
+Depends-On: T48
+Status:     pending
+
+Objective: |
+  Define local observability evidence for dry-run feed readiness, including logging, counters, and failure states without external side effects.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Packet records local dry-run observability fields and failure counters."
+    test: "tests/reset/test_live_feed_observability_packet.py::test_observability_packet_records_required_fields"
+  - id: AC-2
+    description: "Packet records no credentials, raw secrets, orders, capital actions, or holdout reads."
+    test: "tests/reset/test_live_feed_observability_packet.py::test_observability_packet_rejects_sensitive_and_external_effects"
+  - id: AC-3
+    description: "Packet records readiness limitations and no production claim."
+    test: "tests/reset/test_live_feed_observability_packet.py::test_observability_packet_records_limitations"
+
+Files:
+  - docs/protocols/LIVE_FEED_OBSERVABILITY_PACKET.md
+  - tests/reset/test_live_feed_observability_packet.py
+
+Context-Refs:
+  - docs/protocols/LIVE_FEED_ADAPTER_DRY_RUN_CONTRACT.md
+
+Notes: |
+  Observability evidence only. Do not emit live feed telemetry.
+
+## T50: Live-Feed Dry Run Readiness Review
+
+Owner:      codex
+Phase:      11
+Type:       none
+Depends-On: T49
+Status:     pending
+
+Objective: |
+  Review Phase 11 live-feed dry-run readiness artifacts and evaluate the next roadmap step without enabling broker/exchange execution or capital.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Review summarizes boundary, manifest, adapter contract, observability packet, validation, limitations, findings, and roadmap evaluation."
+    test: "tests/reset/test_live_feed_readiness_review.py::test_live_feed_readiness_review_contains_required_sections"
+  - id: AC-2
+    description: "Review records whether to keep, modify, or block the broker sandbox phase."
+    test: "tests/reset/test_live_feed_readiness_review.py::test_live_feed_readiness_review_records_roadmap_evaluation"
+  - id: AC-3
+    description: "Audit index and prompt record Phase 11 completion and the next active task selected by roadmap evaluation."
+    test: "tests/reset/test_live_feed_readiness_review.py::test_live_feed_readiness_review_updates_state"
+
+Files:
+  - docs/audit/LIVE_FEED_READINESS_REVIEW.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/CODEX_PROMPT.md
+  - tests/reset/test_live_feed_readiness_review.py
+
+Context-Refs:
+  - docs/protocols/LIVE_FEED_OBSERVABILITY_PACKET.md
+
+Notes: |
+  Review only. Do not enable broker/exchange execution or capital.

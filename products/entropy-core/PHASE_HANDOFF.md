@@ -7,10 +7,10 @@ manual restart.
 
 - Product: entropy-core
 - Branch: codex/entropy-core-work
-- Active task: T45 Holdout Approval Decision Review
-- Phase: 10 Holdout Approval Decision Packet
-- Last validation: 2026-05-09 T44: `435 passed, 20 skipped`; ruff check clean; ruff format clean; pyright 0 errors; `git diff --check` clean.
-- Git status summary: T44 holdout decision no-read dry run changes pending commit at handoff update time.
+- Active task: T46 Live-Feed Boundary Contract
+- Phase: 11 Live-Feed Dry Run Readiness
+- Last validation: 2026-05-09 T45: `438 passed, 20 skipped`; ruff check clean; ruff format clean; pyright 0 errors; `git diff --check` clean.
+- Git status summary: T45 holdout approval decision review changes pending commit at handoff update time.
 
 ## Completed In This Phase
 
@@ -61,11 +61,16 @@ manual restart.
 - T42 Holdout Approval Absence Denial Packet completed with no findings.
 - T43 Holdout Non-Approval Source Regression completed with no findings.
 - T44 Holdout Decision No-Read Dry Run completed with no findings.
+- T45 Holdout Approval Decision Review completed with no findings.
 
 ## Remaining Work
 
-- T45 Holdout Approval Decision Review is active.
-- After T45, run deep review, fix findings, validate, evaluate the roadmap, rewrite future phases/tasks if useful, open the next logical active phase, and continue automatically.
+- T46 Live-Feed Boundary Contract is active.
+- T47 Live-Feed Fixture Manifest is pending.
+- T48 Live-Feed Adapter Dry-Run Contract is pending.
+- T49 Live-Feed Observability Packet is pending.
+- T50 Live-Feed Dry Run Readiness Review is pending.
+- After T50, run deep review, fix findings, validate, evaluate the roadmap, rewrite future phases/tasks if useful, open the next logical active phase, and continue automatically.
 
 ## Blockers Or Human Decisions
 
@@ -85,6 +90,7 @@ manual restart.
 - T42 recorded deterministic denial for the current no-approval state. No approval event currently exists; holdout read/unlock remain blocked.
 - T43 added regression coverage proving roadmap phases, reviews, tests, readiness artifacts, protocol docs, and generated scaffolds remain non-approval sources. No approval event currently exists; holdout read/unlock remain blocked.
 - T44 assembled a local no-read decision dry run and recorded current denial. No approval event currently exists; holdout read/unlock remain blocked.
+- T45 closed Phase 10, blocked the future approved holdout evaluation phase, and opened Phase 11 as local-only live-feed dry-run readiness. No orders, broker/exchange execution, credentials, live capital, production labels, or holdout access are approved.
 - Real external side effects, holdout reads, holdout unlocks, live capital actions, live broker/exchange execution, and credentialed production deployment remain blocked; implement local dry-run/sandbox/protocol work instead unless a future local contract explicitly permits otherwise.
 
 ## Resume Instruction
