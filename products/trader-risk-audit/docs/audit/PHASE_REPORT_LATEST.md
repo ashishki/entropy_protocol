@@ -1,35 +1,33 @@
-# Phase 9 Report - Intake Quality and Operator Speed
+# Phase 10 Report - Conversion Assets
 
 ## What Was Built
 
-Phase 9 reduced intake and operator friction while preserving the local-first
-manual audit boundary.
+Phase 10 created the sales/conversion artifacts needed for founder-led paid
+pilot outreach.
 
-The phase added a policy profile selector for `soft`, `medium`, `hard`, and
-`custom`. Starter profiles resolve to committed YAML templates, while custom
-requires an explicit policy/rules path. Workspace metadata records only
-non-sensitive profile labels.
+The phase added RU/EN before/after comparisons that show what raw exports fail
+to explain and what deterministic audit reports add: rule breach, source rows,
+violation-attributed P&L, limitations, and next-review checklist.
 
-It added intake validation for uploaded files. The validator reports safe
-actionable errors for missing CSV fields, unsupported file types, size limits,
-missing profile, and missing custom rules. Telegram invalid uploads are stored
-locally as `needs_user_fix`, not runnable work.
+It added RU/EN objection handling for privacy, broker/API, no-advice, journal
+comparison, pricing, and repeat-audit objections. The answers point back to the
+pilot intake contract and paid pilot evidence gate.
 
-It added a local operator CLI. `operator prepare` creates a workspace and queue
-request; `operator run` executes the deterministic audit and records report,
-delivery packet, and manifest references for review.
+It added RU/EN ICP demo variants for prop/funded traders, active crypto
+discretionary traders, and small teams/coaches. Each variant uses the same
+post-trade audit boundary and the same validation evidence gate.
 
-Finally, it added local evidence capture. Operators can append customer-log rows
-and summarize the validation gate while excluding public sample/demo rows from
-qualified prospect, paid pilot, repeat, and referral counts.
+Finally, it added RU/EN paid pilot offer pages with deliverables, required
+inputs, timeline, privacy boundary, no-advice boundary, pilot price placeholder,
+CTA, and references to the conversion assets.
 
 ## Validation
 
-- Before Phase 9: 117 passing tests.
-- After Phase 9: 130 passing tests.
+- Before Phase 10: 130 passing tests.
+- After Phase 10: 142 passing tests.
 - Ruff check: passed.
 - Ruff format check: passed.
-- Deep review Cycle 10: Stop-Ship No.
+- Deep review Cycle 11: Stop-Ship No.
 
 ## Open Findings
 
@@ -39,24 +37,21 @@ qualified prospect, paid pilot, repeat, and referral counts.
 
 WARN, not RED.
 
-The product is healthy enough to proceed into Phase 10 and to support manual
-outreach. The warning is still that delivery-packet manifest coverage should be
-cleaned up before relying heavily on Telegram-ready packets as formal audit
-evidence.
+All currently planned phases are complete. The product remains healthy for
+manual outreach and paid pilot testing. The warning remains delivery-packet
+manifest coverage, which should be fixed before treating Telegram-ready packets
+as formal audit evidence.
 
 ## Next Phase
 
-Phase 10 - Conversion Assets.
-
-Next task: T41 Before/After Report Comparison. The focus is to show the value
-of deterministic rule breach/source-row/P&L evidence compared with raw exports
-without advice or performance claims.
+No next phase is currently planned. Further work should come from paid pilot
+evidence, review findings, or an explicit roadmap update.
 
 ## Notification Summary
 
-Ph9 Intake Quality DONE
-Built: profile selector, intake validator, operator CLI, evidence capture
-Tests: 117->130 pass
+Ph10 Conversion Assets DONE
+Built: comparison, objections, ICP variants, paid pilot offer
+Tests: 130->142 pass
 Issues: P1:0 P2:0 new; carry CODE-1
 Health: WARN
-Next: Ph10 Conversion Assets
+Next: paid pilot outreach or roadmap update

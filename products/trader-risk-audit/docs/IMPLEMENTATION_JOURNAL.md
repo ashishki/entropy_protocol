@@ -23,6 +23,24 @@ This file records durable handoff context across agents and sessions. It is not 
 
 ## Entries
 
+### 2026-05-09 - T44 - Paid Pilot Offer Page
+
+- Scope: `docs/PAID_PILOT_OFFER_RU.md`, `docs/PAID_PILOT_OFFER_EN.md`, `tests/test_paid_pilot_offer_page.py`, docs state.
+- Why this work happened: Phase 10 needed a static paid pilot offer artifact that explains deliverables, inputs, privacy, price placeholder, and next step without building checkout or SaaS flow.
+- Decisions applied: `D-001`, `D-006`, `D-008`
+- Evidence collected: `.venv/bin/python -m pytest tests/test_paid_pilot_offer_page.py -q --tb=short` -> 3 passed; `.venv/bin/python -m pytest tests -q --tb=short` -> 142 passed; `.venv/bin/python -m ruff check trader_risk_audit tests` -> passed; `.venv/bin/python -m ruff format --check trader_risk_audit tests` -> passed.
+- Follow-ups: Phase 10 boundary deep review completed. All currently planned tasks through T44 are complete.
+- Notes for next agent: offer pages are static copy only. They reference demo script, before/after comparison, objection handling, and pilot intake contract; they do not add checkout, account system, broker control, PMF claims, guaranteed improvement, or live risk prevention.
+
+### 2026-05-09 - T43 - ICP-Specific Demo Variants
+
+- Scope: `docs/ICP_DEMO_VARIANTS_RU.md`, `docs/ICP_DEMO_VARIANTS_EN.md`, `tests/test_icp_demo_variants.py`, docs state.
+- Why this work happened: Phase 10 needed targeted founder-led demo angles for likely early adopters without splitting the product before evidence.
+- Decisions applied: `D-001`, `D-006`, `D-008`
+- Evidence collected: `.venv/bin/python -m pytest tests/test_icp_demo_variants.py -q --tb=short` -> 3 passed; `.venv/bin/python -m pytest tests -q --tb=short` -> 139 passed; `.venv/bin/python -m ruff check trader_risk_audit tests` -> passed; `.venv/bin/python -m ruff format --check trader_risk_audit tests` -> passed.
+- Follow-ups: implement T44 Paid Pilot Offer Page, then run Phase 10 boundary deep review.
+- Notes for next agent: ICP variants are positioning only. They keep one post-trade audit product boundary and map all ICPs to the same 10/5/3/2 validation evidence gate.
+
 ### 2026-05-09 - T42 - Objection Handling Pack
 
 - Scope: `docs/OBJECTION_HANDLING_RU.md`, `docs/OBJECTION_HANDLING_EN.md`, `tests/test_objection_handling_pack.py`, docs state.

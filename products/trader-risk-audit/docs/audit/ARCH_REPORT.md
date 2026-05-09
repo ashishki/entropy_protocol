@@ -1,15 +1,14 @@
-# ARCH_REPORT - Cycle 10
+# ARCH_REPORT - Cycle 11
 _Date: 2026-05-09_
 
 ## Component Verdicts
 
 | Component | Verdict | Note |
 |-----------|---------|------|
-| Policy profile selector | PASS | Resolves starter templates, requires explicit custom policy path, and records non-sensitive metadata. |
-| Intake validator | PASS | Reports safe field/action errors and marks invalid Telegram uploads non-runnable. |
-| Operator runbook CLI | PASS | Local prepare/run commands create workspaces, run deterministic audits, and register output references. |
-| Evidence capture | PASS | Local CSV append/summary path rejects identifiers and excludes demo rows from market-validation counts. |
-| ADR-001 Telegram boundary | PASS | Telegram remains upload/status/operator-reviewed workflow only. |
+| Before/after comparison | PASS | Shows raw export gaps versus deterministic audit outputs using safe public sample context. |
+| Objection handling | PASS | Answers common paid pilot objections without legal, advice, performance, or live-control promises. |
+| ICP demo variants | PASS | Tailors positioning for three ICPs without splitting product implementation. |
+| Paid pilot offer pages | PASS | Static RU/EN copy states deliverables, inputs, timeline, privacy, price placeholder, and CTA without checkout/SaaS scope. |
 
 ## Contract Compliance
 
@@ -19,23 +18,23 @@ _Date: 2026-05-09_
 | Multi-Tenant Systems | PASS | Not active; no multi-tenant code in scope. |
 | Async Redis | PASS | Not active; no Redis code in scope. |
 | Authorization | PASS | Not active; no route handlers in scope. |
-| PII Policy | PASS | New metadata/evidence paths reject obvious identifiers and do not print raw rows. |
-| Credentials | PASS | Telegram upload guard remains and evidence validation rejects obvious secret/raw-row markers. |
+| PII Policy | PASS | Conversion docs avoid real customer identifiers and point to privacy boundaries. |
+| Credentials | PASS | Docs reject API keys, broker tokens, passwords, and seed phrases. |
 | Tracing | PASS | No new external-call code path requiring tracing. |
 | CI | PASS | Local pytest and ruff validation are green. |
-| Deterministic Violation Truth | PASS | Operator CLI delegates to deterministic audit; no AI-owned truth added. |
-| Human Approval for Ambiguous Inputs | PASS | Custom policy path and operator-ready statuses preserve explicit operator control. |
-| Source-Row Traceability | PASS | Audit outputs remain source-row traceable; intake/evidence commands do not alter report truth. |
+| Deterministic Violation Truth | PASS | Docs describe existing deterministic report outputs; no AI-owned truth added. |
+| Human Approval for Ambiguous Inputs | PASS | Offer and scripts preserve operator-approved mapping/review. |
+| Source-Row Traceability | PASS | Conversion assets emphasize source row ids rather than vague claims. |
 | Reproducibility | DRIFT | Carry-forward CODE-1 remains: default CLI-generated manifests still omit `telegram_packet.txt`. |
-| Confidential Data Handling | PASS | CLI/status/evidence outputs use labels, counts, and file references rather than private file contents. |
-| Report Claim Boundaries | PASS | Operator delivery packet validates report claims before writing copy text. |
-| Runtime Boundary | PASS | No hosted queue, database, service, broker/exchange API, checkout, CRM, or privileged runtime behavior added. |
+| Confidential Data Handling | PASS | Assets tell prospects not to send sensitive identifiers/secrets and use public/sample-safe examples. |
+| Report Claim Boundaries | PASS | No advice, performance, live-control, PMF, or guaranteed-improvement claims were added. |
+| Runtime Boundary | PASS | No app, checkout, broker/exchange API, CRM, SaaS account system, or hosted workflow added. |
 
 ## ADR Compliance
 
 | ADR | Verdict | Note |
 |-----|---------|------|
-| ADR-001 Telegram Intake and Delivery Boundary | PASS | Phase 9 keeps Telegram inside file upload/status/operator review and does not add broker APIs, signal parsing, order blocking, auto-advice, or live trading behavior. |
+| ADR-001 Telegram Intake and Delivery Boundary | PASS | Phase 10 does not change Telegram runtime scope. |
 
 ## Architecture Findings
 
@@ -59,11 +58,11 @@ tested demo manifest path that includes the packet hash.
 
 | Check | Verdict | Note |
 |-------|---------|------|
-| Solution shape still appropriate | PASS | Phase 9 adds local operator tools, not a hosted app. |
+| Solution shape still appropriate | PASS | Phase 10 adds static conversion assets only. |
 | Deterministic-owned areas remain deterministic | PASS | Evaluation/report truth remains deterministic. |
 | Runtime tier unchanged / justified | PASS | Runtime remains T0 local files/CLI. |
-| Human approval boundaries still valid | PASS | Operator review and explicit custom policy selection remain in the workflow. |
-| Minimum viable control surface still proportionate | PASS | Phase 10 should focus on conversion assets, not more workflow infrastructure. |
+| Human approval boundaries still valid | PASS | Offer copy preserves operator review and mapping approval. |
+| Minimum viable control surface still proportionate | PASS | Further work should be driven by paid pilot evidence. |
 
 ## Doc Patches Needed
 

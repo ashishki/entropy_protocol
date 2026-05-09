@@ -12,13 +12,13 @@ violated, when they were violated, and how much damage violations created.
 
 ## Current Status
 
-- Current phase: Phase 10 - Conversion Assets active.
-- Completed: Phase 1 foundation through Phase 9 intake/operator speed, including constrained Telegram demo flow, public sample mode, report polish, intake validation, operator CLI, and evidence capture.
-- Next task: T43 ICP-Specific Demo Variants.
-- Planned next phase: none after active Phase 10 unless validation evidence changes the roadmap.
-- Local baseline: 136 passing tests, 0 skipped.
+- Current phase: Planned roadmap complete through Phase 10.
+- Completed: Phase 1 foundation through Phase 10 conversion assets, including constrained Telegram demo flow, public sample mode, report polish, intake validation, operator CLI, evidence capture, and paid pilot conversion docs.
+- Next task: none; further work should come from paid pilot evidence, review findings, or an explicit roadmap update.
+- Planned next phase: none.
+- Local baseline: 142 passing tests, 0 skipped.
 - Quality checks: `.venv/bin/ruff check` and `.venv/bin/ruff format --check` are clean.
-- Review status: Phase 9 deep review archived at `docs/archive/PHASE9_REVIEW.md`; Stop-Ship: No; one P2 metadata finding remains open.
+- Review status: Phase 10 deep review archived at `docs/archive/PHASE10_REVIEW.md`; Stop-Ship: No; one P2 metadata finding remains open.
 
 ## Features
 
@@ -59,6 +59,8 @@ violated, when they were violated, and how much damage violations created.
 | Evidence capture | Complete | Local `evidence append` and `evidence summary` commands record non-sensitive customer log rows and gate counts while excluding demo evidence. |
 | Before/after comparison | Complete | RU/EN docs compare raw export gaps with deterministic audit outputs, source rows, violation-attributed P&L, and a paid pilot CTA. |
 | Objection handling | Complete | RU/EN docs answer privacy, broker/API, no-advice, journal, pricing, and repeat-audit objections while pointing to the pilot gate. |
+| ICP demo variants | Complete | RU/EN docs tailor the same post-trade audit demo to prop/funded, crypto discretionary, and small team/coach prospects. |
+| Paid pilot offer | Complete | RU/EN static offer pages explain deliverables, inputs, timeline, privacy/no-advice boundaries, price placeholder, and paid pilot CTA. |
 | Pilot evidence log | Complete | Russian evidence log and CSV template track qualified calls, paid reports, objections, repeat commitments, and referrals. |
 | Public sample validation | Complete | Source/licensing/privacy policy, `demo/public_sample_001/` evidence pack, and internal readiness review are complete. Verdict: go for manual outreach, not PMF or paid-demand proof. |
 | Starter policy profiles | Complete | `docs/STARTER_POLICY_PROFILES_RU.md` and YAML templates define customizable soft, medium, and hard audit presets for internal validation, not trading advice. |
@@ -80,7 +82,7 @@ Loop continuity: after each phase, the orchestrator should run deep review, arch
 
 | Command | Current Result |
 |---------|----------------|
-| `.venv/bin/python -m pytest tests -q --tb=short` | 136 passed |
+| `.venv/bin/python -m pytest tests -q --tb=short` | 142 passed |
 | `.venv/bin/ruff check` | passed |
 | `.venv/bin/ruff format --check` | passed |
 

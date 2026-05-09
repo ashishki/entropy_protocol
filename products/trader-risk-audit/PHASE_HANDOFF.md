@@ -4,23 +4,23 @@ Date: 2026-05-09
 
 ## Last Completed
 
-- T42 - Objection Handling Pack
-- Phase: Phase 10 - Conversion Assets
-- Baseline: 136 pass / 0 skip
+- T44 - Paid Pilot Offer Page
+- Phase: Planned roadmap complete through Phase 10
+- Baseline: 142 pass / 0 skip
 - Ruff: clean
-- Last deep review: Cycle 10 archived at `docs/archive/PHASE9_REVIEW.md`
+- Last deep review: Cycle 11 archived at `docs/archive/PHASE10_REVIEW.md`
 - Stop-Ship: No
 - Open findings: CODE-1 P2 delivery packet hash is absent from generated audit manifests.
 
 ## Next
 
-- Next task: T43 - ICP-Specific Demo Variants
-- Review tier: light after T43
+- Next task: none
+- Review tier: none until roadmap update or new task
 
 ## Validation Commands
 
-- `.venv/bin/python -m pytest tests/test_objection_handling_pack.py -q --tb=short` -> 3 passed
-- `.venv/bin/python -m pytest tests -q --tb=short` -> 136 passed
+- `.venv/bin/python -m pytest tests/test_paid_pilot_offer_page.py -q --tb=short` -> 3 passed
+- `.venv/bin/python -m pytest tests -q --tb=short` -> 142 passed
 - `.venv/bin/python -m ruff check trader_risk_audit tests` -> passed
 - `.venv/bin/python -m ruff format --check trader_risk_audit tests` -> passed
 
@@ -39,4 +39,6 @@ Date: 2026-05-09
 - T40 added local evidence capture append/summary commands. Public sample/demo rows are excluded from market-validation gate counts.
 - T41 added RU/EN before/after comparison docs for raw export gaps versus deterministic audit report outputs and paid pilot CTA.
 - T42 added RU/EN objection handling for privacy, broker/API, no-advice, journal comparison, pricing, repeat audit, and paid pilot gate references.
+- T43 added RU/EN ICP demo variants for prop/funded, crypto discretionary, and team/coach audiences without splitting product scope.
+- T44 added RU/EN paid pilot offer pages. Phase 10 boundary review found no new blockers; all currently planned phases are complete.
 - `/tmp/orchestrator_checkpoint.md` is still owned by another user and could not be overwritten from this session; this file and `MEMORY.md` carry the checkpoint state.

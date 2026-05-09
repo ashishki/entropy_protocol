@@ -1,8 +1,8 @@
 # CODEX_PROMPT.md
 
-Version: 1.17
+Version: 1.18
 Date: 2026-05-09
-Phase: 10
+Phase: Complete
 
 This file is the single source of truth for implementation session state. Every Codex agent reads this file before starting work and updates it at phase boundaries or when the orchestrator records findings.
 
@@ -10,15 +10,15 @@ This file is the single source of truth for implementation session state. Every 
 
 ## Current Phase
 
-- Phase: 10
-- Name: Conversion Assets
-- Business goal: improve paid pilot conversion by making the audit value, objections, ICP fit, and offer clear without expanding into SaaS, advice, broker control, signal analytics, or checkout scope.
-- Phase gate: T41-T44 complete; the team has before/after report comparison, objection handling, ICP demo variants, and a paid pilot offer page that push qualified prospects toward real export/rules and manual paid audits.
+- Phase: Complete
+- Name: Planned Roadmap Complete Through Phase 10
+- Business goal: all planned phases are implemented through conversion assets while preserving local-first, deterministic, no-broker, no-signal, no-advice boundaries.
+- Phase gate: T41-T44 complete; before/after report comparison, objection handling, ICP demo variants, and paid pilot offer page are done and Phase 10 boundary review is archived.
 
 ## Current State
 
-- Phase: 10
-- Baseline: 136 passing tests
+- Phase: Complete
+- Baseline: 142 passing tests
 - Ruff: clean (`ruff check` and `ruff format --check`)
 - Last CI: workflow configured; remote run not observed from this clone
 - Last updated: 2026-05-09
@@ -36,28 +36,23 @@ This file is the single source of truth for implementation session state. Every 
 
 ## Next Task
 
-T43 - ICP-Specific Demo Variants
+None - all currently planned tasks through T44 are complete.
 
 Task intent:
 
-- Prepare targeted demo variants for prop/funded traders, active crypto discretionary traders, and small teams/coaches.
-- Each ICP variant should state likely pain, current workaround, demo angle, required proof, and paid pilot ask.
-- Preserve the same product boundary: post-trade audit, no broker control, no signal analytics, no advice.
-- Map every variant to the same validation evidence gate rather than vanity metrics.
+- Continue only if validation evidence, review findings, or a user request justifies a roadmap update.
+- Do not add SaaS accounts, checkout, broker APIs, signal analytics, order blocking, or trading advice without a new ADR and paid pilot evidence.
 
 Required context before starting:
 
-- `docs/tasks.md#t43-icp-specific-demo-variants`
-- `STARTUP_PRESSURE_TEST_RU.md#4-wedge-comparison`
+- `docs/archive/PHASE10_REVIEW.md`
+- `docs/audit/PHASE_REPORT_LATEST.md`
 - `docs/PILOT_EVIDENCE_LOG_RU.md`
-- `docs/OBJECTION_HANDLING_RU.md`
-- `docs/OBJECTION_HANDLING_EN.md`
+- `STARTUP_PRESSURE_TEST_RU.md#14-final-recommendation`
 
 Immediate scope:
 
-- `docs/ICP_DEMO_VARIANTS_RU.md`
-- `docs/ICP_DEMO_VARIANTS_EN.md`
-- `tests/test_icp_demo_variants.py`
+- no immediate implementation scope
 
 Candidate source decision:
 
@@ -91,6 +86,9 @@ Starter policy decision:
 - Phase 9 deep review Cycle 10 archived at `docs/archive/PHASE9_REVIEW.md`: Stop-Ship No, P0:0, P1:0, P2:0 new; carry-forward `CODE-1` remains open.
 - T41 completed RU/EN before/after report comparison docs showing raw export gaps versus deterministic audit outputs with source rows, violation-attributed P&L, and paid pilot CTA. Baseline after T41: 133 passing tests.
 - T42 completed RU/EN objection handling pack for privacy, broker/API, advice, journal comparison, pricing, and repeat audit objections while preserving factual claim boundaries and pilot gate references. Baseline after T42: 136 passing tests.
+- T43 completed RU/EN ICP demo variants for prop/funded traders, active crypto discretionary traders, and small teams/coaches, all mapped to the same validation evidence gate and product boundary. Baseline after T43: 139 passing tests.
+- T44 completed RU/EN paid pilot offer pages with deliverables, inputs, timeline, privacy/no-advice boundaries, price placeholder, CTA, and references to demo/comparison/objection/intake assets. Baseline after T44: 142 passing tests.
+- Phase 10 deep review Cycle 11 archived at `docs/archive/PHASE10_REVIEW.md`: Stop-Ship No, P0:0, P1:0, P2:0 new; carry-forward `CODE-1` remains open.
 
 ADR-001 is filed. Telegram is an allowed simple demo/intake/delivery surface for Phase 7: a user may upload files, receive an audit id/status, and receive an operator-approved report. Any new Telegram work must stay inside ADR-001 and must not add broker APIs, signal parsing, order blocking, auto-advice, or live trading behavior.
 
@@ -154,6 +152,8 @@ empty
 - T40: Evidence Capture Automation
 - T41: Before/After Report Comparison
 - T42: Objection Handling Pack
+- T43: ICP-Specific Demo Variants
+- T44: Paid Pilot Offer Page
 
 ## Phase History
 
@@ -162,6 +162,7 @@ empty
 - Phase 7 Internal Validation with Public Samples complete: T30-T32 delivered source policy, starter profile boundaries, `demo/public_sample_001/`, public sample evidence docs, and a go decision for manual outreach. Baseline moved from 92 to 105 passing tests. Deep review Cycle 8 found P0:0, P1:0, P2:1; Stop-Ship: No.
 - Phase 8 Demo Productization complete: T33-T36 delivered Telegram demo happy path, public sample demo mode, report readability polish, and RU/EN two-minute demo scripts. Baseline moved from 105 to 117 passing tests. Deep review Cycle 9 found P0:0, P1:0, P2:0 new; Stop-Ship: No.
 - Phase 9 Intake Quality and Operator Speed complete: T37-T40 delivered policy profile selection, intake validation, operator runbook CLI, and evidence capture automation. Baseline moved from 117 to 130 passing tests. Deep review Cycle 10 found P0:0, P1:0, P2:0 new; Stop-Ship: No.
+- Phase 10 Conversion Assets complete: T41-T44 delivered before/after comparison, objection handling, ICP demo variants, and paid pilot offer pages. Baseline moved from 130 to 142 passing tests. Deep review Cycle 11 found P0:0, P1:0, P2:0 new; Stop-Ship: No.
 
 ## Summary State
 
