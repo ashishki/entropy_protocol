@@ -1197,7 +1197,7 @@ Owner:      codex
 Phase:      8
 Type:       none
 Depends-On: T32
-Status:     active
+Status:     done 2026-05-09
 
 Objective: |
   Add a local dry-run proof that readiness review can assemble evidence without reading or unlocking holdout data.
@@ -1230,7 +1230,7 @@ Owner:      codex
 Phase:      8
 Type:       none
 Depends-On: T33
-Status:     pending
+Status:     active
 
 Objective: |
   Review Phase 8 readiness artifacts, record findings, evaluate whether the roadmap should proceed to a holdout access protocol, and preserve blocked boundaries unless the roadmap evaluation identifies a safer next phase.

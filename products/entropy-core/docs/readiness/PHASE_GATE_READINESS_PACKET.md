@@ -39,6 +39,34 @@ production readiness label, or capital-ready label.
 - No holdout path may be read from this scaffold.
 - No performance conclusion may be inferred from this scaffold.
 
+## No-Holdout Dry Run Output
+
+Dry-run status: ARCHIVE_ONLY_NO_HOLDOUT_READ
+
+Archive-only input artifacts:
+
+- `docs/research/first-packet/CANDIDATE_PACKET.md`
+- `docs/research/first-packet/DATASET_MANIFEST.md`
+- `docs/research/first-packet/RESEARCH_EVIDENCE_PACKET.md`
+- `docs/research/second-packet/CANDIDATE_PACKET.md`
+- `docs/research/second-packet/DATASET_MANIFEST.md`
+- `docs/research/second-packet/RESEARCH_EVIDENCE_PACKET.md`
+- `docs/research/REPRODUCIBILITY_MATRIX.md`
+- `docs/readiness/PHASE_GATE_GAP_MATRIX.md`
+- `docs/readiness/APPROVAL_BOUNDARY_CHECKLIST.md`
+- `docs/audit/ARCHIVE_REPRODUCIBILITY_REVIEW.md`
+
+Dry-run limitations and missing prerequisites:
+
+- Holdout path opened: False
+- Holdout read executed: False
+- Holdout unlock requested: False
+- Claim conclusion produced: False
+- Missing prerequisite: explicit human phase-gate approval
+- Missing prerequisite: explicit human holdout approval
+- Missing prerequisite: holdout access protocol
+- Missing prerequisite: Phase 8 readiness review
+
 ## Required Human Approvals
 
 All approval surfaces remain blocked until explicit human approval and matching

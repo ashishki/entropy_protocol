@@ -34,7 +34,8 @@ def test_tasks_records_planned_roadmap_and_active_phase() -> None:
     assert "Status:     done 2026-05-08" in _task_section(text, "T30")
     assert "Status:     done 2026-05-09" in _task_section(text, "T31")
     assert "Status:     done 2026-05-09" in _task_section(text, "T32")
-    assert "Status:     active" in _task_section(text, "T33")
+    assert "Status:     done 2026-05-09" in _task_section(text, "T33")
+    assert "Status:     active" in _task_section(text, "T34")
 
 
 def test_tasks_records_dynamic_roadmap_evaluation_rule() -> None:
@@ -64,7 +65,8 @@ def test_prompt_and_handoff_record_phase7_boundaries() -> None:
     combined = f"{prompt}\n{handoff}\n{loop}".lower()
 
     assert "phase: 8" in prompt.lower()
-    assert "t33 readiness no-holdout dry run" in prompt.lower()
+    assert "t34 phase-gate readiness review" in prompt.lower()
+    assert "t33 readiness no-holdout dry run completed" in prompt.lower()
     assert "t32 approval boundary checklist completed" in prompt.lower()
     assert "t31 phase-gate readiness packet scaffold completed" in prompt.lower()
     assert "t30 archive evidence sufficiency gap matrix completed" in prompt.lower()

@@ -7,10 +7,10 @@ manual restart.
 
 - Product: entropy-core
 - Branch: codex/entropy-core-work
-- Active task: T33 Readiness No-Holdout Dry Run
+- Active task: T34 Phase-Gate Readiness Review
 - Phase: 8 Phase-Gate Readiness Review
-- Last validation: 2026-05-09 T32: `399 passed, 20 skipped`; ruff check clean; ruff format clean; pyright 0 errors; `git diff --check` clean.
-- Git status summary: T32 approval boundary checklist changes pending commit at handoff update time.
+- Last validation: 2026-05-09 T33: `402 passed, 20 skipped`; ruff check clean; ruff format clean; pyright 0 errors; `git diff --check` clean.
+- Git status summary: T33 no-holdout dry run changes pending commit at handoff update time.
 
 ## Completed In This Phase
 
@@ -49,11 +49,11 @@ manual restart.
 - T30 Archive Evidence Sufficiency Gap Matrix completed with no findings.
 - T31 Phase-Gate Readiness Packet Scaffold completed with no findings.
 - T32 Approval Boundary Checklist completed with no findings.
+- T33 Readiness No-Holdout Dry Run completed with no findings.
 
 ## Remaining Work
 
-- T33 Readiness No-Holdout Dry Run is active.
-- T34 Phase-Gate Readiness Review is pending.
+- T34 Phase-Gate Readiness Review is active.
 - After T34, run deep review, fix findings, validate, evaluate the roadmap, rewrite future phases/tasks if useful, open the next logical active phase, and continue automatically.
 
 ## Blockers Or Human Decisions
