@@ -18,6 +18,12 @@ _Append-only. One row per review cycle._
 | 8 | Phase 8 | 2026-05-07 | T20 | No | 0 | 0 | 0 |
 | 9 | Phase 9 | 2026-05-07 | SAS-PILOT-001-SAS-PILOT-007 | No | 0 | 0 | 0 |
 | 10 | Phase 10 | 2026-05-08 | SAS-AUTO-001-SAS-AUTO-005 | No | 0 | 0 | 0 |
+| 11 | Phase 11 | 2026-05-09 | SAS-MI-001-SAS-MI-002 | No | 0 | 0 | 0 |
+| 12 | Phase 12 | 2026-05-09 | SAS-MI-003-SAS-MI-005 | No | 0 | 0 | 0 |
+| 13 | Phase 13 | 2026-05-09 | SAS-MI-006-SAS-MI-007 | No | 0 | 0 | 0 |
+| 14 | Phase 14 | 2026-05-09 | SAS-MI-008-SAS-MI-009 | No | 0 | 0 | 0 |
+| 15 | Phase 15 | 2026-05-09 | SAS-MI-010-SAS-MI-011 | No | 0 | 0 | 0 |
+| 16 | Phase 16 | 2026-05-09 | SAS-MI-012-SAS-MI-013 | No | 0 | 0 | 0 |
 
 ---
 
@@ -35,6 +41,12 @@ _Append-only. One row per review cycle._
 | 8 | `docs/archive/PHASE8_REVIEW.md` | Phase 8 | OK |
 | 9 | `docs/archive/PHASE9_REVIEW.md` | Phase 9 | OK |
 | 10 | `docs/archive/PHASE10_REVIEW.md` | Phase 10 | OK |
+| 11 | `docs/archive/PHASE11_REVIEW.md` | Phase 11 | OK |
+| 12 | `docs/archive/PHASE12_REVIEW.md` | Phase 12 | OK |
+| 13 | `docs/archive/PHASE13_REVIEW.md` | Phase 13 | OK |
+| 14 | `docs/archive/PHASE14_REVIEW.md` | Phase 14 | OK |
+| 15 | `docs/archive/PHASE15_REVIEW.md` | Phase 15 | OK |
+| 16 | `docs/archive/PHASE16_REVIEW.md` | Phase 16 | OK |
 
 ---
 

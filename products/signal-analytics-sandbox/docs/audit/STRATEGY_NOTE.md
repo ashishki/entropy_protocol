@@ -1,28 +1,24 @@
-# STRATEGY_NOTE - Phase 3 Review
-_Date: 2026-05-07 · Reviewing: Phase 4 (T09-T11)_
+# STRATEGY_NOTE — Phase 16 Review
+_Date: 2026-05-09 · Reviewing: Phase 17 (`SAS-MI-014`)_
 
 ## Recommendation: Proceed
-
-Proceed means: complete the mandatory Phase 3 deep review/archive. Do not start
-T09 until ADR-001 is accepted.
 
 ## Check Results
 
 | Check | Verdict | Notes |
 |-------|---------|-------|
-| Phase 0 gate | CLEAR | SAS-001 and SAS-002 remain acknowledged with evidence files. |
-| Phase coherence | COHERENT | Upcoming Phase 4 tasks cover price-provider interface, operator-file provider, and snapshot provenance. |
+| Phase 0 gate | CLEAR | SAS-001 and SAS-002 remain acknowledged. |
+| Phase coherence | COHERENT | Phase 17 bounded analyst follows deterministic metrics and retrieval context. |
 | Open findings gate | CLEAR | Fix Queue is empty; no P0/P1 findings are open. |
-| Architectural drift | ALIGNED | Phase 3 implemented deterministic ledger I/O and dedup/ambiguity logic as planned. |
-| Solution shape / governance / runtime drift | ALIGNED | No LLM behavior, agent loop, runtime mutation, or profile activation was introduced. |
-| ADR compliance | ATTENTION | ADR-001 remains OPEN and blocks T09. Phase 3 archive may proceed; Phase 4 implementation may not. |
-| Capability Profile gate | N/A | All profiles remain OFF. |
-| Reproducibility contract integrity | HONOURED | Ledger writes are byte-identical under tests; dedup functions are deterministic. |
+| Architectural drift | ALIGNED | Phase 16 stayed deterministic and local. |
+| Agentic profile gate | READY | ADR-002 activates bounded Agentic; `SAS-MI-014` is tagged `agent:loop`. |
 
 ## Findings / Blockers
 
-none for Phase 3 archive.
+None.
 
 ## Warnings
 
-- ADR-001 must be accepted before T09 implementation begins.
+- Phase 17 must keep fixed operations, max iterations, auditability, and explicit stop reasons. No shell/tool execution outside application APIs.
+
+STRATEGY_NOTE.md written. Recommendation: Proceed.

@@ -1,8 +1,8 @@
 # CODEX_PROMPT.md — Signal Analytics Sandbox
 
-Version: 2.36
+Version: 2.51
 Date: 2026-05-09
-Phase: 11
+Phase: 17
 
 ---
 
@@ -24,8 +24,8 @@ Telegram pilot validates the product hypothesis.
 
 ## Current State
 
-- **Phase:** 11 (Author Market Intelligence architecture reset)
-- **Baseline:** 94 passing tests, 0 skipped
+- **Phase:** 17 (Bounded batch analyst)
+- **Baseline:** 132 passing tests, 0 skipped
 - **Ruff:** `ruff check src/ tests/` passes
 - **Pyright:** `pyright` passes
 - **Last CI run:** local CI-equivalent commands pass; GitHub run not yet observed
@@ -57,34 +57,123 @@ Telegram pilot validates the product hypothesis.
 
 ## Next Task
 
-`SAS-MI-001: Author Market Intelligence Architecture ADR`
+`SAS-MI-015: Internal Analyst Memo Export`
 
-The product direction now expands from strict signal extraction to Author Market
-Intelligence: evaluate public market authors across explicit trade setups,
-directional theses, market-regime commentary, watchlists, risk warnings, and
-news/catalyst reactions. Phase 10 is not discarded; its `bablos79` captures,
-pseudo-labels, author profile, lexicon draft, parser helpers, draft export, and
-review queue are the first channel profile/corpus seed.
+`SAS-MI-014` implemented the bounded batch analyst contract. The next
+implementation task is `SAS-MI-015`.
 
 Immediate instruction:
-- Run `SAS-MI-001` from `docs/tasks.md`.
-- Create `docs/adr/ADR-002-author-market-intelligence.md`.
-- Update `docs/ARCHITECTURE.md` capability profiles only according to the ADR.
-- Do not implement vector storage, embeddings, market-data expansion, or
-  batch-agent code before the ADR is accepted.
-- Keep Phase 10 automation draft-only: no approved ledger writes without human
-  review.
-- Do not start bot/SaaS/private scraping/copy-trading/broker/public-leaderboard
-  expansion. RAG may provide context only after ADR activation; deterministic
-  market data remains the source of prices, returns, and outcome metrics.
+- Implement `SAS-MI-015` from `docs/tasks.md`.
+- Export an internal analyst memo separating deterministic metrics, cited
+  evidence, interpretation, limitations, and review queue.
+- Every interpretive claim must cite retrieved source documents or deterministic
+  metric IDs.
+- Memo must remain internal and not customer-facing.
 
 Closeout digest for the Orchestrator:
+- SAS-MI-014 added `src/signal_sandbox/batch_analyst/`,
+  `tests/unit/test_batch_analyst_contract.py`, and
+  `docs/specs/BATCH_ANALYST.md`. The contract declares channel/time scope,
+  allowed operations, max iterations, max retrieved documents, cost cap, and
+  stop reasons. The deterministic runner stops on max iterations, missing data,
+  cost cap, or completed memo and records retrieval, metric-read, prompt input,
+  and memo checksums. No shell/network/broker/report publisher surface was
+  added.
+- Phase 16 deep review archived at `docs/archive/PHASE16_REVIEW.md`; Cycle 16
+  Stop-Ship: No; P0: 0, P1: 0, P2: 0.
+- SAS-MI-013 added `src/signal_sandbox/market_ideas/author_metrics.py` and
+  `tests/unit/test_author_metrics.py`. The aggregator computes counts by idea
+  type, asset type, horizon status, and review status; computes directional hit
+  rate only for evaluable directional outcomes; and reports null/non-market
+  rate separately from failed ideas.
+- SAS-MI-012 added `src/signal_sandbox/market_ideas/outcomes.py` and
+  `tests/unit/test_market_idea_outcomes.py`. The evaluator resolves candidate
+  assets through the asset registry without guessing, preserves unresolved and
+  ambiguous statuses, computes horizon outcomes via deterministic
+  `SAS-MI-005` metrics when a matching snapshot exists, and records source
+  document ID, market idea ID, asset ID, snapshot ID, and metric version.
+- Phase 15 deep review archived at `docs/archive/PHASE15_REVIEW.md`; Cycle 15
+  Stop-Ship: No; P0: 0, P1: 0, P2: 0.
+- SAS-MI-011 added `src/signal_sandbox/market_ideas/export.py`,
+  `tests/unit/test_market_idea_export.py`, and
+  `docs/pilot/MARKET_IDEA_DRAFTS_BABLOS79.md`. The batch export creates one
+  row per source document, separates draft approval state from final review
+  status, records review queue reasons/evidence refs/candidate assets/horizons,
+  and writes only a draft Markdown artifact. No approved ledger, outcome, or
+  report side effects were added.
+- SAS-MI-010 added `src/signal_sandbox/market_ideas/` and
+  `tests/unit/test_market_idea_extractor.py`. The deterministic extractor
+  classifies source documents into all MarketIdea categories, preserves direct
+  evidence spans for assets, direction, horizon/targets, risk/invalidation, and
+  catalysts when present, and always emits review-pending unapproved drafts. No
+  ledger writer, market-data writer, metric writer, report writer, runtime LLM
+  call, network path, or agent loop was added.
+- Phase 14 deep review archived at `docs/archive/PHASE14_REVIEW.md`; Cycle 14
+  Stop-Ship: No; P0: 0, P1: 0, P2: 0.
+- SAS-MI-009 added `src/signal_sandbox/retrieval/query.py` and
+  `tests/unit/test_retrieval_query.py`. The query API returns cited snippets
+  with document_id, score, source timestamp, evidence URL, and text_sha256, and
+  supports deterministic channel/time filtering. Result models reject uncited
+  rows. No approved ledger, market-data, metric, report, network, LLM, or agent
+  mutation path was added.
+- SAS-MI-008 added `src/signal_sandbox/retrieval/` and
+  `tests/unit/test_retrieval_store.py`. The local retrieval store ingests
+  `SourceDocument` records into a DuckDB metadata catalog with deterministic
+  vector sidecars, preserves stable document IDs/citations, records
+  embedding/index metadata including deterministic fixture ID, and repeated
+  ingestion is idempotent. No approved ledger or deterministic metric writer is
+  imported or mutated.
+- Phase 13 deep review archived at `docs/archive/PHASE13_REVIEW.md`; Cycle 13
+  Stop-Ship: No; P0: 0, P1: 0, P2: 0.
+- SAS-MI-007 added `src/signal_sandbox/profiles/`,
+  `tests/unit/test_channel_profile.py`, and
+  `docs/specs/CHANNEL_PROFILES.md`. The registry stores versioned channel
+  profiles with source URLs, accepted draft terms, needs-review terms, excluded
+  terms, modality flags, and review rules. `bablos79` imports the Phase 10
+  lexicon with profile_state preserved, and unknown channels return no profile.
+- SAS-MI-006 added `src/signal_sandbox/corpus/`,
+  `tests/unit/test_source_document.py`, and `docs/specs/SOURCE_CORPUS.md`.
+  `SourceDocument` preserves capture/source/author/timestamp/text/evidence/hash
+  fields and optional media/transcript/OCR evidence links. Existing
+  `CapturedPost` records convert without evidence URL or hash drift. No
+  transcription/OCR provider, embeddings, vector store, or retrieval API was
+  added.
+- Phase 12 deep review archived at `docs/archive/PHASE12_REVIEW.md`; Cycle 12
+  Stop-Ship: No; P0: 0, P1: 0, P2: 0.
+- SAS-MI-005 added `src/signal_sandbox/market_data/metrics.py` and
+  `tests/unit/test_horizon_metrics.py`. It computes deterministic 1d, 3d, 7d,
+  and 30d returns plus MFE/MAE, and returns explicit statuses for unresolved
+  asset, non-directional, and insufficient-data cases. No LLM/RAG/retrieval
+  dependency was added.
+- SAS-MI-004 added `src/signal_sandbox/market_data/`,
+  `tests/unit/test_market_data_store.py`, and
+  `docs/specs/MARKET_DATA_STORE.md`. The store supports immutable local
+  `operator_file` snapshots, checksum verification, metadata listing, and
+  overwrite rejection. No paid/network market-data provider was added.
+- SAS-MI-003 added `src/signal_sandbox/assets/`, `tests/unit/test_asset_registry.py`,
+  and `docs/specs/ASSET_UNIVERSE.md`. Alias resolution is exact-only and
+  returns `exact`, `ambiguous`, or `unresolved` with evidence. Seed coverage
+  includes BTC, ETH, SOL, SPY, QQQ, Phase 10 observed tickers, and an unresolved
+  fallback. No market data was fetched.
+- Phase 11 deep review archived at `docs/archive/PHASE11_REVIEW.md`; Cycle 11
+  Stop-Ship: No; P0: 0, P1: 0, P2: 0.
+- SAS-MI-002 created `docs/specs/MARKET_IDEA_SCHEMA.md`. The spec defines
+  required/optional fields, enum values, approval states, evidence-span rules,
+  deterministic horizons, metric outputs, draft-only fields, and review queue
+  policy. No product code was added.
+- SAS-MI-001 created `docs/adr/ADR-002-author-market-intelligence.md`, updated
+  `docs/ARCHITECTURE.md`, and recorded D-021. ADR-002 activates RAG and
+  bounded Agentic profiles, keeps Tool-Use and Planning OFF, keeps runtime T0,
+  and selects local DuckDB plus local vector/index sidecar files as the first
+  retrieval substrate. No vector storage, embeddings, market-data expansion,
+  or batch-agent code was implemented.
 - Phase 11+ planning created
   `docs/pilot/AUTHOR_MARKET_INTELLIGENCE_ROADMAP.md`, appended Phases 11-19
   and tasks `SAS-MI-001..018` to `docs/tasks.md`, updated the README and
   architecture pointers, and recorded D-019/D-020.
-- The first next task is the architecture gate. RAG/Planning/Agentic profiles
-  remain OFF until `SAS-MI-001` decides and records activation.
+- ADR-002 is the architecture gate result: RAG and bounded Agentic profiles are
+  ON, Tool-Use and Planning remain OFF, and implementation remains deferred to
+  scoped future tasks.
 - Phase 10 deep review archived at `docs/archive/PHASE10_REVIEW.md`; Cycle 10
   Stop-Ship: No; P0: 0, P1: 0, P2: 0.
 - SAS-AUTO-005 created `docs/pilot/AUTO_EXTRACTION_EVAL.md` and updated
@@ -329,6 +418,120 @@ run yet. These artifacts are now the first channel profile/corpus seed.
   pointers, and recorded D-019/D-020. Validation after: 94 passed, 0 skipped;
   `ruff check src/ tests/` and `.venv/bin/pyright` pass. Review: skipped
   (planning/doc-only patch).
+- 2026-05-09 — SAS-MI-001 Author Market Intelligence Architecture ADR:
+  created `docs/adr/ADR-002-author-market-intelligence.md`, updated
+  `docs/ARCHITECTURE.md` capability profiles, and recorded D-021. RAG is ON
+  for local cited context only, Agentic is ON for a bounded internal batch
+  analyst, Tool-Use and Planning remain OFF, runtime remains T0, and the first
+  retrieval substrate is local DuckDB plus local vector/index sidecar files.
+  Baseline after: 94 passed, 0 skipped. Review: skipped (doc-only architecture
+  gate).
+- 2026-05-09 — SAS-MI-002 MarketIdea Schema And Metrics Contract: created
+  `docs/specs/MARKET_IDEA_SCHEMA.md` with MarketIdea field contract, enum
+  values, evidence-span rules, approval states, deterministic horizon metrics,
+  draft-only labels, review queue policy, examples, and SignalRecord
+  compatibility rules. Baseline after: 94 passed, 0 skipped. Review: Phase 11
+  deep review PASS; archive `docs/archive/PHASE11_REVIEW.md`.
+- 2026-05-09 — SAS-MI-003 Asset Universe And Alias Registry: created
+  `src/signal_sandbox/assets/registry.py`, `src/signal_sandbox/assets/__init__.py`,
+  `tests/unit/test_asset_registry.py`, and `docs/specs/ASSET_UNIVERSE.md`.
+  The registry defines `Asset`, `AssetAlias`, exact alias normalization,
+  `exact` / `ambiguous` / `unresolved` resolution, seed coverage for BTC, ETH,
+  SOL, SPY, QQQ, Phase 10 observed tickers, and an unresolved fallback. No
+  market data was fetched. Baseline after: 97 passed, 0 skipped. Review: light
+  PASS.
+- 2026-05-09 — SAS-MI-004 Market Data Store Contract: created
+  `src/signal_sandbox/market_data/store.py`,
+  `src/signal_sandbox/market_data/__init__.py`,
+  `tests/unit/test_market_data_store.py`, and
+  `docs/specs/MARKET_DATA_STORE.md`. The store writes, loads, lists, and
+  verifies immutable local OHLCV snapshots with provider, canonical asset ID,
+  provider symbol, timeframe, source range, captured_at, checksum, license, and
+  provenance metadata. Operator-file fixtures are supported; no paid/network
+  provider was added. Baseline after: 102 passed, 0 skipped. Review: light PASS.
+- 2026-05-09 — SAS-MI-005 Deterministic Horizon Metrics: created
+  `src/signal_sandbox/market_data/metrics.py` and
+  `tests/unit/test_horizon_metrics.py`. The evaluator computes 1d, 3d, 7d,
+  and 30d returns plus MFE/MAE from local snapshots and returns explicit
+  `unresolved_asset`, `non_directional`, and `insufficient_data` statuses.
+  No LLM, RAG, retrieval, or analyst-summary dependency was added. Baseline
+  after: 105 passed, 0 skipped. Review: Phase 12 deep review PASS; archive
+  `docs/archive/PHASE12_REVIEW.md`.
+- 2026-05-09 — SAS-MI-006 SourceDocument Corpus Schema: created
+  `src/signal_sandbox/corpus/document.py`, `src/signal_sandbox/corpus/__init__.py`,
+  `tests/unit/test_source_document.py`, and `docs/specs/SOURCE_CORPUS.md`.
+  `SourceDocument` preserves capture_id, source_id, author, timestamp, text,
+  evidence_url, text_sha256, optional media/transcript/OCR refs, and metadata.
+  `CapturedPost` conversion preserves evidence URL and text hash. No
+  transcription/OCR provider, embedding, vector store, or retrieval API was
+  added. Baseline after: 108 passed, 0 skipped. Review: light PASS.
+- 2026-05-09 — SAS-MI-007 Channel Profile Registry: created
+  `src/signal_sandbox/profiles/`, `tests/unit/test_channel_profile.py`, and
+  `docs/specs/CHANNEL_PROFILES.md`. The registry stores versioned
+  channel-specific lexicons, source URLs, accepted draft / needs-review /
+  excluded terms, modality flags, and review rules. The Phase 10 `bablos79`
+  lexicon imports with profile_state preserved, and unknown channels have no
+  default fallback. Baseline after: 111 passed, 0 skipped. Review: Phase 13
+  deep review PASS; archive `docs/archive/PHASE13_REVIEW.md`.
+- 2026-05-09 — SAS-MI-008 Local Retrieval Store Prototype: created
+  `src/signal_sandbox/retrieval/store.py`,
+  `src/signal_sandbox/retrieval/__init__.py`, and
+  `tests/unit/test_retrieval_store.py`; added `duckdb` as the local retrieval
+  metadata substrate. The store writes a local DuckDB catalog and deterministic
+  vector sidecars, preserves source document IDs and citation metadata, records
+  embedding/index metadata including deterministic fixture ID, and repeated
+  ingestion is idempotent. No approved ledger writer, market-data writer,
+  deterministic metric writer, runtime LLM call, or network path was added.
+  Baseline after: 114 passed, 0 skipped. Review: light PASS.
+- 2026-05-09 — SAS-MI-009 Cited Retrieval API: created
+  `src/signal_sandbox/retrieval/query.py` and
+  `tests/unit/test_retrieval_query.py`. The API returns cited snippets with
+  document_id, score, source timestamp, evidence URL, and text_sha256; supports
+  deterministic channel/time filtering; and rejects uncited result models. No
+  approved ledger writer, market-data writer, metric writer, report writer,
+  runtime LLM call, network path, or agent loop was added. Baseline after:
+  117 passed, 0 skipped. Review: Phase 14 deep review PASS; archive
+  `docs/archive/PHASE14_REVIEW.md`.
+- 2026-05-09 — SAS-MI-010 MarketIdea Draft Extractor: created
+  `src/signal_sandbox/market_ideas/` and
+  `tests/unit/test_market_idea_extractor.py`. The deterministic extractor uses
+  channel profiles first, classifies trade setups, directional theses, market
+  regime comments, watchlists, catalyst reactions, risk warnings, and
+  non-market rows, preserves direct evidence spans, and always outputs
+  unapproved review-pending drafts. Baseline after: 120 passed, 0 skipped.
+  Review: light PASS.
+- 2026-05-09 — SAS-MI-011 MarketIdea Batch Draft Export: created
+  `src/signal_sandbox/market_ideas/export.py`,
+  `tests/unit/test_market_idea_export.py`, and
+  `docs/pilot/MARKET_IDEA_DRAFTS_BABLOS79.md`. The export writes one row per
+  source document, separates draft approval state from final review status, and
+  records parser status, review queue reasons, evidence refs, candidate assets,
+  and horizons. No approved ledger, outcome, or report side effects were added.
+  Baseline after: 123 passed, 0 skipped. Review: Phase 15 deep review PASS;
+  archive `docs/archive/PHASE15_REVIEW.md`.
+- 2026-05-09 — SAS-MI-012 MarketIdea Outcome Evaluator: created
+  `src/signal_sandbox/market_ideas/outcomes.py` and
+  `tests/unit/test_market_idea_outcomes.py`. The evaluator resolves candidate
+  assets through the asset registry, preserves unresolved/ambiguous cases,
+  computes deterministic horizon metrics from local snapshots, and records
+  source document ID, market idea ID, asset ID, snapshot ID, and metric version.
+  Baseline after: 126 passed, 0 skipped. Review: light PASS.
+- 2026-05-09 — SAS-MI-013 Author Metrics Aggregator: created
+  `src/signal_sandbox/market_ideas/author_metrics.py` and
+  `tests/unit/test_author_metrics.py`. The aggregator computes counts by idea
+  type, asset type, horizon status, and review status; computes directional hit
+  rate only for evaluable directional outcomes; and reports null/non-market
+  content separately. Baseline after: 129 passed, 0 skipped. Review: Phase 16
+  deep review PASS; archive `docs/archive/PHASE16_REVIEW.md`.
+- 2026-05-09 — SAS-MI-014 Batch Analyst Contract: created
+  `src/signal_sandbox/batch_analyst/`,
+  `tests/unit/test_batch_analyst_contract.py`, and
+  `docs/specs/BATCH_ANALYST.md`. The bounded contract declares input scope,
+  allowed operations, max iterations, retrieval cap, cost cap, and stop reasons.
+  Runner audit logs record retrieval, metric read, prompt input, and generated
+  memo checksums. No shell, network collector, broker, or report publisher
+  surface was added. Baseline after: 132 passed, 0 skipped. Review:
+  agent-trigger strict review PASS.
 
 ---
 
@@ -353,14 +556,16 @@ orchestrator compaction threshold. Full task definitions remain in
 
 ## Profile State: RAG
 
-- RAG Status: OFF
-- Active corpora: n/a
-- Retrieval baseline: n/a
+- RAG Status: ON
+- Active corpora: Phase 13 `SourceDocument` schema plus Phase 10 `bablos79`
+  captures/profile artifacts as the first seed
+- Retrieval baseline: `SAS-MI-009` local ingestion + cited query API; 117 tests passed,
+  0 skipped
 - Open retrieval findings: none
-- Index schema version: n/a
-- Pending reindex actions: none until `SAS-MI-001` and Phase 14
-- Retrieval-related next tasks: `SAS-MI-001` ADR gate, then `SAS-MI-008..009` if ADR activates RAG
-- Retrieval-driven tasks: none active yet
+- Index schema version: `retrieval-index-v1`
+- Pending reindex actions: none until Phase 14
+- Retrieval-related next tasks: none active until downstream extraction/analysis uses retrieval context
+- Retrieval-driven tasks: none active
 
 ---
 
@@ -375,10 +580,10 @@ orchestrator compaction threshold. Full task definitions remain in
 
 ## Agentic State
 
-- Agentic Profile: OFF
-- Active agent roles: n/a
-- Loop termination state: n/a
-- Open agentic findings: none; bounded batch analyst is planned for Phase 17 after ADR/profile activation
+- Agentic Profile: ON
+- Active agent roles: planned bounded internal batch analyst in Phase 17
+- Loop termination state: pending Phase 17 implementation; ADR-002 requires max iterations, fixed operations, audit log, and explicit stop reason
+- Open agentic findings: none
 
 ---
 
@@ -386,7 +591,7 @@ orchestrator compaction threshold. Full task definitions remain in
 
 - Planning Profile: OFF
 - Plan schema version: n/a
-- Open plan findings: none; `SAS-MI-001` decides whether roadmap/batch planning activates the profile
+- Open plan findings: none; ADR-002 keeps Planning OFF because batch job contracts are workflow configuration, not a plan-as-deliverable subsystem
 
 ---
 

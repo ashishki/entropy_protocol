@@ -4,12 +4,13 @@ Use this file only at a phase boundary, context rollover, or limit recovery.
 
 ## Current State
 
-- Phase: 11 planned/active; Phase 10 draft extraction assistant is complete
-  and archived.
-- Active task: `SAS-MI-001: Author Market Intelligence Architecture ADR`.
-  Phase 10 artifacts are preserved as the first channel profile/corpus seed.
+- Phase: 17 active; Phase 16 deterministic thesis evaluation is
+  complete and archived.
+- Active task: `SAS-MI-015: Internal Analyst Memo Export`.
+  ADR-002, MarketIdea schema, asset registry, market-data store, horizon
+  metrics, source corpus schema, and channel profile registry are complete.
 - Branch: `codex/signal-analytics-sandbox-work`.
-- Last validation: `.venv/bin/python -m pytest tests/ -q` -> 94 tests passed on 2026-05-09; `.venv/bin/python -m ruff check src/ tests/` and `.venv/bin/python -m pyright` also pass.
+- Last validation: `.venv/bin/python -m pytest tests/ -q` -> 132 tests passed on 2026-05-09; `.venv/bin/python -m ruff check src/ tests/` and `.venv/bin/python -m pyright` also pass.
 - Git status summary: Phase 10 code/docs plus Phase 11+ roadmap/docs are pending commit.
 
 ## Completed In This Phase
@@ -144,10 +145,141 @@ Use this file only at a phase boundary, context rollover, or limit recovery.
   - recorded D-019/D-020 in `docs/DECISION_LOG.md`
   - updated README, architecture, prompt, journal, memory, and notes for the
     new stage.
+- Completed `SAS-MI-001: Author Market Intelligence Architecture ADR`:
+  - created `docs/adr/ADR-002-author-market-intelligence.md`
+  - updated `docs/ARCHITECTURE.md` capability profiles
+  - recorded D-021 in `docs/DECISION_LOG.md`
+  - RAG is ON for local cited context only
+  - Agentic is ON for a bounded internal batch analyst only
+  - Tool-Use and Planning remain OFF
+  - runtime remains T0
+  - first retrieval substrate is local DuckDB plus local vector/index sidecar
+    files
+- Completed `SAS-MI-002: MarketIdea Schema And Metrics Contract`:
+  - created `docs/specs/MARKET_IDEA_SCHEMA.md`
+  - defined required and optional fields, enum values, approval states,
+    evidence-span rules, draft-only labels, deterministic horizons, metric
+    outputs, review queue policy, examples, and SignalRecord compatibility
+  - no product code, market-data fetch, embeddings, vector storage, approved
+    ledger writes, or batch-agent code were added
+- Phase 11 deep review completed and archived:
+  - `docs/archive/PHASE11_REVIEW.md`
+  - `docs/audit/AUDIT_INDEX.md` Cycle 11 row
+  - Stop-Ship No; P0/P1/P2 all 0
+- Completed `SAS-MI-003: Asset Universe And Alias Registry`:
+  - created `src/signal_sandbox/assets/`
+  - created `tests/unit/test_asset_registry.py`
+  - created `docs/specs/ASSET_UNIVERSE.md`
+  - resolution returns `exact`, `ambiguous`, or `unresolved` with evidence
+  - seed assets cover BTC, ETH, SOL, SPY, QQQ, Phase 10 observed tickers, and
+    unresolved fallback
+  - no market data was fetched
+- Completed `SAS-MI-004: Market Data Store Contract`:
+  - created `src/signal_sandbox/market_data/`
+  - created `tests/unit/test_market_data_store.py`
+  - created `docs/specs/MARKET_DATA_STORE.md`
+  - local snapshots preserve provider, canonical asset, provider symbol,
+    timeframe, source range, captured_at, data_sha256, license, and provenance
+  - identical rewrites are idempotent; different-byte overwrites are rejected
+  - no paid/network market-data provider was added
+- Completed `SAS-MI-005: Deterministic Horizon Metrics`:
+  - created `src/signal_sandbox/market_data/metrics.py`
+  - created `tests/unit/test_horizon_metrics.py`
+  - computes 1d, 3d, 7d, and 30d returns plus MFE/MAE
+  - returns explicit unresolved asset, non-directional, and insufficient-data
+    statuses
+  - no LLM, RAG, retrieval, or analyst-summary dependency was added
+- Phase 12 deep review completed and archived:
+  - `docs/archive/PHASE12_REVIEW.md`
+  - `docs/audit/AUDIT_INDEX.md` Cycle 12 row
+  - Stop-Ship No; P0/P1/P2 all 0
+- Completed `SAS-MI-006: SourceDocument Corpus Schema`:
+  - created `src/signal_sandbox/corpus/`
+  - created `tests/unit/test_source_document.py`
+  - created `docs/specs/SOURCE_CORPUS.md`
+  - conversion from `CapturedPost` preserves evidence URL and text hash
+  - optional media/transcript/OCR refs are evidence links only
+  - no transcription/OCR provider, embeddings, vector store, or retrieval API
+    was added
+- Completed `SAS-MI-007: Channel Profile Registry`:
+  - created `src/signal_sandbox/profiles/`
+  - created `tests/unit/test_channel_profile.py`
+  - created `docs/specs/CHANNEL_PROFILES.md`
+  - preserved `bablos79` profile_state values from the Phase 10 lexicon
+  - unknown channel lookup returns no profile instead of falling back
+- Phase 13 deep review completed and archived:
+  - `docs/archive/PHASE13_REVIEW.md`
+  - `docs/audit/AUDIT_INDEX.md` Cycle 13 row
+  - Stop-Ship No; P0/P1/P2 all 0
+- Completed `SAS-MI-008: Local Retrieval Store Prototype`:
+  - created `src/signal_sandbox/retrieval/`
+  - created `tests/unit/test_retrieval_store.py`
+  - added `duckdb` as the local retrieval metadata substrate
+  - ingestion preserves stable `SourceDocument` IDs and citation metadata
+  - deterministic vector sidecars and embedding/index metadata are recorded
+  - repeated ingestion is idempotent
+  - no approved ledger writer, market-data writer, metric writer, runtime LLM
+    call, or network path was added
+- Completed `SAS-MI-009: Cited Retrieval API`:
+  - created `src/signal_sandbox/retrieval/query.py`
+  - created `tests/unit/test_retrieval_query.py`
+  - returns document_id, snippet, score, source timestamp, evidence URL, and
+    text_sha256 for each result
+  - deterministic channel/time filters are covered
+  - uncited result models are rejected
+  - no approved ledger writer, market-data writer, metric writer, report
+    writer, runtime LLM call, network path, or agent loop was added
+- Phase 14 deep review completed and archived:
+  - `docs/archive/PHASE14_REVIEW.md`
+  - `docs/audit/AUDIT_INDEX.md` Cycle 14 row
+  - Stop-Ship No; P0/P1/P2 all 0
+- Completed `SAS-MI-010: MarketIdea Draft Extractor`:
+  - created `src/signal_sandbox/market_ideas/`
+  - created `tests/unit/test_market_idea_extractor.py`
+  - deterministic extractor classifies all required MarketIdea categories
+  - direct evidence spans are preserved
+  - drafts remain unapproved and review-pending
+- Completed `SAS-MI-011: MarketIdea Batch Draft Export`:
+  - created `src/signal_sandbox/market_ideas/export.py`
+  - created `tests/unit/test_market_idea_export.py`
+  - created `docs/pilot/MARKET_IDEA_DRAFTS_BABLOS79.md`
+  - export contains one row per source document
+  - draft approval state and final review status remain separate
+  - no approved ledger, outcome, or report side effects were added
+- Phase 15 deep review completed and archived:
+  - `docs/archive/PHASE15_REVIEW.md`
+  - `docs/audit/AUDIT_INDEX.md` Cycle 15 row
+  - Stop-Ship No; P0/P1/P2 all 0
+- Completed `SAS-MI-012: MarketIdea Outcome Evaluator`:
+  - created `src/signal_sandbox/market_ideas/outcomes.py`
+  - created `tests/unit/test_market_idea_outcomes.py`
+  - resolves assets through the asset registry without guessing
+  - computes horizon metrics through deterministic market-data metrics
+  - records source document ID, market idea ID, asset ID, snapshot ID, and
+    metric version
+- Completed `SAS-MI-013: Author Metrics Aggregator`:
+  - created `src/signal_sandbox/market_ideas/author_metrics.py`
+  - created `tests/unit/test_author_metrics.py`
+  - aggregates counts by idea type, asset type, horizon status, and review
+    status
+  - computes directional hit rate only for evaluable directional outcomes
+  - reports null/non-market content separately
+- Phase 16 deep review completed and archived:
+  - `docs/archive/PHASE16_REVIEW.md`
+  - `docs/audit/AUDIT_INDEX.md` Cycle 16 row
+  - Stop-Ship No; P0/P1/P2 all 0
+- Completed `SAS-MI-014: Batch Analyst Contract`:
+  - created `src/signal_sandbox/batch_analyst/`
+  - created `tests/unit/test_batch_analyst_contract.py`
+  - created `docs/specs/BATCH_ANALYST.md`
+  - contract declares scope, fixed allowed operations, max iterations,
+    retrieval cap, cost cap, and stop reasons
+  - audit log records retrieval, metric read, prompt input, and memo checksums
+  - no shell/network/broker/report publisher surface was added
 
 ## Remaining Work
 
-- Run `SAS-MI-001: Author Market Intelligence Architecture ADR`.
+- Implement `SAS-MI-015: Internal Analyst Memo Export`.
 - Human exception review of `docs/pilot/bablos79_REVIEW_QUEUE.md` remains a
   useful parallel product action, but it no longer blocks planning the broader
   architecture.
@@ -156,15 +288,14 @@ Use this file only at a phase boundary, context rollover, or limit recovery.
 
 - Human review is required before any approved ledger rows, customer-facing
   claims, or final report interpretation.
-- `SAS-MI-001` must decide capability-profile activation and runtime/storage
-  boundaries before RAG/vector/agent-loop implementation begins.
+- `SAS-MI-007` must preserve profile states and avoid unknown-channel fallback
+  to `bablos79`.
 
 ## Resume Instruction
 
 Continue this product from `RUNBOOK.md`, `AGENT_NOTES.md`, this
 `PHASE_HANDOFF.md`, `docs/CODEX_PROMPT.md`, and `docs/tasks.md`.
-Do not spawn nested Codex. Continue with `SAS-MI-001` from `docs/tasks.md`.
+Do not spawn nested Codex. Continue with `SAS-MI-007` from `docs/tasks.md`.
 Do not write approved ledger records from draft/parser output without human
 review. Do not implement vector storage, embeddings, market-data expansion, or
-batch-agent code before the ADR updates the architecture and capability
-profiles.
+batch-agent code during the channel profile task.

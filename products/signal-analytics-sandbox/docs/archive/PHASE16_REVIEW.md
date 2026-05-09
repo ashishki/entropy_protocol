@@ -11,35 +11,6 @@ _Date: 2026-05-09 · Scope: SAS-MI-012–SAS-MI-013_
 - Local validation passes: 129 tests, 0 skipped; `ruff check src/ tests/` passes; `.venv/bin/pyright` passes.
 - No P0, P1, or P2 findings were found.
 
-## P0 Issues
-
-None.
-
-## P1 Issues
-
-None.
-
-## P2 Issues
-
-| ID | Description | Files | Status |
-|----|-------------|-------|--------|
-| none | No P2 findings in this cycle. | - | - |
-
-## Code Review Summary
-
-CODE review done. P0: 0, P1: 0, P2: 0.
-
-Checked scope:
-
-- `src/signal_sandbox/market_ideas/outcomes.py`
-- `src/signal_sandbox/market_ideas/author_metrics.py`
-- `tests/unit/test_market_idea_outcomes.py`
-- `tests/unit/test_author_metrics.py`
-
-Findings: none. The scoped code contains no secrets, no network calls, no
-runtime LLM calls, no RAG/agent metric ownership, no approved-ledger mutation,
-no report writer, and no shell mutation.
-
 ## Stop-Ship Decision
 
 No — Phase 16 is safe to archive. Phase 17 may start with `SAS-MI-014`.

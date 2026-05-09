@@ -1503,7 +1503,7 @@ Notes: |
 
 ## Phase 11 — Author Market Intelligence Architecture Reset
 
-### SAS-MI-001: Author Market Intelligence Architecture ADR
+### SAS-MI-001: Author Market Intelligence Architecture ADR ✅
 
 Owner:      codex
 Phase:      11
@@ -1555,7 +1555,7 @@ Notes: |
 
 ---
 
-### SAS-MI-002: MarketIdea Schema And Metrics Contract
+### SAS-MI-002: MarketIdea Schema And Metrics Contract ✅
 
 Owner:      codex
 Phase:      11
@@ -1605,7 +1605,7 @@ Notes: |
 
 ## Phase 12 — Asset Universe And Market-Data Foundation
 
-### SAS-MI-003: Asset Universe And Alias Registry
+### SAS-MI-003: Asset Universe And Alias Registry ✅
 
 Owner:      codex
 Phase:      12
@@ -1640,7 +1640,7 @@ Files:
 
 ---
 
-### SAS-MI-004: Market Data Store Contract
+### SAS-MI-004: Market Data Store Contract ✅
 
 Owner:      codex
 Phase:      12
@@ -1675,7 +1675,7 @@ Files:
 
 ---
 
-### SAS-MI-005: Deterministic Horizon Metrics
+### SAS-MI-005: Deterministic Horizon Metrics ✅
 
 Owner:      codex
 Phase:      12
@@ -1711,7 +1711,7 @@ Files:
 
 ## Phase 13 — Universal Source Corpus And Channel Profiles
 
-### SAS-MI-006: SourceDocument Corpus Schema
+### SAS-MI-006: SourceDocument Corpus Schema ✅
 
 Owner:      codex
 Phase:      13
@@ -1743,7 +1743,7 @@ Files:
 
 ---
 
-### SAS-MI-007: Channel Profile Registry
+### SAS-MI-007: Channel Profile Registry ✅
 
 Owner:      codex
 Phase:      13
@@ -1777,7 +1777,7 @@ Files:
 
 ## Phase 14 — Local RAG Context Layer
 
-### SAS-MI-008: Local Retrieval Store Prototype
+### SAS-MI-008: Local Retrieval Store Prototype ✅
 
 Owner:      codex
 Phase:      14
@@ -1811,7 +1811,7 @@ Files:
 
 ---
 
-### SAS-MI-009: Cited Retrieval API
+### SAS-MI-009: Cited Retrieval API ✅
 
 Owner:      codex
 Phase:      14
@@ -1844,7 +1844,7 @@ Files:
 
 ## Phase 15 — Market Idea Extraction
 
-### SAS-MI-010: MarketIdea Draft Extractor
+### SAS-MI-010: MarketIdea Draft Extractor ✅
 
 Owner:      codex
 Phase:      15
@@ -1875,7 +1875,7 @@ Files:
 
 ---
 
-### SAS-MI-011: MarketIdea Batch Draft Export
+### SAS-MI-011: MarketIdea Batch Draft Export ✅
 
 Owner:      codex
 Phase:      15
@@ -1909,7 +1909,7 @@ Files:
 
 ## Phase 16 — Deterministic Thesis Evaluation
 
-### SAS-MI-012: MarketIdea Outcome Evaluator
+### SAS-MI-012: MarketIdea Outcome Evaluator ✅
 
 Owner:      codex
 Phase:      16
@@ -1940,7 +1940,7 @@ Files:
 
 ---
 
-### SAS-MI-013: Author Metrics Aggregator
+### SAS-MI-013: Author Metrics Aggregator ✅
 
 Owner:      codex
 Phase:      16
@@ -1973,7 +1973,7 @@ Files:
 
 ## Phase 17 — Bounded Batch Analyst
 
-### SAS-MI-014: Batch Analyst Contract
+### SAS-MI-014: Batch Analyst Contract ✅
 
 Owner:      codex
 Phase:      17

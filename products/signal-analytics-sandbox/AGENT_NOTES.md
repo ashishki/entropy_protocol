@@ -233,10 +233,68 @@ Result on 2026-05-07:
     `PHASE_HANDOFF.md`, and `MEMORY.md`.
   - Recorded D-019/D-020: Phase 10 remains the first channel profile/corpus
     seed; RAG/Planning/Agentic implementation requires `SAS-MI-001` ADR first.
-  - Next task is now `SAS-MI-001: Author Market Intelligence Architecture ADR`.
+  - Completed `SAS-MI-001: Author Market Intelligence Architecture ADR`:
+    created `docs/adr/ADR-002-author-market-intelligence.md`, updated
+    `docs/ARCHITECTURE.md`, and recorded D-021.
+  - ADR-002 activates RAG for local cited context only and Agentic for a
+    bounded internal batch analyst only; Tool-Use and Planning remain OFF;
+    runtime remains T0; first retrieval substrate is local DuckDB plus local
+    vector/index sidecar files.
+  - Completed `SAS-MI-002: MarketIdea Schema And Metrics Contract`: created
+    `docs/specs/MARKET_IDEA_SCHEMA.md` with field contract, enum values,
+    evidence-span rules, deterministic horizons, review queue policy, examples,
+    and SignalRecord compatibility.
+  - Phase 11 deep review archived at `docs/archive/PHASE11_REVIEW.md` with
+    Stop-Ship No and P0/P1/P2 all 0.
+  - Completed `SAS-MI-003: Asset Universe And Alias Registry` with
+    `src/signal_sandbox/assets/`, focused tests, and
+    `docs/specs/ASSET_UNIVERSE.md`.
+  - Completed `SAS-MI-004: Market Data Store Contract` with
+    `src/signal_sandbox/market_data/`, focused tests, and
+    `docs/specs/MARKET_DATA_STORE.md`.
+  - Completed `SAS-MI-005: Deterministic Horizon Metrics` with
+    `src/signal_sandbox/market_data/metrics.py` and focused tests.
+  - Phase 12 deep review archived at `docs/archive/PHASE12_REVIEW.md` with
+    Stop-Ship No and P0/P1/P2 all 0.
+  - Completed `SAS-MI-006: SourceDocument Corpus Schema` with
+    `src/signal_sandbox/corpus/`, focused tests, and
+    `docs/specs/SOURCE_CORPUS.md`.
+  - Completed `SAS-MI-007: Channel Profile Registry` with
+    `src/signal_sandbox/profiles/`, focused tests, and
+    `docs/specs/CHANNEL_PROFILES.md`.
+  - Phase 13 deep review archived at `docs/archive/PHASE13_REVIEW.md` with
+    Stop-Ship No and P0/P1/P2 all 0.
+  - Completed `SAS-MI-008: Local Retrieval Store Prototype` with
+    `src/signal_sandbox/retrieval/`, focused tests, and local DuckDB plus
+    deterministic vector sidecars.
+  - Completed `SAS-MI-009: Cited Retrieval API` with cited snippets, scores,
+    source timestamps, evidence URLs, text hashes, and deterministic
+    channel/time filters.
+  - Phase 14 deep review archived at `docs/archive/PHASE14_REVIEW.md` with
+    Stop-Ship No and P0/P1/P2 all 0.
+  - Completed `SAS-MI-010: MarketIdea Draft Extractor` with
+    `src/signal_sandbox/market_ideas/`, focused tests, all required idea
+    categories, preserved evidence spans, and unapproved review-pending drafts.
+  - Completed `SAS-MI-011: MarketIdea Batch Draft Export` with one row per
+    source document, separate draft/final review states, queue reasons,
+    candidate assets, horizons, and no approved ledger/outcome/report writes.
+  - Phase 15 deep review archived at `docs/archive/PHASE15_REVIEW.md` with
+    Stop-Ship No and P0/P1/P2 all 0.
+  - Completed `SAS-MI-012: MarketIdea Outcome Evaluator` with asset resolution,
+    unresolved/ambiguous preservation, deterministic horizon metrics, and
+    required outcome provenance.
+  - Completed `SAS-MI-013: Author Metrics Aggregator` with counts by type,
+    asset type, horizon status, review status, directional hit rate limited to
+    evaluable directional outcomes, and separate null/non-market rate.
+  - Phase 16 deep review archived at `docs/archive/PHASE16_REVIEW.md` with
+    Stop-Ship No and P0/P1/P2 all 0.
+  - Completed `SAS-MI-014: Batch Analyst Contract` with fixed allowed
+    operations, max iterations, retrieval cap, cost cap, stop reasons, and audit
+    checksums; no shell/network/broker/report publisher surface was added.
+  - Next task is `SAS-MI-015: Internal Analyst Memo Export`.
 - The three pilot sources are customer/potential-customer provided and should
   be handled through the Phase 9 validation loop before any additional
   automation.
 - Do not build bot/SaaS/private scraping/copy trading/broker/public leaderboard
-  expansion. Do not implement vector storage, embeddings, market-data expansion,
-  or batch-agent code before `SAS-MI-001`.
+  expansion. Do not implement retrieval, embeddings, market-data expansion, or
+  batch-agent code outside the active scoped task.

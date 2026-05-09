@@ -1,8 +1,8 @@
 # Architecture — Signal Analytics Sandbox
 
-Version: 1.1
+Version: 1.2
 Last updated: 2026-05-09
-Status: Phase 10 complete; Phase 11 Author Market Intelligence architecture reset planned
+Status: Phase 11 Author Market Intelligence architecture reset accepted by ADR-002
 
 ---
 
@@ -16,9 +16,9 @@ Phase 11 expands the product target to **Author Market Intelligence**. The new
 direction keeps the Phase 10 draft extraction work as the first channel profile
 and adds a planned path toward source-corpus normalization, local retrieval,
 market-idea extraction, deterministic thesis evaluation, and bounded batch
-analysis. The first Phase 11 task (`SAS-MI-001`) must decide capability-profile
-activation and runtime/storage choices through ADR before any RAG, vector store,
-or agent-loop implementation begins.
+analysis. ADR-002 accepts local, cited, context-only RAG and a bounded internal
+batch analyst while preserving deterministic market data, approved records,
+prices, returns, outcome metrics, and customer-facing claims as non-LLM truth.
 
 See `docs/pilot/AUTHOR_MARKET_INTELLIGENCE_ROADMAP.md` for the detailed
 development roadmap.
@@ -29,7 +29,7 @@ development roadmap.
 
 ### 1. Solution Shape Recommendation
 
-**Hybrid** — deterministic core for ledger, outcome matching, and report generation; bounded workflow orchestration for the operator capture/extraction pipeline; LLM-assist as a gated, human-reviewed adapter (not a primary path).
+**Hybrid** — deterministic core for ledger, outcome matching, market-idea metrics, and report generation; bounded workflow orchestration for the operator capture/extraction pipeline; local RAG as cited context only; LLM-assist as a gated, human-reviewed adapter and, later, a bounded internal batch analyst.
 
 ### 2. Rejected Simpler Alternatives
 
@@ -37,8 +37,8 @@ development roadmap.
 |-----------------|------------------|
 | Pure deterministic, no LLM at all | Manual extraction does not scale once paid pilots prove demand; we want a pre-built escalation path so that "add LLM later" is a contract change, not a re-architecture. |
 | Pure workflow with no deterministic core | Audit/explainability needs are very high — every reported signal must trace to a deterministic outcome rule, not a probabilistic judgment. |
-| Bounded ReAct / tool-using agent | No multi-step decision loop is needed. A single-pass extraction draft per post, gated by human review, suffices. |
-| Higher-autonomy agent | Forbidden by the brief — autonomous scraping, autonomous publication, and unsupervised LLM "truth" are explicit non-goals. |
+| Open-ended ReAct / tool-using agent | Too much autonomy for the audit product. ADR-002 allows only a bounded internal batch analyst with fixed operation, iteration, and stop limits. |
+| Higher-autonomy agent | Forbidden by the brief and ADR-002 — autonomous scraping, autonomous publication, and unsupervised LLM "truth" are explicit non-goals. |
 
 ### 3. Runtime Recommendation
 
@@ -68,6 +68,8 @@ development roadmap.
 | Deduplication and ambiguity flagging | Deterministic | Rule-based (timestamp + symbol + direction key). |
 | Provenance/snapshot recording | Deterministic | Append-only metadata. |
 | Extraction draft from messy text | LLM-optional | Adapter — manual + parser are default; LLM is a gated escalation. |
+| Retrieval context over source corpus / author profile | RAG context-only | Cited context assembly; cannot approve records or produce deterministic metrics. |
+| Internal batch analyst memo | Bounded agentic | May retrieve cited context and read deterministic metrics, then draft an internal memo with an audit log and explicit stop reason. |
 
 ### 6. Human Approval Boundaries
 
@@ -78,6 +80,7 @@ development roadmap.
 | Public report release | Yes | Reputational and legal exposure on every published report. |
 | Activating LLM extraction adapter (cost-capped) | Yes | Cost discipline + non-truth posture. |
 | Activating a paid price-data provider | Yes | Cost discipline; brief forbids paid-API dependency before paid-pilot validation. |
+| Using batch analyst output in a customer-facing report | Yes | Analyst text is not approved report truth without human review. |
 | Re-running a deterministic report on existing approved ledger + snapshot | No | Pure reproducibility; no judgment. |
 
 ### 7. Minimum Viable Control Surface
@@ -105,6 +108,8 @@ LLM is opt-in and gated. Default path is fully deterministic + manual/parser-bas
 | Workload | Deterministic alternative | Chosen model class | Why this class | Fallback / escalation | Validation metric |
 |----------|---------------------------|---------------------|----------------|-----------------------|-------------------|
 | Extraction draft from messy public text (Phase 6) | Manual extraction + rule/regex parsers (default) | Small structured-output model (e.g., Claude Haiku 4.5 or local Ollama small model) | Cost sensitivity is high; structured output is the only required capability; reasoning depth is low (extract one trade record from one post). | If model fails or is withdrawn, fall back to manual + parser adapters with no behavior change. | Extraction acceptance rate by human reviewer; cost per accepted record; defer-to-human rate. |
+| Retrieval-assisted author context (Phase 14+) | Manual review of source corpus and author profile | Embedding model for local context retrieval only | Needed to find prior author statements, asset aliases, and thesis history across a growing corpus. | If retrieval quality regresses, disable RAG and use deterministic corpus filters/manual review. | Citation hit rate, insufficient-context rate, and no mutation of deterministic artifacts. |
+| Bounded internal analyst memo (Phase 17+) | Human analyst reads corpus/metrics manually | Small/medium reasoning model with fixed prompt and max iteration budget | Summarization and synthesis over cited context and deterministic metrics, not metric generation. | Disable agentic memo path and keep deterministic report artifacts. | Audit-log completeness, citation coverage, explicit stop reason, and human acceptance rate. |
 | Outcome calculation, returns, statistics, report rendering | Always deterministic | None | LLMs introduce variance; brief forbids LLM-derived "truth" in stats. | N/A | N/A |
 
 Preview-model tolerance: low for extraction drafts, zero for any path that touches outcomes or report numbers.
@@ -115,7 +120,7 @@ Preview-model tolerance: low for extraction drafts, zero for any path that touch
 
 | Decision | Selection | Justification |
 |----------|-----------|---------------|
-| Primary shape | Hybrid (deterministic core + bounded workflow + gated LLM-assist adapter) | Minimum sufficient — deterministic where reproducibility matters, LLM only as a gated extraction escalation. |
+| Primary shape | Hybrid (deterministic core + bounded workflow + gated LLM/RAG assistance) | Minimum sufficient — deterministic where reproducibility matters, RAG only for cited context, LLM only for reviewable drafts and bounded internal summaries. |
 | Governance level | Lean | Local sandbox, single-operator, no live capital, low blast radius. Audit-heaviness is encoded as project-specific contract rules rather than as Standard-grade ceremony. |
 | Runtime tier | T0 | Local Python; no isolation, mutation, or persistence requirements above what a normal CLI provides. |
 
@@ -125,7 +130,7 @@ Preview-model tolerance: low for extraction drafts, zero for any path that touch
 |-----------------|------------------|
 | Deterministic-only | Manual extraction is the bottleneck for paid pilots. We want a contract-bound LLM escalation path now, even if v1 ships parser-first. |
 | Workflow / human-in-the-loop assistant only | Outcome matching and report rendering must be deterministic, not workflow-orchestrated guesses. |
-| Simple tool use without planning / loops | Adequate, but indistinguishable from "deterministic + adapter" — we name the latter explicitly because the LLM is an adapter, not an LLM-directed tool call at inference time. |
+| Simple tool use without planning / loops | Adequate for current adapters, but insufficient for the Phase 17 bounded analyst. ADR-002 allows only constrained agentic analysis, not arbitrary tool use. |
 
 ### Minimum Viable Control Surface
 
@@ -134,6 +139,8 @@ Preview-model tolerance: low for extraction drafts, zero for any path that touch
 - Every report records the price snapshot's provider, as-of timestamp, and SHA-256.
 - Every report includes a non-advice disclaimer block.
 - LLM extraction, if activated, is cost-capped per run and gated by human approval.
+- RAG retrieval returns cited context only and cannot update deterministic artifacts.
+- Batch analyst runs, if activated, emit audit logs and explicit stop reasons.
 
 ### Human Approval Boundaries
 
@@ -144,6 +151,7 @@ Preview-model tolerance: low for extraction drafts, zero for any path that touch
 | Public report release | Yes | Reputational/legal exposure. |
 | Activating LLM extraction adapter | Yes | Cost discipline + non-truth posture. |
 | Activating paid price-data adapter | Yes | Cost discipline (brief forbids paid-API before validation). |
+| Using batch analyst output in customer-facing material | Yes | Agentic summaries are internal drafts until human-reviewed. |
 | Re-running deterministic report on approved inputs | No | Pure reproducibility. |
 
 ### Deterministic vs LLM-Owned Subproblems
@@ -154,6 +162,8 @@ Preview-model tolerance: low for extraction drafts, zero for any path that touch
 | Outcome matching, return / MAE / MFE / aggregated stats | Deterministic | Audit/correctness is a hard contract. |
 | Report rendering (Markdown, including disclaimers and provenance) | Deterministic | Templated; no LLM in v1 reports. |
 | Extraction draft from messy text | LLM-optional adapter | Manual + parser is default; LLM is a gated escalation only. |
+| Retrieval context over source corpus / author profile | RAG context-only | Cited context assembly; no final truth or metric ownership. |
+| Internal batch analyst memo | Bounded agentic | Drafts internal summaries from cited context and deterministic metrics; cannot publish or mutate truth artifacts. |
 
 ### Runtime and Isolation Model
 
@@ -168,6 +178,11 @@ Preview-model tolerance: low for extraction drafts, zero for any path that touch
 
 T1/T2/T3 are not justified. A future long-running collector service or hosted SaaS would require an ADR and a separate runtime decision.
 
+ADR-002 keeps Author Market Intelligence at T0. The first retrieval substrate is
+local DuckDB plus local vector/index sidecar files under the operator
+workspace. No PostgreSQL service, hosted vector database, persistent worker,
+shell mutation, or runtime package installation is approved.
+
 ---
 
 ## Inference / Model Strategy
@@ -175,6 +190,8 @@ T1/T2/T3 are not justified. A future long-running collector service or hosted Sa
 | Path / Task | Model class | Why this class | Fallback / escalation | Budget / latency constraint |
 |-------------|-------------|----------------|-----------------------|-----------------------------|
 | Extraction draft (Phase 6, opt-in) | small structured-output model (Claude Haiku 4.5 or local Ollama small model) | Lowest sufficient for one-post → one structured record; structured output is the only hard capability requirement. | Local Ollama small model as fallback if cloud provider is degraded or cost-capped; manual + parser as ultimate fallback. | Per-pilot run cost cap declared in `signal-sandbox` config; latency p95 ≤ 10 s per post is acceptable. |
+| Retrieval-assisted author context (Phase 14+, opt-in by task) | embedding model only for local context retrieval | Finds prior author statements and profile context as corpus size grows; output remains cited context. | Disable RAG and fall back to deterministic corpus filters/manual review. | Local index rebuild must record model/provider/version/checksum. |
+| Bounded internal analyst memo (Phase 17+, opt-in by task) | small/medium reasoning model with fixed prompt, fixed operations, max iterations | Summarizes cited context and deterministic metrics; does not compute truth. | Disable agentic memo path and produce manual analyst notes. | Audit log required; explicit stop reason required. |
 | Any path that touches outcomes, returns, statistics, or report numbers | None — deterministic only | Brief forbids LLM-derived numerical "truth". | N/A | N/A |
 
 Rules:
@@ -189,26 +206,27 @@ Rules:
 
 | Profile    | Status | Declared in Phase | Notes |
 |------------|--------|-------------------|-------|
-| RAG        | OFF    | 1                 | No managed corpus, no ingestion pipeline; per-post extraction needs no retrieval. |
+| RAG        | ON     | 11                | ADR-002 approves local, cited, context-only retrieval over source corpus, author profiles, asset aliases, and prior extracted ideas. Implementation starts no earlier than Phase 14. |
 | Tool-Use   | OFF    | 1                 | Price-data adapters and LLM extraction are deterministic application code, not LLM-directed tool calls at inference time. |
-| Agentic    | OFF    | 1                 | Single-pass extraction with human review; no decision loop. |
+| Agentic    | ON     | 11                | ADR-002 approves a bounded internal batch analyst only: fixed operations, max iterations, audit log, explicit stop reason, no mutation or publication. Implementation starts no earlier than Phase 17. |
 | Planning   | OFF    | 1                 | No structured plan output as primary deliverable. |
 | Compliance | OFF    | 1                 | No named regulatory framework (HIPAA/SOC 2/PCI-DSS/GDPR) applies. ToS / non-advice / public-source rules are enforced as project-specific contract rules. |
 
-**RAG OFF — Justification.** The system processes individual public posts and a finite per-pilot ledger. The knowledge needed to extract or evaluate a signal is contained in the post itself plus the price snapshot. There is no large document corpus, no citation requirement that needs retrieval (citations are simple URL/timestamp pairs), and no knowledge that changes faster than the code deploy cycle. Adding retrieval would be speculative complexity.
+**RAG ON — Justification.** Author Market Intelligence now needs prior author statements, channel profile context, asset aliases, thesis history, and nearby source-corpus evidence across more than one post. Retrieval is local and context-only: it returns cited source document IDs and confidence metadata, and it cannot approve records, write ledgers, change market data, compute prices/returns, or create outcome metrics.
 
 **Tool-Use OFF — Justification.** The LLM (when used) receives a post text and returns a structured record. It does not call tools, query APIs at inference time, or take side-effecting actions. Price providers and ledger I/O are deterministic application code paths invoked by the operator workflow, not LLM-directed.
 
-**Agentic OFF — Justification.** Each post is processed in a single pass, output is human-reviewed, and there is no observe → decide → act → observe loop. Even the operator workflow is a fixed pipeline, not an agent.
+**Agentic ON — Justification.** Phase 17 may use a bounded internal batch analyst that retrieves cited context, reads deterministic market/metric artifacts, drafts an internal memo, and stops. It is not allowed to collect sources, mutate ledgers, approve records, compute outcome truth, publish reports, run shell commands, install packages, or call brokers. Every run must log inputs, citations, metric artifact IDs, iteration count, prompt/version identifiers, output path, and stop reason.
 
 **Planning OFF — Justification.** The system produces signal ledgers and audit reports, not structured plans consumed by downstream automation. No plan schema, no plan-to-execution contract.
 
 **Compliance OFF — Justification.** No PHI, PII (beyond public-author handles), PAN, or government-classified data. No HIPAA/SOC 2/PCI/GDPR framework applies. ToS-respect, public-source-only, and non-advice-claim rules are encoded as project-specific contract rules in `docs/IMPLEMENTATION_CONTRACT.md`.
 
-Phase 11 note: RAG, Planning, and Agentic profiles remain OFF until
-`SAS-MI-001` records an ADR and updates this table. The roadmap intentionally
-plans RAG and a bounded batch analyst, but implementation must not precede the
-profile/runtime decision.
+Phase 11 note: ADR-002 activates RAG and Agentic profiles, keeps Planning and
+Tool-Use OFF, keeps runtime tier T0, and selects local DuckDB plus local
+vector/index sidecar files as the first retrieval substrate. Activation is a
+governance decision only; implementation still waits for the scoped tasks in
+Phases 14 and 17.
 
 ---
 
@@ -226,6 +244,14 @@ profile/runtime decision.
 | Draft validation | `src/signal_sandbox/extraction/draft_validation.py` | Deterministically verifies pseudo-label evidence spans and candidate fields against raw capture text. |
 | Draft parser | `src/signal_sandbox/extraction/draft_parser.py` | Pure/local parser over `CapturedPost` plus static accepted author-profile terms; returns review-only draft statuses. |
 | Draft export | `src/signal_sandbox/extraction/draft_export.py` | Deterministically renders review-pending draft rows; never writes approved ledger records. |
+| Asset universe | `src/signal_sandbox/assets/` | Canonical asset and alias schemas; deterministic exact/ambiguous/unresolved alias resolution without market-data fetches. |
+| Market data store | `src/signal_sandbox/market_data/` | Immutable local OHLCV snapshots with provider, canonical asset, symbol, timeframe, range, checksum, license, and provenance metadata. |
+| Horizon metrics | `src/signal_sandbox/market_data/metrics.py` | Deterministic 1d/3d/7d/30d returns, MFE, MAE, and explicit unresolved/insufficient/non-directional statuses. |
+| Source corpus | `src/signal_sandbox/corpus/` | Normalize captures, transcripts, OCR references, evidence URLs, timestamps, and hashes into stable source documents. |
+| Channel profile registry | `src/signal_sandbox/profiles/` | Versioned channel-specific lexicons, modality flags, and review rules; unknown channels do not inherit another channel's parser boundaries. |
+| Retrieval context | `src/signal_sandbox/retrieval/` | Local DuckDB-backed ingestion catalog, deterministic vector sidecars, and cited query API over source documents; context-only and cannot mutate truth artifacts. |
+| Market idea extraction | `src/signal_sandbox/market_ideas/` | Deterministic review-pending MarketIdea drafts for trade setups, directional theses, regime comments, watchlists, catalyst reactions, risk warnings, and non-market content. |
+| Batch analyst (planned) | `src/signal_sandbox/analysis/` | Bounded internal analyst memo workflow with fixed operations, audit log, and explicit stop reason. |
 | Signal record schema | `src/signal_sandbox/ledger/record.py` | `SignalRecord` Pydantic model + validation rules. |
 | Ledger I/O | `src/signal_sandbox/ledger/io.py` | Read/write ledger files (JSON for raw, Parquet for normalized); idempotent. |
 | Dedup + ambiguity | `src/signal_sandbox/ledger/dedup.py` | Deterministic dedup keys; ambiguity flagging. |

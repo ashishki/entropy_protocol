@@ -202,3 +202,115 @@ This file is durable handoff context across agents and sessions. It records what
 - Decisions applied: D-019 and D-020. Phase 10 artifacts remain useful and become the first channel profile/corpus seed. RAG, Planning, and Agentic work is planned but still gated by `SAS-MI-001` before implementation.
 - Evidence collected: created `docs/pilot/AUTHOR_MARKET_INTELLIGENCE_ROADMAP.md`; appended Phases 11-19 and tasks `SAS-MI-001..018` to `docs/tasks.md`; updated `README.md`, `docs/ARCHITECTURE.md`, `docs/DECISION_LOG.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `MEMORY.md`, and `AGENT_NOTES.md` for the new stage. Validation after planning docs: 94 passed, 0 skipped; `ruff check src/ tests/` and `.venv/bin/pyright` pass.
 - Follow-ups: run `SAS-MI-001: Author Market Intelligence Architecture ADR` next. Do not implement vector storage, embeddings, market-data expansion, or batch-agent code before the ADR updates capability profiles and runtime/storage boundaries.
+
+### 2026-05-09 — SAS-MI-001 — Author Market Intelligence Architecture ADR
+
+- Scope: `docs/adr/ADR-002-author-market-intelligence.md`, `docs/ARCHITECTURE.md`, `docs/DECISION_LOG.md`, `docs/CODEX_PROMPT.md`, `docs/tasks.md`.
+- Why this work happened: Phase 11 needed an explicit architecture gate before RAG, vector storage, market-data expansion, or batch-agent work could begin.
+- Decisions applied: D-021. ADR-002 activates RAG for local cited context only, activates Agentic only for a bounded internal batch analyst, keeps Tool-Use and Planning OFF, keeps runtime T0, and selects local DuckDB plus local vector/index sidecar files as the first retrieval substrate.
+- Evidence collected: ADR-002 cites the Author Market Intelligence roadmap and Phase 10 `bablos79` artifacts as the initial corpus/profile seed. Architecture capability profiles now match the ADR. No product code, embeddings, vector storage, market-data expansion, approved ledger writes, or batch-agent code were added. Validation after doc gate: 94 passed, 0 skipped; `ruff check src/ tests/` and `.venv/bin/pyright` pass.
+- Follow-ups: run `SAS-MI-002: MarketIdea Schema And Metrics Contract` next. Keep deterministic market data as the only source of prices, returns, approved records, and outcome metrics.
+
+### 2026-05-09 — SAS-MI-002 — MarketIdea Schema And Metrics Contract
+
+- Scope: `docs/specs/MARKET_IDEA_SCHEMA.md`, `docs/CODEX_PROMPT.md`, `docs/tasks.md`.
+- Why this work happened: Phase 11 needed a schema and deterministic metric contract before Phase 12 adds asset resolution code.
+- Decisions applied: ADR-002 deterministic-truth boundary; RAG context-only boundary; existing `SignalRecord` and outcome matcher semantics remain the strict trade/evaluation baseline.
+- Evidence collected: created `docs/specs/MARKET_IDEA_SCHEMA.md` with required and optional fields, enum values, evidence-span rules, approval states, draft-only labels, deterministic horizons, metric outputs, review queue policy, examples, and SignalRecord compatibility rules. No product code, market-data fetch, embeddings, vector storage, approved ledger writes, or batch-agent code were added. Validation after spec: 94 passed, 0 skipped; `ruff check src/ tests/` and `.venv/bin/pyright` pass.
+- Follow-ups: run Phase 11 strategy/deep review/archive before implementing `SAS-MI-003: Asset Universe And Alias Registry`.
+
+### 2026-05-09 — SAS-MI-003 — Asset Universe And Alias Registry
+
+- Scope: `src/signal_sandbox/assets/`, `tests/unit/test_asset_registry.py`, `docs/specs/ASSET_UNIVERSE.md`, `docs/ARCHITECTURE.md`, `docs/CODEX_PROMPT.md`, `docs/tasks.md`.
+- Why this work happened: Phase 12 needed deterministic asset identity and alias resolution before market-data store and horizon metrics work.
+- Decisions applied: ADR-002 T0/local-first boundary; `MARKET_IDEA_SCHEMA.md` resolution states; no guessing and no market-data fetches in this task.
+- Evidence collected: added `Asset`, `AssetAlias`, `AliasResolution`, and `AssetRegistry`; resolution normalizes aliases and returns `exact`, `ambiguous`, or `unresolved` with evidence. Seed registry covers BTC, ETH, SOL, SPY, QQQ, Phase 10 observed tickers (AMD, CHMF, GAZP, MAGN, SBER, SFIN, VKCO, VTBR, X5), and an unresolved fallback. Validation after task: 97 passed, 0 skipped; `ruff check src/ tests/` and `.venv/bin/pyright` pass. No market data was fetched.
+- Follow-ups: run `SAS-MI-004: Market Data Store Contract` next.
+
+### 2026-05-09 — SAS-MI-004 — Market Data Store Contract
+
+- Scope: `src/signal_sandbox/market_data/`, `tests/unit/test_market_data_store.py`, `docs/specs/MARKET_DATA_STORE.md`, `docs/ARCHITECTURE.md`, `docs/CODEX_PROMPT.md`, `docs/tasks.md`.
+- Why this work happened: Phase 12 needed immutable local OHLCV snapshot storage before horizon metric evaluation.
+- Decisions applied: ADR-002 T0/local-first boundary; no paid/network provider expansion; snapshot immutability and checksum discipline from the existing price snapshot contract.
+- Evidence collected: added `MarketDataSnapshotMetadata`, `MarketDataSnapshot`, `MarketDataStoreProtocol`, `LocalMarketDataStore`, and `make_operator_file_snapshot()`. Snapshots persist under `workspace/market_data/snapshots/<snapshot_id>/` with deterministic metadata and OHLCV bytes, load verifies checksum, list returns sorted metadata, and different-byte overwrite raises `SnapshotAlreadyExists`. Validation after task: 102 passed, 0 skipped; `ruff check src/ tests/` and `.venv/bin/pyright` pass. No paid or network market-data provider was added.
+- Follow-ups: run `SAS-MI-005: Deterministic Horizon Metrics` next.
+
+### 2026-05-09 — SAS-MI-005 — Deterministic Horizon Metrics
+
+- Scope: `src/signal_sandbox/market_data/metrics.py`, `tests/unit/test_horizon_metrics.py`, `docs/ARCHITECTURE.md`, `docs/CODEX_PROMPT.md`, `docs/tasks.md`.
+- Why this work happened: Phase 12 needed deterministic horizon metrics over local snapshots before source corpus/retrieval work begins.
+- Decisions applied: ADR-002 deterministic-truth boundary; `MARKET_IDEA_SCHEMA.md` metric contract; no LLM/RAG/retrieval/analyst dependency.
+- Evidence collected: added `evaluate_horizon_metrics()` with 1d, 3d, 7d, and 30d returns, MFE, MAE, and explicit `unresolved_asset`, `non_directional`, and `insufficient_data` statuses. Decimal rounding is deterministic. Validation after task: 105 passed, 0 skipped; `ruff check src/ tests/` and `.venv/bin/pyright` pass.
+- Follow-ups: run Phase 12 deep review/archive and continue to `SAS-MI-006: SourceDocument Corpus Schema`.
+
+### 2026-05-09 — SAS-MI-006 — SourceDocument Corpus Schema
+
+- Scope: `src/signal_sandbox/corpus/`, `tests/unit/test_source_document.py`, `docs/specs/SOURCE_CORPUS.md`, `docs/ARCHITECTURE.md`, `docs/CODEX_PROMPT.md`, `docs/tasks.md`.
+- Why this work happened: Phase 13 needed a normalized source-corpus document shape before channel profiles and retrieval implementation.
+- Decisions applied: ADR-002 RAG context-only boundary; public-source evidence preservation; no embeddings/vector/retrieval implementation in this task.
+- Evidence collected: added `SourceDocument` and `from_captured_post()`. The schema preserves capture ID, source ID, author, timestamp, text, evidence URL, text SHA-256, optional media/transcript/OCR references, and metadata. Conversion from `CapturedPost` preserves evidence URL and text hash. Validation after task: 108 passed, 0 skipped; `ruff check src/ tests/` and `.venv/bin/pyright` pass. No transcription/OCR provider, embedding, vector store, or retrieval API was added.
+- Follow-ups: run `SAS-MI-007: Channel Profile Registry` next.
+
+### 2026-05-09 — SAS-MI-007 — Channel Profile Registry
+
+- Scope: `src/signal_sandbox/profiles/`, `tests/unit/test_channel_profile.py`, `docs/specs/CHANNEL_PROFILES.md`, `docs/ARCHITECTURE.md`, `docs/CODEX_PROMPT.md`, `docs/tasks.md`.
+- Why this work happened: Phase 13 needed versioned channel-specific profile state before local retrieval can use author/channel context.
+- Decisions applied: ADR-002 RAG context-only boundary; Phase 10 `bablos79` lexicon remains draft/profile evidence and cannot approve signal truth.
+- Evidence collected: added `ProfileTerm`, `ChannelProfile`, `ChannelProfileRegistry`, and `import_bablos79_profile()`. The importer preserves `accepted_for_draft`, `needs_review`, and `excluded` states from `workspace/lexicons/bablos79_lexicon_draft.json`, records modality flags and review rules, and returns no default profile for unknown channels. Validation after task: 111 passed, 0 skipped; `ruff check src/ tests/` and `.venv/bin/pyright` pass.
+- Follow-ups: run Phase 13 deep review/archive, then continue to `SAS-MI-008: Local Retrieval Store Prototype`.
+
+### 2026-05-09 — SAS-MI-008 — Local Retrieval Store Prototype
+
+- Scope: `src/signal_sandbox/retrieval/`, `tests/unit/test_retrieval_store.py`, `pyproject.toml`, `requirements.txt`, `docs/ARCHITECTURE.md`, `docs/CODEX_PROMPT.md`, `docs/tasks.md`.
+- Why this work happened: Phase 14 needed the ADR-approved local retrieval ingestion substrate before query APIs can return cited context.
+- Decisions applied: ADR-002 RAG context-only boundary; local DuckDB plus vector/index sidecar substrate; retrieval cannot mutate approved ledgers, market data, deterministic metrics, or report truth artifacts.
+- Evidence collected: added `LocalRetrievalStore`, `EmbeddingMetadata`, `IndexedSourceDocument`, deterministic test embeddings, local DuckDB metadata catalog, and deterministic vector sidecar files. Ingestion preserves stable document IDs and citation metadata, records embedding/index metadata including fixture ID, and repeated ingestion is idempotent. Validation after task: 114 passed, 0 skipped; `ruff check src/ tests/` and `.venv/bin/pyright` pass.
+- Follow-ups: run `SAS-MI-009: Cited Retrieval API` next.
+
+### 2026-05-09 — SAS-MI-009 — Cited Retrieval API
+
+- Scope: `src/signal_sandbox/retrieval/query.py`, `tests/unit/test_retrieval_query.py`, `src/signal_sandbox/retrieval/store.py`, `docs/ARCHITECTURE.md`, `docs/CODEX_PROMPT.md`, `docs/tasks.md`.
+- Why this work happened: Phase 14 needed a cited retrieval API for batch analysis before market-idea extraction and later analysis tasks can use local context.
+- Decisions applied: ADR-002 RAG context-only boundary; retrieval results must cite source document IDs and evidence hashes and cannot mutate deterministic truth artifacts.
+- Evidence collected: added `CitedRetrievalResult`, `RetrievalQueryFilters`, and `query_retrieval_store()`. Results include document_id, snippet, score, source timestamp, evidence URL, and text_sha256; filters for channel and timestamp are deterministic; uncited result models are rejected. Validation after task: 117 passed, 0 skipped; `ruff check src/ tests/` and `.venv/bin/pyright` pass.
+- Follow-ups: run Phase 14 deep review/archive, then continue to `SAS-MI-010: MarketIdea Draft Extractor`.
+
+### 2026-05-09 — SAS-MI-010 — MarketIdea Draft Extractor
+
+- Scope: `src/signal_sandbox/market_ideas/`, `tests/unit/test_market_idea_extractor.py`, `docs/ARCHITECTURE.md`, `docs/CODEX_PROMPT.md`, `docs/tasks.md`.
+- Why this work happened: Phase 15 needed deterministic source-document to MarketIdea draft extraction before batch export.
+- Decisions applied: `MARKET_IDEA_SCHEMA.md`; ADR-002 deterministic-truth boundary; Phase 10/13 channel profile states remain draft hints only.
+- Evidence collected: added `MarketIdeaDraft`, `EvidenceSpan`, and `MarketIdeaDraftExtractor`. The extractor classifies fixtures into all required MarketIdea categories, uses channel profiles for asset aliases before fallback token matching, preserves direct evidence spans for asset/direction/horizon-risk-catalyst fields when present, and always emits `queued_for_review` unapproved drafts. Validation after task: 120 passed, 0 skipped; `ruff check src/ tests/` and `.venv/bin/pyright` pass.
+- Follow-ups: run `SAS-MI-011: MarketIdea Batch Draft Export` next.
+
+### 2026-05-09 — SAS-MI-011 — MarketIdea Batch Draft Export
+
+- Scope: `src/signal_sandbox/market_ideas/export.py`, `tests/unit/test_market_idea_export.py`, `docs/pilot/MARKET_IDEA_DRAFTS_BABLOS79.md`, `docs/CODEX_PROMPT.md`, `docs/tasks.md`.
+- Why this work happened: Phase 15 needed a reviewable batch export surface before deterministic thesis evaluation.
+- Decisions applied: `MARKET_IDEA_SCHEMA.md`; draft-only and human-review boundaries; no approved ledger or outcome/report side effects.
+- Evidence collected: added `MarketIdeaExportRow`, `MarketIdeaBatchExport`, `export_market_idea_drafts()`, and Markdown rendering. The export creates one row per source document, separates `draft_approval_state` from `final_review_status`, records parser status, review queue reasons, evidence refs, candidate assets, and suggested horizons, and writes only a draft Markdown artifact. Validation after task: 123 passed, 0 skipped; `ruff check src/ tests/` and `.venv/bin/pyright` pass.
+- Follow-ups: run Phase 15 deep review/archive, then continue to `SAS-MI-012: MarketIdea Outcome Evaluator`.
+
+### 2026-05-09 — SAS-MI-012 — MarketIdea Outcome Evaluator
+
+- Scope: `src/signal_sandbox/market_ideas/outcomes.py`, `tests/unit/test_market_idea_outcomes.py`, `docs/CODEX_PROMPT.md`, `docs/tasks.md`.
+- Why this work happened: Phase 16 needed deterministic thesis evaluation over MarketIdea drafts/reviewed rows.
+- Decisions applied: `MARKET_IDEA_SCHEMA.md`; deterministic-truth boundary; `SAS-MI-005` horizon metric contract.
+- Evidence collected: added `MarketIdeaOutcome`, `IdeaOutcomeStatus`, and `evaluate_market_idea_outcome()`. The evaluator resolves assets through the asset registry, returns unresolved/ambiguous/no-snapshot statuses without guessing, computes horizon metrics through `evaluate_horizon_metrics()` when a matching local snapshot exists, and records source document ID, market idea ID, asset ID, snapshot ID, and metric version. Validation after task: 126 passed, 0 skipped; `ruff check src/ tests/` and `.venv/bin/pyright` pass.
+- Follow-ups: run `SAS-MI-013: Author Metrics Aggregator` next.
+
+### 2026-05-09 — SAS-MI-013 — Author Metrics Aggregator
+
+- Scope: `src/signal_sandbox/market_ideas/author_metrics.py`, `tests/unit/test_author_metrics.py`, `docs/CODEX_PROMPT.md`, `docs/tasks.md`.
+- Why this work happened: Phase 16 needed author/channel aggregates over deterministic MarketIdea outcomes.
+- Decisions applied: `MARKET_IDEA_SCHEMA.md`; deterministic aggregation boundary; non-market/null content must be separate from failed directional ideas.
+- Evidence collected: added `AuthorMetrics` and `aggregate_author_metrics()`. The aggregator computes counts by idea type, asset type, horizon status, and review status; directional hit rate only over evaluable long/short outcomes; and null/non-market count/rate separately. Validation after task: 129 passed, 0 skipped; `ruff check src/ tests/` and `.venv/bin/pyright` pass.
+- Follow-ups: run Phase 16 deep review/archive, then continue to `SAS-MI-014: Batch Analyst Contract`.
+
+### 2026-05-09 — SAS-MI-014 — Batch Analyst Contract
+
+- Scope: `src/signal_sandbox/batch_analyst/`, `tests/unit/test_batch_analyst_contract.py`, `docs/specs/BATCH_ANALYST.md`, `docs/CODEX_PROMPT.md`, `docs/tasks.md`.
+- Why this work happened: Phase 17 needed a bounded agentic contract before any internal memo export.
+- Decisions applied: ADR-002 bounded Agentic profile; fixed operations, max iterations, cost cap, audit log, explicit stop reason, and no mutation/publication authority.
+- Evidence collected: added `BatchAnalystJob`, `BatchAnalystRunner`, stop reasons, allowed operation enum, and audit log models. Tests cover schema fields, stop reasons, and checksums for retrieval, metric reads, prompt input, and generated memo. Validation after task: 132 passed, 0 skipped; `ruff check src/ tests/` and `.venv/bin/pyright` pass. Strict agent-trigger review found no shell, network collector, broker, report publisher, ledger mutation, or package/runtime mutation surface.
+- Follow-ups: run `SAS-MI-015: Internal Analyst Memo Export` next.

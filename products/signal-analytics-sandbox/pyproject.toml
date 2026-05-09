@@ -12,6 +12,7 @@ dependencies = [
     "pydantic>=2",
     "polars",
     "pandas",
+    "duckdb",
     "ccxt",
     "yfinance",
     "click",
