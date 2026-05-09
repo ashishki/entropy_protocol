@@ -23,6 +23,96 @@ This file records durable handoff context across agents and sessions. It is not 
 
 ## Entries
 
+### 2026-05-09 - T55 - Binance Signed Account Request Helper
+
+- Scope: `trader_risk_audit/exchange/binance.py`, `tests/unit/exchange/test_binance_signing.py`, targeted security review artifacts.
+- Why this work happened: Phase 14 needed deterministic Binance account-data request signing before Binance fetch planning.
+- Decisions applied: `D-009`, ADR-002
+- Evidence collected: `.venv/bin/python -m pytest tests/unit/exchange/test_binance_signing.py -q --tb=short` -> 3 passed; `.venv/bin/python -m pytest tests -q --tb=short` -> 176 passed; `.venv/bin/python -m ruff check trader_risk_audit tests` -> passed; `.venv/bin/python -m ruff format --check trader_risk_audit tests` -> passed; targeted Cycle 18 security review archived in `docs/archive/CYCLE18_T55_SECURITY_REVIEW.md` with P0:0, P1:0, P2:0.
+- Follow-ups: implement T56 Binance Spot Trade Fetch Planner.
+- Notes for next agent: `BinanceSigner` builds deterministic HMAC-signed Spot `myTrades` requests from fixture credentials only. Repr/safe metadata redact API key and signature, and endpoint labels are limited to `binance.spot.my_trades`. No real Binance network client exists.
+
+### 2026-05-09 - T54 - Bybit Import-to-Audit Integration
+
+- Scope: `trader_risk_audit/exchange/bybit.py`, `trader_risk_audit/cli.py`, `trader_risk_audit/trades/schema.py`, `trader_risk_audit/trades/importers.py`, `tests/integration/test_bybit_import_to_audit.py`, `tests/fixtures/exchange/bybit/`, Phase 13 review artifacts.
+- Why this work happened: Phase 13 needed proof that the Bybit read-only fixture import path feeds the deterministic audit workflow end to end.
+- Decisions applied: `D-009`, ADR-002
+- Evidence collected: `.venv/bin/python -m pytest tests/unit/trades/test_importers.py tests/unit/exchange/test_bybit_normalizer.py tests/integration/test_bybit_import_to_audit.py -q --tb=short` -> 10 passed; `.venv/bin/python -m pytest tests -q --tb=short` -> 173 passed; `.venv/bin/python -m ruff check trader_risk_audit tests` -> passed; `.venv/bin/python -m ruff format --check trader_risk_audit tests` -> passed; Phase 13 deep review archived in `docs/archive/PHASE13_REVIEW.md` with P0:0, P1:0, P2:1 fixed.
+- Follow-ups: start Phase 14 with T55 Binance Signed Account Request Helper.
+- Notes for next agent: Bybit fixture import now uses `normalize_bybit_executions`, writes `row_id` into `normalized_trades.csv`, and audit preserves Bybit execution ids in violation source rows. CSV imports reject duplicate row ids to avoid attribution bucket collisions. No real Bybit network code exists.
+
+### 2026-05-09 - T53 - Bybit Raw-to-Canonical Normalizer
+
+- Scope: `trader_risk_audit/exchange/bybit.py`, `tests/unit/exchange/test_bybit_normalizer.py`, `tests/fixtures/exchange/bybit/`.
+- Why this work happened: Phase 13 needed Bybit execution records mapped into canonical trade records before proving import-to-audit integration.
+- Decisions applied: `D-009`, ADR-002
+- Evidence collected: `.venv/bin/python -m pytest tests/unit/exchange/test_bybit_normalizer.py -q --tb=short` -> 3 passed; `.venv/bin/python -m pytest tests -q --tb=short` -> 169 passed; `.venv/bin/python -m ruff check trader_risk_audit tests` -> passed; `.venv/bin/python -m ruff format --check trader_risk_audit tests` -> passed.
+- Follow-ups: implement T54 Bybit Import-to-Audit Integration and then run the Phase 13 boundary review.
+- Notes for next agent: `normalize_bybit_executions` sorts raw executions by execution timestamp, execution id, order id, and symbol before delegating to the shared exchange normalizer. Unsupported Bybit fields emit field-only warnings with record refs and do not include raw values. The committed Bybit execution fixture is synthetic and includes fixture-policy `fields_removed` metadata.
+
+### 2026-05-09 - T52 - Bybit Execution Fetch Planner
+
+- Scope: `trader_risk_audit/exchange/bybit.py`, `tests/unit/exchange/test_bybit_fetch_plan.py`, docs state.
+- Why this work happened: Phase 13 needed deterministic Bybit execution-history fetch planning before raw-to-canonical Bybit normalization.
+- Decisions applied: `D-009`, ADR-002
+- Evidence collected: `.venv/bin/python -m pytest tests/unit/exchange/test_bybit_fetch_plan.py tests/unit/exchange/test_bybit_permissions.py -q --tb=short` -> 6 passed; `.venv/bin/python -m pytest tests -q --tb=short` -> 166 passed; `.venv/bin/python -m ruff check trader_risk_audit tests` -> passed; `.venv/bin/python -m ruff format --check trader_risk_audit tests` -> passed.
+- Follow-ups: implement T53 Bybit Raw-to-Canonical Normalizer.
+- Notes for next agent: `plan_bybit_execution_fetches` supports `spot` and `linear` only, slices ranges into seven-day windows, and `collect_bybit_cursor_pages` follows mocked `nextPageCursor` responses deterministically. Allowed endpoint labels are limited to execution history and key-info; no order/write endpoint labels or network execution exists.
+
+### 2026-05-09 - T51 - Bybit API Key Metadata Check
+
+- Scope: `trader_risk_audit/exchange/bybit.py`, `tests/unit/exchange/test_bybit_permissions.py`, targeted security review artifacts.
+- Why this work happened: Phase 13 needed Bybit-specific read-only API key metadata inspection before execution fetch planning.
+- Decisions applied: `D-009`, ADR-002
+- Evidence collected: `.venv/bin/python -m pytest tests/unit/exchange/test_bybit_permissions.py -q --tb=short` -> 3 passed; `.venv/bin/python -m pytest tests -q --tb=short` -> 163 passed; `.venv/bin/python -m ruff check trader_risk_audit tests` -> passed; `.venv/bin/python -m ruff format --check trader_risk_audit tests` -> passed; targeted Cycle 16 security review archived in `docs/archive/CYCLE16_T51_SECURITY_REVIEW.md` with P0:0, P1:0, P2:0.
+- Follow-ups: implement T52 Bybit Execution Fetch Planner.
+- Notes for next agent: `check_bybit_api_key_permissions` and `require_bybit_read_only_permissions` inspect fixture/mocked Bybit metadata only. They delegate to the shared credential contract, reject non-read-only or write/control permissions, and never include raw API key, secret, passphrase, or account id values in safe metadata or errors. No real Bybit network client exists yet.
+
+### 2026-05-09 - T50 - Fixture-Backed Exchange Import CLI
+
+- Scope: `trader_risk_audit/cli.py`, `tests/integration/test_exchange_import_cli.py`, `tests/integration/test_exchange_import_to_audit.py`, docs state.
+- Why this work happened: Phase 12 needed local fixture-backed exchange import plumbing that writes raw snapshot, normalized trade CSV, and import manifest artifacts without real exchange network calls.
+- Decisions applied: `D-009`, ADR-002
+- Evidence collected: `.venv/bin/python -m pytest tests/integration/test_exchange_import_cli.py tests/integration/test_exchange_import_to_audit.py -q --tb=short` -> 3 passed; `.venv/bin/python -m pytest tests -q --tb=short` -> 160 passed; `.venv/bin/python -m ruff check trader_risk_audit tests` -> passed; `.venv/bin/python -m ruff format --check trader_risk_audit tests` -> passed.
+- Follow-ups: run Phase 12 boundary review before starting T51 Bybit API Key Metadata Check.
+- Notes for next agent: `exchange-import fixture` reads only local sanitized fixture JSON, writes `raw_snapshot.json`, `normalized_trades.csv`, and `import_manifest.json`, and the existing `audit` command consumes the normalized CSV. No Binance/Bybit network client exists yet.
+
+### 2026-05-09 - T49 - Exchange Normalizer Interface
+
+- Scope: `trader_risk_audit/exchange/normalizer.py`, `tests/unit/exchange/test_normalizer.py`, docs state.
+- Why this work happened: Phase 12 needed a shared deterministic mapping layer from sanitized exchange raw records into existing canonical trade records before fixture-backed CLI import.
+- Decisions applied: `D-009`, ADR-002
+- Evidence collected: `.venv/bin/python -m pytest tests/unit/exchange/test_normalizer.py -q --tb=short` -> 3 passed; `.venv/bin/python -m pytest tests -q --tb=short` -> 157 passed; `.venv/bin/python -m ruff check trader_risk_audit tests` -> passed; `.venv/bin/python -m ruff format --check trader_risk_audit tests` -> passed.
+- Follow-ups: implement T50 Fixture-Backed Exchange Import CLI.
+- Notes for next agent: `normalize_exchange_records` maps Bybit/Binance-like aliases into `TradeRecord`, uses deterministic `exchange_...` row ids derived from exchange, symbol, execution/trade/order id, and timestamp, and raises safe field-only `ExchangeNormalizationError` messages.
+
+### 2026-05-09 - T48 - Exchange Raw Snapshot Schema and Import Manifest
+
+- Scope: `trader_risk_audit/exchange/snapshot.py`, `trader_risk_audit/exchange/manifest.py`, `tests/unit/exchange/test_snapshot_schema.py`, `tests/unit/exchange/test_import_manifest.py`, docs state.
+- Why this work happened: Phase 12 needed deterministic local raw snapshot and import manifest structures before exchange normalization or fixture-backed CLI plumbing.
+- Decisions applied: `D-009`, ADR-002
+- Evidence collected: `.venv/bin/python -m pytest tests/unit/exchange/test_snapshot_schema.py tests/unit/exchange/test_import_manifest.py -q --tb=short` -> 5 passed; `.venv/bin/python -m pytest tests -q --tb=short` -> 154 passed; `.venv/bin/python -m ruff check trader_risk_audit tests` -> passed; `.venv/bin/python -m ruff format --check trader_risk_audit tests` -> passed.
+- Follow-ups: implement T49 Exchange Normalizer Interface.
+- Notes for next agent: raw snapshots reject credential/sensitive field names recursively, import manifests stay separate from final audit manifests, and manifest content hashes include artifact hashes plus exchange/time-range metadata while excluding `generated_at`.
+
+### 2026-05-09 - T47 - Exchange Fixture and Redaction Policy
+
+- Scope: `docs/EXCHANGE_FIXTURE_POLICY_RU.md`, `tests/test_exchange_fixture_policy.py`, `tests/fixtures/exchange/`, docs state.
+- Why this work happened: Phase 11 needed a fixture/redaction gate before committing raw exchange-like examples for later import plumbing.
+- Decisions applied: `D-009`, ADR-002
+- Evidence collected: `.venv/bin/python -m pytest tests/test_exchange_fixture_policy.py tests/integration/test_pilot_fixture_pack.py -q --tb=short` -> 6 passed; `.venv/bin/python -m pytest tests -q --tb=short` -> 149 passed; `.venv/bin/python -m ruff check trader_risk_audit tests` -> passed; `.venv/bin/python -m ruff format --check trader_risk_audit tests` -> passed.
+- Follow-ups: run Phase 11 boundary review before starting T48 Exchange Raw Snapshot Schema and Import Manifest.
+- Notes for next agent: exchange fixtures must be synthetic or explicitly sanitized, labeled `regression_test_only`, and scanned for API keys, signatures, account ids, balances, customer identifiers, and private notes. The committed Binance/Bybit examples are synthetic and contain no real account history.
+
+### 2026-05-09 - T46 - Exchange Credential Permission Contract
+
+- Scope: `trader_risk_audit/exchange/credentials.py`, `tests/unit/exchange/test_credentials.py`, `tests/integration/test_exchange_secret_redaction.py`, `docs/IMPLEMENTATION_CONTRACT.md`, docs state.
+- Why this work happened: Phase 11 needed deterministic read-only permission handling and credential redaction before any exchange fixtures or connector code.
+- Decisions applied: `D-009`, ADR-002
+- Evidence collected: `.venv/bin/python -m pytest tests/unit/exchange/test_credentials.py tests/integration/test_exchange_secret_redaction.py -q --tb=short` -> 4 passed; `.venv/bin/python -m pytest tests -q --tb=short` -> 146 passed; `.venv/bin/python -m ruff check trader_risk_audit tests` -> passed; `.venv/bin/python -m ruff format --check trader_risk_audit tests` -> passed.
+- Follow-ups: implement T47 Exchange Fixture and Redaction Policy before any fixture-backed import plumbing or exchange network path.
+- Notes for next agent: `inspect_exchange_permissions` rejects detectable write/control scopes, `inspect_bybit_api_key_metadata` reads fixture metadata only, unverifiable read-only status returns `needs_operator_review`, and `ExchangeCredentials.to_safe_metadata()` never returns raw API keys, secrets, passphrases, or account ids.
+
 ### 2026-05-09 - Roadmap - Read-Only Exchange Import Plan
 
 - Scope: `docs/adr/ADR-002-read-only-exchange-import.md`, `docs/EXCHANGE_API_IMPORT_PLAN_RU.md`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `README.md`, architecture/scope docs.

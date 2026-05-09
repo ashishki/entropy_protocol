@@ -1645,7 +1645,7 @@ Notes: |
 Owner:      codex
 Phase:      11
 Type:       tests
-Depends-On: T45
+Depends-On: T45, T46
 
 Objective: |
   Establish the policy and tests for synthetic or sanitized exchange-like raw JSON fixtures before connector code exists.

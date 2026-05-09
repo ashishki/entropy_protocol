@@ -1,7 +1,7 @@
 # План: безопасный read-only import с Binance и Bybit
 
 Дата: 2026-05-09
-Статус: planned roadmap update
+Статус: accepted safety roadmap; real network code remains blocked until Phase 11 safety gates pass
 ADR: `docs/adr/ADR-002-read-only-exchange-import.md`
 
 ## Цель
@@ -67,6 +67,10 @@ Exit gate:
 - Docs clearly distinguish read-only import from broker/exchange control.
 - Tests fail if connector code logs or persists API secrets.
 - No real network calls are introduced in this phase.
+
+T45 decision: ADR-002 is accepted as the canonical product boundary. T46 and
+T47 must complete before Phase 12 can introduce fixture-backed import plumbing,
+and no Binance or Bybit network request may be implemented during Phase 11.
 
 ## Phase 12 - Exchange Import Core
 

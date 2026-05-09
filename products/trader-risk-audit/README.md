@@ -12,20 +12,20 @@ violated, when they were violated, and how much damage violations created.
 
 ## Current Status
 
-- Current phase: Phase 11 planned - Read-Only Exchange Import Safety.
-- Completed: Phase 1 foundation through Phase 10 conversion assets, including constrained Telegram demo flow, public sample mode, report polish, intake validation, operator CLI, evidence capture, paid pilot conversion docs, and post-plan CODE-1 manifest cleanup.
-- Next task: T45 - Read-Only Exchange Import ADR.
-- Planned next phase: Phase 11 starts the Binance/Bybit read-only import roadmap with docs and safety contracts only.
-- Local baseline: 142 passing tests, 0 skipped.
+- Current phase: Phase 13 - Bybit Read-Only MVP.
+- Completed: Phase 1 foundation through Phase 12 exchange import core, including constrained Telegram demo flow, public sample mode, operator CLI, evidence capture, paid pilot conversion docs, ADR-002 safety gates, raw exchange snapshots, import manifests, normalizer interface, and fixture-backed exchange import CLI.
+- Next task: T51 - Bybit API Key Metadata Check.
+- Planned next phase: Phase 13 adds Bybit-specific read-only import checks and fixture-backed planning/normalization before pilot use.
+- Local baseline: 160 passing tests, 0 skipped.
 - Quality checks: `.venv/bin/ruff check` and `.venv/bin/ruff format --check` are clean.
-- Review status: Cycle 12 CODE-1 cleanup review recorded in `docs/audit/REVIEW_REPORT.md`; Stop-Ship: No; no open P0/P1/P2 findings.
+- Review status: Cycle 15 Phase 12 review archived in `docs/archive/PHASE12_REVIEW.md`; Stop-Ship: No; ARCH-1 P2 spec drift was addressed in the phase doc update.
 
 ## Features
 
 | Area | Status | Notes |
 |------|--------|-------|
 | Package skeleton | Complete | `python -m trader_risk_audit --version` is available. |
-| CLI command surface | Partial | `audit` runs the local deterministic workflow; `retention` manages manifest-referenced files; `queue` manages local pilot review status; `manifest` remains a stub. |
+| CLI command surface | Partial | `audit` runs the local deterministic workflow; `exchange-import fixture` imports sanitized local exchange fixtures; `retention` manages manifest-referenced files; `queue` manages local pilot review status; `manifest` remains a stub. |
 | Config guardrails | Complete | Live broker API and order-blocking flags are rejected for v1. |
 | CI contract | Complete | GitHub Actions installs editable package, runs ruff lint, ruff format check, and pytest. |
 | Canonical trade schema | Complete | `TradeRecord` validates canonical fields, normalizes sides, and exposes stable row ids. |
@@ -64,7 +64,7 @@ violated, when they were violated, and how much damage violations created.
 | Pilot evidence log | Complete | Russian evidence log and CSV template track qualified calls, paid reports, objections, repeat commitments, and referrals. |
 | Public sample validation | Complete | Source/licensing/privacy policy, `demo/public_sample_001/` evidence pack, and internal readiness review are complete. Verdict: go for manual outreach, not PMF or paid-demand proof. |
 | Starter policy profiles | Complete | `docs/STARTER_POLICY_PROFILES_RU.md` and YAML templates define customizable soft, medium, and hard audit presets for internal validation, not trading advice. |
-| Read-only exchange import | Planned | ADR-002 and `docs/EXCHANGE_API_IMPORT_PLAN_RU.md` define a future local import path for Binance/Bybit historical fills only; no trading, withdrawal, transfer, or hosted secret scope is approved. |
+| Read-only exchange import | Fixture core complete | ADR-002 is accepted; credential permission/redaction tests, exchange fixture policy, raw snapshot schema, import manifest, normalizer interface, and local fixture CLI are in place. No trading, withdrawal, transfer, real network connector, or hosted secret scope is approved. |
 
 ## Development Roadmap
 
@@ -88,7 +88,7 @@ Loop continuity: after each phase, the orchestrator should run deep review, arch
 
 | Command | Current Result |
 |---------|----------------|
-| `.venv/bin/python -m pytest tests -q --tb=short` | 142 passed |
+| `.venv/bin/python -m pytest tests -q --tb=short` | 160 passed |
 | `.venv/bin/ruff check` | passed |
 | `.venv/bin/ruff format --check` | passed |
 
@@ -167,6 +167,11 @@ trader_risk_audit/
   storage/
     __init__.py
     retention.py
+  exchange/
+    credentials.py
+    manifest.py
+    normalizer.py
+    snapshot.py
   telegram_bot/
     __init__.py
     bot.py
@@ -196,6 +201,8 @@ tests/
   fixtures/expected/pilot_attribution.json
   fixtures/expected/pilot_report.md
   fixtures/expected/pilot_manifest_hashes.json
+  fixtures/exchange/bybit_execution_synthetic.json
+  fixtures/exchange/binance_my_trades_synthetic.json
   fixtures/policies/position_asset_policy.yaml
   fixtures/policies/loss_rules_policy.yaml
   test_baseline_smoke.py
@@ -216,6 +223,10 @@ tests/
   unit/reporting/test_delivery_packet.py
   unit/artifacts/test_manifest.py
   unit/storage/test_retention.py
+  unit/exchange/test_credentials.py
+  unit/exchange/test_import_manifest.py
+  unit/exchange/test_normalizer.py
+  unit/exchange/test_snapshot_schema.py
   unit/telegram_bot/test_delivery.py
   unit/telegram_bot/test_handlers.py
   unit/test_pilot_queue.py
@@ -223,12 +234,16 @@ tests/
   integration/test_attribution_golden.py
   integration/test_audit_cli.py
   integration/test_demo_pack.py
+  integration/test_exchange_secret_redaction.py
+  integration/test_exchange_import_cli.py
+  integration/test_exchange_import_to_audit.py
   integration/test_pilot_fixture_pack.py
   integration/test_telegram_pilot_flow.py
 docs/
   ARCHITECTURE.md
   CODEX_PROMPT.md
   IMPLEMENTATION_CONTRACT.md
+  EXCHANGE_FIXTURE_POLICY_RU.md
   STARTER_POLICY_PROFILES_RU.md
   DEMO_CASE_RU.md
   PILOT_EVIDENCE_LOG_RU.md

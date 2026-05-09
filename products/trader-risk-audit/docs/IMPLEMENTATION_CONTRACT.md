@@ -65,6 +65,10 @@ Violation: automatic P1.
 - Exchange import credentials, if implemented under ADR-002, must be read-only,
   local-only, redacted in all output, and never persisted in manifests, logs,
   queue metadata, workspace metadata, reports, fixtures, or docs.
+- Exchange permission inspection must reject detectable write/control scopes
+  such as order write, withdrawal, transfer, leverage/margin mutation, or
+  account mutation. If read-only status cannot be verified, the result is
+  `needs_operator_review`, never silent approval.
 
 Violation: automatic P1 and a security incident.
 

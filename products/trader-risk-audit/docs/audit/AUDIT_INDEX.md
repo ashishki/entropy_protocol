@@ -20,6 +20,12 @@ Append-only. One row per review cycle.
 | 10 | Phase 9 - Intake Quality and Operator Speed | 2026-05-09 | T37-T40 | No | 0 | 0 | 0 |
 | 11 | Phase 10 - Conversion Assets | 2026-05-09 | T41-T44 | No | 0 | 0 | 0 |
 | 12 | Post-plan CODE-1 Cleanup | 2026-05-09 | delivery packet manifest hash | No | 0 | 0 | 0 |
+| 13 | Phase 11 - T46 Security Review | 2026-05-09 | exchange credential permission contract | No | 0 | 0 | 0 |
+| 14 | Phase 11 - Read-Only Exchange Import Safety | 2026-05-09 | T45-T47 | No | 0 | 0 | 0 |
+| 15 | Phase 12 - Exchange Import Core | 2026-05-09 | T48-T50 | No | 0 | 0 | 1 |
+| 16 | Phase 13 - T51 Security Review | 2026-05-09 | bybit API key metadata check | No | 0 | 0 | 0 |
+| 17 | Phase 13 - Bybit Read-Only MVP | 2026-05-09 | T51-T54 | No | 0 | 0 | 1 |
+| 18 | Phase 14 - T55 Security Review | 2026-05-09 | Binance signed request helper | No | 0 | 0 | 0 |
 
 ---
 
@@ -39,6 +45,12 @@ Append-only. One row per review cycle.
 | 10 | `docs/archive/PHASE9_REVIEW.md` | Phase 9 - Intake Quality and Operator Speed | OK |
 | 11 | `docs/archive/PHASE10_REVIEW.md` | Phase 10 - Conversion Assets | OK |
 | 12 | `docs/audit/REVIEW_REPORT.md` | Post-plan CODE-1 Cleanup | OK |
+| 13 | `docs/archive/CYCLE13_T46_SECURITY_REVIEW.md` | Phase 11 - T46 Security Review | OK |
+| 14 | `docs/archive/PHASE11_REVIEW.md` | Phase 11 - Read-Only Exchange Import Safety | OK |
+| 15 | `docs/archive/PHASE12_REVIEW.md` | Phase 12 - Exchange Import Core | WARN |
+| 16 | `docs/archive/CYCLE16_T51_SECURITY_REVIEW.md` | Phase 13 - T51 Security Review | OK |
+| 17 | `docs/archive/PHASE13_REVIEW.md` | Phase 13 - Bybit Read-Only MVP | WARN |
+| 18 | `docs/archive/CYCLE18_T55_SECURITY_REVIEW.md` | Phase 14 - T55 Security Review | OK |
 
 ---
 

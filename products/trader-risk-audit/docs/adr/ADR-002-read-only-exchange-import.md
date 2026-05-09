@@ -1,6 +1,6 @@
 # ADR-002: Read-Only Exchange Import Boundary
 
-Status: Proposed
+Status: Accepted
 Date: 2026-05-09
 
 ## Context
@@ -103,11 +103,12 @@ Bybit:
 
 ## Consequences
 
-This ADR allows a later roadmap phase to build local read-only importers. It
+This ADR allows later roadmap phases to build local read-only importers. It
 does not permit live broker/exchange control, trading automation, hosted
 credential storage, SaaS account onboarding, checkout, Telegram credential
-collection, or investment advice.
+collection, signal analytics, or investment advice.
 
-Implementation must be phased. The first implementation task must create
-synthetic fixtures and permission-validation tests before any real exchange
-network path is added.
+Implementation must be phased. Before any real exchange network path is added,
+the roadmap must define the credential permission contract, synthetic fixture
+policy, and redaction tests. The first network-capable connector task may only
+proceed after those safety gates pass.

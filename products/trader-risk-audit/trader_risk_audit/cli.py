@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import argparse
+import csv
+import json
 from collections.abc import Sequence
 from pathlib import Path
 
@@ -23,6 +25,10 @@ from trader_risk_audit.evidence import (
     load_customer_log,
     summarize_validation_gate,
 )
+from trader_risk_audit.exchange.bybit import normalize_bybit_executions
+from trader_risk_audit.exchange.manifest import build_exchange_import_manifest
+from trader_risk_audit.exchange.normalizer import normalize_exchange_records
+from trader_risk_audit.exchange.snapshot import FetchedPage, build_raw_exchange_snapshot
 from trader_risk_audit.pilot_queue import (
     PilotQueue,
     PilotQueueError,
@@ -48,6 +54,7 @@ from trader_risk_audit.storage.retention import (
     format_retention_list,
 )
 from trader_risk_audit.trades.importers import normalize_csv, serialize_trade_records
+from trader_risk_audit.trades.schema import TradeRecord
 from trader_risk_audit.workspace import create_audit_workspace
 
 
@@ -84,6 +91,21 @@ def build_parser() -> argparse.ArgumentParser:
         help="Show the committed public sample demo summary.",
     )
     public_sample.set_defaults(handler=_public_sample_demo_command)
+
+    exchange_import = subparsers.add_parser(
+        "exchange-import",
+        help="Run local fixture-backed exchange import workflows.",
+    )
+    exchange_import_subparsers = exchange_import.add_subparsers(
+        dest="exchange_import_command"
+    )
+    exchange_fixture = exchange_import_subparsers.add_parser(
+        "fixture",
+        help="Import a sanitized local exchange fixture snapshot.",
+    )
+    exchange_fixture.add_argument("--snapshot", required=True)
+    exchange_fixture.add_argument("--output-dir", required=True)
+    exchange_fixture.set_defaults(handler=_exchange_import_fixture_command)
 
     retention = subparsers.add_parser("retention", help="Manage local audit retention.")
     retention_subparsers = retention.add_subparsers(dest="retention_command")
@@ -212,6 +234,63 @@ def _public_sample_demo_command(args: argparse.Namespace) -> int:
         *summary_lines,
     ]
     print("\n".join(lines))
+    return 0
+
+
+def _exchange_import_fixture_command(args: argparse.Namespace) -> int:
+    try:
+        snapshot_path = Path(args.snapshot)
+        output_dir = Path(args.output_dir)
+        fixture = _load_exchange_fixture(snapshot_path)
+        records = tuple(fixture["records"])
+        exchange = str(fixture["exchange"])
+        market = _fixture_market(exchange, records)
+        symbols = _fixture_symbols(records)
+        start_time, end_time = _fixture_time_range(records)
+        endpoint_label = f"{exchange}.{fixture['endpoint_family']}"
+        raw_snapshot = build_raw_exchange_snapshot(
+            exchange=exchange,
+            market=market,
+            symbols=symbols,
+            start_time=start_time,
+            end_time=end_time,
+            fetched_pages=(
+                FetchedPage(
+                    endpoint_label=endpoint_label,
+                    page_number=1,
+                    record_count=len(records),
+                ),
+            ),
+            source_endpoint_labels=(endpoint_label,),
+            raw_records=records,
+        )
+        normalized = _normalize_fixture_exchange_records(
+            exchange=exchange,
+            market=market,
+            records=records,
+        )
+
+        output_dir.mkdir(parents=True, exist_ok=True)
+        raw_snapshot_output = output_dir / "raw_snapshot.json"
+        normalized_output = output_dir / "normalized_trades.csv"
+        manifest_output = output_dir / "import_manifest.json"
+        raw_snapshot_output.write_text(raw_snapshot.to_json(), encoding="utf-8")
+        _write_normalized_exchange_trades(normalized_output, normalized)
+        manifest = build_exchange_import_manifest(
+            raw_snapshot=raw_snapshot_output,
+            normalized_trades=normalized_output,
+            exchange=exchange,
+            market=market,
+            symbols=symbols,
+            start_time=start_time,
+            end_time=end_time,
+        )
+        manifest_output.write_text(manifest.to_json(), encoding="utf-8")
+    except (OSError, KeyError, TypeError, ValueError) as error:
+        print(f"exchange fixture import failed: {error}")
+        return 2
+
+    print(f"wrote exchange import manifest: {manifest_output}")
     return 0
 
 
@@ -523,6 +602,118 @@ def _public_sample_paths() -> dict[str, Path]:
         "delivery_packet": root / "output" / "telegram_packet.txt",
         "manifest": root / "output" / "manifest.json",
     }
+
+
+def _load_exchange_fixture(path: Path) -> dict[str, object]:
+    with path.open(encoding="utf-8") as fixture_file:
+        payload = json.load(fixture_file)
+    if not isinstance(payload, dict):
+        raise ValueError("fixture snapshot must contain a JSON object")
+    records = payload.get("records")
+    if not isinstance(records, list) or not all(
+        isinstance(record, dict) for record in records
+    ):
+        raise ValueError("fixture snapshot must contain a records list")
+    if not records:
+        raise ValueError("fixture snapshot records must not be empty")
+    for field in ("exchange", "endpoint_family"):
+        if not str(payload.get(field, "")).strip():
+            raise ValueError(f"fixture snapshot missing required field: {field}")
+    return payload
+
+
+def _fixture_market(exchange: str, records: Sequence[object]) -> str:
+    if exchange == "binance":
+        return "spot"
+    first = records[0]
+    if isinstance(first, dict):
+        category = str(first.get("category", "")).strip()
+        if category:
+            return category
+    return "unknown"
+
+
+def _fixture_symbols(records: Sequence[object]) -> tuple[str, ...]:
+    symbols = sorted(
+        {
+            str(record.get("symbol", "")).strip()
+            for record in records
+            if isinstance(record, dict) and str(record.get("symbol", "")).strip()
+        }
+    )
+    if not symbols:
+        raise ValueError("fixture snapshot records must include symbols")
+    return tuple(symbols)
+
+
+def _fixture_time_range(records: Sequence[object]) -> tuple[str, str]:
+    timestamps = sorted(
+        {
+            timestamp
+            for record in records
+            if isinstance(record, dict)
+            for timestamp in (_record_timestamp(record),)
+            if timestamp
+        }
+    )
+    if not timestamps:
+        raise ValueError("fixture snapshot records must include timestamps")
+    return timestamps[0], timestamps[-1]
+
+
+def _record_timestamp(record: dict[object, object]) -> str | None:
+    for field in ("timestamp", "time", "exec_time", "executed_at"):
+        value = record.get(field)
+        if value not in (None, ""):
+            return str(value)
+    return None
+
+
+def _write_normalized_exchange_trades(
+    path: Path,
+    records: Sequence[TradeRecord],
+) -> None:
+    fieldnames = (
+        "row_id",
+        "timestamp",
+        "symbol",
+        "side",
+        "quantity",
+        "price",
+        "fees",
+        "account_id",
+    )
+    with path.open("w", encoding="utf-8", newline="") as output_file:
+        writer = csv.DictWriter(output_file, fieldnames=fieldnames)
+        writer.writeheader()
+        for record in records:
+            writer.writerow(
+                {
+                    "account_id": record.account_id,
+                    "fees": format(record.fees.normalize(), "f"),
+                    "price": format(record.price.normalize(), "f"),
+                    "quantity": format(record.quantity.normalize(), "f"),
+                    "row_id": record.row_id,
+                    "side": record.side,
+                    "symbol": record.symbol,
+                    "timestamp": record.timestamp.isoformat(),
+                }
+            )
+
+
+def _normalize_fixture_exchange_records(
+    *,
+    exchange: str,
+    market: str,
+    records: Sequence[dict[str, object]],
+) -> tuple[TradeRecord, ...]:
+    if exchange == "bybit":
+        return normalize_bybit_executions(records, category=market).trades
+    return normalize_exchange_records(
+        exchange=exchange,
+        market=market,
+        records=records,
+    )
 
 
 def main(argv: Sequence[str] | None = None) -> int:

@@ -1,45 +1,29 @@
-# META_ANALYSIS - Cycle 8
-_Date: 2026-05-08 · Type: full_
+# META_ANALYSIS - Cycle 18
+_Date: 2026-05-09 · Type: targeted_
 
 ## Project State
-
-Phase 7 (T30-T32) complete. Next: T33 - Telegram Demo Happy Path after Phase 7
-review/archive/doc update if no stop-ship finding remains.
-
-Baseline: 105 pass, 0 skip.
+Phase 14 in progress. T55 - Binance Signed Account Request Helper complete.
+Next: T56 - Binance Spot Trade Fetch Planner.
+Baseline: 176 pass, 0 skip.
 
 ## Open Findings
-
 | ID | Sev | Description | Files | Status |
 |----|-----|-------------|-------|--------|
-| none | - | No open findings in CODEX_PROMPT.md or prior REVIEW_REPORT.md. | - | - |
+| none | - | No open findings in `docs/CODEX_PROMPT.md`; ARCH-1, CODE-1, and CODE-2 are closed. | - | Closed |
 
 ## PROMPT_1 Scope (architecture)
-
-- Public sample source policy: source, license, privacy, and evidence-labeling rules for internal validation.
-- Starter policy profile usage: `soft`, `medium`, and `hard` profiles remain customizable audit presets, not advice or account-rule replacements.
-- Public sample evidence pack: local deterministic demo artifacts, manifest reproducibility, and internal/demo labels.
-- Internal readiness review: go/no-go decision for manual outreach while preserving paid pilot and PMF evidence boundaries.
-- ADR-001 Telegram boundary: public sample packet and upcoming Phase 8 Telegram demo must stay upload/status/operator-approved delivery only.
+- Binance account-data signing helper under ADR-002.
+- Endpoint allowlist must expose only Spot account trade history.
+- No real network client, order/write/withdraw/transfer/leverage/margin endpoint, or secret persistence.
 
 ## PROMPT_2 Scope (code, priority order)
-
-1. `tests/test_public_sample_source_policy.py` (new)
-2. `tests/integration/test_public_sample_pack.py` (new)
-3. `tests/test_internal_readiness_review.py` (new)
-4. `docs/PUBLIC_SAMPLE_SOURCE_POLICY_RU.md` (new)
-5. `docs/PUBLIC_SAMPLE_EVIDENCE_RU.md` (new)
-6. `docs/INTERNAL_VALIDATION_REVIEW_RU.md` (new)
-7. `demo/public_sample_001/` (new)
-8. `docs/CODEX_PROMPT.md`, `docs/EVIDENCE_INDEX.md`, `docs/IMPLEMENTATION_JOURNAL.md`, `README.md`, `MEMORY.md`, `PHASE_HANDOFF.md` (changed state docs)
+1. `trader_risk_audit/exchange/binance.py`
+2. `tests/unit/exchange/test_binance_signing.py`
+3. `trader_risk_audit/exchange/credentials.py` dependency behavior
 
 ## Cycle Type
-
-Full - Phase 7 complete; review required before advancing to Phase 8.
+Targeted - security review triggered by T55 signed request/secret handling.
 
 ## Notes for PROMPT_3
-
-Focus on whether public sample/internal validation artifacts accidentally claim
-market validation or expand product/runtime scope. Verify Phase 8 can proceed
-only if the current no-broker, no-advice, no-live-control, deterministic
-boundary remains intact.
+Focus on deterministic HMAC signing, signature/API key/API secret redaction,
+endpoint allowlist scope, and absence of real Binance network behavior.

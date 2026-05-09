@@ -1,18 +1,14 @@
-# REVIEW_REPORT - Cycle 12
-_Date: 2026-05-09 · Scope: CODE-1 manifest cleanup_
+# REVIEW_REPORT - Cycle 18
+_Date: 2026-05-09 · Scope: T55_
 
 ## Executive Summary
-
 - Stop-Ship: No
-- CODE-1 is closed: default `audit` now writes `telegram_packet.txt` and hashes
-  it in `manifest.json` as `delivery_packet`.
-- Baseline remains 142 passing tests.
-- Ruff check and ruff format check are clean.
-- Determinism is preserved because the packet uses stable `report.md` text
-  instead of output-directory-dependent paths.
-- Demo/public sample manifests and pilot fixture expected hashes were
-  regenerated to include delivery packet hashes.
-- No open P0/P1/P2 findings remain.
+- T55 Binance Signed Account Request Helper is implemented and locally validated.
+- Baseline is 176 passing tests, 0 skipped, with `ruff check` and `ruff format --check` clean.
+- Signed query construction is deterministic and covered by fixture credentials.
+- Signer/request repr and safe metadata redact API key, API secret exposure, and signature.
+- The Binance endpoint allowlist exposes only Spot account trade history (`myTrades`).
+- No real Binance network client, order/write/control endpoint, hosted secret storage, or runtime-tier expansion was introduced.
 
 ## P0 Issues
 
@@ -23,17 +19,17 @@ None.
 None.
 
 ## P2 Issues
-
-None.
+| ID | Description | Files | Status |
+|----|-------------|-------|--------|
+| none | No P2 issues found in this targeted security review. | - | Closed |
 
 ## Carry-Forward Status
-
 | ID | Sev | Description | Status | Change |
 |----|-----|-------------|--------|--------|
-| CODE-1 | P2 | Delivery packet hash was absent from generated audit manifests. | Closed | Default audit now writes and manifests `telegram_packet.txt`; focused integration tests and full suite pass. |
+| CODE-1 | P2 | Delivery packet manifest hash gap. | Closed | Remains closed. |
+| ARCH-1 | P2 | Product spec missing bounded local read-only exchange import feature area. | Closed | Remains closed after `docs/spec.md` Feature Area 9 update. |
+| CODE-2 | P2 | Duplicate imported row ids could collapse attribution buckets. | Closed | Remains closed after duplicate row-id rejection. |
 
 ## Stop-Ship Decision
-
-No - all currently planned tasks through T44 are complete, and the remaining
-metadata/reproducibility debt is closed. Further work should be driven by paid
-pilot evidence, review findings, or an explicit roadmap update.
+No - T55 preserves ADR-002, signs only Binance account trade-history requests,
+redacts secrets from rendered output, and does not add real network behavior.

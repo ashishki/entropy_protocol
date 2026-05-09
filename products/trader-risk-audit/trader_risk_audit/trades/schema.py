@@ -77,19 +77,21 @@ class TradeRecord:
             "source_file",
             parsed_errors,
         )
+        row_id = _parse_row_id_override(values.get("row_id"), parsed_errors)
 
         if parsed_errors:
             raise TradeValidationError(parsed_errors)
 
-        row_id = _build_row_id(
-            timestamp=timestamp,
-            symbol=symbol,
-            side=side,
-            quantity=quantity,
-            price=price,
-            source_file=source_file,
-            source_row_number=source_row_number,
-        )
+        if row_id is None:
+            row_id = _build_row_id(
+                timestamp=timestamp,
+                symbol=symbol,
+                side=side,
+                quantity=quantity,
+                price=price,
+                source_file=source_file,
+                source_row_number=source_row_number,
+            )
         return cls(
             timestamp=timestamp,
             symbol=symbol,
@@ -200,6 +202,19 @@ def _parse_text(
     if not text:
         errors.append(FieldValidationError(field, "must not be blank"))
     return text
+
+
+def _parse_row_id_override(
+    value: object,
+    errors: list[FieldValidationError],
+) -> str | None:
+    if value in (None, ""):
+        return None
+    row_id = str(value).strip()
+    if not row_id:
+        errors.append(FieldValidationError("row_id", "must not be blank"))
+        return None
+    return row_id
 
 
 def _build_row_id(

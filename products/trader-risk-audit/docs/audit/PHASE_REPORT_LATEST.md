@@ -1,68 +1,70 @@
-# Current Report - Phase 11 Planned
+# Phase 13 Report - Bybit Read-Only MVP
+
+Date: 2026-05-09
 
 ## What Was Built
 
-Phase 10 created the sales/conversion artifacts needed for founder-led paid
-pilot outreach.
+Phase 13 added the Bybit-specific read-only MVP over sanitized fixtures.
 
-The phase added RU/EN before/after comparisons that show what raw exports fail
-to explain and what deterministic audit reports add: rule breach, source rows,
-violation-attributed P&L, limitations, and next-review checklist.
+T51 added Bybit API key metadata inspection that accepts read-only metadata,
+rejects detectable write/control permissions, and keeps credential/account
+metadata redacted.
 
-It added RU/EN objection handling for privacy, broker/API, no-advice, journal
-comparison, pricing, and repeat-audit objections. The answers point back to the
-pilot intake contract and paid pilot evidence gate.
+T52 added deterministic Bybit execution-history planning for `spot` and
+`linear`, including seven-day windows and mocked cursor pagination.
 
-It added RU/EN ICP demo variants for prop/funded traders, active crypto
-discretionary traders, and small teams/coaches. Each variant uses the same
-post-trade audit boundary and the same validation evidence gate.
+T53 added Bybit execution normalization into canonical `TradeRecord` objects.
+It preserves deterministic same-timestamp ordering by execution/order ids and
+reports unsupported fields as field-only warnings.
 
-Finally, it added RU/EN paid pilot offer pages with deliverables, required
-inputs, timeline, privacy boundary, no-advice boundary, pilot price placeholder,
-CTA, and references to the conversion assets.
-
-After Phase 10, the remaining CODE-1 reproducibility debt was closed. The
-default `audit` command now writes `telegram_packet.txt`, includes it as
-`delivery_packet` in `manifest.json`, and keeps content hashes stable across
-different output directories.
-
-The roadmap now includes a planned read-only exchange import expansion. ADR-002
-and `docs/EXCHANGE_API_IMPORT_PLAN_RU.md` define a local post-trade ingestion
-path for Binance/Bybit historical fills, with no trading, withdrawals,
-transfers, leverage/margin mutation, hosted secrets, signal analytics, or
-advice scope.
+T54 proved fixture-backed Bybit import into the existing deterministic audit
+workflow. The import writes `raw_snapshot.json`, `normalized_trades.csv`, and
+`import_manifest.json`; audit then writes report and audit manifest artifacts.
+Bybit execution ids survive as source-row ids in audit violation output.
 
 ## Validation
 
-- Before Phase 10: 130 passing tests.
-- After Phase 10: 142 passing tests.
-- Ruff check: passed.
-- Ruff format check: passed.
-- Deep review Cycle 12: Stop-Ship No.
+Baseline moved from 163 passing tests after T51 to 173 passing tests after
+T54 and the Cycle 17 CODE-2 fix.
 
-## Open Findings
+Final checks:
 
-- None.
+- `.venv/bin/python -m pytest tests -q --tb=short` -> 173 passed
+- `.venv/bin/python -m ruff check trader_risk_audit tests` -> passed
+- `.venv/bin/python -m ruff format --check trader_risk_audit tests` -> passed
+
+## Review Result
+
+Deep review Cycle 17 found:
+
+- P0: 0
+- P1: 0
+- P2: 1
+- Stop-Ship: No
+
+The P2 was CODE-2: imported CSV `row_id` values needed duplicate rejection to
+avoid attribution bucket collisions after row-id round-trip support. It was
+fixed during the review and covered by `tests/unit/trades/test_importers.py`.
 
 ## Health Verdict
 
-GREEN.
+Health: OK after fix.
 
-The completed product remains healthy for manual outreach and paid pilot
-testing. Phase 11 is planned but not implemented. There are no open P0/P1/P2
-findings.
+The implementation stayed inside ADR-002. It added no real exchange network
+calls, no order/write/withdrawal/transfer/leverage-control endpoints, no hosted
+secret storage, no trading advice, and no runtime-tier expansion.
 
 ## Next Phase
 
-Phase 11 - Read-Only Exchange Import Safety. Start with T45 ADR-002 acceptance,
-then T46 credential permission contract and T47 exchange fixture/redaction
-policy. Do not add real exchange network code before T45-T47 are complete.
+Phase 14 starts the Binance read-only MVP. The next task is T55 - Binance Signed
+Account Request Helper. T55 is security-typed and must use fixture credentials
+only; no real credentials or real network smoke tests belong in CI.
 
 ## Notification Summary
 
-Phase 11 PLANNED
-Built: conversion assets, deterministic packet manifest coverage, exchange import roadmap
-Tests: 142 pass
-Issues: P0:0 P1:0 P2:0 open
-Health: GREEN
-Next: T45 read-only exchange import ADR
+Ph13 Bybit Read-Only MVP DONE
+Built: permission check, fetch planner, normalizer, import-to-audit
+Tests: 163->173 pass
+Issues: P1:0 P2:1 fixed
+Health: OK
+Next: Ph14 Binance Read-Only MVP

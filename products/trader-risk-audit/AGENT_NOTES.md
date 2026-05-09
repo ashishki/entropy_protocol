@@ -1,5 +1,26 @@
 # Agent Notes - Trader Risk Audit
 
+## 2026-05-09
+
+- Phase 11 completed and deep-reviewed. Review archive: `docs/archive/PHASE11_REVIEW.md`.
+- Current baseline: 149 passing tests, 0 skipped.
+- Current phase: Phase 12 - Exchange Import Core.
+- T45 accepted ADR-002 as the read-only exchange import boundary and activated D-009.
+- T46 added deterministic credential permission inspection/redaction and passed targeted Cycle 13 security review. Review archive: `docs/archive/CYCLE13_T46_SECURITY_REVIEW.md`.
+- T47 added exchange fixture/redaction policy, synthetic Binance/Bybit fixtures, and scanner tests.
+- T48 added deterministic raw exchange snapshot and import manifest models with artifact drift validation.
+- T49 added deterministic exchange raw record normalization into canonical `TradeRecord` objects with safe field-only errors.
+- T50 added `exchange-import fixture` for local sanitized fixtures, writing raw snapshots, normalized trade CSV, and import manifests consumable by `audit`.
+- Phase 12 boundary review Cycle 15 is archived in `docs/archive/PHASE12_REVIEW.md`; Stop-Ship: No. ARCH-1 P2 spec drift was addressed by adding `docs/spec.md` Feature Area 9.
+- T51 added Bybit API key metadata permission checks over fixture/mocked metadata only. Targeted Cycle 16 security review archived in `docs/archive/CYCLE16_T51_SECURITY_REVIEW.md`; Stop-Ship: No.
+- T52 added deterministic Bybit execution fetch planning with seven-day windows, mocked cursor pagination, and no write endpoint labels.
+- T53 added Bybit execution normalization into canonical trades with deterministic same-timestamp ordering and safe unsupported-field warnings.
+- T54 proved Bybit fixture import feeds the deterministic audit workflow and preserves Bybit execution ids as audit source rows. Phase 13 review archived in `docs/archive/PHASE13_REVIEW.md`; Stop-Ship: No. CODE-2 P2 duplicate row-id collision risk was fixed.
+- T55 added deterministic Binance Spot `myTrades` signing with redacted signer/request rendering and only the account trade-history endpoint label. Targeted Cycle 18 security review archived in `docs/archive/CYCLE18_T55_SECURITY_REVIEW.md`; Stop-Ship: No.
+- Current baseline: 176 passing tests, 0 skipped.
+- Next action: T56 Binance Spot Trade Fetch Planner.
+- Keep Phase 12 fixture-backed and local-only. Do not add real Binance/Bybit network calls, order/write endpoints, withdrawals, transfers, leverage/margin mutation, hosted secrets, signal analytics, advice, or live trading behavior.
+
 ## 2026-05-07
 
 - Phase 1 completed and deep-reviewed. Review archive: `docs/archive/PHASE1_REVIEW.md`.

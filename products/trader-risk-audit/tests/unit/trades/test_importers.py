@@ -45,3 +45,21 @@ def test_import_output_is_byte_identical_across_runs() -> None:
 
     assert first == second
     assert first.encode("utf-8") == second.encode("utf-8")
+
+
+def test_duplicate_imported_row_ids_are_rejected(tmp_path: Path) -> None:
+    fixture = tmp_path / "duplicate_row_ids.csv"
+    fixture.write_text(
+        "\n".join(
+            (
+                "row_id,timestamp,symbol,side,quantity,price,fees,account_id",
+                "bybit_exec_duplicate,2026-04-01T12:00:00+00:00,BTCUSDT,buy,1,1,0,acct",
+                "bybit_exec_duplicate,2026-04-01T12:01:00+00:00,BTCUSDT,sell,1,2,0,acct",
+                "",
+            )
+        ),
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ValueError, match="duplicate row_id values are not allowed"):
+        normalize_csv(fixture)

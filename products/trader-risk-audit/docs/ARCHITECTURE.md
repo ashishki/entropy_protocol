@@ -86,8 +86,8 @@ The highest error cost is false accusation, missed violation, bad P&L attributio
 |----------|----------|
 | Isolation boundary | T0 local process. Audits run from the product workspace or a local virtual environment controlled by the operator. |
 | Persistence model | Local files only in v1: input exports, normalized artifacts, reports, delivery packets, manifests, and optional SQLite/DuckDB artifacts if later justified. |
-| Network model | No network required for core audit. Telegram is disabled by default; ADR-001 permits constrained pilot intake/delivery only. ADR-002 proposes bounded read-only exchange import for historical fills; no exchange write/control egress is approved. |
-| Secrets model | No required secrets for core CSV audit. Optional Telegram bot token remains disabled by default and must come from environment variables when enabled. Planned exchange import credentials must be read-only, local, redacted, and never persisted in manifests/logs/metadata. |
+| Network model | No network required for core audit. Telegram is disabled by default; ADR-001 permits constrained pilot intake/delivery only. ADR-002 accepts bounded read-only exchange import for historical fills; no exchange write/control egress is approved, and Phase 12 remains fixture-backed only. |
+| Secrets model | No required secrets for core CSV audit. Optional Telegram bot token remains disabled by default and must come from environment variables when enabled. Planned exchange import credentials must be read-only, local, redacted, and never persisted in manifests, logs, queue metadata, workspace metadata, reports, fixtures, or docs. |
 | Runtime mutation boundary | Application runtime may not install packages, modify toolchains, create services, or mutate shell state. Development and CI dependency installation are outside runtime. |
 | Rollback / recovery model | Re-run an audit from the same export, policy file, and config. Generated artifact hashes must identify output drift. |
 
@@ -126,7 +126,12 @@ Retrieval mode is no retrieval for v1. User-provided rules and templates are loa
 | Markdown report generator | `trader_risk_audit/reporting/markdown.py` | Render deterministic reports from report models and templates. |
 | Claim guard | `trader_risk_audit/reporting/claim_guard.py` | Block unsupported advice, performance, live-control, or causal claims in report text. |
 | Artifact manifest | `trader_risk_audit/artifacts/manifest.py` | Write reproducible manifests and hashes for inputs, normalized data, violations, attribution, reports, and delivery packets. |
-| Planned exchange import | `trader_risk_audit/exchange/` | Future ADR-002 scope for local read-only Binance/Bybit historical fill imports, raw snapshots, import manifests, and normalizers; no order/write/withdraw/transfer endpoints. |
+| Exchange credential safety | `trader_risk_audit/exchange/credentials.py` | Define local-only exchange credential metadata, deterministic read-only permission review, raw secret redaction, and `needs_operator_review` for unverifiable permissions. |
+| Exchange raw snapshot schema | `trader_risk_audit/exchange/snapshot.py` | Define deterministic local raw snapshot metadata for exchange, market/category, symbols, time range, fetched pages, endpoint labels, and sanitized raw records. |
+| Exchange import manifest | `trader_risk_audit/exchange/manifest.py` | Hash raw snapshots and normalized exchange outputs separately from final audit manifests, excluding generated timestamps from deterministic content hashes. |
+| Exchange normalizer interface | `trader_risk_audit/exchange/normalizer.py` | Map sanitized exchange raw fills/executions into canonical trade records without changing evaluator semantics. |
+| Fixture-backed exchange import CLI | `trader_risk_audit/cli.py` | Provide local `exchange-import fixture` plumbing that writes raw snapshot, normalized CSV, and import manifest artifacts without real exchange network calls. |
+| Exchange fixture policy | `docs/EXCHANGE_FIXTURE_POLICY_RU.md`, `tests/fixtures/exchange/` | Define synthetic/sanitized exchange fixture rules and store only redacted regression fixtures with no credentials, account ids, balances, customer identifiers, or private notes. |
 | Local workspace | `trader_risk_audit/workspace.py` | Create operator-controlled local audit workspaces with input, output, notes, artifacts, and non-sensitive metadata. |
 | Telegram pilot intake/delivery | `trader_risk_audit/telegram_bot/` | Provide disabled-by-default Telegram intake handlers, local file storage, and approved-report delivery abstractions inside ADR-001 boundaries; no broker control, signal parsing, advice, or unapproved report sending. |
 | Pilot review queue | `trader_risk_audit/pilot_queue.py` | Persist local operator-owned request statuses and non-sensitive file references for manual review and approval gates. |
@@ -153,7 +158,8 @@ Retrieval mode is no retrieval for v1. User-provided rules and templates are loa
 1. User creates a read-only exchange API key and preferably IP-allowlists it.
 2. User provides credentials to a local import command through environment
    variables or an explicit local prompt.
-3. Importer verifies key permissions where the exchange exposes metadata.
+3. Importer verifies key permissions where the exchange exposes metadata; if
+   read-only status cannot be verified, the import requires operator review.
 4. Importer fetches bounded historical fills/executions by explicit exchange,
    market/category, symbol, and time range.
 5. Importer writes a raw immutable snapshot and import manifest without

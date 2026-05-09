@@ -20,6 +20,7 @@ _COLUMN_ALIASES: Mapping[str, tuple[str, ...]] = {
     "price": ("price", "fill_price", "fill price", "execution_price"),
     "fees": ("fees", "fee", "commission"),
     "account_id": ("account_id", "account", "account id"),
+    "row_id": ("row_id", "source_row_id", "source row id"),
 }
 
 
@@ -55,6 +56,7 @@ def normalize_csv(path: str | Path) -> tuple[TradeRecord, ...]:
             )
             for source_row_number, row in enumerate(reader, start=2)
         ]
+        _ensure_unique_row_ids(records)
 
     return tuple(
         sorted(
@@ -100,6 +102,14 @@ def _canonical_row(
     canonical["source_file"] = source_file
     canonical["source_row_number"] = source_row_number
     return canonical
+
+
+def _ensure_unique_row_ids(records: Iterable[TradeRecord]) -> None:
+    seen: set[str] = set()
+    for record in records:
+        if record.row_id in seen:
+            raise ValueError("duplicate row_id values are not allowed")
+        seen.add(record.row_id)
 
 
 def _trade_record_to_payload(record: TradeRecord) -> dict[str, Any]:

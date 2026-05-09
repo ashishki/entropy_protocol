@@ -1,65 +1,52 @@
-# ARCH_REPORT - Cycle 12
+# ARCH_REPORT - Cycle 18
 _Date: 2026-05-09_
 
 ## Component Verdicts
-
 | Component | Verdict | Note |
 |-----------|---------|------|
-| Audit CLI artifact packaging | PASS | Default `audit` writes `telegram_packet.txt` before manifest generation and records it as `delivery_packet`. |
-| Demo/public sample manifests | PASS | Committed sample manifests include delivery packet hashes and regenerate deterministically. |
-| Pilot fixture hashes | PASS | End-to-end pilot fixture hash expectations include `delivery_packet`. |
-| Documentation state | PASS | Current state docs no longer carry CODE-1 as open. |
+| Binance signed request helper | PASS | Deterministic HMAC query construction for Spot `myTrades` only. |
+| Redaction behavior | PASS | Signer/request repr and safe metadata redact API key and signature; tests assert raw key/secret/signature absence. |
+| Endpoint allowlist | PASS | Only `binance.spot.my_trades` and `/api/v3/myTrades` are exposed. |
 
 ## Contract Compliance
-
 | Rule | Verdict | Note |
 |------|---------|------|
-| SQL Safety | PASS | No SQL paths in scope. |
-| Multi-Tenant Systems | PASS | Not active; no multi-tenant code in scope. |
-| Async Redis | PASS | Not active; no Redis code in scope. |
-| Authorization | PASS | Not active; no route handlers in scope. |
-| PII Policy | PASS | Conversion docs avoid real customer identifiers and point to privacy boundaries. |
-| Credentials | PASS | Docs reject API keys, broker tokens, passwords, and seed phrases. |
-| Tracing | PASS | No new external-call code path requiring tracing. |
-| CI | PASS | Local pytest and ruff validation are green. |
-| Deterministic Violation Truth | PASS | Docs describe existing deterministic report outputs; no AI-owned truth added. |
-| Human Approval for Ambiguous Inputs | PASS | Offer and scripts preserve operator-approved mapping/review. |
-| Source-Row Traceability | PASS | Conversion assets emphasize source row ids rather than vague claims. |
-| Reproducibility | PASS | CODE-1 is closed: default CLI-generated manifests include `telegram_packet.txt` through a stable `delivery_packet` hash. |
-| Confidential Data Handling | PASS | Assets tell prospects not to send sensitive identifiers/secrets and use public/sample-safe examples. |
-| Report Claim Boundaries | PASS | No advice, performance, live-control, PMF, or guaranteed-improvement claims were added. |
-| Runtime Boundary | PASS | No app, checkout, broker/exchange API, CRM, SaaS account system, or hosted workflow added. |
+| SQL safety | PASS | No SQL in scoped files. |
+| Multi-tenant systems | PASS | Not applicable; no database path added. |
+| Async Redis | PASS | No Redis or async IO added. |
+| Authorization | PASS | No route handlers added. |
+| PII policy | PASS | No logging, tracing, or metrics added. |
+| Credentials | PASS | Raw API key, secret, and signature are absent from repr/safe metadata/error text tested in T55. |
+| Tracing | PASS | No external calls requiring spans were added. |
+| CI | PASS | Local suite passes: 176 tests. |
+| Deterministic violation truth | PASS | No evaluator/report behavior changed. |
+| Human approval for ambiguous inputs | PASS | Real credential use remains outside CI and later operator-gated work. |
+| Source-row traceability | PASS | Not touched by T55. |
+| Reproducibility | PASS | Query parameter ordering is deterministic regardless input mapping order. |
+| Confidential data handling | PASS | Tests use fixture credentials only. |
+| Report claim boundaries | PASS | No report text behavior changed. |
+| Runtime boundary | PASS | No Binance network call, HTTP dependency, write/control endpoint, service, or worker added. |
 
 ## ADR Compliance
-
 | ADR | Verdict | Note |
 |-----|---------|------|
-| ADR-001 Telegram Intake and Delivery Boundary | PASS | Phase 10 does not change Telegram runtime scope. |
+| ADR-001 Telegram Intake and Delivery Boundary | PASS | T55 did not touch Telegram behavior. |
+| ADR-002 Read-Only Exchange Import Boundary | PASS | T55 adds only local signed account-data request construction for Spot trade history. |
 
 ## Architecture Findings
 
-No open architecture findings.
-
-### ARCH-1 [P2] - Delivery packet is not included in CLI-generated manifests
-
-Status: Closed in Cycle 12.
-
-Resolution: `trader_risk_audit.cli._audit_command` now builds the report model
-once, renders `report.md`, renders deterministic `telegram_packet.txt` with the
-stable report reference `report.md`, and passes the packet path to
-`build_audit_manifest(delivery_packet=...)`. `operator run` reuses the same
-packet instead of overwriting it after manifest creation.
+None.
 
 ## Right-Sizing / Runtime Checks
-
 | Check | Verdict | Note |
 |-------|---------|------|
-| Solution shape still appropriate | PASS | CODE-1 cleanup keeps the same local batch workflow. |
-| Deterministic-owned areas remain deterministic | PASS | Evaluation/report truth remains deterministic. |
-| Runtime tier unchanged / justified | PASS | Runtime remains T0 local files/CLI. |
-| Human approval boundaries still valid | PASS | Offer copy preserves operator review and mapping approval. |
-| Minimum viable control surface still proportionate | PASS | The delivery packet is now covered by the same deterministic artifact manifest as the report. |
+| Solution shape still appropriate | PASS | Helper is small and local; no client/runtime expansion. |
+| Deterministic-owned areas remain deterministic | PASS | HMAC input order and output are stable. |
+| Runtime tier unchanged / justified | PASS | Still T0; no network client added. |
+| Human approval boundaries still valid | PASS | No real credentials or live exchange calls in tests. |
+| Minimum viable control surface still proportionate | PASS | One read-only account-data endpoint label only. |
 
 ## Doc Patches Needed
-
-None.
+| File | Section | Change |
+|------|---------|--------|
+| none | - | No architecture doc patch required for this targeted helper. |
