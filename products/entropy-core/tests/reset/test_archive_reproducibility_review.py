@@ -48,16 +48,18 @@ def test_codex_prompt_records_phase7_review_state() -> None:
     prompt = CODEX_PROMPT.read_text(encoding="utf-8")
     tasks = TASKS.read_text(encoding="utf-8")
 
-    assert "Phase: 8" in prompt
+    assert "Phase: 9" in prompt
     assert "T29 Archive Reproducibility Hardening Review completed" in prompt
-    assert "T34 Phase-Gate Readiness Review" in prompt
+    assert "T34 Phase-Gate Readiness Review completed" in prompt
+    assert "T35 Holdout Access Protocol Deny-By-Default Contract" in prompt
     assert "Phase 8 Phase-Gate Readiness Review" in prompt
     assert "Status:     done 2026-05-08" in _task_section(tasks, "T29")
     assert "Status:     done 2026-05-08" in _task_section(tasks, "T30")
     assert "Status:     done 2026-05-09" in _task_section(tasks, "T31")
     assert "Status:     done 2026-05-09" in _task_section(tasks, "T32")
     assert "Status:     done 2026-05-09" in _task_section(tasks, "T33")
-    assert "Status:     active" in _task_section(tasks, "T34")
+    assert "Status:     done 2026-05-09" in _task_section(tasks, "T34")
+    assert "Status:     active" in _task_section(tasks, "T35")
 
 
 def _task_section(text: str, task_id: str) -> str:

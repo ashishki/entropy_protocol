@@ -1,7 +1,7 @@
 # Task Graph - Entropy Core
 
 Version: 1.0
-Last updated: 2026-05-08
+Last updated: 2026-05-09
 Status: active roadmap task graph
 
 ---
@@ -1230,7 +1230,7 @@ Owner:      codex
 Phase:      8
 Type:       none
 Depends-On: T33
-Status:     active
+Status:     done 2026-05-09
 
 Objective: |
   Review Phase 8 readiness artifacts, record findings, evaluate whether the roadmap should proceed to a holdout access protocol, and preserve blocked boundaries unless the roadmap evaluation identifies a safer next phase.
@@ -1256,6 +1256,184 @@ Context-Refs:
   - docs/readiness/PHASE_GATE_GAP_MATRIX.md
   - docs/readiness/PHASE_GATE_READINESS_PACKET.md
   - docs/readiness/APPROVAL_BOUNDARY_CHECKLIST.md
+
+Notes: |
+  This is a phase-boundary review. Continue automatically after roadmap evaluation unless a blocker is found.
+
+## T35: Holdout Access Protocol Deny-By-Default Contract
+
+Owner:      codex
+Phase:      9
+Type:       none
+Depends-On: T34
+Status:     active
+
+Objective: |
+  Define a local holdout access protocol scaffold that is denied by default and cannot open or read holdout paths without explicit future human approval records.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/protocols/HOLDOUT_ACCESS_PROTOCOL.md` records denied-by-default states, required approvals, allowed local-only operations, and forbidden holdout read/unlock actions."
+    test: "tests/reset/test_holdout_access_protocol.py::test_holdout_protocol_records_denied_by_default_contract"
+  - id: AC-2
+    description: "The protocol rejects treating roadmap phases, review recommendations, passing tests, or readiness artifacts as holdout approval."
+    test: "tests/reset/test_holdout_access_protocol.py::test_holdout_protocol_rejects_implicit_approval_sources"
+  - id: AC-3
+    description: "Prompt and handoff record Phase 9 as protocol-only with holdout read/unlock still blocked."
+    test: "tests/reset/test_holdout_access_protocol.py::test_prompt_and_handoff_record_protocol_only_phase"
+
+Files:
+  - docs/protocols/HOLDOUT_ACCESS_PROTOCOL.md
+  - docs/CODEX_PROMPT.md
+  - PHASE_HANDOFF.md
+  - tests/reset/test_holdout_access_protocol.py
+
+Context-Refs:
+  - docs/audit/PHASE_GATE_READINESS_REVIEW.md
+  - docs/readiness/APPROVAL_BOUNDARY_CHECKLIST.md
+  - docs/readiness/PHASE_GATE_READINESS_PACKET.md
+
+Notes: |
+  No holdout path may be opened or read. This task defines protocol scaffolding only.
+
+## T36: Holdout Approval Event Schema Contract
+
+Owner:      codex
+Phase:      9
+Type:       none
+Depends-On: T35
+Status:     pending
+
+Objective: |
+  Define the local schema for explicit human holdout approval events without creating or implying any approval.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Schema requires approver identity, approval scope, candidate/evidence hashes, expiry, revocation state, and audit metadata."
+    test: "tests/reset/test_holdout_approval_event_schema.py::test_holdout_approval_event_schema_requires_governance_fields"
+  - id: AC-2
+    description: "Schema fixtures reject generated, inferred, expired, revoked, or incomplete approval events."
+    test: "tests/reset/test_holdout_approval_event_schema.py::test_holdout_approval_event_schema_rejects_invalid_approval_events"
+  - id: AC-3
+    description: "State docs preserve that no approval event currently exists."
+    test: "tests/reset/test_holdout_approval_event_schema.py::test_state_docs_record_no_current_holdout_approval_event"
+
+Files:
+  - docs/protocols/HOLDOUT_APPROVAL_EVENT_SCHEMA.md
+  - docs/CODEX_PROMPT.md
+  - PHASE_HANDOFF.md
+  - tests/reset/test_holdout_approval_event_schema.py
+
+Context-Refs:
+  - docs/protocols/HOLDOUT_ACCESS_PROTOCOL.md
+  - docs/governance/
+
+Notes: |
+  Schema work only. Do not create a real approval event.
+
+## T37: Holdout Access Audit Logging Contract
+
+Owner:      codex
+Phase:      9
+Type:       none
+Depends-On: T36
+Status:     pending
+
+Objective: |
+  Define audit logging requirements for any future approved holdout access attempt while preserving blocked default behavior.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Audit log contract records request, approval reference, candidate/evidence hashes, access decision, path fingerprint, denial reason, and immutable timestamp metadata."
+    test: "tests/reset/test_holdout_audit_logging_contract.py::test_holdout_audit_logging_contract_lists_required_fields"
+  - id: AC-2
+    description: "Contract records denied attempts without exposing holdout path contents or opening holdout data."
+    test: "tests/reset/test_holdout_audit_logging_contract.py::test_holdout_audit_logging_contract_preserves_no_read_boundary"
+  - id: AC-3
+    description: "Evidence index records the audit logging contract proof."
+    test: "tests/reset/test_holdout_audit_logging_contract.py::test_evidence_index_records_holdout_audit_logging_contract"
+
+Files:
+  - docs/protocols/HOLDOUT_AUDIT_LOGGING_CONTRACT.md
+  - docs/EVIDENCE_INDEX.md
+  - tests/reset/test_holdout_audit_logging_contract.py
+
+Context-Refs:
+  - docs/protocols/HOLDOUT_ACCESS_PROTOCOL.md
+  - docs/protocols/HOLDOUT_APPROVAL_EVENT_SCHEMA.md
+
+Notes: |
+  Audit logging design must not reveal or read holdout contents.
+
+## T38: Holdout Leakage Guard Protocol Fixture
+
+Owner:      codex
+Phase:      9
+Type:       none
+Depends-On: T37
+Status:     pending
+
+Objective: |
+  Define local leakage guard checks that any future approved holdout access would need to pass before a holdout read could be considered.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Guard fixture lists candidate binding, dataset partition proof, code/policy/parameter hashes, training-window proof, and no-prior-holdout-read evidence."
+    test: "tests/reset/test_holdout_leakage_guard_protocol.py::test_holdout_leakage_guard_lists_required_inputs"
+  - id: AC-2
+    description: "Guard fixture records fail-closed behavior for missing approval, stale hashes, partition overlap, prior holdout read, or unresolved evidence."
+    test: "tests/reset/test_holdout_leakage_guard_protocol.py::test_holdout_leakage_guard_records_fail_closed_behavior"
+  - id: AC-3
+    description: "Prompt and handoff preserve no holdout read/unlock while guard protocol is incomplete."
+    test: "tests/reset/test_holdout_leakage_guard_protocol.py::test_state_docs_preserve_holdout_lock_during_guard_protocol"
+
+Files:
+  - docs/protocols/HOLDOUT_LEAKAGE_GUARD_PROTOCOL.md
+  - docs/CODEX_PROMPT.md
+  - PHASE_HANDOFF.md
+  - tests/reset/test_holdout_leakage_guard_protocol.py
+
+Context-Refs:
+  - src/entropy/walkforward/leakage.py
+  - src/entropy/data/holdout.py
+  - docs/protocols/HOLDOUT_ACCESS_PROTOCOL.md
+
+Notes: |
+  This is fixture/protocol work only. Do not execute holdout access.
+
+## T39: Holdout Access Protocol Review
+
+Owner:      codex
+Phase:      9
+Type:       none
+Depends-On: T38
+Status:     pending
+
+Objective: |
+  Review Phase 9 protocol artifacts, record findings, and evaluate whether any future phase may request explicit human holdout approval.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/audit/HOLDOUT_ACCESS_PROTOCOL_REVIEW.md` summarizes protocol, approval schema, audit logging, leakage guard evidence, validation, limitations, findings, and roadmap evaluation."
+    test: "tests/reset/test_holdout_access_protocol_review.py::test_holdout_access_protocol_review_contains_required_sections"
+  - id: AC-2
+    description: "Review either keeps, modifies, or blocks the planned approved holdout evaluation phase without opening holdout."
+    test: "tests/reset/test_holdout_access_protocol_review.py::test_holdout_access_protocol_review_records_roadmap_evaluation"
+  - id: AC-3
+    description: "Audit index and prompt record Phase 9 completion and the next active task selected by roadmap evaluation."
+    test: "tests/reset/test_holdout_access_protocol_review.py::test_holdout_access_protocol_review_updates_state"
+
+Files:
+  - docs/audit/HOLDOUT_ACCESS_PROTOCOL_REVIEW.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/CODEX_PROMPT.md
+  - tests/reset/test_holdout_access_protocol_review.py
+
+Context-Refs:
+  - docs/protocols/HOLDOUT_ACCESS_PROTOCOL.md
+  - docs/protocols/HOLDOUT_APPROVAL_EVENT_SCHEMA.md
+  - docs/protocols/HOLDOUT_AUDIT_LOGGING_CONTRACT.md
+  - docs/protocols/HOLDOUT_LEAKAGE_GUARD_PROTOCOL.md
 
 Notes: |
   This is a phase-boundary review. Continue automatically after roadmap evaluation unless a blocker is found.

@@ -201,3 +201,15 @@ Phase 8 is complete through T33.
 - Evidence index row added for T33 dry-run proof.
 - Light review result: no findings.
 - Boundaries remain unchanged: dry run uses archive-only artifacts and records no holdout path/read/unlock or claim conclusion.
+
+## 2026-05-09 T34 Phase-Gate Readiness Review
+
+Phase 8 is complete through T34. Phase 9 is open as protocol-only holdout access design.
+
+- Completed task: T34 Phase-Gate Readiness Review.
+- Active task: T35 Holdout Access Protocol Deny-By-Default Contract.
+- Latest validation: `.venv/bin/python -m pytest -q tests/` -> `405 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
+- Audit index row added for Phase 8 review.
+- Evidence index row added for T34 review proof.
+- Light/deep review result: no findings.
+- Roadmap decision: keep Phase 9, modified to local protocol-only work. Holdout read/unlock, phase-gate approval, OOS/performance claims, live, broker/exchange, production, and capital-ready paths remain blocked.

@@ -84,8 +84,10 @@ def test_prompt_and_handoff_match_boundary_checklist() -> None:
     ):
         assert boundary in checklist
         assert boundary in combined
-    assert "current active task is t34 phase-gate readiness review" in prompt
-    assert "active task: t34 phase-gate readiness review" in handoff
+    assert "current active task is t35 holdout access protocol deny-by-default contract" in prompt
+    assert "active task: t35 holdout access protocol deny-by-default contract" in handoff
+    assert "phase 9 is protocol-only" in prompt
+    assert "no holdout read, holdout unlock" in handoff
 
 
 def _checklist_rows(text: str) -> list[dict[str, str]]:

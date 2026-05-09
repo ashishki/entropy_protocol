@@ -7,10 +7,10 @@ manual restart.
 
 - Product: entropy-core
 - Branch: codex/entropy-core-work
-- Active task: T34 Phase-Gate Readiness Review
-- Phase: 8 Phase-Gate Readiness Review
-- Last validation: 2026-05-09 T33: `402 passed, 20 skipped`; ruff check clean; ruff format clean; pyright 0 errors; `git diff --check` clean.
-- Git status summary: T33 no-holdout dry run changes pending commit at handoff update time.
+- Active task: T35 Holdout Access Protocol Deny-By-Default Contract
+- Phase: 9 Holdout Access Protocol
+- Last validation: 2026-05-09 T34: `405 passed, 20 skipped`; ruff check clean; ruff format clean; pyright 0 errors; `git diff --check` clean.
+- Git status summary: T34 phase-gate readiness review changes pending commit at handoff update time.
 
 ## Completed In This Phase
 
@@ -50,11 +50,16 @@ manual restart.
 - T31 Phase-Gate Readiness Packet Scaffold completed with no findings.
 - T32 Approval Boundary Checklist completed with no findings.
 - T33 Readiness No-Holdout Dry Run completed with no findings.
+- T34 Phase-Gate Readiness Review completed with no findings.
 
 ## Remaining Work
 
-- T34 Phase-Gate Readiness Review is active.
-- After T34, run deep review, fix findings, validate, evaluate the roadmap, rewrite future phases/tasks if useful, open the next logical active phase, and continue automatically.
+- T35 Holdout Access Protocol Deny-By-Default Contract is active.
+- T36 Holdout Approval Event Schema Contract is pending.
+- T37 Holdout Access Audit Logging Contract is pending.
+- T38 Holdout Leakage Guard Protocol Fixture is pending.
+- T39 Holdout Access Protocol Review is pending.
+- After T39, run deep review, fix findings, validate, evaluate the roadmap, rewrite future phases/tasks if useful, open the next logical active phase, and continue automatically.
 
 ## Blockers Or Human Decisions
 
@@ -63,7 +68,8 @@ manual restart.
 - Human decision after T19 recorded: open archive-only evidence expansion for more proof. No holdout, live feed, broker/exchange, production, capital-ready, phase-gate, or OOS/performance claim path is approved.
 - Human decision required after T24 was satisfied on 2026-05-08 by opening Phase 7 only.
 - Human decision after T24 recorded on 2026-05-08: record roadmap phases 7 through 13, open Phase 7, and allow autonomous phase rollover after deep review, fixes, validation, and roadmap evaluation.
-- Real external side effects, live capital actions, live broker/exchange execution, and credentialed production deployment remain blocked; implement local dry-run/sandbox/protocol work instead unless a future local contract explicitly permits otherwise.
+- Phase 8 roadmap evaluation opened Phase 9 as protocol-only holdout access design. No holdout read, holdout unlock, phase-gate approval, or OOS/performance claim is approved.
+- Real external side effects, holdout reads, holdout unlocks, live capital actions, live broker/exchange execution, and credentialed production deployment remain blocked; implement local dry-run/sandbox/protocol work instead unless a future local contract explicitly permits otherwise.
 
 ## Resume Instruction
 

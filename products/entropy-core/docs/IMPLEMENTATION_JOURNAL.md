@@ -21,6 +21,15 @@ This file records handoff context. It is not authority.
 
 ## Entries
 
+### 2026-05-09 - T34 - Phase-Gate Readiness Review
+
+- Scope: `docs/audit/PHASE_GATE_READINESS_REVIEW.md`, `docs/audit/AUDIT_INDEX.md`, `tests/reset/test_phase_gate_readiness_review.py`, `docs/tasks.md`, `docs/EVIDENCE_INDEX.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`
+- Why this work happened: close Phase 8 with a readiness review and roadmap evaluation before opening the next autonomous phase
+- Decisions applied: `docs/readiness/PHASE_GATE_GAP_MATRIX.md`; `docs/readiness/PHASE_GATE_READINESS_PACKET.md`; `docs/readiness/APPROVAL_BOUNDARY_CHECKLIST.md`; `D-ROADMAP-001`
+- Evidence collected: T34 acceptance tests passed (`3 passed`); full reset baseline `405 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean
+- Follow-ups: start T35 Holdout Access Protocol Deny-By-Default Contract
+- Notes for next agent: Phase 9 is protocol-only. It may define denied-by-default controls, approval schemas, audit logs, and leakage guards, but must not read or unlock holdout data or create OOS/performance claims.
+
 ### 2026-05-09 - T33 - Readiness No-Holdout Dry Run
 
 - Scope: `docs/readiness/PHASE_GATE_READINESS_PACKET.md`, `tests/reset/test_readiness_no_holdout_dry_run.py`, `docs/EVIDENCE_INDEX.md`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`
