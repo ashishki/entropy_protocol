@@ -1749,7 +1749,7 @@ Owner:      codex
 Phase:      11
 Type:       none
 Depends-On: T48
-Status:     active
+Status:     done 2026-05-09
 
 Objective: |
   Define local observability evidence for dry-run feed readiness, including logging, counters, and failure states without external side effects.
@@ -1781,7 +1781,7 @@ Owner:      codex
 Phase:      11
 Type:       none
 Depends-On: T49
-Status:     pending
+Status:     active
 
 Objective: |
   Review Phase 11 live-feed dry-run readiness artifacts and evaluate the next roadmap step without enabling broker/exchange execution or capital.

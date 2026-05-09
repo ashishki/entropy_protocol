@@ -21,6 +21,15 @@ This file records handoff context. It is not authority.
 
 ## Entries
 
+### 2026-05-09 - T49 - Live-Feed Observability Packet
+
+- Scope: `docs/protocols/LIVE_FEED_OBSERVABILITY_PACKET.md`, `tests/reset/test_live_feed_observability_packet.py`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`
+- Why this work happened: define local dry-run observability evidence before Phase 11 review
+- Decisions applied: `docs/protocols/LIVE_FEED_ADAPTER_DRY_RUN_CONTRACT.md`
+- Evidence collected: T49 acceptance tests passed (`3 passed`); full reset baseline `450 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean
+- Follow-ups: start T50 Live-Feed Dry Run Readiness Review
+- Notes for next agent: T49 records local observability fields, failure counters, redaction boundaries, and readiness limitations. Secrets, orders, capital actions, external telemetry, production labels, and holdout access remain blocked.
+
 ### 2026-05-09 - T48 - Live-Feed Adapter Dry-Run Contract
 
 - Scope: `docs/protocols/LIVE_FEED_ADAPTER_DRY_RUN_CONTRACT.md`, `tests/reset/test_live_feed_adapter_dry_run_contract.py`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`

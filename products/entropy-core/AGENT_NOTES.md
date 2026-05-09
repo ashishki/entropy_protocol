@@ -279,12 +279,12 @@ Phase 10 is complete through T40.
 - Light review result: no findings.
 - Boundaries remain unchanged: the request packet is scaffold-only; no approval event currently exists; holdout read/unlock, OOS/performance, live, broker/exchange, production, and capital-ready paths remain blocked.
 
-## 2026-05-09 T48 Live-Feed Adapter Dry-Run Contract
+## 2026-05-09 T49 Live-Feed Observability Packet
 
-Phase 10 is complete through T45. Phase 11 is complete through T48.
+Phase 10 is complete through T45. Phase 11 is complete through T49.
 
-- Completed task: T48 Live-Feed Adapter Dry-Run Contract.
-- Active task: T49 Live-Feed Observability Packet.
-- Latest validation: `.venv/bin/python -m pytest -q tests/` -> `447 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
+- Completed task: T49 Live-Feed Observability Packet.
+- Active task: T50 Live-Feed Dry Run Readiness Review.
+- Latest validation: `.venv/bin/python -m pytest -q tests/` -> `450 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
 - Light review result: no findings.
-- Boundaries remain unchanged: adapter checks are local parser, normalization, clock, replay, failure-state, and idempotence checks only; no sockets, credentials, live feed connectivity, orders, broker/exchange execution, capital actions, production labels, or holdout access are approved.
+- Boundaries remain unchanged: observability is local artifact evidence only with redaction and failure counters; no secrets, orders, capital actions, external telemetry, production labels, or holdout access are approved.

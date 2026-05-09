@@ -63,7 +63,7 @@ def test_phase_gate_readiness_review_updates_state() -> None:
     assert "Status:     done 2026-05-09" in _task_section(tasks, "T39")
     assert "Status:     done 2026-05-09" in _task_section(tasks, "T40")
     assert "Status:     done 2026-05-09" in _task_section(tasks, "T41")
-    assert "Status:     active" in _task_section(tasks, "T49")
+    assert "Status:     active" in _task_section(tasks, "T50")
     assert "No holdout path may be opened or read" in _task_section(tasks, "T35")
 
 

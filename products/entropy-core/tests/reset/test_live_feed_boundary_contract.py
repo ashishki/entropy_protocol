@@ -65,8 +65,8 @@ def test_state_docs_record_phase11_local_only_scope() -> None:
 
     assert "phase: 11" in prompt
     assert "phase: 11 live-feed dry run readiness" in handoff
-    assert "current active task is t49 live-feed observability packet" in prompt
-    assert "active task: t49 live-feed observability packet" in handoff
+    assert "current active task is t50 live-feed dry run readiness review" in prompt
+    assert "active task: t50 live-feed dry run readiness review" in handoff
     assert "phase 11 is local-only live-feed dry-run readiness" in combined
     for boundary in (
         "order placement",
