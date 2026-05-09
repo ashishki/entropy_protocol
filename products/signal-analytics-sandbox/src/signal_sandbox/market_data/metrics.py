@@ -106,9 +106,7 @@ def _evaluate_one_horizon(
 ) -> HorizonMetric:
     horizon_end = post_timestamp_utc + timedelta(days=days)
     window = [
-        row
-        for row in rows
-        if post_timestamp_utc <= row["timestamp_utc"] <= horizon_end
+        row for row in rows if post_timestamp_utc <= row["timestamp_utc"] <= horizon_end
     ]
     if not window:
         return _status_metric(

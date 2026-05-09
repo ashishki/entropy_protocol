@@ -50,9 +50,7 @@ def aggregate_author_metrics(
 
     hits, evaluable = _directional_hits(drafts, outcomes_by_idea_id)
     metrics.directional_evaluable_count = evaluable
-    metrics.directional_hit_rate = (
-        _ratio(hits, evaluable) if evaluable > 0 else None
-    )
+    metrics.directional_hit_rate = _ratio(hits, evaluable) if evaluable > 0 else None
     metrics.null_content_rate = _ratio(metrics.null_content_count, len(drafts))
     return metrics
 

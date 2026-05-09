@@ -39,8 +39,7 @@ def test_interpretive_claims_are_cited() -> None:
                 InterpretiveClaim(
                     claim_id="claim-uncited",
                     text=(
-                        "Momentum commentary appears stronger than the sample "
-                        "supports."
+                        "Momentum commentary appears stronger than the sample supports."
                     ),
                     citations=["missing-doc"],
                 )

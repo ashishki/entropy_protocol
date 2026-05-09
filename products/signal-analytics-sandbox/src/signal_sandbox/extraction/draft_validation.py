@@ -32,9 +32,7 @@ def validate_pseudo_label(
     return pseudo_label
 
 
-def _validate_spans(
-    raw_text: str, spans: Sequence[object]
-) -> dict[str, list[str]]:
+def _validate_spans(raw_text: str, spans: Sequence[object]) -> dict[str, list[str]]:
     span_fields: dict[str, list[str]] = {}
     for span in spans:
         span_mapping = _require_mapping(span, "evidence_spans[]")
