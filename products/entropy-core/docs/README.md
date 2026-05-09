@@ -1,6 +1,6 @@
 # Entropy Core Documentation
 
-**Last updated:** 2026-05-07
+**Last updated:** 2026-05-09
 **Status:** Active core workspace
 
 This directory contains the original governed Entropy Protocol documentation:
@@ -46,6 +46,8 @@ It provides:
 | Handoff | `CODEX_PROMPT.md` | Current core session state |
 | Contract | `IMPLEMENTATION_CONTRACT.md` | Immutable implementation rules |
 | Governance | `governance/` | Research firewall, readiness gate, governor |
+| Approvals | `approvals/` | Human approval requests, intake contracts, and validation decisions |
+| Protocol contracts | `protocols/` | Boundary contracts for broker sandbox, risk controls, and dry-run execution |
 | Audit | `audit/` | Current audit prompts, findings, review reports |
 | Archive | `archive/`, `audit/archive/` | Historical state and audit packets |
 | Audience | `audience/` | External practitioner and architecture briefs |
@@ -65,7 +67,12 @@ workspace under `products/`.
 
 ## Current Boundary
 
-Holdout, production/capital-ready labels, live feeds, broker integration,
-Growth/RDL/RBE activation, and OOS/performance claims remain blocked unless a
-separate explicit core gate opens them.
+Phase 14 Local Broker Sandbox No-Capital Replay Extension is active. The
+current product hypothesis status is `local_evidence_strengthened_not_confirmed`.
 
+The only current approval is deterministic local no-effect replay with scope
+`local_broker_sandbox_no_capital_replay`. Holdout, production/capital-ready
+labels, live feeds, broker or exchange execution, external sandbox order
+emission from code, production credential loading, Growth/RDL/RBE activation,
+and OOS/performance claims remain blocked unless a separate explicit core gate
+opens them.

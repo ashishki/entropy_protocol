@@ -5,6 +5,29 @@ Last updated: 2026-04-13
 
 ---
 
+## Codex tmux Override
+
+This product runs on the VPS Codex tmux scheme. `CODEX_LOOP.md` is the local
+operating override for this workspace.
+
+The normal loop is executed by the already-running Codex agent in tmux window
+`entropy-core`. Do not call `codex`, do not call `codex exec`, and do not spawn
+nested Codex or another AI coding process from inside the loop.
+
+Legacy references in this playbook to Claude Code, `.claude/`, slash commands,
+or `codex exec` describe the old execution substrate. Preserve the orchestration
+order, but execute it as:
+
+```text
+current tmux Codex agent -> files -> validation -> notes -> phase handoff
+```
+
+The only unplanned stop condition is account/model limits until reset. Human
+gates, phase boundaries, and project completion are planned pauses with
+checkpoint files.
+
+---
+
 ## 1. Philosophy
 
 ### AI-Assisted Development

@@ -1,8 +1,8 @@
 # Task Graph - Entropy Core
 
 Version: 1.0
-Last updated: 2026-05-07
-Status: reset task graph
+Last updated: 2026-05-09
+Status: active roadmap task graph
 
 ---
 
@@ -14,6 +14,28 @@ Status: reset task graph
 | 2 | Governance Integrity | T04-T07 | Registry, governance, evidence index, and no-claim report boundaries synchronized with current code. | Append-only, human-gate, no-claim, and evidence-index checks pass. |
 | 3 | Evaluation Safety | T08-T11 | Data/leakage/holdout, SimBroker, attribution, and phase-gate evidence hardening. | Heavy evidence tasks have executable tests and indexed proof. |
 | 4 | Product Bridges | T12-T14 | Trader Risk Audit primitives and hypothesis/backtest bridge contracts. | Bridge tests prove no live/no-claim boundaries are preserved. |
+| 5 | First Research Evidence Packet | T15-T19 | One registered, hash-bound, archive-only, leakage-checked research packet from a narrow baseline hypothesis. | Packet and review prove reproducible evidence without OOS/performance, holdout, live, production, or capital-ready claims. |
+| 6 | Archive Evidence Expansion | T20-T24 | Additional archive-only, hash-bound evidence packets from distinct narrow baseline hypotheses. | Packet set demonstrates repeatable archive evidence generation without OOS/performance, holdout, live, production, or capital-ready claims. |
+| 7 | Archive Reproducibility Hardening | T25-T29 | Replay and consistency checks for existing archive-only evidence packets plus roadmap evaluation rules. | Replays prove deterministic packet generation, stable hashes, no hidden holdout/live/OOS/performance surfaces, and a documented roadmap evaluation after phase close. |
+| 8 | Phase-Gate Readiness Review | T30-T34 | Gap matrix and readiness packet for deciding whether the archive evidence base is sufficient to discuss holdout access. | Review identifies evidence sufficiency, missing controls, and required human approvals without opening holdout. |
+| 9 | Holdout Access Protocol | T35-T39 | Design and approval protocol for controlled holdout unlock, leakage guards, and audit logging. | Holdout remains unread until explicit approval; protocol proves access can be gated, logged, and blocked by default. |
+| 10 | Holdout Approval Decision Packet | T40-T45 | Assemble no-read approval request and decision evidence before any future holdout access approval could be considered. | Packet proves explicit approval is absent or bounded, non-approval sources are rejected, and holdout remains unread unless a future human approval event and controls exist. |
+| 11 | Live-Feed Dry Run Readiness | T46-T50 | Prepare live market data ingestion checks without broker orders, exchange execution, or live capital. | Live-feed path is observable and gated; no order placement, broker integration, or capital deployment is enabled. |
+| 12 | Broker Sandbox and Execution Risk Audit | T51-T56 | Sandbox-only broker/exchange integration, execution risk controls, and kill-switch audit. | Sandbox execution is isolated; live capital remains blocked; risk controls and audit logs are mandatory. |
+| 13 | Product Hypothesis Confirmation Decision | T57-T62 | Local-only approval decision work for defining the safest next validation step toward product hypothesis confirmation. | No production, capital, live order, broker/exchange execution, production credential, or holdout access path opens without explicit future human approval and a bounded task contract. |
+| 14 | Local Broker Sandbox No-Capital Replay Extension | T63-T68 | Execute the approved local/no-effect replay extension against deterministic SimBroker fixture scenarios and record evidence deltas. | Replay evidence is hash-bound, deterministic, no-effect, and cannot be interpreted as production, capital-ready, live, holdout, or OOS/performance confirmation. |
+
+## Roadmap Governance
+
+The roadmap sets direction for autonomous AI development. The current active task is open for execution, and future phases are planned until roadmap evaluation promotes or rewrites them.
+
+Phase boundaries are autonomous rollover points, not stop points. After every active phase closes, run deep review, fix actionable findings, validate, evaluate the roadmap, rewrite future phases/tasks when useful, open the next logical active phase, and continue automatically. The evaluation must:
+
+- summarize what the completed phase changed;
+- list evidence that strengthened or weakened the current roadmap;
+- keep real external side effects, live capital actions, live broker/exchange execution, and credentialed production deployment blocked unless a future local protocol explicitly replaces them with safe dry-run/sandbox behavior;
+- either keep the next planned phase, modify future planned phases, or open a better next active phase;
+- update `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`, and the evidence/audit indexes when applicable.
 
 ## T01: Existing Project Baseline Skeleton
 
@@ -21,6 +43,7 @@ Owner:      codex
 Phase:      1
 Type:       none
 Depends-On: none
+Status:     done 2026-05-07
 
 Objective: |
   Align the existing Entropy Core package skeleton with the reset governance loop: Python 3.12 tooling, package import surface, CLI health/version command surface, and baseline verification commands.
@@ -56,6 +79,7 @@ Owner:      codex
 Phase:      1
 Type:       none
 Depends-On: T01
+Status:     done 2026-05-07
 
 Objective: |
   Add or update the product-local CI workflow that installs Entropy Core on Python 3.12 and runs pytest, ruff check, ruff format check, and pyright from `products/entropy-core/`.
@@ -87,6 +111,7 @@ Owner:      codex
 Phase:      1
 Type:       none
 Depends-On: T01, T02
+Status:     done 2026-05-07
 
 Objective: |
   Record the first reset baseline and add smoke tests for shared tracing, metrics stubs, CLI health, and documentation state.
@@ -120,6 +145,9 @@ Owner:      codex
 Phase:      2
 Type:       none
 Depends-On: T03
+Status:     done 2026-05-07
+Status:     done 2026-05-07
+Status:     done 2026-05-07
 
 Objective: |
   Verify and harden registry/governance append-only behavior across SQLAlchemy models, migrations, and application write paths.
@@ -166,13 +194,12 @@ Acceptance-Criteria:
     description: "`docs/IMPLEMENTATION_JOURNAL.md` has an append-only reset entry that names the reset scope and next task."
     test: "tests/reset/test_evidence_index_contract.py::test_journal_has_reset_entry"
   - id: AC-3
-    description: "Legacy archive pointers are present in `docs/legacy/CORE_LEGACY_SUMMARY.md` and absent from active task instructions except scoped `Context-Refs`."
+    description: "Legacy summary pointers are present in the legacy summary and absent from active task instructions except scoped `Context-Refs`."
     test: "tests/reset/test_evidence_index_contract.py::test_legacy_archive_pointers_are_scoped"
 
 Files:
   - docs/EVIDENCE_INDEX.md
   - docs/IMPLEMENTATION_JOURNAL.md
-  - docs/legacy/CORE_LEGACY_SUMMARY.md
   - tests/reset/test_evidence_index_contract.py
 
 Context-Refs:
@@ -221,6 +248,7 @@ Owner:      codex
 Phase:      2
 Type:       none
 Depends-On: T04, T06
+Status:     done 2026-05-07
 
 Objective: |
   Verify human approval gates for research object registration, evaluation execution, phase-gate acceptance, holdout access, data-provider activation, and product bridge activation.
@@ -254,6 +282,7 @@ Owner:      codex
 Phase:      3
 Type:       none
 Depends-On: T07
+Status:     done 2026-05-07
 
 Objective: |
   Verify local historical data contracts, deterministic hashes, purge/embargo behavior, leakage checks, and holdout locks before any evaluation result can claim OOS status.
@@ -296,6 +325,7 @@ Owner:      codex
 Phase:      3
 Type:       none
 Depends-On: T08
+Status:     done 2026-05-07
 
 Objective: |
   Verify deterministic SimBroker fill/cost behavior and preserve scaffold/calibration boundaries without live broker integration.
@@ -327,6 +357,7 @@ Owner:      codex
 Phase:      3
 Type:       none
 Depends-On: T08, T09
+Status:     done 2026-05-07
 
 Objective: |
   Verify P&L streams, cost drag, and reportable attribution fields remain separated and cannot silently create unsupported performance conclusions.
@@ -369,6 +400,7 @@ Owner:      codex
 Phase:      3
 Type:       none
 Depends-On: T07, T08, T10
+Status:     done 2026-05-07
 
 Objective: |
   Produce a reset-era phase-gate evidence packet that summarizes baseline, open gates, blocked claims, and proof artifacts without relying on old workflow state as authority.
@@ -401,6 +433,7 @@ Owner:      codex
 Phase:      4
 Type:       none
 Depends-On: T05, T06, T10
+Status:     done 2026-05-07
 
 Objective: |
   Define deterministic bridge contracts for Trader Risk Audit risk policy, violation record, attribution, and report primitives that can reuse Core without opening live trading or research-claim surfaces.
@@ -434,6 +467,7 @@ Owner:      codex
 Phase:      4
 Type:       none
 Depends-On: T07, T08, T11
+Status:     done 2026-05-07
 
 Objective: |
   Design the human-gated bridge from research-assist hypothesis drafts to registered, hash-bound, leakage-safe evaluation objects without enabling autonomous strategy execution.
@@ -466,6 +500,7 @@ Owner:      codex
 Phase:      4
 Type:       none
 Depends-On: T11, T12, T13
+Status:     done 2026-05-07
 
 Objective: |
   Close the reset implementation block with a strategy review, audit index update, and next-block recommendation grounded in current evidence.
@@ -493,3 +528,1874 @@ Context-Refs:
 
 Notes: |
   This task does not approve holdout, live feeds, broker integration, or performance claims.
+
+## T15: First Research Candidate Registration Packet
+
+Owner:      codex
+Phase:      5
+Type:       none
+Depends-On: T13, T14
+Status:     done 2026-05-07
+
+Objective: |
+  Select one narrow, falsifiable archive-only baseline hypothesis and encode a preregistration packet that can become a registered evaluation object only through explicit human approval and hash binding.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "The first research candidate packet records hypothesis text, hypothesis family, scope, frozen parameters, no-claim labels, and required human registration gate."
+    test: "tests/integration/test_first_research_packet.py::test_candidate_packet_records_registration_requirements"
+  - id: AC-2
+    description: "Candidate packet serialization is deterministic and includes dataset/code/policy/parameter hash placeholders before evaluation."
+    test: "tests/integration/test_first_research_packet.py::test_candidate_packet_serializes_deterministically"
+  - id: AC-3
+    description: "Candidate packet cannot request holdout, OOS/performance, production, capital-ready, live-feed, or broker/exchange surfaces."
+    test: "tests/integration/test_first_research_packet.py::test_candidate_packet_rejects_claim_and_live_surfaces"
+
+Files:
+  - src/entropy/research/
+  - docs/research/first-packet/CANDIDATE_PACKET.md
+  - tests/integration/test_first_research_packet.py
+
+Context-Refs:
+  - docs/governance/research_firewall.md
+  - docs/governance/experiment_readiness_gate.md
+  - docs/governance/hypothesis_families.md
+  - docs/bridges/hypothesis-backtest.md
+
+Notes: |
+  This task creates a candidate packet only. It does not run evaluation, inspect holdout, or claim performance.
+
+## T16: Archive Dataset Manifest and Hash Binding
+
+Owner:      codex
+Phase:      5
+Type:       none
+Depends-On: T08, T15
+Status:     done 2026-05-07
+
+Objective: |
+  Bind the first research candidate to an archive-only dataset manifest with deterministic dataset hashes and explicit holdout exclusion.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Dataset manifest hash is deterministic across row order and path ordering."
+    test: "tests/integration/test_first_research_packet.py::test_archive_dataset_manifest_hash_is_deterministic"
+  - id: AC-2
+    description: "Manifest records formation/evaluation scope and explicitly excludes holdout reads."
+    test: "tests/integration/test_first_research_packet.py::test_archive_dataset_manifest_excludes_holdout"
+  - id: AC-3
+    description: "Dataset binding updates the candidate packet without changing hypothesis text, family, or frozen parameters."
+    test: "tests/integration/test_first_research_packet.py::test_dataset_binding_preserves_registered_candidate_fields"
+
+Files:
+  - src/entropy/research/
+  - src/entropy/data/
+  - src/entropy/hashing/
+  - docs/research/first-packet/DATASET_MANIFEST.md
+  - tests/integration/test_first_research_packet.py
+
+Context-Refs:
+  - docs/core/PROTOCOL_SPEC.md
+  - docs/IMPLEMENTATION_CONTRACT.md#leakage-and-holdout-boundary
+
+Notes: |
+  Use archive/local fixtures only. Do not add provider activation, live feeds, or holdout access.
+
+## T17: Archive Evaluation Harness Wiring
+
+Owner:      codex
+Phase:      5
+Type:       none
+Depends-On: T09, T10, T15, T16
+Status:     done 2026-05-07
+
+Objective: |
+  Wire the first candidate through an archive-only evaluation path that records leakage checks, SimBroker fills/costs, and attribution streams without opening OOS/performance claims.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Evaluation harness refuses to run unless candidate, dataset hash, code hash, policy hash, and parameter hash are present."
+    test: "tests/integration/test_first_research_packet.py::test_archive_evaluation_requires_all_hash_bindings"
+  - id: AC-2
+    description: "Evaluation output includes leakage status, SimBroker fill log identifiers, and separated attribution streams."
+    test: "tests/integration/test_first_research_packet.py::test_archive_evaluation_outputs_required_evidence_surfaces"
+  - id: AC-3
+    description: "Evaluation output serializes no-claim labels and no OOS/performance conclusion."
+    test: "tests/integration/test_first_research_packet.py::test_archive_evaluation_output_remains_no_claim"
+
+Execution-Mode: heavy
+Evidence:
+  - tests/integration/test_first_research_packet.py::test_archive_evaluation_output_remains_no_claim
+  - docs/EVIDENCE_INDEX.md row for first archive evaluation harness proof
+Verifier-Focus: |
+  Confirm the first archive evaluation path cannot silently become OOS/performance evidence.
+
+Files:
+  - src/entropy/research/
+  - src/entropy/walkforward/
+  - src/entropy/simbroker/
+  - src/entropy/attribution/
+  - tests/integration/test_first_research_packet.py
+  - docs/EVIDENCE_INDEX.md
+
+Context-Refs:
+  - docs/core/PROTOCOL_SPEC.md
+  - docs/audit/PHASE3_REVIEW.md
+
+Notes: |
+  Heavy task because this is the first end-to-end research evidence path after reset.
+
+## T18: First Research Evidence Packet
+
+Owner:      codex
+Phase:      5
+Type:       none
+Depends-On: T11, T17
+Status:     done 2026-05-07
+
+Objective: |
+  Generate the first deterministic archive-only research evidence packet with candidate, hashes, leakage, SimBroker, attribution, no-claim labels, and evidence-index proof.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Evidence packet contains candidate id, dataset/code/policy/parameter hashes, leakage status, SimBroker evidence, attribution streams, and no-claim labels."
+    test: "tests/integration/test_first_research_packet.py::test_research_packet_contains_required_sections"
+  - id: AC-2
+    description: "Evidence packet generation fails when any referenced artifact or required hash is missing."
+    test: "tests/integration/test_first_research_packet.py::test_research_packet_fails_missing_artifact_or_hash"
+  - id: AC-3
+    description: "Evidence packet contains no holdout unlock, OOS/performance approval, production approval, or capital-ready approval."
+    test: "tests/integration/test_first_research_packet.py::test_research_packet_blocks_claim_approvals"
+
+Execution-Mode: heavy
+Evidence:
+  - tests/integration/test_first_research_packet.py::test_research_packet_contains_required_sections
+  - docs/research/first-packet/RESEARCH_EVIDENCE_PACKET.md
+  - docs/EVIDENCE_INDEX.md row for first research packet proof
+Verifier-Focus: |
+  Confirm the packet is a concrete research artifact but remains no-claim and archive-only.
+
+Files:
+  - src/entropy/evidence/
+  - src/entropy/research/
+  - docs/research/first-packet/RESEARCH_EVIDENCE_PACKET.md
+  - docs/EVIDENCE_INDEX.md
+  - tests/integration/test_first_research_packet.py
+
+Context-Refs:
+  - docs/audit/RESET_REVIEW.md
+  - docs/EVIDENCE_INDEX.md
+
+Notes: |
+  The packet may be useful research evidence, but it does not approve phase exit, live use, or performance claims.
+
+## T19: First Research Packet Review
+
+Owner:      codex
+Phase:      5
+Type:       none
+Depends-On: T18
+Status:     done 2026-05-07
+
+Objective: |
+  Review the first research evidence packet, record open findings, and recommend the next human decision without escalating claims.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/audit/FIRST_RESEARCH_PACKET_REVIEW.md` summarizes candidate, evidence, validation, limitations, open findings, and next recommendation."
+    test: "tests/reset/test_first_research_packet_review.py::test_first_research_packet_review_contains_required_sections"
+  - id: AC-2
+    description: "Review records that holdout, live feeds, broker integration, production, capital-ready, and OOS/performance claims remain unapproved."
+    test: "tests/reset/test_first_research_packet_review.py::test_first_research_packet_review_preserves_boundaries"
+  - id: AC-3
+    description: "`docs/CODEX_PROMPT.md` records the completed first research packet state and next human decision point."
+    test: "tests/reset/test_first_research_packet_review.py::test_codex_prompt_records_first_packet_review_state"
+
+Files:
+  - docs/audit/FIRST_RESEARCH_PACKET_REVIEW.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/CODEX_PROMPT.md
+  - tests/reset/test_first_research_packet_review.py
+
+Context-Refs:
+  - docs/research/first-packet/RESEARCH_EVIDENCE_PACKET.md
+  - docs/audit/RESET_REVIEW.md
+
+Notes: |
+  Stop after this review unless a human explicitly opens the next research block or approves a gate discussion.
+
+## T20: Second Research Candidate Registration Packet
+
+Owner:      codex
+Phase:      6
+Type:       none
+Depends-On: T19
+Status:     done 2026-05-07
+
+Objective: |
+  Select a second narrow, falsifiable archive-only baseline hypothesis from a different canonical family and encode a preregistration packet with the same no-claim, human-gated, hash-placeholder boundaries as the first packet.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "The second candidate packet records candidate id, hypothesis text, distinct hypothesis family, scope, frozen parameters, no-claim labels, and required human registration gate."
+    test: "tests/integration/test_second_research_packet.py::test_second_candidate_packet_records_registration_requirements"
+  - id: AC-2
+    description: "Second candidate packet serialization is deterministic and includes dataset/code/policy/parameter hash placeholders before evaluation."
+    test: "tests/integration/test_second_research_packet.py::test_second_candidate_packet_serializes_deterministically"
+  - id: AC-3
+    description: "Second candidate packet cannot request holdout, OOS/performance, production, capital-ready, live-feed, or broker/exchange surfaces."
+    test: "tests/integration/test_second_research_packet.py::test_second_candidate_packet_rejects_claim_and_live_surfaces"
+
+Files:
+  - src/entropy/research/
+  - docs/research/second-packet/CANDIDATE_PACKET.md
+  - tests/integration/test_second_research_packet.py
+
+Context-Refs:
+  - docs/governance/research_firewall.md
+  - docs/governance/experiment_readiness_gate.md
+  - docs/governance/hypothesis_families.md
+  - docs/audit/FIRST_RESEARCH_PACKET_REVIEW.md
+
+Notes: |
+  This task opens more archive-only evidence. It does not approve holdout, OOS/performance, live, broker/exchange, production, capital-ready, or phase-gate claims.
+
+## T21: Second Archive Dataset Manifest and Hash Binding
+
+Owner:      codex
+Phase:      6
+Type:       none
+Depends-On: T16, T20
+Status:     done 2026-05-07
+
+Objective: |
+  Bind the second research candidate to an archive-only dataset manifest with deterministic dataset hashes and explicit holdout exclusion.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Second dataset manifest hash is deterministic across row order and path ordering."
+    test: "tests/integration/test_second_research_packet.py::test_second_archive_dataset_manifest_hash_is_deterministic"
+  - id: AC-2
+    description: "Second manifest records formation/evaluation scope and explicitly excludes holdout reads."
+    test: "tests/integration/test_second_research_packet.py::test_second_archive_dataset_manifest_excludes_holdout"
+  - id: AC-3
+    description: "Second dataset binding updates the candidate packet without changing hypothesis text, family, or frozen parameters."
+    test: "tests/integration/test_second_research_packet.py::test_second_dataset_binding_preserves_registered_candidate_fields"
+
+Files:
+  - src/entropy/research/
+  - docs/research/second-packet/DATASET_MANIFEST.md
+  - tests/integration/test_second_research_packet.py
+
+Context-Refs:
+  - docs/core/PROTOCOL_SPEC.md
+  - docs/IMPLEMENTATION_CONTRACT.md#leakage-and-holdout-boundary
+
+Notes: |
+  Use archive/local fixtures only. Do not add provider activation, live feeds, or holdout access.
+
+## T22: Second Archive Evaluation Harness Wiring
+
+Owner:      codex
+Phase:      6
+Type:       none
+Depends-On: T17, T20, T21
+Status:     done 2026-05-07
+
+Objective: |
+  Wire the second candidate through the archive-only evaluation path and prove the reusable harness still records leakage, SimBroker, attribution, and no-claim outputs.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Second evaluation refuses to run unless candidate, dataset hash, code hash, policy hash, and parameter hash are present."
+    test: "tests/integration/test_second_research_packet.py::test_second_archive_evaluation_requires_all_hash_bindings"
+  - id: AC-2
+    description: "Second evaluation output includes leakage status, SimBroker fill log identifiers, and separated attribution streams."
+    test: "tests/integration/test_second_research_packet.py::test_second_archive_evaluation_outputs_required_evidence_surfaces"
+  - id: AC-3
+    description: "Second evaluation output serializes no-claim labels and no OOS/performance conclusion."
+    test: "tests/integration/test_second_research_packet.py::test_second_archive_evaluation_output_remains_no_claim"
+
+Execution-Mode: heavy
+Evidence:
+  - tests/integration/test_second_research_packet.py::test_second_archive_evaluation_output_remains_no_claim
+  - docs/EVIDENCE_INDEX.md row for second archive evaluation harness proof
+Verifier-Focus: |
+  Confirm repeat use of the archive evaluation path cannot silently become OOS/performance evidence.
+
+Files:
+  - src/entropy/research/
+  - docs/EVIDENCE_INDEX.md
+  - tests/integration/test_second_research_packet.py
+
+Context-Refs:
+  - docs/audit/FIRST_RESEARCH_PACKET_REVIEW.md
+  - docs/audit/PHASE3_REVIEW.md
+
+Notes: |
+  Heavy task because it expands evidence generation beyond the first candidate while preserving no-claim boundaries.
+
+## T23: Second Research Evidence Packet
+
+Owner:      codex
+Phase:      6
+Type:       none
+Depends-On: T18, T22
+Status:     done 2026-05-07
+
+Objective: |
+  Generate the second deterministic archive-only research evidence packet with candidate, hashes, leakage, SimBroker, attribution, no-claim labels, and evidence-index proof.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Second evidence packet contains candidate id, dataset/code/policy/parameter hashes, leakage status, SimBroker evidence, attribution streams, and no-claim labels."
+    test: "tests/integration/test_second_research_packet.py::test_second_research_packet_contains_required_sections"
+  - id: AC-2
+    description: "Second evidence packet generation fails when any referenced artifact or required hash is missing."
+    test: "tests/integration/test_second_research_packet.py::test_second_research_packet_fails_missing_artifact_or_hash"
+  - id: AC-3
+    description: "Second evidence packet contains no holdout unlock, OOS/performance approval, production approval, or capital-ready approval."
+    test: "tests/integration/test_second_research_packet.py::test_second_research_packet_blocks_claim_approvals"
+
+Execution-Mode: heavy
+Evidence:
+  - tests/integration/test_second_research_packet.py::test_second_research_packet_contains_required_sections
+  - docs/research/second-packet/RESEARCH_EVIDENCE_PACKET.md
+  - docs/EVIDENCE_INDEX.md row for second research packet proof
+Verifier-Focus: |
+  Confirm the second packet adds evidence without approving phase exit, live use, or performance claims.
+
+Files:
+  - src/entropy/evidence/
+  - src/entropy/research/
+  - docs/research/second-packet/RESEARCH_EVIDENCE_PACKET.md
+  - docs/EVIDENCE_INDEX.md
+  - tests/integration/test_second_research_packet.py
+
+Context-Refs:
+  - docs/research/first-packet/RESEARCH_EVIDENCE_PACKET.md
+  - docs/audit/FIRST_RESEARCH_PACKET_REVIEW.md
+
+Notes: |
+  The packet may be useful archive evidence, but it does not approve phase exit, live use, or performance claims.
+
+## T24: Archive Evidence Expansion Review
+
+Owner:      codex
+Phase:      6
+Type:       none
+Depends-On: T23
+Status:     done 2026-05-07
+
+Objective: |
+  Review the expanded archive evidence set, record open findings, and recommend the next human decision without escalating claims.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/audit/ARCHIVE_EVIDENCE_EXPANSION_REVIEW.md` summarizes packet set, evidence, validation, limitations, open findings, and next recommendation."
+    test: "tests/reset/test_archive_evidence_expansion_review.py::test_archive_evidence_expansion_review_contains_required_sections"
+  - id: AC-2
+    description: "Review records that holdout, live feeds, broker integration, production, capital-ready, and OOS/performance claims remain unapproved."
+    test: "tests/reset/test_archive_evidence_expansion_review.py::test_archive_evidence_expansion_review_preserves_boundaries"
+  - id: AC-3
+    description: "`docs/CODEX_PROMPT.md` records the completed archive evidence expansion state and next human decision point."
+    test: "tests/reset/test_archive_evidence_expansion_review.py::test_codex_prompt_records_archive_expansion_review_state"
+
+Files:
+  - docs/audit/ARCHIVE_EVIDENCE_EXPANSION_REVIEW.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/CODEX_PROMPT.md
+  - tests/reset/test_archive_evidence_expansion_review.py
+
+Context-Refs:
+  - docs/research/second-packet/RESEARCH_EVIDENCE_PACKET.md
+  - docs/audit/FIRST_RESEARCH_PACKET_REVIEW.md
+
+Notes: |
+  Stop after this review unless a human explicitly opens the next research block or approves a gate discussion.
+
+## T25: Roadmap Governance Contract
+
+Owner:      codex
+Phase:      7
+Type:       none
+Depends-On: T24
+Status:     done 2026-05-08
+
+Objective: |
+  Record the forward roadmap and the autonomous phase rollover rule so future agents can adapt planned phases after each completed active phase, open the next logical phase, and continue without waiting for a human at every boundary.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/tasks.md` lists planned phases 7 through 13 and records that autonomous phase rollover opens the next logical active phase after roadmap evaluation."
+    test: "tests/reset/test_roadmap_governance.py::test_tasks_records_planned_roadmap_and_active_phase"
+  - id: AC-2
+    description: "Roadmap governance requires deep review, fixes, validation, roadmap evaluation, roadmap rewrite when useful, next active phase opening, and automatic continuation after every active phase."
+    test: "tests/reset/test_roadmap_governance.py::test_tasks_records_dynamic_roadmap_evaluation_rule"
+  - id: AC-3
+    description: "`CODEX_LOOP.md`, `docs/CODEX_PROMPT.md`, and `PHASE_HANDOFF.md` record autonomous continuation while blocking real external side effects, live capital actions, live broker/exchange execution, and credentialed production deployment."
+    test: "tests/reset/test_roadmap_governance.py::test_prompt_and_handoff_record_phase7_boundaries"
+
+Files:
+  - CODEX_LOOP.md
+  - docs/tasks.md
+  - docs/CODEX_PROMPT.md
+  - PHASE_HANDOFF.md
+  - AGENT_NOTES.md
+  - tests/reset/test_roadmap_governance.py
+
+Context-Refs:
+  - docs/audit/ARCHIVE_EVIDENCE_EXPANSION_REVIEW.md
+  - docs/EVIDENCE_INDEX.md
+
+Notes: |
+  This opens Phase 7 only. Phases 8 through 13 are planned roadmap entries, not approvals.
+
+## T26: Archive Packet Replay Contract
+
+Owner:      codex
+Phase:      7
+Type:       none
+Depends-On: T25
+Status:     done 2026-05-08
+
+Objective: |
+  Add deterministic replay checks for existing archive-only evidence packets so regenerated packet content and referenced artifacts remain stable.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Replay checks regenerate first and second archive evidence packets from current fixtures and compare deterministic content or hashes."
+    test: "tests/integration/test_archive_replay.py::test_archive_packet_replay_is_deterministic"
+  - id: AC-2
+    description: "Replay checks fail when a required packet artifact, dataset manifest, or hash binding is missing."
+    test: "tests/integration/test_archive_replay.py::test_archive_packet_replay_requires_all_artifacts"
+  - id: AC-3
+    description: "Replay output remains archive-only and contains no holdout, OOS/performance, live, production, or capital-ready approval."
+    test: "tests/integration/test_archive_replay.py::test_archive_packet_replay_preserves_no_claim_boundary"
+
+Files:
+  - src/entropy/research/
+  - src/entropy/evidence/
+  - tests/integration/test_archive_replay.py
+  - docs/EVIDENCE_INDEX.md
+
+Context-Refs:
+  - docs/research/first-packet/RESEARCH_EVIDENCE_PACKET.md
+  - docs/research/second-packet/RESEARCH_EVIDENCE_PACKET.md
+
+Notes: |
+  This task proves repeatability only. It does not compare profitability, unlock holdout, or create OOS/performance claims.
+
+## T27: Evidence Hash Reproducibility Matrix
+
+Owner:      codex
+Phase:      7
+Type:       none
+Depends-On: T26
+Status:     done 2026-05-08
+
+Objective: |
+  Build a matrix of candidate, dataset, code, policy, parameter, and artifact hashes across existing archive evidence packets.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "A reproducibility matrix lists the required hash categories for first and second archive evidence packets."
+    test: "tests/reset/test_reproducibility_matrix.py::test_reproducibility_matrix_lists_required_hashes"
+  - id: AC-2
+    description: "Matrix validation fails when any required hash category is unresolved, duplicated incorrectly, or missing from a packet row."
+    test: "tests/reset/test_reproducibility_matrix.py::test_reproducibility_matrix_rejects_missing_hashes"
+  - id: AC-3
+    description: "The evidence index references the reproducibility matrix and its validation tests."
+    test: "tests/reset/test_reproducibility_matrix.py::test_evidence_index_records_reproducibility_matrix"
+
+Files:
+  - docs/research/REPRODUCIBILITY_MATRIX.md
+  - docs/EVIDENCE_INDEX.md
+  - tests/reset/test_reproducibility_matrix.py
+
+Context-Refs:
+  - docs/research/first-packet/DATASET_MANIFEST.md
+  - docs/research/second-packet/DATASET_MANIFEST.md
+
+Notes: |
+  The matrix is evidence bookkeeping. It must not rank hypotheses or imply performance quality.
+
+## T28: No-Claim Surface Regression Sweep
+
+Owner:      codex
+Phase:      7
+Type:       none
+Depends-On: T27
+Status:     done 2026-05-08
+
+Objective: |
+  Sweep archive evidence, bridge, phase-gate, and reporting surfaces to prove no completed packet or roadmap entry silently opens restricted claim paths.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Regression tests scan active docs and generated packet surfaces for disallowed holdout/live/broker/production/capital-ready/OOS/performance approval language."
+    test: "tests/reset/test_no_claim_roadmap_sweep.py::test_active_docs_do_not_open_restricted_surfaces"
+  - id: AC-2
+    description: "Phase plan entries for phases 8 through 13 are marked as planned roadmap, not active approvals."
+    test: "tests/reset/test_no_claim_roadmap_sweep.py::test_future_phases_are_not_approvals"
+  - id: AC-3
+    description: "The sweep preserves the existing explicit boundary language in `docs/CODEX_PROMPT.md` and `PHASE_HANDOFF.md`."
+    test: "tests/reset/test_no_claim_roadmap_sweep.py::test_prompt_and_handoff_preserve_boundaries"
+
+Files:
+  - docs/tasks.md
+  - docs/CODEX_PROMPT.md
+  - PHASE_HANDOFF.md
+  - tests/reset/test_no_claim_roadmap_sweep.py
+
+Context-Refs:
+  - docs/audit/ARCHIVE_EVIDENCE_EXPANSION_REVIEW.md
+  - docs/bridges/hypothesis-backtest.md
+
+Notes: |
+  This is a safety task before any readiness discussion.
+
+## T29: Archive Reproducibility Hardening Review
+
+Owner:      codex
+Phase:      7
+Type:       none
+Depends-On: T28
+Status:     done 2026-05-08
+
+Objective: |
+  Review Phase 7 reproducibility hardening, record open findings, and run the first roadmap evaluation before any next phase is opened.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/audit/ARCHIVE_REPRODUCIBILITY_REVIEW.md` summarizes replay evidence, reproducibility matrix, no-claim sweep, validation, limitations, open findings, and next recommendation."
+    test: "tests/reset/test_archive_reproducibility_review.py::test_archive_reproducibility_review_contains_required_sections"
+  - id: AC-2
+    description: "Review records a roadmap evaluation that either keeps, modifies, or blocks the planned Phase 8."
+    test: "tests/reset/test_archive_reproducibility_review.py::test_archive_reproducibility_review_records_roadmap_evaluation"
+  - id: AC-3
+    description: "`docs/CODEX_PROMPT.md` records completion through T29 and opens Phase 8 with T30 active while preserving all blocked approval boundaries."
+    test: "tests/reset/test_archive_reproducibility_review.py::test_codex_prompt_records_phase7_review_state"
+
+Files:
+  - docs/audit/ARCHIVE_REPRODUCIBILITY_REVIEW.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/CODEX_PROMPT.md
+  - tests/reset/test_archive_reproducibility_review.py
+
+Context-Refs:
+  - docs/research/REPRODUCIBILITY_MATRIX.md
+  - docs/audit/ARCHIVE_EVIDENCE_EXPANSION_REVIEW.md
+
+Notes: |
+  This review is a phase boundary. Continue automatically after roadmap evaluation unless a blocker is found.
+
+## T30: Archive Evidence Sufficiency Gap Matrix
+
+Owner:      codex
+Phase:      8
+Type:       none
+Depends-On: T29
+Status:     done 2026-05-08
+
+Objective: |
+  Build a readiness gap matrix that maps the current archive evidence base to the controls required before any human-approved phase-gate discussion.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Gap matrix lists replay, reproducibility, no-claim, governance, leakage, holdout, and review controls with evidence status."
+    test: "tests/reset/test_phase_gate_readiness_gap_matrix.py::test_gap_matrix_lists_required_controls"
+  - id: AC-2
+    description: "Matrix marks holdout, OOS/performance, live, broker/exchange, production, capital-ready, and phase-gate approvals as blocked."
+    test: "tests/reset/test_phase_gate_readiness_gap_matrix.py::test_gap_matrix_preserves_blocked_boundaries"
+  - id: AC-3
+    description: "Evidence index references the gap matrix and validation tests."
+    test: "tests/reset/test_phase_gate_readiness_gap_matrix.py::test_evidence_index_records_gap_matrix"
+
+Files:
+  - docs/readiness/PHASE_GATE_GAP_MATRIX.md
+  - docs/EVIDENCE_INDEX.md
+  - tests/reset/test_phase_gate_readiness_gap_matrix.py
+
+Context-Refs:
+  - docs/audit/ARCHIVE_REPRODUCIBILITY_REVIEW.md
+  - docs/research/REPRODUCIBILITY_MATRIX.md
+
+Notes: |
+  This task is readiness analysis only. It must not request holdout access or approve any claim surface.
+
+## T31: Phase-Gate Readiness Packet Scaffold
+
+Owner:      codex
+Phase:      8
+Type:       none
+Depends-On: T30
+Status:     done 2026-05-09
+
+Objective: |
+  Create a readiness packet scaffold that assembles current evidence, missing controls, limitations, and explicit non-approval boundaries for a future human phase-gate discussion.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Readiness packet scaffold includes evidence summary, missing controls, limitations, and required human approvals."
+    test: "tests/reset/test_phase_gate_readiness_packet.py::test_readiness_packet_contains_required_sections"
+  - id: AC-2
+    description: "Readiness packet rejects any holdout unlock, OOS/performance, live, broker/exchange, production, capital-ready, or phase-gate approval label."
+    test: "tests/reset/test_phase_gate_readiness_packet.py::test_readiness_packet_rejects_approval_labels"
+  - id: AC-3
+    description: "Packet references the Phase 8 gap matrix and Phase 7 review."
+    test: "tests/reset/test_phase_gate_readiness_packet.py::test_readiness_packet_references_gap_matrix_and_review"
+
+Files:
+  - docs/readiness/PHASE_GATE_READINESS_PACKET.md
+  - tests/reset/test_phase_gate_readiness_packet.py
+
+Context-Refs:
+  - docs/readiness/PHASE_GATE_GAP_MATRIX.md
+  - docs/audit/ARCHIVE_REPRODUCIBILITY_REVIEW.md
+
+Notes: |
+  Scaffold means no approval. The packet is input to a future review only.
+
+## T32: Approval Boundary Checklist
+
+Owner:      codex
+Phase:      8
+Type:       none
+Depends-On: T31
+Status:     done 2026-05-09
+
+Objective: |
+  Record a checklist of explicit human approvals and evidence prerequisites that would be required before holdout, phase-gate, or claim-surface work could be considered.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Checklist lists every required approval boundary and the current blocked status."
+    test: "tests/reset/test_approval_boundary_checklist.py::test_checklist_lists_required_boundaries"
+  - id: AC-2
+    description: "Checklist forbids treating roadmap phases, readiness docs, or archive evidence as approval."
+    test: "tests/reset/test_approval_boundary_checklist.py::test_checklist_rejects_implicit_approval_sources"
+  - id: AC-3
+    description: "`docs/CODEX_PROMPT.md` and `PHASE_HANDOFF.md` preserve the same blocked boundary language."
+    test: "tests/reset/test_approval_boundary_checklist.py::test_prompt_and_handoff_match_boundary_checklist"
+
+Files:
+  - docs/readiness/APPROVAL_BOUNDARY_CHECKLIST.md
+  - docs/CODEX_PROMPT.md
+  - PHASE_HANDOFF.md
+  - tests/reset/test_approval_boundary_checklist.py
+
+Context-Refs:
+  - docs/IMPLEMENTATION_CONTRACT.md#forbidden-actions
+  - docs/ARCHITECTURE.md#human-approval-boundaries
+
+Notes: |
+  The checklist may identify prerequisites only. It must not grant approval.
+
+## T33: Readiness No-Holdout Dry Run
+
+Owner:      codex
+Phase:      8
+Type:       none
+Depends-On: T32
+Status:     done 2026-05-09
+
+Objective: |
+  Add a local dry-run proof that readiness review can assemble evidence without reading or unlocking holdout data.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Dry-run test assembles readiness evidence from archive artifacts without opening a holdout path."
+    test: "tests/reset/test_readiness_no_holdout_dry_run.py::test_readiness_dry_run_uses_archive_only_artifacts"
+  - id: AC-2
+    description: "Dry-run fails if any holdout, live, broker/exchange, production, capital-ready, phase-gate, or OOS/performance approval flag is present."
+    test: "tests/reset/test_readiness_no_holdout_dry_run.py::test_readiness_dry_run_rejects_restricted_flags"
+  - id: AC-3
+    description: "Dry-run output records limitations and missing prerequisites instead of claim conclusions."
+    test: "tests/reset/test_readiness_no_holdout_dry_run.py::test_readiness_dry_run_records_limitations"
+
+Files:
+  - tests/reset/test_readiness_no_holdout_dry_run.py
+  - docs/readiness/PHASE_GATE_READINESS_PACKET.md
+
+Context-Refs:
+  - docs/readiness/APPROVAL_BOUNDARY_CHECKLIST.md
+  - docs/readiness/PHASE_GATE_READINESS_PACKET.md
+
+Notes: |
+  This is local dry-run validation only. No holdout path may be read.
+
+## T34: Phase-Gate Readiness Review
+
+Owner:      codex
+Phase:      8
+Type:       none
+Depends-On: T33
+Status:     done 2026-05-09
+
+Objective: |
+  Review Phase 8 readiness artifacts, record findings, evaluate whether the roadmap should proceed to a holdout access protocol, and preserve blocked boundaries unless the roadmap evaluation identifies a safer next phase.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/audit/PHASE_GATE_READINESS_REVIEW.md` summarizes gap matrix, readiness packet, approval checklist, dry-run evidence, validation, limitations, findings, and roadmap evaluation."
+    test: "tests/reset/test_phase_gate_readiness_review.py::test_phase_gate_readiness_review_contains_required_sections"
+  - id: AC-2
+    description: "Review either keeps, modifies, or blocks the planned Holdout Access Protocol phase."
+    test: "tests/reset/test_phase_gate_readiness_review.py::test_phase_gate_readiness_review_records_roadmap_evaluation"
+  - id: AC-3
+    description: "Audit index and prompt record Phase 8 completion and the next active task selected by roadmap evaluation."
+    test: "tests/reset/test_phase_gate_readiness_review.py::test_phase_gate_readiness_review_updates_state"
+
+Files:
+  - docs/audit/PHASE_GATE_READINESS_REVIEW.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/CODEX_PROMPT.md
+  - tests/reset/test_phase_gate_readiness_review.py
+
+Context-Refs:
+  - docs/readiness/PHASE_GATE_GAP_MATRIX.md
+  - docs/readiness/PHASE_GATE_READINESS_PACKET.md
+  - docs/readiness/APPROVAL_BOUNDARY_CHECKLIST.md
+
+Notes: |
+  This is a phase-boundary review. Continue automatically after roadmap evaluation unless a blocker is found.
+
+## T35: Holdout Access Protocol Deny-By-Default Contract
+
+Owner:      codex
+Phase:      9
+Type:       none
+Depends-On: T34
+Status:     done 2026-05-09
+
+Objective: |
+  Define a local holdout access protocol scaffold that is denied by default and cannot open or read holdout paths without explicit future human approval records.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/protocols/HOLDOUT_ACCESS_PROTOCOL.md` records denied-by-default states, required approvals, allowed local-only operations, and forbidden holdout read/unlock actions."
+    test: "tests/reset/test_holdout_access_protocol.py::test_holdout_protocol_records_denied_by_default_contract"
+  - id: AC-2
+    description: "The protocol rejects treating roadmap phases, review recommendations, passing tests, or readiness artifacts as holdout approval."
+    test: "tests/reset/test_holdout_access_protocol.py::test_holdout_protocol_rejects_implicit_approval_sources"
+  - id: AC-3
+    description: "Prompt and handoff record Phase 9 as protocol-only with holdout read/unlock still blocked."
+    test: "tests/reset/test_holdout_access_protocol.py::test_prompt_and_handoff_record_protocol_only_phase"
+
+Files:
+  - docs/protocols/HOLDOUT_ACCESS_PROTOCOL.md
+  - docs/CODEX_PROMPT.md
+  - PHASE_HANDOFF.md
+  - tests/reset/test_holdout_access_protocol.py
+
+Context-Refs:
+  - docs/audit/PHASE_GATE_READINESS_REVIEW.md
+  - docs/readiness/APPROVAL_BOUNDARY_CHECKLIST.md
+  - docs/readiness/PHASE_GATE_READINESS_PACKET.md
+
+Notes: |
+  No holdout path may be opened or read. This task defines protocol scaffolding only.
+
+## T36: Holdout Approval Event Schema Contract
+
+Owner:      codex
+Phase:      9
+Type:       none
+Depends-On: T35
+Status:     done 2026-05-09
+
+Objective: |
+  Define the local schema for explicit human holdout approval events without creating or implying any approval.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Schema requires approver identity, approval scope, candidate/evidence hashes, expiry, revocation state, and audit metadata."
+    test: "tests/reset/test_holdout_approval_event_schema.py::test_holdout_approval_event_schema_requires_governance_fields"
+  - id: AC-2
+    description: "Schema fixtures reject generated, inferred, expired, revoked, or incomplete approval events."
+    test: "tests/reset/test_holdout_approval_event_schema.py::test_holdout_approval_event_schema_rejects_invalid_approval_events"
+  - id: AC-3
+    description: "State docs preserve that no approval event currently exists."
+    test: "tests/reset/test_holdout_approval_event_schema.py::test_state_docs_record_no_current_holdout_approval_event"
+
+Files:
+  - docs/protocols/HOLDOUT_APPROVAL_EVENT_SCHEMA.md
+  - docs/CODEX_PROMPT.md
+  - PHASE_HANDOFF.md
+  - tests/reset/test_holdout_approval_event_schema.py
+
+Context-Refs:
+  - docs/protocols/HOLDOUT_ACCESS_PROTOCOL.md
+  - docs/governance/
+
+Notes: |
+  Schema work only. Do not create a real approval event.
+
+## T37: Holdout Access Audit Logging Contract
+
+Owner:      codex
+Phase:      9
+Type:       none
+Depends-On: T36
+Status:     done 2026-05-09
+
+Objective: |
+  Define audit logging requirements for any future approved holdout access attempt while preserving blocked default behavior.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Audit log contract records request, approval reference, candidate/evidence hashes, access decision, path fingerprint, denial reason, and immutable timestamp metadata."
+    test: "tests/reset/test_holdout_audit_logging_contract.py::test_holdout_audit_logging_contract_lists_required_fields"
+  - id: AC-2
+    description: "Contract records denied attempts without exposing holdout path contents or opening holdout data."
+    test: "tests/reset/test_holdout_audit_logging_contract.py::test_holdout_audit_logging_contract_preserves_no_read_boundary"
+  - id: AC-3
+    description: "Evidence index records the audit logging contract proof."
+    test: "tests/reset/test_holdout_audit_logging_contract.py::test_evidence_index_records_holdout_audit_logging_contract"
+
+Files:
+  - docs/protocols/HOLDOUT_AUDIT_LOGGING_CONTRACT.md
+  - docs/EVIDENCE_INDEX.md
+  - tests/reset/test_holdout_audit_logging_contract.py
+
+Context-Refs:
+  - docs/protocols/HOLDOUT_ACCESS_PROTOCOL.md
+  - docs/protocols/HOLDOUT_APPROVAL_EVENT_SCHEMA.md
+
+Notes: |
+  Audit logging design must not reveal or read holdout contents.
+
+## T38: Holdout Leakage Guard Protocol Fixture
+
+Owner:      codex
+Phase:      9
+Type:       none
+Depends-On: T37
+Status:     done 2026-05-09
+
+Objective: |
+  Define local leakage guard checks that any future approved holdout access would need to pass before a holdout read could be considered.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Guard fixture lists candidate binding, dataset partition proof, code/policy/parameter hashes, training-window proof, and no-prior-holdout-read evidence."
+    test: "tests/reset/test_holdout_leakage_guard_protocol.py::test_holdout_leakage_guard_lists_required_inputs"
+  - id: AC-2
+    description: "Guard fixture records fail-closed behavior for missing approval, stale hashes, partition overlap, prior holdout read, or unresolved evidence."
+    test: "tests/reset/test_holdout_leakage_guard_protocol.py::test_holdout_leakage_guard_records_fail_closed_behavior"
+  - id: AC-3
+    description: "Prompt and handoff preserve no holdout read/unlock while guard protocol is incomplete."
+    test: "tests/reset/test_holdout_leakage_guard_protocol.py::test_state_docs_preserve_holdout_lock_during_guard_protocol"
+
+Files:
+  - docs/protocols/HOLDOUT_LEAKAGE_GUARD_PROTOCOL.md
+  - docs/CODEX_PROMPT.md
+  - PHASE_HANDOFF.md
+  - tests/reset/test_holdout_leakage_guard_protocol.py
+
+Context-Refs:
+  - src/entropy/walkforward/leakage.py
+  - src/entropy/data/holdout.py
+  - docs/protocols/HOLDOUT_ACCESS_PROTOCOL.md
+
+Notes: |
+  This is fixture/protocol work only. Do not execute holdout access.
+
+## T39: Holdout Access Protocol Review
+
+Owner:      codex
+Phase:      9
+Type:       none
+Depends-On: T38
+Status:     done 2026-05-09
+
+Objective: |
+  Review Phase 9 protocol artifacts, record findings, and evaluate whether any future phase may request explicit human holdout approval.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/audit/HOLDOUT_ACCESS_PROTOCOL_REVIEW.md` summarizes protocol, approval schema, audit logging, leakage guard evidence, validation, limitations, findings, and roadmap evaluation."
+    test: "tests/reset/test_holdout_access_protocol_review.py::test_holdout_access_protocol_review_contains_required_sections"
+  - id: AC-2
+    description: "Review either keeps, modifies, or blocks the planned approved holdout evaluation phase without opening holdout."
+    test: "tests/reset/test_holdout_access_protocol_review.py::test_holdout_access_protocol_review_records_roadmap_evaluation"
+  - id: AC-3
+    description: "Audit index and prompt record Phase 9 completion and the next active task selected by roadmap evaluation."
+    test: "tests/reset/test_holdout_access_protocol_review.py::test_holdout_access_protocol_review_updates_state"
+
+Files:
+  - docs/audit/HOLDOUT_ACCESS_PROTOCOL_REVIEW.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/CODEX_PROMPT.md
+  - tests/reset/test_holdout_access_protocol_review.py
+
+Context-Refs:
+  - docs/protocols/HOLDOUT_ACCESS_PROTOCOL.md
+  - docs/protocols/HOLDOUT_APPROVAL_EVENT_SCHEMA.md
+  - docs/protocols/HOLDOUT_AUDIT_LOGGING_CONTRACT.md
+  - docs/protocols/HOLDOUT_LEAKAGE_GUARD_PROTOCOL.md
+
+Notes: |
+  This is a phase-boundary review. Continue automatically after roadmap evaluation unless a blocker is found.
+
+## T40: Holdout Approval Request Packet Scaffold
+
+Owner:      codex
+Phase:      10
+Type:       none
+Depends-On: T39
+Status:     done 2026-05-09
+
+Objective: |
+  Scaffold a no-read holdout approval request packet that assembles Phase 9 protocol evidence, missing approvals, and blocked boundaries without creating approval.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/approvals/HOLDOUT_APPROVAL_REQUEST_PACKET.md` lists protocol, schema, audit, leakage guard, and review evidence required before any future approval decision."
+    test: "tests/reset/test_holdout_approval_request_packet.py::test_holdout_approval_request_packet_lists_required_evidence"
+  - id: AC-2
+    description: "Packet records that no explicit approval event currently exists and that holdout read/unlock remain blocked."
+    test: "tests/reset/test_holdout_approval_request_packet.py::test_holdout_approval_request_packet_preserves_no_approval_state"
+  - id: AC-3
+    description: "Prompt and handoff record Phase 10 as no-read approval decision work."
+    test: "tests/reset/test_holdout_approval_request_packet.py::test_state_docs_record_phase10_no_read_decision_work"
+
+Files:
+  - docs/approvals/HOLDOUT_APPROVAL_REQUEST_PACKET.md
+  - docs/CODEX_PROMPT.md
+  - PHASE_HANDOFF.md
+  - tests/reset/test_holdout_approval_request_packet.py
+
+Context-Refs:
+  - docs/audit/HOLDOUT_ACCESS_PROTOCOL_REVIEW.md
+  - docs/protocols/HOLDOUT_ACCESS_PROTOCOL.md
+  - docs/protocols/HOLDOUT_APPROVAL_EVENT_SCHEMA.md
+  - docs/protocols/HOLDOUT_AUDIT_LOGGING_CONTRACT.md
+  - docs/protocols/HOLDOUT_LEAKAGE_GUARD_PROTOCOL.md
+
+Notes: |
+  Request packet scaffold only. Do not create approval, read holdout, or unlock holdout.
+
+## T41: Holdout Approval Evidence Intake Contract
+
+Owner:      codex
+Phase:      10
+Type:       none
+Depends-On: T40
+Status:     done 2026-05-09
+
+Objective: |
+  Define local intake checks for a future explicit holdout approval event while rejecting absent, generated, inferred, expired, revoked, stale, or scope-mismatched evidence.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Intake contract lists required approval event fields and hash bindings."
+    test: "tests/reset/test_holdout_approval_intake_contract.py::test_holdout_approval_intake_lists_required_fields"
+  - id: AC-2
+    description: "Intake fixtures reject absent, generated, inferred, expired, revoked, stale, or scope-mismatched evidence."
+    test: "tests/reset/test_holdout_approval_intake_contract.py::test_holdout_approval_intake_rejects_invalid_evidence"
+  - id: AC-3
+    description: "State docs preserve no approval event until explicit evidence exists."
+    test: "tests/reset/test_holdout_approval_intake_contract.py::test_state_docs_preserve_no_approval_event"
+
+Files:
+  - docs/approvals/HOLDOUT_APPROVAL_INTAKE_CONTRACT.md
+  - docs/CODEX_PROMPT.md
+  - PHASE_HANDOFF.md
+  - tests/reset/test_holdout_approval_intake_contract.py
+
+Context-Refs:
+  - docs/approvals/HOLDOUT_APPROVAL_REQUEST_PACKET.md
+  - docs/protocols/HOLDOUT_APPROVAL_EVENT_SCHEMA.md
+
+Notes: |
+  Intake contract only. Do not create a real approval event.
+
+## T42: Holdout Approval Absence Denial Packet
+
+Owner:      codex
+Phase:      10
+Type:       none
+Depends-On: T41
+Status:     done 2026-05-09
+
+Objective: |
+  Record a deterministic denial packet for the current no-approval state without opening or reading holdout data.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Denial packet records missing explicit approval, missing phase-gate approval, and incomplete guard state."
+    test: "tests/reset/test_holdout_approval_absence_denial.py::test_denial_packet_records_missing_prerequisites"
+  - id: AC-2
+    description: "Denial packet records no holdout path opened, no holdout read, and no unlock requested."
+    test: "tests/reset/test_holdout_approval_absence_denial.py::test_denial_packet_preserves_no_read_boundary"
+  - id: AC-3
+    description: "Denial packet rejects OOS/performance, production, and capital-ready conclusions."
+    test: "tests/reset/test_holdout_approval_absence_denial.py::test_denial_packet_rejects_claim_surfaces"
+
+Files:
+  - docs/approvals/HOLDOUT_APPROVAL_ABSENCE_DENIAL.md
+  - tests/reset/test_holdout_approval_absence_denial.py
+
+Context-Refs:
+  - docs/approvals/HOLDOUT_APPROVAL_INTAKE_CONTRACT.md
+  - docs/protocols/HOLDOUT_LEAKAGE_GUARD_PROTOCOL.md
+
+Notes: |
+  Denial evidence only. Do not read or unlock holdout.
+
+## T43: Holdout Non-Approval Source Regression
+
+Owner:      codex
+Phase:      10
+Type:       none
+Depends-On: T42
+Status:     done 2026-05-09
+
+Objective: |
+  Sweep active Phase 10 approval-decision artifacts to prove roadmap phases, reviews, tests, readiness packets, protocol docs, and generated scaffolds cannot be treated as approval.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Regression test scans active docs for restricted approval flags and implicit approval language."
+    test: "tests/reset/test_holdout_non_approval_source_regression.py::test_phase10_docs_reject_implicit_approval_sources"
+  - id: AC-2
+    description: "Regression test confirms no approval event currently exists in prompt and handoff."
+    test: "tests/reset/test_holdout_non_approval_source_regression.py::test_state_docs_record_no_current_approval_event"
+  - id: AC-3
+    description: "Regression test confirms holdout read/unlock remain blocked."
+    test: "tests/reset/test_holdout_non_approval_source_regression.py::test_holdout_read_unlock_remain_blocked"
+
+Files:
+  - tests/reset/test_holdout_non_approval_source_regression.py
+  - docs/CODEX_PROMPT.md
+  - PHASE_HANDOFF.md
+
+Context-Refs:
+  - docs/audit/HOLDOUT_ACCESS_PROTOCOL_REVIEW.md
+  - docs/approvals/HOLDOUT_APPROVAL_ABSENCE_DENIAL.md
+
+Notes: |
+  Regression only. Do not create approval or read holdout.
+
+## T44: Holdout Decision No-Read Dry Run
+
+Owner:      codex
+Phase:      10
+Type:       none
+Depends-On: T43
+Status:     done 2026-05-09
+
+Objective: |
+  Add a local no-read dry run proving the approval decision packet can assemble protocol and denial evidence without opening holdout data.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Dry run assembles Phase 9 and Phase 10 artifacts without opening a holdout path."
+    test: "tests/reset/test_holdout_decision_no_read_dry_run.py::test_decision_dry_run_uses_no_read_artifacts"
+  - id: AC-2
+    description: "Dry run fails if any holdout read/unlock or OOS/performance approval flag is present."
+    test: "tests/reset/test_holdout_decision_no_read_dry_run.py::test_decision_dry_run_rejects_restricted_flags"
+  - id: AC-3
+    description: "Dry run records current denial and missing approval prerequisites."
+    test: "tests/reset/test_holdout_decision_no_read_dry_run.py::test_decision_dry_run_records_denial_state"
+
+Files:
+  - docs/approvals/HOLDOUT_DECISION_DRY_RUN.md
+  - tests/reset/test_holdout_decision_no_read_dry_run.py
+
+Context-Refs:
+  - docs/approvals/HOLDOUT_APPROVAL_ABSENCE_DENIAL.md
+  - docs/protocols/HOLDOUT_AUDIT_LOGGING_CONTRACT.md
+
+Notes: |
+  Dry run only. Do not open holdout path.
+
+## T45: Holdout Approval Decision Review
+
+Owner:      codex
+Phase:      10
+Type:       none
+Depends-On: T44
+Status:     done 2026-05-09
+
+Objective: |
+  Review Phase 10 approval decision artifacts and evaluate whether a future explicit human holdout approval request may be presented.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/audit/HOLDOUT_APPROVAL_DECISION_REVIEW.md` summarizes request packet, intake contract, denial packet, regression sweep, dry run, validation, limitations, findings, and roadmap evaluation."
+    test: "tests/reset/test_holdout_approval_decision_review.py::test_holdout_approval_decision_review_contains_required_sections"
+  - id: AC-2
+    description: "Review either keeps, modifies, or blocks the future approved holdout evaluation phase without opening holdout."
+    test: "tests/reset/test_holdout_approval_decision_review.py::test_holdout_approval_decision_review_records_roadmap_evaluation"
+  - id: AC-3
+    description: "Audit index and prompt record Phase 10 completion and the next active task selected by roadmap evaluation."
+    test: "tests/reset/test_holdout_approval_decision_review.py::test_holdout_approval_decision_review_updates_state"
+
+Files:
+  - docs/audit/HOLDOUT_APPROVAL_DECISION_REVIEW.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/CODEX_PROMPT.md
+  - tests/reset/test_holdout_approval_decision_review.py
+
+Context-Refs:
+  - docs/approvals/HOLDOUT_DECISION_DRY_RUN.md
+  - docs/audit/HOLDOUT_ACCESS_PROTOCOL_REVIEW.md
+
+Notes: |
+  This is a phase-boundary review. Continue automatically after roadmap evaluation unless a blocker is found.
+
+## T46: Live-Feed Boundary Contract
+
+Owner:      codex
+Phase:      11
+Type:       none
+Depends-On: T45
+Status:     done 2026-05-09
+
+Objective: |
+  Define the local live-feed dry-run boundary so market-data readiness work cannot place orders, connect to broker/exchange execution, deploy credentials, activate live capital, or alter holdout status.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Boundary contract records allowed local fixture and dry-run operations."
+    test: "tests/reset/test_live_feed_boundary_contract.py::test_live_feed_boundary_contract_records_allowed_operations"
+  - id: AC-2
+    description: "Boundary contract blocks orders, broker/exchange execution, credentials, live capital, production labels, and holdout access."
+    test: "tests/reset/test_live_feed_boundary_contract.py::test_live_feed_boundary_contract_blocks_external_effects"
+  - id: AC-3
+    description: "Prompt and handoff record Phase 11 as local-only live-feed readiness."
+    test: "tests/reset/test_live_feed_boundary_contract.py::test_state_docs_record_phase11_local_only_scope"
+
+Files:
+  - docs/protocols/LIVE_FEED_DRY_RUN_BOUNDARY.md
+  - tests/reset/test_live_feed_boundary_contract.py
+
+Context-Refs:
+  - docs/audit/HOLDOUT_APPROVAL_DECISION_REVIEW.md
+  - docs/ARCHITECTURE.md
+
+Notes: |
+  Boundary only. Do not connect to live feeds, broker/exchange execution, credentials, or capital.
+
+## T47: Live-Feed Fixture Manifest
+
+Owner:      codex
+Phase:      11
+Type:       none
+Depends-On: T46
+Status:     done 2026-05-09
+
+Objective: |
+  Define deterministic local market-data fixture manifest requirements for live-feed dry-run readiness without pulling live data.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Manifest records fixture identity, source class, hashes, schema, and replay constraints."
+    test: "tests/reset/test_live_feed_fixture_manifest.py::test_live_feed_fixture_manifest_records_required_fields"
+  - id: AC-2
+    description: "Manifest rejects live credentials, live network pulls, broker/exchange execution, and capital actions."
+    test: "tests/reset/test_live_feed_fixture_manifest.py::test_live_feed_fixture_manifest_rejects_live_effects"
+  - id: AC-3
+    description: "Manifest binds fixtures to local dry-run scope and no-holdout state."
+    test: "tests/reset/test_live_feed_fixture_manifest.py::test_live_feed_fixture_manifest_binds_local_scope"
+
+Files:
+  - docs/protocols/LIVE_FEED_FIXTURE_MANIFEST.md
+  - tests/reset/test_live_feed_fixture_manifest.py
+
+Context-Refs:
+  - docs/protocols/LIVE_FEED_DRY_RUN_BOUNDARY.md
+
+Notes: |
+  Manifest only. Do not fetch live market data.
+
+## T48: Live-Feed Adapter Dry-Run Contract
+
+Owner:      codex
+Phase:      11
+Type:       none
+Depends-On: T47
+Status:     done 2026-05-09
+
+Objective: |
+  Define adapter dry-run checks that exercise local parsing and normalization boundaries without live connectivity or order paths.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Contract records local parser, normalization, clock, and replay checks."
+    test: "tests/reset/test_live_feed_adapter_dry_run_contract.py::test_adapter_dry_run_contract_records_local_checks"
+  - id: AC-2
+    description: "Contract rejects network sockets, credentials, order placement, and broker/exchange execution."
+    test: "tests/reset/test_live_feed_adapter_dry_run_contract.py::test_adapter_dry_run_contract_rejects_external_paths"
+  - id: AC-3
+    description: "Contract records no production or capital-ready claim."
+    test: "tests/reset/test_live_feed_adapter_dry_run_contract.py::test_adapter_dry_run_contract_rejects_claims"
+
+Files:
+  - docs/protocols/LIVE_FEED_ADAPTER_DRY_RUN_CONTRACT.md
+  - tests/reset/test_live_feed_adapter_dry_run_contract.py
+
+Context-Refs:
+  - docs/protocols/LIVE_FEED_FIXTURE_MANIFEST.md
+
+Notes: |
+  Contract only. Do not connect to any external feed.
+
+## T49: Live-Feed Observability Packet
+
+Owner:      codex
+Phase:      11
+Type:       none
+Depends-On: T48
+Status:     done 2026-05-09
+
+Objective: |
+  Define local observability evidence for dry-run feed readiness, including logging, counters, and failure states without external side effects.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Packet records local dry-run observability fields and failure counters."
+    test: "tests/reset/test_live_feed_observability_packet.py::test_observability_packet_records_required_fields"
+  - id: AC-2
+    description: "Packet records no credentials, raw secrets, orders, capital actions, or holdout reads."
+    test: "tests/reset/test_live_feed_observability_packet.py::test_observability_packet_rejects_sensitive_and_external_effects"
+  - id: AC-3
+    description: "Packet records readiness limitations and no production claim."
+    test: "tests/reset/test_live_feed_observability_packet.py::test_observability_packet_records_limitations"
+
+Files:
+  - docs/protocols/LIVE_FEED_OBSERVABILITY_PACKET.md
+  - tests/reset/test_live_feed_observability_packet.py
+
+Context-Refs:
+  - docs/protocols/LIVE_FEED_ADAPTER_DRY_RUN_CONTRACT.md
+
+Notes: |
+  Observability evidence only. Do not emit live feed telemetry.
+
+## T50: Live-Feed Dry Run Readiness Review
+
+Owner:      codex
+Phase:      11
+Type:       none
+Depends-On: T49
+Status:     done 2026-05-09
+
+Objective: |
+  Review Phase 11 live-feed dry-run readiness artifacts and evaluate the next roadmap step without enabling broker/exchange execution or capital.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Review summarizes boundary, manifest, adapter contract, observability packet, validation, limitations, findings, and roadmap evaluation."
+    test: "tests/reset/test_live_feed_readiness_review.py::test_live_feed_readiness_review_contains_required_sections"
+  - id: AC-2
+    description: "Review records whether to keep, modify, or block the broker sandbox phase."
+    test: "tests/reset/test_live_feed_readiness_review.py::test_live_feed_readiness_review_records_roadmap_evaluation"
+  - id: AC-3
+    description: "Audit index and prompt record Phase 11 completion and the next active task selected by roadmap evaluation."
+    test: "tests/reset/test_live_feed_readiness_review.py::test_live_feed_readiness_review_updates_state"
+
+Files:
+  - docs/audit/LIVE_FEED_READINESS_REVIEW.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/CODEX_PROMPT.md
+  - tests/reset/test_live_feed_readiness_review.py
+
+Context-Refs:
+  - docs/protocols/LIVE_FEED_OBSERVABILITY_PACKET.md
+
+Notes: |
+  Review only. Do not enable broker/exchange execution or capital.
+
+## T51: Broker Sandbox Boundary Contract
+
+Owner:      codex
+Phase:      12
+Type:       none
+Depends-On: T50
+Status:     done 2026-05-09
+
+Objective: |
+  Define sandbox-only broker/exchange boundaries before any execution risk artifact work.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Boundary records allowed sandbox-only operations and required local controls."
+    test: "tests/reset/test_broker_sandbox_boundary_contract.py::test_broker_sandbox_boundary_records_allowed_operations"
+  - id: AC-2
+    description: "Boundary blocks live orders, production credentials, live capital, production labels, and holdout access."
+    test: "tests/reset/test_broker_sandbox_boundary_contract.py::test_broker_sandbox_boundary_blocks_live_effects"
+  - id: AC-3
+    description: "Prompt and handoff record Phase 12 as sandbox-only execution risk audit."
+    test: "tests/reset/test_broker_sandbox_boundary_contract.py::test_state_docs_record_phase12_sandbox_only_scope"
+
+Files:
+  - docs/protocols/BROKER_SANDBOX_BOUNDARY.md
+  - tests/reset/test_broker_sandbox_boundary_contract.py
+
+Context-Refs:
+  - docs/audit/LIVE_FEED_READINESS_REVIEW.md
+
+Notes: |
+  Boundary only. Do not connect to live broker/exchange execution or capital.
+
+## T52: Broker Sandbox Fixture Manifest
+
+Owner:      codex
+Phase:      12
+Type:       none
+Depends-On: T51
+Status:     done 2026-05-09
+
+Objective: |
+  Define deterministic sandbox fixture requirements for broker/exchange execution risk tests without live connectivity.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Manifest records fixture identity, order scenario class, hashes, schema, and replay constraints."
+    test: "tests/reset/test_broker_sandbox_fixture_manifest.py::test_broker_sandbox_fixture_manifest_records_required_fields"
+  - id: AC-2
+    description: "Manifest rejects production credentials, live orders, live capital, and holdout access."
+    test: "tests/reset/test_broker_sandbox_fixture_manifest.py::test_broker_sandbox_fixture_manifest_rejects_live_effects"
+  - id: AC-3
+    description: "Manifest binds fixtures to sandbox-only scope and risk-audit boundaries."
+    test: "tests/reset/test_broker_sandbox_fixture_manifest.py::test_broker_sandbox_fixture_manifest_binds_scope"
+
+Files:
+  - docs/protocols/BROKER_SANDBOX_FIXTURE_MANIFEST.md
+  - tests/reset/test_broker_sandbox_fixture_manifest.py
+
+Context-Refs:
+  - docs/protocols/BROKER_SANDBOX_BOUNDARY.md
+
+Notes: |
+  Manifest only. Do not open broker/exchange connectivity.
+
+## T53: Execution Risk Control Contract
+
+Owner:      codex
+Phase:      12
+Type:       none
+Depends-On: T52
+Status:     done 2026-05-09
+
+Objective: |
+  Define sandbox execution risk controls for order validation, limits, rejection, and deterministic audit behavior.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Contract records sandbox order validation, limits, rejection, and risk state fields."
+    test: "tests/reset/test_execution_risk_control_contract.py::test_execution_risk_contract_records_controls"
+  - id: AC-2
+    description: "Contract rejects live order placement, production credentials, live capital, and production labels."
+    test: "tests/reset/test_execution_risk_control_contract.py::test_execution_risk_contract_rejects_live_effects"
+  - id: AC-3
+    description: "Contract records deterministic audit and no-capital boundaries."
+    test: "tests/reset/test_execution_risk_control_contract.py::test_execution_risk_contract_records_audit_boundaries"
+
+Files:
+  - docs/protocols/EXECUTION_RISK_CONTROL_CONTRACT.md
+  - tests/reset/test_execution_risk_control_contract.py
+
+Context-Refs:
+  - docs/protocols/BROKER_SANDBOX_FIXTURE_MANIFEST.md
+
+Notes: |
+  Risk contract only. Do not place orders.
+
+## T54: Kill-Switch Audit Log Contract
+
+Owner:      codex
+Phase:      12
+Type:       none
+Depends-On: T53
+Status:     done 2026-05-09
+
+Objective: |
+  Define sandbox kill-switch audit requirements and fail-closed evidence without live capital or live order paths.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Contract records kill-switch trigger, state, actor, timestamp, and audit fields."
+    test: "tests/reset/test_kill_switch_audit_log_contract.py::test_kill_switch_contract_records_required_fields"
+  - id: AC-2
+    description: "Contract records fail-closed behavior and blocks order/capital activation."
+    test: "tests/reset/test_kill_switch_audit_log_contract.py::test_kill_switch_contract_records_fail_closed_behavior"
+  - id: AC-3
+    description: "Contract rejects secrets, production credentials, raw account identifiers, and holdout data."
+    test: "tests/reset/test_kill_switch_audit_log_contract.py::test_kill_switch_contract_rejects_sensitive_surfaces"
+
+Files:
+  - docs/protocols/KILL_SWITCH_AUDIT_LOG_CONTRACT.md
+  - tests/reset/test_kill_switch_audit_log_contract.py
+
+Context-Refs:
+  - docs/protocols/EXECUTION_RISK_CONTROL_CONTRACT.md
+
+Notes: |
+  Audit contract only. Do not emit live order telemetry.
+
+## T55: Sandbox Execution No-Capital Dry Run
+
+Owner:      codex
+Phase:      12
+Type:       none
+Depends-On: T54
+Status:     done 2026-05-09
+
+Objective: |
+  Assemble sandbox execution risk artifacts into a local no-capital dry run without live orders or live connectivity.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Dry run assembles sandbox boundary, fixture, risk control, and kill-switch artifacts."
+    test: "tests/reset/test_sandbox_execution_no_capital_dry_run.py::test_sandbox_dry_run_assembles_artifacts"
+  - id: AC-2
+    description: "Dry run rejects live orders, production credentials, live capital, and production claims."
+    test: "tests/reset/test_sandbox_execution_no_capital_dry_run.py::test_sandbox_dry_run_rejects_live_effects"
+  - id: AC-3
+    description: "Dry run records no holdout access and no capital-ready conclusion."
+    test: "tests/reset/test_sandbox_execution_no_capital_dry_run.py::test_sandbox_dry_run_records_limitations"
+
+Files:
+  - docs/protocols/SANDBOX_EXECUTION_NO_CAPITAL_DRY_RUN.md
+  - tests/reset/test_sandbox_execution_no_capital_dry_run.py
+
+Context-Refs:
+  - docs/protocols/KILL_SWITCH_AUDIT_LOG_CONTRACT.md
+
+Notes: |
+  Dry run only. Do not place live or sandbox orders from code.
+
+## T56: Broker Sandbox Readiness Review
+
+Owner:      codex
+Phase:      12
+Type:       none
+Depends-On: T55
+Status:     done 2026-05-09
+
+Objective: |
+  Review Phase 12 broker sandbox and execution risk audit artifacts and evaluate the next roadmap step without enabling production or capital.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Review summarizes sandbox boundary, fixture manifest, risk controls, kill-switch contract, dry run, validation, limitations, findings, and roadmap evaluation."
+    test: "tests/reset/test_broker_sandbox_readiness_review.py::test_broker_sandbox_readiness_review_contains_required_sections"
+  - id: AC-2
+    description: "Review records whether to keep, modify, or block the production/capital gate phase."
+    test: "tests/reset/test_broker_sandbox_readiness_review.py::test_broker_sandbox_readiness_review_records_roadmap_evaluation"
+  - id: AC-3
+    description: "Audit index and prompt record Phase 12 completion and the next active task selected by roadmap evaluation."
+    test: "tests/reset/test_broker_sandbox_readiness_review.py::test_broker_sandbox_readiness_review_updates_state"
+
+Files:
+  - docs/audit/BROKER_SANDBOX_READINESS_REVIEW.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/CODEX_PROMPT.md
+  - tests/reset/test_broker_sandbox_readiness_review.py
+
+Context-Refs:
+  - docs/protocols/SANDBOX_EXECUTION_NO_CAPITAL_DRY_RUN.md
+
+Notes: |
+  Review only. Do not enable production, live capital, or live orders.
+
+## T57: Product Hypothesis Confirmation Request Packet
+
+Owner:      codex
+Phase:      13
+Type:       none
+Depends-On: T56
+Status:     done 2026-05-09
+
+Objective: |
+  Assemble a local-only request packet that states the product hypothesis confirmation goal, current evidence, missing approvals, and safest next validation options without opening production, capital, live orders, broker/exchange execution, production credentials, or holdout access.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Packet lists current evidence from archive, readiness, holdout protocol, live-feed dry-run, and broker sandbox phases."
+    test: "tests/reset/test_product_hypothesis_confirmation_request.py::test_product_hypothesis_request_lists_current_evidence"
+  - id: AC-2
+    description: "Packet records missing approvals and rejects production/capital/live/holdout actions."
+    test: "tests/reset/test_product_hypothesis_confirmation_request.py::test_product_hypothesis_request_rejects_restricted_actions"
+  - id: AC-3
+    description: "Prompt and handoff open Phase 13 as local-only hypothesis confirmation decision work."
+    test: "tests/reset/test_product_hypothesis_confirmation_request.py::test_state_docs_open_phase13_local_only_decision_work"
+
+Files:
+  - docs/approvals/PRODUCT_HYPOTHESIS_CONFIRMATION_REQUEST.md
+  - tests/reset/test_product_hypothesis_confirmation_request.py
+
+Context-Refs:
+  - docs/audit/BROKER_SANDBOX_READINESS_REVIEW.md
+
+Notes: |
+  Request packet only. Do not read holdout, place orders, load credentials, connect to broker/exchange systems, or activate capital.
+
+## T58: Product Validation Approval Intake Contract
+
+Owner:      codex
+Phase:      13
+Type:       none
+Depends-On: T57
+Status:     done 2026-05-09
+
+Objective: |
+  Define local-only intake requirements for any future validation approval event before holdout, live-feed, broker sandbox execution, production, or capital validation could be considered.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Contract lists required approval fields, evidence references, risk owner, scope, expiry, and revocation fields."
+    test: "tests/reset/test_product_validation_approval_intake_contract.py::test_product_validation_intake_lists_required_fields"
+  - id: AC-2
+    description: "Contract rejects incomplete, generated, inferred, stale, revoked, or overbroad validation approvals."
+    test: "tests/reset/test_product_validation_approval_intake_contract.py::test_product_validation_intake_rejects_invalid_approvals"
+  - id: AC-3
+    description: "Contract preserves current no-approval state and blocked restricted actions."
+    test: "tests/reset/test_product_validation_approval_intake_contract.py::test_product_validation_intake_preserves_no_approval_state"
+
+Files:
+  - docs/approvals/PRODUCT_VALIDATION_APPROVAL_INTAKE_CONTRACT.md
+  - tests/reset/test_product_validation_approval_intake_contract.py
+
+Context-Refs:
+  - docs/approvals/PRODUCT_HYPOTHESIS_CONFIRMATION_REQUEST.md
+
+Notes: |
+  Intake contract only. Do not create an approval event.
+
+## T59: Product Hypothesis Validation Path Decision
+
+Owner:      codex
+Phase:      13
+Type:       none
+Depends-On: T58
+Status:     done 2026-05-09
+
+Objective: |
+  Record the current deterministic decision for the safest next validation path toward product hypothesis confirmation.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Decision packet compares archive-only, no-read holdout, live-feed dry-run, broker sandbox, and production/capital paths."
+    test: "tests/reset/test_product_hypothesis_validation_path_decision.py::test_validation_path_decision_compares_options"
+  - id: AC-2
+    description: "Decision packet selects only approved local/no-effect next steps and blocks restricted paths."
+    test: "tests/reset/test_product_hypothesis_validation_path_decision.py::test_validation_path_decision_selects_safe_next_step"
+  - id: AC-3
+    description: "Decision packet records that product hypothesis is not confirmed yet."
+    test: "tests/reset/test_product_hypothesis_validation_path_decision.py::test_validation_path_decision_records_not_confirmed"
+
+Files:
+  - docs/approvals/PRODUCT_HYPOTHESIS_VALIDATION_PATH_DECISION.md
+  - tests/reset/test_product_hypothesis_validation_path_decision.py
+
+Context-Refs:
+  - docs/approvals/PRODUCT_VALIDATION_APPROVAL_INTAKE_CONTRACT.md
+
+Notes: |
+  Decision packet only. Do not execute validation actions.
+
+## T60: Production Capital Non-Approval Regression
+
+Owner:      codex
+Phase:      13
+Type:       none
+Depends-On: T59
+Status:     done 2026-05-09
+
+Objective: |
+  Add regression coverage proving Phase 13 docs, reviews, tests, and request packets are not approval sources for production, capital, live order, broker/exchange execution, production credential, or holdout access.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Regression rejects roadmap, review, test, and request-packet approval sources."
+    test: "tests/reset/test_production_capital_non_approval_regression.py::test_non_approval_sources_are_rejected"
+  - id: AC-2
+    description: "Regression proves restricted action flags remain absent from active docs."
+    test: "tests/reset/test_production_capital_non_approval_regression.py::test_restricted_action_flags_remain_absent"
+  - id: AC-3
+    description: "Prompt and handoff preserve no-current-approval state."
+    test: "tests/reset/test_production_capital_non_approval_regression.py::test_state_docs_preserve_no_current_approval"
+
+Files:
+  - tests/reset/test_production_capital_non_approval_regression.py
+  - docs/CODEX_PROMPT.md
+  - PHASE_HANDOFF.md
+
+Context-Refs:
+  - docs/approvals/PRODUCT_HYPOTHESIS_VALIDATION_PATH_DECISION.md
+
+Notes: |
+  Regression only. Do not grant approval.
+
+## T61: Local Next Validation Plan Packet
+
+Owner:      codex
+Phase:      13
+Type:       none
+Depends-On: T60
+Status:     done 2026-05-09
+
+Objective: |
+  Assemble a local-only next validation plan packet that can be reviewed by a human before any future holdout, sandbox, live, production, or capital validation is approved.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Plan lists objective, hypothesis, evidence inputs, validation options, prerequisites, risks, rollback, and blocked actions."
+    test: "tests/reset/test_local_next_validation_plan_packet.py::test_next_validation_plan_lists_required_sections"
+  - id: AC-2
+    description: "Plan records no current approval and no claim of product hypothesis confirmation."
+    test: "tests/reset/test_local_next_validation_plan_packet.py::test_next_validation_plan_records_no_confirmation"
+  - id: AC-3
+    description: "Plan rejects live/capital/production/holdout execution unless future explicit approval exists."
+    test: "tests/reset/test_local_next_validation_plan_packet.py::test_next_validation_plan_rejects_restricted_execution"
+
+Files:
+  - docs/approvals/LOCAL_NEXT_VALIDATION_PLAN_PACKET.md
+  - tests/reset/test_local_next_validation_plan_packet.py
+
+Context-Refs:
+  - docs/approvals/PRODUCT_HYPOTHESIS_VALIDATION_PATH_DECISION.md
+
+Notes: |
+  Plan packet only. Do not execute the plan.
+
+## T62: Product Hypothesis Confirmation Decision Review
+
+Owner:      codex
+Phase:      13
+Type:       none
+Depends-On: T61
+Status:     done 2026-05-09
+
+Objective: |
+  Review Phase 13 local-only product hypothesis confirmation decision artifacts and record the next human decision point.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Review summarizes request, intake, path decision, non-approval regression, validation plan, validation, limitations, findings, and next decision point."
+    test: "tests/reset/test_product_hypothesis_confirmation_decision_review.py::test_confirmation_decision_review_contains_required_sections"
+  - id: AC-2
+    description: "Review records whether product hypothesis is confirmed, rejected, or still unconfirmed pending future validation."
+    test: "tests/reset/test_product_hypothesis_confirmation_decision_review.py::test_confirmation_decision_review_records_status"
+  - id: AC-3
+    description: "Audit index and prompt record Phase 13 completion and the required next human decision."
+    test: "tests/reset/test_product_hypothesis_confirmation_decision_review.py::test_confirmation_decision_review_updates_state"
+
+Files:
+  - docs/audit/PRODUCT_HYPOTHESIS_CONFIRMATION_DECISION_REVIEW.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/CODEX_PROMPT.md
+  - tests/reset/test_product_hypothesis_confirmation_decision_review.py
+
+Context-Refs:
+  - docs/approvals/LOCAL_NEXT_VALIDATION_PLAN_PACKET.md
+
+Notes: |
+  Review only. Do not approve production, capital, live orders, broker/exchange execution, production credentials, or holdout access.
+
+## T63: Local Broker Sandbox Replay Approval Event
+
+Owner:      codex
+Phase:      14
+Type:       none
+Depends-On: T62
+Status:     done 2026-05-09
+
+Objective: |
+  Record the operator approval for the local broker sandbox no-capital replay extension while preserving no-effect and no-claim boundaries.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Approval event records the explicit operator approval source and local replay scope."
+    test: "tests/reset/test_local_broker_sandbox_replay_approval_event.py::test_local_replay_approval_event_records_operator_scope"
+  - id: AC-2
+    description: "Approval event blocks sandbox order emission from code, live orders, broker/exchange execution, credentials, capital, holdout, and OOS/performance claims."
+    test: "tests/reset/test_local_broker_sandbox_replay_approval_event.py::test_local_replay_approval_event_blocks_restricted_actions"
+  - id: AC-3
+    description: "Approval event preserves unconfirmed product hypothesis status before replay."
+    test: "tests/reset/test_local_broker_sandbox_replay_approval_event.py::test_local_replay_approval_event_preserves_unconfirmed_hypothesis"
+
+Files:
+  - docs/approvals/LOCAL_BROKER_SANDBOX_REPLAY_APPROVAL_EVENT.md
+  - tests/reset/test_local_broker_sandbox_replay_approval_event.py
+
+Context-Refs:
+  - docs/approvals/LOCAL_NEXT_VALIDATION_PLAN_PACKET.md
+
+Notes: |
+  This approval is scoped to local no-effect replay only. Do not emit orders or connect to broker/exchange systems.
+
+## T64: Broker Sandbox No-Capital Replay Primitive
+
+Owner:      codex
+Phase:      14
+Type:       none
+Depends-On: T63
+Status:     done 2026-05-09
+
+Objective: |
+  Add a deterministic SimBroker replay primitive that runs only against local fixture scenarios and returns explicit no-effect result flags.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Replay is deterministic and hash-bound for identical local fixture inputs."
+    test: "tests/unit/test_simbroker_replay.py::test_no_capital_sandbox_replay_is_deterministic_and_hash_bound"
+  - id: AC-2
+    description: "Replay result records no order emission, no broker/exchange connection, no credential loading, no capital activation, and no holdout access."
+    test: "tests/unit/test_simbroker_replay.py::test_no_capital_sandbox_replay_preserves_no_effect_boundaries"
+  - id: AC-3
+    description: "Replay rejects invalid approval scope, empty scenarios, duplicate scenario ids, and live broker/exchange imports."
+    test: "tests/unit/test_simbroker_replay.py"
+
+Files:
+  - src/entropy/simbroker/replay.py
+  - src/entropy/simbroker/__init__.py
+  - tests/unit/test_simbroker_replay.py
+
+Context-Refs:
+  - docs/approvals/LOCAL_BROKER_SANDBOX_REPLAY_APPROVAL_EVENT.md
+  - docs/protocols/SANDBOX_EXECUTION_NO_CAPITAL_DRY_RUN.md
+
+Notes: |
+  Local code primitive only. Do not add broker/exchange clients, sockets, credentials, or order emission.
+
+## T65: Broker Sandbox Replay Evidence Packet
+
+Owner:      codex
+Phase:      14
+Type:       none
+Depends-On: T64
+Status:     done 2026-05-09
+
+Objective: |
+  Record the approved local replay contract and replay result packet with deterministic hash, scenario summary, no-effect flags, and product hypothesis evidence delta.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Replay contract binds the local approval event, replay inputs, deterministic result fields, and rejection conditions."
+    test: "tests/reset/test_broker_sandbox_no_capital_replay_contract.py::test_replay_contract_binds_local_approval_and_inputs"
+  - id: AC-2
+    description: "Replay contract rejects restricted scopes and claim interpretations."
+    test: "tests/reset/test_broker_sandbox_no_capital_replay_contract.py::test_replay_contract_rejects_restricted_scope_and_claims"
+  - id: AC-3
+    description: "Replay result records deterministic local evidence delta and state docs open the next evidence-delta task."
+    test: "tests/reset/test_broker_sandbox_no_capital_replay_contract.py"
+
+Files:
+  - docs/protocols/BROKER_SANDBOX_NO_CAPITAL_REPLAY_CONTRACT.md
+  - docs/protocols/BROKER_SANDBOX_NO_CAPITAL_REPLAY_RESULT.md
+  - tests/reset/test_broker_sandbox_no_capital_replay_contract.py
+  - docs/tasks.md
+  - docs/CODEX_PROMPT.md
+  - PHASE_HANDOFF.md
+
+Context-Refs:
+  - src/entropy/simbroker/replay.py
+
+Notes: |
+  Evidence packet only. The product hypothesis is strengthened locally but remains unconfirmed.
+
+## T66: Local Replay Evidence Delta Decision
+
+Owner:      codex
+Phase:      14
+Type:       none
+Depends-On: T65
+Status:     pending
+
+Objective: |
+  Decide how the local no-effect replay evidence changes the product hypothesis confirmation posture without creating production, capital-ready, holdout, or OOS/performance claims.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Decision packet compares pre-replay and post-replay evidence."
+    test: "tests/reset/test_local_replay_evidence_delta_decision.py::test_replay_delta_decision_compares_evidence"
+  - id: AC-2
+    description: "Decision packet records that the product hypothesis is strengthened locally but not confirmed or rejected."
+    test: "tests/reset/test_local_replay_evidence_delta_decision.py::test_replay_delta_decision_preserves_unconfirmed_status"
+  - id: AC-3
+    description: "Decision packet lists the next bounded validation option without opening restricted actions."
+    test: "tests/reset/test_local_replay_evidence_delta_decision.py::test_replay_delta_decision_keeps_restricted_actions_blocked"
+
+Files:
+  - docs/approvals/LOCAL_REPLAY_EVIDENCE_DELTA_DECISION.md
+  - tests/reset/test_local_replay_evidence_delta_decision.py
+
+Context-Refs:
+  - docs/protocols/BROKER_SANDBOX_NO_CAPITAL_REPLAY_RESULT.md
+
+Notes: |
+  Decision only. Do not claim production readiness or OOS/performance.
+
+## T67: Replay Evidence Non-Approval Regression
+
+Owner:      codex
+Phase:      14
+Type:       none
+Depends-On: T66
+Status:     pending
+
+Objective: |
+  Add regression coverage proving replay approval, replay results, and local evidence deltas are not approval sources for restricted execution or product claims.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Regression rejects replay packets as production/capital/live/holdout approval sources."
+    test: "tests/reset/test_replay_evidence_non_approval_regression.py::test_replay_packets_are_not_restricted_approvals"
+  - id: AC-2
+    description: "Regression proves replay evidence cannot create OOS/performance, production, or capital-ready labels."
+    test: "tests/reset/test_replay_evidence_non_approval_regression.py::test_replay_evidence_cannot_create_claim_labels"
+  - id: AC-3
+    description: "Prompt and handoff keep restricted surfaces blocked."
+    test: "tests/reset/test_replay_evidence_non_approval_regression.py::test_state_docs_keep_restricted_surfaces_blocked"
+
+Files:
+  - tests/reset/test_replay_evidence_non_approval_regression.py
+  - docs/CODEX_PROMPT.md
+  - PHASE_HANDOFF.md
+
+Context-Refs:
+  - docs/approvals/LOCAL_REPLAY_EVIDENCE_DELTA_DECISION.md
+
+Notes: |
+  Regression only. Do not broaden approval scope.
+
+## T68: Local Replay Extension Review
+
+Owner:      codex
+Phase:      14
+Type:       none
+Depends-On: T67
+Status:     pending
+
+Objective: |
+  Review Phase 14 local broker sandbox no-capital replay extension artifacts and decide the next safe human decision or local validation phase.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Review summarizes approval event, replay primitive, replay evidence, evidence-delta decision, regression, validation, limitations, findings, and next decision point."
+    test: "tests/reset/test_local_replay_extension_review.py::test_local_replay_review_contains_required_sections"
+  - id: AC-2
+    description: "Review records product hypothesis status after replay."
+    test: "tests/reset/test_local_replay_extension_review.py::test_local_replay_review_records_hypothesis_status"
+  - id: AC-3
+    description: "Audit index and prompt record Phase 14 completion and next boundary."
+    test: "tests/reset/test_local_replay_extension_review.py::test_local_replay_review_updates_state"
+
+Files:
+  - docs/audit/LOCAL_REPLAY_EXTENSION_REVIEW.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/CODEX_PROMPT.md
+  - tests/reset/test_local_replay_extension_review.py
+
+Context-Refs:
+  - docs/approvals/LOCAL_REPLAY_EVIDENCE_DELTA_DECISION.md
+
+Notes: |
+  Review only. Keep all restricted execution and claim surfaces blocked.

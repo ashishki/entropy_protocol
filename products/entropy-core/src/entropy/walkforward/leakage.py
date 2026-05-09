@@ -58,6 +58,23 @@ class LeakageCheckResult:
 
 
 @dataclass(frozen=True)
+class OOSLabel:
+    """Approved OOS label derived only from passing leakage evidence."""
+
+    label: str
+    leakage_status: CheckStatus
+    check_ids: tuple[str, ...]
+
+
+class OOSLabelBlockedError(Exception):
+    """Raised when leakage failures block OOS label creation."""
+
+    def __init__(self, failing_check_ids: tuple[str, ...]) -> None:
+        self.failing_check_ids = failing_check_ids
+        super().__init__("Leakage checks failed: " + ", ".join(failing_check_ids))
+
+
+@dataclass(frozen=True)
 class LeakageReport:
     """Full four-check leakage report."""
 
@@ -85,11 +102,26 @@ class LeakageReport:
             self.within_window_optimization,
         )
 
+    @property
+    def failing_check_ids(self) -> tuple[str, ...]:
+        return tuple(
+            check_id
+            for check_id, result in zip(LEAKAGE_CHECK_IDS, self.checks, strict=True)
+            if result.status is CheckStatus.FAIL
+        )
+
 
 FeatureFn = Callable[[Sequence[BarLike], Sequence[BarLike]], FeatureAudit]
 RegimeLabelFn = Callable[[Sequence[BarLike], Sequence[BarLike]], RegimeLabelAudit]
 UniverseSelector = Callable[[Sequence[BarLike], Sequence[BarLike]], UniverseSelectionAudit]
 Optimizer = Callable[[Sequence[BarLike], Sequence[BarLike]], OptimizationAudit]
+
+LEAKAGE_CHECK_IDS = (
+    "normalization_leakage",
+    "regime_label_lookahead",
+    "universe_selection_bias",
+    "within_window_optimization",
+)
 
 
 def run_checklist(
@@ -133,6 +165,18 @@ def run_checklist(
             oos_window,
             oos_start,
         ),
+    )
+
+
+def create_oos_label(leakage_report: LeakageReport, *, label: str = "OOS") -> OOSLabel:
+    """Create an OOS label only when every leakage check passed."""
+    failing_check_ids = leakage_report.failing_check_ids
+    if failing_check_ids:
+        raise OOSLabelBlockedError(failing_check_ids)
+    return OOSLabel(
+        label=label,
+        leakage_status=CheckStatus.PASS,
+        check_ids=LEAKAGE_CHECK_IDS,
     )
 
 
