@@ -24,10 +24,18 @@ from signal_sandbox.market_ideas.outcomes import (
     MarketIdeaOutcome,
     evaluate_market_idea_outcome,
 )
+from signal_sandbox.market_ideas.review_coverage import (
+    CoverageStatus,
+    ReviewCoverageExport,
+    ReviewCoverageRow,
+    build_review_coverage_export,
+    render_review_coverage_markdown,
+)
 
 __all__ = [
     "ApprovalState",
     "AuthorMetrics",
+    "CoverageStatus",
     "Direction",
     "EvidenceSpan",
     "IdeaType",
@@ -37,9 +45,13 @@ __all__ = [
     "MarketIdeaBatchExport",
     "MarketIdeaExportRow",
     "MarketIdeaOutcome",
+    "ReviewCoverageExport",
+    "ReviewCoverageRow",
     "ResolutionState",
     "aggregate_author_metrics",
+    "build_review_coverage_export",
     "evaluate_market_idea_outcome",
     "export_market_idea_drafts",
     "render_market_idea_export_markdown",
+    "render_review_coverage_markdown",
 ]
