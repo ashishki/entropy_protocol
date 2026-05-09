@@ -5,6 +5,36 @@ Purpose:
 Validate whether public Telegram/X signal-source analytics is a paid product
 wedge separate from Entropy Core and Trader Risk Audit.
 
+## Current Status
+
+- Phase 0 gates are acknowledged for the initial Telegram pilot sources.
+- Engineering Phases 1-20 are complete through `SAS-MEDIA-008`.
+- Phase 20 produced the Telegram media evidence path: ADR/legal posture,
+  media artifact metadata, injected-client voice acquisition, gated transcript
+  drafts, OCR drafts, multimodal source-document joins, and a coverage/decision
+  gate.
+- Phase 9 pilot loop is complete; 60 public `bablos79` text captures exist in
+  `workspace/captures/bablos79/`.
+- Phase 10 produced draft-only pseudo-labels, an author profile, deterministic
+  draft validation/parser/export helpers, a 60-row draft export, a 23-row
+  exception review queue, and an evaluation decision to keep the helper only
+  for internal exception review.
+- Author Market Intelligence is active. Phase 10 artifacts remain the first
+  channel profile/corpus seed; implemented work now includes asset registry,
+  immutable local market-data store, deterministic horizon metrics, source
+  corpus, channel profiles, local retrieval, MarketIdea extraction/export,
+  deterministic thesis evaluation, author metrics, bounded internal analyst
+  memo export, Author Market Report V0, the sellability decision gate,
+  ADR-003, and the reviewer coverage export pack.
+- Telegram media evidence is internal-only until real public/operator-authorized
+  media is supplied and human review marks transcript/OCR evidence usable.
+- Current next engineering task: none defined. Phase 20 decision is to pause
+  implementation until operator media evidence or a new Phase 21 task graph is
+  added.
+- Package target: Python 3.12, installable as `signal-sandbox`.
+- CLI status: `signal-sandbox` exists with stubs for the planned operator workflow.
+- Tests: 157 passing; ruff and pyright pass locally.
+
 ## Scope In
 
 - Public source ledger.
@@ -12,6 +42,12 @@ wedge separate from Entropy Core and Trader Risk Audit.
 - Timestamped signal record.
 - Historical signal outcome report.
 - Legal/terms risk memo.
+
+Initial pilot sources:
+
+- https://t.me/bablos79
+- https://t.me/nemphiscrypts
+- https://t.me/pifagortrade
 
 ## Scope Out
 
@@ -26,11 +62,31 @@ wedge separate from Entropy Core and Trader Risk Audit.
 
 1. `docs/CODEX_PROMPT.md`
 2. `docs/tasks.md`
-3. `../../docs/PRODUCT_PORTFOLIO.md`
-4. `../../docs/AI_DEVELOPMENT_OPERATING_MODEL.md`
+3. `docs/pilot/AUDIT_GRADE_AUTOMATION_ROADMAP.md`
+4. `docs/pilot/AUTO_EXTRACTION_DEVELOPMENT_PLAN.md`
+5. `docs/pilot/AUTHOR_MARKET_INTELLIGENCE_ROADMAP.md`
+6. `docs/pilot/MEDIA_MODALITY_DEVELOPMENT_PLAN.md`
+7. `docs/pilot/MEDIA_MODALITY_DECISION.md`
+8. `docs/archive/PHASE20_REVIEW.md`
+9. `../../docs/PRODUCT_PORTFOLIO.md`
+10. `../../docs/AI_DEVELOPMENT_OPERATING_MODEL.md`
 
 ## Local AI Workflow
 
 This workspace has its own `PLAYBOOK.md`, `prompts/`, `templates/`, `hooks/`,
-`ci/`, and `.claude/` configuration. Do not rely on root-level workflow files
+`ci/`, prompts, hooks, and Codex tmux operating materials. Do not rely on root-level workflow files or legacy nested-agent assumptions
 for Signal Analytics Sandbox development.
+
+## Local Commands
+
+```bash
+python -m pip install -r requirements-dev.txt -e .
+signal-sandbox --help
+python -m pytest tests/ -q
+```
+
+## CI
+
+- Product workflow template: `.github/workflows/ci.yml`
+- Repository-root GitHub workflow bridge:
+  `../../.github/workflows/signal-analytics-sandbox-ci.yml`
