@@ -19,7 +19,7 @@ def test_tasks_records_planned_roadmap_and_active_phase() -> None:
         "Archive Reproducibility Hardening",
         "Phase-Gate Readiness Review",
         "Holdout Access Protocol",
-        "Approved Holdout Evaluation Packet",
+        "Holdout Approval Decision Packet",
         "Live-Feed Dry Run Readiness",
         "Broker Sandbox and Execution Risk Audit",
         "Production and Capital Gate",
@@ -40,7 +40,8 @@ def test_tasks_records_planned_roadmap_and_active_phase() -> None:
     assert "Status:     done 2026-05-09" in _task_section(text, "T36")
     assert "Status:     done 2026-05-09" in _task_section(text, "T37")
     assert "Status:     done 2026-05-09" in _task_section(text, "T38")
-    assert "Status:     active" in _task_section(text, "T39")
+    assert "Status:     done 2026-05-09" in _task_section(text, "T39")
+    assert "Status:     active" in _task_section(text, "T40")
 
 
 def test_tasks_records_dynamic_roadmap_evaluation_rule() -> None:
@@ -69,7 +70,7 @@ def test_prompt_and_handoff_record_phase7_boundaries() -> None:
     loop = CODEX_LOOP.read_text(encoding="utf-8")
     combined = f"{prompt}\n{handoff}\n{loop}".lower()
 
-    assert "phase: 9" in prompt.lower()
+    assert "phase: 10" in prompt.lower()
     assert "t35 holdout access protocol deny-by-default contract" in prompt.lower()
     assert "t34 phase-gate readiness review completed" in prompt.lower()
     assert "t33 readiness no-holdout dry run completed" in prompt.lower()
@@ -80,7 +81,7 @@ def test_prompt_and_handoff_record_phase7_boundaries() -> None:
     assert "t28 no-claim surface regression sweep completed" in prompt.lower()
     assert "t27 evidence hash reproducibility matrix completed" in prompt.lower()
     assert "t26 archive packet replay contract completed" in prompt.lower()
-    assert "phase: 9 holdout access protocol" in handoff.lower()
+    assert "phase: 10 holdout approval decision packet" in handoff.lower()
     assert "phase boundaries are not stop conditions" in combined
     assert "roadmap rewrite -> open next active phase -> next task" in combined
     assert "continue automatically" in combined

@@ -14,6 +14,7 @@ Append-only. One row per reset-era review cycle.
 | ARCHIVE-EVIDENCE-EXPANSION | 6 | 2026-05-07 | T20-T24 Archive Evidence Expansion | 0 | 0 | 0 | 0 |
 | ARCHIVE-REPRODUCIBILITY-HARDENING | 7 | 2026-05-08 | T25-T29 Archive Reproducibility Hardening | 0 | 0 | 0 | 0 |
 | PHASE-GATE-READINESS-REVIEW | 8 | 2026-05-09 | T30-T34 Phase-Gate Readiness Review | 0 | 0 | 0 | 0 |
+| HOLDOUT-ACCESS-PROTOCOL | 9 | 2026-05-09 | T35-T39 Holdout Access Protocol | 0 | 0 | 0 | 0 |
 
 ## Archive
 
@@ -27,6 +28,7 @@ Append-only. One row per reset-era review cycle.
 | ARCHIVE-EVIDENCE-EXPANSION | `docs/audit/ARCHIVE_EVIDENCE_EXPANSION_REVIEW.md` | 6 | PASS |
 | ARCHIVE-REPRODUCIBILITY-HARDENING | `docs/audit/ARCHIVE_REPRODUCIBILITY_REVIEW.md` | 7 | PASS |
 | PHASE-GATE-READINESS-REVIEW | `docs/audit/PHASE_GATE_READINESS_REVIEW.md` | 8 | PASS |
+| HOLDOUT-ACCESS-PROTOCOL | `docs/audit/HOLDOUT_ACCESS_PROTOCOL_REVIEW.md` | 9 | PASS |
 
 ## Notes
 

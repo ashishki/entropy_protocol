@@ -21,6 +21,15 @@ This file records handoff context. It is not authority.
 
 ## Entries
 
+### 2026-05-09 - T39 - Holdout Access Protocol Review
+
+- Scope: `docs/audit/HOLDOUT_ACCESS_PROTOCOL_REVIEW.md`, `docs/audit/AUDIT_INDEX.md`, `tests/reset/test_holdout_access_protocol_review.py`, `docs/tasks.md`, `docs/EVIDENCE_INDEX.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`
+- Why this work happened: close Phase 9 with protocol review and roadmap evaluation before opening the next autonomous phase
+- Decisions applied: `docs/protocols/HOLDOUT_ACCESS_PROTOCOL.md`; `docs/protocols/HOLDOUT_APPROVAL_EVENT_SCHEMA.md`; `docs/protocols/HOLDOUT_AUDIT_LOGGING_CONTRACT.md`; `docs/protocols/HOLDOUT_LEAKAGE_GUARD_PROTOCOL.md`; `D-ROADMAP-001`
+- Evidence collected: T39 acceptance tests passed (`3 passed`); full reset baseline `420 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean
+- Follow-ups: start T40 Holdout Approval Request Packet Scaffold
+- Notes for next agent: Phase 10 is no-read approval decision work. No approval event currently exists, and holdout read/unlock remain blocked.
+
 ### 2026-05-09 - T38 - Holdout Leakage Guard Protocol
 
 - Scope: `docs/protocols/HOLDOUT_LEAKAGE_GUARD_PROTOCOL.md`, `tests/reset/test_holdout_leakage_guard_protocol.py`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`

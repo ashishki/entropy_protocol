@@ -19,7 +19,7 @@ Status: active roadmap task graph
 | 7 | Archive Reproducibility Hardening | T25-T29 | Replay and consistency checks for existing archive-only evidence packets plus roadmap evaluation rules. | Replays prove deterministic packet generation, stable hashes, no hidden holdout/live/OOS/performance surfaces, and a documented roadmap evaluation after phase close. |
 | 8 | Phase-Gate Readiness Review | T30-T34 | Gap matrix and readiness packet for deciding whether the archive evidence base is sufficient to discuss holdout access. | Review identifies evidence sufficiency, missing controls, and required human approvals without opening holdout. |
 | 9 | Holdout Access Protocol | T35-T39 | Design and approval protocol for controlled holdout unlock, leakage guards, and audit logging. | Holdout remains unread until explicit approval; protocol proves access can be gated, logged, and blocked by default. |
-| 10 | Approved Holdout Evaluation Packet | T40-T45 | If explicitly approved, run a bounded holdout/OOS evaluation packet with no production or capital-ready claims. | OOS packet is hash-bound, leakage-checked, and reviewed; performance claims remain scoped and non-production. |
+| 10 | Holdout Approval Decision Packet | T40-T45 | Assemble no-read approval request and decision evidence before any future holdout access approval could be considered. | Packet proves explicit approval is absent or bounded, non-approval sources are rejected, and holdout remains unread unless a future human approval event and controls exist. |
 | 11 | Live-Feed Dry Run Readiness | T46-T50 | Prepare live market data ingestion checks without broker orders, exchange execution, or live capital. | Live-feed path is observable and gated; no order placement, broker integration, or capital deployment is enabled. |
 | 12 | Broker Sandbox and Execution Risk Audit | T51-T56 | Sandbox-only broker/exchange integration, execution risk controls, and kill-switch audit. | Sandbox execution is isolated; live capital remains blocked; risk controls and audit logs are mandatory. |
 | 13 | Production and Capital Gate | T57-T64 | Final human-governed production/capital readiness review. | Production/capital-ready labels require explicit gate approval, full evidence packet, risk signoff, and rollback plan. |
@@ -1407,7 +1407,7 @@ Owner:      codex
 Phase:      9
 Type:       none
 Depends-On: T38
-Status:     active
+Status:     done 2026-05-09
 
 Objective: |
   Review Phase 9 protocol artifacts, record findings, and evaluate whether any future phase may request explicit human holdout approval.
@@ -1434,6 +1434,214 @@ Context-Refs:
   - docs/protocols/HOLDOUT_APPROVAL_EVENT_SCHEMA.md
   - docs/protocols/HOLDOUT_AUDIT_LOGGING_CONTRACT.md
   - docs/protocols/HOLDOUT_LEAKAGE_GUARD_PROTOCOL.md
+
+Notes: |
+  This is a phase-boundary review. Continue automatically after roadmap evaluation unless a blocker is found.
+
+## T40: Holdout Approval Request Packet Scaffold
+
+Owner:      codex
+Phase:      10
+Type:       none
+Depends-On: T39
+Status:     active
+
+Objective: |
+  Scaffold a no-read holdout approval request packet that assembles Phase 9 protocol evidence, missing approvals, and blocked boundaries without creating approval.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/approvals/HOLDOUT_APPROVAL_REQUEST_PACKET.md` lists protocol, schema, audit, leakage guard, and review evidence required before any future approval decision."
+    test: "tests/reset/test_holdout_approval_request_packet.py::test_holdout_approval_request_packet_lists_required_evidence"
+  - id: AC-2
+    description: "Packet records that no explicit approval event currently exists and that holdout read/unlock remain blocked."
+    test: "tests/reset/test_holdout_approval_request_packet.py::test_holdout_approval_request_packet_preserves_no_approval_state"
+  - id: AC-3
+    description: "Prompt and handoff record Phase 10 as no-read approval decision work."
+    test: "tests/reset/test_holdout_approval_request_packet.py::test_state_docs_record_phase10_no_read_decision_work"
+
+Files:
+  - docs/approvals/HOLDOUT_APPROVAL_REQUEST_PACKET.md
+  - docs/CODEX_PROMPT.md
+  - PHASE_HANDOFF.md
+  - tests/reset/test_holdout_approval_request_packet.py
+
+Context-Refs:
+  - docs/audit/HOLDOUT_ACCESS_PROTOCOL_REVIEW.md
+  - docs/protocols/HOLDOUT_ACCESS_PROTOCOL.md
+  - docs/protocols/HOLDOUT_APPROVAL_EVENT_SCHEMA.md
+  - docs/protocols/HOLDOUT_AUDIT_LOGGING_CONTRACT.md
+  - docs/protocols/HOLDOUT_LEAKAGE_GUARD_PROTOCOL.md
+
+Notes: |
+  Request packet scaffold only. Do not create approval, read holdout, or unlock holdout.
+
+## T41: Holdout Approval Evidence Intake Contract
+
+Owner:      codex
+Phase:      10
+Type:       none
+Depends-On: T40
+Status:     pending
+
+Objective: |
+  Define local intake checks for a future explicit holdout approval event while rejecting absent, generated, inferred, expired, revoked, stale, or scope-mismatched evidence.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Intake contract lists required approval event fields and hash bindings."
+    test: "tests/reset/test_holdout_approval_intake_contract.py::test_holdout_approval_intake_lists_required_fields"
+  - id: AC-2
+    description: "Intake fixtures reject absent, generated, inferred, expired, revoked, stale, or scope-mismatched evidence."
+    test: "tests/reset/test_holdout_approval_intake_contract.py::test_holdout_approval_intake_rejects_invalid_evidence"
+  - id: AC-3
+    description: "State docs preserve no approval event until explicit evidence exists."
+    test: "tests/reset/test_holdout_approval_intake_contract.py::test_state_docs_preserve_no_approval_event"
+
+Files:
+  - docs/approvals/HOLDOUT_APPROVAL_INTAKE_CONTRACT.md
+  - docs/CODEX_PROMPT.md
+  - PHASE_HANDOFF.md
+  - tests/reset/test_holdout_approval_intake_contract.py
+
+Context-Refs:
+  - docs/approvals/HOLDOUT_APPROVAL_REQUEST_PACKET.md
+  - docs/protocols/HOLDOUT_APPROVAL_EVENT_SCHEMA.md
+
+Notes: |
+  Intake contract only. Do not create a real approval event.
+
+## T42: Holdout Approval Absence Denial Packet
+
+Owner:      codex
+Phase:      10
+Type:       none
+Depends-On: T41
+Status:     pending
+
+Objective: |
+  Record a deterministic denial packet for the current no-approval state without opening or reading holdout data.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Denial packet records missing explicit approval, missing phase-gate approval, and incomplete guard state."
+    test: "tests/reset/test_holdout_approval_absence_denial.py::test_denial_packet_records_missing_prerequisites"
+  - id: AC-2
+    description: "Denial packet records no holdout path opened, no holdout read, and no unlock requested."
+    test: "tests/reset/test_holdout_approval_absence_denial.py::test_denial_packet_preserves_no_read_boundary"
+  - id: AC-3
+    description: "Denial packet rejects OOS/performance, production, and capital-ready conclusions."
+    test: "tests/reset/test_holdout_approval_absence_denial.py::test_denial_packet_rejects_claim_surfaces"
+
+Files:
+  - docs/approvals/HOLDOUT_APPROVAL_ABSENCE_DENIAL.md
+  - tests/reset/test_holdout_approval_absence_denial.py
+
+Context-Refs:
+  - docs/approvals/HOLDOUT_APPROVAL_INTAKE_CONTRACT.md
+  - docs/protocols/HOLDOUT_LEAKAGE_GUARD_PROTOCOL.md
+
+Notes: |
+  Denial evidence only. Do not read or unlock holdout.
+
+## T43: Holdout Non-Approval Source Regression
+
+Owner:      codex
+Phase:      10
+Type:       none
+Depends-On: T42
+Status:     pending
+
+Objective: |
+  Sweep active Phase 10 approval-decision artifacts to prove roadmap phases, reviews, tests, readiness packets, protocol docs, and generated scaffolds cannot be treated as approval.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Regression test scans active docs for restricted approval flags and implicit approval language."
+    test: "tests/reset/test_holdout_non_approval_source_regression.py::test_phase10_docs_reject_implicit_approval_sources"
+  - id: AC-2
+    description: "Regression test confirms no approval event currently exists in prompt and handoff."
+    test: "tests/reset/test_holdout_non_approval_source_regression.py::test_state_docs_record_no_current_approval_event"
+  - id: AC-3
+    description: "Regression test confirms holdout read/unlock remain blocked."
+    test: "tests/reset/test_holdout_non_approval_source_regression.py::test_holdout_read_unlock_remain_blocked"
+
+Files:
+  - tests/reset/test_holdout_non_approval_source_regression.py
+  - docs/CODEX_PROMPT.md
+  - PHASE_HANDOFF.md
+
+Context-Refs:
+  - docs/audit/HOLDOUT_ACCESS_PROTOCOL_REVIEW.md
+  - docs/approvals/HOLDOUT_APPROVAL_ABSENCE_DENIAL.md
+
+Notes: |
+  Regression only. Do not create approval or read holdout.
+
+## T44: Holdout Decision No-Read Dry Run
+
+Owner:      codex
+Phase:      10
+Type:       none
+Depends-On: T43
+Status:     pending
+
+Objective: |
+  Add a local no-read dry run proving the approval decision packet can assemble protocol and denial evidence without opening holdout data.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Dry run assembles Phase 9 and Phase 10 artifacts without opening a holdout path."
+    test: "tests/reset/test_holdout_decision_no_read_dry_run.py::test_decision_dry_run_uses_no_read_artifacts"
+  - id: AC-2
+    description: "Dry run fails if any holdout read/unlock or OOS/performance approval flag is present."
+    test: "tests/reset/test_holdout_decision_no_read_dry_run.py::test_decision_dry_run_rejects_restricted_flags"
+  - id: AC-3
+    description: "Dry run records current denial and missing approval prerequisites."
+    test: "tests/reset/test_holdout_decision_no_read_dry_run.py::test_decision_dry_run_records_denial_state"
+
+Files:
+  - docs/approvals/HOLDOUT_DECISION_DRY_RUN.md
+  - tests/reset/test_holdout_decision_no_read_dry_run.py
+
+Context-Refs:
+  - docs/approvals/HOLDOUT_APPROVAL_ABSENCE_DENIAL.md
+  - docs/protocols/HOLDOUT_AUDIT_LOGGING_CONTRACT.md
+
+Notes: |
+  Dry run only. Do not open holdout path.
+
+## T45: Holdout Approval Decision Review
+
+Owner:      codex
+Phase:      10
+Type:       none
+Depends-On: T44
+Status:     pending
+
+Objective: |
+  Review Phase 10 approval decision artifacts and evaluate whether a future explicit human holdout approval request may be presented.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/audit/HOLDOUT_APPROVAL_DECISION_REVIEW.md` summarizes request packet, intake contract, denial packet, regression sweep, dry run, validation, limitations, findings, and roadmap evaluation."
+    test: "tests/reset/test_holdout_approval_decision_review.py::test_holdout_approval_decision_review_contains_required_sections"
+  - id: AC-2
+    description: "Review either keeps, modifies, or blocks the future approved holdout evaluation phase without opening holdout."
+    test: "tests/reset/test_holdout_approval_decision_review.py::test_holdout_approval_decision_review_records_roadmap_evaluation"
+  - id: AC-3
+    description: "Audit index and prompt record Phase 10 completion and the next active task selected by roadmap evaluation."
+    test: "tests/reset/test_holdout_approval_decision_review.py::test_holdout_approval_decision_review_updates_state"
+
+Files:
+  - docs/audit/HOLDOUT_APPROVAL_DECISION_REVIEW.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/CODEX_PROMPT.md
+  - tests/reset/test_holdout_approval_decision_review.py
+
+Context-Refs:
+  - docs/approvals/HOLDOUT_DECISION_DRY_RUN.md
+  - docs/audit/HOLDOUT_ACCESS_PROTOCOL_REVIEW.md
 
 Notes: |
   This is a phase-boundary review. Continue automatically after roadmap evaluation unless a blocker is found.

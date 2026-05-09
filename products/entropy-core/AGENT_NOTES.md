@@ -256,3 +256,15 @@ Phase 9 is complete through T38.
 - Latest validation: `.venv/bin/python -m pytest -q tests/` -> `417 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
 - Light review result: no findings.
 - Boundaries remain unchanged: guard status is incomplete; missing approval, stale hashes, partition overlap, prior holdout read, and unresolved evidence fail closed; no holdout read/unlock was executed.
+
+## 2026-05-09 T39 Holdout Access Protocol Review
+
+Phase 9 is complete through T39. Phase 10 is open as no-read holdout approval decision work.
+
+- Completed task: T39 Holdout Access Protocol Review.
+- Active task: T40 Holdout Approval Request Packet Scaffold.
+- Latest validation: `.venv/bin/python -m pytest -q tests/` -> `420 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
+- Audit index row added for Phase 9 review.
+- Evidence index row added for T39 review proof.
+- Light/deep review result: no findings.
+- Roadmap decision: modify planned Phase 10 into Holdout Approval Decision Packet. No approval event currently exists; holdout read/unlock, phase-gate approval, OOS/performance claims, live, broker/exchange, production, and capital-ready paths remain blocked.

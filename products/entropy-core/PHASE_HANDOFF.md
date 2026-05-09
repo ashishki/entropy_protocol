@@ -7,10 +7,10 @@ manual restart.
 
 - Product: entropy-core
 - Branch: codex/entropy-core-work
-- Active task: T39 Holdout Access Protocol Review
-- Phase: 9 Holdout Access Protocol
-- Last validation: 2026-05-09 T38: `417 passed, 20 skipped`; ruff check clean; ruff format clean; pyright 0 errors; `git diff --check` clean.
-- Git status summary: T38 holdout leakage guard protocol changes pending commit at handoff update time.
+- Active task: T40 Holdout Approval Request Packet Scaffold
+- Phase: 10 Holdout Approval Decision Packet
+- Last validation: 2026-05-09 T39: `420 passed, 20 skipped`; ruff check clean; ruff format clean; pyright 0 errors; `git diff --check` clean.
+- Git status summary: T39 holdout access protocol review changes pending commit at handoff update time.
 
 ## Completed In This Phase
 
@@ -55,11 +55,17 @@ manual restart.
 - T36 Holdout Approval Event Schema Contract completed with no findings.
 - T37 Holdout Access Audit Logging Contract completed with no findings.
 - T38 Holdout Leakage Guard Protocol Fixture completed with no findings.
+- T39 Holdout Access Protocol Review completed with no findings.
 
 ## Remaining Work
 
-- T39 Holdout Access Protocol Review is active.
-- After T39, run deep review, fix findings, validate, evaluate the roadmap, rewrite future phases/tasks if useful, open the next logical active phase, and continue automatically.
+- T40 Holdout Approval Request Packet Scaffold is active.
+- T41 Holdout Approval Evidence Intake Contract is pending.
+- T42 Holdout Approval Absence Denial Packet is pending.
+- T43 Holdout Non-Approval Source Regression is pending.
+- T44 Holdout Decision No-Read Dry Run is pending.
+- T45 Holdout Approval Decision Review is pending.
+- After T45, run deep review, fix findings, validate, evaluate the roadmap, rewrite future phases/tasks if useful, open the next logical active phase, and continue automatically.
 
 ## Blockers Or Human Decisions
 
@@ -73,6 +79,7 @@ manual restart.
 - T36 defined the approval event schema and invalid fixture classes without creating any approval event.
 - T37 defined audit logging requirements for denied and future approved attempts without exposing raw holdout paths or opening holdout data.
 - T38 defined leakage guard inputs and fail-closed fixtures without executing holdout access.
+- T39 closed Phase 9 and rewrote Phase 10 into no-read approval decision work. No approval event currently exists; holdout read/unlock remain blocked.
 - Real external side effects, holdout reads, holdout unlocks, live capital actions, live broker/exchange execution, and credentialed production deployment remain blocked; implement local dry-run/sandbox/protocol work instead unless a future local contract explicitly permits otherwise.
 
 ## Resume Instruction

@@ -84,13 +84,15 @@ def test_prompt_and_handoff_match_boundary_checklist() -> None:
     ):
         assert boundary in checklist
         assert boundary in combined
-    assert "current active task is t39 holdout access protocol review" in prompt
-    assert "active task: t39 holdout access protocol review" in handoff
+    assert "current active task is t40 holdout approval request packet scaffold" in prompt
+    assert "active task: t40 holdout approval request packet scaffold" in handoff
+    assert "t39 holdout access protocol review completed" in prompt
     assert "t38 holdout leakage guard protocol fixture completed" in prompt
     assert "t37 holdout access audit logging contract completed" in prompt
     assert "t36 holdout approval event schema contract completed" in prompt
     assert "t35 holdout access protocol deny-by-default contract completed" in prompt
-    assert "phase 9 is protocol-only" in prompt
+    assert "phase 10 is no-read approval decision work" in prompt
+    assert "phase 9 complete through t39" in prompt
     assert "holdout read/unlock still blocked" in handoff
 
 
