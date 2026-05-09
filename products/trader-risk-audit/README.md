@@ -12,13 +12,13 @@ violated, when they were violated, and how much damage violations created.
 
 ## Current Status
 
-- Current phase: Phase 7 - Internal Validation with Public Samples planned.
-- Completed: Phase 1 foundation through Phase 6 pilot validation, including constrained Telegram intake/delivery and business evidence artifacts.
-- Next task: T30 Public Sample Source Policy.
-- Planned next phases: Phase 8 Demo Productization, Phase 9 Intake Quality and Operator Speed, Phase 10 Conversion Assets.
-- Local baseline: 92 passing tests, 0 skipped.
+- Current phase: Phase 8 - Demo Productization active.
+- Completed: Phase 1 foundation through Phase 7 internal validation, including constrained Telegram intake/delivery, public sample evidence, and business evidence artifacts.
+- Next task: T33 Telegram Demo Happy Path.
+- Planned next phases: Phase 9 Intake Quality and Operator Speed, Phase 10 Conversion Assets.
+- Local baseline: 105 passing tests, 0 skipped.
 - Quality checks: `.venv/bin/ruff check` and `.venv/bin/ruff format --check` are clean.
-- Review status: Phase 6 deep review archived at `docs/archive/PHASE6_REVIEW.md`; Stop-Ship: No.
+- Review status: Phase 7 deep review archived at `docs/archive/PHASE7_REVIEW.md`; Stop-Ship: No; one P2 metadata finding remains open.
 
 ## Features
 
@@ -50,7 +50,7 @@ violated, when they were violated, and how much damage violations created.
 | Local audit workspace | Complete | Helper creates input/output/operator-notes/artifacts directories and non-sensitive metadata. |
 | Telegram pilot intake/delivery | Complete | ADR-001, disabled-by-default intake handlers, local storage, operator queue, approved delivery abstraction, and mocked E2E flow are covered by tests. |
 | Pilot evidence log | Complete | Russian evidence log and CSV template track qualified calls, paid reports, objections, repeat commitments, and referrals. |
-| Public sample validation | Planned | Phase 7 will define public sample source rules, use soft/medium/hard starter policy profiles, build a reproducible public-sample evidence pack, optionally demo the upload-status-report loop through Telegram, and decide whether to start trader outreach. |
+| Public sample validation | Complete | Source/licensing/privacy policy, `demo/public_sample_001/` evidence pack, and internal readiness review are complete. Verdict: go for manual outreach, not PMF or paid-demand proof. |
 | Starter policy profiles | Complete | `docs/STARTER_POLICY_PROFILES_RU.md` and YAML templates define customizable soft, medium, and hard audit presets for internal validation, not trading advice. |
 
 ## Development Roadmap
@@ -70,7 +70,7 @@ Loop continuity: after each phase, the orchestrator should run deep review, arch
 
 | Command | Current Result |
 |---------|----------------|
-| `.venv/bin/python -m pytest tests -q --tb=short` | 92 passed |
+| `.venv/bin/python -m pytest tests -q --tb=short` | 105 passed |
 | `.venv/bin/ruff check` | passed |
 | `.venv/bin/ruff format --check` | passed |
 

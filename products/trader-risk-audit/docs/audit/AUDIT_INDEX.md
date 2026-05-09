@@ -15,6 +15,7 @@ Append-only. One row per review cycle.
 | 5 | Phase 5 - Concierge Pilot Workflow | 2026-05-07 | T17-T20 | No | 0 | 0 | 0 |
 | 6 | Phase 6 - Targeted Security Review | 2026-05-07 | T25 | No | 0 | 0 | 0 |
 | 7 | Phase 6 - Pilot Validation and Telegram Intake | 2026-05-07 | T21-T29 | No | 0 | 0 | 0 |
+| 8 | Phase 7 - Internal Validation with Public Samples | 2026-05-08 | T30-T32 | No | 0 | 0 | 1 |
 
 ---
 
@@ -29,6 +30,7 @@ Append-only. One row per review cycle.
 | 5 | `docs/archive/PHASE5_REVIEW.md` | Phase 5 - Concierge Pilot Workflow | OK |
 | 6 | `docs/archive/CYCLE6_T25_SECURITY_REVIEW.md` | Phase 6 - Targeted Security Review | OK |
 | 7 | `docs/archive/PHASE6_REVIEW.md` | Phase 6 - Pilot Validation and Telegram Intake | OK |
+| 8 | `docs/archive/PHASE7_REVIEW.md` | Phase 7 - Internal Validation with Public Samples | WARN |
 
 ---
 

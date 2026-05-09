@@ -1,8 +1,8 @@
 # CODEX_PROMPT.md
 
-Version: 1.8
+Version: 1.13
 Date: 2026-05-08
-Phase: 7
+Phase: 8
 
 This file is the single source of truth for implementation session state. Every Codex agent reads this file before starting work and updates it at phase boundaries or when the orchestrator records findings.
 
@@ -10,15 +10,15 @@ This file is the single source of truth for implementation session state. Every 
 
 ## Current Phase
 
-- Phase: 7
-- Name: Internal Validation with Public Samples
-- Business goal: prove internally that Trader Risk Audit works on licensed public/anonymized examples before manual trader outreach, while keeping public samples separate from paid pilot or PMF evidence.
-- Phase gate: T30-T32 complete; the team has a public sample source policy, soft/medium/hard starter policy profiles, a reproducible public-sample evidence pack, and a go/no-go readiness review for starting trader outreach without claiming market validation from demo artifacts.
+- Phase: 8
+- Name: Demo Productization
+- Business goal: make the founder-led demo feel like a coherent mini-product from Telegram entry to approved report without confusing public/internal samples with paid pilot evidence or expanding into advice, broker control, signal analytics, or SaaS scope.
+- Phase gate: T33-T36 complete; the team has a Telegram demo happy path, public sample demo mode, polished report readability, and RU/EN two-minute scripts that push toward real export/rules and paid pilot commitment.
 
 ## Current State
 
-- Phase: 7
-- Baseline: 92 passing tests
+- Phase: 8
+- Baseline: 105 passing tests
 - Ruff: clean (`ruff check` and `ruff format --check`)
 - Last CI: workflow configured; remote run not observed from this clone
 - Last updated: 2026-05-08
@@ -36,47 +36,37 @@ This file is the single source of truth for implementation session state. Every 
 
 ## Next Task
 
-T30 - Public Sample Source Policy
+T33 - Telegram Demo Happy Path
 
 Task intent:
 
-- Define the source, licensing, privacy, and evidence-labeling rules for public or public-like records used for internal validation before approaching real traders.
-- Record SEC EDGAR Insider Transactions Data Sets / Form 4 as the candidate primary source for the first public sample pack, subject to T30 source policy checks.
-- Document the `soft`, `medium`, and `hard` starter policy profiles as audit presets that welcome customization and do not replace trader or prop/funded account rules.
-- Make explicit that public sample artifacts are internal/demo evidence, not qualified prospect calls, paid pilot reports, repeat commitments, referrals, or PMF evidence.
-- Define the readiness gate for moving from internal validation to trader outreach.
+- Turn the existing Telegram pilot pieces into a coherent demo happy path: start an audit, upload files or choose a demo sample, receive an audit id/status, and receive an operator-approved report.
+- Support `/start`, `/new_audit`, file upload guidance, audit id/status response, and approved report delivery copy without requiring real network access in tests.
+- Keep the user-facing path clear without exposing raw trade rows, Telegram handles, broker account ids, or private notes.
+- Stay inside ADR-001: no broker APIs, signal parsing, order blocking, auto-advice, or live trading behavior.
 
 Required context before starting:
 
 - `docs/IMPLEMENTATION_CONTRACT.md`
-- `docs/tasks.md#t30-public-sample-source-policy`
-- `docs/DEMO_CASE_RU.md`
-- `docs/STARTER_POLICY_PROFILES_RU.md`
-- `docs/PILOT_EVIDENCE_LOG_RU.md`
-- `STARTUP_PRESSURE_TEST_RU.md#14-final-recommendation`
-- `README.md#current-status`
-- `docs/prompts/PROMPT_S_STRATEGY.md`
-- `docs/audit/PROMPT_0_META.md`
-- `docs/audit/PROMPT_1_ARCH.md`
-- `docs/audit/PROMPT_2_CODE.md`
-- `docs/audit/PROMPT_3_CONSOLIDATED.md`
+- `docs/tasks.md#t33-telegram-demo-happy-path`
+- `docs/adr/ADR-001-telegram-intake-delivery.md`
+- `docs/PUBLIC_SAMPLE_EVIDENCE_RU.md`
+- `docs/IMPLEMENTATION_CONTRACT.md#confidential-data-handling`
 
 Immediate scope:
 
-- `docs/PUBLIC_SAMPLE_SOURCE_POLICY_RU.md`
-- `docs/STARTER_POLICY_PROFILES_RU.md`
-- `templates/policies/starter_policy_soft.yaml`
-- `templates/policies/starter_policy_medium.yaml`
-- `templates/policies/starter_policy_hard.yaml`
-- `tests/test_public_sample_source_policy.py`
-- `tests/test_starter_policy_profiles.py`
+- `trader_risk_audit/telegram_bot/handlers.py`
+- `trader_risk_audit/telegram_bot/delivery.py`
+- `tests/integration/test_telegram_demo_happy_path.py`
+- `docs/TELEGRAM_DEMO_FLOW_RU.md`
 
 Candidate source decision:
 
 - Primary: SEC EDGAR Insider Transactions Data Sets / Form 4 non-derivative transactions.
-- Filter: P/S transaction rows with required date, ticker, shares, and price.
-- Mapping for T31: `TRANS_DATE` -> timestamp, `ISSUERTRADINGSYMBOL` -> symbol, `TRANS_ACQUIRED_DISP_CD` A/D -> buy/sell, `TRANS_SHARES` -> quantity, `TRANS_PRICEPERSHARE` -> price.
-- Privacy rule: remove reporting owner names, signatures, remarks, footnotes, and unnecessary personal fields before committing a public sample pack.
+- Use only source rows allowed by `docs/PUBLIC_SAMPLE_SOURCE_POLICY_RU.md`.
+- Filter: P/S transaction rows with required date, ticker, shares, and price where available.
+- Mapping: `TRANS_DATE` -> timestamp, `ISSUERTRADINGSYMBOL` -> symbol, `TRANS_ACQUIRED_DISP_CD` A/D -> buy/sell, `TRANS_SHARES` -> quantity, `TRANS_PRICEPERSHARE` -> price, `ACCESSION_NUMBER` plus row key -> source traceability.
+- Privacy rule: remove reporting owner names, signatures, remarks, footnotes, relationship titles, owner addresses/identifiers, and unnecessary personal fields before committing a public sample pack.
 - Backup: public exchange trade-print samples only if SEC Form 4 cannot support at least three explainable risk scenarios; label backup samples as market prints, not account history.
 
 Starter policy decision:
@@ -85,12 +75,16 @@ Starter policy decision:
 - Treat them as internal validation/demo defaults, not investment advice, strategy recommendations, or optimal risk settings.
 - Prefer trader custom rules and prop/funded account rules when available.
 - For Phase 7 internal validation, run public samples through these profiles where useful to test explainability across strictness levels.
+- T30 completed source policy and starter profile tests. Baseline after T30: 97 passing tests.
+- T31 completed `demo/public_sample_001/`, `docs/PUBLIC_SAMPLE_EVIDENCE_RU.md`, and public sample pack integration tests. Baseline after T31: 102 passing tests.
+- Starter profile reference remains `docs/STARTER_POLICY_PROFILES_RU.md`; Phase 7 treats `soft`, `medium`, and `hard` as customizable audit presets only.
+- T32 completed `docs/INTERNAL_VALIDATION_REVIEW_RU.md` and readiness review tests. Baseline after T32: 105 passing tests.
+- Phase 7 deep review Cycle 8 archived at `docs/archive/PHASE7_REVIEW.md`: Stop-Ship No, P0:0, P1:0, P2:1 (`CODE-1` delivery packet hash absent from generated manifests).
 
 ADR-001 is filed. Telegram is an allowed simple demo/intake/delivery surface for Phase 7: a user may upload files, receive an audit id/status, and receive an operator-approved report. Any new Telegram work must stay inside ADR-001 and must not add broker APIs, signal parsing, order blocking, auto-advice, or live trading behavior.
 
 ## Future Planned Phases
 
-- Phase 8 - Demo Productization (T33-T36): Telegram happy path, public-sample demo mode, report polish, and two-minute RU/EN demo scripts.
 - Phase 9 - Intake Quality and Operator Speed (T37-T40): policy profile selector, intake file validator, operator runbook CLI, and evidence capture automation.
 - Phase 10 - Conversion Assets (T41-T44): before/after report comparison, objection handling, ICP-specific demo variants, and paid pilot offer page.
 
@@ -118,7 +112,9 @@ empty
 
 ## Open Findings
 
-none
+| ID | Sev | Description | Files | Status |
+|----|-----|-------------|-------|--------|
+| CODE-1 | P2 | Delivery packet hash is absent from generated audit manifests; core audit hashes remain covered, but Telegram-ready delivery packets cannot be verified through `manifest.json`. | `trader_risk_audit/cli.py`, `demo/public_sample_001/output/manifest.json`, `tests/integration/test_public_sample_pack.py` | Open |
 
 ## Completed Tasks
 
@@ -135,13 +131,16 @@ none
 - T27: Telegram Delivery Packet Send
 - T28: End-to-End Telegram Pilot Test
 - T29: Pilot Payment and Evidence Log
+- T30: Public Sample Source Policy
+- T31: Public Sample Evidence Pack
+- T32: Internal Outreach Readiness Review
 
 ## Phase History
 
 - Phase 5 Concierge Pilot Workflow complete: T17-T20 delivered end-to-end local audit CLI, Telegram-ready copy packet, retention/delete controls, and anonymized pilot regression fixtures. Baseline moved from 49 to 61 passing tests. Deep review Cycle 5 found P0:0, P1:0, P2:0; Stop-Ship: No.
 - Phase 6 Pilot Validation and Telegram Intake complete: T21-T29 delivered synthetic demo artifacts, pilot intake/workspace conventions, ADR-001, constrained Telegram intake/delivery, operator queue, mocked pilot flow, and business evidence log. Baseline moved from 61 to 88 passing tests. Deep review Cycle 7 found P0:0, P1:0, P2:0; Stop-Ship: No.
-- Phase 7 Internal Validation with Public Samples planned: T30-T32 will define public sample source rules, use soft/medium/hard starter policy profiles, create a reproducible public-sample evidence pack, and decide whether internal product confidence is sufficient to start trader outreach.
-- Future phases planned: Phase 8 Demo Productization (T33-T36), Phase 9 Intake Quality and Operator Speed (T37-T40), and Phase 10 Conversion Assets (T41-T44). These phases improve demo quality and pilot conversion without changing the no-broker, no-signal, no-advice product boundary.
+- Phase 7 Internal Validation with Public Samples complete: T30-T32 delivered source policy, starter profile boundaries, `demo/public_sample_001/`, public sample evidence docs, and a go decision for manual outreach. Baseline moved from 92 to 105 passing tests. Deep review Cycle 8 found P0:0, P1:0, P2:1; Stop-Ship: No.
+- Future phases planned: Phase 9 Intake Quality and Operator Speed (T37-T40) and Phase 10 Conversion Assets (T41-T44). These phases improve demo quality and pilot conversion without changing the no-broker, no-signal, no-advice product boundary.
 
 ## Summary State
 

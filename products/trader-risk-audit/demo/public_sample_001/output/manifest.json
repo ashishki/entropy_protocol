@@ -1,0 +1,47 @@
+{
+  "artifacts": [
+    {
+      "name": "source_export",
+      "path": "demo/public_sample_001/trades.csv",
+      "sha256": "4ed5024fec9a7e4ad94af974f68f0f5c4a645f849a2d3a7279d0526fbdf2e241"
+    },
+    {
+      "name": "policy_file",
+      "path": "demo/public_sample_001/policy.yaml",
+      "sha256": "5aad4f14fc332549b3e33ef99e1e069a68563bb6531f71cffc62953ef31e8222"
+    },
+    {
+      "name": "normalized_trades",
+      "path": "demo/public_sample_001/output/normalized_trades.json",
+      "sha256": "5718d6abf7b8f218e4a3e0251bb1d2ee5fd7520277b81143c8bcf344beeb53a4"
+    },
+    {
+      "name": "violations",
+      "path": "demo/public_sample_001/output/violations.json",
+      "sha256": "bfa56e40b779bd312d7a3a34cdf5e02a7ab11d25236335ab298067df801c2bde"
+    },
+    {
+      "name": "attribution_summary",
+      "path": "demo/public_sample_001/output/attribution_summary.json",
+      "sha256": "551ca4101358d0a20971337e3992ae025d029170a4463f372971e66785310ebd"
+    },
+    {
+      "name": "report_markdown",
+      "path": "demo/public_sample_001/output/report.md",
+      "sha256": "e72c57b801c5259b53d3b0d042090781cab2bb5efebed05b5a8ef6230395ff43"
+    }
+  ],
+  "command": "trader-risk-audit audit",
+  "command_arguments": [
+    "--trades",
+    "demo/public_sample_001/trades.csv",
+    "--policy",
+    "demo/public_sample_001/policy.yaml",
+    "--output-dir",
+    "demo/public_sample_001/output"
+  ],
+  "content_hash": "745f8f6675ec3973bb0792aee868f8cfc7a16bba9a22045495fcc3462852ea59",
+  "generated_at": "2026-05-08T13:42:29.230055+00:00",
+  "manifest_id": "745f8f6675ec3973",
+  "package_version": "0.1.0"
+}

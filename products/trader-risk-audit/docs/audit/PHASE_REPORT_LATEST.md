@@ -1,48 +1,44 @@
-# Phase 6 Pilot Validation and Telegram Intake Report
-
-Date: 2026-05-07
+# Phase 7 Report - Internal Validation with Public Samples
 
 ## What Was Built
 
-Phase 6 turned the local audit workflow into a pilot-ready package without
-changing the core product into a live trading tool. The phase added a synthetic
-demo audit pack, Russian demo positioning, intake and privacy templates, a local
-workspace convention, and operator-owned queue state.
+Phase 7 created the internal validation bridge between the existing deterministic audit workflow and real trader outreach.
 
-Telegram scope is now governed by ADR-001. The implementation supports a
-disabled-by-default pilot intake skeleton, local file storage, status handling,
-approved delivery through an injected sender abstraction, and a mocked
-end-to-end Telegram pilot test. It does not add broker/exchange APIs, order
-blocking, signal analytics, private group scraping, investment advice, real
-Telegram credentials, or network-dependent tests.
+The phase added a Russian public sample source policy that defines acceptable public/anonymized source types, required source metadata, license/terms checks, privacy rejection rules, and evidence labels. It also locked in the `soft`, `medium`, and `hard` starter profiles as customizable audit presets, not trading advice or replacements for trader/prop rules.
 
-The phase also added a pilot evidence log and CSV template so business
-validation is tracked explicitly: prospect source, ICP, call date, export/rules
-provided, paid amount, objections, report delivery, repeat request, and referral.
+The phase then added `demo/public_sample_001/`: a compact public-like evidence pack with source metadata, trade rows, hard starter profile policy, generated audit outputs, a Telegram-ready packet, and a manifest. The pack demonstrates max daily loss, max drawdown, cooldown, max position size, and forbidden asset scenarios while staying labeled as internal/demo evidence.
+
+Finally, the internal readiness review concluded: go for manual trader outreach. That means the founder can start warm/semi-warm outreach, run past-behavior calls, ask for real exports and written rules, and sell manual audits. It does not mean PMF or paid demand has been proven.
 
 ## Validation
 
-- Tests before Phase 6: 61 passing.
-- Tests after Phase 6: 88 passing.
-- Ruff check: clean.
-- Ruff format check: clean.
-- Strategy review: Proceed.
-- Deep review Cycle 7: P0:0, P1:0, P2:0.
-- Stop-Ship: No.
+- Before Phase 7: 92 passing tests.
+- After Phase 7: 105 passing tests.
+- Ruff check: passed.
+- Ruff format check: passed.
+- Deep review Cycle 8: Stop-Ship No.
 
-## Open Issues
+## Open Findings
 
-No open implementation findings.
+- CODE-1 [P2]: delivery packet hashes are absent from generated audit manifests. The core audit artifacts are still hashed, but `telegram_packet.txt` is not verified through `manifest.json`. This is a metadata/reproducibility gap, not a stop-ship issue.
 
 ## Health Verdict
 
-OK. Phase 6 remains aligned with workflow orchestration, Standard governance,
-and local-first operation. Telegram is constrained by ADR-001 and covered by
-mocked tests; audit truth remains deterministic.
+WARN, not RED.
+
+The product is healthy enough to proceed into Phase 8 and to support manual outreach. The warning is that delivery-packet manifest coverage should be cleaned up before relying heavily on Telegram-ready packets as audit evidence.
 
 ## Next Phase
 
-No next implementation phase is currently defined in `docs/tasks.md`. The next
-project move should be pilot validation: contact prospects, collect real exports
-and written rules, sell paid manual reports, and record evidence before adding
-more product scope.
+Phase 8 - Demo Productization.
+
+Next task: T33 Telegram Demo Happy Path. The focus is to make the demo path coherent from Telegram entry to operator-approved report delivery while staying inside ADR-001 and preserving deterministic audit truth.
+
+## Notification Summary
+
+Ph7 Internal Validation DONE
+Built: source policy, public sample pack, readiness review
+Tests: 92->105 pass
+Issues: P1:0 P2:1
+Health: WARN
+Next: Ph8 Demo Productization

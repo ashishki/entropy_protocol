@@ -1,7 +1,7 @@
 # Implementation Journal - Trader Risk Audit
 
 Version: 1.0
-Last updated: 2026-05-07
+Last updated: 2026-05-08
 Status: append-only
 
 This file records durable handoff context across agents and sessions. It is not the source of truth for architecture, policy, or task contracts.
@@ -22,6 +22,33 @@ This file records durable handoff context across agents and sessions. It is not 
 ```
 
 ## Entries
+
+### 2026-05-08 - T32 - Internal Outreach Readiness Review
+
+- Scope: `docs/INTERNAL_VALIDATION_REVIEW_RU.md`, `tests/test_internal_readiness_review.py`, docs state.
+- Why this work happened: Phase 7 needed an explicit go/no-go decision separating internal product confidence from market validation.
+- Decisions applied: `D-001`, `D-006`, `D-007`, `D-008`
+- Evidence collected: `.venv/bin/python -m pytest tests/test_internal_readiness_review.py -q --tb=short` -> 3 passed; `.venv/bin/python -m pytest tests -q --tb=short` -> 105 passed; `.venv/bin/python -m ruff check trader_risk_audit tests` -> passed; `.venv/bin/python -m ruff format --check trader_risk_audit tests` -> passed.
+- Follow-ups: run mandatory Phase 7 boundary deep review and archive it before advancing to Phase 8.
+- Notes for next agent: readiness verdict is go for manual outreach, not PMF. Paid pilot gate remains 3 paid audit reports from 10 qualified prospects within 14 days, then 2 repeat commitments within 30 days.
+
+### 2026-05-08 - T31 - Public Sample Evidence Pack
+
+- Scope: `demo/public_sample_001/`, `docs/PUBLIC_SAMPLE_EVIDENCE_RU.md`, `tests/integration/test_public_sample_pack.py`, docs state.
+- Why this work happened: Phase 7 needed a reproducible public-like internal validation pack before the outreach readiness review.
+- Decisions applied: `D-001`, `D-006`, `D-008`
+- Evidence collected: `.venv/bin/python -m pytest tests/integration/test_public_sample_pack.py -q --tb=short` -> 5 passed; `.venv/bin/python -m pytest tests -q --tb=short` -> 102 passed; `.venv/bin/python -m ruff check trader_risk_audit tests` -> passed; `.venv/bin/python -m ruff format --check trader_risk_audit tests` -> passed.
+- Follow-ups: implement T32 Internal Outreach Readiness Review, then run Phase 7 boundary deep review.
+- Notes for next agent: `demo/public_sample_001/` is internal/demo evidence only. It uses a public-like SEC Form 4-derived fixture path, hard starter profile context, generated deterministic audit artifacts, a copyable Telegram packet, and explicit non-market-validation labels.
+
+### 2026-05-08 - T30 - Public Sample Source Policy
+
+- Scope: `docs/PUBLIC_SAMPLE_SOURCE_POLICY_RU.md`, `tests/test_public_sample_source_policy.py`, existing starter policy profile docs/templates/tests.
+- Why this work happened: Phase 7 needed source, licensing, privacy, evidence-labeling, starter profile, and outreach readiness rules before building a public sample evidence pack.
+- Decisions applied: `D-001`, `D-006`, `D-008`
+- Evidence collected: `.venv/bin/python -m pytest tests/test_public_sample_source_policy.py tests/test_starter_policy_profiles.py -q --tb=short` -> 9 passed; `.venv/bin/python -m pytest tests -q --tb=short` -> 97 passed; `.venv/bin/python -m ruff check trader_risk_audit tests` -> passed; `.venv/bin/python -m ruff format --check trader_risk_audit tests` -> passed.
+- Follow-ups: implement T31 Public Sample Evidence Pack using the T30 policy, starter profiles, and ADR-001 Telegram boundary.
+- Notes for next agent: T30 did not fetch public data or add sample artifacts. T31 must record exact source URL, access date, license/terms summary, transformation steps, privacy removals, and internal/demo labeling.
 
 ### 2026-05-07 - Phase 6 Planning - Pilot Validation and Telegram Intake
 

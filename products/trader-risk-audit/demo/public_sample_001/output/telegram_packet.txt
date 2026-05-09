@@ -1,0 +1,17 @@
+Trader Risk Audit Summary
+Trades reviewed: 4
+Violations recorded: 9
+Violating P&L: 0
+
+Top violation counts:
+- public_sample_hard_cooldown_after_loss: 2
+- public_sample_hard_max_daily_loss: 2
+- public_sample_hard_max_drawdown: 2
+- public_sample_hard_max_position_size: 2
+- public_sample_hard_forbidden_assets: 1
+
+Limitations:
+- None
+
+Report: demo/public_sample_001/output/report.md
+This audit is not investment advice and does not control live trading.

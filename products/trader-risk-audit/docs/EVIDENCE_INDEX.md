@@ -1,7 +1,7 @@
 # Evidence Index - Trader Risk Audit
 
 Version: 1.0
-Last updated: 2026-05-07
+Last updated: 2026-05-08
 
 This file indexes durable proof so agents can retrieve evidence quickly. It is not authoritative by itself; every row must point to the real artifact.
 
@@ -35,6 +35,9 @@ Maintain this file because Trader Risk Audit has a heavy P&L attribution task an
 | T18 Telegram-Ready Delivery Packet | Test suite | `tests/unit/reporting/test_delivery_packet.py` | delivery packet required fields, character-limit truncation with omitted count, claim guard failure blocks packet generation | 2026-05-07 | Yes |
 | T19 Local Retention and Deletion Workflow | Test suite | `tests/unit/storage/test_retention.py` | retention list metadata without raw trade rows, dry-run path reporting without deletion, confirmed delete removed/missing path reporting | 2026-05-07 | Yes |
 | T20 Pilot Regression Fixture Pack | Integration test suite and golden fixture pack | `tests/integration/test_pilot_fixture_pack.py`, `tests/fixtures/pilot/`, `tests/fixtures/expected/pilot_*` | anonymized pilot input pack, deterministic end-to-end expected violations/attribution/report/hash outputs, committed fixture identifier scan | 2026-05-07 | Yes |
+| T30 Public Sample Source Policy | Policy doc and test suite | `docs/PUBLIC_SAMPLE_SOURCE_POLICY_RU.md`, `tests/test_public_sample_source_policy.py`, `tests/test_starter_policy_profiles.py` | public/anonymized source rules, required metadata, license/terms checks, privacy and secret rejection, internal/demo evidence labels, outreach readiness gate, starter profile boundaries | 2026-05-08 | Yes |
+| T31 Public Sample Evidence Pack | Demo evidence pack and integration test | `demo/public_sample_001/`, `docs/PUBLIC_SAMPLE_EVIDENCE_RU.md`, `tests/integration/test_public_sample_pack.py` | source metadata, transformed public-like rows, hard starter profile policy, generated audit outputs, Telegram packet, manifest hash reproducibility, claim-safe report with at least three risk scenarios, internal/demo labeling | 2026-05-08 | Yes |
+| T32 Internal Outreach Readiness Review | Readiness review and test suite | `docs/INTERNAL_VALIDATION_REVIEW_RU.md`, `tests/test_internal_readiness_review.py` | reproducibility/explainability/scenario/demo/claim-safety gate results, separation of internal product confidence from market validation, go decision for manual outreach, concrete risks and stop conditions | 2026-05-08 | Yes |
 
 ## Retrieval Rules
 
