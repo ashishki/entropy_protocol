@@ -13,7 +13,7 @@ read, unlock, or inspect holdout data.
 - explicit human phase-gate approval: missing
 - approval intake accepted event: missing
 - leakage guard status: incomplete
-- no-read decision dry run: pending
+- no-read decision dry run: completed
 
 ## Denial Decision
 

@@ -84,8 +84,8 @@ def test_prompt_and_handoff_match_boundary_checklist() -> None:
     ):
         assert boundary in checklist
         assert boundary in combined
-    assert "current active task is t44 holdout decision no-read dry run" in prompt
-    assert "active task: t44 holdout decision no-read dry run" in handoff
+    assert "current active task is t45 holdout approval decision review" in prompt
+    assert "active task: t45 holdout approval decision review" in handoff
     assert "t40 holdout approval request packet scaffold completed" in prompt
     assert "t41 holdout approval evidence intake contract completed" in prompt
     assert "t39 holdout access protocol review completed" in prompt

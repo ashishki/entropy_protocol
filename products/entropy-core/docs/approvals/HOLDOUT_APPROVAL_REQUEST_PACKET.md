@@ -22,8 +22,8 @@ data.
 - explicit human holdout approval event: absent
 - phase-gate approval: absent
 - approval intake contract: pending
-- approval denial packet: pending
-- no-read decision dry run: pending
+- approval denial packet: recorded
+- no-read decision dry run: completed
 
 ## Current Boundary
 
@@ -52,7 +52,9 @@ The following are not approval sources:
 
 ## Next Required Work
 
-Before any approval decision could be considered, Phase 10 must still define
-approval evidence intake, record the current approval-absent denial, run
-non-approval source regression, run a no-read decision dry run, and complete the
-Phase 10 decision review.
+Completed Phase 10 decision components now include approval evidence intake,
+the approval-absent denial packet, non-approval source regression, and the
+no-read decision dry run.
+
+Before any future approval decision could be presented for human review, Phase
+10 must still complete the approval decision review.

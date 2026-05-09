@@ -51,8 +51,8 @@ def test_state_docs_record_phase10_no_read_decision_work() -> None:
 
     assert "phase: 10" in prompt
     assert "phase 10 holdout approval decision packet" in combined
-    assert "current active task is t44 holdout decision no-read dry run" in prompt
-    assert "active task: t44 holdout decision no-read dry run" in handoff
+    assert "current active task is t45 holdout approval decision review" in prompt
+    assert "active task: t45 holdout approval decision review" in handoff
     assert "t41 holdout approval evidence intake contract completed" in prompt
     assert "t40 holdout approval request packet scaffold completed" in prompt
     assert "no approval event currently exists" in combined

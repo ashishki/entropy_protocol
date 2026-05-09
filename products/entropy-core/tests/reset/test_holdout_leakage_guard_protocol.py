@@ -77,8 +77,8 @@ def test_state_docs_preserve_holdout_lock_during_guard_protocol() -> None:
     assert "holdout unlock requested: false" in guard
     assert "holdout read: blocked" in guard
     assert "holdout unlock: blocked" in guard
-    assert "current active task is t44 holdout decision no-read dry run" in prompt
-    assert "active task: t44 holdout decision no-read dry run" in handoff
+    assert "current active task is t45 holdout approval decision review" in prompt
+    assert "active task: t45 holdout approval decision review" in handoff
     assert "t38 holdout leakage guard protocol fixture completed" in prompt
     assert "t39 holdout access protocol review completed" in prompt
     assert "t40 holdout approval request packet scaffold completed" in prompt

@@ -21,6 +21,15 @@ This file records handoff context. It is not authority.
 
 ## Entries
 
+### 2026-05-09 - T44 - Holdout Decision No-Read Dry Run
+
+- Scope: `docs/approvals/HOLDOUT_DECISION_DRY_RUN.md`, `tests/reset/test_holdout_decision_no_read_dry_run.py`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`
+- Why this work happened: assemble protocol and denial evidence into a local no-read decision dry run without opening holdout data
+- Decisions applied: `docs/approvals/HOLDOUT_APPROVAL_ABSENCE_DENIAL.md`; `docs/protocols/HOLDOUT_AUDIT_LOGGING_CONTRACT.md`
+- Evidence collected: T44 acceptance tests passed (`3 passed`); full reset baseline `435 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean
+- Follow-ups: start T45 Holdout Approval Decision Review
+- Notes for next agent: T44 records a denied local no-read decision assembly. No approval event exists, no holdout path was opened, and no read/unlock/OOS approval flag is present.
+
 ### 2026-05-09 - T43 - Holdout Non-Approval Source Regression
 
 - Scope: `tests/reset/test_holdout_non_approval_source_regression.py`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`

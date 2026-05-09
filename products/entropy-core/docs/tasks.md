@@ -1584,7 +1584,7 @@ Owner:      codex
 Phase:      10
 Type:       none
 Depends-On: T43
-Status:     active
+Status:     done 2026-05-09
 
 Objective: |
   Add a local no-read dry run proving the approval decision packet can assemble protocol and denial evidence without opening holdout data.
@@ -1617,7 +1617,7 @@ Owner:      codex
 Phase:      10
 Type:       none
 Depends-On: T44
-Status:     pending
+Status:     active
 
 Objective: |
   Review Phase 10 approval decision artifacts and evaluate whether a future explicit human holdout approval request may be presented.
