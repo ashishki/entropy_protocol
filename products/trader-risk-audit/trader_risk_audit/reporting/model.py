@@ -38,6 +38,15 @@ class PolicySummarySection:
 
 
 @dataclass(frozen=True)
+class ExecutiveSummarySection:
+    title: str
+    rule_count: int
+    violation_count: int
+    affected_pnl: str
+    selected_policy_profile: str
+
+
+@dataclass(frozen=True)
 class ReportViolationRow:
     rule_id: str
     timestamp: str
@@ -67,6 +76,7 @@ class LimitationItem:
 
 @dataclass(frozen=True)
 class ReportModel:
+    executive_summary: ExecutiveSummarySection
     input_summary: InputSummarySection
     policy_summary: PolicySummarySection
     violation_table: tuple[ReportViolationRow, ...]
@@ -79,6 +89,7 @@ class ReportModel:
     @property
     def section_titles(self) -> tuple[str, ...]:
         return (
+            self.executive_summary.title,
             self.input_summary.title,
             self.policy_summary.title,
             "Violations",
@@ -100,6 +111,7 @@ def build_report_model(
 ) -> ReportModel:
     pnl_by_row = {row.row_id: row.pnl for row in attribution.rows}
     return ReportModel(
+        executive_summary=_executive_summary(policy, violations, attribution),
         input_summary=_input_summary(trades),
         policy_summary=_policy_summary(policy),
         violation_table=_violation_rows(violations, pnl_by_row),
@@ -115,6 +127,20 @@ def build_report_model(
                 "Re-run the audit after rule or export changes.",
             ),
         ),
+    )
+
+
+def _executive_summary(
+    policy: RiskPolicy,
+    violations: tuple[ViolationRecord, ...],
+    attribution: AttributionSummary,
+) -> ExecutiveSummarySection:
+    return ExecutiveSummarySection(
+        title="Executive Summary",
+        rule_count=len(policy.rules),
+        violation_count=len(violations),
+        affected_pnl=_stringify(attribution.violating_pnl),
+        selected_policy_profile=_selected_policy_profile(policy),
     )
 
 
@@ -135,6 +161,20 @@ def _policy_summary(policy: RiskPolicy) -> PolicySummarySection:
         rule_count=len(policy.rules),
         rule_ids=tuple(rule.rule_id for rule in policy.rules),
     )
+
+
+def _selected_policy_profile(policy: RiskPolicy) -> str:
+    profiles = {
+        str(profile).strip()
+        for rule in policy.rules
+        if (profile := rule.params.get("starter_profile")) is not None
+        and str(profile).strip()
+    }
+    if len(profiles) == 1:
+        return profiles.pop()
+    if len(profiles) > 1:
+        return "mixed"
+    return "custom/unspecified"
 
 
 def _violation_rows(

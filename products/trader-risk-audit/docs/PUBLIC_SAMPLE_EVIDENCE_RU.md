@@ -102,6 +102,21 @@ delivery under ADR-001. This pack does not add broker APIs, signal parsing,
 order blocking, auto-advice, live trading behavior, credentials, or unapproved
 report delivery.
 
+## Demo Mode
+
+Local command:
+
+```bash
+.venv/bin/python -m trader_risk_audit demo public-sample
+```
+
+The command returns the existing public sample summary, report path, source
+label, selected starter profile, and delivery packet path. It reuses
+`demo/public_sample_001/output/report.md` and
+`demo/public_sample_001/output/telegram_packet.txt`; it does not create a new
+report format and does not convert the public sample into prospect, paid pilot,
+PMF, or market validation evidence.
+
 ## Outreach Readiness
 
 This pack supports the Phase 7 readiness review because it provides

@@ -2,6 +2,13 @@
 
 This audit is not investment advice and does not control live trading.
 
+## Executive Summary
+
+- Rules reviewed: 5
+- Violations recorded: 9
+- Affected P&L: 0
+- Selected policy profile: hard
+
 ## Summary
 
 - Trades reviewed: 4

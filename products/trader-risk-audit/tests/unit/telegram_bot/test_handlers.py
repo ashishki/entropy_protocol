@@ -57,7 +57,10 @@ def test_document_upload_creates_local_audit_request(tmp_path: Path) -> None:
     handlers = TelegramPilotHandlers(TelegramAuditStorage(tmp_path))
     upload = TelegramDocumentUpload(
         file_name="../trades.csv",
-        content=b"timestamp,symbol,side,quantity,price\n2026-03-01,EURUSD,buy,1,100\n",
+        content=(
+            b"timestamp,symbol,side,quantity,price,account_id\n"
+            b"2026-03-01T00:00:00+00:00,EURUSD,buy,1,100,acct_demo\n"
+        ),
     )
 
     first_response = handlers.handle_document_upload(upload)

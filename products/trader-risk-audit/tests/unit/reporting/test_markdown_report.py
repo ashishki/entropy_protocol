@@ -20,6 +20,7 @@ def test_markdown_contains_required_headings() -> None:
     markdown = render_markdown_report(_report_model())
 
     assert "# Trader Risk Audit Report" in markdown
+    assert "## Executive Summary" in markdown
     assert "## Summary" in markdown
     assert "## Policy" in markdown
     assert "## Violations" in markdown

@@ -41,3 +41,29 @@ strategy/backtest generator или SaaS dashboard.
   exports, raw trade rows, screenshots, payment identifiers или private notes.
 - Payment evidence хранится отдельно у оператора; в CSV фиксируется только
   amount bucket/value без transaction id.
+
+## Local Evidence CLI
+
+Оператор может добавить строку и посмотреть gate summary локально:
+
+```bash
+.venv/bin/python -m trader_risk_audit evidence append \
+  --log-file pilot_customer_log.csv \
+  --prospect-source warm_network \
+  --icp prop/funded \
+  --call-date 2026-05-09 \
+  --export-provided \
+  --rules-provided \
+  --paid-amount 99 \
+  --objections privacy \
+  --report-delivered \
+  --repeat-requested
+
+.venv/bin/python -m trader_risk_audit evidence summary \
+  --log-file pilot_customer_log.csv
+```
+
+Public sample/demo evidence must use `prospect_source=public_sample_demo`,
+`internal_demo`, or `demo_artifact`. These rows remain useful demo evidence but
+do not count as qualified prospects, paid pilot reports, repeat commitments, or
+referrals in the validation gate summary.

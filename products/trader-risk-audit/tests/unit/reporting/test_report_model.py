@@ -18,6 +18,7 @@ def test_report_model_contains_required_sections() -> None:
     model = _report_model()
 
     assert model.section_titles == (
+        "Executive Summary",
         "Input Summary",
         "Policy Summary",
         "Violations",
@@ -27,6 +28,10 @@ def test_report_model_contains_required_sections() -> None:
         "Limitations",
         "Next Review",
     )
+    assert model.executive_summary.rule_count == 3
+    assert model.executive_summary.violation_count == 2
+    assert model.executive_summary.affected_pnl == "99"
+    assert model.executive_summary.selected_policy_profile == "custom/unspecified"
     assert model.input_summary.trade_count == 4
     assert model.policy_summary.rule_count == 3
     assert model.repeated_patterns.items == (

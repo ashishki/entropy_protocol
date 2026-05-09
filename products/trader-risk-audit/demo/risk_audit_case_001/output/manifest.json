@@ -28,7 +28,7 @@
     {
       "name": "report_markdown",
       "path": "demo/risk_audit_case_001/output/report.md",
-      "sha256": "65364c0a3dbb1a870518f45192999f27c52784310404b898b708139bf65c0886"
+      "sha256": "b7c56f0d4067111f9f720a8114cdaffd03df34408d7982126fdc1d963f5d2dbe"
     },
     {
       "name": "delivery_packet",
@@ -47,8 +47,8 @@
     "--delivery-packet",
     "demo/risk_audit_case_001/output/telegram_packet.txt"
   ],
-  "content_hash": "7656a57a8943c2cb0d00b21cade94bce6373385a4ebb7f5d95b6389012546b5e",
-  "generated_at": "2026-05-07T18:02:10.019605+00:00",
-  "manifest_id": "7656a57a8943c2cb",
+  "content_hash": "16f411ea121148a8e6927e24211601e2ceec4228a6d43a1238d4d3531060f84e",
+  "generated_at": "2026-05-09T09:03:01.639815+00:00",
+  "manifest_id": "16f411ea121148a8",
   "package_version": "0.1.0"
 }

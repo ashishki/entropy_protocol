@@ -63,6 +63,32 @@ def deliver_approved_report(
     )
 
 
+def build_approved_delivery_copy(
+    *,
+    audit_id: str,
+    report_path: str | Path,
+    delivery_packet_path: str | Path,
+) -> str:
+    report = Path(report_path)
+    packet = Path(delivery_packet_path)
+    _require_existing_file(report, label="report")
+    _require_existing_file(packet, label="delivery packet")
+
+    packet_text = packet.read_text(encoding="utf-8")
+    if REQUIRED_DISCLAIMER.casefold() not in packet_text.casefold():
+        raise TelegramDeliveryError("delivery packet is missing required disclaimer")
+    return "\n".join(
+        (
+            f"Audit {audit_id} approved for delivery.",
+            "Status: ready_for_review",
+            "Operator approval required before sending.",
+            f"Report: {report}",
+            "",
+            packet_text,
+        )
+    )
+
+
 def _require_existing_file(path: Path, *, label: str) -> None:
     if not path.is_file():
         raise TelegramDeliveryError(f"{label} file is missing")

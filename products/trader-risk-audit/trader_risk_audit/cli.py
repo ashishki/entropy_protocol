@@ -16,11 +16,22 @@ from trader_risk_audit.evaluation.rules import (
     evaluate_position_asset_rules,
 )
 from trader_risk_audit.evaluation.violations import serialize_violations
+from trader_risk_audit.evidence import (
+    EvidenceRow,
+    EvidenceValidationError,
+    append_customer_log_row,
+    load_customer_log,
+    summarize_validation_gate,
+)
 from trader_risk_audit.pilot_queue import (
     PilotQueue,
     PilotQueueError,
     format_queue_list,
     format_queue_request,
+)
+from trader_risk_audit.policy.profiles import (
+    PolicyProfileSelectionError,
+    resolve_policy_profile,
 )
 from trader_risk_audit.policy.review import build_review_packet
 from trader_risk_audit.policy.schema import load_policy
@@ -36,6 +47,7 @@ from trader_risk_audit.storage.retention import (
     format_retention_list,
 )
 from trader_risk_audit.trades.importers import normalize_csv, serialize_trade_records
+from trader_risk_audit.workspace import create_audit_workspace
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -63,6 +75,14 @@ def build_parser() -> argparse.ArgumentParser:
 
     manifest = subparsers.add_parser("manifest", help="Inspect audit manifests.")
     manifest.set_defaults(handler=_stub_command)
+
+    demo = subparsers.add_parser("demo", help="Show local demo artifacts.")
+    demo_subparsers = demo.add_subparsers(dest="demo_command")
+    public_sample = demo_subparsers.add_parser(
+        "public-sample",
+        help="Show the committed public sample demo summary.",
+    )
+    public_sample.set_defaults(handler=_public_sample_demo_command)
 
     retention = subparsers.add_parser("retention", help="Manage local audit retention.")
     retention_subparsers = retention.add_subparsers(dest="retention_command")
@@ -101,6 +121,59 @@ def build_parser() -> argparse.ArgumentParser:
     queue_reject.add_argument("--reason", required=True)
     queue_reject.set_defaults(handler=_queue_reject_command)
 
+    operator = subparsers.add_parser("operator", help="Run local operator workflow.")
+    operator_subparsers = operator.add_subparsers(dest="operator_command")
+    operator_prepare = operator_subparsers.add_parser(
+        "prepare",
+        help="Prepare a local audit workspace from intake files.",
+    )
+    operator_prepare.add_argument("--queue-file", required=True)
+    operator_prepare.add_argument("--workspace-root", required=True)
+    operator_prepare.add_argument("--audit-id", required=True)
+    operator_prepare.add_argument("--trades", required=True)
+    operator_prepare.add_argument("--policy", required=True)
+    operator_prepare.add_argument("--profile", required=True)
+    operator_prepare.set_defaults(handler=_operator_prepare_command)
+    operator_run = operator_subparsers.add_parser(
+        "run",
+        help="Run a ready local audit workspace.",
+    )
+    operator_run.add_argument("--queue-file", required=True)
+    operator_run.add_argument("--workspace-root", required=True)
+    operator_run.add_argument("--audit-id", required=True)
+    operator_run.set_defaults(handler=_operator_run_command)
+
+    evidence = subparsers.add_parser("evidence", help="Capture pilot evidence.")
+    evidence_subparsers = evidence.add_subparsers(dest="evidence_command")
+    evidence_append = evidence_subparsers.add_parser(
+        "append",
+        help="Append one non-sensitive pilot evidence row.",
+    )
+    evidence_append.add_argument("--log-file", required=True)
+    for field in (
+        "prospect-source",
+        "icp",
+        "call-date",
+        "paid-amount",
+        "objections",
+    ):
+        evidence_append.add_argument(f"--{field}", required=True)
+    for field in (
+        "export-provided",
+        "rules-provided",
+        "report-delivered",
+        "repeat-requested",
+        "referral",
+    ):
+        evidence_append.add_argument(f"--{field}", action="store_true")
+    evidence_append.set_defaults(handler=_evidence_append_command)
+    evidence_summary = evidence_subparsers.add_parser(
+        "summary",
+        help="Summarize current validation gate counts.",
+    )
+    evidence_summary.add_argument("--log-file", required=True)
+    evidence_summary.set_defaults(handler=_evidence_summary_command)
+
     return parser
 
 
@@ -111,6 +184,33 @@ def _stub_command(args: argparse.Namespace) -> int:
 
 def _retention_list_command(args: argparse.Namespace) -> int:
     print(format_retention_list(tuple(args.manifest)), end="")
+    return 0
+
+
+def _public_sample_demo_command(args: argparse.Namespace) -> int:
+    del args
+    paths = _public_sample_paths()
+    missing = [label for label, path in paths.items() if not path.exists()]
+    if missing:
+        print(f"public sample demo is incomplete: {', '.join(missing)}")
+        return 2
+
+    packet_lines = paths["delivery_packet"].read_text(encoding="utf-8").splitlines()
+    summary_lines = tuple(line for line in packet_lines if line and ":" in line)[:3]
+    lines = [
+        "Public Sample Demo",
+        "Audit ID: demo_public_sample_001",
+        (
+            "Source label: public/internal demo evidence, not paid pilot, PMF, "
+            "or prospect evidence"
+        ),
+        "Starter profile: hard",
+        f"Report: {paths['report']}",
+        f"Delivery packet: {paths['delivery_packet']}",
+        "Summary:",
+        *summary_lines,
+    ]
+    print("\n".join(lines))
     return 0
 
 
@@ -170,6 +270,125 @@ def _queue_reject_command(args: argparse.Namespace) -> int:
         print(str(error))
         return 2
     print(format_queue_request(request), end="")
+    return 0
+
+
+def _operator_prepare_command(args: argparse.Namespace) -> int:
+    try:
+        trades_path = Path(args.trades)
+        policy_path = Path(args.policy)
+        selection = resolve_policy_profile(
+            args.profile,
+            custom_policy_path=policy_path if args.profile == "custom" else None,
+        )
+        workspace = create_audit_workspace(
+            args.workspace_root,
+            args.audit_id,
+            status="ready_to_run",
+            file_references={
+                "trades_export": f"input/{trades_path.name}",
+                "policy_file": f"input/{policy_path.name}",
+            },
+            policy_profile=selection,
+        )
+        workspace_trades = workspace.input_dir / trades_path.name
+        workspace_policy = workspace.input_dir / policy_path.name
+        workspace_trades.write_bytes(trades_path.read_bytes())
+        workspace_policy.write_bytes(policy_path.read_bytes())
+        request = PilotQueue(args.queue_file).upsert_request(
+            args.audit_id,
+            status="ready_to_run",
+            file_references={
+                "workspace": str(workspace.root),
+                "trades_export": f"input/{workspace_trades.name}",
+                "policy_file": f"input/{workspace_policy.name}",
+                "selected_policy_profile": selection.selected_profile,
+            },
+        )
+    except (OSError, PilotQueueError, PolicyProfileSelectionError, ValueError) as error:
+        print(str(error))
+        return 2
+
+    print(_format_operator_prepare(workspace.root, request, selection.selected_profile))
+    return 0
+
+
+def _operator_run_command(args: argparse.Namespace) -> int:
+    try:
+        queue = PilotQueue(args.queue_file)
+        request = queue.get_request(args.audit_id)
+        if request.status != "ready_to_run":
+            raise PilotQueueError("operator run requires ready_to_run status")
+        workspace_root = Path(args.workspace_root) / args.audit_id
+        trades_path = workspace_root / request.file_references["trades_export"]
+        policy_path = workspace_root / request.file_references["policy_file"]
+        output_dir = workspace_root / "output"
+
+        audit_args = argparse.Namespace(
+            trades=str(trades_path),
+            policy=str(policy_path),
+            output_dir=str(output_dir),
+        )
+        result = _audit_command(audit_args)
+        if result != 0:
+            return result
+
+        report_path = output_dir / "report.md"
+        packet_path = output_dir / "telegram_packet.txt"
+        manifest_path = output_dir / "manifest.json"
+        packet_path.write_text(
+            _operator_delivery_packet(report_path),
+            encoding="utf-8",
+        )
+        updated = queue.upsert_request(
+            args.audit_id,
+            status="ready_for_review",
+            file_references={
+                **request.file_references,
+                "report_markdown": f"output/{report_path.name}",
+                "delivery_packet": f"output/{packet_path.name}",
+                "manifest": f"output/{manifest_path.name}",
+            },
+        )
+    except (KeyError, OSError, PilotQueueError, ValueError) as error:
+        print(str(error))
+        return 2
+
+    print(_format_operator_run(updated))
+    return 0
+
+
+def _evidence_append_command(args: argparse.Namespace) -> int:
+    try:
+        append_customer_log_row(
+            args.log_file,
+            EvidenceRow(
+                prospect_source=args.prospect_source,
+                icp=args.icp,
+                call_date=args.call_date,
+                export_provided=args.export_provided,
+                rules_provided=args.rules_provided,
+                paid_amount=args.paid_amount,
+                objections=args.objections,
+                report_delivered=args.report_delivered,
+                repeat_requested=args.repeat_requested,
+                referral=args.referral,
+            ),
+        )
+    except (OSError, EvidenceValidationError) as error:
+        print(str(error))
+        return 2
+    print("Evidence row appended.")
+    return 0
+
+
+def _evidence_summary_command(args: argparse.Namespace) -> int:
+    try:
+        summary = summarize_validation_gate(load_customer_log(args.log_file))
+    except (OSError, KeyError, EvidenceValidationError) as error:
+        print(str(error))
+        return 2
+    print(summary.format())
     return 0
 
 
@@ -258,6 +477,59 @@ def _audit_command(args: argparse.Namespace) -> int:
 
 def _audit_id(trades_path: Path, policy_path: Path) -> str:
     return f"audit_{hash_file(trades_path)[:8]}{hash_file(policy_path)[:8]}"
+
+
+def _format_operator_prepare(
+    workspace_root: Path,
+    request,
+    selected_profile: str,
+) -> str:
+    lines = [
+        f"Audit ID: {request.audit_id}",
+        f"Status: {request.status}",
+        f"Workspace: {workspace_root}",
+        f"Selected policy profile: {selected_profile}",
+        "Input Files:",
+        f"- trades_export: {request.file_references['trades_export']}",
+        f"- policy_file: {request.file_references['policy_file']}",
+        "Next action: operator run",
+    ]
+    return "\n".join(lines)
+
+
+def _format_operator_run(request) -> str:
+    lines = [
+        f"Audit ID: {request.audit_id}",
+        f"Status: {request.status}",
+        "Output References:",
+        f"- report_markdown: {request.file_references['report_markdown']}",
+        f"- delivery_packet: {request.file_references['delivery_packet']}",
+        f"- manifest: {request.file_references['manifest']}",
+    ]
+    return "\n".join(lines)
+
+
+def _operator_delivery_packet(report_path: Path) -> str:
+    report_text = report_path.read_text(encoding="utf-8")
+    ensure_report_claims_valid(report_text)
+    return "\n".join(
+        (
+            "Trader Risk Audit Summary",
+            f"Report: {report_path}",
+            "Operator approval required before delivery.",
+            "This audit is not investment advice and does not control live trading.",
+        )
+    )
+
+
+def _public_sample_paths() -> dict[str, Path]:
+    root = Path("demo/public_sample_001")
+    return {
+        "source": root / "source.md",
+        "report": root / "output" / "report.md",
+        "delivery_packet": root / "output" / "telegram_packet.txt",
+        "manifest": root / "output" / "manifest.json",
+    }
 
 
 def main(argv: Sequence[str] | None = None) -> int:

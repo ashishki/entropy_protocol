@@ -65,3 +65,29 @@ file contents.
 
 Status updates остаются локальными metadata changes. Они не создают hosted
 state, user accounts, external queues или Telegram automation.
+
+## Operator CLI
+
+Локальный operator workflow может быть запущен без database, hosted queue,
+background workers или network services:
+
+```bash
+.venv/bin/python -m trader_risk_audit operator prepare \
+  --queue-file pilot_queue.json \
+  --workspace-root pilot_workspaces \
+  --audit-id audit_demo_001 \
+  --trades input/trades.csv \
+  --policy input/policy.yaml \
+  --profile hard
+
+.venv/bin/python -m trader_risk_audit operator run \
+  --queue-file pilot_queue.json \
+  --workspace-root pilot_workspaces \
+  --audit-id audit_demo_001
+```
+
+`operator prepare` показывает только audit id, status, selected policy profile,
+safe input file references и next operator action. `operator run` запускает
+локальный deterministic audit, записывает report, delivery packet и manifest
+references в queue, затем переводит request в `ready_for_review`. Команды не
+печатают raw trade rows.

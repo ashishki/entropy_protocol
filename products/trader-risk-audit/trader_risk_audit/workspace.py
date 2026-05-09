@@ -6,6 +6,8 @@ from dataclasses import asdict, dataclass
 from datetime import UTC, datetime
 from pathlib import Path
 
+from trader_risk_audit.policy.profiles import PolicyProfileSelection
+
 WORKSPACE_DIR_NAMES = ("input", "output", "operator_notes", "artifacts")
 DEFAULT_WORKSPACE_STATUS = "intake_received"
 _AUDIT_ID_PATTERN = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$")
@@ -28,9 +30,13 @@ class WorkspaceMetadata:
     created_at: str
     status: str
     file_references: dict[str, str]
+    policy_profile: dict[str, str] | None = None
 
     def to_json(self) -> str:
-        return json.dumps(asdict(self), indent=2, sort_keys=True) + "\n"
+        payload = asdict(self)
+        if not self.policy_profile:
+            payload.pop("policy_profile")
+        return json.dumps(payload, indent=2, sort_keys=True) + "\n"
 
 
 def create_audit_workspace(
@@ -40,6 +46,7 @@ def create_audit_workspace(
     created_at: datetime | None = None,
     status: str = DEFAULT_WORKSPACE_STATUS,
     file_references: dict[str, str | Path] | None = None,
+    policy_profile: PolicyProfileSelection | None = None,
 ) -> AuditWorkspace:
     _validate_audit_id(audit_id)
     workspace_root = Path(base_dir) / audit_id
@@ -63,6 +70,7 @@ def create_audit_workspace(
         created_at=created_at,
         status=status,
         file_references=file_references or {},
+        policy_profile=policy_profile,
     )
     workspace.metadata_path.write_text(metadata.to_json(), encoding="utf-8")
     return workspace
@@ -74,6 +82,7 @@ def build_workspace_metadata(
     created_at: datetime | None = None,
     status: str = DEFAULT_WORKSPACE_STATUS,
     file_references: dict[str, str | Path] | None = None,
+    policy_profile: PolicyProfileSelection | None = None,
 ) -> WorkspaceMetadata:
     _validate_audit_id(audit_id)
     timestamp = (created_at or datetime.now(UTC)).astimezone(UTC).isoformat()
@@ -85,6 +94,7 @@ def build_workspace_metadata(
             _safe_text(label, field="file reference label"): _safe_file_reference(path)
             for label, path in sorted((file_references or {}).items())
         },
+        policy_profile=_safe_policy_profile(policy_profile),
     )
 
 
@@ -109,3 +119,17 @@ def _safe_file_reference(value: str | Path) -> str:
     if Path(text).is_absolute():
         return Path(text).name
     return text
+
+
+def _safe_policy_profile(
+    selection: PolicyProfileSelection | None,
+) -> dict[str, str] | None:
+    if selection is None:
+        return None
+    return {
+        _safe_text(label, field="policy profile metadata label"): _safe_text(
+            value,
+            field="policy profile metadata value",
+        )
+        for label, value in selection.to_metadata().items()
+    }
