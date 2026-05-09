@@ -1482,7 +1482,7 @@ Owner:      codex
 Phase:      10
 Type:       none
 Depends-On: T40
-Status:     active
+Status:     done 2026-05-09
 
 Objective: |
   Define local intake checks for a future explicit holdout approval event while rejecting absent, generated, inferred, expired, revoked, stale, or scope-mismatched evidence.
@@ -1517,7 +1517,7 @@ Owner:      codex
 Phase:      10
 Type:       none
 Depends-On: T41
-Status:     pending
+Status:     active
 
 Objective: |
   Record a deterministic denial packet for the current no-approval state without opening or reading holdout data.

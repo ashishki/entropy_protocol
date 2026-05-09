@@ -278,3 +278,13 @@ Phase 10 is complete through T40.
 - Latest validation: `.venv/bin/python -m pytest -q tests/` -> `423 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
 - Light review result: no findings.
 - Boundaries remain unchanged: the request packet is scaffold-only; no approval event currently exists; holdout read/unlock, OOS/performance, live, broker/exchange, production, and capital-ready paths remain blocked.
+
+## 2026-05-09 T41 Holdout Approval Evidence Intake
+
+Phase 10 is complete through T41.
+
+- Completed task: T41 Holdout Approval Evidence Intake Contract.
+- Active task: T42 Holdout Approval Absence Denial Packet.
+- Latest validation: `.venv/bin/python -m pytest -q tests/` -> `426 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
+- Light review result: no findings.
+- Boundaries remain unchanged: approval intake rejects invalid evidence classes; no approval event currently exists; holdout read/unlock, OOS/performance, live, broker/exchange, production, and capital-ready paths remain blocked.

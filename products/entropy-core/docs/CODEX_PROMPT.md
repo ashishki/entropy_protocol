@@ -18,9 +18,9 @@ Reset state for Entropy Core after archiving the old active workflow. Historical
 ## Current State
 
 - Phase: 10
-- Baseline: 423 passing tests, 20 skipped (T40 local verification on 2026-05-09)
-- Ruff: clean on T40 local verification 2026-05-09
-- Pyright: clean on T40 local verification 2026-05-09
+- Baseline: 426 passing tests, 20 skipped (T41 local verification on 2026-05-09)
+- Ruff: clean on T41 local verification 2026-05-09
+- Pyright: clean on T41 local verification 2026-05-09
 - Last CI: product-local workflow configured; remote CI not yet observed after reset
 - Holdout: locked
 - Live capital: not approved
@@ -40,13 +40,13 @@ Reset state for Entropy Core after archiving the old active workflow. Historical
 
 ## Next Task
 
-T41 Holdout Approval Evidence Intake Contract.
+T42 Holdout Approval Absence Denial Packet.
 
 Phase 8 Phase-Gate Readiness Review is complete through T34. Roadmap evaluation kept Phase 9 Holdout Access Protocol as the next active phase, modified to protocol-only design.
 
-T35 Holdout Access Protocol Deny-By-Default Contract completed on 2026-05-09. T36 Holdout Approval Event Schema Contract completed on 2026-05-09. T37 Holdout Access Audit Logging Contract completed on 2026-05-09. T38 Holdout Leakage Guard Protocol Fixture completed on 2026-05-09. T39 Holdout Access Protocol Review completed on 2026-05-09. T40 Holdout Approval Request Packet Scaffold completed on 2026-05-09. Phase 10 Holdout Approval Decision Packet is open. Active Phase 10 scope is T40 through T45; T41 is active. After T45, run deep review, fix findings, validate, evaluate the roadmap, rewrite future phases if useful, open the next logical active phase, and continue automatically.
+T35 Holdout Access Protocol Deny-By-Default Contract completed on 2026-05-09. T36 Holdout Approval Event Schema Contract completed on 2026-05-09. T37 Holdout Access Audit Logging Contract completed on 2026-05-09. T38 Holdout Leakage Guard Protocol Fixture completed on 2026-05-09. T39 Holdout Access Protocol Review completed on 2026-05-09. T40 Holdout Approval Request Packet Scaffold completed on 2026-05-09. T41 Holdout Approval Evidence Intake Contract completed on 2026-05-09. Phase 10 Holdout Approval Decision Packet is open. Active Phase 10 scope is T40 through T45; T42 is active. After T45, run deep review, fix findings, validate, evaluate the roadmap, rewrite future phases if useful, open the next logical active phase, and continue automatically.
 
-Archive Evidence Expansion block complete through T24, Phase 7 complete through T29, Phase 8 complete through T34, Phase 9 complete through T39, and Phase 10 complete through T40. Phase 10 is no-read approval decision work with holdout read/unlock still blocked; roadmap phases 11 through 13 remain planned direction and may be rewritten by roadmap evaluation. No approval event currently exists. Do not execute real external side effects, holdout reads, holdout unlocks, live capital actions, live broker/exchange execution, or credentialed production deployment; replace them with local dry-run/sandbox/protocol work unless a future local contract explicitly permits otherwise.
+Archive Evidence Expansion block complete through T24, Phase 7 complete through T29, Phase 8 complete through T34, Phase 9 complete through T39, and Phase 10 complete through T41. Phase 10 is no-read approval decision work with holdout read/unlock still blocked; roadmap phases 11 through 13 remain planned direction and may be rewritten by roadmap evaluation. No approval event currently exists. Do not execute real external side effects, holdout reads, holdout unlocks, live capital actions, live broker/exchange execution, or credentialed production deployment; replace them with local dry-run/sandbox/protocol work unless a future local contract explicitly permits otherwise.
 
 ## Fix Queue
 
@@ -218,6 +218,10 @@ none after reset. Legacy D-K findings were closed in the prior workflow, but old
   - Acceptance tests: `tests/reset/test_holdout_approval_request_packet.py` passed (`3 passed`).
   - Reset baseline: `.venv/bin/python -m pytest -q tests/` reported `423 passed, 20 skipped`.
   - Quality checks: ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
+- 2026-05-09: T41 Holdout Approval Evidence Intake Contract completed.
+  - Acceptance tests: `tests/reset/test_holdout_approval_intake_contract.py` passed (`3 passed`).
+  - Reset baseline: `.venv/bin/python -m pytest -q tests/` reported `426 passed, 20 skipped`.
+  - Quality checks: ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
 
 ## Phase History
 
@@ -254,6 +258,7 @@ none after reset. Legacy D-K findings were closed in the prior workflow, but old
 - 2026-05-09: Phase 9 Holdout Access Protocol completed. Review artifact: `docs/audit/HOLDOUT_ACCESS_PROTOCOL_REVIEW.md`. Result: PASS; Stop-Ship 0, P0 0, P1 0, P2 0.
 - 2026-05-09: Roadmap evaluation modified planned Phase 10 into Holdout Approval Decision Packet and opened T40 Holdout Approval Request Packet Scaffold.
 - 2026-05-09: T40 Holdout Approval Request Packet Scaffold completed. Next task: T41 Holdout Approval Evidence Intake Contract.
+- 2026-05-09: T41 Holdout Approval Evidence Intake Contract completed. Next task: T42 Holdout Approval Absence Denial Packet.
 - 2026-05-08: Phase boundaries changed from stop points to autonomous rollover points: deep review, fix findings, validate, evaluate roadmap, rewrite future phases, open the next logical active phase, and continue.
 
 ## Profile State: RAG
@@ -303,13 +308,13 @@ none after reset. Legacy D-K findings were closed in the prior workflow, but old
 
 ### Last Evaluation
 
-- Profile: Holdout Approval Request Packet
-- Task: T40 Holdout Approval Request Packet Scaffold
+- Profile: Holdout Approval Evidence Intake
+- Task: T41 Holdout Approval Evidence Intake Contract
 - Date: 2026-05-09
-- Eval Source: `tests/reset/test_holdout_approval_request_packet.py`
-- Metric(s): required evidence list, no-approval state, Phase 10 no-read state update
-- Score: `3 passed`; current baseline `423 passed, 20 skipped`
-- Baseline: T39 holdout access protocol review `420 passed, 20 skipped`
+- Eval Source: `tests/reset/test_holdout_approval_intake_contract.py`
+- Metric(s): required approval fields, invalid evidence rejection, no-current-approval state update
+- Score: `3 passed`; current baseline `426 passed, 20 skipped`
+- Baseline: T40 holdout approval request packet `423 passed, 20 skipped`
 - Delta: +3 passing tests
 - Regression: none known
 
@@ -323,7 +328,7 @@ Human approval after T24 opened Phase 7 Archive Reproducibility Hardening and re
 
 ### Human Decision Point
 
-Current active task is T41 Holdout Approval Evidence Intake Contract. Archive Evidence Expansion block is complete through T24, Phase 7 is complete through T29, Phase 8 is complete through T34, Phase 9 is complete through T39, and Phase 10 is complete through T40. Phase 10 is no-read approval decision work and does not approve holdout reads or unlocks. No approval event currently exists. Roadmap phases 11 through 13 are planned direction and may be promoted or rewritten automatically by roadmap evaluation. Real external side effects, holdout reads, holdout unlocks, live capital actions, live broker/exchange execution, and credentialed production deployment remain blocked.
+Current active task is T42 Holdout Approval Absence Denial Packet. Archive Evidence Expansion block is complete through T24, Phase 7 is complete through T29, Phase 8 is complete through T34, Phase 9 is complete through T39, and Phase 10 is complete through T41. Phase 10 is no-read approval decision work and does not approve holdout reads or unlocks. No approval event currently exists. Roadmap phases 11 through 13 are planned direction and may be promoted or rewritten automatically by roadmap evaluation. Real external side effects, holdout reads, holdout unlocks, live capital actions, live broker/exchange execution, and credentialed production deployment remain blocked.
 
 ## Verification Defaults
 

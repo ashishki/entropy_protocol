@@ -21,6 +21,15 @@ This file records handoff context. It is not authority.
 
 ## Entries
 
+### 2026-05-09 - T41 - Holdout Approval Evidence Intake
+
+- Scope: `docs/approvals/HOLDOUT_APPROVAL_INTAKE_CONTRACT.md`, `tests/reset/test_holdout_approval_intake_contract.py`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`
+- Why this work happened: define no-read intake checks for future explicit holdout approval evidence
+- Decisions applied: `docs/approvals/HOLDOUT_APPROVAL_REQUEST_PACKET.md`; `docs/protocols/HOLDOUT_APPROVAL_EVENT_SCHEMA.md`
+- Evidence collected: T41 acceptance tests passed (`3 passed`); full reset baseline `426 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean
+- Follow-ups: start T42 Holdout Approval Absence Denial Packet
+- Notes for next agent: T41 rejects absent, generated, inferred, expired, revoked, stale, scope-mismatched, and incomplete approval evidence. No approval event currently exists.
+
 ### 2026-05-09 - T40 - Holdout Approval Request Packet
 
 - Scope: `docs/approvals/HOLDOUT_APPROVAL_REQUEST_PACKET.md`, `tests/reset/test_holdout_approval_request_packet.py`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`
