@@ -23,6 +23,7 @@ Status: active roadmap task graph
 | 11 | Live-Feed Dry Run Readiness | T46-T50 | Prepare live market data ingestion checks without broker orders, exchange execution, or live capital. | Live-feed path is observable and gated; no order placement, broker integration, or capital deployment is enabled. |
 | 12 | Broker Sandbox and Execution Risk Audit | T51-T56 | Sandbox-only broker/exchange integration, execution risk controls, and kill-switch audit. | Sandbox execution is isolated; live capital remains blocked; risk controls and audit logs are mandatory. |
 | 13 | Product Hypothesis Confirmation Decision | T57-T62 | Local-only approval decision work for defining the safest next validation step toward product hypothesis confirmation. | No production, capital, live order, broker/exchange execution, production credential, or holdout access path opens without explicit future human approval and a bounded task contract. |
+| 14 | Local Broker Sandbox No-Capital Replay Extension | T63-T68 | Execute the approved local/no-effect replay extension against deterministic SimBroker fixture scenarios and record evidence deltas. | Replay evidence is hash-bound, deterministic, no-effect, and cannot be interpreted as production, capital-ready, live, holdout, or OOS/performance confirmation. |
 
 ## Roadmap Governance
 
@@ -2197,3 +2198,204 @@ Context-Refs:
 
 Notes: |
   Review only. Do not approve production, capital, live orders, broker/exchange execution, production credentials, or holdout access.
+
+## T63: Local Broker Sandbox Replay Approval Event
+
+Owner:      codex
+Phase:      14
+Type:       none
+Depends-On: T62
+Status:     done 2026-05-09
+
+Objective: |
+  Record the operator approval for the local broker sandbox no-capital replay extension while preserving no-effect and no-claim boundaries.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Approval event records the explicit operator approval source and local replay scope."
+    test: "tests/reset/test_local_broker_sandbox_replay_approval_event.py::test_local_replay_approval_event_records_operator_scope"
+  - id: AC-2
+    description: "Approval event blocks sandbox order emission from code, live orders, broker/exchange execution, credentials, capital, holdout, and OOS/performance claims."
+    test: "tests/reset/test_local_broker_sandbox_replay_approval_event.py::test_local_replay_approval_event_blocks_restricted_actions"
+  - id: AC-3
+    description: "Approval event preserves unconfirmed product hypothesis status before replay."
+    test: "tests/reset/test_local_broker_sandbox_replay_approval_event.py::test_local_replay_approval_event_preserves_unconfirmed_hypothesis"
+
+Files:
+  - docs/approvals/LOCAL_BROKER_SANDBOX_REPLAY_APPROVAL_EVENT.md
+  - tests/reset/test_local_broker_sandbox_replay_approval_event.py
+
+Context-Refs:
+  - docs/approvals/LOCAL_NEXT_VALIDATION_PLAN_PACKET.md
+
+Notes: |
+  This approval is scoped to local no-effect replay only. Do not emit orders or connect to broker/exchange systems.
+
+## T64: Broker Sandbox No-Capital Replay Primitive
+
+Owner:      codex
+Phase:      14
+Type:       none
+Depends-On: T63
+Status:     done 2026-05-09
+
+Objective: |
+  Add a deterministic SimBroker replay primitive that runs only against local fixture scenarios and returns explicit no-effect result flags.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Replay is deterministic and hash-bound for identical local fixture inputs."
+    test: "tests/unit/test_simbroker_replay.py::test_no_capital_sandbox_replay_is_deterministic_and_hash_bound"
+  - id: AC-2
+    description: "Replay result records no order emission, no broker/exchange connection, no credential loading, no capital activation, and no holdout access."
+    test: "tests/unit/test_simbroker_replay.py::test_no_capital_sandbox_replay_preserves_no_effect_boundaries"
+  - id: AC-3
+    description: "Replay rejects invalid approval scope, empty scenarios, duplicate scenario ids, and live broker/exchange imports."
+    test: "tests/unit/test_simbroker_replay.py"
+
+Files:
+  - src/entropy/simbroker/replay.py
+  - src/entropy/simbroker/__init__.py
+  - tests/unit/test_simbroker_replay.py
+
+Context-Refs:
+  - docs/approvals/LOCAL_BROKER_SANDBOX_REPLAY_APPROVAL_EVENT.md
+  - docs/protocols/SANDBOX_EXECUTION_NO_CAPITAL_DRY_RUN.md
+
+Notes: |
+  Local code primitive only. Do not add broker/exchange clients, sockets, credentials, or order emission.
+
+## T65: Broker Sandbox Replay Evidence Packet
+
+Owner:      codex
+Phase:      14
+Type:       none
+Depends-On: T64
+Status:     done 2026-05-09
+
+Objective: |
+  Record the approved local replay contract and replay result packet with deterministic hash, scenario summary, no-effect flags, and product hypothesis evidence delta.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Replay contract binds the local approval event, replay inputs, deterministic result fields, and rejection conditions."
+    test: "tests/reset/test_broker_sandbox_no_capital_replay_contract.py::test_replay_contract_binds_local_approval_and_inputs"
+  - id: AC-2
+    description: "Replay contract rejects restricted scopes and claim interpretations."
+    test: "tests/reset/test_broker_sandbox_no_capital_replay_contract.py::test_replay_contract_rejects_restricted_scope_and_claims"
+  - id: AC-3
+    description: "Replay result records deterministic local evidence delta and state docs open the next evidence-delta task."
+    test: "tests/reset/test_broker_sandbox_no_capital_replay_contract.py"
+
+Files:
+  - docs/protocols/BROKER_SANDBOX_NO_CAPITAL_REPLAY_CONTRACT.md
+  - docs/protocols/BROKER_SANDBOX_NO_CAPITAL_REPLAY_RESULT.md
+  - tests/reset/test_broker_sandbox_no_capital_replay_contract.py
+  - docs/tasks.md
+  - docs/CODEX_PROMPT.md
+  - PHASE_HANDOFF.md
+
+Context-Refs:
+  - src/entropy/simbroker/replay.py
+
+Notes: |
+  Evidence packet only. The product hypothesis is strengthened locally but remains unconfirmed.
+
+## T66: Local Replay Evidence Delta Decision
+
+Owner:      codex
+Phase:      14
+Type:       none
+Depends-On: T65
+Status:     pending
+
+Objective: |
+  Decide how the local no-effect replay evidence changes the product hypothesis confirmation posture without creating production, capital-ready, holdout, or OOS/performance claims.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Decision packet compares pre-replay and post-replay evidence."
+    test: "tests/reset/test_local_replay_evidence_delta_decision.py::test_replay_delta_decision_compares_evidence"
+  - id: AC-2
+    description: "Decision packet records that the product hypothesis is strengthened locally but not confirmed or rejected."
+    test: "tests/reset/test_local_replay_evidence_delta_decision.py::test_replay_delta_decision_preserves_unconfirmed_status"
+  - id: AC-3
+    description: "Decision packet lists the next bounded validation option without opening restricted actions."
+    test: "tests/reset/test_local_replay_evidence_delta_decision.py::test_replay_delta_decision_keeps_restricted_actions_blocked"
+
+Files:
+  - docs/approvals/LOCAL_REPLAY_EVIDENCE_DELTA_DECISION.md
+  - tests/reset/test_local_replay_evidence_delta_decision.py
+
+Context-Refs:
+  - docs/protocols/BROKER_SANDBOX_NO_CAPITAL_REPLAY_RESULT.md
+
+Notes: |
+  Decision only. Do not claim production readiness or OOS/performance.
+
+## T67: Replay Evidence Non-Approval Regression
+
+Owner:      codex
+Phase:      14
+Type:       none
+Depends-On: T66
+Status:     pending
+
+Objective: |
+  Add regression coverage proving replay approval, replay results, and local evidence deltas are not approval sources for restricted execution or product claims.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Regression rejects replay packets as production/capital/live/holdout approval sources."
+    test: "tests/reset/test_replay_evidence_non_approval_regression.py::test_replay_packets_are_not_restricted_approvals"
+  - id: AC-2
+    description: "Regression proves replay evidence cannot create OOS/performance, production, or capital-ready labels."
+    test: "tests/reset/test_replay_evidence_non_approval_regression.py::test_replay_evidence_cannot_create_claim_labels"
+  - id: AC-3
+    description: "Prompt and handoff keep restricted surfaces blocked."
+    test: "tests/reset/test_replay_evidence_non_approval_regression.py::test_state_docs_keep_restricted_surfaces_blocked"
+
+Files:
+  - tests/reset/test_replay_evidence_non_approval_regression.py
+  - docs/CODEX_PROMPT.md
+  - PHASE_HANDOFF.md
+
+Context-Refs:
+  - docs/approvals/LOCAL_REPLAY_EVIDENCE_DELTA_DECISION.md
+
+Notes: |
+  Regression only. Do not broaden approval scope.
+
+## T68: Local Replay Extension Review
+
+Owner:      codex
+Phase:      14
+Type:       none
+Depends-On: T67
+Status:     pending
+
+Objective: |
+  Review Phase 14 local broker sandbox no-capital replay extension artifacts and decide the next safe human decision or local validation phase.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Review summarizes approval event, replay primitive, replay evidence, evidence-delta decision, regression, validation, limitations, findings, and next decision point."
+    test: "tests/reset/test_local_replay_extension_review.py::test_local_replay_review_contains_required_sections"
+  - id: AC-2
+    description: "Review records product hypothesis status after replay."
+    test: "tests/reset/test_local_replay_extension_review.py::test_local_replay_review_records_hypothesis_status"
+  - id: AC-3
+    description: "Audit index and prompt record Phase 14 completion and next boundary."
+    test: "tests/reset/test_local_replay_extension_review.py::test_local_replay_review_updates_state"
+
+Files:
+  - docs/audit/LOCAL_REPLAY_EXTENSION_REVIEW.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/CODEX_PROMPT.md
+  - tests/reset/test_local_replay_extension_review.py
+
+Context-Refs:
+  - docs/approvals/LOCAL_REPLAY_EVIDENCE_DELTA_DECISION.md
+
+Notes: |
+  Review only. Keep all restricted execution and claim surfaces blocked.

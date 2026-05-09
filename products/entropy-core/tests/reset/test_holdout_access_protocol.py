@@ -94,9 +94,7 @@ def test_prompt_and_handoff_record_protocol_only_phase() -> None:
 
     assert "phase 9 is protocol-only" in combined
     assert "holdout read/unlock still blocked" in combined
-    assert (
-        "active task: checkpoint after phase 13 product hypothesis confirmation decision" in handoff
-    )
+    assert "active task: t66 local replay evidence delta decision" in handoff
     assert "t35 holdout access protocol deny-by-default contract completed" in prompt
     assert "t36 holdout approval event schema contract completed" in prompt
     assert "t37 holdout access audit logging contract completed" in prompt
@@ -104,7 +102,7 @@ def test_prompt_and_handoff_record_protocol_only_phase() -> None:
     assert "t39 holdout access protocol review completed" in prompt
     assert "t40 holdout approval request packet scaffold completed" in prompt
     assert "t41 holdout approval evidence intake contract completed" in prompt
-    assert "no approval event currently exists" in prompt
+    assert "the only current approval is local_broker_sandbox_no_capital_replay" in prompt
     assert "real external side effects" in combined
     assert "holdout reads" in combined
     assert "holdout unlocks" in combined

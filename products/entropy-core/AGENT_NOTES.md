@@ -401,3 +401,34 @@ Phase 13 is complete through T62.
 - product hypothesis status: unconfirmed_pending_future_validation.
 - Next human decision required: whether to authorize a future local broker sandbox no-capital replay extension task.
 - Boundaries remain unchanged: no next validation execution is approved; holdout/OOS, live feed activation, live order placement, broker/exchange execution, production credentials, live capital, production labels, and capital-ready labels remain blocked.
+
+## 2026-05-09 T63 Local Broker Sandbox Replay Approval
+
+Operator approved the local broker sandbox no-capital replay extension after Phase 13.
+
+- Completed task: T63 Local Broker Sandbox Replay Approval Event.
+- Active task: T64 Broker Sandbox No-Capital Replay Primitive.
+- Latest validation: `.venv/bin/python -m pytest -q tests/` -> `492 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
+- Light review result: no findings.
+- Boundaries: approval scope is `local_broker_sandbox_no_capital_replay`; maximum effect is `local_no_effect_only`. Sandbox order emission from code, live orders, broker/exchange connections, credentials, capital, holdout, and OOS/performance claims remain blocked.
+
+## 2026-05-09 T64 Broker Sandbox No-Capital Replay Primitive
+
+Phase 14 is complete through T64.
+
+- Completed task: T64 Broker Sandbox No-Capital Replay Primitive.
+- Active task: T65 Broker Sandbox Replay Evidence Packet.
+- Latest validation: `.venv/bin/python -m pytest -q tests/` -> `497 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
+- Light review result: no findings.
+- Boundaries: replay is deterministic and in-process only; it rejects non-local approval scopes, empty scenario sets, duplicate scenario ids, and live broker/exchange imports. No order side effect is implemented.
+
+## 2026-05-09 T65 Broker Sandbox Replay Evidence Packet
+
+Phase 14 is complete through T65.
+
+- Completed task: T65 Broker Sandbox Replay Evidence Packet.
+- Active task: T66 Local Replay Evidence Delta Decision.
+- Latest validation: `.venv/bin/python -m pytest -q tests/` -> `501 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean.
+- Light review result: no findings.
+- Evidence delta: replay hash `9b3681de22bf73160baadb022cc4b8af289b144449ca421ffa0f6457910c4c7e`; product hypothesis status is `local_evidence_strengthened_not_confirmed`.
+- Boundaries remain unchanged: local replay strengthens evidence but does not confirm/reject the product hypothesis and does not approve production, capital, live, holdout, external sandbox orders, or OOS/performance claims.

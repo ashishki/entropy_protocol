@@ -67,11 +67,12 @@ workspace under `products/`.
 
 ## Current Boundary
 
-Phase 13 Product Hypothesis Confirmation Decision is complete. The current
-product hypothesis status is `unconfirmed_pending_future_validation`.
+Phase 14 Local Broker Sandbox No-Capital Replay Extension is active. The
+current product hypothesis status is `local_evidence_strengthened_not_confirmed`.
 
-The only recommended next validation path is a future human-approved local
-broker sandbox no-capital replay extension. Holdout, production/capital-ready
-labels, live feeds, broker or exchange execution, production credential loading,
-Growth/RDL/RBE activation, and OOS/performance claims remain blocked unless a
-separate explicit core gate opens them.
+The only current approval is deterministic local no-effect replay with scope
+`local_broker_sandbox_no_capital_replay`. Holdout, production/capital-ready
+labels, live feeds, broker or exchange execution, external sandbox order
+emission from code, production credential loading, Growth/RDL/RBE activation,
+and OOS/performance claims remain blocked unless a separate explicit core gate
+opens them.

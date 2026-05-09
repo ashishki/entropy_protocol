@@ -10,13 +10,14 @@ foundation that future product surfaces may call only through approved bridges.
 
 ## Current Status
 
-Phase 13 Product Hypothesis Confirmation Decision is complete.
+Phase 14 Local Broker Sandbox No-Capital Replay Extension is active.
 
-The product hypothesis status is `unconfirmed_pending_future_validation`.
-The next safe decision is whether a human operator authorizes a future local
-broker sandbox no-capital replay extension task. This workspace has no approval
-for live orders, broker or exchange execution, production credentials, live
-capital, holdout reads, or OOS/performance claims.
+The product hypothesis status is `local_evidence_strengthened_not_confirmed`.
+The current approval is scoped only to `local_broker_sandbox_no_capital_replay`
+with maximum effect `local_no_effect_only`. This workspace has no approval for
+live orders, broker or exchange execution, production credentials, live capital,
+holdout reads, external sandbox order emission from code, or OOS/performance
+claims.
 
 ## Scope In
 

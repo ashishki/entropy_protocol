@@ -63,15 +63,10 @@ def test_state_docs_record_phase11_local_only_scope() -> None:
     handoff = PHASE_HANDOFF.read_text(encoding="utf-8").lower()
     combined = f"{prompt}\n{handoff}"
 
-    assert "phase: 13" in prompt
-    assert "phase: 13 product hypothesis confirmation decision" in handoff
-    assert (
-        "current active task is checkpoint after phase 13 product hypothesis confirmation decision"
-        in prompt
-    )
-    assert (
-        "active task: checkpoint after phase 13 product hypothesis confirmation decision" in handoff
-    )
+    assert "phase: 14" in prompt
+    assert "phase: 14 local broker sandbox no-capital replay extension" in handoff
+    assert "current active task is t66 local replay evidence delta decision" in prompt
+    assert "active task: t66 local replay evidence delta decision" in handoff
     assert "phase 11 is local-only live-feed dry-run readiness" in combined
     for boundary in (
         "order placement",

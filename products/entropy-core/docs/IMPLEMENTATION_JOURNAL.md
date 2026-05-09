@@ -21,6 +21,33 @@ This file records handoff context. It is not authority.
 
 ## Entries
 
+### 2026-05-09 - T65 - Broker Sandbox Replay Evidence Packet
+
+- Scope: `docs/protocols/BROKER_SANDBOX_NO_CAPITAL_REPLAY_CONTRACT.md`, `docs/protocols/BROKER_SANDBOX_NO_CAPITAL_REPLAY_RESULT.md`, `tests/reset/test_broker_sandbox_no_capital_replay_contract.py`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`
+- Why this work happened: record the approved local replay contract and evidence packet after adding the deterministic no-capital replay primitive
+- Decisions applied: `docs/approvals/LOCAL_BROKER_SANDBOX_REPLAY_APPROVAL_EVENT.md`; `src/entropy/simbroker/replay.py`
+- Evidence collected: T65 acceptance tests passed (`4 passed`); full reset baseline `501 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean
+- Follow-ups: start T66 Local Replay Evidence Delta Decision
+- Notes for next agent: replay hash is `9b3681de22bf73160baadb022cc4b8af289b144449ca421ffa0f6457910c4c7e`; product hypothesis delta is `local_evidence_strengthened_not_confirmed`, not a confirmation claim.
+
+### 2026-05-09 - T64 - Broker Sandbox No-Capital Replay Primitive
+
+- Scope: `src/entropy/simbroker/replay.py`, `src/entropy/simbroker/__init__.py`, `tests/unit/test_simbroker_replay.py`
+- Why this work happened: execute the approved local broker sandbox no-capital replay extension using deterministic in-process SimBroker primitives
+- Decisions applied: `docs/approvals/LOCAL_BROKER_SANDBOX_REPLAY_APPROVAL_EVENT.md`; `docs/protocols/SANDBOX_EXECUTION_NO_CAPITAL_DRY_RUN.md`
+- Evidence collected: T64 acceptance tests passed (`5 passed`); full reset baseline `497 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean
+- Follow-ups: start T65 Broker Sandbox Replay Evidence Packet
+- Notes for next agent: replay rejects invalid scopes, empty scenarios, duplicate scenario ids, and live broker/exchange imports. It does not implement order emission.
+
+### 2026-05-09 - T63 - Local Broker Sandbox Replay Approval Event
+
+- Scope: `docs/approvals/LOCAL_BROKER_SANDBOX_REPLAY_APPROVAL_EVENT.md`, `tests/reset/test_local_broker_sandbox_replay_approval_event.py`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`
+- Why this work happened: operator approved proceeding with the local broker sandbox no-capital replay extension after Phase 13
+- Decisions applied: operator approval message on 2026-05-09; `docs/approvals/LOCAL_NEXT_VALIDATION_PLAN_PACKET.md`
+- Evidence collected: T63 acceptance tests passed (`3 passed`); full reset baseline `492 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean
+- Follow-ups: start T64 Broker Sandbox No-Capital Replay Primitive
+- Notes for next agent: approval scope is `local_broker_sandbox_no_capital_replay` with `local_no_effect_only` maximum effect. It does not approve external side effects or claims.
+
 ### 2026-05-09 - T62 - Product Hypothesis Confirmation Decision Review
 
 - Scope: `docs/audit/PRODUCT_HYPOTHESIS_CONFIRMATION_DECISION_REVIEW.md`, `docs/audit/AUDIT_INDEX.md`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`, `tests/reset/test_product_hypothesis_confirmation_decision_review.py`

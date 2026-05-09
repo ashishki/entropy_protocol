@@ -51,7 +51,7 @@ def test_holdout_approval_decision_review_updates_state() -> None:
     tasks = TASKS.read_text(encoding="utf-8")
     audit_index = AUDIT_INDEX.read_text(encoding="utf-8")
 
-    assert "Phase: 13" in prompt
+    assert "Phase: 14" in prompt
     assert "T45 Holdout Approval Decision Review completed" in prompt
     assert "T46 Live-Feed Boundary Contract" in prompt
     assert "Phase 11 Live-Feed Dry Run Readiness" in prompt

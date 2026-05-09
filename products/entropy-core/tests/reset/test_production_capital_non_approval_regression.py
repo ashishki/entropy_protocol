@@ -74,13 +74,8 @@ def test_state_docs_preserve_no_current_approval() -> None:
     handoff = PHASE_HANDOFF.read_text(encoding="utf-8").lower()
     combined = f"{prompt}\n{handoff}"
 
-    assert (
-        "current active task is checkpoint after phase 13 product hypothesis confirmation decision"
-        in prompt
-    )
-    assert (
-        "active task: checkpoint after phase 13 product hypothesis confirmation decision" in handoff
-    )
+    assert "current active task is t66 local replay evidence delta decision" in prompt
+    assert "active task: t66 local replay evidence delta decision" in handoff
     assert "no approval event currently exists" in combined
     for boundary in (
         "real external side effects",

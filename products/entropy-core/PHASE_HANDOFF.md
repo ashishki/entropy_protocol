@@ -7,10 +7,10 @@ manual restart.
 
 - Product: entropy-core
 - Branch: codex/entropy-core-work
-- Active task: checkpoint after Phase 13 Product Hypothesis Confirmation Decision
-- Phase: 13 Product Hypothesis Confirmation Decision
-- Last validation: 2026-05-09 T62: `489 passed, 20 skipped`; ruff check clean; ruff format clean; pyright 0 errors; `git diff --check` clean.
-- Git status summary: T62 product hypothesis confirmation decision review changes pending commit at handoff update time.
+- Active task: T66 Local Replay Evidence Delta Decision
+- Phase: 14 Local Broker Sandbox No-Capital Replay Extension
+- Last validation: 2026-05-09 T65: `501 passed, 20 skipped`; ruff check clean; ruff format clean; pyright 0 errors; `git diff --check` clean.
+- Git status summary: T65 local replay extension changes pending commit at handoff update time.
 
 ## Completed In This Phase
 
@@ -79,14 +79,17 @@ manual restart.
 - T60 Production Capital Non-Approval Regression completed with no findings.
 - T61 Local Next Validation Plan Packet completed with no findings.
 - T62 Product Hypothesis Confirmation Decision Review completed with no findings.
+- T63 Local Broker Sandbox Replay Approval Event completed with no findings.
+- T64 Broker Sandbox No-Capital Replay Primitive completed with no findings.
+- T65 Broker Sandbox Replay Evidence Packet completed with no findings.
 
 ## Remaining Work
 
-- Phase 13 Product Hypothesis Confirmation Decision is complete.
-- product hypothesis status: unconfirmed_pending_future_validation.
-- Next human decision required: whether to authorize a future local broker sandbox no-capital replay extension task.
-- No next active implementation task is open.
-- Phase 13 is local-only approval decision work. No live orders, no broker/exchange execution, no production credentials, no live capital, and no holdout access are approved.
+- Phase 14 Local Broker Sandbox No-Capital Replay Extension is active.
+- product hypothesis status: local_evidence_strengthened_not_confirmed.
+- Active task: T66 Local Replay Evidence Delta Decision.
+- Remaining Phase 14 tasks: T66 Local Replay Evidence Delta Decision, T67 Replay Evidence Non-Approval Regression, T68 Local Replay Extension Review.
+- Phase 14 is local no-effect replay work. No live orders, broker/exchange execution, production credentials, live capital, holdout access, external sandbox order emission from code, or OOS/performance claims are approved.
 
 ## Blockers Or Human Decisions
 
@@ -114,6 +117,10 @@ manual restart.
 - T50 closed Phase 11 and opened Phase 12 as sandbox-only broker/exchange execution risk audit work. No live orders, live broker/exchange execution, production credentials, live capital, production labels, or holdout access are approved.
 - T51 defined the broker sandbox boundary as sandbox-only. No live orders, live broker/exchange execution, production credentials, live capital, production labels, or holdout access are approved.
 - Operator approval on 2026-05-09: rewrite Phase 13 as local-only production/capital approval decision work with the explicit goal of defining the safest next validation step toward product hypothesis confirmation. No live orders, no broker/exchange execution, no production credentials, no live capital, and no holdout access are approved.
+- Operator approval on 2026-05-09 after Phase 13: proceed with the local broker sandbox no-capital replay extension. Approved scope is `local_broker_sandbox_no_capital_replay`; maximum allowed effect is `local_no_effect_only`.
+- T63 recorded the local replay approval event without authorizing sandbox order emission from code, live orders, broker/exchange connection, production credential loading, capital, holdout, or OOS/performance claims.
+- T64 added a deterministic in-process SimBroker replay primitive. It rejects invalid approval scopes, empty scenarios, duplicate scenario ids, and live broker/exchange imports.
+- T65 recorded the replay contract and result packet. Replay hash: `9b3681de22bf73160baadb022cc4b8af289b144449ca421ffa0f6457910c4c7e`; product hypothesis delta: `local_evidence_strengthened_not_confirmed`.
 - Real external side effects, holdout reads, holdout unlocks, live capital actions, live broker/exchange execution, and credentialed production deployment remain blocked; implement local dry-run/sandbox/protocol work instead unless a future local contract explicitly permits otherwise.
 
 ## Resume Instruction
