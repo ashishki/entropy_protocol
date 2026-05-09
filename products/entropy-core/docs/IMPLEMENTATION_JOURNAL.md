@@ -21,6 +21,15 @@ This file records handoff context. It is not authority.
 
 ## Entries
 
+### 2026-05-09 - T46 - Live-Feed Boundary Contract
+
+- Scope: `docs/protocols/LIVE_FEED_DRY_RUN_BOUNDARY.md`, `tests/reset/test_live_feed_boundary_contract.py`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`
+- Why this work happened: define Phase 11 live-feed dry-run scope before fixture or adapter work
+- Decisions applied: `docs/audit/HOLDOUT_APPROVAL_DECISION_REVIEW.md`; `docs/ARCHITECTURE.md`
+- Evidence collected: T46 acceptance tests passed (`3 passed`); full reset baseline `441 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean
+- Follow-ups: start T47 Live-Feed Fixture Manifest
+- Notes for next agent: T46 allows only local fixture review, replay, parsing, normalization, clock validation, logging, and failure-state design. Live feed connections, orders, broker/exchange execution, credentials, live capital, production labels, and holdout access remain blocked.
+
 ### 2026-05-09 - T45 - Holdout Approval Decision Review
 
 - Scope: `docs/audit/HOLDOUT_APPROVAL_DECISION_REVIEW.md`, `docs/audit/AUDIT_INDEX.md`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`

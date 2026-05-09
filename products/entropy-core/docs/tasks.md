@@ -1652,7 +1652,7 @@ Owner:      codex
 Phase:      11
 Type:       none
 Depends-On: T45
-Status:     active
+Status:     done 2026-05-09
 
 Objective: |
   Define the local live-feed dry-run boundary so market-data readiness work cannot place orders, connect to broker/exchange execution, deploy credentials, activate live capital, or alter holdout status.
@@ -1685,7 +1685,7 @@ Owner:      codex
 Phase:      11
 Type:       none
 Depends-On: T46
-Status:     pending
+Status:     active
 
 Objective: |
   Define deterministic local market-data fixture manifest requirements for live-feed dry-run readiness without pulling live data.

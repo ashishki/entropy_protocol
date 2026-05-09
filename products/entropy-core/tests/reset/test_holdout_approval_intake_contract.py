@@ -79,8 +79,8 @@ def test_state_docs_preserve_no_approval_event() -> None:
     assert "intake decision: rejected" in contract
     assert "holdout read: blocked" in contract
     assert "holdout unlock: blocked" in contract
-    assert "current active task is t46 live-feed boundary contract" in prompt
-    assert "active task: t46 live-feed boundary contract" in handoff
+    assert "current active task is t47 live-feed fixture manifest" in prompt
+    assert "active task: t47 live-feed fixture manifest" in handoff
     assert "t41 holdout approval evidence intake contract completed" in prompt
     assert "no approval event currently exists" in combined
     assert "holdout read/unlock still blocked" in combined
