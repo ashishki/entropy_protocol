@@ -54,3 +54,21 @@ public author string.
 
 Voice/OCR fields are evidence links only. They make future modality work
 representable without changing the base source-corpus schema.
+
+## Multimodal Joins
+
+`SAS-MEDIA-007` adds a pure join helper that returns enriched
+`SourceDocument` copies with additive `media_refs`, `transcript_refs`, and
+`ocr_refs`.
+
+Rules:
+
+- original `text`, `evidence_url`, and `text_sha256` are preserved
+  byte-identically;
+- media artifacts must match `source_id`, `capture_id`, and `document_id`;
+- transcript/OCR artifacts must reference a known media ID and match that media
+  artifact's checksum;
+- transcript/OCR refs are additional draft evidence for review/retrieval
+  context only;
+- joins do not mutate approved `MarketIdea` rows, outcomes, ledgers, reports,
+  market data, or customer-facing claims.

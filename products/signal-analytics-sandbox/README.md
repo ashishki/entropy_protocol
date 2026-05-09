@@ -8,9 +8,11 @@ wedge separate from Entropy Core and Trader Risk Audit.
 ## Current Status
 
 - Phase 0 gates are acknowledged for the initial Telegram pilot sources.
-- Engineering Phases 1-19 are complete through `SAS-MI-019`.
-- Phase 20 is planned for Telegram media evidence: voice/audio transcription
-  drafts and image/OCR drafts.
+- Engineering Phases 1-20 are complete through `SAS-MEDIA-008`.
+- Phase 20 produced the Telegram media evidence path: ADR/legal posture,
+  media artifact metadata, injected-client voice acquisition, gated transcript
+  drafts, OCR drafts, multimodal source-document joins, and a coverage/decision
+  gate.
 - Phase 9 pilot loop is complete; 60 public `bablos79` text captures exist in
   `workspace/captures/bablos79/`.
 - Phase 10 produced draft-only pseudo-labels, an author profile, deterministic
@@ -24,10 +26,14 @@ wedge separate from Entropy Core and Trader Risk Audit.
   deterministic thesis evaluation, author metrics, bounded internal analyst
   memo export, Author Market Report V0, the sellability decision gate,
   ADR-003, and the reviewer coverage export pack.
-- Current next engineering task: `SAS-MEDIA-001: Media Scope ADR And Legal Addendum`.
+- Telegram media evidence is internal-only until real public/operator-authorized
+  media is supplied and human review marks transcript/OCR evidence usable.
+- Current next engineering task: none defined. Phase 20 decision is to pause
+  implementation until operator media evidence or a new Phase 21 task graph is
+  added.
 - Package target: Python 3.12, installable as `signal-sandbox`.
 - CLI status: `signal-sandbox` exists with stubs for the planned operator workflow.
-- Tests: 141 passing; ruff and pyright pass locally.
+- Tests: 157 passing; ruff and pyright pass locally.
 
 ## Scope In
 
@@ -60,8 +66,10 @@ Initial pilot sources:
 4. `docs/pilot/AUTO_EXTRACTION_DEVELOPMENT_PLAN.md`
 5. `docs/pilot/AUTHOR_MARKET_INTELLIGENCE_ROADMAP.md`
 6. `docs/pilot/MEDIA_MODALITY_DEVELOPMENT_PLAN.md`
-7. `../../docs/PRODUCT_PORTFOLIO.md`
-8. `../../docs/AI_DEVELOPMENT_OPERATING_MODEL.md`
+7. `docs/pilot/MEDIA_MODALITY_DECISION.md`
+8. `docs/archive/PHASE20_REVIEW.md`
+9. `../../docs/PRODUCT_PORTFOLIO.md`
+10. `../../docs/AI_DEVELOPMENT_OPERATING_MODEL.md`
 
 ## Local AI Workflow
 

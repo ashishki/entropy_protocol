@@ -88,6 +88,136 @@ Agent: Codex
 - Boundary: transcription/OCR outputs remain draft evidence, review-required,
   and cannot write approved ledger rows or customer-facing report claims.
 
+## 2026-05-09 Update — SAS-MEDIA-001 Complete
+
+- Completed `SAS-MEDIA-001: Media Scope ADR And Legal Addendum`.
+- Added `docs/adr/ADR-004-media-evidence-pipeline.md`.
+- Updated `docs/legal_risk_memo.md §Media Evidence`.
+- Recorded D-024 in `docs/DECISION_LOG.md`.
+- ADR-004 keeps runtime T0, allows only public/operator-authorized Telegram
+  media linked to approved source/capture/document IDs, treats raw media as
+  temporary local operational data, and defines deletion triggers.
+- Transcript/OCR outputs remain review-required draft evidence and cannot
+  approve records, write ledgers, compute metrics, or create customer-facing
+  claims.
+- Current validation: 141 pytest pass, 0 skipped; ruff and pyright pass.
+- Next task: `SAS-MEDIA-002: MediaArtifact Schema And Manifest`.
+
+## 2026-05-09 Update — SAS-MEDIA-002 Complete
+
+- Completed `SAS-MEDIA-002: MediaArtifact Schema And Manifest`.
+- Added `src/signal_sandbox/media/artifact.py` and
+  `src/signal_sandbox/media/__init__.py`.
+- Added `tests/unit/test_media_artifact.py`.
+- Added `docs/specs/MEDIA_ARTIFACTS.md`.
+- Schema requires source/capture/source-document linkage, source timestamp,
+  local path, SHA-256, modality, MIME type, retention state, creation
+  timestamp, and draft transcript/OCR refs.
+- Manifest export sorts by source timestamp, source-document ID, and media ID.
+- No Telegram, Whisper, OCR, network, provider, approved-ledger, metric, report,
+  or customer-claim behavior was added.
+- Current validation: 144 pytest pass, 0 skipped; ruff and pyright pass.
+- Next task: `SAS-MEDIA-003: Telegram Voice Acquisition Adapter`.
+
+## 2026-05-09 Update — SAS-MEDIA-003 Complete
+
+- Completed `SAS-MEDIA-003: Telegram Voice Acquisition Adapter`.
+- Added `src/signal_sandbox/media/telegram_voice.py`.
+- Added `tests/unit/test_telegram_voice_acquisition.py`.
+- Extended `docs/specs/MEDIA_ARTIFACTS.md` with the acquisition boundary.
+- Adapter uses an injected fakeable Telegram client, downloads to `.ogg.part`,
+  computes SHA-256, renames after success, and returns a `MediaArtifact`.
+- Rejects missing legal media authorization and forbidden private/authenticated
+  authorization states.
+- Download failure raises a typed error and removes partial files.
+- No Whisper, transcription, OCR, metric, report, approved-ledger, or customer
+  claim behavior was added.
+- Current validation: 147 pytest pass, 0 skipped; ruff and pyright pass.
+- Light review PASS.
+- Next task: `SAS-MEDIA-004: Whisper Transcript Draft Adapter`.
+
+## 2026-05-09 Update — SAS-MEDIA-004 Complete
+
+- Completed `SAS-MEDIA-004: Whisper Transcript Draft Adapter`.
+- Added `src/signal_sandbox/media/transcription.py`.
+- Added `tests/unit/test_whisper_transcript_adapter.py`.
+- Added `docs/audit/MEDIA_EVAL.md`.
+- Extended `docs/specs/MEDIA_ARTIFACTS.md`.
+- Adapter requires `SIGNAL_SANDBOX_ENABLE_MEDIA_TRANSCRIPTION=1` and per-run
+  approval before invoking the injected transcription client.
+- Successful runs write draft transcript JSON with media/provenance/checksum
+  fields, `status=draft_pending_review`, `reviewer_id=pending`, and
+  review-required state.
+- Provider failures return typed failure status and create no transcript.
+- Success follows ADR-004 retention/logging policy and does not log raw
+  transcript text.
+- Current validation: 151 pytest pass, 0 skipped; ruff and pyright pass.
+- Light review PASS.
+- Next task: `SAS-MEDIA-005: Image Evidence Inventory And OCR Scope`.
+
+## 2026-05-09 Update — SAS-MEDIA-005 Complete
+
+- Completed `SAS-MEDIA-005: Image Evidence Inventory And OCR Scope`.
+- Added `docs/pilot/bablos79_MEDIA_INVENTORY.md`.
+- Current local media state: 60 text captures; no local raw media files, media
+  IDs, transcript artifacts, or OCR artifacts.
+- Inventory records channel-level image/screenshot and voice/audio gaps plus
+  text references in `bablos79-10486` and `bablos79-10465`.
+- OCR is approved only for image/screenshot text drafts.
+- Chart/image interpretation and chart-derived trading claims remain
+  manual-review-only and cannot become approved truth.
+- Review skipped as doc-only.
+- Next task: `SAS-MEDIA-006: OCR Draft Adapter`.
+
+## 2026-05-09 Update — SAS-MEDIA-006 Complete
+
+- Completed `SAS-MEDIA-006: OCR Draft Adapter`.
+- Added `src/signal_sandbox/media/ocr.py`.
+- Added `tests/unit/test_ocr_draft_adapter.py`.
+- Extended `docs/specs/MEDIA_ARTIFACTS.md` and `docs/audit/MEDIA_EVAL.md`.
+- Adapter accepts only image/screenshot `MediaArtifact` rows and uses an
+  injected fakeable OCR client.
+- Output is review-pending draft OCR JSON with media/provenance/checksum fields
+  and optional bounding metadata.
+- Approved chart claims are refused; chart labels, price levels, and trade
+  interpretations can only be stored as review-required notes.
+- Current validation: 154 pytest pass, 0 skipped; ruff and pyright pass.
+- Light review PASS.
+- Next task: `SAS-MEDIA-007: Multimodal SourceDocument Join`.
+
+## 2026-05-09 Update — SAS-MEDIA-007 Complete
+
+- Completed `SAS-MEDIA-007: Multimodal SourceDocument Join`.
+- Added `src/signal_sandbox/media/source_join.py`.
+- Added `tests/unit/test_multimodal_source_join.py`.
+- Updated `docs/specs/SOURCE_CORPUS.md` and
+  `docs/specs/MEDIA_ARTIFACTS.md`.
+- Join helper returns copied `SourceDocument` rows with additive
+  media/transcript/OCR refs.
+- Original text, evidence URL, and text SHA-256 are preserved.
+- Source/capture/document linkage and source media checksums are validated.
+- Current validation: 157 pytest pass, 0 skipped; ruff and pyright pass.
+- Light review PASS.
+- Next task: `SAS-MEDIA-008: Multimodal Coverage Pack And Decision Gate`.
+
+## 2026-05-09 Update — Phase 20 Complete
+
+- Completed `SAS-MEDIA-008: Multimodal Coverage Pack And Decision Gate`.
+- Added `docs/pilot/bablos79_MULTIMODAL_COVERAGE_PACK.md`.
+- Added `docs/pilot/MEDIA_MODALITY_DECISION.md`.
+- Phase 20 deep review archived at `docs/archive/PHASE20_REVIEW.md`.
+- Updated `docs/audit/AUDIT_INDEX.md` and
+  `docs/audit/PHASE_REPORT_LATEST.md`.
+- Coverage: 60 public text captures; 0 local media artifacts; 0 draft
+  transcripts; 0 draft OCR artifacts; 0 multimodal joins; 0 media rows ready
+  for customer sample.
+- Decision: iterate internally, do not use media evidence in a customer sample
+  yet.
+- Current validation: 157 pytest pass, 0 skipped; ruff and pyright pass.
+- Review: Phase 20 deep review PASS; P0/P1/P2 all 0.
+- Next task: none defined. Pause until operator supplies/authorizes real public
+  media or a new Phase 21 task graph is added.
+
 ## Investigation Summary
 
 - Product path inspected: `products/signal-analytics-sandbox/`.

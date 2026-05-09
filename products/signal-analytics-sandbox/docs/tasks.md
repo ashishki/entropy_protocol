@@ -2183,7 +2183,7 @@ Notes: |
 
 ## Phase 20 — Telegram Media Evidence: Voice And Image/OCR Drafts
 
-### SAS-MEDIA-001: Media Scope ADR And Legal Addendum
+### SAS-MEDIA-001: Media Scope ADR And Legal Addendum ✅
 
 Owner:      codex
 Phase:      20
@@ -2222,7 +2222,7 @@ Notes: |
 
 ---
 
-### SAS-MEDIA-002: MediaArtifact Schema And Manifest
+### SAS-MEDIA-002: MediaArtifact Schema And Manifest ✅
 
 Owner:      codex
 Phase:      20
@@ -2259,7 +2259,7 @@ Notes: |
 
 ---
 
-### SAS-MEDIA-003: Telegram Voice Acquisition Adapter
+### SAS-MEDIA-003: Telegram Voice Acquisition Adapter ✅
 
 Owner:      codex
 Phase:      20
@@ -2297,7 +2297,7 @@ Notes: |
 
 ---
 
-### SAS-MEDIA-004: Whisper Transcript Draft Adapter
+### SAS-MEDIA-004: Whisper Transcript Draft Adapter ✅
 
 Owner:      codex
 Phase:      20
@@ -2338,7 +2338,7 @@ Notes: |
 
 ---
 
-### SAS-MEDIA-005: Image Evidence Inventory And OCR Scope
+### SAS-MEDIA-005: Image Evidence Inventory And OCR Scope ✅
 
 Owner:      codex
 Phase:      20
@@ -2373,7 +2373,7 @@ Notes: |
 
 ---
 
-### SAS-MEDIA-006: OCR Draft Adapter
+### SAS-MEDIA-006: OCR Draft Adapter ✅
 
 Owner:      codex
 Phase:      20
@@ -2410,7 +2410,7 @@ Notes: |
 
 ---
 
-### SAS-MEDIA-007: Multimodal SourceDocument Join
+### SAS-MEDIA-007: Multimodal SourceDocument Join ✅
 
 Owner:      codex
 Phase:      20
@@ -2447,7 +2447,7 @@ Notes: |
 
 ---
 
-### SAS-MEDIA-008: Multimodal Coverage Pack And Decision Gate
+### SAS-MEDIA-008: Multimodal Coverage Pack And Decision Gate ✅
 
 Owner:      codex
 Phase:      20

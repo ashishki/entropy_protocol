@@ -1,7 +1,7 @@
 # Media Modality Development Plan
 
 Date: 2026-05-09
-Status: planned
+Status: in progress
 
 ## Why This Phase Exists
 
@@ -54,35 +54,35 @@ review coverage pack.
 
 ## Proposed Task Order
 
-1. `SAS-MEDIA-001: Media Scope ADR And Legal Addendum`
+1. `SAS-MEDIA-001: Media Scope ADR And Legal Addendum` — done
    Decide exact allowed media sources, retention, provider strategy, and
    approval gates before code lands.
 
-2. `SAS-MEDIA-002: MediaArtifact Schema And Manifest`
+2. `SAS-MEDIA-002: MediaArtifact Schema And Manifest` — done
    Represent local voice/image files, checksums, source linkage, modality,
    retention state, and draft-output refs without adding providers.
 
-3. `SAS-MEDIA-003: Telegram Voice Acquisition Adapter`
+3. `SAS-MEDIA-003: Telegram Voice Acquisition Adapter` — done
    Adapt the proven Telegram `voice.file_id` download pattern for
    operator-authorized public evidence. No transcription yet.
 
-4. `SAS-MEDIA-004: Whisper Transcript Draft Adapter`
+4. `SAS-MEDIA-004: Whisper Transcript Draft Adapter` — done
    Add gated managed Whisper transcription with fake-client CI coverage,
    cost/approval gates, transcript provenance, and raw-audio cleanup.
 
-5. `SAS-MEDIA-005: Image Evidence Inventory And OCR Scope`
+5. `SAS-MEDIA-005: Image Evidence Inventory And OCR Scope` — done
    Inventory image/screenshot captures and decide whether OCR or richer image
    annotation is needed for this channel.
 
-6. `SAS-MEDIA-006: OCR Draft Adapter`
+6. `SAS-MEDIA-006: OCR Draft Adapter` — done
    Add review-required OCR/image text extraction over local image artifacts,
    with no customer-facing claims and no chart-level truth without review.
 
-7. `SAS-MEDIA-007: Multimodal SourceDocument Join`
+7. `SAS-MEDIA-007: Multimodal SourceDocument Join` — done
    Link transcript/OCR refs into `SourceDocument` records and retrieval context
    without overwriting original capture text or hashes.
 
-8. `SAS-MEDIA-008: Multimodal Coverage Pack And Decision Gate`
+8. `SAS-MEDIA-008: Multimodal Coverage Pack And Decision Gate` — done
    Extend the reviewer coverage pack to show text/transcript/OCR coverage and
    decide whether a media-backed customer sample is now justified.
 

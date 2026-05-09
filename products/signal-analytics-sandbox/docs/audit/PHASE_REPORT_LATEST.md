@@ -1,34 +1,34 @@
-# Phase 19 Report — Channel-Specific Modalities And Tools
+# Phase 20 Report — Telegram Media Evidence
 
 Date: 2026-05-09
 
 ## What Was Built
 
-Phase 19 produced ADR-003 and the Reviewer Coverage Export Pack. ADR-003
-compared voice transcription, OCR/image annotation, news/catalyst linking,
-fund/equity data, reviewer UI/export improvements, and new channel lexicons
-against the measured evidence-coverage bottleneck. It selected deterministic
-reviewer/export improvements.
+Phase 20 produced the governed media evidence path for Telegram voice/audio and
+image/OCR drafts:
 
-`SAS-MI-019` then added a local coverage exporter that maps source documents to
-MarketIdea review status, evidence refs, deterministic outcome status, missing
-fields, reviewer action, and reviewer ID.
+- ADR-004 and legal memo media posture;
+- strict `MediaArtifact` schema and deterministic manifest export;
+- injected-client Telegram voice acquisition;
+- double-gated draft transcription adapter;
+- image/OCR inventory and OCR draft adapter;
+- additive multimodal `SourceDocument` join helper;
+- multimodal coverage pack and decision gate.
 
 ## Why It Matters
 
-The product now has a review surface for the actual blocker: turning 60 public
-captures into reviewed evidence and deterministic outcome coverage before any
-customer-facing report sample or sale. The phase avoids speculative provider or
-modality expansion.
+The product can now represent and process public/operator-authorized media
+without weakening the audit boundary. Media-derived transcript/OCR output is
+available only as draft evidence pending human review; it cannot write approved
+truth artifacts or customer-facing claims.
 
 ## Validation
 
-- Before Phase 19: 138 passing tests after Phase 18.
-- After `SAS-MI-018`: 138 passing tests.
-- After `SAS-MI-019`: 141 passing tests.
+- Before Phase 20: 141 passing tests after Phase 19.
+- After Phase 20: 157 passing tests.
 - `ruff check src/ tests/` passes.
 - `.venv/bin/pyright` passes.
-- Phase 19 deep review archived at `docs/archive/PHASE19_REVIEW.md`.
+- Phase 20 deep review archived at `docs/archive/PHASE20_REVIEW.md`.
 
 ## Review Results
 
@@ -39,25 +39,29 @@ modality expansion.
 
 ## Open Risks
 
-Coverage rows are not approved ledger truth and are not customer-facing report
-claims. Human review is still required before using any row in a customer
-sample.
+No real `bablos79` media files, Telegram media IDs, transcript artifacts, OCR
+artifacts, or multimodal customer-sample rows exist yet. Media-backed customer
+value is unproven until operator-authorized public media is supplied and human
+review marks evidence usable.
 
 ## Health Verdict
 
-OK. Phase 19 preserved Hybrid / Lean / T0, Tool-Use OFF, context-only RAG,
-bounded/internal Agentic, and the public-source/non-advice boundaries.
+OK. Phase 20 preserved Hybrid / Lean / T0, Tool-Use OFF, context-only RAG,
+bounded/internal Agentic, public-source-only handling, draft-evidence posture,
+and non-advice boundaries.
 
 ## Next Phase
 
-No next implementation task is defined in `docs/tasks.md`. The loop should stop
-until the operator adds or approves a new task/phase.
+No Phase 21 task graph is defined. Pause implementation. Next product action:
+operator supplies/authorizes public media, run the Phase 20 media pipeline on
+real artifacts, then human review decides whether a media-backed customer sample
+is justified.
 
 ## Notification Summary
 
-Ph19 Channel Tools Scope DONE
-Built: ADR-003, reviewer coverage export pack
-Tests: 138->141 pass
+Ph20 Telegram Media Evidence DONE
+Built: ADR/legal, media schema, voice acquisition, draft transcription/OCR, source join, coverage/decision
+Tests: 141->157 pass
 Issues: P1:0 P2:0
 Health: OK
-Next: none defined
+Next: operator media evidence + human review

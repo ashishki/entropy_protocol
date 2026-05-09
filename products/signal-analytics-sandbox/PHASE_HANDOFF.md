@@ -4,11 +4,11 @@ Use this file only at a phase boundary, context rollover, or limit recovery.
 
 ## Current State
 
-- Phase: 20 planned.
-- Active task: `SAS-MEDIA-001: Media Scope ADR And Legal Addendum`.
+- Phase: 20 in progress.
+- Active task: none defined.
 - Branch: `codex/signal-analytics-sandbox-work`.
-- Last validation: `.venv/bin/python -m pytest tests/ -q` -> 141 tests passed on 2026-05-09; `ruff check src/ tests/` and `.venv/bin/pyright` also pass.
-- Git status summary: Phase 20 planning docs are pending commit.
+- Last validation: `.venv/bin/python -m pytest tests/ -q` -> 157 tests passed on 2026-05-09; `ruff check src/ tests/` and `.venv/bin/pyright` pass.
+- Git status summary: Phase 20 planning and `SAS-MEDIA-001` docs are pending commit.
 
 ## Completed In This Phase
 
@@ -318,10 +318,69 @@ Use this file only at a phase boundary, context rollover, or limit recovery.
   - rows are deterministic and separate evidence, metric, interpretation, and
     customer-sample readiness buckets
   - Phase 19 deep review archived at `docs/archive/PHASE19_REVIEW.md`
+- Completed `SAS-MEDIA-001: Media Scope ADR And Legal Addendum`:
+  - created `docs/adr/ADR-004-media-evidence-pipeline.md`
+  - updated `docs/legal_risk_memo.md §Media Evidence`
+  - recorded D-024 in `docs/DECISION_LOG.md`
+  - kept runtime T0 and draft-evidence boundaries for transcript/OCR output
+  - validation after task: 141 pytest pass, 0 skipped; ruff and pyright pass
+- Completed `SAS-MEDIA-002: MediaArtifact Schema And Manifest`:
+  - created `src/signal_sandbox/media/artifact.py`
+  - created `src/signal_sandbox/media/__init__.py`
+  - created `tests/unit/test_media_artifact.py`
+  - created `docs/specs/MEDIA_ARTIFACTS.md`
+  - schema is strict metadata only with no provider or truth-artifact side effects
+  - validation after task: 144 pytest pass, 0 skipped; ruff and pyright pass
+- Completed `SAS-MEDIA-003: Telegram Voice Acquisition Adapter`:
+  - created `src/signal_sandbox/media/telegram_voice.py`
+  - created `tests/unit/test_telegram_voice_acquisition.py`
+  - extended `docs/specs/MEDIA_ARTIFACTS.md`
+  - adapter uses injected fakeable Telegram client and records `MediaArtifact`
+    metadata only
+  - validation after task: 147 pytest pass, 0 skipped; ruff and pyright pass
+  - light review PASS
+- Completed `SAS-MEDIA-004: Whisper Transcript Draft Adapter`:
+  - created `src/signal_sandbox/media/transcription.py`
+  - created `tests/unit/test_whisper_transcript_adapter.py`
+  - created `docs/audit/MEDIA_EVAL.md`
+  - extended `docs/specs/MEDIA_ARTIFACTS.md`
+  - adapter is double-gated and writes review-pending draft transcript JSON only
+  - validation after task: 151 pytest pass, 0 skipped; ruff and pyright pass
+  - light review PASS
+- Completed `SAS-MEDIA-005: Image Evidence Inventory And OCR Scope`:
+  - created `docs/pilot/bablos79_MEDIA_INVENTORY.md`
+  - approved draft OCR for image/screenshot text only
+  - kept chart/image interpretation manual-review-only
+  - review skipped as doc-only
+- Completed `SAS-MEDIA-006: OCR Draft Adapter`:
+  - created `src/signal_sandbox/media/ocr.py`
+  - created `tests/unit/test_ocr_draft_adapter.py`
+  - extended `docs/specs/MEDIA_ARTIFACTS.md` and `docs/audit/MEDIA_EVAL.md`
+  - adapter writes review-pending draft OCR JSON only
+  - validation after task: 154 pytest pass, 0 skipped; ruff and pyright pass
+  - light review PASS
+- Completed `SAS-MEDIA-007: Multimodal SourceDocument Join`:
+  - created `src/signal_sandbox/media/source_join.py`
+  - created `tests/unit/test_multimodal_source_join.py`
+  - updated source/media specs
+  - helper returns additive `SourceDocument` refs without mutating original text
+  - validation after task: 157 pytest pass, 0 skipped; ruff and pyright pass
+  - light review PASS
+- Completed `SAS-MEDIA-008: Multimodal Coverage Pack And Decision Gate`:
+  - created `docs/pilot/bablos79_MULTIMODAL_COVERAGE_PACK.md`
+  - created `docs/pilot/MEDIA_MODALITY_DECISION.md`
+  - archived Phase 20 deep review at `docs/archive/PHASE20_REVIEW.md`
+  - updated audit index and phase report latest
+  - decision: iterate internally; no media-backed customer sample yet
+  - validation after phase: 157 pytest pass, 0 skipped; ruff and pyright pass
+  - P0/P1/P2 all 0
 
 ## Remaining Work
 
-- Implement `SAS-MEDIA-001: Media Scope ADR And Legal Addendum`.
+- No implementation task is currently defined.
+- Operator/media action: supply or authorize public `bablos79` media linked to
+  capture/source-document IDs, then run the Phase 20 media pipeline and human
+  review.
 - Human exception review of `docs/pilot/bablos79_REVIEW_QUEUE.md` remains a
   useful parallel product action, but it no longer blocks planning the broader
   architecture.
@@ -333,14 +392,14 @@ Use this file only at a phase boundary, context rollover, or limit recovery.
 - Phase 19 selected deterministic reviewer/export improvements. Do not add
   modality providers, external services, private scraping, broker paths, public
   leaderboard expansion, marketplace expansion, or forward-looking claims.
-- Phase 20 has been added for Telegram media evidence. Start with ADR/legal
-  retention before any media provider code.
+- Phase 20 is complete and archived. Do not start Phase 21 without a new task
+  graph or operator-provided public media evidence.
 
 ## Resume Instruction
 
 Continue this product from `RUNBOOK.md`, `AGENT_NOTES.md`, this
 `PHASE_HANDOFF.md`, `docs/CODEX_PROMPT.md`, and `docs/tasks.md`.
-Do not spawn nested Codex. Continue with `SAS-MEDIA-001` from `docs/tasks.md`.
+Do not spawn nested Codex. No next implementation task is defined.
 Do not write approved ledger records from transcript/OCR output without human
-review. Do not add Telegram voice, Whisper, OCR, image analysis, or any media
-provider code before the ADR/legal addendum task is complete.
+review. Do not create media-backed customer-facing claims until human review
+marks real transcript/OCR evidence usable.

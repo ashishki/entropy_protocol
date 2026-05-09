@@ -1,33 +1,32 @@
-# Strategy Note — Phase 20 Media Evidence
+# STRATEGY_NOTE — Phase 20 Review
+_Date: 2026-05-09 · Reviewing: Phase 20 (SAS-MEDIA-001–SAS-MEDIA-008)_
 
-Date: 2026-05-09
-Recommendation: Proceed
+## Recommendation: Proceed
 
-## Scope
+Proceed with Phase 20 archive and stop before Phase 21 expansion. No Phase 21
+task graph is defined, and the next product action is operator-supplied/reviewed
+public media, not another implementation phase.
 
-Phase 20 may proceed with `SAS-MEDIA-001: Media Scope ADR And Legal Addendum`.
-No media provider code should land before the ADR/legal retention posture is
-accepted.
+## Check Results
 
-## Rationale
+| Check | Verdict | Notes |
+|-------|---------|-------|
+| Phase 0 gate | CLEAR | SAS-001 and SAS-002 remain acknowledged in `docs/CODEX_PROMPT.md`. |
+| Phase coherence | COHERENT | Phase 20 tasks map to Telegram media evidence: legal/ADR gate, media schema, voice acquisition, transcript drafts, image inventory, OCR drafts, source joins, and final decision. |
+| Open findings gate | CLEAR | Fix Queue is empty and review findings are none. |
+| Architectural drift | ALIGNED | ADR-004 and the legal memo authorize media evidence while preserving local-first boundaries. |
+| Solution shape / governance / runtime drift | ALIGNED | Hybrid / Lean / T0 preserved. No service, worker, shell mutation, broker, report publisher, or autonomous collector was added. |
+| ADR compliance | HONOURED | ADR-001..004 remain honoured. ADR-004 specifically keeps raw media local/temporary and transcript/OCR output draft-only. |
+| Capability Profile gate | READY | RAG and Agentic remain ON from ADR-002; Phase 20 does not expand either profile's authority. Tool-Use and Planning remain OFF. |
+| Reproducibility contract integrity | HONOURED | New helpers are deterministic over supplied local inputs. Timestamp fields are caller-provided or artifact metadata only, not deterministic truth outputs. |
 
-The operator confirmed that `bablos79` includes images/screenshots and
-voice/audio that need analysis. Existing `SourceDocument` fields already allow
-media, transcript, and OCR references, but providers and draft-output handling
-are intentionally absent. The next correct move is a scoped media ADR and legal
-addendum, then granular implementation tasks.
+## Findings / Blockers
 
-## Constraints
+None.
 
-- Preserve Hybrid / Lean / T0.
-- Keep RAG context-only and Agentic bounded/internal.
-- Keep Tool-Use and Planning OFF unless a later ADR changes architecture.
-- Keep transcription/OCR outputs as draft evidence only.
-- Do not add private scraping, broker integration, public leaderboard
-  expansion, marketplace behavior, or forward-looking claims.
-- Adapt Dream_Motif_Interpreter's Telegram voice/Whisper pattern only at the
-  lifecycle boundary; do not copy its domain model.
+## Warnings
 
-## Decision
-
-Proceed to `SAS-MEDIA-001`.
+- No real `bablos79` media artifacts, transcript outputs, or OCR outputs exist
+  in the workspace yet, so customer-facing media value is unproven.
+- Do not start Phase 21 until operator-provided public media is supplied and
+  reviewed, or a new task graph is explicitly added.
