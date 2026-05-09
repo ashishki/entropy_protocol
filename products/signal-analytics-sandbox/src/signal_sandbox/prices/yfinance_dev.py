@@ -98,7 +98,7 @@ class _YFinanceClient:
         for timestamp, row in frame.iterrows():
             rows.append(
                 {
-                    "timestamp_utc": timestamp.to_pydatetime().isoformat(),
+                    "timestamp_utc": _timestamp_to_isoformat(timestamp),
                     "open": row["Open"],
                     "high": row["High"],
                     "low": row["Low"],
@@ -107,3 +107,14 @@ class _YFinanceClient:
                 }
             )
         return rows
+
+
+def _timestamp_to_isoformat(value: object) -> str:
+    if isinstance(value, datetime):
+        return value.isoformat()
+    to_pydatetime = getattr(value, "to_pydatetime", None)
+    if callable(to_pydatetime):
+        converted = to_pydatetime()
+        if isinstance(converted, datetime):
+            return converted.isoformat()
+    return str(value)
