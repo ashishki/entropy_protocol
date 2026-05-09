@@ -7,10 +7,10 @@ manual restart.
 
 - Product: entropy-core
 - Branch: codex/entropy-core-work
-- Active task: T43 Holdout Non-Approval Source Regression
+- Active task: T44 Holdout Decision No-Read Dry Run
 - Phase: 10 Holdout Approval Decision Packet
-- Last validation: 2026-05-09 T42: `429 passed, 20 skipped`; ruff check clean; ruff format clean; pyright 0 errors; `git diff --check` clean.
-- Git status summary: T42 holdout approval absence denial changes pending commit at handoff update time.
+- Last validation: 2026-05-09 T43: `432 passed, 20 skipped`; ruff check clean; ruff format clean; pyright 0 errors; `git diff --check` clean.
+- Git status summary: T43 holdout non-approval source regression changes pending commit at handoff update time.
 
 ## Completed In This Phase
 
@@ -59,11 +59,11 @@ manual restart.
 - T40 Holdout Approval Request Packet Scaffold completed with no findings.
 - T41 Holdout Approval Evidence Intake Contract completed with no findings.
 - T42 Holdout Approval Absence Denial Packet completed with no findings.
+- T43 Holdout Non-Approval Source Regression completed with no findings.
 
 ## Remaining Work
 
-- T43 Holdout Non-Approval Source Regression is active.
-- T44 Holdout Decision No-Read Dry Run is pending.
+- T44 Holdout Decision No-Read Dry Run is active.
 - T45 Holdout Approval Decision Review is pending.
 - After T45, run deep review, fix findings, validate, evaluate the roadmap, rewrite future phases/tasks if useful, open the next logical active phase, and continue automatically.
 
@@ -83,6 +83,7 @@ manual restart.
 - T40 created a no-read approval request packet scaffold. No approval event currently exists; holdout read/unlock remain blocked.
 - T41 defined approval evidence intake rejection fixtures. No approval event currently exists; holdout read/unlock remain blocked.
 - T42 recorded deterministic denial for the current no-approval state. No approval event currently exists; holdout read/unlock remain blocked.
+- T43 added regression coverage proving roadmap phases, reviews, tests, readiness artifacts, protocol docs, and generated scaffolds remain non-approval sources. No approval event currently exists; holdout read/unlock remain blocked.
 - Real external side effects, holdout reads, holdout unlocks, live capital actions, live broker/exchange execution, and credentialed production deployment remain blocked; implement local dry-run/sandbox/protocol work instead unless a future local contract explicitly permits otherwise.
 
 ## Resume Instruction

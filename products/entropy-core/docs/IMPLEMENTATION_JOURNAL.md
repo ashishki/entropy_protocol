@@ -21,6 +21,15 @@ This file records handoff context. It is not authority.
 
 ## Entries
 
+### 2026-05-09 - T43 - Holdout Non-Approval Source Regression
+
+- Scope: `tests/reset/test_holdout_non_approval_source_regression.py`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`
+- Why this work happened: prevent roadmap phases, reviews, tests, readiness packets, protocol docs, or generated scaffolds from being treated as approval
+- Decisions applied: `docs/audit/HOLDOUT_ACCESS_PROTOCOL_REVIEW.md`; `docs/approvals/HOLDOUT_APPROVAL_ABSENCE_DENIAL.md`
+- Evidence collected: T43 acceptance tests passed (`3 passed`); full reset baseline `432 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean
+- Follow-ups: start T44 Holdout Decision No-Read Dry Run
+- Notes for next agent: T43 is regression-only and confirms no approval event exists, holdout read/unlock remain blocked, and common artifact classes are non-approval sources.
+
 ### 2026-05-09 - T42 - Holdout Approval Absence Denial
 
 - Scope: `docs/approvals/HOLDOUT_APPROVAL_ABSENCE_DENIAL.md`, `tests/reset/test_holdout_approval_absence_denial.py`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`

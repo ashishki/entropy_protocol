@@ -79,8 +79,8 @@ def test_state_docs_preserve_no_approval_event() -> None:
     assert "intake decision: rejected" in contract
     assert "holdout read: blocked" in contract
     assert "holdout unlock: blocked" in contract
-    assert "current active task is t43 holdout non-approval source regression" in prompt
-    assert "active task: t43 holdout non-approval source regression" in handoff
+    assert "current active task is t44 holdout decision no-read dry run" in prompt
+    assert "active task: t44 holdout decision no-read dry run" in handoff
     assert "t41 holdout approval evidence intake contract completed" in prompt
     assert "no approval event currently exists" in combined
     assert "holdout read/unlock still blocked" in combined

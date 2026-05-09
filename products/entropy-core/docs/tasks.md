@@ -1550,7 +1550,7 @@ Owner:      codex
 Phase:      10
 Type:       none
 Depends-On: T42
-Status:     active
+Status:     done 2026-05-09
 
 Objective: |
   Sweep active Phase 10 approval-decision artifacts to prove roadmap phases, reviews, tests, readiness packets, protocol docs, and generated scaffolds cannot be treated as approval.
@@ -1584,7 +1584,7 @@ Owner:      codex
 Phase:      10
 Type:       none
 Depends-On: T43
-Status:     pending
+Status:     active
 
 Objective: |
   Add a local no-read dry run proving the approval decision packet can assemble protocol and denial evidence without opening holdout data.
