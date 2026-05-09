@@ -21,6 +21,15 @@ This file records handoff context. It is not authority.
 
 ## Entries
 
+### 2026-05-09 - T42 - Holdout Approval Absence Denial
+
+- Scope: `docs/approvals/HOLDOUT_APPROVAL_ABSENCE_DENIAL.md`, `tests/reset/test_holdout_approval_absence_denial.py`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`
+- Why this work happened: record deterministic denial evidence for the current missing-approval state without opening holdout data
+- Decisions applied: `docs/approvals/HOLDOUT_APPROVAL_INTAKE_CONTRACT.md`; `docs/protocols/HOLDOUT_LEAKAGE_GUARD_PROTOCOL.md`
+- Evidence collected: T42 acceptance tests passed (`3 passed`); full reset baseline `429 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean
+- Follow-ups: start T43 Holdout Non-Approval Source Regression
+- Notes for next agent: T42 denies holdout approval because explicit human approval and phase-gate approval are missing, the intake has no accepted event, and the leakage guard remains incomplete. No approval event currently exists.
+
 ### 2026-05-09 - T41 - Holdout Approval Evidence Intake
 
 - Scope: `docs/approvals/HOLDOUT_APPROVAL_INTAKE_CONTRACT.md`, `tests/reset/test_holdout_approval_intake_contract.py`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`

@@ -76,8 +76,8 @@ def test_state_docs_record_no_current_holdout_approval_event() -> None:
     assert "explicit human holdout approval: absent" in schema
     assert "holdout read: blocked" in schema
     assert "holdout unlock: blocked" in schema
-    assert "current active task is t42 holdout approval absence denial packet" in prompt
-    assert "active task: t42 holdout approval absence denial packet" in handoff
+    assert "current active task is t43 holdout non-approval source regression" in prompt
+    assert "active task: t43 holdout non-approval source regression" in handoff
     assert "t36 holdout approval event schema contract completed" in prompt
     assert "t37 holdout access audit logging contract completed" in prompt
     assert "t38 holdout leakage guard protocol fixture completed" in prompt

@@ -7,10 +7,10 @@ manual restart.
 
 - Product: entropy-core
 - Branch: codex/entropy-core-work
-- Active task: T42 Holdout Approval Absence Denial Packet
+- Active task: T43 Holdout Non-Approval Source Regression
 - Phase: 10 Holdout Approval Decision Packet
-- Last validation: 2026-05-09 T41: `426 passed, 20 skipped`; ruff check clean; ruff format clean; pyright 0 errors; `git diff --check` clean.
-- Git status summary: T41 holdout approval evidence intake changes pending commit at handoff update time.
+- Last validation: 2026-05-09 T42: `429 passed, 20 skipped`; ruff check clean; ruff format clean; pyright 0 errors; `git diff --check` clean.
+- Git status summary: T42 holdout approval absence denial changes pending commit at handoff update time.
 
 ## Completed In This Phase
 
@@ -58,11 +58,11 @@ manual restart.
 - T39 Holdout Access Protocol Review completed with no findings.
 - T40 Holdout Approval Request Packet Scaffold completed with no findings.
 - T41 Holdout Approval Evidence Intake Contract completed with no findings.
+- T42 Holdout Approval Absence Denial Packet completed with no findings.
 
 ## Remaining Work
 
-- T42 Holdout Approval Absence Denial Packet is active.
-- T43 Holdout Non-Approval Source Regression is pending.
+- T43 Holdout Non-Approval Source Regression is active.
 - T44 Holdout Decision No-Read Dry Run is pending.
 - T45 Holdout Approval Decision Review is pending.
 - After T45, run deep review, fix findings, validate, evaluate the roadmap, rewrite future phases/tasks if useful, open the next logical active phase, and continue automatically.
@@ -82,6 +82,7 @@ manual restart.
 - T39 closed Phase 9 and rewrote Phase 10 into no-read approval decision work. No approval event currently exists; holdout read/unlock remain blocked.
 - T40 created a no-read approval request packet scaffold. No approval event currently exists; holdout read/unlock remain blocked.
 - T41 defined approval evidence intake rejection fixtures. No approval event currently exists; holdout read/unlock remain blocked.
+- T42 recorded deterministic denial for the current no-approval state. No approval event currently exists; holdout read/unlock remain blocked.
 - Real external side effects, holdout reads, holdout unlocks, live capital actions, live broker/exchange execution, and credentialed production deployment remain blocked; implement local dry-run/sandbox/protocol work instead unless a future local contract explicitly permits otherwise.
 
 ## Resume Instruction

@@ -73,7 +73,7 @@ def test_future_phases_are_not_approvals() -> None:
     assert "phase: 10" in prompt
     assert "phase: 10 holdout approval decision packet" in handoff
     assert "protocol-only holdout access design" in handoff
-    assert "active task: t42 holdout approval absence denial packet" in handoff
+    assert "active task: t43 holdout non-approval source regression" in handoff
     assert "t40 holdout approval request packet scaffold completed" in prompt
     assert "t41 holdout approval evidence intake contract completed" in prompt
     assert "t35 holdout access protocol deny-by-default contract completed" in prompt

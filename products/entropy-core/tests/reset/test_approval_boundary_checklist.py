@@ -84,8 +84,8 @@ def test_prompt_and_handoff_match_boundary_checklist() -> None:
     ):
         assert boundary in checklist
         assert boundary in combined
-    assert "current active task is t42 holdout approval absence denial packet" in prompt
-    assert "active task: t42 holdout approval absence denial packet" in handoff
+    assert "current active task is t43 holdout non-approval source regression" in prompt
+    assert "active task: t43 holdout non-approval source regression" in handoff
     assert "t40 holdout approval request packet scaffold completed" in prompt
     assert "t41 holdout approval evidence intake contract completed" in prompt
     assert "t39 holdout access protocol review completed" in prompt

@@ -1517,7 +1517,7 @@ Owner:      codex
 Phase:      10
 Type:       none
 Depends-On: T41
-Status:     active
+Status:     done 2026-05-09
 
 Objective: |
   Record a deterministic denial packet for the current no-approval state without opening or reading holdout data.
@@ -1550,7 +1550,7 @@ Owner:      codex
 Phase:      10
 Type:       none
 Depends-On: T42
-Status:     pending
+Status:     active
 
 Objective: |
   Sweep active Phase 10 approval-decision artifacts to prove roadmap phases, reviews, tests, readiness packets, protocol docs, and generated scaffolds cannot be treated as approval.
