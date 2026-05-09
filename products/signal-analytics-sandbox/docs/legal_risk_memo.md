@@ -51,6 +51,49 @@ Screenshot and OCR capture are deferred in v1. They may be reconsidered only if
 the paid Telegram pilot proves that text-only capture is the bottleneck and a
 follow-up memo explicitly authorizes screenshot/OCR handling.
 
+## Media Evidence
+
+Status: authorized for Phase 20 under `docs/adr/ADR-004-media-evidence-pipeline.md`.
+
+Allowed media capture is limited to:
+
+- voice/audio/image media attached to approved public Telegram sources;
+- operator-forwarded Telegram media when the operator records that the media
+  came from an approved public source and preserves source/capture linkage;
+- local operator-supplied media files linked to an approved `SourceManifest`,
+  capture ID, and source-document ID.
+
+Forbidden media capture includes:
+
+- private Telegram groups or channels;
+- login-walled, paywalled, authenticated, or access-controlled media;
+- media obtained through impersonation, credential sharing, bypassing platform
+  controls, or private scraping;
+- autonomous channel monitoring or background collection bots;
+- media that cannot be linked to an approved public source/capture/document.
+
+Raw media retention:
+
+- raw audio/image files are temporary operational data stored only in the local
+  operator workspace;
+- successful transcription/OCR should delete raw operational copies after
+  checksum and draft artifact creation unless the operator explicitly retains a
+  local evidence snapshot;
+- retained raw media follows the raw-capture retention limit: pilot duration
+  plus up to 90 days;
+- metadata, hashes, source linkage, draft transcript/OCR refs, review status,
+  and deletion timestamps may be retained for auditability.
+
+Deletion is triggered by operator request, pilot cancellation, source
+eligibility changing to blocked, discovery that the media came from a forbidden
+source class, orphaned temporary files surviving beyond the cleanup window, or
+retention expiry.
+
+Transcript and OCR output is review-required draft evidence only. It cannot
+write approved ledger rows, approve `MarketIdea` rows, compute deterministic
+metrics, create report claims, or appear in customer-facing samples until human
+review marks the evidence usable.
+
 ## Per-Pilot Verdicts
 
 | Pilot source | Source of interest | Verdict | Rationale |
