@@ -31,6 +31,34 @@ The product portfolio is split into three separated workspaces:
 3. `products/signal-analytics-sandbox/` - separate validation sandbox for
    public signal-source analytics.
 
+## Artifact-First Validation Overlay
+
+Date: 2026-05-11
+
+The operator clarified that warm demand/pre-order interest already exists for
+research/report artifacts. Therefore the immediate blocker is no longer generic
+market-demand discovery. The immediate blocker is proving, on real
+operator-approved data or public sources, that generated artifacts are correct,
+readable, traceable, and safe to show.
+
+Active overlay:
+
+- `docs/ARTIFACT_FIRST_VALIDATION_ROADMAP.md`
+
+Near-term priority:
+
+1. Produce real-data artifacts for Trader Risk Audit.
+2. Produce a real public-source artifact for Signal Analytics Sandbox.
+3. Use Entropy Core only as an internal artifact validity and reproducibility
+   foundation.
+4. Manually validate reports before external delivery.
+5. Package internal demo/report packs for warm pilot conversations.
+
+This overlay does not approve public SaaS, live trading, exchange control,
+private scraping, marketplace scope, or unsupported performance/advice claims.
+The payment and retention gates below remain useful, but the next operational
+gate is artifact validity.
+
 ## Product Segments
 
 | Segment | Role | Status | Primary user | Relationship to core |
@@ -109,8 +137,12 @@ Deferred ICPs:
 
 ## Validation Gates
 
-No product engineering beyond lightweight documentation and repetitive
-concierge automation should start until the validation gate is passed.
+The original validation gates remain the commercial conversion gates. After the
+2026-05-11 operator update, real artifact validation may proceed before these
+gates are fully satisfied because warm demand/pre-order interest already exists.
+Do not interpret this as approval for broad product expansion: only work needed
+to produce, validate, and package real reports is in scope before payment and
+retention evidence.
 
 | Gate | Threshold | Decision if false |
 |---|---|---|

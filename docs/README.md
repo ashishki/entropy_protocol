@@ -1,7 +1,7 @@
 # Entropy Protocol
 
 **Status:** Product portfolio root
-**Last updated:** 2026-05-07
+**Last updated:** 2026-05-11
 
 Entropy Protocol is being developed as a product portfolio around governed
 trading research, audit discipline, and trader workflow validation.
@@ -23,17 +23,24 @@ environment contracts live inside their own workspaces under `products/`.
 Read these first:
 
 1. `docs/PRODUCT_PORTFOLIO.md`
-2. `docs/AI_DEVELOPMENT_OPERATING_MODEL.md`
-3. `products/README.md`
-4. Target workspace `README.md`
-5. Target workspace `docs/CODEX_PROMPT.md`
-6. Target workspace `docs/tasks.md`
+2. `docs/ARTIFACT_FIRST_VALIDATION_ROADMAP.md`
+3. `docs/AI_DEVELOPMENT_OPERATING_MODEL.md`
+4. `products/README.md`
+5. Target workspace `README.md`
+6. Target workspace `docs/CODEX_PROMPT.md`
+7. Target workspace artifact roadmap when present
+8. Target workspace `docs/tasks.md`
 
 ## Current Priority
 
-Validate Trader Risk Audit before building more core infrastructure:
+Run artifact-first validation before broader product expansion:
 
-> 3 paid audit reports from 10 qualified prospects within 14 days.
+> Produce real-data/report artifacts for Trader Risk Audit and Signal Analytics
+> Sandbox, manually validate them, package internal demo packs, then show the
+> strongest artifact to warm prospects.
+
+Payment and retention gates still matter, but the next operational blocker is
+artifact correctness, readability, traceability, and claim safety.
 
 ## Boundaries
 
