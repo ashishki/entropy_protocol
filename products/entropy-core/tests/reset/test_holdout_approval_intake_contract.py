@@ -79,8 +79,8 @@ def test_state_docs_preserve_no_approval_event() -> None:
     assert "intake decision: rejected" in contract
     assert "holdout read: blocked" in contract
     assert "holdout unlock: blocked" in contract
-    assert "current active task is t66 local replay evidence delta decision" in prompt
-    assert "active task: t66 local replay evidence delta decision" in handoff
+    assert "current active task is t69 shared artifact contract freeze" in prompt
+    assert "active task: t69 shared artifact contract freeze" in handoff
     assert "t41 holdout approval evidence intake contract completed" in prompt
     assert "no approval event currently exists" in combined
     assert "holdout read/unlock still blocked" in combined

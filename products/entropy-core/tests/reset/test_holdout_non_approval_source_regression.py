@@ -74,8 +74,8 @@ def test_state_docs_record_no_current_approval_event() -> None:
     combined = f"{prompt}\n{handoff}"
 
     assert "no approval event currently exists" in combined
-    assert "current active task is t66 local replay evidence delta decision" in prompt
-    assert "active task: t66 local replay evidence delta decision" in handoff
+    assert "current active task is t69 shared artifact contract freeze" in prompt
+    assert "active task: t69 shared artifact contract freeze" in handoff
     assert "current holdout approval event: present" not in combined
     assert "explicit human holdout approval: present" not in combined
 

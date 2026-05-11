@@ -49,10 +49,10 @@ def test_state_docs_record_phase10_no_read_decision_work() -> None:
     handoff = PHASE_HANDOFF.read_text(encoding="utf-8").lower()
     combined = f"{prompt}\n{handoff}"
 
-    assert "phase: 14" in prompt
+    assert "phase: 15" in prompt
     assert "phase 11 live-feed dry run readiness" in combined
-    assert "current active task is t66 local replay evidence delta decision" in prompt
-    assert "active task: t66 local replay evidence delta decision" in handoff
+    assert "current active task is t69 shared artifact contract freeze" in prompt
+    assert "active task: t69 shared artifact contract freeze" in handoff
     assert "t41 holdout approval evidence intake contract completed" in prompt
     assert "t40 holdout approval request packet scaffold completed" in prompt
     assert "no approval event currently exists" in combined
