@@ -1,7 +1,7 @@
 # Tasks — Signal Analytics Sandbox
 
-Version: 1.0
-Last updated: 2026-05-09
+Version: 1.1
+Last updated: 2026-05-11
 
 This task graph is the implementation contract. Acceptance criteria are testable; vague phrases are forbidden (see `templates/tasks_schema.md` §Acceptance Criteria Rules).
 
@@ -29,6 +29,7 @@ Phases:
 - **Phase 18** — Author Market Report V0.
 - **Phase 19** — Channel-specific modalities and tools.
 - **Phase 20** — Telegram media evidence: voice and image/OCR drafts.
+- **Phase 21** — Artifact-first real public-source report validation.
 
 ---
 
@@ -2478,3 +2479,316 @@ Files:
 Notes: |
   Customer-facing report use remains blocked unless the decision records
   reviewed evidence coverage and human approval.
+
+---
+
+## Phase 21 — Artifact-First Real Public-Source Report Validation
+
+Phase 21 is the active artifact-first task graph opened after the 2026-05-11
+operator decision. Warm demand/pre-order interest is assumed. The phase goal is
+to produce one real public-source report artifact, manually validate the
+evidence, and decide whether Signal Analytics Sandbox is ready for controlled
+external pilot conversations.
+
+Phase boundary:
+
+- Phase 20 media tooling remains internal-only until real operator-authorized
+  media exists and human review marks transcript/OCR evidence usable.
+- Do not add marketplace, leaderboard, paid X/Twitter dependency, private
+  scraping, or customer-facing media-backed claims in Phase 21.
+- If no source/channel is selected, stop at SAS-AF-001 with a clear
+  operator-input blocker.
+
+### SAS-AF-001: Channel And Report Scope Lock
+
+Owner:      operator + codex
+Phase:      21
+Type:       validation
+Depends-On: SAS-MEDIA-008
+Status:     pending
+
+Objective: |
+  Define the first real Signal report before adding more automation: source,
+  period, capture method, report type, language, outcome horizon, legal/public
+  boundary, and allowed claim types.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "A scope note records source URL, period, public-only status, capture method, report type, language, and whether media is in scope."
+    test: "manual-evidence: scope note exists."
+  - id: AC-2
+    description: "The scope note defines allowed claim types and explicitly blocks advice, future-profit, private-source, and unreviewed-media claims."
+    test: "manual-evidence: claim boundary section exists."
+  - id: AC-3
+    description: "The note states whether existing bablos79 captures are sufficient or a fresh capture is required."
+    test: "manual-evidence: source selection decision exists."
+
+Files:
+  - docs/ARTIFACT_VALIDATION_ROADMAP.md
+  - docs/CODEX_PROMPT.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Context-Refs:
+  - docs/ARTIFACT_VALIDATION_ROADMAP.md#3-phase-sas-af-0---channel-and-report-scope-lock
+  - ../../docs/ARTIFACT_FIRST_VALIDATION_ROADMAP.md#phase-0---scope-lock-and-evidence-rules
+  - docs/legal_risk_memo.md
+
+Notes: |
+  This task may be blocked on operator source selection. Do not substitute a new
+  source without human approval.
+
+### SAS-AF-002: Public Capture Pack
+
+Owner:      codex
+Phase:      21
+Type:       validation
+Depends-On: SAS-AF-001
+Status:     pending
+
+Objective: |
+  Build or register a traceable public-source capture pack for the selected
+  source and period, including manifests, source refs, capture logs, and media
+  inventory where applicable.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Every report-eligible source item has source URL/ref, timestamp, source label, capture method, and provenance metadata."
+    test: "manual-evidence or existing capture/source corpus tests."
+  - id: AC-2
+    description: "Capture manifest or source corpus preview is inspectable by the operator outside code."
+    test: "manual-evidence: capture pack review."
+  - id: AC-3
+    description: "Missing captures, incomplete media, or capture limitations are recorded before extraction/reporting."
+    test: "manual-evidence: limitations note exists."
+
+Files:
+  - src/signal_sandbox/capture/
+  - src/signal_sandbox/sources/
+  - docs/ARTIFACT_VALIDATION_ROADMAP.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Context-Refs:
+  - docs/ARTIFACT_VALIDATION_ROADMAP.md#4-phase-sas-af-1---public-capture-pack
+  - docs/specs/SOURCE_CORPUS.md
+  - docs/specs/MEDIA_ARTIFACTS.md
+
+Notes: |
+  Public-only posture is mandatory. If legal/terms coverage is unclear, block
+  and update the legal/risk memo before capture expansion.
+
+### SAS-AF-003: Human Review Queue Closure
+
+Owner:      operator + codex
+Phase:      21
+Type:       validation
+Depends-On: SAS-AF-002
+Status:     pending
+
+Objective: |
+  Convert draft extraction into reviewed evidence by closing the review queue
+  for the selected source: approved, ambiguous, not market-related,
+  insufficient evidence, duplicate, or needs media review.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Reviewed export separates approved rows from ambiguous, rejected, duplicate, and media-needed rows."
+    test: "manual-evidence: reviewed export exists."
+  - id: AC-2
+    description: "Customer-facing findings are based only on reviewed/approved rows; draft rows remain labeled draft."
+    test: "manual-evidence: report-input review."
+  - id: AC-3
+    description: "Each approved row has source refs and enough evidence for the selected report type."
+    test: "manual-evidence: row sample review."
+
+Files:
+  - src/signal_sandbox/extraction/
+  - src/signal_sandbox/reports/
+  - docs/ARTIFACT_VALIDATION_ROADMAP.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Context-Refs:
+  - docs/ARTIFACT_VALIDATION_ROADMAP.md#5-phase-sas-af-2---human-review-queue-closure
+  - docs/pilot/AUTHOR_MARKET_INTELLIGENCE_ROADMAP.md
+
+Notes: |
+  Do not let an LLM silently decide truth. Human review remains part of the
+  product promise for this phase.
+
+### SAS-AF-004: Market Data Snapshot And Outcome Prep
+
+Owner:      codex
+Phase:      21
+Type:       validation
+Depends-On: SAS-AF-003
+Status:     pending
+
+Objective: |
+  Prepare outcome analysis only for reviewed rows with enough evidence:
+  asset mapping, timestamp alignment, local market-data snapshot, horizons,
+  and unresolved outcome register.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Approved rows with measurable outcomes have asset mapping, event timestamp, direction/thesis where applicable, and horizon definition."
+    test: "manual-evidence or existing outcome tests."
+  - id: AC-2
+    description: "Rows lacking asset, price, direction, or timestamp certainty are moved to an unresolved outcome register."
+    test: "manual-evidence: unresolved register exists."
+  - id: AC-3
+    description: "Outcome language separates measured historical outcome from author behavior and does not imply future performance."
+    test: "manual-evidence: claim-safety review."
+
+Files:
+  - src/signal_sandbox/prices/
+  - src/signal_sandbox/outcomes/
+  - docs/ARTIFACT_VALIDATION_ROADMAP.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Context-Refs:
+  - docs/ARTIFACT_VALIDATION_ROADMAP.md#6-phase-sas-af-3---market-data-snapshot-and-outcome-prep
+
+Notes: |
+  Missing market data is a limitation, not a reason to invent metrics.
+
+### SAS-AF-005: First Real Source Report V1
+
+Owner:      codex
+Phase:      21
+Type:       validation
+Depends-On: SAS-AF-004
+Status:     pending
+
+Objective: |
+  Generate the first complete real public-source report artifact from reviewed
+  evidence, source coverage, outcome summaries where supported, limitations,
+  and no-advice/no-future-performance boundaries.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Report includes executive summary, source/period, corpus coverage, reviewed row counts, strongest findings, ambiguous/insufficient evidence counts, supported outcome metrics, limitations, and evidence appendix."
+    test: "manual-evidence: report review."
+  - id: AC-2
+    description: "Every material claim links to reviewed evidence or is explicitly marked as a limitation."
+    test: "manual-evidence: evidence trace review."
+  - id: AC-3
+    description: "Unreviewed media, transcript, OCR, or draft extraction output does not appear as customer-facing proof."
+    test: "manual-evidence: media/draft boundary review."
+
+Files:
+  - src/signal_sandbox/reports/
+  - docs/ARTIFACT_VALIDATION_ROADMAP.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Context-Refs:
+  - docs/ARTIFACT_VALIDATION_ROADMAP.md#7-phase-sas-af-4---first-real-source-report-v1
+
+Notes: |
+  If the selected source cannot support a meaningful report, produce a reject
+  decision rather than a weak report.
+
+### SAS-AF-006: Manual Validity Review
+
+Owner:      operator + codex
+Phase:      21
+Type:       validation
+Depends-On: SAS-AF-005
+Status:     pending
+
+Objective: |
+  Manually verify sampled included, ambiguous, excluded, and strongest-finding
+  rows before external delivery.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Manual review samples included rows, ambiguous rows, excluded rows, strongest findings, and all media-backed rows if media is used."
+    test: "manual-evidence: validity notes list reviewed rows."
+  - id: AC-2
+    description: "Review checks source URL, timestamp/timezone, asset mapping, direction/thesis, outcome window, metric horizon, and report wording."
+    test: "manual-evidence: checklist completed."
+  - id: AC-3
+    description: "Error register blocks external delivery for unresolved P0/P1 evidence or claim-safety issues."
+    test: "manual-evidence: error register exists."
+
+Files:
+  - docs/ARTIFACT_VALIDATION_ROADMAP.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+  - docs/audit/
+
+Context-Refs:
+  - docs/ARTIFACT_VALIDATION_ROADMAP.md#8-phase-sas-af-5---manual-validity-review
+
+Notes: |
+  Ambiguous content should stay ambiguous. Do not force a confident finding for
+  presentation quality.
+
+### SAS-AF-007: Report Polish And Internal Demo Pack
+
+Owner:      codex
+Phase:      21
+Type:       docs
+Depends-On: SAS-AF-006
+Status:     pending
+
+Objective: |
+  Package the validated source report as an internal demo/research product pack
+  for warm conversations.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Demo pack contains report, source manifest, reviewed extraction sample, outcome summary if valid, validation summary, limitations, talk track, and safe excerpts."
+    test: "manual-evidence: demo pack review."
+  - id: AC-2
+    description: "The first page makes the buyer use case clear without implying advice, ranking marketplace, or future profitability."
+    test: "manual-evidence: operator readability review."
+  - id: AC-3
+    description: "External-safe excerpts do not expose data outside public-source/legal boundaries."
+    test: "manual-evidence: privacy/legal review."
+
+Files:
+  - docs/ARTIFACT_VALIDATION_ROADMAP.md
+  - docs/pilot/
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Context-Refs:
+  - docs/ARTIFACT_VALIDATION_ROADMAP.md#9-phase-sas-af-6---report-polish-and-internal-demo-pack
+
+Notes: |
+  This task packages a report product, not a source leaderboard or SaaS.
+
+### SAS-AF-008: External Pilot Ready Gate
+
+Owner:      operator + codex
+Phase:      21
+Type:       review
+Depends-On: SAS-AF-007
+Status:     pending
+
+Objective: |
+  Decide whether the Signal report artifact is ready for controlled external
+  pilot use and record the paid research/report package scope.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Ready-gate review states ready / needs fixes / reject source and cites evidence quality, legal boundary, unresolved findings, and claim safety."
+    test: "manual-evidence: ready-gate review exists."
+  - id: AC-2
+    description: "Paid pilot package records source input, deliverables, turnaround, pricing hypothesis, and feedback questions."
+    test: "manual-evidence: paid pilot package section exists."
+  - id: AC-3
+    description: "CODEX prompt, README, implementation journal, and audit index reflect the Phase 21 decision and next task."
+    test: "manual/docs-review."
+
+Files:
+  - docs/archive/PHASE21_REVIEW.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/CODEX_PROMPT.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+  - README.md
+
+Context-Refs:
+  - docs/ARTIFACT_VALIDATION_ROADMAP.md#10-phase-sas-af-7---controlled-external-pilot-ready-gate
+  - docs/prompts/ORCHESTRATOR.md
+
+Notes: |
+  This is the gate for showing a bounded source research artifact to warm
+  prospects. It does not approve marketplace, leaderboard, or automated advice.
