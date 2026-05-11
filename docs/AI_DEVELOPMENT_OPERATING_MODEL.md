@@ -123,10 +123,31 @@ Before an AI development session for a product workspace:
 
 1. Read root `docs/README.md`.
 2. Read root `docs/PRODUCT_PORTFOLIO.md`.
-3. Read the target workspace `README.md`.
-4. Read the target workspace `docs/CODEX_PROMPT.md`.
-5. Read the target workspace `docs/tasks.md`.
-6. Confirm the task does not violate product boundaries.
+3. Read root `docs/ARTIFACT_FIRST_VALIDATION_ROADMAP.md` when the task touches
+   real-data reports, pilot artifacts, or product prioritization.
+4. Read the target workspace `README.md`.
+5. Read the target workspace `docs/CODEX_PROMPT.md`.
+6. Read the target workspace artifact roadmap when present:
+   - `products/trader-risk-audit/docs/ARTIFACT_VALIDATION_ROADMAP.md`
+   - `products/signal-analytics-sandbox/docs/ARTIFACT_VALIDATION_ROADMAP.md`
+   - `products/entropy-core/docs/ARTIFACT_SUPPORT_ROADMAP.md`
+7. Read the target workspace `docs/tasks.md`.
+8. Confirm the task does not violate product boundaries.
+
+## Context Budget Rule
+
+Product `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`, and
+`README.md` are active-context files. Keep them compact:
+
+- current state;
+- next task;
+- active guardrails;
+- links to canonical detail.
+
+Do not append long task-by-task logs, deep-review transcripts, or historical
+implementation detail to active-context files. Put detailed history in
+`docs/IMPLEMENTATION_JOURNAL.md`, `docs/EVIDENCE_INDEX.md`, `docs/archive/`,
+or `docs/tasks.md` depending on the artifact type.
 
 For implementation work touching `products/entropy-core/src/entropy/` or
 Entropy Core docs, also read

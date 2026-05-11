@@ -12,10 +12,12 @@ portfolio documents.
 Read first:
 
 1. `docs/PRODUCT_PORTFOLIO.md`
-2. `docs/AI_DEVELOPMENT_OPERATING_MODEL.md`
-3. The target workspace `README.md`
-4. The target workspace `docs/CODEX_PROMPT.md`
-5. The target workspace `docs/tasks.md`
+2. `docs/ARTIFACT_FIRST_VALIDATION_ROADMAP.md`
+3. `docs/AI_DEVELOPMENT_OPERATING_MODEL.md`
+4. The target workspace `README.md`
+5. The target workspace `docs/CODEX_PROMPT.md`
+6. The target workspace artifact roadmap when present
+7. The target workspace `docs/tasks.md`
 
 Product workspace docs are subordinate to Entropy Core canonical protocol
 documents where core protocol behavior is involved.
