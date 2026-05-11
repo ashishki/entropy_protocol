@@ -46,13 +46,14 @@ def test_replay_result_records_deterministic_local_evidence_delta() -> None:
     assert "product hypothesis confirmation status: not_confirmed" in text
 
 
-def test_state_docs_open_phase14_after_operator_approval() -> None:
+def test_state_docs_record_replay_result_and_artifact_support_override() -> None:
     prompt = CODEX_PROMPT.read_text()
     handoff = PHASE_HANDOFF.read_text()
 
-    assert "Phase: 14" in prompt
-    assert "Name: Local Broker Sandbox No-Capital Replay Extension" in prompt
-    assert "Active task: T66 Local Replay Evidence Delta Decision" in handoff
+    assert "Phase: 15" in prompt
+    assert "Name: Artifact Support Mode" in prompt
+    assert "Active task: T69 Shared Artifact Contract Freeze" in handoff
+    assert "T66-T68 remain pending but deferred" in prompt
     assert "T63 Local Broker Sandbox Replay Approval Event completed" in prompt
     assert "T64 Broker Sandbox No-Capital Replay Primitive completed" in prompt
     assert "T65 Broker Sandbox Replay Evidence Packet completed" in prompt

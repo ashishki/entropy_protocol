@@ -1,8 +1,8 @@
 # Task Graph - Entropy Core
 
-Version: 1.0
-Last updated: 2026-05-09
-Status: active roadmap task graph
+Version: 1.1
+Last updated: 2026-05-11
+Status: Phase 15 active - artifact support mode. Phase 14 replay tasks T66-T68 remain pending but deferred unless explicitly reactivated by a human decision.
 
 ---
 
@@ -24,6 +24,7 @@ Status: active roadmap task graph
 | 12 | Broker Sandbox and Execution Risk Audit | T51-T56 | Sandbox-only broker/exchange integration, execution risk controls, and kill-switch audit. | Sandbox execution is isolated; live capital remains blocked; risk controls and audit logs are mandatory. |
 | 13 | Product Hypothesis Confirmation Decision | T57-T62 | Local-only approval decision work for defining the safest next validation step toward product hypothesis confirmation. | No production, capital, live order, broker/exchange execution, production credential, or holdout access path opens without explicit future human approval and a bounded task contract. |
 | 14 | Local Broker Sandbox No-Capital Replay Extension | T63-T68 | Execute the approved local/no-effect replay extension against deterministic SimBroker fixture scenarios and record evidence deltas. | Replay evidence is hash-bound, deterministic, no-effect, and cannot be interpreted as production, capital-ready, live, holdout, or OOS/performance confirmation. |
+| 15 | Artifact Support Mode | T69-T74 | Define shared artifact contracts, report validity checklist, reproducibility checklist, product bridge notes, internal review templates, and Core freeze/platformization gate. | Core improves Trader/Signal artifact trust without becoming the public product or opening live, holdout, OOS, SDK, hosted service, or execution scope. |
 
 ## Roadmap Governance
 
@@ -36,6 +37,18 @@ Phase boundaries are autonomous rollover points, not stop points. After every ac
 - keep real external side effects, live capital actions, live broker/exchange execution, and credentialed production deployment blocked unless a future local protocol explicitly replaces them with safe dry-run/sandbox behavior;
 - either keep the next planned phase, modify future planned phases, or open a better next active phase;
 - update `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`, and the evidence/audit indexes when applicable.
+
+## Artifact Support Priority Override
+
+As of 2026-05-11, the operator confirmed the next portfolio need is real
+artifact validation for Trader Risk Audit and Signal Analytics Sandbox. Core's
+active role is now internal support for artifact validity, reproducibility, and
+claim safety.
+
+T66-T68 remain in the graph for the old local replay extension but are deferred.
+Do not continue replay, live, broker/exchange, holdout, OOS, public SDK, hosted
+service, or generic platform work unless a later explicit human decision
+reactivates that path. The current active Core task is T69.
 
 ## T01: Existing Project Baseline Skeleton
 
@@ -2307,7 +2320,7 @@ Owner:      codex
 Phase:      14
 Type:       none
 Depends-On: T65
-Status:     pending
+Status:     deferred 2026-05-11 artifact-support override
 
 Objective: |
   Decide how the local no-effect replay evidence changes the product hypothesis confirmation posture without creating production, capital-ready, holdout, or OOS/performance claims.
@@ -2339,7 +2352,7 @@ Owner:      codex
 Phase:      14
 Type:       none
 Depends-On: T66
-Status:     pending
+Status:     deferred 2026-05-11 artifact-support override
 
 Objective: |
   Add regression coverage proving replay approval, replay results, and local evidence deltas are not approval sources for restricted execution or product claims.
@@ -2372,7 +2385,7 @@ Owner:      codex
 Phase:      14
 Type:       none
 Depends-On: T67
-Status:     pending
+Status:     deferred 2026-05-11 artifact-support override
 
 Objective: |
   Review Phase 14 local broker sandbox no-capital replay extension artifacts and decide the next safe human decision or local validation phase.
@@ -2399,3 +2412,223 @@ Context-Refs:
 
 Notes: |
   Review only. Keep all restricted execution and claim surfaces blocked.
+
+## T69: Shared Artifact Contract Freeze
+
+Owner:      codex
+Phase:      15
+Type:       docs
+Depends-On: none
+Status:     pending
+
+Objective: |
+  Define the minimal shared artifact contract that Trader Risk Audit and Signal
+  Analytics Sandbox can attach to real reports without forcing product-specific
+  logic into Core.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "A shared artifact contract doc defines required fields: product, run id, input refs/hashes where safe, policy/config hash, code version/ref, generated artifact refs, limitations, no-claim boundary, manual validation status, error register ref, and external-delivery approval status."
+    test: "manual-evidence: shared artifact contract doc exists."
+  - id: AC-2
+    description: "Contract includes product adoption notes for Trader and Signal, including optional/limited fields for public-source capture reproducibility."
+    test: "manual-evidence: product adoption sections exist."
+  - id: AC-3
+    description: "Contract explicitly says Core must not own product-specific report logic."
+    test: "manual-evidence: boundary section exists."
+
+Files:
+  - docs/ARTIFACT_SUPPORT_ROADMAP.md
+  - docs/core/ARTIFACT_CONTRACT.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+  - docs/EVIDENCE_INDEX.md
+
+Context-Refs:
+  - docs/ARTIFACT_SUPPORT_ROADMAP.md#3-phase-ec-af-0---shared-artifact-contract-freeze
+  - ../../docs/ARTIFACT_FIRST_VALIDATION_ROADMAP.md#phase-1---real-data-intake
+
+Notes: |
+  Prefer docs first. Add code only if a product artifact cannot adopt the
+  contract without a reusable primitive.
+
+## T70: Report Validity Checklist
+
+Owner:      codex
+Phase:      15
+Type:       docs
+Depends-On: T69
+Status:     pending
+
+Objective: |
+  Create the shared checklist used before a Trader or Signal report can move
+  from internal artifact to external pilot artifact.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Checklist covers input provenance, deterministic processing, evidence/source traceability, manual validation, claim safety, limitations, privacy/redaction, reproducibility notes, and delivery approval."
+    test: "manual-evidence: checklist doc exists."
+  - id: AC-2
+    description: "Checklist defines P0/P1/P2/P3 severity and stop-ship rules for report artifacts."
+    test: "manual-evidence: severity section exists."
+  - id: AC-3
+    description: "Checklist distinguishes internal demo readiness from external pilot readiness."
+    test: "manual-evidence: decision states exist."
+
+Files:
+  - docs/core/REPORT_VALIDITY_CHECKLIST.md
+  - docs/ARTIFACT_SUPPORT_ROADMAP.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Context-Refs:
+  - docs/ARTIFACT_SUPPORT_ROADMAP.md#4-phase-ec-af-1---report-validity-checklist
+
+Notes: |
+  The checklist should be usable by future agents without reading Core source.
+
+## T71: Reproducibility Checklist
+
+Owner:      codex
+Phase:      15
+Type:       docs
+Depends-On: T70
+Status:     pending
+
+Objective: |
+  Define how product agents rerun the same inputs, compare deterministic
+  outputs, and document accepted nondeterminism for reports.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Checklist defines rerun steps, output hash comparison, and accepted nondeterminism such as timestamps, local paths, external source availability, and manual review timestamps."
+    test: "manual-evidence: reproducibility checklist exists."
+  - id: AC-2
+    description: "Trader guidance states how to confirm the same real audit inputs produce the same material findings."
+    test: "manual-evidence: Trader section exists."
+  - id: AC-3
+    description: "Signal guidance states which public-source/report elements are reproducible and which depend on source availability or manual review."
+    test: "manual-evidence: Signal section exists."
+
+Files:
+  - docs/core/REPRODUCIBILITY_CHECKLIST.md
+  - docs/ARTIFACT_SUPPORT_ROADMAP.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Context-Refs:
+  - docs/ARTIFACT_SUPPORT_ROADMAP.md#5-phase-ec-af-2---reproducibility-runner-or-checklist
+
+Notes: |
+  Do not build a heavy runner unless a product report proves the checklist is
+  insufficient.
+
+## T72: Product Bridge Support Notes
+
+Owner:      codex
+Phase:      15
+Type:       docs
+Depends-On: T71
+Status:     pending
+
+Objective: |
+  Document narrow Core support boundaries for Trader and Signal artifact
+  validation so each product keeps its own product-specific reporting logic.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Trader bridge notes cover violation record shape, policy/config hash, manifest conventions, report no-claim boundary, and manual validation status."
+    test: "manual-evidence: Trader bridge section exists."
+  - id: AC-2
+    description: "Signal bridge notes cover source/evidence refs, reviewed/draft status language, ambiguity/insufficient-evidence status, and no-advice/no-future-performance boundary."
+    test: "manual-evidence: Signal bridge section exists."
+  - id: AC-3
+    description: "Notes explicitly forbid Core-driven rewrites of Trader or Signal during artifact validation."
+    test: "manual-evidence: ownership boundary exists."
+
+Files:
+  - docs/core/PRODUCT_ARTIFACT_BRIDGES.md
+  - docs/ARTIFACT_SUPPORT_ROADMAP.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Context-Refs:
+  - docs/ARTIFACT_SUPPORT_ROADMAP.md#6-phase-ec-af-3---product-bridge-support
+  - tests/integration/test_trader_risk_bridge_contract.py
+
+Notes: |
+  Add tests only if a bridge becomes code, not for docs-only support notes.
+
+## T73: Internal Review Packet Templates
+
+Owner:      codex
+Phase:      15
+Type:       docs
+Depends-On: T72
+Status:     pending
+
+Objective: |
+  Provide small shared templates for manual validation and external-delivery
+  decisions used by both product workspaces.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Templates cover real input scope note, manual validation notes, error register, external-delivery decision, redaction approval, and pilot feedback log."
+    test: "manual-evidence: templates exist or required headings are documented."
+  - id: AC-2
+    description: "Templates are short and product-neutral enough for Trader and Signal to reuse without rewriting."
+    test: "manual-evidence: template review."
+  - id: AC-3
+    description: "Docs state whether the canonical template lives in Core or product-local copies are preferred."
+    test: "manual-evidence: ownership note exists."
+
+Files:
+  - docs/templates/ARTIFACT_SCOPE_NOTE.md
+  - docs/templates/MANUAL_VALIDATION_NOTES.md
+  - docs/templates/ERROR_REGISTER.md
+  - docs/templates/EXTERNAL_DELIVERY_DECISION.md
+  - docs/ARTIFACT_SUPPORT_ROADMAP.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Context-Refs:
+  - docs/ARTIFACT_SUPPORT_ROADMAP.md#7-phase-ec-af-4---internal-review-packet-templates
+
+Notes: |
+  Templates must not encourage committing raw private/customer data.
+
+## T74: Core Artifact Support Review And Platformization Gate
+
+Owner:      codex
+Phase:      15
+Type:       review
+Depends-On: T73
+Status:     pending
+
+Objective: |
+  Review Phase 15 artifact-support outputs and decide whether Core should stay
+  hidden/internal, expose an internal SDK surface, or remain frozen until
+  Trader/Signal reports validate.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Review summarizes contract, checklist, reproducibility guidance, bridge notes, templates, freeze list, and product adoption readiness."
+    test: "manual-evidence: Phase 15 review exists."
+  - id: AC-2
+    description: "Review records that Core remains internal unless repeated product artifacts prove platformization demand."
+    test: "manual-evidence: platformization decision exists."
+  - id: AC-3
+    description: "CODEX prompt, README, evidence index, audit index, and handoff docs are updated with the Phase 15 decision and next boundary."
+    test: "manual/docs-review."
+
+Files:
+  - docs/audit/ARTIFACT_SUPPORT_REVIEW.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/CODEX_PROMPT.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+  - docs/EVIDENCE_INDEX.md
+  - README.md
+  - PHASE_HANDOFF.md
+
+Context-Refs:
+  - docs/ARTIFACT_SUPPORT_ROADMAP.md#9-phase-ec-af-6---platformization-decision-gate
+  - docs/prompts/ORCHESTRATOR.md
+
+Notes: |
+  This task must not approve live, holdout, OOS, hosted service, public SDK, or
+  execution scope by implication.

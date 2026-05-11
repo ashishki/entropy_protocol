@@ -48,7 +48,7 @@ def test_codex_prompt_records_phase7_review_state() -> None:
     prompt = CODEX_PROMPT.read_text(encoding="utf-8")
     tasks = TASKS.read_text(encoding="utf-8")
 
-    assert "Phase: 14" in prompt
+    assert "Phase: 15" in prompt
     assert "T29 Archive Reproducibility Hardening Review completed" in prompt
     assert "T34 Phase-Gate Readiness Review completed" in prompt
     assert "T35 Holdout Access Protocol Deny-By-Default Contract" in prompt

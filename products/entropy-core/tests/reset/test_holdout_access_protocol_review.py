@@ -50,7 +50,7 @@ def test_holdout_access_protocol_review_updates_state() -> None:
     tasks = TASKS.read_text(encoding="utf-8")
     audit_index = AUDIT_INDEX.read_text(encoding="utf-8")
 
-    assert "Phase: 14" in prompt
+    assert "Phase: 15" in prompt
     assert "T39 Holdout Access Protocol Review completed" in prompt
     assert "T40 Holdout Approval Request Packet Scaffold" in prompt
     assert "Phase 10 Holdout Approval Decision Packet" in prompt

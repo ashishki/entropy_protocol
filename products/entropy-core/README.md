@@ -1,75 +1,72 @@
 # Entropy Core Workspace
 
-Purpose:
-
-Maintain the governed protocol engine and reusable audit primitives without
-weakening existing research discipline.
-
-This workspace is not a separate commercial application. It is the protocol-safe
-foundation that future product surfaces may call only through approved bridges.
+Internal governed protocol and artifact-validity foundation. Core is not the
+market-facing product in the current cycle.
 
 ## Current Status
 
-Phase 14 Local Broker Sandbox No-Capital Replay Extension is active.
+- Phase: 15 Artifact Support Mode
+- Next task: T69 Shared Artifact Contract Freeze
+- Baseline: 501 passing tests, 20 skipped
+- Current priority: support Trader/Signal report validity with minimal shared
+  contracts and checklists
 
-The product hypothesis status is `local_evidence_strengthened_not_confirmed`.
-The current approval is scoped only to `local_broker_sandbox_no_capital_replay`
-with maximum effect `local_no_effect_only`. This workspace has no approval for
-live orders, broker or exchange execution, production credentials, live capital,
-holdout reads, external sandbox order emission from code, or OOS/performance
-claims.
+## Role
 
-## Scope In
+Core should provide:
 
-- Core package code under `src/entropy/`.
-- Core tests under `tests/`.
-- Core migrations under `migrations/`.
-- Trial Registry bridge design.
-- Append-only audit event contracts.
-- Deterministic report primitives.
-- Risk policy and violation record contracts if validated by Trader Risk Audit.
-- Human-gated hypothesis/backtest bridge design.
-- Local-only approval decision packets and audit reviews.
-- Broker sandbox fixture, execution risk, kill switch, and no-capital dry-run
-  contracts.
+- no-claim boundary discipline;
+- artifact/reproducibility conventions;
+- report validity checklist;
+- narrow product bridge notes;
+- shared review templates where useful.
 
-## Scope Out
-
-- Live broker or exchange integration.
-- Live capital.
-- Production credential loading.
-- Holdout reads or unlocks without an explicit gate.
-- Public SaaS infrastructure.
-- Signal scraping.
-- AI-generated strategy execution.
-- Product hypothesis confirmation claims without future validation evidence.
-- Any OOS or performance claim outside the root evaluation protocol.
+Core should not become a public SDK, hosted service, live execution layer, or
+generic platform during artifact validation.
 
 ## Read First
 
 1. `docs/CODEX_PROMPT.md`
-2. `docs/tasks.md`
-3. `../../docs/PRODUCT_PORTFOLIO.md`
-4. `docs/IMPLEMENTATION_CONTRACT.md`
+2. `docs/ARTIFACT_SUPPORT_ROADMAP.md`
+3. `../../docs/ARTIFACT_FIRST_VALIDATION_ROADMAP.md`
+4. `docs/tasks.md` Phase 15, T69-T74
+5. `docs/IMPLEMENTATION_CONTRACT.md`
+
+## Active Guardrails
+
+- holdout remains locked;
+- live capital is not approved;
+- broker/exchange execution is not approved;
+- production credentials are not approved;
+- OOS/performance claims are not approved;
+- T66-T68 replay continuation is deferred unless explicitly reactivated.
+
+## Scope In
+
+- `src/entropy/` core primitives;
+- tests and migrations;
+- append-only/evidence/no-claim contracts;
+- artifact support contracts for product reports;
+- product bridge docs when needed by Trader or Signal.
+
+## Scope Out
+
+- live broker/exchange integration;
+- live capital;
+- holdout reads or unlocks without explicit gate;
+- public SaaS infrastructure;
+- signal scraping;
+- AI strategy execution;
+- public Core productization.
 
 ## Local Commands
 
-Run these from `products/entropy-core/`:
+Run from `products/entropy-core/`:
 
 ```bash
-.venv/bin/python -m pytest -q tests/
+PYTHONPATH=src .venv/bin/python -m pytest tests -q --tb=short
 .venv/bin/python -m ruff check src/entropy tests
 .venv/bin/python -m ruff format --check src/entropy tests
 .venv/bin/python -m pyright src/entropy
 git diff --check
 ```
-
-## Local AI Workflow
-
-This workspace has its own `PLAYBOOK.md`, `prompts/`, `templates/`, `hooks/`,
-`ci/`, and `.claude/` configuration. Do not rely on root-level workflow files
-for core development.
-
-Before continuing orchestration work, read `CODEX_LOOP.md` and
-`prompts/ORCHESTRATOR.md`. Keep work local to this product workspace and do not
-use nested Codex sessions or `codex exec`.
