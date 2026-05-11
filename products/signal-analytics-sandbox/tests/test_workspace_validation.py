@@ -84,8 +84,8 @@ class WorkspaceValidationTests(unittest.TestCase):
             "tool_name": "Edit",
             "tool_input": {
                 "file_path": "docs/CODEX_PROMPT.md",
-                "old_string": "- **Phase:** 20",
-                "new_string": "- **Phase:** 21",
+                "old_string": "Phase: 21",
+                "new_string": "Phase: 22",
             },
         }
 

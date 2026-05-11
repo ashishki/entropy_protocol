@@ -1,81 +1,72 @@
 # Signal Analytics Sandbox Workspace
 
-Purpose:
-
-Validate whether public Telegram/X signal-source analytics is a paid product
-wedge separate from Entropy Core and Trader Risk Audit.
+Report-product candidate for public Telegram/X-style source analytics. It is
+separate from Entropy Core and Trader Risk Audit.
 
 ## Current Status
 
-- Phase 0 gates are acknowledged for the initial Telegram pilot sources.
-- Engineering Phases 1-20 are complete through `SAS-MEDIA-008`.
-- Phase 20 produced the Telegram media evidence path: ADR/legal posture,
-  media artifact metadata, injected-client voice acquisition, gated transcript
-  drafts, OCR drafts, multimodal source-document joins, and a coverage/decision
-  gate.
-- Phase 9 pilot loop is complete; 60 public `bablos79` text captures exist in
-  `workspace/captures/bablos79/`.
-- Phase 10 produced draft-only pseudo-labels, an author profile, deterministic
-  draft validation/parser/export helpers, a 60-row draft export, a 23-row
-  exception review queue, and an evaluation decision to keep the helper only
-  for internal exception review.
-- Author Market Intelligence is active. Phase 10 artifacts remain the first
-  channel profile/corpus seed; implemented work now includes asset registry,
-  immutable local market-data store, deterministic horizon metrics, source
-  corpus, channel profiles, local retrieval, MarketIdea extraction/export,
-  deterministic thesis evaluation, author metrics, bounded internal analyst
-  memo export, Author Market Report V0, the sellability decision gate,
-  ADR-003, and the reviewer coverage export pack.
-- Telegram media evidence is internal-only until real public/operator-authorized
-  media is supplied and human review marks transcript/OCR evidence usable.
-- Current next engineering task: none defined. Phase 20 decision is to pause
-  implementation until operator media evidence or a new Phase 21 task graph is
-  added.
-- Package target: Python 3.12, installable as `signal-sandbox`.
-- CLI status: `signal-sandbox` exists with stubs for the planned operator workflow.
-- Tests: 157 passing; ruff and pyright pass locally.
+- Phase: 21 Artifact-First Real Public-Source Report Validation
+- Next task: SAS-AF-001 Channel And Report Scope Lock
+- Baseline: 157 passing tests, 0 skipped
+- Current priority: validate one real public-source report artifact
 
-## Scope In
+## Promise
 
-- Public source ledger.
-- Manual signal extraction.
-- Timestamped signal record.
-- Historical signal outcome report.
-- Legal/terms risk memo.
-
-Initial pilot sources:
-
-- https://t.me/bablos79
-- https://t.me/nemphiscrypts
-- https://t.me/pifagortrade
-
-## Scope Out
-
-- Private Telegram group scraping.
-- Scraping behind access controls.
-- Paid X API dependence before validation.
-- Signal marketplace.
-- Claims that signals are investment advice.
-- Contamination of Entropy Core evidence.
+Analyze a public source/channel and produce a bounded research report covering
+source evidence, reviewed market ideas/signals, ambiguity, historical outcomes
+where supported, and limitations.
 
 ## Read First
 
 1. `docs/CODEX_PROMPT.md`
-2. `docs/tasks.md`
-3. `docs/pilot/AUDIT_GRADE_AUTOMATION_ROADMAP.md`
-4. `docs/pilot/AUTO_EXTRACTION_DEVELOPMENT_PLAN.md`
-5. `docs/pilot/AUTHOR_MARKET_INTELLIGENCE_ROADMAP.md`
-6. `docs/pilot/MEDIA_MODALITY_DEVELOPMENT_PLAN.md`
-7. `docs/pilot/MEDIA_MODALITY_DECISION.md`
-8. `docs/archive/PHASE20_REVIEW.md`
-9. `../../docs/PRODUCT_PORTFOLIO.md`
-10. `../../docs/AI_DEVELOPMENT_OPERATING_MODEL.md`
+2. `docs/ARTIFACT_VALIDATION_ROADMAP.md`
+3. `../../docs/ARTIFACT_FIRST_VALIDATION_ROADMAP.md`
+4. `docs/tasks.md` Phase 21, SAS-AF-001..008
+5. `docs/legal_risk_memo.md`
 
-## Local AI Workflow
+## Implemented Surface
 
-This workspace has its own `PLAYBOOK.md`, `prompts/`, `templates/`, `hooks/`,
-`ci/`, prompts, hooks, and Codex tmux operating materials. Do not rely on root-level workflow files or legacy nested-agent assumptions
-for Signal Analytics Sandbox development.
+- source manifests and public capture workflows;
+- signal/MarketIdea schemas and review queues;
+- local market-data snapshots and deterministic horizon metrics;
+- Author Market Intelligence flow;
+- report exports;
+- media artifact metadata, transcript/OCR draft paths, and multimodal source
+  joins;
+- reviewer coverage pack for existing `bablos79` corpus.
+
+Historical detail lives in `docs/IMPLEMENTATION_JOURNAL.md`, `docs/archive/`,
+`AGENT_NOTES.md`, and `docs/tasks.md`.
+
+## Artifact-First Work
+
+Active phase tasks:
+
+- SAS-AF-001 source/report scope lock;
+- SAS-AF-002 public capture pack;
+- SAS-AF-003 human review queue closure;
+- SAS-AF-004 market data/outcome prep;
+- SAS-AF-005 first real report;
+- SAS-AF-006 manual validity review;
+- SAS-AF-007 internal demo pack;
+- SAS-AF-008 external pilot ready gate.
+
+## Scope In
+
+- public source ledger;
+- manual/reviewed extraction;
+- timestamped signal or MarketIdea records;
+- historical outcome reports where evidence supports them;
+- legal/terms risk boundary.
+
+## Scope Out
+
+- private Telegram scraping;
+- access-control bypass;
+- paid X/Twitter dependency before validation;
+- marketplace/leaderboard;
+- investment advice or future-profit claims;
+- contamination of Entropy Core evidence.
 
 ## Local Commands
 
@@ -84,9 +75,3 @@ python -m pip install -r requirements-dev.txt -e .
 signal-sandbox --help
 python -m pytest tests/ -q
 ```
-
-## CI
-
-- Product workflow template: `.github/workflows/ci.yml`
-- Repository-root GitHub workflow bridge:
-  `../../.github/workflows/signal-analytics-sandbox-ci.yml`
