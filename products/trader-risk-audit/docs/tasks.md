@@ -1,8 +1,8 @@
 # Task Graph - Trader Risk Audit
 
-Version: 1.4
-Last updated: 2026-05-09
-Status: Phase 11 planned - read-only exchange import safety; Phase 12-15 planned for import core, Bybit MVP, Binance MVP, and pilot validation
+Version: 1.5
+Last updated: 2026-05-11
+Status: Phase 16 active - artifact-first real audit validation. Phase 14/15 exchange-import work remains available only when it directly supports a real audit artifact.
 
 ---
 
@@ -25,6 +25,7 @@ Status: Phase 11 planned - read-only exchange import safety; Phase 12-15 planned
 | 13 | Bybit Read-Only MVP | T51-T54 | Bybit key metadata check, execution fetch planner, normalizer, and import-to-audit integration. | Bybit historical executions can be imported safely from sanitized fixtures with read-only enforcement and deterministic audit outputs. |
 | 14 | Binance Read-Only MVP | T55-T58 | Binance signed account request helper, spot trade fetch planner, normalizer, and import-to-audit integration. | Binance Spot trade history can be imported safely from sanitized fixtures with explicit symbols/time range and deterministic audit outputs. |
 | 15 | Operator UX and Pilot Validation | T59-T62 | Exchange import runbook, safety guidance, evidence fields, and deep review. | Read-only exchange import is ready for founder-led pilot use only after secret handling, permission enforcement, reproducibility, and boundary review pass. |
+| 16 | Artifact-First Real Audit Validation | T63-T69 | Scope one real audit, ingest real data, generate a complete report pack, manually validate calculations, polish the report, package an internal demo, and decide external pilot readiness. | A real-data audit report is trusted by the operator, claim-safe, traceable to source rows, and ready for controlled warm-prospect delivery. |
 
 ---
 
@@ -39,6 +40,17 @@ The orchestrator should not stop just because a planned phase ends. At each phas
 5. If review findings, pilot evidence, or implementation discoveries show that the roadmap should change, update this task graph, `docs/CODEX_PROMPT.md`, README, and relevant audit notes before continuing.
 
 Do not wait for a separate user instruction between planned phases unless the next phase would add forbidden scope, require a new ADR, or contradict current validation evidence.
+
+## Artifact-First Priority Override
+
+As of 2026-05-11, the operator confirmed warm demand/pre-order interest and
+asked to validate real report artifacts before going to people. The next
+orchestration priority is Phase 16.
+
+T56-T62 remain valid planned work, but they should not block a real audit run.
+If the selected real audit requires Binance/Bybit read-only import, implement
+only the smallest part of T56-T62 needed for that artifact. Otherwise, run the
+real audit via CSV/export paths and continue Phase 16.
 
 ---
 
@@ -2167,3 +2179,263 @@ Context-Refs:
 
 Notes: |
   This is the release gate for calling read-only exchange import pilot-ready.
+
+## T63: Real Audit Scope Lock
+
+Owner:      operator + codex
+Phase:      16
+Type:       validation
+Depends-On: none
+Status:     pending
+
+Objective: |
+  Define the first real Trader Risk Audit run: source, period, timezone,
+  policy/rules, privacy boundary, allowed artifacts, and delivery format before
+  any implementation or report generation work begins.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "A real audit scope note records trade source type, account/subaccount label or anonymized label, period, timezone, instrument universe, report language, and delivery format."
+    test: "manual-evidence: operator scope note exists outside raw private data or in a sanitized committed doc."
+  - id: AC-2
+    description: "The scope note records whether the audit uses custom written rules or a starter profile, and lists unsupported/ambiguous rules."
+    test: "manual-evidence: scope note policy section is complete."
+  - id: AC-3
+    description: "The privacy boundary states which files stay local, which may be committed after anonymization, and which may be shown externally."
+    test: "manual-evidence: scope note privacy section is complete."
+
+Files:
+  - docs/ARTIFACT_VALIDATION_ROADMAP.md
+  - docs/CODEX_PROMPT.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Context-Refs:
+  - docs/ARTIFACT_VALIDATION_ROADMAP.md#3-phase-tra-af-0---real-audit-scope-lock
+  - ../../docs/ARTIFACT_FIRST_VALIDATION_ROADMAP.md#phase-0---scope-lock-and-evidence-rules
+
+Notes: |
+  Do not commit raw private trade exports. If no real data is available yet,
+  stop after recording the missing operator input rather than inventing a
+  synthetic substitute for this phase.
+
+## T64: Real Data Intake And Policy Mapping
+
+Owner:      codex
+Phase:      16
+Type:       validation
+Depends-On: T63
+Status:     pending
+
+Objective: |
+  Validate and normalize the real trade export or read-only historical export,
+  load the selected policy, and produce a visible unsupported-field and policy
+  mapping register.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "The real export either normalizes into canonical trade records or blocks with actionable field-level validation errors."
+    test: "manual-evidence plus existing importer/validator command output."
+  - id: AC-2
+    description: "A sanitized schema summary lists mapped fields, missing fields, timezone assumptions, unsupported leverage/fee/position fields, and source row coverage."
+    test: "manual-evidence: sanitized schema summary exists."
+  - id: AC-3
+    description: "Policy mapping review records custom/starter rules, unsupported rules, and any ambiguity before evaluation."
+    test: "manual-evidence: policy mapping review exists and unresolved blockers are explicit."
+
+Files:
+  - trader_risk_audit/trades/
+  - trader_risk_audit/policy/
+  - docs/ARTIFACT_VALIDATION_ROADMAP.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Context-Refs:
+  - docs/ARTIFACT_VALIDATION_ROADMAP.md#4-phase-tra-af-1---real-data-intake-and-policy-mapping
+  - docs/STARTER_POLICY_PROFILES_RU.md
+
+Notes: |
+  Add code or fixtures only for real parser/validation gaps discovered in this
+  run. Use sanitized fixture rows only. Do not add live credential collection to
+  bypass export friction.
+
+## T65: First Real Audit Artifact Run
+
+Owner:      codex
+Phase:      16
+Type:       validation
+Depends-On: T64
+Status:     pending
+
+Objective: |
+  Run the deterministic audit workflow on the real validated input and produce
+  the complete artifact pack: normalized trades, violations, attribution,
+  report, delivery packet, manifest, and run notes.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "The audit run writes normalized trades, violation rows, attribution summary, Markdown report, delivery packet, and manifest or explicitly blocks with a documented reason."
+    test: "manual-evidence: artifact pack exists or blocked-run note exists."
+  - id: AC-2
+    description: "The generated report includes executive summary, traceable violation table, P&L attribution, limitations, next-review checklist, and claim-safety disclaimer."
+    test: "manual-evidence: report review."
+  - id: AC-3
+    description: "Manifest or run notes bind all safe input refs and generated output refs with hashes where possible."
+    test: "manual-evidence: manifest/run notes review."
+
+Files:
+  - trader_risk_audit/cli.py
+  - trader_risk_audit/artifacts/
+  - trader_risk_audit/reporting/
+  - trader_risk_audit/evaluation/
+  - docs/ARTIFACT_VALIDATION_ROADMAP.md
+
+Context-Refs:
+  - docs/ARTIFACT_VALIDATION_ROADMAP.md#5-phase-tra-af-2---first-real-audit-run
+
+Notes: |
+  Stop on attribution mismatch, unstable rerun results, missing source-row refs,
+  or report claims that imply advice, causality, live control, or future
+  performance.
+
+## T66: Manual Calculation Validation
+
+Owner:      operator + codex
+Phase:      16
+Type:       validation
+Depends-On: T65
+Status:     pending
+
+Objective: |
+  Manually validate representative report findings against source data and
+  record an error register before any external delivery.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Manual validation covers at least 5-10 representative examples, including high-loss days, largest violations, and any cooldown/drawdown/position/forbidden-asset cases present."
+    test: "manual-evidence: validation notes list reviewed examples."
+  - id: AC-2
+    description: "The error register labels findings P0/P1/P2/P3 and blocks external delivery for unresolved P0/P1 correctness issues."
+    test: "manual-evidence: error register exists."
+  - id: AC-3
+    description: "Report limitations are updated or confirmed for every accepted unresolved limitation."
+    test: "manual-evidence: report/limitations review."
+
+Files:
+  - docs/ARTIFACT_VALIDATION_ROADMAP.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+  - docs/EVIDENCE_INDEX.md
+
+Context-Refs:
+  - docs/ARTIFACT_VALIDATION_ROADMAP.md#6-phase-tra-af-3---manual-calculation-validation
+
+Notes: |
+  This task is allowed to produce manual evidence outside git when customer data
+  is sensitive. Commit only sanitized summaries.
+
+## T67: Report Polish And Claim Safety Review
+
+Owner:      codex
+Phase:      16
+Type:       docs
+Depends-On: T66
+Status:     pending
+
+Objective: |
+  Polish the real audit report and delivery packet so a non-developer can read
+  the artifact quickly while all claims remain traceable and safe.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Report first page/screen explains what was audited, strongest findings, material limitations, and next action."
+    test: "manual-evidence: operator readability review."
+  - id: AC-2
+    description: "Delivery packet is copy-ready and does not expose raw private data or unsafe claims."
+    test: "manual-evidence: delivery packet review."
+  - id: AC-3
+    description: "No-advice, no-performance, no-live-control, and unsupported-field boundaries remain visible."
+    test: "manual-evidence: claim-safety review."
+
+Files:
+  - trader_risk_audit/reporting/
+  - docs/ARTIFACT_VALIDATION_ROADMAP.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Context-Refs:
+  - docs/ARTIFACT_VALIDATION_ROADMAP.md#7-phase-tra-af-4---report-polish-and-operator-trust-review
+  - docs/OBJECTION_HANDLING_RU.md
+
+Notes: |
+  Prefer report wording and layout improvements over new product surfaces.
+
+## T68: Internal Demo Pack
+
+Owner:      codex
+Phase:      16
+Type:       docs
+Depends-On: T67
+Status:     pending
+
+Objective: |
+  Package the validated real audit into an internal demo/pilot pack the operator
+  can use in warm conversations without opening code or exposing sensitive raw
+  data.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Demo pack contains report, delivery packet, manifest/run notes, validation summary, safe excerpts/screenshots if available, and a short talk track."
+    test: "manual-evidence: demo pack review."
+  - id: AC-2
+    description: "Demo pack redacts or excludes private trader identifiers and raw sensitive data."
+    test: "manual-evidence: privacy review."
+  - id: AC-3
+    description: "Talk track leads to a paid audit pilot and does not imply SaaS, advice, or live-control scope."
+    test: "manual-evidence: operator review."
+
+Files:
+  - docs/ARTIFACT_VALIDATION_ROADMAP.md
+  - docs/ICP_DEMO_VARIANTS_RU.md
+  - docs/PAID_PILOT_OFFER_RU.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Context-Refs:
+  - docs/ARTIFACT_VALIDATION_ROADMAP.md#8-phase-tra-af-5---internal-demo-pack
+
+Notes: |
+  If a committed demo pack is needed, use sanitized/anonymized derivatives only.
+
+## T69: External Pilot Ready Gate
+
+Owner:      operator + codex
+Phase:      16
+Type:       review
+Depends-On: T68
+Status:     pending
+
+Objective: |
+  Decide whether the real audit artifact is ready for controlled external
+  pilot delivery and record the first paid pilot package scope.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Ready-gate review states ready / needs fixes / reject input and cites report validity, unresolved findings, privacy, and claim safety."
+    test: "manual-evidence: ready-gate review exists."
+  - id: AC-2
+    description: "Paid pilot package records inputs, deliverables, turnaround, pricing hypothesis, and feedback questions."
+    test: "manual-evidence: paid pilot package section exists."
+  - id: AC-3
+    description: "CODEX prompt, README, implementation journal, and evidence index reflect the Phase 16 decision and next task."
+    test: "manual/docs-review."
+
+Files:
+  - docs/audit/PHASE16_ARTIFACT_VALIDATION_REVIEW.md
+  - docs/CODEX_PROMPT.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+  - docs/EVIDENCE_INDEX.md
+  - README.md
+
+Context-Refs:
+  - docs/ARTIFACT_VALIDATION_ROADMAP.md#9-phase-tra-af-6---controlled-external-pilot-ready-gate
+  - docs/prompts/ORCHESTRATOR.md
+
+Notes: |
+  This is the gate for showing the validated artifact to warm prospects. It is
+  not a gate for launching a public SaaS product.

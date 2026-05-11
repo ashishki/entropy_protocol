@@ -2,8 +2,10 @@
 _Date: 2026-05-09 · Type: targeted_
 
 ## Project State
-Phase 14 in progress. T55 - Binance Signed Account Request Helper complete.
-Next: T56 - Binance Spot Trade Fetch Planner.
+Historical Cycle 18 state: Phase 14 in progress. T55 - Binance Signed Account
+Request Helper complete. The then-next task was T56 - Binance Spot Trade Fetch
+Planner. Superseded on 2026-05-11 by Phase 16 artifact-first validation; current
+next task is T63 - Real Audit Scope Lock.
 Baseline: 176 pass, 0 skip.
 
 ## Open Findings
