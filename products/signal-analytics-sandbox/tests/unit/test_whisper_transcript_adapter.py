@@ -1,12 +1,15 @@
 from __future__ import annotations
 
 import hashlib
+import sys
 from datetime import UTC, datetime
 from pathlib import Path
+from types import SimpleNamespace
 
 from signal_sandbox.media import MediaArtifact, MediaModality, RetentionState
 from signal_sandbox.media.transcription import (
     DraftTranscriptStatus,
+    OpenAIWhisperTranscriptionClient,
     TranscriptionRunStatus,
     WhisperTranscriptionClientError,
     run_whisper_transcription,
@@ -90,6 +93,51 @@ def test_provider_failure_is_not_truth(tmp_path: Path) -> None:
     assert result.error_type == "WhisperTranscriptionClientError"
     assert media.local_path and Path(media.local_path).exists()
     assert not list((tmp_path / "transcripts").glob("*.json"))
+
+
+def test_openai_whisper_client_calls_managed_transcription(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    media_path = tmp_path / "voice.ogg"
+    media_path.write_bytes(b"voice bytes")
+    calls: list[tuple[str, str, bytes]] = []
+
+    class FakeTranscriptions:
+        @staticmethod
+        def create(*, model: str, file) -> SimpleNamespace:
+            calls.append((model, file.name, file.read()))
+            return SimpleNamespace(text="  расшифровка голосового  ")
+
+    class FakeOpenAI:
+        def __init__(self, *, api_key: str) -> None:
+            assert api_key == "test-key"
+            self.audio = SimpleNamespace(
+                transcriptions=FakeTranscriptions(),
+            )
+
+    monkeypatch.setitem(sys.modules, "openai", SimpleNamespace(OpenAI=FakeOpenAI))
+
+    client = OpenAIWhisperTranscriptionClient(api_key="test-key")
+
+    assert (
+        client.transcribe(media_path, model="whisper-test")
+        == "расшифровка голосового"
+    )
+    assert calls == [("whisper-test", str(media_path), b"voice bytes")]
+
+
+def test_openai_whisper_client_requires_api_key(monkeypatch) -> None:
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
+
+    client = OpenAIWhisperTranscriptionClient()
+
+    try:
+        client.transcribe(Path("voice.ogg"), model="whisper-test")
+    except WhisperTranscriptionClientError as exc:
+        assert "OPENAI_API_KEY" in str(exc)
+    else:
+        raise AssertionError("expected missing-key failure")
 
 
 def test_success_follows_retention_and_logging_policy(
