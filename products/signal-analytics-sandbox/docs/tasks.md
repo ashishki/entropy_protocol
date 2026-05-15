@@ -1,7 +1,7 @@
 # Tasks — Signal Analytics Sandbox
 
-Version: 1.1
-Last updated: 2026-05-11
+Version: 1.2
+Last updated: 2026-05-12
 
 This task graph is the implementation contract. Acceptance criteria are testable; vague phrases are forbidden (see `templates/tasks_schema.md` §Acceptance Criteria Rules).
 
@@ -29,7 +29,8 @@ Phases:
 - **Phase 18** — Author Market Report V0.
 - **Phase 19** — Channel-specific modalities and tools.
 - **Phase 20** — Telegram media evidence: voice and image/OCR drafts.
-- **Phase 21** — Artifact-first real public-source report validation.
+- **Phase 21** — Artifact-first real public-source report validation, including
+  real public media acquisition when text-only evidence is insufficient.
 
 ---
 
@@ -2499,13 +2500,13 @@ Phase boundary:
 - If no source/channel is selected, stop at SAS-AF-001 with a clear
   operator-input blocker.
 
-### SAS-AF-001: Channel And Report Scope Lock
+### SAS-AF-001: Channel And Report Scope Lock ✅
 
 Owner:      operator + codex
 Phase:      21
 Type:       validation
 Depends-On: SAS-MEDIA-008
-Status:     pending
+Status:     complete
 
 Objective: |
   Define the first real Signal report before adding more automation: source,
@@ -2537,13 +2538,13 @@ Notes: |
   This task may be blocked on operator source selection. Do not substitute a new
   source without human approval.
 
-### SAS-AF-002: Public Capture Pack
+### SAS-AF-002: Public Capture Pack ✅
 
 Owner:      codex
 Phase:      21
 Type:       validation
 Depends-On: SAS-AF-001
-Status:     pending
+Status:     complete
 
 Objective: |
   Build or register a traceable public-source capture pack for the selected
@@ -2576,13 +2577,13 @@ Notes: |
   Public-only posture is mandatory. If legal/terms coverage is unclear, block
   and update the legal/risk memo before capture expansion.
 
-### SAS-AF-003: Human Review Queue Closure
+### SAS-AF-003: Human Review Queue Closure ✅
 
 Owner:      operator + codex
 Phase:      21
 Type:       validation
 Depends-On: SAS-AF-002
-Status:     pending
+Status:     complete
 
 Objective: |
   Convert draft extraction into reviewed evidence by closing the review queue
@@ -2614,13 +2615,13 @@ Notes: |
   Do not let an LLM silently decide truth. Human review remains part of the
   product promise for this phase.
 
-### SAS-AF-004: Market Data Snapshot And Outcome Prep
+### SAS-AF-004: Market Data Snapshot And Outcome Prep ✅
 
 Owner:      codex
 Phase:      21
 Type:       validation
 Depends-On: SAS-AF-003
-Status:     pending
+Status:     complete
 
 Objective: |
   Prepare outcome analysis only for reviewed rows with enough evidence:
@@ -2650,13 +2651,13 @@ Context-Refs:
 Notes: |
   Missing market data is a limitation, not a reason to invent metrics.
 
-### SAS-AF-005: First Real Source Report V1
+### SAS-AF-005: First Real Source Report V1 ✅
 
 Owner:      codex
 Phase:      21
 Type:       validation
 Depends-On: SAS-AF-004
-Status:     pending
+Status:     complete
 
 Objective: |
   Generate the first complete real public-source report artifact from reviewed
@@ -2686,17 +2687,390 @@ Notes: |
   If the selected source cannot support a meaningful report, produce a reject
   decision rather than a weak report.
 
-### SAS-AF-006: Manual Validity Review
+### SAS-LIVE-001: Real Media Scope And Evidence Intake ✅
 
 Owner:      operator + codex
 Phase:      21
 Type:       validation
 Depends-On: SAS-AF-005
-Status:     pending
+Status:     complete
 
 Objective: |
-  Manually verify sampled included, ambiguous, excluded, and strongest-finding
-  rows before external delivery.
+  Convert the text-only report result into a real multimodal evidence intake
+  plan. Select exact public/operator-authorized media items, link each item to
+  source/capture/source-document IDs, and define the report question each media
+  item is supposed to answer.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "A media intake plan lists every target voice/audio/image/screenshot item with source URL/ref, source/capture/source-document linkage, modality, public/operator authorization state, and expected report value."
+    test: "manual-evidence: docs/pilot/bablos79_REAL_MEDIA_INTAKE.md exists with required columns."
+  - id: AC-2
+    description: "The plan explicitly excludes private, paywalled, login-walled, unlinked, or access-bypass media and records blockers for missing items."
+    test: "manual-evidence: exclusion/blocker section exists."
+  - id: AC-3
+    description: "The plan maps media items to current report gaps: ambiguous rows, insufficient evidence rows, missing context, screenshot-only text, or voice-context gaps."
+    test: "manual-evidence: every selected item has a report-gap field."
+
+Files:
+  - docs/pilot/bablos79_REAL_MEDIA_INTAKE.md
+  - docs/ARTIFACT_VALIDATION_ROADMAP.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Context-Refs:
+  - docs/MULTIMODAL_REPORT_DEVELOPMENT_PLAN.md#phase-0---real-media-scope-and-evidence-intake
+  - docs/pilot/bablos79_MEDIA_INVENTORY.md
+  - docs/pilot/bablos79_OUTCOME_PREP.md
+  - docs/legal_risk_memo.md#media-evidence
+
+Notes: |
+  Do not proceed to media acquisition until this plan names concrete public or
+  operator-authorized media evidence. Channel-level "there is audio/images" is
+  not enough.
+  Completed intake result: no acquisition-ready media item exists yet. The
+  plan records source-linked candidate blockers for `bablos79-10486` and
+  `bablos79-10465`, excludes unlinked channel-level media, and blocks
+  `SAS-LIVE-002` until the operator supplies exact public/operator-authorized
+  media URL/file ID/local file rows with source/capture/source-document linkage.
+
+### SAS-LIVE-002: Public Media Artifact Acquisition ✅
+
+Owner:      codex
+Phase:      21
+Type:       validation
+Depends-On: SAS-LIVE-001
+Status:     complete
+
+Objective: |
+  Materialize approved media intake rows as local MediaArtifact metadata and
+  local operator-controlled files where applicable. The task records what was
+  successfully acquired, skipped, or blocked.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Every acquired media item has a MediaArtifact row with media_id, source_id, capture_id, source_document_id, source timestamp, modality, original URL/file ID, local path, SHA-256, MIME type, retention state, and created_at_utc."
+    test: "manual-evidence plus existing media artifact tests."
+  - id: AC-2
+    description: "Acquisition uses only public/operator-authorized inputs and records no private/authenticated collection path."
+    test: "manual-evidence: acquisition log states authorization per item."
+  - id: AC-3
+    description: "Failed, missing, unlinked, or unauthorized media items are recorded with blocker reason and are not silently dropped."
+    test: "manual-evidence: acquisition log has failed/blocked rows where applicable."
+
+Files:
+  - src/signal_sandbox/media/
+  - docs/pilot/bablos79_REAL_MEDIA_ACQUISITION.md
+  - docs/pilot/bablos79_MEDIA_MANIFEST.json
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Context-Refs:
+  - docs/MULTIMODAL_REPORT_DEVELOPMENT_PLAN.md#phase-1---public-media-artifact-acquisition
+  - docs/specs/MEDIA_ARTIFACTS.md
+  - docs/adr/ADR-004-media-evidence-pipeline.md
+
+Notes: |
+  CI must use fake clients or local fixtures. Real network/provider use is an
+  operator run, not a unit test. No transcription/OCR is performed in this task.
+  Completed acquisition result: public `/s/` HTML yielded two concrete voice
+  posts, `bablos79-10476` and `bablos79-10478`, acquired to
+  `workspace/media/bablos79/` and registered in
+  `docs/pilot/bablos79_MEDIA_MANIFEST.json`. `bablos79-10465` remains blocked
+  because the promised follow-up video is not identified.
+
+### SAS-LIVE-003: Voice Transcript Draft Run ✅
+
+Owner:      codex
+Phase:      21
+Type:       validation
+Depends-On: SAS-LIVE-002
+Status:     complete
+
+Objective: |
+  Run the gated transcription path on acquired voice/audio artifacts and record
+  draft transcript artifacts with provenance, provider/model metadata, checksum,
+  review-required status, and retention action.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Every attempted voice/audio item records transcript_id or skipped/provider_failed status, media_id, provider/model, transcript_sha256 when present, source media checksum, reviewer_id=pending, and review_required=true."
+    test: "manual-evidence: transcript run log exists; unit tests for transcription adapter pass."
+  - id: AC-2
+    description: "Transcripts remain draft_pending_review and are not routed to approved MarketIdea rows, ledgers, outcomes, reports, or customer-facing claims."
+    test: "manual-evidence: boundary section plus no approved output paths."
+  - id: AC-3
+    description: "Raw media retention/deletion action is recorded per ADR-004."
+    test: "manual-evidence: retention action column populated."
+
+Files:
+  - src/signal_sandbox/media/transcription.py
+  - docs/pilot/bablos79_TRANSCRIPT_RUN.md
+  - docs/audit/MEDIA_EVAL.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Context-Refs:
+  - docs/MULTIMODAL_REPORT_DEVELOPMENT_PLAN.md#phase-2---voice-transcript-draft-run
+  - docs/specs/MEDIA_ARTIFACTS.md#whisper-transcript-drafts
+
+Notes: |
+  Managed transcription requires explicit enablement and per-run approval.
+  Completed run result: two acquired public voice rows were attempted and both
+  were recorded as `skipped_provider_not_configured`; no transcript text was
+  invented, no draft transcript artifact was created, and raw media remained
+  `retained_by_policy`.
+
+### SAS-LIVE-004: Image OCR Draft Run ✅
+
+Owner:      codex
+Phase:      21
+Type:       validation
+Depends-On: SAS-LIVE-002
+Status:     complete
+
+Objective: |
+  Run review-required OCR on acquired image/screenshot artifacts. Capture text
+  and bounding metadata where available, while keeping chart interpretation and
+  trading claims out of automated output.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Every attempted image/screenshot item records OCR id or skipped/provider_failed status, media_id, provider/model, text_sha256 when present, source media checksum, reviewer_id=pending, and review_required=true."
+    test: "manual-evidence: OCR run log exists; unit tests for OCR adapter pass."
+  - id: AC-2
+    description: "OCR output stores text only; chart labels/levels/trade interpretation remain review_required_notes and are not approved truth."
+    test: "manual-evidence: chart-claim boundary section exists."
+  - id: AC-3
+    description: "OCR artifacts are linked back to source/capture/source-document IDs through MediaArtifact refs."
+    test: "manual-evidence: every OCR row has linkage fields."
+
+Files:
+  - src/signal_sandbox/media/ocr.py
+  - docs/pilot/bablos79_OCR_RUN.md
+  - docs/audit/MEDIA_EVAL.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Context-Refs:
+  - docs/MULTIMODAL_REPORT_DEVELOPMENT_PLAN.md#phase-3---image-ocr-draft-run
+  - docs/specs/MEDIA_ARTIFACTS.md#ocr-drafts
+
+Notes: |
+  Do not implement autonomous chart interpretation in this task.
+  Completed run result: no image/screenshot media artifacts were acquired, so
+  the OCR run recorded two voice rows as `skipped_non_image_media`, created no
+  OCR artifacts, and preserved the chart-claim boundary.
+
+### SAS-LIVE-005: Human Media Evidence Review ✅
+
+Owner:      operator + codex
+Phase:      21
+Type:       validation
+Depends-On: SAS-LIVE-003, SAS-LIVE-004
+Status:     complete
+
+Objective: |
+  Review transcript/OCR outputs against the original public media and mark each
+  artifact usable, unusable, needs rework, or outside report scope before it can
+  influence extraction, outcomes, or report wording.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Review notes sample every transcript/OCR artifact and record usable/unusable/needs_rework/out_of_scope, reviewer_id, reviewed_at_utc, and issue notes."
+    test: "manual-evidence: docs/pilot/bablos79_MEDIA_REVIEW.md exists."
+  - id: AC-2
+    description: "Artifacts with transcription/OCR errors, unclear speaker/image context, missing linkage, or chart interpretation risk are blocked from report claims."
+    test: "manual-evidence: blocked artifact section exists."
+  - id: AC-3
+    description: "Only human-reviewed usable transcript/OCR refs are allowed into source-document joins for report context."
+    test: "manual-evidence: usable refs list exists."
+
+Files:
+  - docs/pilot/bablos79_MEDIA_REVIEW.md
+  - docs/ARTIFACT_VALIDATION_ROADMAP.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Context-Refs:
+  - docs/MULTIMODAL_REPORT_DEVELOPMENT_PLAN.md#phase-4---human-media-evidence-review
+  - docs/legal_risk_memo.md#media-evidence
+
+Notes: |
+  This is the mandatory human gate before media can affect customer-visible
+  report claims.
+  Completed gate result: no transcript/OCR artifacts existed to review, so
+  usable transcript refs and OCR refs are both zero. Raw voice media is blocked
+  from report claims until a future transcript run and human review produce
+  usable refs.
+
+### SAS-LIVE-006: Reviewed Multimodal Source Join ✅
+
+Owner:      codex
+Phase:      21
+Type:       rag:ingestion
+Depends-On: SAS-LIVE-005
+Status:     complete
+
+Objective: |
+  Join only reviewed-usable transcript/OCR refs into SourceDocument copies and
+  produce a multimodal corpus preview that preserves original text, evidence
+  URL, and text hash byte-identically.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Multimodal SourceDocument preview includes only reviewed-usable media refs and preserves original capture text, evidence_url, and text_sha256."
+    test: "tests/unit/test_multimodal_source_join.py plus manual preview."
+  - id: AC-2
+    description: "Mismatched media checksum, source ID, capture ID, source-document ID, transcript ref, or OCR ref is rejected."
+    test: "existing join tests or added coverage."
+  - id: AC-3
+    description: "Preview records text-only, transcript, and OCR coverage counts and explicitly labels draft/reviewed evidence status."
+    test: "manual-evidence: multimodal corpus preview exists."
+
+Files:
+  - src/signal_sandbox/media/source_join.py
+  - docs/pilot/bablos79_MULTIMODAL_SOURCE_PREVIEW.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Context-Refs:
+  - docs/MULTIMODAL_REPORT_DEVELOPMENT_PLAN.md#phase-5---reviewed-multimodal-source-join
+  - docs/specs/SOURCE_CORPUS.md#multimodal-joins
+
+Notes: |
+  This task carries a RAG ingestion tag because it changes source-corpus context
+  available to retrieval/report workflows. It does not approve truth artifacts.
+  Completed join result: no reviewed-usable transcript/OCR refs existed, so the
+  preview preserves all 60 text-only source documents and joins zero
+  media-derived refs. Retrieval/source context semantics remain text-only.
+
+### SAS-LIVE-007: Multimodal Extraction And Review Queue ✅
+
+Owner:      operator + codex
+Phase:      21
+Type:       validation
+Depends-On: SAS-LIVE-006
+Status:     complete
+
+Objective: |
+  Re-run extraction/review over text plus reviewed transcript/OCR context,
+  separating approved report candidates from ambiguous, insufficient, duplicate,
+  not-market-related, media-needed, and media-blocked rows.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Multimodal review export includes source refs, media refs where used, evidence spans, reviewed status, missing fields, and reviewer action for every row."
+    test: "manual-evidence: multimodal review queue exists."
+  - id: AC-2
+    description: "Rows that depend on transcript/OCR cite only reviewed-usable media artifacts."
+    test: "manual-evidence: media-backed rows cite reviewed artifact IDs."
+  - id: AC-3
+    description: "Draft LLM/parser output is never treated as final truth without operator final evaluation."
+    test: "manual-evidence: final review status separated from draft status."
+
+Files:
+  - src/signal_sandbox/extraction/
+  - src/signal_sandbox/market_ideas/
+  - docs/pilot/bablos79_MULTIMODAL_REVIEW_QUEUE.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Context-Refs:
+  - docs/MULTIMODAL_REPORT_DEVELOPMENT_PLAN.md#phase-6---multimodal-extraction-and-review-queue
+  - docs/pilot/bablos79_REVIEW_QUEUE_CLOSED.md
+
+Notes: |
+  If no media-backed row becomes report-eligible, preserve that as the result
+  instead of forcing a metric.
+  Completed queue result: no reviewed usable transcript/OCR refs exist, so the
+  multimodal review queue has 0 media-backed report-eligible rows and carries
+  forward the text-only queue counts.
+
+### SAS-LIVE-008: Multimodal Outcome Prep ✅
+
+Owner:      codex
+Phase:      21
+Type:       validation
+Depends-On: SAS-LIVE-007
+Status:     complete
+
+Objective: |
+  Prepare deterministic outcomes only for final reviewed multimodal rows with
+  complete asset, timestamp, direction/thesis, horizon, and evidence support.
+  Record every unresolved row before report generation.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Every measurable row has asset mapping, source timestamp, direction/thesis where applicable, horizon, evidence refs, and market-data snapshot requirement."
+    test: "manual-evidence or existing outcome tests."
+  - id: AC-2
+    description: "Rows lacking complete measurable fields are moved to an unresolved register with reason."
+    test: "manual-evidence: multimodal unresolved outcome register exists."
+  - id: AC-3
+    description: "Market-data fetches happen only for measurable rows; unresolved rows do not trigger price snapshots."
+    test: "manual-evidence: snapshot/fetch count matches measurable rows."
+
+Files:
+  - src/signal_sandbox/prices/
+  - src/signal_sandbox/outcomes/
+  - docs/pilot/bablos79_MULTIMODAL_OUTCOME_PREP.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Context-Refs:
+  - docs/MULTIMODAL_REPORT_DEVELOPMENT_PLAN.md#phase-7---multimodal-outcome-prep
+  - docs/pilot/bablos79_OUTCOME_PREP.md
+
+Notes: |
+  Missing media/market data is a limitation. Do not infer outcomes from media
+  context alone.
+  Completed prep result: 0 media-backed measurable rows, 0 market-data fetches,
+  and 0 outcome metrics.
+
+### SAS-LIVE-009: Media-Backed Report V1 ✅
+
+Owner:      codex
+Phase:      21
+Type:       validation
+Depends-On: SAS-LIVE-008
+Status:     complete
+
+Objective: |
+  Generate a revised report artifact that includes text, reviewed media
+  evidence, outcome summaries where supported, limitations, and clear
+  no-advice/no-future-performance boundaries.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Report includes source/period, text/media coverage, reviewed row counts, media-backed evidence summary, outcome metrics only where supported, unresolved register summary, limitations, and evidence appendix."
+    test: "manual-evidence: media-backed report exists."
+  - id: AC-2
+    description: "Every media-backed claim cites reviewed transcript/OCR/media artifact refs and source refs."
+    test: "manual-evidence: evidence trace review."
+  - id: AC-3
+    description: "Report contains no unreviewed media claims, chart-derived automated claims, advice, future-profit claims, marketplace ranking, or leaderboard language."
+    test: "manual-evidence: claim-safety review."
+
+Files:
+  - src/signal_sandbox/reports/
+  - docs/pilot/reports/bablos79_MEDIA_BACKED_REPORT_V1.md
+  - docs/ARTIFACT_VALIDATION_ROADMAP.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Context-Refs:
+  - docs/MULTIMODAL_REPORT_DEVELOPMENT_PLAN.md#phase-8---media-backed-report-v1
+  - docs/pilot/reports/bablos79_SIGNAL_REPORT_V1.md
+
+Notes: |
+  If real media still does not create a useful report, produce a reject or
+  limitation report instead of decorating weak evidence.
+  Completed report result: reject/limitation report, not external-delivery
+  ready, with no media-backed claims.
+
+### SAS-AF-006: Manual Validity Review ✅
+
+Owner:      operator + codex
+Phase:      21
+Type:       validation
+Depends-On: SAS-LIVE-009
+Status:     complete
+
+Objective: |
+  Manually verify sampled included, ambiguous, excluded, media-backed, and
+  strongest-finding rows before external delivery.
 
 Acceptance-Criteria:
   - id: AC-1
@@ -2716,18 +3090,21 @@ Files:
 
 Context-Refs:
   - docs/ARTIFACT_VALIDATION_ROADMAP.md#8-phase-sas-af-5---manual-validity-review
+  - docs/MULTIMODAL_REPORT_DEVELOPMENT_PLAN.md#phase-9---manual-validity-review-and-delivery-gate
 
 Notes: |
   Ambiguous content should stay ambiguous. Do not force a confident finding for
   presentation quality.
+  Completed validity result: external delivery blocked by open Phase 21 error
+  register items.
 
-### SAS-AF-007: Report Polish And Internal Demo Pack
+### SAS-AF-007: Report Polish And Internal Demo Pack ✅
 
 Owner:      codex
 Phase:      21
 Type:       docs
 Depends-On: SAS-AF-006
-Status:     pending
+Status:     complete
 
 Objective: |
   Package the validated source report as an internal demo/research product pack
@@ -2754,14 +3131,15 @@ Context-Refs:
 
 Notes: |
   This task packages a report product, not a source leaderboard or SaaS.
+  Completed pack result: internal-only reject-case demo pack; not buyer-ready.
 
-### SAS-AF-008: External Pilot Ready Gate
+### SAS-AF-008: External Pilot Ready Gate ✅
 
 Owner:      operator + codex
 Phase:      21
 Type:       review
 Depends-On: SAS-AF-007
-Status:     pending
+Status:     complete
 
 Objective: |
   Decide whether the Signal report artifact is ready for controlled external

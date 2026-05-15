@@ -22,7 +22,7 @@ def test_media_artifact_schema_requires_provenance() -> None:
     assert artifact.capture_id == "bablos79-10442"
     assert artifact.source_document_id == "bablos79:bablos79-10442"
     assert artifact.modality == MediaModality.VOICE
-    assert artifact.original_url_or_file_id == "telegram-file-id-1"
+    assert artifact.original_url_or_file_id == "fixture_voice_ref"
     assert artifact.local_path == "workspace/media/bablos79/media-1.ogg"
     assert artifact.media_sha256 == "a" * 64
     assert artifact.mime_type == "audio/ogg"
@@ -87,7 +87,7 @@ def _artifact(
             datetime(2026, 5, 9, tzinfo=UTC) + timedelta(minutes=minutes)
         ),
         modality=MediaModality.VOICE,
-        original_url_or_file_id="telegram-file-id-1",
+        original_url_or_file_id="fixture_voice_ref",
         local_path=f"workspace/media/bablos79/{media_id}.ogg",
         media_sha256=media_sha256,
         mime_type="audio/ogg",

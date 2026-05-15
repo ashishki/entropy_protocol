@@ -108,7 +108,7 @@ def _media(media_id: str, document: SourceDocument) -> MediaArtifact:
         source_document_id=document.document_id,
         source_timestamp_utc=document.timestamp_utc,
         modality=MediaModality.SCREENSHOT,
-        original_url_or_file_id="telegram-photo-id",
+        original_url_or_file_id="fixture_image_ref",
         local_path=f"workspace/media/{media_id}.png",
         media_sha256=hashlib.sha256(media_bytes).hexdigest(),
         mime_type="image/png",

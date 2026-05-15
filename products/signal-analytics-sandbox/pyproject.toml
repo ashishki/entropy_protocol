@@ -16,6 +16,7 @@ dependencies = [
     "ccxt",
     "yfinance",
     "click",
+    "openai>=1",
 ]
 
 [project.scripts]
