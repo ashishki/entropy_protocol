@@ -1,8 +1,8 @@
 # Task Graph - Entropy Core
 
-Version: 1.1
-Last updated: 2026-05-11
-Status: Phase 15 active - artifact support mode. Phase 14 replay tasks T66-T68 remain pending but deferred unless explicitly reactivated by a human decision.
+Version: 1.2
+Last updated: 2026-05-12
+Status: Core V1 checkpoint complete through T122. Automatic roadmap expansion is stopped until a human approves a Core V2 roadmap. Phase 14 replay tasks T66-T68 remain deferred unless explicitly reactivated by a human decision.
 
 ---
 
@@ -25,6 +25,18 @@ Status: Phase 15 active - artifact support mode. Phase 14 replay tasks T66-T68 r
 | 13 | Product Hypothesis Confirmation Decision | T57-T62 | Local-only approval decision work for defining the safest next validation step toward product hypothesis confirmation. | No production, capital, live order, broker/exchange execution, production credential, or holdout access path opens without explicit future human approval and a bounded task contract. |
 | 14 | Local Broker Sandbox No-Capital Replay Extension | T63-T68 | Execute the approved local/no-effect replay extension against deterministic SimBroker fixture scenarios and record evidence deltas. | Replay evidence is hash-bound, deterministic, no-effect, and cannot be interpreted as production, capital-ready, live, holdout, or OOS/performance confirmation. |
 | 15 | Artifact Support Mode | T69-T74 | Define shared artifact contracts, report validity checklist, reproducibility checklist, product bridge notes, internal review templates, and Core freeze/platformization gate. | Core improves Trader/Signal artifact trust without becoming the public product or opening live, holdout, OOS, SDK, hosted service, or execution scope. |
+| 16 | Executable Artifact Validation | T75-T78 | Turn the Phase 15 artifact contract into Pydantic schemas, loaders, CLI validation, fixtures, and review evidence. | `entropy artifact validate` deterministically accepts valid artifacts and rejects invalid claim/state/hash/field combinations. |
+| 17 | Artifact Registry | T79-T82 | Register validated artifacts as append-only governed records. | Artifacts have stable ids, validation status, metadata, history, and corrections without mutation. |
+| 18 | Reproducibility Runner | T83-T86 | Compare reruns, hashes, and declared nondeterminism. | Core classifies exact, materially equivalent, partial, declared non-reproducible, and failed reproduction states. |
+| 19 | Evidence Pipeline | T87-T90 | Build machine-readable evidence packets from validation, registry, and reproducibility outputs. | Core emits inspectable evidence packets without requiring long-form docs. |
+| 20 | Product Bridge Profiles | T91-T94 | Add narrow validation overlays for product-shaped artifacts while keeping product logic outside Core. | Core validates product profiles without owning Trader or Signal runtime behavior. |
+| 21 | Governance State Machine | T95-T98 | Add deterministic artifact state transitions and approval events. | Unsafe transitions are blocked and state history is append-only. |
+| 22 | Research Evaluation Integration | T99-T102 | Bind research/evaluation outputs into the artifact governance model. | Research packets can be validated as no-claim governed artifacts without opening holdout/OOS/live scope. |
+| 23 | Storage And Audit Backend | T103-T106 | Add durable metadata and artifact-store abstractions. | Postgres metadata and filesystem/object-store boundaries are ready without SaaS scope. |
+| 24 | Internal API And Job Boundary | T107-T110 | Define optional internal API and job abstractions after CLI behavior is stable. | Validation can run as idempotent internal jobs without public service claims. |
+| 25 | CAF Decision Primitives | T111-T114 | Add Capital Allocation Framework decision, risk, and rationale artifact schemas. | Core can represent allocation decisions as governed evidence without executing capital. |
+| 26 | Enterprise Audit Readiness | T115-T118 | Add exportable lineage, audit bundles, data classification, and review-role models. | Core can produce serious audit packages without claiming external certification. |
+| 27 | Core V1 Productization | T119-T122 | Stabilize CLI, schemas, docs, examples, runbooks, and migration notes. | Core is a documented, tested internal product kernel ready for v2 planning. |
 
 ## Roadmap Governance
 
@@ -48,7 +60,29 @@ claim safety.
 T66-T68 remain in the graph for the old local replay extension but are deferred.
 Do not continue replay, live, broker/exchange, holdout, OOS, public SDK, hosted
 service, or generic platform work unless a later explicit human decision
-reactivates that path. The current active Core task is T69.
+reactivates that path. During Phase 15 the active Core task was T69; that mode
+is now closed through T74 and superseded by the executable Core roadmap override
+below.
+
+## Executable Core Roadmap Override
+
+As of 2026-05-12, the operator clarified that Entropy Core is the long-lived
+protocol kernel, while Trader Risk Audit and Signal Analytics Sandbox remain
+separate commercial product workspaces. Core may use adjacent product artifacts
+as external use-case shapes, but must not absorb product-specific report logic.
+
+The next Core priority is not more artifact-support prose. The next priority is
+an executable trust layer:
+
+```text
+artifact -> validation -> registry -> reproducibility -> evidence -> governance
+```
+
+The 12 month roadmap lives in `docs/CORE_12_MONTH_EXECUTION_ROADMAP.md`. The AI
+development loop rules live in `docs/AI_LOOP_OPERATING_MODEL.md`.
+
+The current active Core task is none. T75-T122 are complete. Automatic roadmap
+expansion is stopped until a human approves a Core V2 roadmap.
 
 ## T01: Existing Project Baseline Skeleton
 
@@ -2419,7 +2453,7 @@ Owner:      codex
 Phase:      15
 Type:       docs
 Depends-On: none
-Status:     pending
+Status:     done 2026-05-12
 
 Objective: |
   Define the minimal shared artifact contract that Trader Risk Audit and Signal
@@ -2457,7 +2491,7 @@ Owner:      codex
 Phase:      15
 Type:       docs
 Depends-On: T69
-Status:     pending
+Status:     done 2026-05-12
 
 Objective: |
   Create the shared checklist used before a Trader or Signal report can move
@@ -2491,7 +2525,7 @@ Owner:      codex
 Phase:      15
 Type:       docs
 Depends-On: T70
-Status:     pending
+Status:     done 2026-05-12
 
 Objective: |
   Define how product agents rerun the same inputs, compare deterministic
@@ -2526,7 +2560,7 @@ Owner:      codex
 Phase:      15
 Type:       docs
 Depends-On: T71
-Status:     pending
+Status:     done 2026-05-12
 
 Objective: |
   Document narrow Core support boundaries for Trader and Signal artifact
@@ -2561,7 +2595,7 @@ Owner:      codex
 Phase:      15
 Type:       docs
 Depends-On: T72
-Status:     pending
+Status:     done 2026-05-12
 
 Objective: |
   Provide small shared templates for manual validation and external-delivery
@@ -2598,7 +2632,7 @@ Owner:      codex
 Phase:      15
 Type:       review
 Depends-On: T73
-Status:     pending
+Status:     done 2026-05-12
 
 Objective: |
   Review Phase 15 artifact-support outputs and decide whether Core should stay
@@ -2632,3 +2666,1657 @@ Context-Refs:
 Notes: |
   This task must not approve live, holdout, OOS, hosted service, public SDK, or
   execution scope by implication.
+
+## T75: Artifact Contract V1 Schema
+
+Owner:      codex
+Phase:      16
+Type:       code
+Depends-On: T74
+Status:     done 2026-05-14
+
+Objective: |
+  Implement the executable Pydantic model for `entropy-core-artifact/v1` so the
+  Phase 15 Markdown contract has a machine-checkable authority.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`ArtifactContractV1` accepts every required field named in `docs/core/ARTIFACT_CONTRACT.md` and rejects unknown fields."
+    test: "tests/unit/test_artifact_contract_v1.py::test_contract_accepts_required_fields_and_rejects_extra"
+  - id: AC-2
+    description: "Manual validation and external delivery states are restricted to the frozen Phase 15 vocabularies."
+    test: "tests/unit/test_artifact_contract_v1.py::test_contract_rejects_unknown_decision_states"
+  - id: AC-3
+    description: "Unsafe claim labels such as production, capital-ready, investment advice, holdout approval, live execution, or future performance are rejected unless explicitly represented as blocked no-claim boundaries."
+    test: "tests/unit/test_artifact_contract_v1.py::test_contract_rejects_unsafe_claim_labels"
+
+Files:
+  - src/entropy/artifacts/__init__.py
+  - src/entropy/artifacts/contract.py
+  - tests/unit/test_artifact_contract_v1.py
+
+Context-Refs:
+  - docs/core/ARTIFACT_CONTRACT.md
+  - docs/IMPLEMENTATION_CONTRACT.md#project-specific-rules
+
+Notes: |
+  This is Core schema work only. Do not add product-specific report generation.
+
+## T76: Artifact Loader And Validation Result
+
+Owner:      codex
+Phase:      16
+Type:       code
+Depends-On: T75
+Status:     done 2026-05-14
+
+Objective: |
+  Add deterministic JSON/YAML loading and a stable validation result object
+  that reports errors without leaking private artifact payloads.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "JSON and YAML artifact files load into the same normalized `ArtifactContractV1` model."
+    test: "tests/unit/test_artifact_validation.py::test_json_and_yaml_load_to_same_model"
+  - id: AC-2
+    description: "Invalid files return deterministic validation errors containing path, code, severity, and message."
+    test: "tests/unit/test_artifact_validation.py::test_invalid_artifact_returns_deterministic_errors"
+  - id: AC-3
+    description: "Validation errors do not print raw private input payloads, secrets, or full source contents."
+    test: "tests/unit/test_artifact_validation.py::test_validation_errors_do_not_leak_payloads"
+
+Files:
+  - src/entropy/artifacts/validation.py
+  - tests/unit/test_artifact_validation.py
+  - tests/fixtures/artifacts/
+
+Context-Refs:
+  - docs/core/REPORT_VALIDITY_CHECKLIST.md
+
+Notes: |
+  Prefer PyYAML only if already available or explicitly added to dependencies.
+  Otherwise support JSON first and document YAML as deferred.
+
+## T77: Artifact Validate CLI
+
+Owner:      codex
+Phase:      16
+Type:       code
+Depends-On: T76
+Status:     done 2026-05-14
+
+Objective: |
+  Expose executable artifact validation through the local operator CLI.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`entropy artifact validate <path>` exits 0 for a valid artifact and prints stable JSON by default."
+    test: "tests/unit/test_artifact_cli.py::test_artifact_validate_accepts_valid_artifact"
+  - id: AC-2
+    description: "`entropy artifact validate <path>` exits non-zero for invalid artifacts and includes validation error codes."
+    test: "tests/unit/test_artifact_cli.py::test_artifact_validate_rejects_invalid_artifact"
+  - id: AC-3
+    description: "CLI help exposes the artifact command group without changing existing `health` and `version` behavior."
+    test: "tests/unit/test_artifact_cli.py::test_artifact_cli_help_preserves_existing_commands"
+
+Files:
+  - src/entropy/cli.py
+  - tests/unit/test_artifact_cli.py
+
+Context-Refs:
+  - docs/ARCHITECTURE.md#component-table
+
+Notes: |
+  Do not add public SDK, service, API server, or product workspace edits.
+
+## T78: Executable Artifact Validation Review
+
+Owner:      codex
+Phase:      16
+Type:       review
+Depends-On: T77
+Status:     done 2026-05-14
+
+Objective: |
+  Review Phase 16 and decide whether Core can auto-open the artifact registry
+  phase.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Review summarizes schema, loader, CLI, fixtures, validation commands, limitations, and blocked surfaces."
+    test: "manual-evidence: `docs/audit/EXECUTABLE_ARTIFACT_VALIDATION_REVIEW.md` exists."
+  - id: AC-2
+    description: "Evidence index and compact state docs record Phase 16 completion and T79 as the next task."
+    test: "manual/docs-review."
+  - id: AC-3
+    description: "Review explicitly states that Phase 16 does not approve public SDK, hosted service, product runtime ownership, holdout, live, OOS, or capital-ready scope."
+    test: "manual-evidence: blocked-scope section exists."
+
+Files:
+  - docs/audit/EXECUTABLE_ARTIFACT_VALIDATION_REVIEW.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/EVIDENCE_INDEX.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+  - docs/CODEX_PROMPT.md
+  - PHASE_HANDOFF.md
+  - AGENT_NOTES.md
+
+Context-Refs:
+  - docs/CORE_12_MONTH_EXECUTION_ROADMAP.md
+  - docs/AI_LOOP_OPERATING_MODEL.md
+
+Notes: |
+  If no P0/P1 finding exists and no human gate is triggered, open Phase 17.
+
+## T79: Artifact Registry Model
+
+Owner:      codex
+Phase:      17
+Type:       code
+Depends-On: T78
+Status:     done 2026-05-14
+
+Objective: |
+  Define the governed artifact registry record, status vocabulary, and
+  append-only event shape.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Artifact registry records include id, contract version, product/source, validation status, hash set, generated refs, created timestamp, and current governance state."
+    test: "tests/unit/test_artifact_registry.py::test_registry_record_requires_governed_fields"
+  - id: AC-2
+    description: "Corrections are represented as new events or records, not mutation of prior records."
+    test: "tests/unit/test_artifact_registry.py::test_registry_corrections_are_append_only"
+  - id: AC-3
+    description: "Registry model rejects records with missing validation result or unresolved unsafe claims."
+    test: "tests/unit/test_artifact_registry.py::test_registry_rejects_unvalidated_or_unsafe_records"
+
+Files:
+  - src/entropy/artifacts/registry.py
+  - tests/unit/test_artifact_registry.py
+
+Context-Refs:
+  - docs/IMPLEMENTATION_CONTRACT.md#registry-append-only
+
+Notes: |
+  Start with local file-backed registry unless database persistence is explicitly
+  scoped in Phase 23.
+
+## T80: Artifact Register And Show CLI
+
+Owner:      codex
+Phase:      17
+Type:       code
+Depends-On: T79
+Status:     done 2026-05-14
+
+Objective: |
+  Add local artifact registration and read commands over validated artifact
+  records.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`entropy artifact register <path>` validates and writes an append-only registry event."
+    test: "tests/unit/test_artifact_registry_cli.py::test_register_writes_append_only_event"
+  - id: AC-2
+    description: "`entropy artifact show <artifact_id>` prints metadata and validation status without raw private payloads."
+    test: "tests/unit/test_artifact_registry_cli.py::test_show_prints_safe_metadata"
+  - id: AC-3
+    description: "Duplicate artifact registration is deterministic and either idempotent or rejected with a stable error code."
+    test: "tests/unit/test_artifact_registry_cli.py::test_duplicate_registration_is_deterministic"
+
+Files:
+  - src/entropy/cli.py
+  - src/entropy/artifacts/registry.py
+  - tests/unit/test_artifact_registry_cli.py
+
+Context-Refs:
+  - docs/AI_LOOP_OPERATING_MODEL.md
+
+Notes: |
+  Keep output machine-readable by default.
+
+## T81: Artifact List And History CLI
+
+Owner:      codex
+Phase:      17
+Type:       code
+Depends-On: T80
+Status:     done 2026-05-14
+
+Objective: |
+  Add safe local listing and event-history inspection for registered artifacts.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`entropy artifact list` shows ids, product/source, status, contract version, and timestamps without private payload fields."
+    test: "tests/unit/test_artifact_registry_cli.py::test_list_prints_safe_summary"
+  - id: AC-2
+    description: "`entropy artifact history <artifact_id>` shows append-only validation and correction events in deterministic order."
+    test: "tests/unit/test_artifact_registry_cli.py::test_history_prints_append_only_events"
+  - id: AC-3
+    description: "Missing artifact ids fail with a stable not-found error."
+    test: "tests/unit/test_artifact_registry_cli.py::test_history_rejects_missing_id"
+
+Files:
+  - src/entropy/cli.py
+  - src/entropy/artifacts/registry.py
+  - tests/unit/test_artifact_registry_cli.py
+
+Context-Refs:
+  - docs/core/ARTIFACT_CONTRACT.md
+
+Notes: |
+  This is still local/internal operator tooling, not public platform behavior.
+
+## T82: Artifact Registry Review
+
+Owner:      codex
+Phase:      17
+Type:       review
+Depends-On: T81
+Status:     done 2026-05-14
+
+Objective: |
+  Review the artifact registry phase and open reproducibility work if registry
+  semantics are stable.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Review summarizes registry model, register/show/list/history commands, append-only behavior, validation, and limitations."
+    test: "manual-evidence: registry review exists."
+  - id: AC-2
+    description: "Review records whether local file-backed registry remains sufficient until Phase 23."
+    test: "manual-evidence: storage decision note exists."
+  - id: AC-3
+    description: "State docs open T83 unless P0/P1 findings remain."
+    test: "manual/docs-review."
+
+Files:
+  - docs/audit/ARTIFACT_REGISTRY_REVIEW.md
+  - docs/EVIDENCE_INDEX.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+  - docs/CODEX_PROMPT.md
+  - PHASE_HANDOFF.md
+  - AGENT_NOTES.md
+
+Context-Refs:
+  - docs/CORE_12_MONTH_EXECUTION_ROADMAP.md
+
+Notes: |
+  Do not introduce database persistence before Phase 23.
+
+## T83: Reproducibility Manifest Schema
+
+Owner:      codex
+Phase:      18
+Type:       code
+Depends-On: T82
+Status:     done 2026-05-14
+
+Objective: |
+  Define the manifest that tells Core how an artifact can be rerun, compared,
+  or declared partially/non-reproducible.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Reproducibility manifests declare command, input refs, expected output refs, hash policy, volatile fields, and accepted nondeterminism."
+    test: "tests/unit/test_reproducibility_manifest.py::test_manifest_requires_rerun_contract_fields"
+  - id: AC-2
+    description: "Manifests reject unrestricted shell commands, missing hash policy, or undeclared volatile fields."
+    test: "tests/unit/test_reproducibility_manifest.py::test_manifest_rejects_unsafe_or_incomplete_contracts"
+  - id: AC-3
+    description: "Artifacts may explicitly declare non-reproducible fields without hiding that status."
+    test: "tests/unit/test_reproducibility_manifest.py::test_manifest_accepts_declared_partial_reproducibility"
+
+Files:
+  - src/entropy/artifacts/reproducibility.py
+  - tests/unit/test_reproducibility_manifest.py
+
+Context-Refs:
+  - docs/core/REPRODUCIBILITY_CHECKLIST.md
+
+Notes: |
+  Rerun commands must stay local and deterministic. No external side effects.
+
+## T84: Artifact Hash Compare Runner
+
+Owner:      codex
+Phase:      18
+Type:       code
+Depends-On: T83
+Status:     done 2026-05-14
+
+Objective: |
+  Implement deterministic hash comparison and material-equivalence
+  classification for artifact outputs.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Runner classifies exact, materially equivalent, partial, declared non-reproducible, and failed reproduction states."
+    test: "tests/unit/test_reproducibility_runner.py::test_runner_classifies_reproduction_states"
+  - id: AC-2
+    description: "Hash comparisons ignore only fields explicitly declared volatile in the manifest."
+    test: "tests/unit/test_reproducibility_runner.py::test_runner_ignores_only_declared_volatile_fields"
+  - id: AC-3
+    description: "Failed comparisons include stable diff metadata without raw private payload dumps."
+    test: "tests/unit/test_reproducibility_runner.py::test_failed_compare_reports_safe_metadata"
+
+Files:
+  - src/entropy/artifacts/reproducibility.py
+  - tests/unit/test_reproducibility_runner.py
+
+Context-Refs:
+  - docs/IMPLEMENTATION_CONTRACT.md#hash-and-run-reproducibility
+
+Notes: |
+  Do not execute arbitrary shell commands in this task unless command execution
+  is explicitly sandboxed and tested.
+
+## T85: Reproducibility CLI
+
+Owner:      codex
+Phase:      18
+Type:       code
+Depends-On: T84
+Status:     done 2026-05-14
+
+Objective: |
+  Expose artifact reproduction and comparison through CLI commands.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`entropy artifact compare <artifact_id> --against <path>` prints a deterministic reproduction status."
+    test: "tests/unit/test_reproducibility_cli.py::test_compare_prints_reproduction_status"
+  - id: AC-2
+    description: "`entropy artifact reproduce <artifact_id>` refuses artifacts without an approved local reproducibility manifest."
+    test: "tests/unit/test_reproducibility_cli.py::test_reproduce_requires_manifest"
+  - id: AC-3
+    description: "CLI output records limitations and declared nondeterminism."
+    test: "tests/unit/test_reproducibility_cli.py::test_cli_records_limitations"
+
+Files:
+  - src/entropy/cli.py
+  - src/entropy/artifacts/reproducibility.py
+  - tests/unit/test_reproducibility_cli.py
+
+Context-Refs:
+  - docs/core/REPRODUCIBILITY_CHECKLIST.md
+
+Notes: |
+  If direct rerun execution is too risky, implement compare-only behavior first
+  and document rerun execution as blocked.
+
+## T86: Reproducibility Runner Review
+
+Owner:      codex
+Phase:      18
+Type:       review
+Depends-On: T85
+Status:     done 2026-05-14
+
+Objective: |
+  Review reproducibility work and open evidence pipeline work if status
+  classification is stable.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Review summarizes manifest, compare runner, CLI, status taxonomy, limitations, and safety boundaries."
+    test: "manual-evidence: reproducibility runner review exists."
+  - id: AC-2
+    description: "Review records whether direct rerun execution is approved, deferred, or limited to compare-only behavior."
+    test: "manual-evidence: rerun execution decision exists."
+  - id: AC-3
+    description: "State docs open T87 unless P0/P1 findings remain."
+    test: "manual/docs-review."
+
+Files:
+  - docs/audit/REPRODUCIBILITY_RUNNER_REVIEW.md
+  - docs/EVIDENCE_INDEX.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+  - docs/CODEX_PROMPT.md
+  - PHASE_HANDOFF.md
+  - AGENT_NOTES.md
+
+Context-Refs:
+  - docs/CORE_12_MONTH_EXECUTION_ROADMAP.md
+
+Notes: |
+  Do not let reproducibility status imply performance or pilot approval.
+
+## T87: Evidence Packet Schema
+
+Owner:      codex
+Phase:      19
+Type:       code
+Depends-On: T86
+Status:     done 2026-05-14
+
+Objective: |
+  Define the machine-readable evidence packet emitted for validated and
+  registered artifacts.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Evidence packets include artifact summary, validation result, registry status, reproducibility status, limitations, claim boundary, and review refs."
+    test: "tests/unit/test_artifact_evidence_packet.py::test_evidence_packet_requires_core_sections"
+  - id: AC-2
+    description: "Evidence packets serialize deterministically with stable key ordering."
+    test: "tests/unit/test_artifact_evidence_packet.py::test_evidence_packet_serializes_deterministically"
+  - id: AC-3
+    description: "Evidence packets reject approval states not supported by registry/governance history."
+    test: "tests/unit/test_artifact_evidence_packet.py::test_evidence_packet_rejects_unsupported_approval_state"
+
+Files:
+  - src/entropy/artifacts/evidence.py
+  - tests/unit/test_artifact_evidence_packet.py
+
+Context-Refs:
+  - docs/core/REPORT_VALIDITY_CHECKLIST.md
+
+Notes: |
+  Evidence packets explain status; they do not grant external delivery approval.
+
+## T88: Evidence Build And Inspect CLI
+
+Owner:      codex
+Phase:      19
+Type:       code
+Depends-On: T87
+Status:     done 2026-05-14
+
+Objective: |
+  Add CLI commands that build and inspect artifact evidence packets.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`entropy evidence build <artifact_id>` writes a deterministic evidence packet."
+    test: "tests/unit/test_artifact_evidence_cli.py::test_evidence_build_writes_packet"
+  - id: AC-2
+    description: "`entropy evidence inspect <artifact_id>` prints safe summary fields."
+    test: "tests/unit/test_artifact_evidence_cli.py::test_evidence_inspect_prints_safe_summary"
+  - id: AC-3
+    description: "Evidence build fails when artifact validation, registry, or reproducibility prerequisites are inconsistent."
+    test: "tests/unit/test_artifact_evidence_cli.py::test_evidence_build_fails_inconsistent_prerequisites"
+
+Files:
+  - src/entropy/cli.py
+  - src/entropy/artifacts/evidence.py
+  - tests/unit/test_artifact_evidence_cli.py
+
+Context-Refs:
+  - docs/EVIDENCE_INDEX.md
+
+Notes: |
+  Keep evidence packet output local and internal.
+
+## T89: Evidence Index Automation
+
+Owner:      codex
+Phase:      19
+Type:       code
+Depends-On: T88
+Status:     done 2026-05-14
+
+Objective: |
+  Add a safe helper for indexing generated evidence packets without making the
+  Markdown evidence index the source of truth.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Evidence index helper verifies referenced files exist before emitting or updating rows."
+    test: "tests/unit/test_artifact_evidence_index.py::test_index_helper_requires_existing_refs"
+  - id: AC-2
+    description: "Helper emits deterministic rows for artifact validation, registry, reproducibility, and evidence packet outputs."
+    test: "tests/unit/test_artifact_evidence_index.py::test_index_helper_emits_deterministic_rows"
+  - id: AC-3
+    description: "Helper refuses to mark pending or missing artifacts as canonical proof."
+    test: "tests/unit/test_artifact_evidence_index.py::test_index_helper_rejects_missing_canonical_proof"
+
+Files:
+  - src/entropy/artifacts/evidence_index.py
+  - tests/unit/test_artifact_evidence_index.py
+
+Context-Refs:
+  - docs/EVIDENCE_INDEX.md
+
+Notes: |
+  The helper may generate row text; human or task code still controls final docs.
+
+## T90: Evidence Pipeline Review
+
+Owner:      codex
+Phase:      19
+Type:       review
+Depends-On: T89
+Status:     done 2026-05-14
+
+Objective: |
+  Review evidence packet and index automation work, then open product bridge
+  profile hardening.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Review summarizes evidence schemas, CLI, index helper, validation, limitations, and blocked claim surfaces."
+    test: "manual-evidence: evidence pipeline review exists."
+  - id: AC-2
+    description: "Review includes at least one generated evidence packet path."
+    test: "manual-evidence: generated packet path exists."
+  - id: AC-3
+    description: "State docs open T91 unless P0/P1 findings remain."
+    test: "manual/docs-review."
+
+Files:
+  - docs/audit/EVIDENCE_PIPELINE_REVIEW.md
+  - docs/EVIDENCE_INDEX.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+  - docs/CODEX_PROMPT.md
+  - PHASE_HANDOFF.md
+  - AGENT_NOTES.md
+
+Context-Refs:
+  - docs/CORE_12_MONTH_EXECUTION_ROADMAP.md
+
+Notes: |
+  Do not let evidence packet creation become external delivery approval.
+
+## T91: Product Bridge Profile Model
+
+Owner:      codex
+Phase:      20
+Type:       code
+Depends-On: T90
+Status:     done 2026-05-14
+
+Objective: |
+  Add narrow product profile overlays that validate product-shaped artifacts
+  without moving product-specific logic into Core.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Profiles exist for `generic`, `trader-risk-audit`, and `signal-analytics-sandbox`."
+    test: "tests/unit/test_product_bridge_profiles.py::test_known_profiles_exist"
+  - id: AC-2
+    description: "Profile overlays add allowed and forbidden no-claim labels without changing the base artifact contract."
+    test: "tests/unit/test_product_bridge_profiles.py::test_profiles_overlay_claim_boundaries"
+  - id: AC-3
+    description: "Unknown profiles are rejected with a stable error."
+    test: "tests/unit/test_product_bridge_profiles.py::test_unknown_profile_rejected"
+
+Files:
+  - src/entropy/artifacts/profiles.py
+  - tests/unit/test_product_bridge_profiles.py
+
+Context-Refs:
+  - docs/core/PRODUCT_ARTIFACT_BRIDGES.md
+
+Notes: |
+  Profiles validate shape and boundaries only. They do not generate product
+  reports.
+
+## T92: Profile-Aware Validation CLI
+
+Owner:      codex
+Phase:      20
+Type:       code
+Depends-On: T91
+Status:     done 2026-05-14
+
+Objective: |
+  Add `--profile` support to artifact validation and registration commands.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`entropy artifact validate <path> --profile trader-risk-audit` applies Trader-specific blocked-surface checks."
+    test: "tests/unit/test_product_bridge_profile_cli.py::test_trader_profile_validation_applies_boundaries"
+  - id: AC-2
+    description: "`entropy artifact validate <path> --profile signal-analytics-sandbox` applies Signal-specific no-advice/no-future-performance checks."
+    test: "tests/unit/test_product_bridge_profile_cli.py::test_signal_profile_validation_applies_boundaries"
+  - id: AC-3
+    description: "Profile-aware validation keeps product-specific optional fields outside the Core base schema."
+    test: "tests/unit/test_product_bridge_profile_cli.py::test_profile_validation_does_not_absorb_product_schema"
+
+Files:
+  - src/entropy/cli.py
+  - src/entropy/artifacts/profiles.py
+  - tests/unit/test_product_bridge_profile_cli.py
+
+Context-Refs:
+  - docs/core/PRODUCT_ARTIFACT_BRIDGES.md
+
+Notes: |
+  Do not edit Trader or Signal workspaces from this task.
+
+## T93: Product-Shaped Artifact Fixtures
+
+Owner:      codex
+Phase:      20
+Type:       test
+Depends-On: T92
+Status:     done 2026-05-14
+
+Objective: |
+  Add redacted/synthetic product-shaped fixture artifacts that exercise bridge
+  profile validation.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Trader-shaped fixture validates under the Trader profile and fails under unsafe claim variants."
+    test: "tests/unit/test_product_bridge_profile_fixtures.py::test_trader_fixture_profile_behavior"
+  - id: AC-2
+    description: "Signal-shaped fixture validates under the Signal profile and fails under advice/future-performance variants."
+    test: "tests/unit/test_product_bridge_profile_fixtures.py::test_signal_fixture_profile_behavior"
+  - id: AC-3
+    description: "Fixtures contain no real customer, private source, credential, or raw confidential payload data."
+    test: "tests/unit/test_product_bridge_profile_fixtures.py::test_profile_fixtures_are_synthetic"
+
+Files:
+  - tests/fixtures/artifacts/profiles/
+  - tests/unit/test_product_bridge_profile_fixtures.py
+
+Context-Refs:
+  - docs/IMPLEMENTATION_CONTRACT.md#pii-policy
+
+Notes: |
+  Fixture names may reference product shape, not real product-owned reports.
+
+## T94: Product Bridge Profile Review
+
+Owner:      codex
+Phase:      20
+Type:       review
+Depends-On: T93
+Status:     done 2026-05-14
+
+Objective: |
+  Review profile hardening and confirm Core remains separate from neighboring
+  products.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Review summarizes profile model, CLI support, fixtures, limitations, and product ownership boundary."
+    test: "manual-evidence: product bridge profile review exists."
+  - id: AC-2
+    description: "Review states that Core may validate product-shaped artifacts but does not own product runtime or report generation."
+    test: "manual-evidence: ownership boundary section exists."
+  - id: AC-3
+    description: "State docs open T95 unless P0/P1 findings remain."
+    test: "manual/docs-review."
+
+Files:
+  - docs/audit/PRODUCT_BRIDGE_PROFILE_REVIEW.md
+  - docs/EVIDENCE_INDEX.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+  - docs/CODEX_PROMPT.md
+  - PHASE_HANDOFF.md
+  - AGENT_NOTES.md
+
+Context-Refs:
+  - docs/core/PRODUCT_ARTIFACT_BRIDGES.md
+
+Notes: |
+  Do not interpret product-shaped fixtures as pilot-ready product artifacts.
+
+## T95: Artifact Governance State Model
+
+Owner:      codex
+Phase:      21
+Type:       code
+Depends-On: T94
+Status:     done 2026-05-14
+
+Objective: |
+  Define deterministic artifact governance states and transition rules.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "State model includes draft, validated_internal, blocked, needs_manual_review, approved_for_controlled_external_pilot, rejected, and superseded."
+    test: "tests/unit/test_artifact_governance_state.py::test_state_model_lists_required_states"
+  - id: AC-2
+    description: "Forbidden transitions such as invalid to external pilot approval are rejected."
+    test: "tests/unit/test_artifact_governance_state.py::test_forbidden_transitions_rejected"
+  - id: AC-3
+    description: "External pilot approval requires a human approval event reference."
+    test: "tests/unit/test_artifact_governance_state.py::test_external_pilot_requires_human_approval_event"
+
+Files:
+  - src/entropy/artifacts/governance.py
+  - tests/unit/test_artifact_governance_state.py
+
+Context-Refs:
+  - docs/IMPLEMENTATION_CONTRACT.md#deterministic-runtime-truth
+
+Notes: |
+  This does not approve actual external delivery; it models the gate.
+
+## T96: Governance Transition CLI
+
+Owner:      codex
+Phase:      21
+Type:       code
+Depends-On: T95
+Status:     done 2026-05-14
+
+Objective: |
+  Add local CLI commands for governed artifact state transitions and history.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`entropy governance transition <artifact_id> --to <state>` records append-only transition events."
+    test: "tests/unit/test_artifact_governance_cli.py::test_transition_records_append_only_event"
+  - id: AC-2
+    description: "Invalid transitions fail before any event is written."
+    test: "tests/unit/test_artifact_governance_cli.py::test_invalid_transition_fails_before_write"
+  - id: AC-3
+    description: "`entropy governance history <artifact_id>` prints deterministic transition history."
+    test: "tests/unit/test_artifact_governance_cli.py::test_history_prints_deterministic_transitions"
+
+Files:
+  - src/entropy/cli.py
+  - src/entropy/artifacts/governance.py
+  - tests/unit/test_artifact_governance_cli.py
+
+Context-Refs:
+  - docs/AI_LOOP_OPERATING_MODEL.md
+
+Notes: |
+  Transition commands must not create approval events by implication.
+
+## T97: Approval Event Binding
+
+Owner:      codex
+Phase:      21
+Type:       code
+Depends-On: T96
+Status:     done 2026-05-14
+
+Objective: |
+  Bind artifact governance transitions to explicit human approval event
+  references where required.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Approval-bound transitions require approval id, approver, scope, maximum effect, timestamp, and blocked surfaces."
+    test: "tests/unit/test_artifact_approval_binding.py::test_approval_bound_transitions_require_event_fields"
+  - id: AC-2
+    description: "Approval scopes outside artifact validation and controlled external pilot are rejected unless future tasks explicitly add them."
+    test: "tests/unit/test_artifact_approval_binding.py::test_approval_binding_rejects_scope_expansion"
+  - id: AC-3
+    description: "Approval binding preserves no live, no holdout, no broker/exchange, no production, and no capital-ready surfaces by default."
+    test: "tests/unit/test_artifact_approval_binding.py::test_approval_binding_preserves_restricted_boundaries"
+
+Files:
+  - src/entropy/artifacts/governance.py
+  - tests/unit/test_artifact_approval_binding.py
+
+Context-Refs:
+  - docs/IMPLEMENTATION_CONTRACT.md#human-approval-boundaries
+
+Notes: |
+  Approval event binding is an audit mechanism, not a product delivery decision.
+
+## T98: Governance State Machine Review
+
+Owner:      codex
+Phase:      21
+Type:       review
+Depends-On: T97
+Status:     done 2026-05-14
+
+Objective: |
+  Review artifact governance state machine and open research integration work.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Review summarizes state model, transition CLI, approval binding, append-only behavior, and blocked surfaces."
+    test: "manual-evidence: governance state machine review exists."
+  - id: AC-2
+    description: "Review confirms no state creates live, holdout, broker/exchange, production, capital-ready, or performance claims."
+    test: "manual-evidence: blocked-surface section exists."
+  - id: AC-3
+    description: "State docs open T99 unless P0/P1 findings remain."
+    test: "manual/docs-review."
+
+Files:
+  - docs/audit/ARTIFACT_GOVERNANCE_STATE_MACHINE_REVIEW.md
+  - docs/EVIDENCE_INDEX.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+  - docs/CODEX_PROMPT.md
+  - PHASE_HANDOFF.md
+  - AGENT_NOTES.md
+
+Context-Refs:
+  - docs/CORE_12_MONTH_EXECUTION_ROADMAP.md
+
+Notes: |
+  This phase enables governance mechanics, not external product launch.
+
+## T99: Research Artifact Schemas
+
+Owner:      codex
+Phase:      22
+Type:       code
+Depends-On: T98
+Status:     done 2026-05-14
+
+Objective: |
+  Represent Core research candidate, dataset, evaluation, and report outputs as
+  artifact-contract-compatible objects.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Research artifact schemas bind candidate id, dataset hash, code hash, policy hash, leakage status, and no-claim labels."
+    test: "tests/unit/test_research_artifact_schemas.py::test_research_artifacts_bind_required_hashes"
+  - id: AC-2
+    description: "Research artifacts reject OOS/performance labels when holdout/leakage gates are absent."
+    test: "tests/unit/test_research_artifact_schemas.py::test_research_artifacts_reject_unsupported_claims"
+  - id: AC-3
+    description: "Existing archive-only research packets can be represented without changing their historical meaning."
+    test: "tests/unit/test_research_artifact_schemas.py::test_existing_archive_packets_map_to_no_claim_artifacts"
+
+Files:
+  - src/entropy/artifacts/research.py
+  - tests/unit/test_research_artifact_schemas.py
+
+Context-Refs:
+  - docs/core/PROTOCOL_SPEC.md
+  - docs/IMPLEMENTATION_CONTRACT.md#leakage-and-holdout-boundary
+
+Notes: |
+  This does not open holdout or create new evaluation claims.
+
+## T100: Research Artifact Adapter
+
+Owner:      codex
+Phase:      22
+Type:       code
+Depends-On: T99
+Status:     done 2026-05-14
+
+Objective: |
+  Add adapters that convert existing Core research/evidence packet objects into
+  artifact validation inputs.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Adapter converts existing archive-only research evidence into `ArtifactContractV1`-compatible payloads."
+    test: "tests/unit/test_research_artifact_adapter.py::test_archive_packet_converts_to_artifact_payload"
+  - id: AC-2
+    description: "Adapter preserves no-claim labels and blocked surfaces."
+    test: "tests/unit/test_research_artifact_adapter.py::test_adapter_preserves_no_claim_boundaries"
+  - id: AC-3
+    description: "Adapter fails when required dataset, code, policy, or report hashes are unresolved."
+    test: "tests/unit/test_research_artifact_adapter.py::test_adapter_rejects_unresolved_hashes"
+
+Files:
+  - src/entropy/artifacts/research.py
+  - tests/unit/test_research_artifact_adapter.py
+
+Context-Refs:
+  - docs/research/
+
+Notes: |
+  Do not rewrite research packet generation in this task.
+
+## T101: Research Artifact Validation Fixtures
+
+Owner:      codex
+Phase:      22
+Type:       test
+Depends-On: T100
+Status:     done 2026-05-14
+
+Objective: |
+  Add synthetic fixtures that exercise research artifact validation paths.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Valid no-claim research artifact fixture passes validation."
+    test: "tests/unit/test_research_artifact_fixtures.py::test_valid_research_artifact_fixture_passes"
+  - id: AC-2
+    description: "Unsafe OOS/performance and holdout variants fail validation."
+    test: "tests/unit/test_research_artifact_fixtures.py::test_unsafe_research_claim_variants_fail"
+  - id: AC-3
+    description: "Fixtures contain no real private strategy payloads."
+    test: "tests/unit/test_research_artifact_fixtures.py::test_research_fixtures_are_synthetic"
+
+Files:
+  - tests/fixtures/artifacts/research/
+  - tests/unit/test_research_artifact_fixtures.py
+
+Context-Refs:
+  - docs/IMPLEMENTATION_CONTRACT.md#pii-policy
+
+Notes: |
+  Research fixtures may be synthetic but must preserve realistic hash-binding
+  shape.
+
+## T102: Research Evaluation Integration Review
+
+Owner:      codex
+Phase:      22
+Type:       review
+Depends-On: T101
+Status:     done 2026-05-14
+
+Objective: |
+  Review research artifact integration and open storage backend work.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Review summarizes research schemas, adapter, fixtures, no-claim behavior, and unresolved gaps."
+    test: "manual-evidence: research integration review exists."
+  - id: AC-2
+    description: "Review confirms no holdout read/unlock or OOS/performance label has been opened."
+    test: "manual-evidence: blocked-holdout section exists."
+  - id: AC-3
+    description: "State docs open T103 unless P0/P1 findings remain."
+    test: "manual/docs-review."
+
+Files:
+  - docs/audit/RESEARCH_ARTIFACT_INTEGRATION_REVIEW.md
+  - docs/EVIDENCE_INDEX.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+  - docs/CODEX_PROMPT.md
+  - PHASE_HANDOFF.md
+  - AGENT_NOTES.md
+
+Context-Refs:
+  - docs/CORE_12_MONTH_EXECUTION_ROADMAP.md
+
+Notes: |
+  Phase 22 is integration into artifact governance, not research claim expansion.
+
+## T103: Artifact Metadata Migration
+
+Owner:      codex
+Phase:      23
+Type:       code
+Depends-On: T102
+Status:     done 2026-05-14
+
+Objective: |
+  Add database metadata tables for artifact records, validation events,
+  reproducibility events, evidence packets, and governance transitions.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Alembic migration adds artifact metadata tables with append-only event tables."
+    test: "tests/integration/test_artifact_metadata_migration.py::test_artifact_metadata_tables_exist"
+  - id: AC-2
+    description: "Application write paths do not UPDATE or DELETE append-only artifact event tables."
+    test: "tests/integration/test_artifact_metadata_migration.py::test_artifact_event_tables_are_append_only"
+  - id: AC-3
+    description: "Migration does not introduce tenant, auth, hosted service, or public API assumptions."
+    test: "tests/integration/test_artifact_metadata_migration.py::test_migration_has_no_saas_assumptions"
+
+Files:
+  - migrations/versions/
+  - src/entropy/db/models.py
+  - tests/integration/test_artifact_metadata_migration.py
+
+Context-Refs:
+  - docs/ARCHITECTURE.md#runtime-and-isolation-model
+  - docs/IMPLEMENTATION_CONTRACT.md#registry-append-only
+
+Notes: |
+  Use existing SQLAlchemy/Alembic patterns. No multi-tenant behavior in this
+  task.
+
+## T104: Artifact Store Abstraction
+
+Owner:      codex
+Phase:      23
+Type:       code
+Depends-On: T103
+Status:     done 2026-05-14
+
+Objective: |
+  Add a filesystem artifact-store abstraction with a future object-store
+  boundary but no hosted storage dependency.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Filesystem store writes content-addressed artifact payloads and returns stable refs."
+    test: "tests/unit/test_artifact_store.py::test_filesystem_store_writes_content_addressed_payloads"
+  - id: AC-2
+    description: "Store rejects path traversal and unsafe absolute path writes."
+    test: "tests/unit/test_artifact_store.py::test_store_rejects_unsafe_paths"
+  - id: AC-3
+    description: "Object-store interface is declared but no external service dependency is required."
+    test: "tests/unit/test_artifact_store.py::test_object_store_boundary_has_no_runtime_dependency"
+
+Files:
+  - src/entropy/artifacts/store.py
+  - tests/unit/test_artifact_store.py
+
+Context-Refs:
+  - docs/ARCHITECTURE.md#persistence-model
+
+Notes: |
+  Keep local filesystem as the only active backend.
+
+## T105: Metadata Repository
+
+Owner:      codex
+Phase:      23
+Type:       code
+Depends-On: T104
+Status:     done 2026-05-14
+
+Objective: |
+  Add repository functions that persist artifact metadata and append-only
+  events to PostgreSQL when configured.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Repository inserts artifact metadata and event rows with parameterized SQL/SQLAlchemy calls."
+    test: "tests/integration/test_artifact_metadata_repository.py::test_repository_inserts_artifact_metadata"
+  - id: AC-2
+    description: "Repository rejects mutation operations for append-only events."
+    test: "tests/integration/test_artifact_metadata_repository.py::test_repository_has_no_update_delete_event_paths"
+  - id: AC-3
+    description: "Repository can fall back to local registry behavior when database is not configured."
+    test: "tests/unit/test_artifact_metadata_repository.py::test_repository_fallback_without_database"
+
+Files:
+  - src/entropy/artifacts/repository.py
+  - tests/unit/test_artifact_metadata_repository.py
+  - tests/integration/test_artifact_metadata_repository.py
+
+Context-Refs:
+  - docs/IMPLEMENTATION_CONTRACT.md#sql-safety
+
+Notes: |
+  Do not require PostgreSQL for simple local validation commands.
+
+## T106: Storage And Audit Backend Review
+
+Owner:      codex
+Phase:      23
+Type:       review
+Depends-On: T105
+Status:     done 2026-05-14
+
+Objective: |
+  Review durable metadata and artifact-store boundaries before any internal
+  API/job work.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Review summarizes migrations, store abstraction, repository behavior, append-only guarantees, and local fallback."
+    test: "manual-evidence: storage backend review exists."
+  - id: AC-2
+    description: "Review confirms no multi-tenant SaaS, public API, or hosted storage behavior was introduced."
+    test: "manual-evidence: no-saas section exists."
+  - id: AC-3
+    description: "State docs open T107 unless P0/P1 findings remain."
+    test: "manual/docs-review."
+
+Files:
+  - docs/audit/STORAGE_AND_AUDIT_BACKEND_REVIEW.md
+  - docs/EVIDENCE_INDEX.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+  - docs/CODEX_PROMPT.md
+  - PHASE_HANDOFF.md
+  - AGENT_NOTES.md
+
+Context-Refs:
+  - docs/CORE_12_MONTH_EXECUTION_ROADMAP.md
+
+Notes: |
+  A service/API remains optional and internal-only after this phase.
+
+## T107: Internal API Boundary ADR
+
+Owner:      codex
+Phase:      24
+Type:       docs
+Depends-On: T106
+Status:     done 2026-05-14
+
+Objective: |
+  Decide whether Core needs an internal API/job boundary or whether CLI/local
+  batch remains sufficient.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "ADR compares CLI-only, internal Python API, FastAPI internal service, and background job options."
+    test: "manual-evidence: ADR exists."
+  - id: AC-2
+    description: "ADR states whether API/job implementation is accepted, deferred, or rejected for this roadmap."
+    test: "manual-evidence: decision field exists."
+  - id: AC-3
+    description: "ADR preserves no public SDK, hosted service, auth, tenant, or external SLA claims."
+    test: "manual-evidence: boundary section exists."
+
+Files:
+  - docs/adr/ADR-CORE-INTERNAL-API-JOB-BOUNDARY.md
+
+Context-Refs:
+  - docs/ARCHITECTURE.md#security-boundaries
+  - docs/AI_LOOP_OPERATING_MODEL.md
+
+Notes: |
+  If ADR rejects or defers API/jobs, T108-T109 should be rewritten to reinforce
+  CLI/library boundaries instead.
+
+## T108: Internal Python API Facade
+
+Owner:      codex
+Phase:      24
+Type:       code
+Depends-On: T107
+Status:     done 2026-05-14
+
+Objective: |
+  Provide a stable internal Python API facade over validation, registry,
+  reproducibility, evidence, and governance operations.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Facade exposes typed functions for validate, register, compare, build evidence, and transition state."
+    test: "tests/unit/test_internal_api_facade.py::test_facade_exposes_core_operations"
+  - id: AC-2
+    description: "Facade preserves the same validation and governance errors as CLI paths."
+    test: "tests/unit/test_internal_api_facade.py::test_facade_matches_cli_error_semantics"
+  - id: AC-3
+    description: "Facade has no network, auth, or multi-tenant behavior."
+    test: "tests/unit/test_internal_api_facade.py::test_facade_has_no_service_surface"
+
+Files:
+  - src/entropy/artifacts/api.py
+  - tests/unit/test_internal_api_facade.py
+
+Context-Refs:
+  - docs/adr/ADR-CORE-INTERNAL-API-JOB-BOUNDARY.md
+
+Notes: |
+  This is an internal library facade, not a public SDK.
+
+## T109: Internal Job Model
+
+Owner:      codex
+Phase:      24
+Type:       code
+Depends-On: T108
+Status:     done 2026-05-14
+
+Objective: |
+  Define an idempotent internal job model for validation/evidence operations
+  without adding a worker service unless ADR explicitly approves it.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Job model records job id, operation, artifact ref, idempotency key, status, result ref, and error code."
+    test: "tests/unit/test_internal_job_model.py::test_job_model_requires_idempotency_fields"
+  - id: AC-2
+    description: "Duplicate idempotency keys return the same job identity or stable duplicate error."
+    test: "tests/unit/test_internal_job_model.py::test_job_idempotency_is_deterministic"
+  - id: AC-3
+    description: "Job execution remains in-process unless ADR explicitly approves a worker runtime."
+    test: "tests/unit/test_internal_job_model.py::test_job_model_has_no_worker_runtime_dependency"
+
+Files:
+  - src/entropy/artifacts/jobs.py
+  - tests/unit/test_internal_job_model.py
+
+Context-Refs:
+  - docs/adr/ADR-CORE-INTERNAL-API-JOB-BOUNDARY.md
+
+Notes: |
+  Do not add Celery, Redis, Temporal, Kafka, or service containers in this task.
+
+## T110: Internal API And Job Boundary Review
+
+Owner:      codex
+Phase:      24
+Type:       review
+Depends-On: T109
+Status:     done 2026-05-14
+
+Objective: |
+  Review internal API/job boundary work and decide whether CAF primitives can
+  open.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Review summarizes ADR decision, facade, job model, validation, limitations, and blocked service surfaces."
+    test: "manual-evidence: internal API/job boundary review exists."
+  - id: AC-2
+    description: "Review confirms no public SDK, hosted service, multi-tenant auth, or background worker dependency was introduced unless separately approved."
+    test: "manual-evidence: blocked-service section exists."
+  - id: AC-3
+    description: "State docs open T111 unless P0/P1 findings remain."
+    test: "manual/docs-review."
+
+Files:
+  - docs/audit/INTERNAL_API_JOB_BOUNDARY_REVIEW.md
+  - docs/EVIDENCE_INDEX.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+  - docs/CODEX_PROMPT.md
+  - PHASE_HANDOFF.md
+  - AGENT_NOTES.md
+
+Context-Refs:
+  - docs/CORE_12_MONTH_EXECUTION_ROADMAP.md
+
+Notes: |
+  If API/job scope was deferred, record that clearly and continue to CAF schemas
+  through internal library/CLI paths.
+
+## T111: CAF Artifact Vocabulary
+
+Owner:      codex
+Phase:      25
+Type:       code
+Depends-On: T110
+Status:     done 2026-05-14
+
+Objective: |
+  Define the initial Capital Allocation Framework artifact vocabulary without
+  enabling capital movement or investment advice.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "CAF vocabulary includes allocation decision, risk policy, portfolio constraint, decision rationale, and decision evidence bundle artifacts."
+    test: "tests/unit/test_caf_artifact_vocabulary.py::test_caf_vocabulary_lists_required_artifacts"
+  - id: AC-2
+    description: "CAF artifacts require no-claim labels for not investment advice, not live allocation, not capital-ready, and not automated execution."
+    test: "tests/unit/test_caf_artifact_vocabulary.py::test_caf_artifacts_require_no_claim_labels"
+  - id: AC-3
+    description: "CAF vocabulary does not include broker/order/capital execution fields."
+    test: "tests/unit/test_caf_artifact_vocabulary.py::test_caf_vocabulary_has_no_execution_fields"
+
+Files:
+  - src/entropy/artifacts/caf.py
+  - tests/unit/test_caf_artifact_vocabulary.py
+
+Context-Refs:
+  - docs/core/CHARTER.md
+  - docs/core/PROTOCOL_SPEC.md
+
+Notes: |
+  This phase models decision evidence, not trading execution.
+
+## T112: Allocation Decision Artifact Schema
+
+Owner:      codex
+Phase:      25
+Type:       code
+Depends-On: T111
+Status:     done 2026-05-14
+
+Objective: |
+  Implement the first governed allocation decision artifact schema.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Allocation decision artifacts bind decision id, portfolio context, constraints, evidence refs, rationale refs, limitations, and no-claim boundaries."
+    test: "tests/unit/test_allocation_decision_artifact.py::test_allocation_decision_requires_governed_fields"
+  - id: AC-2
+    description: "Artifacts reject future-performance, advice, capital-ready, and automated-execution claims."
+    test: "tests/unit/test_allocation_decision_artifact.py::test_allocation_decision_rejects_unsafe_claims"
+  - id: AC-3
+    description: "Four-stream P&L attribution references are supported without blending treasury into net Sharpe."
+    test: "tests/unit/test_allocation_decision_artifact.py::test_allocation_decision_preserves_four_stream_boundary"
+
+Files:
+  - src/entropy/artifacts/caf.py
+  - tests/unit/test_allocation_decision_artifact.py
+
+Context-Refs:
+  - docs/core/CHARTER.md#b-non-negotiables
+
+Notes: |
+  Do not add portfolio execution, broker APIs, or live allocation logic.
+
+## T113: CAF Validation Fixtures
+
+Owner:      codex
+Phase:      25
+Type:       test
+Depends-On: T112
+Status:     done 2026-05-14
+
+Objective: |
+  Add synthetic CAF artifacts that exercise allocation decision validation and
+  unsafe-claim rejection.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Valid allocation decision fixture passes base artifact and CAF-specific validation."
+    test: "tests/unit/test_caf_artifact_fixtures.py::test_valid_caf_fixture_passes"
+  - id: AC-2
+    description: "Unsafe live allocation, investment advice, and capital-ready variants fail validation."
+    test: "tests/unit/test_caf_artifact_fixtures.py::test_unsafe_caf_variants_fail"
+  - id: AC-3
+    description: "Fixtures are synthetic and contain no real portfolio, account, customer, or private strategy payloads."
+    test: "tests/unit/test_caf_artifact_fixtures.py::test_caf_fixtures_are_synthetic"
+
+Files:
+  - tests/fixtures/artifacts/caf/
+  - tests/unit/test_caf_artifact_fixtures.py
+
+Context-Refs:
+  - docs/IMPLEMENTATION_CONTRACT.md#pii-policy
+
+Notes: |
+  Use realistic structure, not real capital data.
+
+## T114: CAF Decision Primitives Review
+
+Owner:      codex
+Phase:      25
+Type:       review
+Depends-On: T113
+Status:     done 2026-05-14
+
+Objective: |
+  Review CAF primitive schemas and confirm the roadmap can proceed to audit
+  readiness.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Review summarizes CAF vocabulary, allocation decision schema, fixtures, validation, and limitations."
+    test: "manual-evidence: CAF decision primitives review exists."
+  - id: AC-2
+    description: "Review confirms no capital movement, investment advice, live allocation, broker/exchange execution, or production label is approved."
+    test: "manual-evidence: no-capital-execution section exists."
+  - id: AC-3
+    description: "State docs open T115 unless P0/P1 findings remain."
+    test: "manual/docs-review."
+
+Files:
+  - docs/audit/CAF_DECISION_PRIMITIVES_REVIEW.md
+  - docs/EVIDENCE_INDEX.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+  - docs/CODEX_PROMPT.md
+  - PHASE_HANDOFF.md
+  - AGENT_NOTES.md
+
+Context-Refs:
+  - docs/CORE_12_MONTH_EXECUTION_ROADMAP.md
+
+Notes: |
+  CAF primitives are evidence contracts, not execution systems.
+
+## T115: Audit Bundle Schema
+
+Owner:      codex
+Phase:      26
+Type:       code
+Depends-On: T114
+Status:     done 2026-05-14
+
+Objective: |
+  Define an exportable audit bundle that packages artifact lineage, validation,
+  reproducibility, evidence, governance, and limitations.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Audit bundles include artifact lineage graph, evidence packet refs, validation events, governance events, reviewer notes, and limitations."
+    test: "tests/unit/test_audit_bundle.py::test_audit_bundle_requires_lineage_sections"
+  - id: AC-2
+    description: "Bundles serialize deterministically and include content hashes."
+    test: "tests/unit/test_audit_bundle.py::test_audit_bundle_serializes_deterministically"
+  - id: AC-3
+    description: "Bundles do not claim SOC 2, regulatory certification, investment-advice compliance, or enterprise readiness by default."
+    test: "tests/unit/test_audit_bundle.py::test_audit_bundle_rejects_external_certification_claims"
+
+Files:
+  - src/entropy/artifacts/audit_bundle.py
+  - tests/unit/test_audit_bundle.py
+
+Context-Refs:
+  - docs/ARCHITECTURE.md#security-boundaries
+
+Notes: |
+  This is enterprise audit readiness, not external compliance certification.
+
+## T116: Lineage Graph Builder
+
+Owner:      codex
+Phase:      26
+Type:       code
+Depends-On: T115
+Status:     done 2026-05-14
+
+Objective: |
+  Build artifact lineage graphs across input refs, generated refs, registry
+  events, evidence packets, and governance transitions.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Lineage builder returns deterministic graph nodes and edges for artifact refs and events."
+    test: "tests/unit/test_lineage_graph.py::test_lineage_graph_is_deterministic"
+  - id: AC-2
+    description: "Missing refs are represented as explicit unresolved nodes, not silently ignored."
+    test: "tests/unit/test_lineage_graph.py::test_lineage_graph_records_unresolved_refs"
+  - id: AC-3
+    description: "Lineage output avoids raw private payloads."
+    test: "tests/unit/test_lineage_graph.py::test_lineage_graph_avoids_private_payloads"
+
+Files:
+  - src/entropy/artifacts/lineage.py
+  - tests/unit/test_lineage_graph.py
+
+Context-Refs:
+  - docs/EVIDENCE_INDEX.md
+
+Notes: |
+  Keep graph output simple JSON; no graph database is approved.
+
+## T117: Data Classification And Reviewer Role Model
+
+Owner:      codex
+Phase:      26
+Type:       code
+Depends-On: T116
+Status:     done 2026-05-14
+
+Objective: |
+  Add lightweight data classification and reviewer-role metadata for audit
+  bundles without implementing full RBAC.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Data classification model distinguishes public, internal, confidential, private/customer, and secret categories."
+    test: "tests/unit/test_audit_data_classification.py::test_data_classification_lists_required_categories"
+  - id: AC-2
+    description: "Reviewer role metadata records reviewer id/ref, role, reviewed sections, decision, timestamp, and limitations."
+    test: "tests/unit/test_audit_data_classification.py::test_reviewer_role_metadata_requires_review_fields"
+  - id: AC-3
+    description: "Model does not implement auth, SSO, RBAC, or tenant isolation."
+    test: "tests/unit/test_audit_data_classification.py::test_model_has_no_auth_or_tenant_behavior"
+
+Files:
+  - src/entropy/artifacts/audit_bundle.py
+  - tests/unit/test_audit_data_classification.py
+
+Context-Refs:
+  - docs/IMPLEMENTATION_CONTRACT.md#authorization
+
+Notes: |
+  This prepares audit semantics; it is not an authorization system.
+
+## T118: Enterprise Audit Readiness Review
+
+Owner:      codex
+Phase:      26
+Type:       review
+Depends-On: T117
+Status:     done 2026-05-14
+
+Objective: |
+  Review audit readiness work and decide whether Core V1 productization can
+  open.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Review summarizes audit bundles, lineage, data classification, reviewer roles, limitations, and non-certification boundary."
+    test: "manual-evidence: enterprise audit readiness review exists."
+  - id: AC-2
+    description: "Review states remaining gaps before any external enterprise/compliance claim."
+    test: "manual-evidence: enterprise gap section exists."
+  - id: AC-3
+    description: "State docs open T119 unless P0/P1 findings remain."
+    test: "manual/docs-review."
+
+Files:
+  - docs/audit/ENTERPRISE_AUDIT_READINESS_REVIEW.md
+  - docs/EVIDENCE_INDEX.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+  - docs/CODEX_PROMPT.md
+  - PHASE_HANDOFF.md
+  - AGENT_NOTES.md
+
+Context-Refs:
+  - docs/CORE_12_MONTH_EXECUTION_ROADMAP.md
+
+Notes: |
+  Do not claim SOC 2, regulated investment-advice compliance, or enterprise SLA.
+
+## T119: Core V1 Surface Freeze
+
+Owner:      codex
+Phase:      27
+Type:       docs
+Depends-On: T118
+Status:     done 2026-05-14
+
+Objective: |
+  Freeze the Core V1 internal product surface across CLI commands, schemas,
+  artifact states, evidence formats, and storage boundaries.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Surface freeze document lists stable CLI commands, schema versions, state vocabularies, storage boundaries, and unsupported surfaces."
+    test: "manual-evidence: Core V1 surface freeze document exists."
+  - id: AC-2
+    description: "Freeze document distinguishes internal API from public SDK and explicitly keeps public SDK unapproved."
+    test: "manual-evidence: public SDK boundary exists."
+  - id: AC-3
+    description: "Freeze document identifies any schema/version migration required before V1 release."
+    test: "manual-evidence: migration section exists."
+
+Files:
+  - docs/core/CORE_V1_SURFACE_FREEZE.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Context-Refs:
+  - docs/CORE_12_MONTH_EXECUTION_ROADMAP.md
+
+Notes: |
+  This task freezes internal surface only.
+
+## T120: Operator Runbook And Examples
+
+Owner:      codex
+Phase:      27
+Type:       docs
+Depends-On: T119
+Status:     done 2026-05-14
+
+Objective: |
+  Create operator-facing runbooks and examples for validating, registering,
+  reproducing, governing, and exporting artifacts.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Runbook contains end-to-end command sequences for generic, research, product-shaped, and CAF-shaped artifacts."
+    test: "manual-evidence: runbook examples exist."
+  - id: AC-2
+    description: "Examples use synthetic/redacted fixtures only."
+    test: "manual-evidence: examples reference fixture paths only."
+  - id: AC-3
+    description: "Runbook includes failure handling and blocked-surface guidance."
+    test: "manual-evidence: failure and boundary sections exist."
+
+Files:
+  - RUNBOOK.md
+  - docs/core/CORE_V1_EXAMPLES.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Context-Refs:
+  - docs/AI_LOOP_OPERATING_MODEL.md
+
+Notes: |
+  Do not include real customer, product, or private research payloads.
+
+## T121: Documentation And Test Alignment Sweep
+
+Owner:      codex
+Phase:      27
+Type:       docs
+Depends-On: T120
+Status:     done 2026-05-14
+
+Objective: |
+  Align architecture, implementation contract references, task graph, evidence
+  index, examples, and test names with the final Core V1 surface.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Architecture docs match implemented Core V1 components and do not describe unimplemented public service behavior."
+    test: "manual/docs-review."
+  - id: AC-2
+    description: "Evidence index rows for Core V1 capabilities point to existing tests, fixtures, generated packets, or review artifacts."
+    test: "manual/docs-review."
+  - id: AC-3
+    description: "Known obsolete phase anchors are either updated or explicitly preserved as historical anchors."
+    test: "manual/docs-review."
+
+Files:
+  - docs/ARCHITECTURE.md
+  - docs/IMPLEMENTATION_CONTRACT.md
+  - docs/EVIDENCE_INDEX.md
+  - docs/tasks.md
+  - docs/CODEX_PROMPT.md
+  - README.md
+
+Context-Refs:
+  - docs/core/CORE_V1_SURFACE_FREEZE.md
+
+Notes: |
+  Contract changes still require ADR where the implementation contract says so.
+
+## T122: Core V1 Productization Review
+
+Owner:      codex
+Phase:      27
+Type:       review
+Depends-On: T121
+Status:     done 2026-05-14
+
+Objective: |
+  Final review for Core V1 as a documented, tested internal product kernel and
+  roadmap handoff to Core V2 planning.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Review summarizes Core V1 capabilities, stable surfaces, verification evidence, limitations, open findings, and V2 recommendations."
+    test: "manual-evidence: Core V1 productization review exists."
+  - id: AC-2
+    description: "Review explicitly states which commercial, SaaS, enterprise-compliance, live, holdout, and capital surfaces remain unapproved."
+    test: "manual-evidence: unapproved surfaces section exists."
+  - id: AC-3
+    description: "State docs checkpoint Core V1 and stop automatic roadmap expansion until a new V2 roadmap is approved."
+    test: "manual/docs-review."
+
+Files:
+  - docs/audit/CORE_V1_PRODUCTIZATION_REVIEW.md
+  - docs/EVIDENCE_INDEX.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+  - docs/CODEX_PROMPT.md
+  - PHASE_HANDOFF.md
+  - AGENT_NOTES.md
+  - README.md
+
+Context-Refs:
+  - docs/CORE_12_MONTH_EXECUTION_ROADMAP.md
+  - docs/AI_LOOP_OPERATING_MODEL.md
+
+Notes: |
+  Core V1 completion is an internal product-kernel milestone, not public SaaS
+  launch or enterprise compliance certification.

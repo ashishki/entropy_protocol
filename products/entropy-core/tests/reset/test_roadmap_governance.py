@@ -72,7 +72,7 @@ def test_prompt_and_handoff_record_phase7_boundaries() -> None:
     loop = CODEX_LOOP.read_text(encoding="utf-8")
     combined = f"{prompt}\n{handoff}\n{loop}".lower()
 
-    assert "phase: 15" in prompt.lower()
+    assert "phase: 27" in prompt.lower()
     assert "t35 holdout access protocol deny-by-default contract" in prompt.lower()
     assert "t34 phase-gate readiness review completed" in prompt.lower()
     assert "t33 readiness no-holdout dry run completed" in prompt.lower()
@@ -83,7 +83,7 @@ def test_prompt_and_handoff_record_phase7_boundaries() -> None:
     assert "t28 no-claim surface regression sweep completed" in prompt.lower()
     assert "t27 evidence hash reproducibility matrix completed" in prompt.lower()
     assert "t26 archive packet replay contract completed" in prompt.lower()
-    assert "phase: 15 artifact support mode" in handoff.lower()
+    assert "phase: 27 core v1 productization" in handoff.lower()
     assert "phase boundaries are not stop conditions" in combined
     assert "roadmap rewrite -> open next active phase -> next task" in combined
     assert "continue automatically" in combined

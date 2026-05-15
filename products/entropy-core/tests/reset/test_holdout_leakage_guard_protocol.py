@@ -77,8 +77,8 @@ def test_state_docs_preserve_holdout_lock_during_guard_protocol() -> None:
     assert "holdout unlock requested: false" in guard
     assert "holdout read: blocked" in guard
     assert "holdout unlock: blocked" in guard
-    assert "current active task is t69 shared artifact contract freeze" in prompt
-    assert "active task: t69 shared artifact contract freeze" in handoff
+    assert "t122 core v1 productization review completed" in prompt
+    assert "active task: none - core v1 checkpoint complete" in handoff
     assert "t38 holdout leakage guard protocol fixture completed" in prompt
     assert "t39 holdout access protocol review completed" in prompt
     assert "t40 holdout approval request packet scaffold completed" in prompt

@@ -1,35 +1,38 @@
 # Entropy Core Workspace
 
-Internal governed protocol and artifact-validity foundation. Core is not the
-market-facing product in the current cycle.
+Internal governed protocol, artifact-validity, evidence, and audit-bundle
+kernel. Core is not the market-facing product, public SDK, or hosted service.
 
 ## Current Status
 
-- Phase: 15 Artifact Support Mode
-- Next task: T69 Shared Artifact Contract Freeze
-- Baseline: 501 passing tests, 20 skipped
-- Current priority: support Trader/Signal report validity with minimal shared
-  contracts and checklists
+- Phase: 27 Core V1 Productization
+- Next task: none - Core V1 checkpoint complete
+- Baseline: 625 passing tests, 20 skipped
+- Current priority: wait for a human-approved Core V2 roadmap before starting
+  new roadmap tasks
 
 ## Role
 
 Core should provide:
 
 - no-claim boundary discipline;
-- artifact/reproducibility conventions;
-- report validity checklist;
+- executable artifact validation;
+- artifact registry, reproducibility, evidence packet, and governance
+  primitives;
+- research, product-profile, CAF, lineage, and audit-bundle schemas;
+- report validity checklist and operator runbook;
 - narrow product bridge notes;
 - shared review templates where useful.
 
 Core should not become a public SDK, hosted service, live execution layer, or
-generic platform during artifact validation.
+generic platform during Core V1 productization.
 
 ## Read First
 
 1. `docs/CODEX_PROMPT.md`
-2. `docs/ARTIFACT_SUPPORT_ROADMAP.md`
-3. `../../docs/ARTIFACT_FIRST_VALIDATION_ROADMAP.md`
-4. `docs/tasks.md` Phase 15, T69-T74
+2. `docs/AI_LOOP_OPERATING_MODEL.md`
+3. `docs/CORE_12_MONTH_EXECUTION_ROADMAP.md`
+4. `docs/tasks.md` Phase 27, T119-T122
 5. `docs/IMPLEMENTATION_CONTRACT.md`
 
 ## Active Guardrails
@@ -48,6 +51,9 @@ generic platform during artifact validation.
 - append-only/evidence/no-claim contracts;
 - artifact support contracts for product reports;
 - product bridge docs when needed by Trader or Signal.
+- artifact support review: `docs/audit/ARTIFACT_SUPPORT_REVIEW.md`.
+- Core V1 surface freeze and runbook:
+  `docs/core/CORE_V1_SURFACE_FREEZE.md`, `RUNBOOK.md`.
 
 ## Scope Out
 
@@ -57,7 +63,8 @@ generic platform during artifact validation.
 - public SaaS infrastructure;
 - signal scraping;
 - AI strategy execution;
-- public Core productization.
+- public Core productization;
+- external compliance certification or enterprise SLA claims.
 
 ## Local Commands
 
