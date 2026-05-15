@@ -1,7 +1,7 @@
 # Implementation Journal — Signal Analytics Sandbox
 
 Version: 1.0
-Last updated: 2026-05-09
+Last updated: 2026-05-14
 Status: append-only
 
 This file is durable handoff context across agents and sessions. It records what changed, why, what evidence was collected, and what remains open. It is a retrieval surface, not authority.
@@ -24,6 +24,69 @@ This file is durable handoff context across agents and sessions. It records what
 ---
 
 ## Entries
+
+### 2026-05-14 — SAS-LIVE-001 — Real Media Scope And Evidence Intake
+
+- Scope: `docs/pilot/bablos79_REAL_MEDIA_INTAKE.md`, `docs/ARTIFACT_VALIDATION_ROADMAP.md`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `AGENT_NOTES.md`, `PHASE_HANDOFF.md`, `MEMORY.md`.
+- Why this work happened: Phase 21 needed a concrete public/operator-authorized media intake plan before media acquisition, transcription, OCR, or media-backed report claims.
+- Decisions applied: `docs/MULTIMODAL_REPORT_DEVELOPMENT_PLAN.md` Phase 0; `docs/legal_risk_memo.md#media-evidence`; ADR-004 media evidence pipeline; current text-only report result showing 0 customer-report-eligible metric rows.
+- Evidence collected: the workspace still has 60 public text captures but 0 local raw media files, 0 Telegram media file IDs, 0 transcript artifacts, 0 OCR artifacts, and 0 reviewed media refs. The plan records source-linked candidate blockers for `bablos79-10486` (voice context mentioned, no voice media link/file) and `bablos79-10465` (future video mentioned, no actual media item), excludes unlinked channel-level image/screenshot/chart/voice media, and blocks acquisition until the operator supplies exact public/operator-authorized media rows.
+- Follow-ups: `SAS-LIVE-002` is blocked until the operator supplies at least one media row with source URL/ref, capture ID, source document ID, modality, authorization state, original media URL/file ID or local file path, expected report value, report gap, and retention preference.
+- Notes for next agent: do not run acquisition, transcription, OCR, source joins, report generation, or media-backed customer claims from channel-level hearsay. Resume only when concrete linked media inputs exist.
+
+### 2026-05-14 — SAS-LIVE-002/SAS-AF-008 — Media Route Completion And Ready Gate
+
+- Scope: `workspace/media/bablos79/`, `docs/pilot/bablos79_REAL_MEDIA_ACQUISITION.md`, `docs/pilot/bablos79_MEDIA_MANIFEST.json`, `docs/pilot/bablos79_TRANSCRIPT_RUN.md`, `docs/pilot/bablos79_OCR_RUN.md`, `docs/pilot/bablos79_MEDIA_REVIEW.md`, `docs/pilot/bablos79_MULTIMODAL_SOURCE_PREVIEW.md`, `docs/retrieval_eval.md`, `docs/pilot/bablos79_MULTIMODAL_REVIEW_QUEUE.md`, `docs/pilot/bablos79_MULTIMODAL_OUTCOME_PREP.md`, `docs/pilot/reports/bablos79_MEDIA_BACKED_REPORT_V1.md`, `docs/audit/PHASE21_VALIDITY_REVIEW.md`, `docs/audit/PHASE21_ERROR_REGISTER.md`, `docs/pilot/bablos79_INTERNAL_DEMO_PACK.md`, `docs/pilot/bablos79_EXTERNAL_PILOT_READY_GATE.md`, `docs/tasks.md`, `docs/audit/MEDIA_EVAL.md`.
+- Why this work happened: operator instructed the loop to continue without stopping; the public Telegram `/s/` route was used only for the approved public source to resolve the previous media-input blocker as far as possible.
+- Decisions applied: ADR-004 media evidence pipeline; public-source-only legal memo; Phase 21 claim-safety and no-advice boundaries; RAG/source-join preservation contract.
+- Evidence collected: acquired two public OGG voice files from `https://t.me/bablos79/10476` and `https://t.me/bablos79/10478`, registered two `MediaArtifact` rows, recorded transcript attempts as `skipped_provider_not_configured`, recorded OCR as `skipped_non_image_media`, reviewed zero usable transcript/OCR refs, joined zero media-derived refs, produced a multimodal review queue with 0 media-backed eligible rows, produced outcome prep with 0 market-data fetches and 0 metrics, and rendered a media-backed reject/limitation report. Validation: 163 passed, 0 skipped; ruff passes; pyright passes.
+- Follow-ups: Phase 21 deep review/archive. Product decision is reject current `bablos79` source/window for external delivery; continue only with a stronger media/evidence input set or a different approved source.
+- Notes for next agent: do not sell or present this as an external-ready sample. It is an internal reject-case demo proving the system refuses unsupported media-backed claims.
+
+### 2026-05-12 — SAS-LIVE-PLAN — Real Media-Backed Report Loop
+
+- Scope: `docs/MULTIMODAL_REPORT_DEVELOPMENT_PLAN.md`, `docs/tasks.md`, `docs/ARTIFACT_VALIDATION_ROADMAP.md`, `docs/CODEX_PROMPT.md`, `README.md`, `AGENT_NOTES.md`, `PHASE_HANDOFF.md`, `MEMORY.md`.
+- Why this work happened: operator clarified that the next loop must acquire and analyze real public audio/images, not merely document a text-only result.
+- Decisions applied: ADR-004 media evidence pipeline; public-source-only legal memo; text-only Phase 21 report result showing 0 customer-report-eligible metric rows.
+- Evidence collected: added a concrete `SAS-LIVE-001..009` task sequence from real media intake through acquisition, transcription, OCR, human media review, multimodal source join, multimodal extraction/review, outcome prep, media-backed report V1, and final manual validity/demo/ready gates.
+- Follow-ups: run `SAS-LIVE-001: Real Media Scope And Evidence Intake` next.
+- Notes for next agent: do not claim audio/image analysis until concrete public/operator-authorized media items are linked, acquired/registered, processed, and human-reviewed.
+
+### 2026-05-12 — SAS-AF-004/SAS-AF-005 — Outcome Prep And First Report
+
+- Scope: `src/signal_sandbox/artifact_pipeline.py`, `src/signal_sandbox/cli.py`, `tests/unit/test_artifact_pipeline.py`, `tests/integration/test_cli_smoke.py`, `docs/pilot/bablos79_OUTCOME_PREP.md`, `docs/pilot/bablos79_OUTCOME_PREP.json`, `docs/pilot/reports/bablos79_SIGNAL_REPORT_V1.md`, `docs/ARTIFACT_VALIDATION_ROADMAP.md`, `docs/CODEX_PROMPT.md`, `docs/tasks.md`.
+- Why this work happened: Phase 21 needed outcome readiness and a first real report artifact after the review queue showed no complete metric-eligible rows.
+- Decisions applied: artifact-first validation overlay; current operator direction to keep moving with the source and LLM/pseudo-label result; no-advice/no-future-claims boundary.
+- Evidence collected: added `signal-sandbox snapshot` to write outcome prep registers from closed review queues and `signal-sandbox report` to render a V1 Markdown report from capture/review/outcome artifacts. Generated `bablos79` outcome prep has 60 assessed rows, 0 market-data fetches, 0 outcome metrics, 50 not-applicable rows, 7 unresolved insufficient-evidence rows, and 3 operator-review-required rows. Generated report is `docs/pilot/reports/bablos79_SIGNAL_REPORT_V1.md`; it is a text-only negative/limitation report with evidence appendix and canonical disclaimer. Validation after implementation: 163 passed, 0 skipped; `ruff check src/ tests/` passes; `pyright` passes.
+- Follow-ups: run `SAS-AF-006: Manual Validity Review` next. Operator should evaluate whether the 3 ambiguous rows or any insufficient rows should be upgraded, rejected, or kept as limitations.
+- Notes for next agent: the report is useful precisely because it says this capture window does not support defensible performance metrics. Do not add market-data snapshots until rows become metric-eligible.
+
+### 2026-05-12 — SAS-AF-003 — Human Review Queue Closure
+
+- Scope: `src/signal_sandbox/artifact_pipeline.py`, `src/signal_sandbox/cli.py`, `tests/unit/test_artifact_pipeline.py`, `tests/integration/test_cli_smoke.py`, `docs/pilot/bablos79_REVIEW_QUEUE_CLOSED.md`, `docs/pilot/bablos79_REVIEW_QUEUE_CLOSED.json`, `docs/ARTIFACT_VALIDATION_ROADMAP.md`, `docs/CODEX_PROMPT.md`, `docs/tasks.md`.
+- Why this work happened: Phase 21 needed the validated capture/pseudo-label rows separated into report-input categories before outcome prep.
+- Decisions applied: current operator direction to treat LLM/pseudo-label output as valid draft input for end evaluation; public-source-only and non-advice boundaries.
+- Evidence collected: added `signal-sandbox review` to load the capture pack JSON and write Markdown/JSON queue closure artifacts. Generated `bablos79` closure has 60 rows: 50 `rejected_not_market_related`, 7 `insufficient_evidence`, 3 `ambiguous_needs_operator_review`, and 0 customer-report-eligible rows. No ledgers, outcomes, reports, or customer-facing claims were created. Validation: `tests/unit/test_artifact_pipeline.py` and `tests/integration/test_cli_smoke.py` pass; scoped ruff passes.
+- Follow-ups: run `SAS-AF-004: Market Data Snapshot And Outcome Prep` next. It should produce an unresolved outcome register and avoid market-data fetches unless the operator upgrades rows to complete measurable candidates.
+- Notes for next agent: do not force metrics from incomplete rows. A "no measurable rows in this window" artifact is acceptable and more useful than fabricated outcome stats.
+
+### 2026-05-12 — SAS-AF-002 — Public Capture Pack
+
+- Scope: `src/signal_sandbox/artifact_pipeline.py`, `src/signal_sandbox/cli.py`, `tests/unit/test_artifact_pipeline.py`, `tests/integration/test_cli_smoke.py`, `docs/pilot/bablos79_CAPTURE_PACK.md`, `docs/pilot/bablos79_CAPTURE_PACK.json`, `docs/ARTIFACT_VALIDATION_ROADMAP.md`, `docs/CODEX_PROMPT.md`, `docs/tasks.md`.
+- Why this work happened: Phase 21 needed a real operator-inspectable capture pack before review closure, outcome prep, or report generation.
+- Decisions applied: `SAS-AF-001` locked `bablos79`; public-source-only boundary; current operator direction to treat LLM/pseudo-label output as valid draft input for end evaluation.
+- Evidence collected: added `signal-sandbox extract` to load public captures, validate optional pseudo-label spans against raw capture text, and write Markdown/JSON capture packs without creating ledgers, reports, outcomes, or customer-facing claims. Generated `bablos79` pack has 60 rows, source range `2026-04-27T07:12:22+00:00` through `2026-05-06T06:57:32+00:00`, status counts 50 `not_a_signal`, 7 `insufficient_fields`, and 3 `needs_review`. Validation: `tests/unit/test_artifact_pipeline.py` and `tests/integration/test_cli_smoke.py` pass; scoped ruff passes.
+- Follow-ups: run `SAS-AF-003: Human Review Queue Closure` next using `docs/pilot/bablos79_CAPTURE_PACK.json` and the existing pseudo-label JSONL.
+- Notes for next agent: use pseudo-label rows as valid draft input, but keep approved ledger/report claims separated until operator final evaluation. Media remains unavailable for this artifact.
+
+### 2026-05-12 — SAS-AF-001 — Channel And Report Scope Lock
+
+- Scope: `docs/ARTIFACT_VALIDATION_ROADMAP.md`, `docs/CODEX_PROMPT.md`, `docs/tasks.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`.
+- Why this work happened: Phase 21 needed a concrete source/report/legal/claim scope before capture-pack registration, review closure, outcome prep, or report generation.
+- Decisions applied: artifact-first validation overlay; `docs/pilot/PILOT_SCOPE.md` deterministic first-source choice; public-source legal memo; Phase 20 media decision.
+- Evidence collected: locked source to `https://t.me/bablos79`, source ID `bablos79`, existing 60 public text captures under `workspace/captures/bablos79/`, bounded capture period `2026-04-27T07:12:22+00:00` through `2026-05-06T06:57:32+00:00`, Russian-first text-only report scope, and explicit claim boundaries. Existing captures are sufficient to start `SAS-AF-002`, but not sufficient for customer-facing claims until human review and limitations are recorded.
+- Follow-ups: run `SAS-AF-002: Public Capture Pack` next.
+- Notes for next agent: do not add fresh scraping or media-backed customer claims. Treat media as out of scope unless the operator supplies reviewed public media evidence and updates the scope.
 
 ### 2026-05-09 — SAS-MEDIA-008 — Multimodal Coverage Pack And Decision Gate
 

@@ -1,34 +1,44 @@
-# Phase 20 Report — Telegram Media Evidence
+# Phase 21 Report - Artifact-First Real Public-Source Report Validation
 
-Date: 2026-05-09
+Date: 2026-05-14
 
 ## What Was Built
 
-Phase 20 produced the governed media evidence path for Telegram voice/audio and
-image/OCR drafts:
+Phase 21 ran the artifact-first validation path on the approved public
+`bablos79` source/window:
 
-- ADR-004 and legal memo media posture;
-- strict `MediaArtifact` schema and deterministic manifest export;
-- injected-client Telegram voice acquisition;
-- double-gated draft transcription adapter;
-- image/OCR inventory and OCR draft adapter;
-- additive multimodal `SourceDocument` join helper;
-- multimodal coverage pack and decision gate.
+- public-source scope lock and capture pack for 60 text captures;
+- human review queue closure with zero report-eligible rows;
+- outcome prep with zero market-data fetches and zero outcome metrics;
+- text-only report draft that rejects unsupported signal claims;
+- real public media intake and acquisition attempt;
+- media manifest for two public Telegram voice files;
+- managed Whisper transcript artifacts for both public voice files;
+- OpenAI `gpt-4.1` LLM transcript review with 2 usable internal transcript refs;
+- LLM-reviewed source join and 3 media-backed broad-market claims;
+- media-backed internal report artifact that rejects external delivery but
+  preserves a real internal result;
+- manual validity review, internal demo pack, and external pilot ready gate.
 
 ## Why It Matters
 
-The product can now represent and process public/operator-authorized media
-without weakening the audit boundary. Media-derived transcript/OCR output is
-available only as draft evidence pending human review; it cannot write approved
-truth artifacts or customer-facing claims.
+The product now has an end-to-end real-source validation example that proves the
+evidence boundary under pressure. The system can acquire public media, transcribe
+it with a managed provider, run an LLM evidence-review prompt, and produce an
+internal media-backed report while refusing deterministic outcome or external
+delivery claims that the evidence cannot support.
 
 ## Validation
 
-- Before Phase 20: 141 passing tests after Phase 19.
-- After Phase 20: 157 passing tests.
-- `ruff check src/ tests/` passes.
-- `.venv/bin/pyright` passes.
-- Phase 20 deep review archived at `docs/archive/PHASE20_REVIEW.md`.
+- `.venv/bin/python -m pytest tests/ -q --tb=short`: 166 passed
+- `.venv/bin/ruff check src/ tests/`: pass
+- `.venv/bin/pyright`: pass
+- Targeted media/source tests passed:
+  - `tests/unit/test_multimodal_source_join.py`: 3 passed
+  - `tests/unit/test_whisper_transcript_adapter.py`: 4 passed
+  - `tests/unit/test_ocr_draft_adapter.py`: 3 passed
+- Phase 21 deep review archived at `docs/archive/PHASE21_REVIEW.md`.
+- LLM review artifact: `docs/pilot/bablos79_TRANSCRIPT_LLM_REVIEW.md`.
 
 ## Review Results
 
@@ -37,31 +47,43 @@ truth artifacts or customer-facing claims.
 - P2: 0
 - Stop-Ship: No
 
-## Open Risks
+## Open Product Gate Findings
 
-No real `bablos79` media files, Telegram media IDs, transcript artifacts, OCR
-artifacts, or multimodal customer-sample rows exist yet. Media-backed customer
-value is unproven until operator-authorized public media is supplied and human
-review marks evidence usable.
+External delivery is still rejected for the current `bablos79` source/window:
+
+- P21-E02: transcript refs are LLM-reviewed usable internally, but not
+  human/operator accepted for external delivery.
+- P21-E03: the internal media-backed report has 3 broad-market claims, but zero
+  deterministic outcome-ready rows.
+- P21-E04: the exact follow-up video promised by `bablos79-10465` was not
+  identified in the public window.
+
+Canonical details: `docs/audit/PHASE21_ERROR_REGISTER.md`.
 
 ## Health Verdict
 
-OK. Phase 20 preserved Hybrid / Lean / T0, Tool-Use OFF, context-only RAG,
-bounded/internal Agentic, public-source-only handling, draft-evidence posture,
-and non-advice boundaries.
+OK for archive and internal LLM-reviewed demo. Not ready for external pilot
+delivery.
+
+The implementation preserved Hybrid / Lean / T0, RAG ON, Agentic ON, Tool-Use
+OFF, Planning OFF, Compliance OFF, public-source-only handling,
+draft-evidence/human-review media posture, and non-advice boundaries.
 
 ## Next Phase
 
-No Phase 21 task graph is defined. Pause implementation. Next product action:
-operator supplies/authorizes public media, run the Phase 20 media pipeline on
-real artifacts, then human review decides whether a media-backed customer sample
-is justified.
+No active implementation task is defined. Next operator decision should choose
+one of:
+
+- accept the LLM-reviewed internal report as the demo artifact;
+- add operator/human acceptance before external delivery;
+- provide a different operator-authorized public media source/window;
+- stop the current product validation route.
 
 ## Notification Summary
 
-Ph20 Telegram Media Evidence DONE
-Built: ADR/legal, media schema, voice acquisition, draft transcription/OCR, source join, coverage/decision
-Tests: 141->157 pass
-Issues: P1:0 P2:0
-Health: OK
-Next: operator media evidence + human review
+Ph21 Artifact-First Real Public-Source Validation DONE
+Built: capture/review/outcome/report route, public media acquisition, managed Whisper transcripts, LLM transcript review, internal source join/report, reject external ready gate
+Tests: 166 pass / 0 skip
+Issues: implementation P1:0 P2:0; external delivery blockers open
+Health: OK for archive and internal LLM-reviewed demo, rejected for external pilot delivery
+Next: decide internal demo vs external acceptance policy

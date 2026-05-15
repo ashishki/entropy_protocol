@@ -28,6 +28,7 @@ _Append-only. One row per review cycle._
 | 18 | Phase 18 | 2026-05-09 | SAS-MI-016-SAS-MI-017 | No | 0 | 0 | 0 |
 | 19 | Phase 19 | 2026-05-09 | SAS-MI-018-SAS-MI-019 | No | 0 | 0 | 0 |
 | 20 | Phase 20 | 2026-05-09 | SAS-MEDIA-001-SAS-MEDIA-008 | No | 0 | 0 | 0 |
+| 21 | Phase 21 | 2026-05-14 | SAS-LIVE-001-SAS-LIVE-009, SAS-AF-006-SAS-AF-008 | No | 0 | 0 | 0 |
 
 ---
 
@@ -55,6 +56,7 @@ _Append-only. One row per review cycle._
 | 18 | `docs/archive/PHASE18_REVIEW.md` | Phase 18 | OK |
 | 19 | `docs/archive/PHASE19_REVIEW.md` | Phase 19 | OK |
 | 20 | `docs/archive/PHASE20_REVIEW.md` | Phase 20 | OK |
+| 21 | `docs/archive/PHASE21_REVIEW.md` | Phase 21 | OK |
 
 ---
 

@@ -1,62 +1,54 @@
-# ARCH_REPORT — Cycle 19
-_Date: 2026-05-09_
+# Architecture Report - Cycle 21
 
-## Component Verdicts
+Date: 2026-05-14
+Phase: 21
+Scope: SAS-LIVE-001..009 and SAS-AF-006..008
 
-| Component | Verdict | Note |
-|-----------|---------|------|
-| ADR-003 channel tools scope | PASS | Selects reviewer/export improvements and defers provider/modal expansion. |
-| Reviewer coverage exporter | PASS | Deterministic from supplied documents, drafts, and outcomes. |
-| Coverage Markdown artifact | PASS | Internal review support only; records 60 captures and no customer-facing claims. |
-| Task graph closeout | PASS | No further task is defined; implementation loop should stop pending operator decision. |
+## Verdict
+
+PASS.
+
+Phase 21 remained inside the artifact-first validation architecture. It acquired
+public media only from the operator-approved source, preserved raw media as
+internal evidence, refused to convert unreviewed audio into report claims, and
+closed the external pilot gate with a reject decision.
 
 ## Contract Compliance
 
-| Rule | Verdict | Note |
-|------|---------|------|
-| SQL Safety | PASS | No SQL added in scoped files. |
-| Async Redis | PASS | No Redis surface. |
-| Authorization | PASS | No API/route surface. |
-| PII Policy | PASS | No logging/span attrs added; docs cite public-source artifacts only. |
-| Credentials and Secrets | PASS | No secrets or credential fixtures. |
-| Shared Tracing Module | PASS | No new tracing code. |
-| CI Gate | PASS | Local CI-equivalent validation passes. |
-| Observability | PASS | No new external adapter call boundary. |
-| PSR-1 Public-Source-Only | PASS | No source collection, authenticated scraping, or URL-fetching path added. |
-| PSR-2 Reproducibility Contract | PASS | Export rows are deterministically sorted by timestamp/document/capture ID. |
-| PSR-3 LLM Output Is Never Truth | PASS | Coverage rows do not approve records or produce truth artifacts. |
-| PSR-4 Cost-Cap Enforcement | PASS | No paid adapter path added. |
-| PSR-5 Snapshot Immutability | PASS | No snapshot mutation path. |
-| PSR-6 Disclaimer Integrity | PASS | Report disclaimer module not touched. |
-| PSR-7 Outcome Rule Citation | PASS | Outcome rule registry not touched. |
-| PSR-8 Evidence Field Preservation | PASS | Extraction adapters not touched. |
-| PSR-9 Append-Only Rule and Template Versioning | PASS | Registries/templates not touched. |
-| PSR-10 Phase 0 Gate | PASS | Gate remains acknowledged. |
-| PSR-11 No Forward-Looking Claims | PASS | Export artifact is internal and avoids prediction language. |
-| Runtime Tier Guardrails | PASS | No shell, package mutation, daemon, privilege, provider, or persistent worker added. |
+| Contract | Verdict | Notes |
+|----------|---------|-------|
+| Public-source boundary | PASS | Media was acquired from public Telegram `/s/` pages for the acknowledged `bablos79` source. |
+| No access bypass | PASS | No private groups, login-only pages, or access-control bypass were used. |
+| Media review boundary | PASS | Raw voice files were not used as report evidence because no reviewed transcript/OCR refs exist. |
+| Report promise | PASS | External report artifact rejects delivery instead of making unsupported media-backed claims. |
+| Runtime boundary | PASS | Runtime remains local T0; no hosted service, worker, or scheduler was introduced. |
+| Active profiles | PASS | RAG and Agentic remain enabled; tool-use, planning, and compliance profiles remain off. |
 
-## ADR Compliance
+## ADR Alignment
 
-| ADR | Verdict | Note |
-|-----|---------|------|
-| ADR-001 Snapshot Serialization | PASS | Snapshot serialization not touched. |
-| ADR-002 Author Market Intelligence | PASS | Deterministic truth boundary and bounded/internal Agentic boundary remain intact. |
-| ADR-003 Channel-Specific Tools Scope | PASS | Implemented only the chosen deterministic reviewer/export follow-up. |
+| ADR | Verdict | Notes |
+|-----|---------|-------|
+| ADR-001 Snapshot Serialization | PASS | Phase artifacts use static manifest/report files and checksum-backed local evidence. |
+| ADR-002 Author Market Intelligence | PASS | Phase 21 continues the author/source report route without expanding into marketplace or advice. |
+| ADR-003 Channel Specific Tools | PASS | No new channel tool integration was added; public Telegram fetch remains bounded. |
+| ADR-004 Media Evidence Pipeline | PASS | Raw media, draft transcript/OCR, human review, and source join gates remain separated. |
 
-## Architecture Findings
+## Right-Sizing
 
-None.
+The phase used documentation artifacts plus existing media adapters and source
+join tests. No new service, queue, database, browser automation layer, or vendor
+integration was introduced.
 
-## Right-Sizing / Runtime Checks
+## Integrity Notes
 
-| Check | Verdict | Note |
-|-------|---------|------|
-| Solution shape still Hybrid | PASS | Deterministic export supports the review workflow without changing architecture. |
-| Deterministic-owned areas remain deterministic | PASS | No LLM or agent owns metrics, outcomes, reports, or approved records. |
-| Runtime tier still T0 | PASS | Local library code and docs only. |
-| Tool-Use remains OFF | PASS | No LLM-directed tool calls or provider tools. |
-| Public-source-only boundary intact | PASS | No new collection path. |
+- `docs/pilot/bablos79_MEDIA_MANIFEST.json` records two downloaded voice files
+  with local paths and checksums.
+- Transcript/OCR run artifacts explicitly record skipped status rather than
+  fabricated text.
+- `docs/pilot/bablos79_EXTERNAL_PILOT_READY_GATE.md` records
+  `reject_source_window_for_external_delivery`.
+- `docs/audit/PHASE21_ERROR_REGISTER.md` preserves product blockers.
 
-## Doc Patches Needed
+## Findings
 
 None.
