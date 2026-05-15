@@ -1,11 +1,16 @@
 # Signal Analytics Sandbox Artifact Validation Roadmap
 
-Status: Active Phase 21 routing
-Date: 2026-05-14
+Status: Phase 21 archived; superseded for active routing by
+`docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md`
+Date: 2026-05-15
 
 This file gives strategic routing only. Detailed acceptance criteria and file
 scope live in `docs/tasks.md` Phase 21. The active post-text-only route is
 `SAS-LIVE-001..009`, followed by `SAS-AF-006..008`.
+
+As of 2026-05-15, Phase 21 is archived and the current narrow `bablos79`
+source/window remains rejected for external delivery. The active route is now
+the deeper retrospective in `docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md`.
 
 ## Goal
 

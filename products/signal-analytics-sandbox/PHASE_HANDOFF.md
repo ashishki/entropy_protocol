@@ -1,6 +1,6 @@
 # PHASE_HANDOFF - Signal Analytics Sandbox
 
-Date: 2026-05-14
+Date: 2026-05-15
 
 Use this file only for restart/context recovery. Detailed history lives in
 `docs/IMPLEMENTATION_JOURNAL.md`, `docs/archive/`, `AGENT_NOTES.md`, and
@@ -8,8 +8,8 @@ Use this file only for restart/context recovery. Detailed history lives in
 
 ## Current State
 
-- Phase: 21 Artifact-First Real Public-Source Report Validation
-- Active task: decide LLM-reviewed internal demo vs external acceptance policy
+- Phase: 22 Expanded Public Corpus
+- Active task: SAS-DR-001 Deep Retrospective Scope Lock
 - Baseline: 166 pass / 0 skip
 - Ruff: clean
 - Pyright: clean
@@ -21,15 +21,17 @@ Use this file only for restart/context recovery. Detailed history lives in
 Read:
 
 1. `docs/CODEX_PROMPT.md`
-2. `docs/ARTIFACT_VALIDATION_ROADMAP.md`
-3. `docs/MULTIMODAL_REPORT_DEVELOPMENT_PLAN.md`
-4. `docs/tasks.md#sas-live-001-real-media-scope-and-evidence-intake`
+2. `docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md`
+3. `docs/tasks.md` Phase 22, SAS-DR-001..005
+4. `docs/ARTIFACT_VALIDATION_ROADMAP.md`
+5. `docs/MULTIMODAL_REPORT_DEVELOPMENT_PLAN.md`
 
-Then decide whether the LLM-reviewed internal report is sufficient for demo or
-whether external delivery needs operator/human acceptance. `SAS-LIVE-002..SAS-AF-008`
-are complete, Phase 21 deep review is archived, managed Whisper draft
-transcripts exist, OpenAI `gpt-4.1` review marked 2 refs usable for internal
-source join, and deterministic outcome-ready rows remain zero.
+Start SAS-DR-001. Lock the expanded `bablos79` public source/window and
+anti-cherry-pick rules before any new capture, OCR, claim extraction, or market
+outcome analysis. `SAS-LIVE-002..SAS-AF-008` are complete, Phase 21 deep review
+is archived, managed Whisper draft transcripts exist, OpenAI `gpt-4.1` review
+marked 2 refs usable for internal source join, and deterministic
+outcome-ready rows remain zero for the narrow Phase 21 window.
 
 ## Guardrails
 
@@ -39,6 +41,9 @@ source join, and deterministic outcome-ready rows remain zero.
 - No media-backed customer claims until human review marks transcript/OCR
   usable.
 - No marketplace, leaderboard, advice, or future-profit claims.
+- Core is paused.
+- Preserve strong examples, weak examples, non-measurable claims, and
+  counterexamples in the deep retrospective.
 
 ## Historical Pointers
 
@@ -67,3 +72,4 @@ source join, and deterministic outcome-ready rows remain zero.
 - Media decision: `docs/pilot/MEDIA_MODALITY_DECISION.md`.
 - Phase 20 review: `docs/archive/PHASE20_REVIEW.md`.
 - Phase 21 review: `docs/archive/PHASE21_REVIEW.md`.
+- Active roadmap: `docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md`.

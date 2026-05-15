@@ -1,7 +1,7 @@
 # Implementation Journal — Signal Analytics Sandbox
 
 Version: 1.0
-Last updated: 2026-05-14
+Last updated: 2026-05-15
 Status: append-only
 
 This file is durable handoff context across agents and sessions. It records what changed, why, what evidence was collected, and what remains open. It is a retrieval surface, not authority.
@@ -24,6 +24,25 @@ This file is durable handoff context across agents and sessions. It records what
 ---
 
 ## Entries
+
+### 2026-05-15 — SAS-DR-001..022 Planning — Deep Channel Retrospective Route
+
+- Scope: `docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md`, `docs/tasks.md`,
+  `docs/CODEX_PROMPT.md`, `README.md`, `PHASE_HANDOFF.md`,
+  `AGENT_NOTES.md`, `MEMORY.md`, `ORCHESTRATOR_CHECKPOINT.md`,
+  `docs/ARTIFACT_VALIDATION_ROADMAP.md`, `docs/DECISION_LOG.md`.
+- Why this work happened: operator paused Core, kept Trader and Signal active,
+  and clarified that the current `bablos79` window is too narrow. The product
+  must expand the public corpus, add image/OCR analysis, build a reviewed claim
+  ledger, and compare measurable author claims to open market data.
+- Decisions applied: `D-025`, ADR-004 media evidence pipeline, Phase 21 reject
+  decision for the narrow source/window.
+- Evidence collected: documentation-only roadmap/task update. No product code
+  changed in this planning step.
+- Follow-ups: start `SAS-DR-001: Deep Retrospective Scope Lock`.
+- Notes for next agent: do not over-polish the current Phase 21 report. Fix the
+  evidence problem by expanding the corpus and preserving weak/counterexamples
+  alongside strong examples.
 
 ### 2026-05-14 — SAS-LIVE-001 — Real Media Scope And Evidence Intake
 

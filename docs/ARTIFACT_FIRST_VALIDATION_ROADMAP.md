@@ -1,7 +1,7 @@
 # Artifact-First Validation Roadmap
 
 Status: Active operating overlay
-Date: 2026-05-11
+Date: 2026-05-15
 
 This is the portfolio-level routing document for the next AI development loop.
 It keeps the active context small; detailed task scope lives in each product's
@@ -23,9 +23,9 @@ real input -> deterministic artifact -> manual validation -> polished pack -> co
 
 | Product | Active Role | Active Task Source |
 |---|---|---|
-| Trader Risk Audit | First commercial wedge; validate a real trade audit report. | `products/trader-risk-audit/docs/tasks.md` Phase 16, T63-T69 |
-| Signal Analytics Sandbox | Second report product; validate a real public-source research report. | `products/signal-analytics-sandbox/docs/tasks.md` Phase 21, SAS-AF-001..008 |
-| Entropy Core | Internal artifact validity/reproducibility/no-claim support. | `products/entropy-core/docs/tasks.md` Phase 15, T69-T74 |
+| Trader Risk Audit | First commercial wedge; expand open-source/public audit validation, then private-pilot readiness. | `products/trader-risk-audit/docs/OPEN_SOURCE_AUDIT_VALIDATION_ROADMAP.md`; `products/trader-risk-audit/docs/tasks.md` Phase 23, T98-T103 |
+| Signal Analytics Sandbox | Second report product; deep public-channel retrospective with media/OCR, claim ledger, and outcomes. | `products/signal-analytics-sandbox/docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md`; `products/signal-analytics-sandbox/docs/tasks.md` Phase 22, SAS-DR-001..005 |
+| Entropy Core | Paused internal artifact validity/reproducibility/no-claim support. | No active task; wait for concrete Trader/Signal dependency or human-approved Core V2 roadmap. |
 
 ## Phase Map
 
@@ -65,8 +65,25 @@ Do not add these before artifact validity is proven:
 ## Product Roadmap Links
 
 - Trader: `products/trader-risk-audit/docs/ARTIFACT_VALIDATION_ROADMAP.md`
+- Trader active route:
+  `products/trader-risk-audit/docs/OPEN_SOURCE_AUDIT_VALIDATION_ROADMAP.md`
 - Signal: `products/signal-analytics-sandbox/docs/ARTIFACT_VALIDATION_ROADMAP.md`
+- Signal active route:
+  `products/signal-analytics-sandbox/docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md`
 - Core: `products/entropy-core/docs/ARTIFACT_SUPPORT_ROADMAP.md`
+
+## 2026-05-15 Focus Update
+
+The active development focus is Product 1 and Product 2 only:
+
+- Product 1 / Trader Risk Audit needs more open-source/public validation packs
+  and then safe private/operator-approved pilot reports.
+- Product 2 / Signal Analytics Sandbox needs a larger `bablos79` corpus,
+  image/OCR coverage, reviewed media evidence, claim ledger, market outcomes,
+  and a balanced author capability report.
+- Product 3 / Entropy Core is paused. Do not reopen Core roadmap work unless a
+  product validation task creates a concrete Core dependency or a human approves
+  Core V2.
 
 ## Done
 

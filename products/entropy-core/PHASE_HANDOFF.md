@@ -1,6 +1,6 @@
 # PHASE_HANDOFF - Entropy Core
 
-Date: 2026-05-14
+Date: 2026-05-15
 
 Use this file only for restart/context recovery. Detailed history lives in
 `docs/IMPLEMENTATION_JOURNAL.md`, `docs/EVIDENCE_INDEX.md`, `docs/audit/`, and
@@ -17,6 +17,9 @@ Use this file only for restart/context recovery. Detailed history lives in
 - Product hypothesis status: `local_evidence_strengthened_not_confirmed`
 - Artifact support status: complete through T74; Core remains hidden/internal
 - Core roadmap status: Core V1 complete through T122; automatic roadmap expansion stopped pending human-approved V2 roadmap
+- Portfolio pause: Trader Risk Audit and Signal Analytics Sandbox are the
+  active validation tracks; Core is paused unless they create a concrete Core
+  dependency or a human approves Core V2.
 
 ## Next Action
 
@@ -30,6 +33,8 @@ Read:
 
 Then wait for a human-approved Core V2 roadmap before starting new roadmap
 tasks. Do not invent or auto-open Phase 28.
+Do not reopen Core because of Product 1/2 planning unless a concrete bridge
+dependency is named.
 
 ## Guardrails
 

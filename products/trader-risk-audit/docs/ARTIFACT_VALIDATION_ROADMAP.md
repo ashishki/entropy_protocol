@@ -7,6 +7,9 @@ This file gives strategic routing for the completed Phase 16 artifact
 validation work. Detailed acceptance criteria and file scope live in
 `docs/tasks.md` Phase 16, T63-T69.
 
+For the active post-T93 validation loop, use
+`docs/OPEN_SOURCE_AUDIT_VALIDATION_ROADMAP.md`.
+
 ## Goal
 
 Produce one real-data or verified open-source trader audit report pack that the

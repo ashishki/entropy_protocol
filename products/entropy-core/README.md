@@ -10,6 +10,8 @@ kernel. Core is not the market-facing product, public SDK, or hosted service.
 - Baseline: 625 passing tests, 20 skipped
 - Current priority: wait for a human-approved Core V2 roadmap before starting
   new roadmap tasks
+- Portfolio focus: Core is paused while Trader Risk Audit and Signal Analytics
+  Sandbox run their next validation loops
 
 ## Role
 
@@ -26,6 +28,9 @@ Core should provide:
 
 Core should not become a public SDK, hosted service, live execution layer, or
 generic platform during Core V1 productization.
+
+Portfolio note as of 2026-05-15: do not reopen Core implementation work unless
+Trader/Signal creates a concrete Core dependency or a human approves Core V2.
 
 ## Read First
 

@@ -1,7 +1,7 @@
 # Entropy Protocol Product Portfolio Strategy
 
 Status: Active commercial direction
-Date: 2026-05-07
+Date: 2026-05-15
 Authority: Product strategy layer, subordinate to
 `products/entropy-core/docs/core/CHARTER.md`,
 `products/entropy-core/docs/core/PROTOCOL_SPEC.md`,
@@ -47,10 +47,13 @@ Active overlay:
 
 Near-term priority:
 
-1. Produce real-data artifacts for Trader Risk Audit.
-2. Produce a real public-source artifact for Signal Analytics Sandbox.
-3. Use Entropy Core only as an internal artifact validity and reproducibility
-   foundation.
+1. Produce multiple open-source/public audit artifacts for Trader Risk Audit,
+   then prepare private/operator-approved paid-pilot reports.
+2. Produce a deep public-channel retrospective for Signal Analytics Sandbox,
+   including expanded corpus, image/OCR, media review, claim ledger, market
+   outcomes, and author capability report.
+3. Pause Entropy Core unless Trader/Signal creates a concrete dependency or a
+   human approves Core V2.
 4. Manually validate reports before external delivery.
 5. Package internal demo/report packs for warm pilot conversations.
 
@@ -63,9 +66,15 @@ gate is artifact validity.
 
 | Segment | Role | Status | Primary user | Relationship to core |
 |---|---|---|---|---|
-| Entropy Core | Governed evaluation and audit engine | Active internal foundation | Researcher/operator and future engineering team | Source of protocol discipline |
-| Trader Risk Audit | Trade upload, rule evaluation, violation reports | Primary MVP wedge | Active prop-style and small-team traders | Uses deterministic rule registry, audit logs, report generation |
-| Signal Analytics Sandbox | Public Telegram/X signal-source performance reports | Separate validation sandbox | Signal subscribers and market researchers | Must not contaminate core evidence or claims |
+| Entropy Core | Governed evaluation and audit engine | Paused internal foundation | Researcher/operator and future engineering team | Source of protocol discipline |
+| Trader Risk Audit | Trade upload, rule evaluation, violation reports | Primary MVP wedge; active open-source validation route | Active prop-style and small-team traders | Uses deterministic rule registry, audit logs, report generation |
+| Signal Analytics Sandbox | Public Telegram/X author/source retrospective reports | Active deep-channel retrospective route | Signal subscribers and market researchers | Must not contaminate core evidence or claims |
+
+Current active route:
+
+- Trader: `products/trader-risk-audit/docs/OPEN_SOURCE_AUDIT_VALIDATION_ROADMAP.md`
+- Signal: `products/signal-analytics-sandbox/docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md`
+- Core: paused after Core V1 checkpoint.
 
 ## Non-Negotiable Product Boundaries
 

@@ -8,14 +8,14 @@ and `docs/tasks.md`.
 
 ## Current State
 
-- Phase: 22 Conditional Real Read-Only Import
+- Phase: 23 Open-Source Audit Case Bank
 - Last completed: T93 CSV Friction Decision Gate
-- Active task: none - T94-T97 blocked by T93 defer decision
+- Active task: T98 Open-Source Source Selection Protocol
 - Baseline: 253 pass / 0 skip
 - Ruff: clean
 - Open findings: none
 - Constraint state: T93 deferred real local read-only exchange fetching; Phase
-  22 implementation tasks are blocked
+  22 implementation tasks are blocked. Core is paused.
 - Branch: product-local working branch
 
 ## Next Action
@@ -23,15 +23,16 @@ and `docs/tasks.md`.
 Read:
 
 1. `docs/CODEX_PROMPT.md`
-2. `docs/AUTOMATED_PILOT_ROADMAP.md`
-3. `docs/tasks.md` T93-T97
-4. `docs/IMPLEMENTATION_CONTRACT.md`
-5. `trader_risk_audit/policy/schema.py`
-6. `docs/STARTER_POLICY_PROFILES_RU.md`
-7. `docs/audit/PHASE_REPORT_LATEST.md`
-8. `docs/archive/PHASE21_REVIEW.md`
+2. `docs/OPEN_SOURCE_AUDIT_VALIDATION_ROADMAP.md`
+3. `docs/tasks.md` Phase 23, T98-T103
+4. `docs/AUTOMATED_PILOT_ROADMAP.md`
+5. `docs/IMPLEMENTATION_CONTRACT.md`
+6. `trader_risk_audit/policy/schema.py`
+7. `docs/STARTER_POLICY_PROFILES_RU.md`
+8. `docs/audit/PHASE_REPORT_LATEST.md`
 
-No roadmap implementation task is active. T94-T97 are blocked until future
+Start T98. Create the open-source source selection protocol and case-bank
+criteria before adding more packs. T94-T97 are blocked until future
 privacy-safe market evidence reopens T93. Phase 17 added deterministic local
 `intake_session.json`,
 sanitized `schema_profile.json`, safe `intake_report.md`, and Cycle 22 deep
@@ -86,9 +87,12 @@ friction as the binding blocker.
 - ADR-002 allows only local read-only historical ingestion.
 - No live exchange control, order placement, hosted uploads, hosted storage,
   checkout, order blocking, SaaS expansion, or trading advice.
+- Open-source validation must preserve positive, limitation/reject, and
+  edge-case examples to avoid cherry-picking.
 
 ## Historical Pointers
 
-- Completed through T93. T94-T97 blocked.
+- Completed through T93. T94-T97 blocked. Active route is T98-T115.
+- New active roadmap: `docs/OPEN_SOURCE_AUDIT_VALIDATION_ROADMAP.md`.
 - Detailed validation command history is in `docs/IMPLEMENTATION_JOURNAL.md`.
 - Prior review artifacts are in `docs/archive/`.

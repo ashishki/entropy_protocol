@@ -1,8 +1,8 @@
 # CODEX_PROMPT.md - Signal Analytics Sandbox
 
-Version: 2.67
-Date: 2026-05-14
-Phase: 21
+Version: 2.68
+Date: 2026-05-15
+Phase: 22
 
 This file is compact session state. Detailed history belongs in
 `docs/IMPLEMENTATION_JOURNAL.md`, `docs/archive/`, and `docs/tasks.md`.
@@ -23,22 +23,24 @@ Initial pilot sources acknowledged on 2026-05-07:
 
 ## Current State
 
-- Phase: 21 (Artifact-First Real Public-Source Report Validation)
+- Phase: 22 (Expanded Public Corpus)
 - Baseline: 166 passing tests, 0 skipped
 - Ruff: `ruff check src/ tests/` passes
 - Pyright: `pyright` passes
 - Last CI run: local CI-equivalent commands pass; GitHub run not yet observed
-- Last updated: 2026-05-14
-- Current priority: decide whether internal LLM-reviewed media report is enough
-  for demo or whether external delivery needs operator/human acceptance
+- Last updated: 2026-05-15
+- Current priority: expand the `bablos79` public corpus for a deep channel
+  retrospective with image/OCR, reviewed claim ledger, market outcomes, and
+  balanced author capability report
 
 ## Read First
 
-1. `docs/ARTIFACT_VALIDATION_ROADMAP.md`
-2. `../../docs/ARTIFACT_FIRST_VALIDATION_ROADMAP.md`
-3. `docs/MULTIMODAL_REPORT_DEVELOPMENT_PLAN.md`
-4. `docs/tasks.md` Phase 21, SAS-LIVE-001..009 then SAS-AF-006..008
-5. task-specific `Context-Refs` in `docs/tasks.md`
+1. `docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md`
+2. `docs/tasks.md` Phase 22, SAS-DR-001..005
+3. `docs/ARTIFACT_VALIDATION_ROADMAP.md`
+4. `../../docs/ARTIFACT_FIRST_VALIDATION_ROADMAP.md`
+5. `docs/MULTIMODAL_REPORT_DEVELOPMENT_PLAN.md`
+6. task-specific `Context-Refs` in `docs/tasks.md`
 
 Other useful links:
 
@@ -52,14 +54,14 @@ Other useful links:
 
 ## Next Task
 
-Managed Whisper provider wiring is implemented, the `bablos79` media transcript
-draft run completed, and OpenAI `gpt-4.1` LLM review produced an internal
-media-backed result. External delivery remains blocked until the operator
-accepts LLM review as the review gate or adds human/operator acceptance.
+SAS-DR-001 Deep Retrospective Scope Lock
 
-All Phase 21 tasks through `SAS-AF-008` are complete and archived. The current
-decision is `reject_source_window_for_external_delivery` for the `bablos79`
-media-backed report route.
+Immediate intent:
+
+- do not over-polish the narrow Phase 21 report;
+- lock a larger public `bablos79` source/window before outcome analysis;
+- define anti-cherry-pick selection rules;
+- keep external delivery blocked until a later ready gate passes.
 
 ## Active Guardrails
 
@@ -69,6 +71,9 @@ media-backed report route.
   validation.
 - Media evidence remains internal-only until transcript/OCR is human-reviewed.
 - No marketplace, leaderboard, investment advice, or future-profit claims.
+- Core is paused; do not open Core work from this product loop.
+- The deep retrospective must retain strong examples, weak examples,
+  non-measurable claims, and counterexamples.
 
 ## Evaluation State
 
@@ -136,6 +141,8 @@ source/window, not implementation stop-ship findings.
   media refs exist, and the ready gate rejects this source/window for external
   delivery.
 - Phase 21 deep review is archived at `docs/archive/PHASE21_REVIEW.md`.
+- Phase 22 follows `docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md`.
+- Current next task is `SAS-DR-001` in `docs/tasks.md`.
 - Managed Whisper wiring was added on 2026-05-15 using the previously discussed
   `Dream_Motif_Interpreter` provider pattern. `signal-sandbox transcribe-media`
   produced two draft transcript artifacts under `docs/pilot/transcripts/`.

@@ -1,7 +1,7 @@
 # Entropy Protocol
 
 **Status:** Product portfolio root
-**Last updated:** 2026-05-11
+**Last updated:** 2026-05-15
 
 Entropy Protocol is being developed as a product portfolio around governed
 trading research, audit discipline, and trader workflow validation.
@@ -33,11 +33,15 @@ Read these first:
 
 ## Current Priority
 
-Run artifact-first validation before broader product expansion:
+Run artifact-first validation before broader product expansion. Current focus:
 
-> Produce real-data/report artifacts for Trader Risk Audit and Signal Analytics
-> Sandbox, manually validate them, package internal demo packs, then show the
-> strongest artifact to warm prospects.
+1. Trader Risk Audit: expand open-source/public/synthetic audit validation
+   packs, then prepare private/operator-approved paid-pilot reports.
+2. Signal Analytics Sandbox: expand the `bablos79` public corpus, add image/OCR
+   and reviewed media evidence, build a claim ledger, and produce a balanced
+   author capability retrospective.
+3. Entropy Core: paused until Trader/Signal validation creates a concrete Core
+   dependency or a human approves Core V2.
 
 Payment and retention gates still matter, but the next operational blocker is
 artifact correctness, readability, traceability, and claim safety.
@@ -53,3 +57,4 @@ The current product direction does not approve:
 - private Telegram group scraping;
 - public marketplace;
 - unsupported OOS/performance claims.
+- Core V2 or public Core productization without a new human-approved roadmap.

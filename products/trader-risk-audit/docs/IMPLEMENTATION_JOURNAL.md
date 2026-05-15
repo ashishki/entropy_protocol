@@ -23,6 +23,23 @@ This file records durable handoff context across agents and sessions. It is not 
 
 ## Entries
 
+### 2026-05-15 - T98-T115 Planning - Open-Source Audit Validation Route
+
+- Scope: `docs/OPEN_SOURCE_AUDIT_VALIDATION_ROADMAP.md`, `docs/tasks.md`,
+  `docs/CODEX_PROMPT.md`, `README.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`,
+  `MEMORY.md`, `docs/AUTOMATED_PILOT_ROADMAP.md`,
+  `docs/ARTIFACT_VALIDATION_ROADMAP.md`, `docs/DECISION_LOG.md`.
+- Why this work happened: operator paused Core and asked to focus Product 1 on
+  more real/open-source data and validation artifacts before going to warm
+  prospects.
+- Decisions applied: `D-011`, `D-010`, T93 defer decision.
+- Evidence collected: documentation-only roadmap/task update. No product code
+  changed in this planning step.
+- Follow-ups: start T98 Open-Source Source Selection Protocol.
+- Notes for next agent: validation success means truthful, reproducible
+  reports with preserved limitations, not cherry-picked positive violations.
+  T94-T97 real fetching remains blocked.
+
 ### 2026-05-15 - T93 - CSV Friction Decision Gate
 
 - Scope: `docs/CSV_FRICTION_DECISION_REPORT.md`,

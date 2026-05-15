@@ -1,6 +1,7 @@
 # Automated Pilot Roadmap
 
-Status: planned
+Status: complete through Phase 22; superseded for active routing by
+`docs/OPEN_SOURCE_AUDIT_VALIDATION_ROADMAP.md`
 Date: 2026-05-14
 
 ## Goal
@@ -15,6 +16,13 @@ claim-safe preview -> paid pilot CTA -> evidence dashboard
 The goal is not public SaaS scale yet. The goal is to test the hypothesis with
 less operator labor while preserving deterministic audit truth, privacy,
 claim-safety, and no live trading control.
+
+## Current Routing Note
+
+As of 2026-05-15, Phases 17-21 are complete and Phase 22 deferred real
+read-only exchange fetching at T93. The next active route is no longer more
+automation or SaaS scope; it is multi-case open-source validation in
+`docs/OPEN_SOURCE_AUDIT_VALIDATION_ROADMAP.md`.
 
 ## Operating Conventions
 

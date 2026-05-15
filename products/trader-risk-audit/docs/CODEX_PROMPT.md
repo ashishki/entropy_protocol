@@ -1,20 +1,21 @@
 # CODEX_PROMPT.md
 
-Version: 1.73
+Version: 1.74
 Date: 2026-05-15
-Phase: Phase 22
+Phase: Phase 23
 
 This file is the compact session state for AI development. Do not paste long
 history here; use links below.
 
 ## Current Phase
 
-- Phase: Phase 22
-- Name: Conditional Real Read-Only Import
-- Business goal: completed decision gate for whether CSV/export friction
-  justifies real local read-only exchange fetching.
-- Phase gate: T93 deferred real fetching; T94-T97 are blocked until future
-  market evidence reopens the gate.
+- Phase: Phase 23
+- Name: Open-Source Audit Case Bank
+- Business goal: build a larger bank of valid open-source/public/synthetic
+  audit artifacts before warm prospect delivery.
+- Phase gate: at least 5 candidate case packs exist with source notes,
+  policies, reports, manifests, reviewed reports, validation notes, and
+  preserved limitation/reject cases.
 
 ## Current State
 
@@ -23,22 +24,24 @@ history here; use links below.
 - Last CI: workflow configured; remote run not observed from this clone
 - Last updated: 2026-05-15
 - Open findings: none
-- Current priority: automated pilot validation loop, not SaaS expansion
+- Current priority: open-source case-bank validation, not SaaS expansion
 - Last completed: T93 CSV Friction Decision Gate
 
 ## Read First
 
-1. `docs/AUTOMATED_PILOT_ROADMAP.md`
-2. `docs/tasks.md` Phase 22, T93-T97
-3. `docs/IMPLEMENTATION_CONTRACT.md`
-4. `docs/PILOT_INTAKE_CONTRACT_RU.md`
-5. task-specific `Context-Refs` in `docs/tasks.md`
+1. `docs/OPEN_SOURCE_AUDIT_VALIDATION_ROADMAP.md`
+2. `docs/tasks.md` Phase 23, T98-T103
+3. `docs/AUTOMATED_PILOT_ROADMAP.md`
+4. `docs/IMPLEMENTATION_CONTRACT.md`
+5. `docs/PILOT_INTAKE_CONTRACT_RU.md`
+6. task-specific `Context-Refs` in `docs/tasks.md`
 
 Other useful links:
 
 - `docs/DECISION_LOG.md`
 - `docs/IMPLEMENTATION_JOURNAL.md`
 - `docs/EVIDENCE_INDEX.md`
+- `docs/OPEN_SOURCE_AUDIT_VALIDATION_ROADMAP.md`
 - `docs/ARTIFACT_VALIDATION_ROADMAP.md` and Phase 16 artifacts for the
   completed SEC open-source validation baseline
 - `docs/STARTER_POLICY_PROFILES_RU.md` for `soft`, `medium`, and `hard`
@@ -46,19 +49,14 @@ Other useful links:
 
 ## Next Task
 
-No active roadmap task
-
-T94-T97 are blocked by the T93 defer decision. Use
-`docs/CSV_FRICTION_DECISION_REPORT.md`,
-`docs/HYPOTHESIS_EVIDENCE_DASHBOARD_RU.md`, and
-`docs/adr/ADR-002-read-only-exchange-import.md` as source context if future
-market evidence reopens the gate.
+T98 Open-Source Source Selection Protocol
 
 Immediate intent:
 
 - do not implement real exchange network fetching;
-- collect privacy-safe market evidence outside git;
-- reopen T94 only if a future evidence export changes the T93 decision.
+- create `docs/OPEN_SOURCE_CASE_BANK.md`;
+- define anti-cherry-pick source selection and case-pack criteria;
+- keep open-source packs separate from paid/customer/PMF evidence.
 
 ## Active Guardrails
 
@@ -73,12 +71,18 @@ Immediate intent:
   hosted uploads, checkout, hosted storage, or background network import.
 - No SaaS accounts, checkout, exchange write APIs, broker control, order
   blocking, signal analytics, AI advice, or live trading behavior.
+- Core is paused; do not open Core tasks from this workspace.
+- Open-source validation batches must include positive, limitation/reject, and
+  edge-case examples where available.
 
 ## Historical Pointers
 
 - Completed through T93; details are in `docs/IMPLEMENTATION_JOURNAL.md`,
   `docs/EVIDENCE_INDEX.md`, `docs/archive/`, and `docs/tasks.md`.
-- Planned through T97; Phase 19 continues the automated pilot loop.
+- T94-T97 remain blocked by T93 defer.
+- Active planned work is T98-T115: open-source case bank, multi-case report
+  quality loop, and private-pilot readiness.
+- Phase 23 follows `docs/OPEN_SOURCE_AUDIT_VALIDATION_ROADMAP.md`.
 - Public sample and starter profile context lives in
   `docs/PUBLIC_SAMPLE_EVIDENCE_RU.md`,
   `docs/INTERNAL_VALIDATION_REVIEW_RU.md`, and

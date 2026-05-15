@@ -1,23 +1,24 @@
 # Agent Notes - Signal Analytics Sandbox
 
-Date: 2026-05-14
+Date: 2026-05-15
 
 This file keeps only restart-relevant notes. Detailed phase history lives in
 `docs/IMPLEMENTATION_JOURNAL.md`, `docs/archive/`, and `docs/tasks.md`.
 
 ## Active State
 
-- Phase: 21 Artifact-First Real Public-Source Report Validation
-- Active task: decide LLM-reviewed internal demo vs external acceptance policy
+- Phase: 22 Expanded Public Corpus
+- Active task: SAS-DR-001 Deep Retrospective Scope Lock
 - Baseline: 166 pass / 0 skip
-- Primary roadmap: `docs/ARTIFACT_VALIDATION_ROADMAP.md`
+- Primary roadmap: `docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md`
 
 ## Current Decision
 
-Warm demand/pre-order interest exists. Phase 21 now has a real internal
-LLM-reviewed media-backed result: 2 usable transcript refs and 3 broad-market
-claims, but 0 deterministic outcome-ready rows. External delivery still needs
-operator/human acceptance policy.
+Warm demand/pre-order interest exists. Phase 21 produced a real internal
+LLM-reviewed media-backed result, but the source/window was too narrow for
+external delivery. The next route expands the public corpus, adds image/OCR,
+builds a reviewed claim ledger, and compares measurable claims to public market
+data.
 
 ## Locked Scope
 
@@ -49,9 +50,7 @@ Two public voice files were acquired, but no transcript provider was configured,
 zero reviewed usable media refs exist, and the ready gate rejects this
 source/window for external delivery.
 
-Next task: decide whether
-`docs/pilot/reports/bablos79_MEDIA_BACKED_REPORT_V2_LLM_REVIEWED.md` is enough
-for internal demo, or add operator/human acceptance before external delivery.
+Next task: run `SAS-DR-001` and create `docs/pilot/bablos79_DEEP_SCOPE.md`.
 
 ## Guardrails
 
@@ -59,10 +58,14 @@ for internal demo, or add operator/human acceptance before external delivery.
 - Media evidence remains draft/internal until human-reviewed.
 - No marketplace, leaderboard, advice, future-profit claims, private scraping,
   or paid X/Twitter dependency.
+- Core is paused.
+- Keep weak/counterexamples and non-measurable claims; do not produce a
+  promotional channel-ranking report.
 
 ## Key Links
 
 - `docs/CODEX_PROMPT.md`
 - `docs/tasks.md`
+- `docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md`
 - `docs/pilot/MEDIA_MODALITY_DECISION.md`
 - `docs/archive/PHASE21_REVIEW.md`

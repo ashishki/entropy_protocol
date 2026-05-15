@@ -5,12 +5,12 @@ separate from Entropy Core and Trader Risk Audit.
 
 ## Current Status
 
-- Phase: 21 Artifact-First Real Public-Source Report Validation, archived
-- Next task: decide whether the LLM-reviewed internal report is sufficient for
-  demo or add operator/human acceptance for external delivery
+- Phase: 22 Expanded Public Corpus
+- Next task: SAS-DR-001 Deep Retrospective Scope Lock
 - Baseline: 166 passing tests, 0 skipped
-- Current priority: external delivery remains rejected for the current
-  `bablos79` source/window until usable reviewed media evidence exists
+- Current priority: expand the `bablos79` public corpus, add image/OCR
+  coverage, build a reviewed claim ledger, and produce a balanced author
+  capability retrospective
 
 ## Promise
 
@@ -21,11 +21,12 @@ where supported, and limitations.
 ## Read First
 
 1. `docs/CODEX_PROMPT.md`
-2. `docs/ARTIFACT_VALIDATION_ROADMAP.md`
-3. `docs/MULTIMODAL_REPORT_DEVELOPMENT_PLAN.md`
-4. `../../docs/ARTIFACT_FIRST_VALIDATION_ROADMAP.md`
-5. `docs/tasks.md` Phase 21
-6. `docs/legal_risk_memo.md`
+2. `docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md`
+3. `docs/ARTIFACT_VALIDATION_ROADMAP.md`
+4. `docs/MULTIMODAL_REPORT_DEVELOPMENT_PLAN.md`
+5. `../../docs/ARTIFACT_FIRST_VALIDATION_ROADMAP.md`
+6. `docs/tasks.md` Phase 22, SAS-DR-001..005
+7. `docs/legal_risk_memo.md`
 
 ## Implemented Surface
 
@@ -62,6 +63,24 @@ media-backed result, not external delivery. Two public voice files were acquired
 managed Whisper produced draft transcripts, and OpenAI `gpt-4.1` marked both
 transcript refs usable for internal source join; deterministic outcome-ready
 rows remain zero.
+
+## Deep Channel Retrospective Work
+
+Active phase plan:
+
+- Phase 22, SAS-DR-001..005: expanded public corpus, source-window lock,
+  capture manifest, media inventory, corpus gap register, and deep review;
+- Phase 23, SAS-DR-006..011: image acquisition, OCR draft run, image/chart
+  review queue, transcript acceptance policy, multimodal source join v2, and
+  deep review;
+- Phase 24, SAS-DR-012..017: author claim taxonomy, expanded claim ledger,
+  market proxy map, retrospective outcomes, counterexample register, and deep
+  review;
+- Phase 25, SAS-DR-018..022: author capability scorecard, report V1, demo
+  pack, external ready gate, and deep review.
+
+The current `bablos79` Phase 21 result is a narrow-window reject case, not a
+final judgment on the channel.
 
 ## Scope In
 

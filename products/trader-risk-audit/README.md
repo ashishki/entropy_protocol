@@ -5,11 +5,11 @@ rules; the product returns a deterministic post-trade audit report.
 
 ## Current Status
 
-- Phase: 22 Conditional Real Read-Only Import deferred by T93
-- Next task: none; T94-T97 are blocked until future market evidence reopens T93
+- Phase: 23 Open-Source Audit Case Bank
+- Next task: T98 Open-Source Source Selection Protocol
 - Baseline: 253 passing tests, 0 skipped
-- Current priority: automate the pilot validation loop before hosted SaaS or
-  checkout work
+- Current priority: build a larger open-source audit validation bank and
+  multi-case report-quality loop before warm prospect delivery
 - Last completed: T93 CSV Friction Decision Gate
 
 ## Promise
@@ -25,12 +25,13 @@ Upload/export trades plus rules. Receive a report showing:
 ## Read First
 
 1. `docs/CODEX_PROMPT.md`
-2. `docs/AUTOMATED_PILOT_ROADMAP.md`
-3. `docs/tasks.md` Phase 22, T93-T97
-4. `docs/IMPLEMENTATION_CONTRACT.md`
-5. `docs/PILOT_INTAKE_CONTRACT_RU.md`
-6. `docs/ARTIFACT_VALIDATION_ROADMAP.md`
-7. `docs/STARTER_POLICY_PROFILES_RU.md`
+2. `docs/OPEN_SOURCE_AUDIT_VALIDATION_ROADMAP.md`
+3. `docs/tasks.md` Phase 23, T98-T103
+4. `docs/AUTOMATED_PILOT_ROADMAP.md`
+5. `docs/IMPLEMENTATION_CONTRACT.md`
+6. `docs/PILOT_INTAKE_CONTRACT_RU.md`
+7. `docs/ARTIFACT_VALIDATION_ROADMAP.md`
+8. `docs/STARTER_POLICY_PROFILES_RU.md`
 
 ## Implemented Surface
 
@@ -64,7 +65,7 @@ Historical detail lives in `docs/IMPLEMENTATION_JOURNAL.md`,
 
 ## Automated Pilot Work
 
-Active phase plan:
+Completed phase plan:
 
 - Phase 17, T70-T73: automated intake session, CSV schema profiler,
   actionable intake report, and deep review (complete);
@@ -80,6 +81,22 @@ Active phase plan:
 Phase 16 SEC open-source artifact validation is complete and remains the demo
 quality baseline, not paid/customer/PMF evidence.
 
+## Open-Source Validation Work
+
+Active phase plan:
+
+- Phase 23, T98-T103: source-selection protocol, open-source case pack
+  contract, 5+ candidate packs, batch runs, manual validation notes, and deep
+  review;
+- Phase 24, T104-T109: multi-case report-quality scorecard, rule/data coverage
+  matrix, dashboard, regression coverage, internal demo pack, and deep review;
+- Phase 25, T110-T115: private-pilot intake/review checklists, local private
+  run notes outside git, paid-pilot package, ready gate, and deep review.
+
+Validation success means truthful, reproducible reports with preserved
+limitations and counterexamples. It does not mean cherry-picked positive
+violations.
+
 ## Starter Profiles
 
 `docs/STARTER_POLICY_PROFILES_RU.md` defines `soft`, `medium`, and `hard`
@@ -94,6 +111,7 @@ trading advice.
 - deterministic violation evaluation;
 - traceable report artifacts;
 - local read-only historical import only when needed for the artifact.
+- open-source/public validation case packs before private prospect delivery.
 
 ## Scope Out
 

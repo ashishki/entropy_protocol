@@ -1,7 +1,7 @@
 # Tasks — Signal Analytics Sandbox
 
-Version: 1.2
-Last updated: 2026-05-12
+Version: 1.3
+Last updated: 2026-05-15
 
 This task graph is the implementation contract. Acceptance criteria are testable; vague phrases are forbidden (see `templates/tasks_schema.md` §Acceptance Criteria Rules).
 
@@ -31,6 +31,20 @@ Phases:
 - **Phase 20** — Telegram media evidence: voice and image/OCR drafts.
 - **Phase 21** — Artifact-first real public-source report validation, including
   real public media acquisition when text-only evidence is insufficient.
+- **Phase 22** — Expanded public corpus for deep channel retrospective.
+- **Phase 23** — Image/OCR and reviewed multimodal evidence.
+- **Phase 24** — Claim ledger and retrospective market outcomes.
+- **Phase 25** — Author capability report and external-ready gate.
+
+Current active focus:
+
+- Core is paused.
+- The current `bablos79` Phase 21 source/window is rejected for external
+  delivery but is not enough evidence to judge the channel.
+- The next active route follows `docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md`:
+  expand the public corpus, add image/OCR analysis, build a reviewed claim
+  ledger, compare measurable claims to public market data, and produce a
+  balanced author capability report.
 
 ---
 
@@ -3170,3 +3184,780 @@ Context-Refs:
 Notes: |
   This is the gate for showing a bounded source research artifact to warm
   prospects. It does not approve marketplace, leaderboard, or automated advice.
+
+## Phase 22 — Expanded Public Corpus
+
+### SAS-DR-001: Deep Retrospective Scope Lock
+
+Owner:      operator + codex
+Phase:      22
+Type:       docs
+Depends-On: SAS-AF-008
+
+Objective: |
+  Lock the expanded `bablos79` source/window scope and anti-cherry-pick rules
+  before any new capture, media review, or market-outcome analysis starts.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/bablos79_DEEP_SCOPE.md` records source URL, source ID, window length, inclusion/exclusion rules, capture method, media posture, report language, and claim boundary."
+    test: "manual/docs-review"
+  - id: AC-2
+    description: "Scope explicitly fixes the window before market-outcome analysis to avoid selecting only good-looking posts."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "Scope states that Phase 21 rejected external delivery for the narrow window but did not reject the channel as a whole."
+    test: "manual/docs-review"
+
+Files:
+  - docs/pilot/bablos79_DEEP_SCOPE.md
+  - docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md
+  - docs/DECISION_LOG.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Context-Refs:
+  - docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md#phase-22---expanded-public-corpus
+  - docs/pilot/bablos79_EXTERNAL_PILOT_READY_GATE.md
+  - docs/audit/PHASE21_ERROR_REGISTER.md
+
+Notes: |
+  Public/operator-authorized sources only. Do not use private Telegram groups.
+
+### SAS-DR-002: Expanded Public Capture Manifest
+
+Owner:      codex
+Phase:      22
+Type:       validation
+Depends-On: SAS-DR-001
+
+Objective: |
+  Capture or register the expanded public corpus and produce a stable manifest
+  that preserves source ids, timestamps, source URLs, hashes, and media refs.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Expanded manifest records every included public text capture with stable capture/document ids, timestamps, source URL, text hash, and source language."
+    test: "manual-evidence plus existing capture validation tests where applicable"
+  - id: AC-2
+    description: "Manifest records excluded rows or capture gaps with reason instead of silently dropping them."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "`docs/pilot/bablos79_EXPANDED_CAPTURE_PACK.md` summarizes corpus size, window, capture method, and coverage limitations."
+    test: "manual/docs-review"
+
+Files:
+  - docs/pilot/bablos79_EXPANDED_CAPTURE_MANIFEST.json
+  - docs/pilot/bablos79_EXPANDED_CAPTURE_PACK.md
+  - workspace/captures/bablos79/
+  - src/signal_sandbox/capture/
+
+Context-Refs:
+  - docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md#phase-22---expanded-public-corpus
+
+Notes: |
+  If fresh network capture is not available in the environment, create the
+  manifest from operator-supplied public captures and record the gap.
+
+### SAS-DR-003: Expanded Media Inventory
+
+Owner:      codex
+Phase:      22
+Type:       validation
+Depends-On: SAS-DR-002
+
+Objective: |
+  Build the media inventory for the expanded corpus, separating public,
+  acquisition-ready, missing, excluded, and unsupported media items.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/bablos79_MEDIA_INVENTORY_EXPANDED.md` lists image/screenshot/chart/voice/video references by source document id and acquisition status."
+    test: "manual/docs-review"
+  - id: AC-2
+    description: "Every media item has public/operator-authorization status or is excluded before OCR/transcription work."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "Inventory flags likely chart/screenshot/image rows for Phase 23 OCR and manual review."
+    test: "manual/docs-review"
+
+Files:
+  - docs/pilot/bablos79_MEDIA_INVENTORY_EXPANDED.md
+  - docs/pilot/bablos79_EXPANDED_CAPTURE_MANIFEST.json
+  - docs/legal_risk_memo.md
+
+Context-Refs:
+  - docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md#phase-22---expanded-public-corpus
+
+Notes: |
+  Do not claim image analysis yet. This task only inventories media.
+
+### SAS-DR-004: Corpus Gap Register
+
+Owner:      codex
+Phase:      22
+Type:       docs
+Depends-On: SAS-DR-003
+
+Objective: |
+  Record corpus completeness gaps before extraction so later report conclusions
+  can explain missing evidence instead of hiding it.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/bablos79_CORPUS_GAP_REGISTER.md` lists missing periods, inaccessible media, unsupported media types, timestamp ambiguities, and legal/source limitations."
+    test: "manual/docs-review"
+  - id: AC-2
+    description: "Gap register marks each gap as blocking, acceptable limitation, or needs operator input."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "No extraction or outcome task treats a known gap as evidence of author quality."
+    test: "manual/docs-review"
+
+Files:
+  - docs/pilot/bablos79_CORPUS_GAP_REGISTER.md
+  - docs/pilot/bablos79_EXPANDED_CAPTURE_PACK.md
+  - docs/pilot/bablos79_MEDIA_INVENTORY_EXPANDED.md
+
+Context-Refs:
+  - docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md#phase-22---expanded-public-corpus
+
+Notes: |
+  A gap can be acceptable if it is disclosed.
+
+### SAS-DR-005: Expanded Corpus Deep Review
+
+Owner:      codex
+Phase:      22
+Type:       review
+Depends-On: SAS-DR-001, SAS-DR-002, SAS-DR-003, SAS-DR-004
+
+Objective: |
+  Run the Phase 22 boundary review and decide whether the expanded corpus is
+  safe and complete enough for multimodal evidence work.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Review checks anti-cherry-pick scope, public-source legality, capture integrity, media inventory, gap register, and no private scraping."
+    test: "manual/review"
+  - id: AC-2
+    description: "Audit index, CODEX prompt, README, handoff docs, and phase report are updated with final Phase 22 state."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "Any P0/P1 source legality, private scraping, or manifest integrity issue blocks Phase 23."
+    test: "manual/review"
+
+Files:
+  - docs/archive/PHASE22_REVIEW.md
+  - docs/audit/REVIEW_REPORT.md
+  - docs/audit/ARCH_REPORT.md
+  - docs/audit/PHASE_REPORT_LATEST.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/CODEX_PROMPT.md
+  - README.md
+  - PHASE_HANDOFF.md
+  - AGENT_NOTES.md
+  - ORCHESTRATOR_CHECKPOINT.md
+
+Context-Refs:
+  - docs/prompts/ORCHESTRATOR.md
+
+Notes: |
+  This is a phase gate. Do not skip deep review.
+
+## Phase 23 — Image/OCR And Multimodal Evidence
+
+### SAS-DR-006: Public Image Acquisition And Manifest
+
+Owner:      codex
+Phase:      23
+Type:       validation
+Depends-On: SAS-DR-005
+
+Objective: |
+  Acquire or register public image/screenshot/chart artifacts from the expanded
+  corpus with stable source linkage and checksums.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/bablos79_IMAGE_MANIFEST.json` records image artifact id, source document id, media URL/ref, local path or external ref, checksum, acquisition status, and retention status."
+    test: "manual-evidence plus unit tests where applicable"
+  - id: AC-2
+    description: "Image acquisition rejects media without public/operator authorization or source-document linkage."
+    test: "tests/unit/test_media_manifest.py or manual evidence if no code path exists"
+  - id: AC-3
+    description: "Raw media storage policy is stated for local artifacts and no private media is committed."
+    test: "manual/git-review"
+
+Files:
+  - docs/pilot/bablos79_IMAGE_MANIFEST.json
+  - workspace/media/bablos79/
+  - src/signal_sandbox/media/
+
+Context-Refs:
+  - docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md#phase-23---imageocr-and-multimodal-evidence
+  - docs/adr/ADR-004-media-evidence-pipeline.md
+
+Notes: |
+  Use Git LFS or external/local artifact storage later if raw media grows.
+
+### SAS-DR-007: OCR Draft Run
+
+Owner:      codex
+Phase:      23
+Type:       validation
+Depends-On: SAS-DR-006
+
+Objective: |
+  Run OCR over approved public images/screenshots/charts and record draft text
+  with source refs and confidence/limitation notes.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/bablos79_OCR_RUN_EXPANDED.md` records OCR provider/config, inputs, outputs, skipped items, failures, and draft-only status."
+    test: "manual-evidence"
+  - id: AC-2
+    description: "OCR outputs are stored as draft artifacts and cannot approve claims, ledgers, outcomes, or report text without review."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "Every OCR output cites image artifact id, source document id, and checksum."
+    test: "manual/docs-review"
+
+Files:
+  - docs/pilot/bablos79_OCR_RUN_EXPANDED.md
+  - docs/pilot/ocr/
+  - src/signal_sandbox/media/
+
+Context-Refs:
+  - docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md#phase-23---imageocr-and-multimodal-evidence
+
+Notes: |
+  If OCR provider is unavailable, record skipped status and exact blocker.
+
+### SAS-DR-008: Image And Chart Review Queue
+
+Owner:      operator + codex
+Phase:      23
+Type:       validation
+Depends-On: SAS-DR-007
+
+Objective: |
+  Review OCR/image/chart outputs and decide which media refs are usable for
+  internal source joins and which require human/operator acceptance for external
+  report claims.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/bablos79_IMAGE_REVIEW_QUEUE.md` lists each OCR/image artifact with draft text, visible ticker/level/date evidence, review status, and reviewer action."
+    test: "manual/docs-review"
+  - id: AC-2
+    description: "Chart interpretation is labeled as reviewed, ambiguous, unsupported, or excluded; uncertain chart claims are not outcome-ready."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "Reviewed media refs are exported to `docs/pilot/bablos79_REVIEWED_MEDIA_EVIDENCE.md`."
+    test: "manual/docs-review"
+
+Files:
+  - docs/pilot/bablos79_IMAGE_REVIEW_QUEUE.md
+  - docs/pilot/bablos79_REVIEWED_MEDIA_EVIDENCE.md
+  - docs/pilot/ocr/
+
+Context-Refs:
+  - docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md#phase-23---imageocr-and-multimodal-evidence
+
+Notes: |
+  LLM/OCR output is not final truth.
+
+### SAS-DR-009: Voice/Transcript Review Policy Update
+
+Owner:      operator + codex
+Phase:      23
+Type:       docs
+Depends-On: SAS-DR-008
+
+Objective: |
+  Decide how managed Whisper and LLM-reviewed transcript refs can be used in
+  internal vs external reports.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/bablos79_TRANSCRIPT_ACCEPTANCE_POLICY.md` defines draft, LLM-reviewed internal, human/operator accepted, and external-claim statuses."
+    test: "manual/docs-review"
+  - id: AC-2
+    description: "Policy states that LLM-reviewed transcript refs can support internal source joins but external delivery requires human/operator acceptance unless explicitly waived."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "Existing Phase 21 transcript artifacts are reclassified under the policy without changing their evidence content."
+    test: "manual/docs-review"
+
+Files:
+  - docs/pilot/bablos79_TRANSCRIPT_ACCEPTANCE_POLICY.md
+  - docs/pilot/bablos79_TRANSCRIPT_LLM_REVIEW.md
+  - docs/audit/PHASE21_ERROR_REGISTER.md
+
+Context-Refs:
+  - docs/pilot/bablos79_TRANSCRIPT_LLM_REVIEW.md
+  - docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md#phase-23---imageocr-and-multimodal-evidence
+
+Notes: |
+  This is a policy gate before external media-backed claims.
+
+### SAS-DR-010: Multimodal Source Join V2
+
+Owner:      codex
+Phase:      23
+Type:       validation
+Depends-On: SAS-DR-009
+
+Objective: |
+  Build a second multimodal source preview joining expanded text, reviewed
+  image/OCR evidence, and transcript evidence under the new acceptance policy.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/bablos79_MULTIMODAL_SOURCE_PREVIEW_V2.md` summarizes text, voice, image/OCR, reviewed, draft, and excluded evidence counts."
+    test: "manual/docs-review"
+  - id: AC-2
+    description: "Preview preserves original source document text/hash/url and cites joined media refs without changing source truth."
+    test: "tests/unit/test_multimodal_source_join.py or equivalent"
+  - id: AC-3
+    description: "Preview separates internal-only refs from external-eligible refs."
+    test: "manual/docs-review"
+
+Files:
+  - docs/pilot/bablos79_MULTIMODAL_SOURCE_PREVIEW_V2.md
+  - src/signal_sandbox/media/
+  - src/signal_sandbox/corpus/
+  - tests/unit/test_multimodal_source_join.py
+
+Context-Refs:
+  - docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md#phase-23---imageocr-and-multimodal-evidence
+
+Notes: |
+  This task changes modality scope; deep review is required at phase boundary.
+
+### SAS-DR-011: Multimodal Evidence Deep Review
+
+Owner:      codex
+Phase:      23
+Type:       review
+Depends-On: SAS-DR-006, SAS-DR-007, SAS-DR-008, SAS-DR-009, SAS-DR-010
+
+Objective: |
+  Run the Phase 23 boundary review and decide whether multimodal evidence is
+  ready for claim-ledger extraction.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Review checks public media authorization, OCR/transcript draft boundaries, image/chart review quality, source joins, and external-claim policy."
+    test: "manual/review"
+  - id: AC-2
+    description: "Audit index, CODEX prompt, README, handoff docs, and phase report are updated with final Phase 23 state."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "Any P0/P1 media-source, transcript/OCR, or external-claim issue blocks Phase 24."
+    test: "manual/review"
+
+Files:
+  - docs/archive/PHASE23_REVIEW.md
+  - docs/audit/REVIEW_REPORT.md
+  - docs/audit/ARCH_REPORT.md
+  - docs/audit/PHASE_REPORT_LATEST.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/CODEX_PROMPT.md
+  - README.md
+  - PHASE_HANDOFF.md
+  - AGENT_NOTES.md
+  - ORCHESTRATOR_CHECKPOINT.md
+
+Context-Refs:
+  - docs/prompts/ORCHESTRATOR.md
+
+Notes: |
+  This is a phase gate. Do not skip deep review.
+
+## Phase 24 — Claim Ledger And Market Outcomes
+
+### SAS-DR-012: Author Claim Taxonomy
+
+Owner:      codex
+Phase:      24
+Type:       docs
+Depends-On: SAS-DR-011
+
+Objective: |
+  Define the taxonomy for author claims so extraction can distinguish
+  measurable claims from broad market commentary and non-market content.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/bablos79_CLAIM_TAXONOMY.md` defines macro context, event risk, directional bias, explicit trade setup, level/timing call, watchlist, non-market commentary, and unsupported media claim categories."
+    test: "manual/docs-review"
+  - id: AC-2
+    description: "Taxonomy defines required fields for a claim to be deterministic-outcome-ready."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "Taxonomy states that broad claims may be useful author insights even when they are not deterministic performance evidence."
+    test: "manual/docs-review"
+
+Files:
+  - docs/pilot/bablos79_CLAIM_TAXONOMY.md
+  - docs/specs/MARKET_IDEA_SCHEMA.md
+
+Context-Refs:
+  - docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md#phase-24---claim-ledger-and-market-outcomes
+
+Notes: |
+  Do not force every post into a trade-signal frame.
+
+### SAS-DR-013: Expanded Claim Ledger Draft
+
+Owner:      codex
+Phase:      24
+Type:       validation
+Depends-On: SAS-DR-012
+
+Objective: |
+  Extract a reviewed draft claim ledger from the expanded multimodal corpus.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/bablos79_CLAIM_LEDGER.json` and `.md` include claim id, source refs, media refs when used, timestamp, category, asset/proxy candidates, direction, horizon, review state, and measurability status."
+    test: "manual/docs-review plus schema tests if implemented"
+  - id: AC-2
+    description: "Ledger includes non-market, ambiguous, unsupported, and weak claims instead of filtering them out."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "If fewer than 30-50 reviewable claims exist, the ledger records an insufficient-corpus decision with reasons."
+    test: "manual/docs-review"
+
+Files:
+  - docs/pilot/bablos79_CLAIM_LEDGER.json
+  - docs/pilot/bablos79_CLAIM_LEDGER.md
+  - src/signal_sandbox/market_ideas/
+  - tests/unit/
+
+Context-Refs:
+  - docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md#phase-24---claim-ledger-and-market-outcomes
+  - docs/pilot/bablos79_CLAIM_TAXONOMY.md
+
+Notes: |
+  Draft extraction cannot create final truth without review status.
+
+### SAS-DR-014: Market Proxy Map
+
+Owner:      operator + codex
+Phase:      24
+Type:       validation
+Depends-On: SAS-DR-013
+
+Objective: |
+  Map measurable and broad-market claims to explicit public market proxies or
+  mark them as non-measurable.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/bablos79_MARKET_PROXY_MAP.md` records each measurable claim's asset/proxy, data source, timestamp basis, horizon, and unresolved reason when no proxy is safe."
+    test: "manual/docs-review"
+  - id: AC-2
+    description: "Broad claims use approved proxy logic or remain non-measurable; no hidden proxy guessing is allowed."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "Market-data fetch plan covers only measurable/proxy-approved claims."
+    test: "manual/docs-review"
+
+Files:
+  - docs/pilot/bablos79_MARKET_PROXY_MAP.md
+  - docs/pilot/bablos79_CLAIM_LEDGER.json
+  - src/signal_sandbox/assets/
+  - src/signal_sandbox/market_data/
+
+Context-Refs:
+  - docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md#phase-24---claim-ledger-and-market-outcomes
+
+Notes: |
+  If the author says "market" broadly, do not invent a ticker unless the proxy
+  is explicitly approved and disclosed.
+
+### SAS-DR-015: Retrospective Outcome Evaluation
+
+Owner:      codex
+Phase:      24
+Type:       validation
+Depends-On: SAS-DR-014
+
+Objective: |
+  Compute deterministic retrospective outcomes for measurable reviewed claims
+  using approved public/local market data snapshots.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/bablos79_RETROSPECTIVE_OUTCOMES.json` and `.md` record outcome status, market data snapshot refs, horizons, returns, MFE/MAE where applicable, and unresolved reasons."
+    test: "manual/docs-review plus outcome tests if implemented"
+  - id: AC-2
+    description: "Outcome evaluation separates confirmed, contradicted, unresolved, insufficient data, and non-measurable claims."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "No outcome metric is computed for claims lacking reviewed evidence, source timestamp, approved proxy, or sufficient market data."
+    test: "manual/docs-review"
+
+Files:
+  - docs/pilot/bablos79_RETROSPECTIVE_OUTCOMES.json
+  - docs/pilot/bablos79_RETROSPECTIVE_OUTCOMES.md
+  - src/signal_sandbox/market_ideas/
+  - src/signal_sandbox/market_data/
+  - tests/unit/
+
+Context-Refs:
+  - docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md#phase-24---claim-ledger-and-market-outcomes
+  - docs/pilot/bablos79_MARKET_PROXY_MAP.md
+
+Notes: |
+  Retrospective outcomes are evidence, not future-performance claims.
+
+### SAS-DR-016: Counterexample And Weak Evidence Register
+
+Owner:      codex
+Phase:      24
+Type:       docs
+Depends-On: SAS-DR-015
+
+Objective: |
+  Preserve weak, contradicted, blocked, and non-measurable examples so the
+  final author report is balanced.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/bablos79_COUNTEREXAMPLES.md` includes contradicted, unresolved, ambiguous, non-measurable, and unsupported-media examples with source refs."
+    test: "manual/docs-review"
+  - id: AC-2
+    description: "Register includes at least 5 weak/blocked/counter examples when available, or an explicit reason if fewer exist."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "The report gate requires counterexamples to be considered before any positive author-strength conclusion."
+    test: "manual/docs-review"
+
+Files:
+  - docs/pilot/bablos79_COUNTEREXAMPLES.md
+  - docs/pilot/bablos79_RETROSPECTIVE_OUTCOMES.md
+  - docs/pilot/bablos79_CLAIM_LEDGER.md
+
+Context-Refs:
+  - docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md#anti-cherry-pick-rule
+
+Notes: |
+  Good product evidence includes disconfirming evidence.
+
+### SAS-DR-017: Claim Ledger Deep Review
+
+Owner:      codex
+Phase:      24
+Type:       review
+Depends-On: SAS-DR-012, SAS-DR-013, SAS-DR-014, SAS-DR-015, SAS-DR-016
+
+Objective: |
+  Run the Phase 24 boundary review and decide whether the claim ledger and
+  retrospective outcomes are strong enough for an author capability report.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Review checks taxonomy, ledger evidence refs, media status, proxy mapping, outcome correctness, counterexamples, and no future-profit/advice claims."
+    test: "manual/review"
+  - id: AC-2
+    description: "Audit index, CODEX prompt, README, handoff docs, and phase report are updated with final Phase 24 state."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "If fewer than 30-50 claims or too few measurable outcomes exist, review decides whether to expand corpus again or produce an insufficient-evidence report."
+    test: "manual/review"
+
+Files:
+  - docs/archive/PHASE24_REVIEW.md
+  - docs/audit/REVIEW_REPORT.md
+  - docs/audit/ARCH_REPORT.md
+  - docs/audit/PHASE_REPORT_LATEST.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/CODEX_PROMPT.md
+  - README.md
+  - PHASE_HANDOFF.md
+  - AGENT_NOTES.md
+  - ORCHESTRATOR_CHECKPOINT.md
+
+Context-Refs:
+  - docs/prompts/ORCHESTRATOR.md
+
+Notes: |
+  This is a phase gate. Do not skip deep review.
+
+## Phase 25 — Author Capability Report
+
+### SAS-DR-018: Author Capability Scorecard
+
+Owner:      codex
+Phase:      25
+Type:       docs
+Depends-On: SAS-DR-017
+
+Objective: |
+  Build the author capability scorecard from reviewed claims, outcomes,
+  examples, counterexamples, and limitations.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/bablos79_AUTHOR_CAPABILITY_SCORECARD.md` scores or labels categories such as macro context, event risk, directional bias, explicit setup quality, timing/levels, media usefulness, and evidence measurability."
+    test: "manual/docs-review"
+  - id: AC-2
+    description: "Every strength claim cites at least one supporting reviewed example and at least one limitation/counterexample when available."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "Scorecard avoids leaderboard, marketplace, future-profit, advice, or best-channel language."
+    test: "manual/docs-review"
+
+Files:
+  - docs/pilot/bablos79_AUTHOR_CAPABILITY_SCORECARD.md
+  - docs/pilot/bablos79_RETROSPECTIVE_OUTCOMES.md
+  - docs/pilot/bablos79_COUNTEREXAMPLES.md
+
+Context-Refs:
+  - docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md#phase-25---author-capability-report
+
+Notes: |
+  This scorecard is retrospective evidence, not a ranking product.
+
+### SAS-DR-019: Author Capability Report V1
+
+Owner:      codex
+Phase:      25
+Type:       validation
+Depends-On: SAS-DR-018
+
+Objective: |
+  Generate the buyer-readable author capability report from the validated
+  ledger, outcomes, media evidence, scorecard, and limitations.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/reports/bablos79_AUTHOR_CAPABILITY_REPORT_V1.md` explains what the author appears good at, what is weak/non-measurable, and what happened later in public market data for measurable claims."
+    test: "manual/docs-review"
+  - id: AC-2
+    description: "Report includes evidence appendix, source/media/market refs, examples, counterexamples, limitations, and no-advice boundary."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "Report contains no buy/sell/hold recommendation, future-profit claim, marketplace ranking, leaderboard language, or unreviewed media claim."
+    test: "manual/docs-review"
+
+Files:
+  - docs/pilot/reports/bablos79_AUTHOR_CAPABILITY_REPORT_V1.md
+  - docs/pilot/bablos79_AUTHOR_CAPABILITY_SCORECARD.md
+  - docs/pilot/bablos79_CLAIM_LEDGER.md
+  - docs/pilot/bablos79_RETROSPECTIVE_OUTCOMES.md
+
+Context-Refs:
+  - docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md#phase-25---author-capability-report
+
+Notes: |
+  If evidence remains weak, produce an insufficient-evidence report instead of
+  forcing a positive narrative.
+
+### SAS-DR-020: Deep Retrospective Demo Pack
+
+Owner:      codex
+Phase:      25
+Type:       docs
+Depends-On: SAS-DR-019
+
+Objective: |
+  Package the author capability report into an internal demo pack suitable for
+  warm conversations.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/bablos79_DEEP_RETROSPECTIVE_DEMO_PACK.md` contains report summary, strongest examples, counterexamples, media evidence summary, market outcome summary, limitations, talk track, and buyer use case."
+    test: "manual/docs-review"
+  - id: AC-2
+    description: "Demo pack makes clear whether it is external-ready, internal-only, or rejected."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "Demo pack does not expose raw media beyond public/legal boundary and does not overstate transcript/OCR certainty."
+    test: "manual/docs-review"
+
+Files:
+  - docs/pilot/bablos79_DEEP_RETROSPECTIVE_DEMO_PACK.md
+  - docs/pilot/reports/bablos79_AUTHOR_CAPABILITY_REPORT_V1.md
+
+Context-Refs:
+  - docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md#phase-25---author-capability-report
+
+Notes: |
+  Keep this pack concise enough for sales/user conversations.
+
+### SAS-DR-021: Deep External Ready Gate
+
+Owner:      operator + codex
+Phase:      25
+Type:       review
+Depends-On: SAS-DR-020
+
+Objective: |
+  Decide whether the deep `bablos79` retrospective can be shown externally or
+  should remain internal-only/rejected.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/bablos79_DEEP_EXTERNAL_READY_GATE.md` records ready / needs fixes / reject and cites evidence coverage, market outcomes, media review status, legal boundary, and claim safety."
+    test: "manual/docs-review"
+  - id: AC-2
+    description: "Gate defines the paid report package scope, buyer promise, exclusions, and first feedback questions if ready."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "Gate does not approve marketplace, leaderboard, automated advice, private scraping, or future-performance claims."
+    test: "manual/docs-review"
+
+Files:
+  - docs/pilot/bablos79_DEEP_EXTERNAL_READY_GATE.md
+  - docs/pilot/bablos79_DEEP_RETROSPECTIVE_DEMO_PACK.md
+  - docs/pilot/reports/bablos79_AUTHOR_CAPABILITY_REPORT_V1.md
+
+Context-Refs:
+  - docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md#phase-25---author-capability-report
+
+Notes: |
+  Human/operator decision is required before external delivery.
+
+### SAS-DR-022: Author Capability Report Deep Review
+
+Owner:      codex
+Phase:      25
+Type:       review
+Depends-On: SAS-DR-018, SAS-DR-019, SAS-DR-020, SAS-DR-021
+
+Objective: |
+  Run the Phase 25 boundary review and close the deep channel retrospective
+  loop.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Review checks report evidence, scorecard fairness, examples/counterexamples, media claims, legal boundary, and external-ready gate."
+    test: "manual/review"
+  - id: AC-2
+    description: "Audit index, CODEX prompt, README, handoff docs, and phase report are updated with final Phase 25 state."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "If ready, next task is controlled external pilot feedback; if not ready, next task is the specific blocking fix or corpus expansion, not marketplace scope."
+    test: "manual/review"
+
+Files:
+  - docs/archive/PHASE25_RETROSPECTIVE_REVIEW.md
+  - docs/audit/REVIEW_REPORT.md
+  - docs/audit/ARCH_REPORT.md
+  - docs/audit/PHASE_REPORT_LATEST.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/CODEX_PROMPT.md
+  - README.md
+  - PHASE_HANDOFF.md
+  - AGENT_NOTES.md
+  - ORCHESTRATOR_CHECKPOINT.md
+
+Context-Refs:
+  - docs/prompts/ORCHESTRATOR.md
+
+Notes: |
+  This is a phase gate. Do not skip deep review.

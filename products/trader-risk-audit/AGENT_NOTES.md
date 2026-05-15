@@ -8,20 +8,21 @@ and `docs/tasks.md`.
 
 ## Active State
 
-- Phase: 22 Conditional Real Read-Only Import
+- Phase: 23 Open-Source Audit Case Bank
 - Last completed: T93 CSV Friction Decision Gate
-- Active task: none - T94-T97 blocked by T93 defer decision
+- Active task: T98 Open-Source Source Selection Protocol
 - Baseline: 253 pass / 0 skip
-- Primary roadmap: `docs/AUTOMATED_PILOT_ROADMAP.md`
+- Primary roadmap: `docs/OPEN_SOURCE_AUDIT_VALIDATION_ROADMAP.md`
 
 ## Current Decision
 
-The next priority is automating the pilot validation loop enough to test the
-hypothesis repeatedly without manual audit setup work. Keep the loop local,
-deterministic, and claim-safe before any hosted SaaS or checkout work.
+The next priority is building a larger open-source/public/synthetic audit case
+bank before approaching warm prospects. Validation success means truthful,
+reproducible reports with preserved limitations, not only positive findings.
 
 ## Operator Input Needed
 
+- complete T98-T103 before adding private pilot work;
 - collect future privacy-safe market evidence outside git before reopening T94;
 - preserve the distinction between demo artifact quality and paid/customer
   validation evidence;
@@ -42,11 +43,15 @@ deterministic, and claim-safe before any hosted SaaS or checkout work.
 - Phase 21 deep review found no stop-ship items. Do not implement real
   exchange network fetching unless T93 explicitly returns proceed.
 - T93 returned defer, not proceed. T94-T97 remain blocked.
+- Core is paused; do not open Core work from this product loop.
+- Open-source validation batches must include positive, limitation/reject, and
+  edge-case examples where available.
 
 ## Key Links
 
 - `docs/CODEX_PROMPT.md`
 - `docs/tasks.md`
+- `docs/OPEN_SOURCE_AUDIT_VALIDATION_ROADMAP.md`
 - `docs/AUTOMATED_PILOT_ROADMAP.md`
 - `docs/ARTIFACT_VALIDATION_ROADMAP.md`
 - `docs/STARTER_POLICY_PROFILES_RU.md`

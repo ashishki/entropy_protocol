@@ -1,10 +1,12 @@
 # Task Graph - Trader Risk Audit
 
-Version: 1.7
+Version: 1.8
 Last updated: 2026-05-15
-Status: roadmap complete through T93 decision. Phase 21 is complete and
-archived; T93 deferred real read-only exchange fetching, so T94-T97 remain
-blocked until future market evidence reopens the gate.
+Status: active Phase 23. Phase 21 is complete and archived; T93 deferred real
+read-only exchange fetching, so T94-T97 remain blocked until future market
+evidence reopens the gate. Core is paused. The next active work is an
+open-source audit case bank and multi-case validation loop before warm prospect
+delivery.
 Phase 14/15 exchange-import work is complete and remains available only when
 it directly supports the selected real audit artifact.
 
@@ -36,6 +38,9 @@ it directly supports the selected real audit artifact.
 | 20 | Report Preview And Paid CTA | T83-T87 | Claim-safe preview, redacted value summary, paid pilot CTA, conversion events, and deep review. | A prospect can see enough value to request/pay for a reviewed report without receiving unsafe claims or raw-data exposure. |
 | 21 | Hypothesis Evidence Dashboard | T88-T92 | Funnel event schema, dashboard CLI/report, validation thresholds, privacy-safe export, and deep review. | The operator can measure upload, valid export, preview, paid ask, paid report, repeat commitment, and referral evidence. |
 | 22 | Conditional Real Read-Only Import | T93-T97 | CSV friction decision gate, ADR update, minimal local real fetch path if justified, import-to-runner integration, and deep review. | Real read-only exchange fetching is added only if evidence shows CSV/export friction blocks conversion, and remains local, read-only, and no hosted secrets. |
+| 23 | Open-Source Audit Case Bank | T98-T103 | Source-selection protocol, case-pack directory contract, 5+ open-source/synthetic validation packs, manual validation notes, and deep review. | Multiple real or public transaction-like packs prove report validity, limitations, and reproducibility without private data. |
+| 24 | Multi-Case Report Quality Loop | T104-T109 | Report quality scorecard, rule/data coverage matrix, multi-case dashboard, polished demo pack selection, regression coverage, and deep review. | At least 3 packs are demo-quality, including positive-finding and limitation/reject examples, with no P0/P1 report-validity findings. |
+| 25 | Private Pilot Readiness | T110-T115 | Private data intake checklist, local-only artifact handling, private report review checklist, paid-pilot package, feedback log, and go/no-go review. | 1-3 operator-approved private/anonymized reports can be run outside git and delivered with safe wording. |
 
 ---
 
@@ -81,6 +86,19 @@ The automated loop must remain deterministic and local-first until paid/repeat
 evidence justifies hosted product work. Real exchange network fetching remains
 conditional on CSV/export friction evidence and must not be implemented before
 T93/T94.
+
+## Open-Source Audit Validation Priority
+
+As of 2026-05-15, the operator paused Core and narrowed the active work to
+Trader Risk Audit and Signal Analytics Sandbox. For Trader, the next blocker is
+not more platform work or SaaS scope; it is a larger bank of valid audit
+artifacts from open-source, public, synthetic edge-case, and later
+operator-approved private data.
+
+The next loop must follow `docs/OPEN_SOURCE_AUDIT_VALIDATION_ROADMAP.md`.
+Validation success means truthful and reproducible reports, not only
+impressive-looking violations. Each validation batch must preserve positive,
+limitation/reject, and edge-case examples to avoid cherry-picking.
 
 ---
 
@@ -3535,6 +3553,625 @@ Files:
 Context-Refs:
   - docs/prompts/ORCHESTRATOR.md
   - docs/adr/ADR-002-read-only-exchange-import.md
+
+Notes: |
+  This is a phase gate. Do not skip deep review.
+
+## T98: Open-Source Source Selection Protocol
+
+Owner:      operator + codex
+Phase:      23
+Type:       docs
+Depends-On: T93
+
+Objective: |
+  Define the source-selection protocol for the open-source audit case bank so
+  the next validation loop cannot cherry-pick only impressive positive cases.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/OPEN_SOURCE_CASE_BANK.md` defines allowed source classes, excluded source classes, selection rationale, license/terms notes, and anti-cherry-pick batch composition."
+    test: "manual/docs-review"
+  - id: AC-2
+    description: "Protocol requires each batch to include at least one positive-finding case, one limitation/reject case, and one edge/schema case when available."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "Protocol states that public/open-source packs are artifact-quality evidence, not paid-pilot, PMF, or customer evidence."
+    test: "manual/docs-review"
+
+Files:
+  - docs/OPEN_SOURCE_CASE_BANK.md
+  - docs/OPEN_SOURCE_AUDIT_VALIDATION_ROADMAP.md
+  - docs/DECISION_LOG.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Context-Refs:
+  - docs/OPEN_SOURCE_AUDIT_VALIDATION_ROADMAP.md#phase-23---open-source-audit-case-bank
+  - docs/CSV_FRICTION_DECISION_REPORT.md
+
+Notes: |
+  Do not collect private data in this task. Do not reopen real exchange fetching.
+
+## T99: Case Pack Directory Contract
+
+Owner:      codex
+Phase:      23
+Type:       validation
+Depends-On: T98
+
+Objective: |
+  Define and test the required directory/file contract for every open-source
+  audit case pack.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "A validator confirms each case pack has source note, policy, input fixture, generated report, reviewed report, manifest, violations, attribution, and reproducibility status when applicable."
+    test: "tests/unit/test_open_source_case_contract.py::test_case_pack_contract_requires_core_artifacts"
+  - id: AC-2
+    description: "Validator rejects packs that contain secret-looking fields, private paths, credentials, Telegram handles, account ids, or unreviewed customer/private markers."
+    test: "tests/unit/test_open_source_case_contract.py::test_case_pack_contract_rejects_private_or_secret_markers"
+  - id: AC-3
+    description: "The SEC Form 4 pack is registered as a passing reference pack under the new contract."
+    test: "tests/integration/test_open_source_case_contract_cli.py::test_sec_form4_pack_passes_contract"
+
+Files:
+  - trader_risk_audit/validation/open_source_case.py
+  - trader_risk_audit/cli.py
+  - tests/unit/test_open_source_case_contract.py
+  - tests/integration/test_open_source_case_contract_cli.py
+  - demo/open_source_sec_form4_001/
+
+Context-Refs:
+  - docs/OPEN_SOURCE_AUDIT_VALIDATION_ROADMAP.md#phase-23---open-source-audit-case-bank
+
+Notes: |
+  Prefer a small reusable validator over ad hoc docs-only review.
+
+## T100: First Open-Source Candidate Case Packs
+
+Owner:      operator + codex
+Phase:      23
+Type:       validation
+Depends-On: T99
+
+Objective: |
+  Create the first batch of open-source or synthetic edge-case candidate packs
+  beyond the existing SEC Form 4 baseline.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "At least 5 total candidate packs are listed in `docs/OPEN_SOURCE_CASE_BANK.md`, including the existing SEC Form 4 pack."
+    test: "manual/docs-review"
+  - id: AC-2
+    description: "At least 3 different data shapes are represented, such as disclosure-like rows, broker/export-like rows, and synthetic edge-case rows."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "Each candidate records source rationale, expected evaluable fields, expected limitations, and whether it should produce positive findings, limitations, or rejection."
+    test: "manual/docs-review"
+
+Files:
+  - docs/OPEN_SOURCE_CASE_BANK.md
+  - demo/
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Context-Refs:
+  - docs/OPEN_SOURCE_AUDIT_VALIDATION_ROADMAP.md#anti-cherry-pick-rule
+
+Notes: |
+  If a public dataset cannot be safely committed, record only source metadata
+  and use a sanitized fixture. Do not invent fake provenance.
+
+## T101: Batch Audit Run And Artifact Generation
+
+Owner:      codex
+Phase:      23
+Type:       validation
+Depends-On: T100
+
+Objective: |
+  Run the deterministic audit loop for every approved Phase 23 candidate pack
+  and generate complete artifact bundles.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Every runnable candidate pack has generated normalized trades, violations, attribution, report, manifest, Telegram/delivery packet if applicable, and safe run status."
+    test: "manual-evidence: generated artifacts exist and validator passes."
+  - id: AC-2
+    description: "Every non-runnable candidate pack has an explicit blocked/rejected status with actionable reasons and no partial report claims."
+    test: "manual-evidence: blocked pack status exists."
+  - id: AC-3
+    description: "A batch index summarizes pack status, finding count, limitation count, and reproducibility status without raw private rows."
+    test: "manual-evidence: `docs/OPEN_SOURCE_AUDIT_BATCH_INDEX.md` exists."
+
+Files:
+  - demo/
+  - docs/OPEN_SOURCE_AUDIT_BATCH_INDEX.md
+  - trader_risk_audit/audit_session/
+  - trader_risk_audit/cli.py
+
+Context-Refs:
+  - docs/OPEN_SOURCE_AUDIT_VALIDATION_ROADMAP.md#phase-23---open-source-audit-case-bank
+
+Notes: |
+  This task may reuse existing audit-session and artifact-bundle commands.
+
+## T102: Manual Validation Notes And Error Register
+
+Owner:      operator + codex
+Phase:      23
+Type:       validation
+Depends-On: T101
+
+Objective: |
+  Manually review the generated open-source audit packs and record any report,
+  calculation, traceability, or wording issues.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Each generated pack has a manual review note under `docs/audit/open_source_case_reviews/`."
+    test: "manual/docs-review"
+  - id: AC-2
+    description: "A Phase 23 error register classifies P0/P1/P2 findings and blocks demo use for unresolved P0/P1 issues."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "Reviewed reports explicitly preserve material limitations and do not hide weak/reject cases."
+    test: "manual/docs-review"
+
+Files:
+  - docs/audit/open_source_case_reviews/
+  - docs/audit/PHASE23_ERROR_REGISTER.md
+  - demo/
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Context-Refs:
+  - docs/OPEN_SOURCE_AUDIT_VALIDATION_ROADMAP.md#phase-23---open-source-audit-case-bank
+
+Notes: |
+  Do not polish away evidence problems. Record them.
+
+## T103: Open-Source Case Bank Deep Review
+
+Owner:      codex
+Phase:      23
+Type:       review
+Depends-On: T98, T99, T100, T101, T102
+
+Objective: |
+  Run the Phase 23 boundary review and decide whether enough case-bank
+  evidence exists to enter the multi-case report quality loop.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Review checks anti-cherry-pick compliance, source safety, artifact completeness, reproducibility, report truth, and limitation wording."
+    test: "manual/review"
+  - id: AC-2
+    description: "Audit index, CODEX prompt, README, handoff docs, and phase report are updated with final Phase 23 state."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "Any unresolved P0/P1 artifact-validity issue blocks Phase 24 until fixed."
+    test: "manual/review"
+
+Files:
+  - docs/archive/PHASE23_REVIEW.md
+  - docs/audit/REVIEW_REPORT.md
+  - docs/audit/ARCH_REPORT.md
+  - docs/audit/PHASE_REPORT_LATEST.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/CODEX_PROMPT.md
+  - README.md
+  - PHASE_HANDOFF.md
+  - AGENT_NOTES.md
+
+Context-Refs:
+  - docs/prompts/ORCHESTRATOR.md
+
+Notes: |
+  This is a phase gate. Do not skip deep review.
+
+## T104: Report Quality Scorecard
+
+Owner:      codex
+Phase:      24
+Type:       docs
+Depends-On: T103
+
+Objective: |
+  Define a repeatable scorecard for judging whether a generated audit report is
+  readable, traceable, reproducible, and safe to show.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/REPORT_QUALITY_SCORECARD.md` defines scoring categories for source traceability, rule clarity, calculation clarity, limitation clarity, claim safety, and operator readability."
+    test: "manual/docs-review"
+  - id: AC-2
+    description: "Scorecard includes fail conditions that block demo use regardless of total score."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "At least the SEC Form 4 reviewed report is scored as the reference example."
+    test: "manual/docs-review"
+
+Files:
+  - docs/REPORT_QUALITY_SCORECARD.md
+  - demo/open_source_sec_form4_001/output/report_reviewed.md
+
+Context-Refs:
+  - docs/OPEN_SOURCE_AUDIT_VALIDATION_ROADMAP.md#phase-24---multi-case-report-quality-loop
+
+Notes: |
+  Scoring is a review aid, not a marketing claim.
+
+## T105: Open-Source Rule And Data Coverage Matrix
+
+Owner:      codex
+Phase:      24
+Type:       validation
+Depends-On: T104
+
+Objective: |
+  Build a matrix showing which rules, data fields, limitations, and report
+  sections are exercised by each open-source validation pack.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/OPEN_SOURCE_RULE_COVERAGE_MATRIX.md` maps case packs to rule types, required fields, unsupported fields, limitations, and output sections."
+    test: "manual/docs-review"
+  - id: AC-2
+    description: "Matrix highlights missing coverage needed before a paid pilot, such as P&L, fees, drawdown, cooldown, leverage, or session timezone cases."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "Missing coverage becomes explicit follow-up cases or accepted limitations."
+    test: "manual/docs-review"
+
+Files:
+  - docs/OPEN_SOURCE_RULE_COVERAGE_MATRIX.md
+  - docs/OPEN_SOURCE_CASE_BANK.md
+  - demo/
+
+Context-Refs:
+  - docs/OPEN_SOURCE_AUDIT_VALIDATION_ROADMAP.md#phase-24---multi-case-report-quality-loop
+
+Notes: |
+  Do not treat coverage gaps as failures if they are clearly stated.
+
+## T106: Multi-Case Quality Dashboard
+
+Owner:      codex
+Phase:      24
+Type:       validation
+Depends-On: T105
+
+Objective: |
+  Summarize the open-source validation pack results in one operator-facing
+  dashboard for readiness decisions.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/OPEN_SOURCE_AUDIT_QUALITY_DASHBOARD.md` lists every pack, status, scorecard result, finding count, limitation count, error-register status, and reproducibility status."
+    test: "manual/docs-review"
+  - id: AC-2
+    description: "Dashboard separates demo-quality packs from internal-only packs and blocked packs."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "Dashboard states the next concrete case/data gap to fill before private pilot readiness."
+    test: "manual/docs-review"
+
+Files:
+  - docs/OPEN_SOURCE_AUDIT_QUALITY_DASHBOARD.md
+  - docs/REPORT_QUALITY_SCORECARD.md
+  - docs/audit/PHASE23_ERROR_REGISTER.md
+
+Context-Refs:
+  - docs/OPEN_SOURCE_AUDIT_VALIDATION_ROADMAP.md#phase-24---multi-case-report-quality-loop
+
+Notes: |
+  Keep dashboard aggregate and privacy-safe.
+
+## T107: Regression Tests For Discovered Report Issues
+
+Owner:      codex
+Phase:      24
+Type:       validation
+Depends-On: T106
+
+Objective: |
+  Convert any discovered calculation, formatting, limitation, or claim-safety
+  issue from Phase 23/24 review into focused regression coverage.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Every accepted P0/P1/P2 code or report-generation bug has a regression test or a documented reason why it is docs-only."
+    test: "manual/docs-review plus pytest"
+  - id: AC-2
+    description: "Report claim guard tests cover any newly discovered unsafe wording pattern."
+    test: "pytest tests -q --tb=short"
+  - id: AC-3
+    description: "Test baseline is updated in `docs/CODEX_PROMPT.md` after passing."
+    test: "manual/docs-review"
+
+Files:
+  - trader_risk_audit/
+  - tests/
+  - docs/CODEX_PROMPT.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Context-Refs:
+  - docs/OPEN_SOURCE_AUDIT_QUALITY_DASHBOARD.md
+  - docs/audit/PHASE23_ERROR_REGISTER.md
+
+Notes: |
+  Keep fixes scoped to real findings. Do not refactor unrelated report code.
+
+## T108: Internal Demo Pack From Validated Cases
+
+Owner:      codex
+Phase:      24
+Type:       docs
+Depends-On: T107
+
+Objective: |
+  Package the strongest validated open-source cases into a concise internal
+  demo pack for warm prospect conversations.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/INTERNAL_DEMO_PACK_OPEN_SOURCE_AUDITS.md` includes one strong positive case, one limitation/reject case, and one edge-case explanation when available."
+    test: "manual/docs-review"
+  - id: AC-2
+    description: "Demo pack explains that open-source cases prove artifact quality, not paid-pilot demand or customer PMF."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "Demo pack has a talk track, safe screenshots/excerpts, buyer promise, and next paid-pilot ask."
+    test: "manual/docs-review"
+
+Files:
+  - docs/INTERNAL_DEMO_PACK_OPEN_SOURCE_AUDITS.md
+  - docs/OPEN_SOURCE_AUDIT_QUALITY_DASHBOARD.md
+  - demo/
+
+Context-Refs:
+  - docs/OPEN_SOURCE_AUDIT_VALIDATION_ROADMAP.md#phase-24---multi-case-report-quality-loop
+
+Notes: |
+  Do not add public landing-page or SaaS scope.
+
+## T109: Multi-Case Report Quality Deep Review
+
+Owner:      codex
+Phase:      24
+Type:       review
+Depends-On: T104, T105, T106, T107, T108
+
+Objective: |
+  Run the Phase 24 boundary review and decide whether the product is ready for
+  private/operator-approved pilot reports.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Review checks scorecard rigor, coverage gaps, report quality, regression tests, demo pack safety, and paid-pilot readiness."
+    test: "manual/review"
+  - id: AC-2
+    description: "Audit index, CODEX prompt, README, handoff docs, and phase report are updated with final Phase 24 state."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "If fewer than 3 packs are demo-quality, Phase 25 is blocked and the next action is another case-bank batch."
+    test: "manual/review"
+
+Files:
+  - docs/archive/PHASE24_REVIEW.md
+  - docs/audit/REVIEW_REPORT.md
+  - docs/audit/ARCH_REPORT.md
+  - docs/audit/PHASE_REPORT_LATEST.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/CODEX_PROMPT.md
+  - README.md
+  - PHASE_HANDOFF.md
+  - AGENT_NOTES.md
+
+Context-Refs:
+  - docs/prompts/ORCHESTRATOR.md
+
+Notes: |
+  This is a phase gate. Do not skip deep review.
+
+## T110: Private Pilot Intake And Redaction Checklist
+
+Owner:      operator + codex
+Phase:      25
+Type:       docs
+Depends-On: T109
+
+Objective: |
+  Prepare the local-only checklist for receiving 1-3 operator-approved
+  private/anonymized trade exports without committing raw private data.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/PRIVATE_PILOT_INTAKE_CHECKLIST.md` defines allowed files, forbidden data, redaction expectations, local storage rules, deletion trigger, and operator approval step."
+    test: "manual/docs-review"
+  - id: AC-2
+    description: "Checklist explicitly forbids committing raw rows, account ids, credentials, Telegram handles, payment ids, private paths, and unapproved screenshots."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "Checklist maps private input to existing intake/session/rule/audit/report commands."
+    test: "manual/docs-review"
+
+Files:
+  - docs/PRIVATE_PILOT_INTAKE_CHECKLIST.md
+  - docs/PILOT_INTAKE_CONTRACT_RU.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Context-Refs:
+  - docs/OPEN_SOURCE_AUDIT_VALIDATION_ROADMAP.md#phase-25---private-pilot-readiness
+
+Notes: |
+  This task prepares private handling; it does not require private data in git.
+
+## T111: Private Pilot Report Review Checklist
+
+Owner:      codex
+Phase:      25
+Type:       docs
+Depends-On: T110
+
+Objective: |
+  Define the manual review checklist that must pass before any private pilot
+  audit report is delivered to a warm user.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/PRIVATE_PILOT_REPORT_REVIEW_CHECKLIST.md` covers source-row traceability, policy mapping, calculation review, limitation wording, privacy review, and claim safety."
+    test: "manual/docs-review"
+  - id: AC-2
+    description: "Checklist blocks delivery for unresolved P0/P1 report truth, privacy, or advice/performance-claim issues."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "Checklist includes reviewer signoff fields and safe external-delivery status."
+    test: "manual/docs-review"
+
+Files:
+  - docs/PRIVATE_PILOT_REPORT_REVIEW_CHECKLIST.md
+  - docs/REPORT_QUALITY_SCORECARD.md
+
+Context-Refs:
+  - docs/OPEN_SOURCE_AUDIT_VALIDATION_ROADMAP.md#phase-25---private-pilot-readiness
+
+Notes: |
+  Keep this checklist short enough to use during concierge delivery.
+
+## T112: Local Private Pilot Artifact Run Notes
+
+Owner:      operator + codex
+Phase:      25
+Type:       validation
+Depends-On: T111
+
+Objective: |
+  Run 1-3 operator-approved private/anonymized audit packs outside git and
+  record only safe metadata, review status, and delivery decision inside the
+  repo.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Each private run has a safe run note with non-sensitive label, date, data shape, rule shape, report status, review status, and delivery decision."
+    test: "manual-evidence: safe run notes exist without private rows."
+  - id: AC-2
+    description: "No raw private rows, account ids, credentials, private paths, or customer identifiers are committed."
+    test: "manual/git-review"
+  - id: AC-3
+    description: "At least one private run reaches manually reviewed report status, or blockers are explicitly recorded."
+    test: "manual/docs-review"
+
+Files:
+  - docs/private_pilot_runs/
+  - docs/PRIVATE_PILOT_REPORT_REVIEW_CHECKLIST.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Context-Refs:
+  - docs/PRIVATE_PILOT_INTAKE_CHECKLIST.md
+
+Notes: |
+  Private artifact files remain outside git. Commit only safe summaries.
+
+## T113: Paid Pilot Package And Feedback Log
+
+Owner:      codex
+Phase:      25
+Type:       docs
+Depends-On: T112
+
+Objective: |
+  Package the paid-pilot offer, delivery boundary, and feedback capture loop
+  for warm prospects.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/PAID_PILOT_PACKAGE.md` states deliverables, turnaround, pricing hypothesis, required user input, exclusions, and no-advice/no-live-control boundary."
+    test: "manual/docs-review"
+  - id: AC-2
+    description: "`docs/PRIVATE_PILOT_FEEDBACK_LOG_TEMPLATE.md` captures usefulness, trust, clarity, objection, payment, repeat, and referral evidence without raw private data."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "Package references open-source demo pack and private review checklist instead of claiming production readiness."
+    test: "manual/docs-review"
+
+Files:
+  - docs/PAID_PILOT_PACKAGE.md
+  - docs/PRIVATE_PILOT_FEEDBACK_LOG_TEMPLATE.md
+  - docs/INTERNAL_DEMO_PACK_OPEN_SOURCE_AUDITS.md
+
+Context-Refs:
+  - docs/OPEN_SOURCE_AUDIT_VALIDATION_ROADMAP.md#phase-25---private-pilot-readiness
+
+Notes: |
+  No checkout or payment processor is in scope.
+
+## T114: Paid Pilot Ready Gate
+
+Owner:      operator + codex
+Phase:      25
+Type:       review
+Depends-On: T113
+
+Objective: |
+  Decide whether Trader Risk Audit is ready to show to warm prospects as a
+  paid concierge research/audit product.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/PAID_PILOT_READY_GATE.md` records ready / needs fixes / reject with evidence from open-source packs, private run notes, report review, and feedback package."
+    test: "manual/docs-review"
+  - id: AC-2
+    description: "Gate states exact first-user ask, delivery promise, exclusions, and evidence still missing."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "Gate does not approve SaaS, checkout, live exchange control, order blocking, or trading advice."
+    test: "manual/docs-review"
+
+Files:
+  - docs/PAID_PILOT_READY_GATE.md
+  - docs/PAID_PILOT_PACKAGE.md
+  - docs/private_pilot_runs/
+
+Context-Refs:
+  - docs/OPEN_SOURCE_AUDIT_VALIDATION_ROADMAP.md#phase-25---private-pilot-readiness
+
+Notes: |
+  Human/operator decision is required.
+
+## T115: Private Pilot Readiness Deep Review
+
+Owner:      codex
+Phase:      25
+Type:       review
+Depends-On: T110, T111, T112, T113, T114
+
+Objective: |
+  Run the Phase 25 boundary review and close the pre-prospect readiness loop.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Review checks private data safety, report validity, paid-pilot package clarity, feedback loop, and scope boundaries."
+    test: "manual/review"
+  - id: AC-2
+    description: "Audit index, CODEX prompt, README, handoff docs, and phase report are updated with final Phase 25 state."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "If ready, next task is warm-prospect delivery/feedback; if not ready, next task is the specific blocking fix, not SaaS expansion."
+    test: "manual/review"
+
+Files:
+  - docs/archive/PHASE25_REVIEW.md
+  - docs/audit/REVIEW_REPORT.md
+  - docs/audit/ARCH_REPORT.md
+  - docs/audit/PHASE_REPORT_LATEST.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/CODEX_PROMPT.md
+  - README.md
+  - PHASE_HANDOFF.md
+  - AGENT_NOTES.md
+
+Context-Refs:
+  - docs/prompts/ORCHESTRATOR.md
 
 Notes: |
   This is a phase gate. Do not skip deep review.
