@@ -72,10 +72,10 @@ def test_state_docs_record_phase12_sandbox_only_scope() -> None:
     handoff = PHASE_HANDOFF.read_text(encoding="utf-8").lower()
     combined = f"{prompt}\n{handoff}"
 
-    assert "phase: 15" in prompt
-    assert "phase: 15 artifact support mode" in handoff
-    assert "current active task is t69 shared artifact contract freeze" in prompt
-    assert "active task: t69 shared artifact contract freeze" in handoff
+    assert "phase: 27" in prompt
+    assert "phase: 27 core v1 productization" in handoff
+    assert "t122 core v1 productization review completed" in prompt
+    assert "active task: none - core v1 checkpoint complete" in handoff
     assert "phase 12 is sandbox-only broker/exchange execution risk audit" in combined
     for boundary in (
         "live order placement",

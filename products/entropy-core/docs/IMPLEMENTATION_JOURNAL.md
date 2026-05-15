@@ -1,7 +1,7 @@
 # Implementation Journal - Entropy Core
 
 Version: 1.0
-Last updated: 2026-05-09
+Last updated: 2026-05-14
 Status: append-only
 
 This file records handoff context. It is not authority.
@@ -20,6 +20,240 @@ This file records handoff context. It is not authority.
 ```
 
 ## Entries
+
+### 2026-05-14 - T122 - Core V1 Productization Review
+
+- Scope: `docs/audit/CORE_V1_PRODUCTIZATION_REVIEW.md`, `docs/audit/AUDIT_INDEX.md`, `docs/EVIDENCE_INDEX.md`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`, `README.md`, `docs/IMPLEMENTATION_JOURNAL.md`
+- Why this work happened: close Phase 27 and checkpoint Core V1 as a documented, tested internal product kernel
+- Decisions applied: `docs/CORE_12_MONTH_EXECUTION_ROADMAP.md`; `docs/AI_LOOP_OPERATING_MODEL.md`
+- Evidence collected: full pytest `625 passed, 20 skipped`; ruff clean; scoped artifact/db pyright `0 errors`; `git diff --check` clean
+- Follow-ups: stop automatic roadmap expansion until a human approves a Core V2 roadmap
+- Notes for next agent: Core V1 is internal only. Do not continue beyond T122 or invent a V2 roadmap without human approval.
+
+### 2026-05-14 - T121 - Documentation And Test Alignment Sweep
+
+- Scope: `docs/ARCHITECTURE.md`, `docs/EVIDENCE_INDEX.md`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `README.md`, `docs/IMPLEMENTATION_JOURNAL.md`
+- Why this work happened: align active architecture, evidence, README, and task state with the final Core V1 internal surface
+- Decisions applied: `docs/core/CORE_V1_SURFACE_FREEZE.md`; `docs/IMPLEMENTATION_CONTRACT.md`
+- Evidence collected: manual docs review pending final Phase 27 validation
+- Follow-ups: start T122 Core V1 Productization Review
+- Notes for next agent: `docs/IMPLEMENTATION_CONTRACT.md` was reviewed as immutable authority and was not changed because no ADR-approved contract change was required.
+
+### 2026-05-14 - T120 - Operator Runbook And Examples
+
+- Scope: `RUNBOOK.md`, `docs/core/CORE_V1_EXAMPLES.md`, `docs/IMPLEMENTATION_JOURNAL.md`
+- Why this work happened: document local operator command sequences and synthetic examples for generic, research-shaped, product-shaped, CAF-shaped, evidence, governance, and failure-handling workflows
+- Decisions applied: `docs/AI_LOOP_OPERATING_MODEL.md`; `docs/core/CORE_V1_SURFACE_FREEZE.md`
+- Evidence collected: manual document review pending final Phase 27 validation
+- Follow-ups: start T121 Documentation And Test Alignment Sweep
+- Notes for next agent: Examples reference only synthetic fixtures and local `/tmp` outputs. No real customer, product, private research, holdout, live, broker/exchange, capital, hosted service, public SDK, or compliance claim was introduced.
+
+### 2026-05-14 - T119 - Core V1 Surface Freeze
+
+- Scope: `docs/core/CORE_V1_SURFACE_FREEZE.md`, `docs/IMPLEMENTATION_JOURNAL.md`
+- Why this work happened: freeze the internal Core V1 surface across CLI commands, schema versions, state vocabularies, storage boundaries, unsupported surfaces, and migration notes
+- Decisions applied: `docs/CORE_12_MONTH_EXECUTION_ROADMAP.md`; `docs/AI_LOOP_OPERATING_MODEL.md`
+- Evidence collected: manual document review pending final Phase 27 validation
+- Follow-ups: start T120 Operator Runbook And Examples
+- Notes for next agent: The freeze is internal-only. It explicitly does not approve public SDK, hosted service, SaaS, external compliance, live, broker/exchange, holdout, or capital scope.
+
+### 2026-05-14 - T115-T118 - Enterprise Audit Readiness
+
+- Scope: `src/entropy/artifacts/audit_bundle.py`, `src/entropy/artifacts/lineage.py`, `src/entropy/artifacts/__init__.py`, `tests/unit/test_audit_bundle.py`, `tests/unit/test_lineage_graph.py`, `tests/unit/test_audit_data_classification.py`, `docs/audit/ENTERPRISE_AUDIT_READINESS_REVIEW.md`, `docs/audit/AUDIT_INDEX.md`, `docs/tasks.md`, `docs/EVIDENCE_INDEX.md`, `docs/IMPLEMENTATION_JOURNAL.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`
+- Why this work happened: close Phase 26 by adding exportable audit bundle, lineage, data classification, reviewer role metadata, and review evidence without external certification or service claims
+- Decisions applied: `docs/ARCHITECTURE.md#security-boundaries`; `docs/IMPLEMENTATION_CONTRACT.md#authorization`; `docs/EVIDENCE_INDEX.md`; `docs/CORE_12_MONTH_EXECUTION_ROADMAP.md`
+- Evidence collected: audit bundle tests `7 passed`; bundle/lineage tests `10 passed`; bundle/lineage/classification tests `13 passed`; full pytest `625 passed, 20 skipped`; scoped source pyright `0 errors`; scoped ruff clean
+- Follow-ups: start T119 Core V1 Surface Freeze
+- Notes for next agent: Audit readiness remains internal packaging metadata. No SOC 2, regulatory compliance, investment-advice compliance, enterprise SLA, hosted service, auth/RBAC, SSO, tenant isolation, public SDK, holdout, live, broker/exchange, or capital scope was introduced.
+
+### 2026-05-14 - T111-T114 - CAF Decision Primitives
+
+- Scope: `src/entropy/artifacts/caf.py`, `src/entropy/artifacts/__init__.py`, `tests/unit/test_caf_artifact_vocabulary.py`, `tests/unit/test_allocation_decision_artifact.py`, `tests/unit/test_caf_artifact_fixtures.py`, `tests/fixtures/artifacts/caf/`, `docs/audit/CAF_DECISION_PRIMITIVES_REVIEW.md`, `docs/audit/AUDIT_INDEX.md`, `docs/tasks.md`, `docs/EVIDENCE_INDEX.md`, `docs/IMPLEMENTATION_JOURNAL.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`
+- Why this work happened: close Phase 25 by adding CAF artifact vocabulary, governed allocation decision primitives, synthetic fixtures, and review evidence without opening execution or advice scope
+- Decisions applied: `docs/core/CHARTER.md#b-non-negotiables`; `docs/core/PROTOCOL_SPEC.md`; `docs/CORE_12_MONTH_EXECUTION_ROADMAP.md`; `docs/AI_LOOP_OPERATING_MODEL.md`
+- Evidence collected: CAF scoped tests `12 passed`; reset suite `150 passed`; full pytest `612 passed, 20 skipped`; ruff clean; scoped artifact/db pyright `0 errors`; `git diff --check` clean
+- Follow-ups: start T115 Audit Bundle Schema
+- Notes for next agent: CAF artifacts are evidence contracts only. No capital movement, investment advice, live allocation, broker/exchange execution, production label, public SDK, hosted service, holdout, or OOS scope was introduced.
+
+### 2026-05-14 - T107-T110 - Internal API And Job Boundary
+
+- Scope: `docs/adr/ADR-CORE-INTERNAL-API-JOB-BOUNDARY.md`, `src/entropy/artifacts/api.py`, `src/entropy/artifacts/jobs.py`, `src/entropy/artifacts/__init__.py`, `tests/unit/test_internal_api_facade.py`, `tests/unit/test_internal_job_model.py`, `docs/audit/INTERNAL_API_JOB_BOUNDARY_REVIEW.md`, `docs/audit/AUDIT_INDEX.md`, `docs/tasks.md`, `docs/EVIDENCE_INDEX.md`, `docs/IMPLEMENTATION_JOURNAL.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`
+- Why this work happened: close Phase 24 by deciding and implementing an internal-only Python facade and in-process job model without opening service scope
+- Decisions applied: `docs/adr/ADR-CORE-INTERNAL-API-JOB-BOUNDARY.md`; `docs/ARCHITECTURE.md#security-boundaries`; `docs/AI_LOOP_OPERATING_MODEL.md`
+- Evidence collected: facade tests `3 passed`; facade/job tests `6 passed`; full pytest `600 passed, 20 skipped`; ruff clean; scoped artifact/db pyright `0 errors`; `git diff --check` clean
+- Follow-ups: start T111 CAF Artifact Vocabulary
+- Notes for next agent: API/job work remains internal-library and in-process only. No public SDK, hosted service, HTTP API, auth, tenant model, external SLA, or worker runtime dependency was introduced.
+
+### 2026-05-14 - T103-T106 - Storage And Audit Backend
+
+- Scope: `migrations/versions/0002_artifact_metadata_tables.py`, `src/entropy/db/models.py`, `src/entropy/artifacts/store.py`, `src/entropy/artifacts/repository.py`, `src/entropy/artifacts/__init__.py`, `tests/integration/test_artifact_metadata_migration.py`, `tests/unit/test_artifact_store.py`, `tests/unit/test_artifact_metadata_repository.py`, `tests/integration/test_artifact_metadata_repository.py`, `docs/audit/STORAGE_AND_AUDIT_BACKEND_REVIEW.md`, `docs/audit/AUDIT_INDEX.md`, `docs/tasks.md`, `docs/EVIDENCE_INDEX.md`, `docs/IMPLEMENTATION_JOURNAL.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`
+- Why this work happened: close Phase 23 by adding durable artifact metadata schema, local content-addressed storage, insert-only repository behavior, and storage review evidence
+- Decisions applied: `docs/ARCHITECTURE.md#runtime-and-isolation-model`; `docs/IMPLEMENTATION_CONTRACT.md#registry-append-only`; `docs/IMPLEMENTATION_CONTRACT.md#sql-safety`
+- Evidence collected: migration scoped tests `4 passed`; store/migration tests `6 passed`; repository scoped tests `4 passed`; full pytest `594 passed, 20 skipped`; ruff clean; scoped artifact/db pyright `0 errors`; `git diff --check` clean
+- Follow-ups: start T107 Internal API Boundary ADR
+- Notes for next agent: Storage remains local/internal. No multi-tenant SaaS, auth, hosted storage, public API, public SDK, or external object-store runtime dependency was introduced.
+
+### 2026-05-14 - T99-T102 - Research Artifact Integration
+
+- Scope: `src/entropy/artifacts/research.py`, `src/entropy/artifacts/__init__.py`, `tests/unit/test_research_artifact_schemas.py`, `tests/unit/test_research_artifact_adapter.py`, `tests/unit/test_research_artifact_fixtures.py`, `tests/fixtures/artifacts/research/`, `docs/audit/RESEARCH_ARTIFACT_INTEGRATION_REVIEW.md`, `docs/audit/AUDIT_INDEX.md`, `docs/tasks.md`, `docs/EVIDENCE_INDEX.md`, `docs/IMPLEMENTATION_JOURNAL.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`
+- Why this work happened: close Phase 22 by representing archive-only research outputs as governed artifact-compatible schemas and adapters without opening holdout/OOS claims
+- Decisions applied: `docs/core/PROTOCOL_SPEC.md`; `docs/IMPLEMENTATION_CONTRACT.md#leakage-and-holdout-boundary`; `docs/IMPLEMENTATION_CONTRACT.md#pii-policy`
+- Evidence collected: research schema tests `3 passed`; schema/adapter tests `6 passed`; research fixture scoped tests `9 passed`; full pytest `584 passed, 20 skipped`; ruff clean; scoped artifact pyright `0 errors`; `git diff --check` clean
+- Follow-ups: start T103 Artifact Metadata Migration
+- Notes for next agent: Research artifacts preserve archive-only no-claim semantics. No holdout read/unlock, OOS/performance label, live execution, broker/exchange, production, capital-ready, public SDK, or hosted service scope was opened.
+
+### 2026-05-14 - T95-T98 - Artifact Governance State Machine
+
+- Scope: `src/entropy/artifacts/governance.py`, `src/entropy/artifacts/__init__.py`, `src/entropy/cli.py`, `tests/unit/test_artifact_governance_state.py`, `tests/unit/test_artifact_governance_cli.py`, `tests/unit/test_artifact_approval_binding.py`, `docs/audit/ARTIFACT_GOVERNANCE_STATE_MACHINE_REVIEW.md`, `docs/audit/AUDIT_INDEX.md`, `docs/tasks.md`, `docs/EVIDENCE_INDEX.md`, `docs/IMPLEMENTATION_JOURNAL.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`
+- Why this work happened: close Phase 21 by adding deterministic artifact governance states, local append-only transition CLI, approval-event binding, and governance review evidence
+- Decisions applied: `docs/IMPLEMENTATION_CONTRACT.md#deterministic-runtime-truth`; `docs/IMPLEMENTATION_CONTRACT.md#human-approval-boundaries`; `docs/AI_LOOP_OPERATING_MODEL.md`
+- Evidence collected: governance state tests `3 passed`; governance state/CLI tests `6 passed`; approval binding scoped tests `9 passed`; full pytest `575 passed, 20 skipped`; ruff clean; scoped artifact pyright `0 errors`; `git diff --check` clean
+- Follow-ups: start T99 Research Artifact Schemas
+- Notes for next agent: Governance state mechanics do not approve external delivery, live execution, holdout access, broker/exchange execution, production, capital-ready status, or OOS/performance claims.
+
+### 2026-05-14 - T91-T94 - Product Bridge Profiles
+
+- Scope: `src/entropy/artifacts/profiles.py`, `src/entropy/artifacts/__init__.py`, `src/entropy/cli.py`, `tests/unit/test_product_bridge_profiles.py`, `tests/unit/test_product_bridge_profile_cli.py`, `tests/unit/test_product_bridge_profile_fixtures.py`, `tests/fixtures/artifacts/profiles/`, `docs/audit/PRODUCT_BRIDGE_PROFILE_REVIEW.md`, `docs/audit/AUDIT_INDEX.md`, `docs/tasks.md`, `docs/EVIDENCE_INDEX.md`, `docs/IMPLEMENTATION_JOURNAL.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`
+- Why this work happened: close Phase 20 by adding Core-only product bridge profile overlays, profile-aware CLI validation, synthetic product-shaped fixtures, and a profile review
+- Decisions applied: `docs/core/PRODUCT_ARTIFACT_BRIDGES.md`; `docs/IMPLEMENTATION_CONTRACT.md#pii-policy`; `docs/AI_LOOP_OPERATING_MODEL.md`
+- Evidence collected: profile model tests `3 passed`; profile CLI scoped tests `15 passed`; fixture/profile scoped tests `9 passed`; full pytest `566 passed, 20 skipped`; ruff clean; scoped artifact pyright `0 errors`; `git diff --check` clean
+- Follow-ups: start T95 Artifact Governance State Model
+- Notes for next agent: Profile ids are Core validation overlays only. Product runtime behavior, report generation, source ingestion, delivery approval, and product-local error registers remain outside Core.
+
+### 2026-05-14 - T89-T90 - Evidence Index Automation And Pipeline Review
+
+- Scope: `src/entropy/artifacts/evidence_index.py`, `src/entropy/artifacts/__init__.py`, `tests/unit/test_artifact_evidence_index.py`, `docs/audit/EVIDENCE_PIPELINE_REVIEW.md`, `docs/audit/generated/evidence/artifact-bf2e9ce008e7c16d.json`, `docs/audit/AUDIT_INDEX.md`, `docs/tasks.md`, `docs/EVIDENCE_INDEX.md`, `docs/IMPLEMENTATION_JOURNAL.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`
+- Why this work happened: close Phase 19 by adding safe evidence-index automation and reviewing the evidence packet pipeline before product bridge profile hardening
+- Decisions applied: `docs/EVIDENCE_INDEX.md`; `docs/AI_LOOP_OPERATING_MODEL.md`; `docs/CORE_12_MONTH_EXECUTION_ROADMAP.md`
+- Evidence collected: evidence-index plus evidence packet/CLI tests `9 passed`; full pytest `557 passed, 20 skipped`; ruff clean; scoped artifact pyright `0 errors`; `git diff --check` clean
+- Follow-ups: start T91 Product Bridge Profile Model
+- Notes for next agent: Phase 20 profile work may add Core validation overlays for product-shaped artifacts, but must not edit Trader Risk Audit or Signal Analytics Sandbox workspaces or absorb product report logic into Core.
+
+### 2026-05-14 - T75-T78 - Executable Artifact Validation
+
+- Scope: `src/entropy/artifacts/`, `src/entropy/cli.py`, `tests/unit/test_artifact_contract_v1.py`, `tests/unit/test_artifact_validation.py`, `tests/unit/test_artifact_cli.py`, `tests/fixtures/artifacts/`, `.gitignore`, repository root `.gitignore`, `docs/audit/EXECUTABLE_ARTIFACT_VALIDATION_REVIEW.md`, `docs/tasks.md`, `docs/EVIDENCE_INDEX.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`, `docs/CODEX_PROMPT.md`
+- Why this work happened: continue Phase 16 by turning the frozen Phase 15 artifact contract into executable Core validators, fixtures, and local CLI behavior
+- Decisions applied: `docs/core/ARTIFACT_CONTRACT.md`; `docs/core/REPORT_VALIDITY_CHECKLIST.md`; `docs/AI_LOOP_OPERATING_MODEL.md`
+- Evidence collected: pre-task full pytest baseline `23 failed, 487 passed, 20 skipped`; T75-T77 scoped artifact tests `15 passed`; artifact plus existing CLI tests `18 passed`; reset suite `150 passed`; full pytest `525 passed, 20 skipped`; ruff clean; scoped artifact pyright `0 errors`; `git diff --check` clean
+- Follow-ups: start T79 Artifact Registry Model
+- Notes for next agent: Phase 16 closed and Phase 17 opened. The implementation did not touch Trader Risk Audit or Signal Analytics Sandbox and did not add public SDK, hosted service, holdout/OOS, live, broker/exchange, capital, or new runtime scope.
+
+### 2026-05-14 - T79-T82 - Artifact Registry
+
+- Scope: `src/entropy/artifacts/registry.py`, `src/entropy/cli.py`, `tests/unit/test_artifact_registry.py`, `tests/unit/test_artifact_registry_cli.py`, `docs/audit/ARTIFACT_REGISTRY_REVIEW.md`, `docs/tasks.md`, `docs/EVIDENCE_INDEX.md`, `docs/IMPLEMENTATION_JOURNAL.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`
+- Why this work happened: continue Phase 17 by adding governed local artifact registry records and safe local operator registry commands on top of executable artifact validation
+- Decisions applied: `docs/IMPLEMENTATION_CONTRACT.md#registry-append-only`; `docs/AI_LOOP_OPERATING_MODEL.md`; `docs/core/ARTIFACT_CONTRACT.md`
+- Evidence collected: registry model and CLI tests `15 passed`; full pytest `534 passed, 20 skipped`; ruff clean; scoped artifact pyright `0 errors`; `git diff --check` clean
+- Follow-ups: start T83 Reproducibility Manifest Schema
+- Notes for next agent: registry storage is local JSONL until Phase 23. No database persistence, public SDK, hosted service, holdout/OOS, live, broker/exchange, capital, production, or product workspace scope was opened.
+
+### 2026-05-14 - T83-T86 - Reproducibility Runner
+
+- Scope: `src/entropy/artifacts/reproducibility.py`, `src/entropy/cli.py`, `tests/unit/test_reproducibility_manifest.py`, `tests/unit/test_reproducibility_runner.py`, `tests/unit/test_reproducibility_cli.py`, `docs/audit/REPRODUCIBILITY_RUNNER_REVIEW.md`, `docs/tasks.md`, `docs/EVIDENCE_INDEX.md`, `docs/IMPLEMENTATION_JOURNAL.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`
+- Why this work happened: continue Phase 18 by adding local reproducibility manifests, deterministic hash comparison, safe diff metadata, and compare-only CLI behavior
+- Decisions applied: `docs/core/REPRODUCIBILITY_CHECKLIST.md`; `docs/IMPLEMENTATION_CONTRACT.md#hash-and-run-reproducibility`
+- Evidence collected: manifest and runner tests `11 passed`; reproducibility CLI scoped tests `17 passed`; full pytest `548 passed, 20 skipped`; ruff clean; scoped artifact pyright `0 errors`; `git diff --check` clean
+- Follow-ups: start T87 Evidence Packet Schema
+- Notes for next agent: direct rerun command execution remains blocked. Reproducibility status is local/internal evidence support only and is not performance, external pilot, production, capital-ready, holdout/OOS, live, or broker/exchange approval.
+
+### 2026-05-14 - T87-T88 - Evidence Packet Schema And CLI
+
+- Scope: `src/entropy/artifacts/evidence.py`, `src/entropy/cli.py`, `tests/unit/test_artifact_evidence_packet.py`, `tests/unit/test_artifact_evidence_cli.py`, `docs/tasks.md`, `docs/EVIDENCE_INDEX.md`, `docs/IMPLEMENTATION_JOURNAL.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`
+- Why this work happened: continue Phase 19 by adding deterministic evidence packets and local build/inspect commands for validated and registered artifacts
+- Decisions applied: `docs/core/REPORT_VALIDITY_CHECKLIST.md`; `docs/EVIDENCE_INDEX.md`
+- Evidence collected: evidence packet tests `3 passed`; evidence CLI scoped tests `9 passed`; full pytest `554 passed, 20 skipped`; ruff clean; scoped artifact pyright `0 errors`; `git diff --check` clean
+- Follow-ups: start T89 Evidence Index Automation
+- Notes for next agent: evidence packets explain status and boundaries; they do not grant external delivery, production, capital-ready, holdout/OOS, live, broker/exchange, or investment-advice approval.
+
+### 2026-05-12 - ROADMAP - Core Executable Roadmap And AI Loop Setup
+
+- Scope: `docs/CORE_12_MONTH_EXECUTION_ROADMAP.md`, `docs/AI_LOOP_OPERATING_MODEL.md`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `README.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`, `docs/EVIDENCE_INDEX.md`
+- Why this work happened: operator clarified that Entropy Core is the long-lived protocol kernel, while Trader Risk Audit and Signal Analytics Sandbox remain separate commercial product workspaces; Core needs a full AI-loop roadmap rather than another manual checkpoint
+- Decisions applied: Core remains internal; adjacent product artifacts may be used as shape examples only; AI agents may auto-continue through T75-T122 unless a human gate is triggered
+- Evidence collected: roadmap and AI loop documents created; detailed task graph added for Phases 16-27; `git diff --check` clean
+- Follow-ups: start T75 Artifact Contract V1 Schema
+- Notes for next agent: the next executable proof point is `ArtifactContractV1` plus validation tests. Do not edit neighboring product workspaces from Core tasks.
+
+### 2026-05-12 - T74 - Core Artifact Support Review And Platformization Gate
+
+- Scope: `docs/audit/ARTIFACT_SUPPORT_REVIEW.md`, `docs/audit/AUDIT_INDEX.md`, `docs/CODEX_PROMPT.md`, `README.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`, `docs/tasks.md`, `docs/EVIDENCE_INDEX.md`, `docs/IMPLEMENTATION_JOURNAL.md`
+- Why this work happened: close Phase 15 artifact-support mode and decide whether Core should remain internal, expose an internal SDK surface, or remain frozen until product report artifacts validate
+- Decisions applied: `docs/core/ARTIFACT_CONTRACT.md`; `docs/core/REPORT_VALIDITY_CHECKLIST.md`; `docs/core/REPRODUCIBILITY_CHECKLIST.md`; `docs/core/PRODUCT_ARTIFACT_BRIDGES.md`; `docs/templates/`
+- Evidence collected: T74 manual review PASS; Stop-Ship 0, P0 0, P1 0, P2 0; `git diff --check` clean
+- Follow-ups: wait for product-local adoption evidence from Trader Risk Audit or Signal Analytics Sandbox, or an explicit human-scoped Core support task
+- Notes for next agent: Phase 15 keeps Core hidden/internal. No public SDK, hosted service, live execution, holdout/OOS workflow, production/capital-ready path, or product-specific report logic ownership is approved.
+
+### 2026-05-12 - T73 - Internal Review Packet Templates
+
+- Scope: `docs/templates/ARTIFACT_SCOPE_NOTE.md`, `docs/templates/MANUAL_VALIDATION_NOTES.md`, `docs/templates/ERROR_REGISTER.md`, `docs/templates/EXTERNAL_DELIVERY_DECISION.md`, `docs/ARTIFACT_SUPPORT_ROADMAP.md`, `docs/tasks.md`, `docs/EVIDENCE_INDEX.md`, `docs/IMPLEMENTATION_JOURNAL.md`
+- Why this work happened: provide short product-neutral templates for real input scope, manual validation, error tracking, external delivery decisions, redaction approval, and pilot feedback
+- Decisions applied: `docs/core/ARTIFACT_CONTRACT.md`; `docs/core/REPORT_VALIDITY_CHECKLIST.md`
+- Evidence collected: manual docs review; `git diff --check` clean
+- Follow-ups: start T74 Core Artifact Support Review And Platformization Gate
+- Notes for next agent: templates are copy sources owned by product workspaces and explicitly warn against raw private/customer data, secrets, credentials, private keys, or unredacted confidential payloads.
+
+### 2026-05-12 - T72 - Product Bridge Support Notes
+
+- Scope: `docs/core/PRODUCT_ARTIFACT_BRIDGES.md`, `docs/ARTIFACT_SUPPORT_ROADMAP.md`, `docs/tasks.md`, `docs/EVIDENCE_INDEX.md`, `docs/IMPLEMENTATION_JOURNAL.md`
+- Why this work happened: document narrow Core support boundaries for Trader and Signal artifact validation while keeping product-specific report logic product-local
+- Decisions applied: `docs/core/ARTIFACT_CONTRACT.md`; `docs/bridges/trader-risk-audit.md`
+- Evidence collected: manual docs review; `git diff --check` clean
+- Follow-ups: start T73 Internal Review Packet Templates
+- Notes for next agent: bridge notes explicitly forbid Core-driven product rewrites and preserve Trader no-order/no-live/no-production boundaries plus Signal no-advice/no-future-performance boundaries.
+
+### 2026-05-12 - T71 - Reproducibility Checklist
+
+- Scope: `docs/core/REPRODUCIBILITY_CHECKLIST.md`, `docs/ARTIFACT_SUPPORT_ROADMAP.md`, `docs/tasks.md`, `docs/EVIDENCE_INDEX.md`, `docs/IMPLEMENTATION_JOURNAL.md`
+- Why this work happened: define shared rerun, hash comparison, and accepted-nondeterminism guidance for product report artifacts
+- Decisions applied: `docs/core/ARTIFACT_CONTRACT.md`; `docs/core/REPORT_VALIDITY_CHECKLIST.md`
+- Evidence collected: manual docs review; `git diff --check` clean
+- Follow-ups: start T72 Product Bridge Support Notes
+- Notes for next agent: Trader guidance focuses on same real audit inputs producing the same material findings; Signal guidance distinguishes hash-reproducible source packs from source availability and manual-review dependencies.
+
+### 2026-05-12 - T70 - Report Validity Checklist
+
+- Scope: `docs/core/REPORT_VALIDITY_CHECKLIST.md`, `docs/ARTIFACT_SUPPORT_ROADMAP.md`, `docs/tasks.md`, `docs/IMPLEMENTATION_JOURNAL.md`
+- Why this work happened: define a shared manual checklist for moving Trader or Signal report artifacts from internal review to controlled external pilot readiness
+- Decisions applied: `docs/core/ARTIFACT_CONTRACT.md`; `docs/ARTIFACT_SUPPORT_ROADMAP.md`
+- Evidence collected: manual docs review; `git diff --check` clean
+- Follow-ups: start T71 Reproducibility Checklist
+- Notes for next agent: checklist separates internal demo readiness from controlled external pilot readiness and treats P0/P1 issues, delivery approval mismatches, and unapproved claim surfaces as blockers.
+
+### 2026-05-12 - T69 - Shared Artifact Contract Freeze
+
+- Scope: `docs/core/ARTIFACT_CONTRACT.md`, `docs/ARTIFACT_SUPPORT_ROADMAP.md`, `docs/tasks.md`, `docs/EVIDENCE_INDEX.md`, `docs/IMPLEMENTATION_JOURNAL.md`
+- Why this work happened: define a minimal shared artifact contract that Trader Risk Audit and Signal Analytics Sandbox can attach to real reports without moving product-specific report logic into Core
+- Decisions applied: `docs/ARTIFACT_SUPPORT_ROADMAP.md`; `../../docs/ARTIFACT_FIRST_VALIDATION_ROADMAP.md`
+- Evidence collected: manual docs review; `git diff --check` clean
+- Follow-ups: start T70 Report Validity Checklist
+- Notes for next agent: Core owns only shared artifact validity vocabulary, no-claim language, and product-neutral validation expectations. Trader and Signal keep their report logic, data handling, delivery decisions, and error registers product-local.
+
+### 2026-05-09 - T68 - Local Replay Extension Review
+
+- Scope: `docs/audit/LOCAL_REPLAY_EXTENSION_REVIEW.md`, `docs/audit/AUDIT_INDEX.md`, `tests/reset/test_local_replay_extension_review.py`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`, `docs/EVIDENCE_INDEX.md`
+- Why this work happened: close Phase 14 with a local replay extension review, validation record, limitations, findings, product hypothesis status, and next decision point
+- Decisions applied: `docs/approvals/LOCAL_REPLAY_EVIDENCE_DELTA_DECISION.md`; `tests/reset/test_replay_evidence_non_approval_regression.py`
+- Evidence collected: T68 acceptance tests passed (`3 passed`); full reset baseline `510 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean
+- Follow-ups: checkpoint for human decision before any further validation execution phase
+- Notes for next agent: Phase 14 is closed. Product hypothesis status is `local_evidence_strengthened_not_confirmed`; no restricted validation, holdout/OOS, broker/exchange execution, production credential, live capital, production, or capital-ready path is approved.
+
+### 2026-05-09 - T67 - Replay Evidence Non-Approval Regression
+
+- Scope: `tests/reset/test_replay_evidence_non_approval_regression.py`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`, `docs/EVIDENCE_INDEX.md`
+- Why this work happened: prove replay approval, replay results, and local evidence delta packets remain non-approval sources for restricted execution and product claim labels
+- Decisions applied: `docs/approvals/LOCAL_REPLAY_EVIDENCE_DELTA_DECISION.md`; `docs/protocols/BROKER_SANDBOX_NO_CAPITAL_REPLAY_RESULT.md`
+- Evidence collected: T67 acceptance tests passed (`3 passed`); full reset baseline `507 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean
+- Follow-ups: start T68 Local Replay Extension Review
+- Notes for next agent: Phase 14 is ready for local review. Restricted execution and claim surfaces remain blocked.
+
+### 2026-05-09 - T66 - Local Replay Evidence Delta Decision
+
+- Scope: `docs/approvals/LOCAL_REPLAY_EVIDENCE_DELTA_DECISION.md`, `tests/reset/test_local_replay_evidence_delta_decision.py`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`, `docs/EVIDENCE_INDEX.md`
+- Why this work happened: decide how the deterministic local no-effect replay evidence changes the product hypothesis posture without creating restricted execution or claim approvals
+- Decisions applied: `docs/protocols/BROKER_SANDBOX_NO_CAPITAL_REPLAY_RESULT.md`; `docs/approvals/LOCAL_BROKER_SANDBOX_REPLAY_APPROVAL_EVENT.md`
+- Evidence collected: T66 acceptance tests passed (`3 passed`); full reset baseline `504 passed, 20 skipped`; ruff check clean; ruff format clean; pyright `0 errors`; `git diff --check` clean
+- Follow-ups: start T67 Replay Evidence Non-Approval Regression
+- Notes for next agent: product hypothesis remains not confirmed and not rejected. T66 only selects the next local test option, `replay_evidence_non_approval_regression`, and keeps all restricted actions blocked.
 
 ### 2026-05-09 - T65 - Broker Sandbox Replay Evidence Packet
 

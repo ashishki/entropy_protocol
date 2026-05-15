@@ -75,10 +75,10 @@ def test_state_docs_open_phase13_local_only_decision_work() -> None:
     handoff = PHASE_HANDOFF.read_text(encoding="utf-8").lower()
     combined = f"{prompt}\n{handoff}"
 
-    assert "phase: 15" in prompt
+    assert "phase: 27" in prompt
     assert "product hypothesis confirmation decision" in combined
-    assert "current active task is t69 shared artifact contract freeze" in prompt
-    assert "active task: t69 shared artifact contract freeze" in handoff
+    assert "t122 core v1 productization review completed" in prompt
+    assert "active task: none - core v1 checkpoint complete" in handoff
     assert "local-only approval decision work" in combined
     assert "no live orders" in combined
     assert "no broker/exchange execution" in combined

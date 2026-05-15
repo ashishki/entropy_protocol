@@ -21,7 +21,7 @@ htmlcov/
 data/market/
 data/raw/
 data/tmp/
-artifacts/
+/artifacts/
 dist/
 build/
 .venv/

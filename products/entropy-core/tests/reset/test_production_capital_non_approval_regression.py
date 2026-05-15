@@ -74,8 +74,8 @@ def test_state_docs_preserve_no_current_approval() -> None:
     handoff = PHASE_HANDOFF.read_text(encoding="utf-8").lower()
     combined = f"{prompt}\n{handoff}"
 
-    assert "current active task is t69 shared artifact contract freeze" in prompt
-    assert "active task: t69 shared artifact contract freeze" in handoff
+    assert "t122 core v1 productization review completed" in prompt
+    assert "active task: none - core v1 checkpoint complete" in handoff
     assert "no approval event currently exists" in combined
     for boundary in (
         "real external side effects",

@@ -1,0 +1,31 @@
+{
+  "artifact_contract_version": "entropy-core-artifact/v1",
+  "product": "signal-analytics-sandbox-synthetic",
+  "run_id": "synthetic-signal-run-001",
+  "input_refs": [
+    "synthetic/signal/redacted-source-pack.json"
+  ],
+  "input_hashes": [
+    "sha256:synthetic-signal-input"
+  ],
+  "policy_config_hash": "sha256:synthetic-signal-policy",
+  "code_version_ref": "git:synthetic-signal-profile",
+  "generated_artifact_refs": [
+    "synthetic/signal/report.md"
+  ],
+  "limitations": [
+    "synthetic profile fixture only"
+  ],
+  "no_claim_boundary": [
+    "not_trading_advice",
+    "not_investment_recommendation",
+    "not_future_performance_prediction",
+    "not_automated_signal_execution",
+    "not_production",
+    "not_capital_ready",
+    "not_core_phase_gate_approval"
+  ],
+  "manual_validation_status": "not_reviewed",
+  "error_register_ref": "synthetic/signal/error-register.md",
+  "external_delivery_approval_status": "not_requested"
+}

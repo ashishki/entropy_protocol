@@ -50,9 +50,9 @@ def test_state_docs_record_replay_result_and_artifact_support_override() -> None
     prompt = CODEX_PROMPT.read_text()
     handoff = PHASE_HANDOFF.read_text()
 
-    assert "Phase: 15" in prompt
-    assert "Name: Artifact Support Mode" in prompt
-    assert "Active task: T69 Shared Artifact Contract Freeze" in handoff
+    assert "Phase: 27" in prompt
+    assert "Name: Core V1 Productization" in prompt
+    assert "Active task: none - Core V1 checkpoint complete" in handoff
     assert "T66-T68 remain pending but deferred" in prompt
     assert "T63 Local Broker Sandbox Replay Approval Event completed" in prompt
     assert "T64 Broker Sandbox No-Capital Replay Primitive completed" in prompt

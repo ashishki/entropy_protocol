@@ -1,7 +1,7 @@
 # Entropy Core Artifact Support Roadmap
 
-Status: Active
-Date: 2026-05-11
+Status: Complete
+Date: 2026-05-12
 
 This file gives strategic routing only. Detailed acceptance criteria and file
 scope live in `docs/tasks.md` Phase 15, T69-T74.
@@ -11,16 +11,16 @@ scope live in `docs/tasks.md` Phase 15, T69-T74.
 Keep Core as internal artifact-validity infrastructure for Trader Risk Audit and
 Signal Analytics Sandbox. Core is not the public product in this cycle.
 
-## Active Phase
+## Phase 15 Outputs
 
 | Task | Purpose | Output |
 |---|---|---|
-| T69 | Freeze shared artifact contract. | Minimal report artifact contract. |
-| T70 | Define report validity checklist. | Internal/external readiness checklist. |
-| T71 | Define reproducibility checklist. | Rerun/hash/nondeterminism guidance. |
-| T72 | Document product bridge support. | Trader/Signal bridge notes. |
-| T73 | Add review packet templates. | Scope, validation, error, delivery templates. |
-| T74 | Review platformization gate. | Stay-internal / SDK / defer decision. |
+| T69 | Freeze shared artifact contract. | Minimal report artifact contract: `docs/core/ARTIFACT_CONTRACT.md`. |
+| T70 | Define report validity checklist. | Internal/external readiness checklist: `docs/core/REPORT_VALIDITY_CHECKLIST.md`. |
+| T71 | Define reproducibility checklist. | Rerun/hash/nondeterminism guidance: `docs/core/REPRODUCIBILITY_CHECKLIST.md`. |
+| T72 | Document product bridge support. | Trader/Signal bridge notes: `docs/core/PRODUCT_ARTIFACT_BRIDGES.md`. |
+| T73 | Add review packet templates. | Scope, validation, error, delivery templates in `docs/templates/`. |
+| T74 | Review platformization gate. | Stay internal: `docs/audit/ARTIFACT_SUPPORT_REVIEW.md`. |
 
 ## Core Should Provide
 
