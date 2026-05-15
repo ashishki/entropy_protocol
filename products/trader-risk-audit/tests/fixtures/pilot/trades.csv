@@ -1,0 +1,4 @@
+timestamp,symbol,side,quantity,price,fees,account_id
+2026-02-03T09:30:00Z,BTCUSD,buy,1,100,0,demo
+2026-02-03T10:00:00Z,BTCUSD,sell,1,180,2,demo
+2026-02-03T10:30:00Z,EURUSD,buy,3,25,1,demo

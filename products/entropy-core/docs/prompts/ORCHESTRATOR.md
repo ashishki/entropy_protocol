@@ -5,6 +5,26 @@ _References: docs/WORKFLOW_CANON.md · Implementation Contract · audit workflow
 
 ---
 
+## Codex tmux Runtime Override
+
+This prompt is not pasted into Claude Code and is not executed through
+`codex exec`. It is a reference loop for the already-running entropy-core Codex
+agent in the product tmux window.
+
+Normal loop rule:
+
+- Do not call `codex`.
+- Do not call `codex exec`.
+- Do not spawn nested Codex or another AI coding process.
+- Read `CODEX_LOOP.md`, `RUNBOOK.md`, `AGENT_NOTES.md`, and
+  `PHASE_HANDOFF.md` before following older instructions below.
+
+The only unplanned stop condition is account/model limits until reset. At phase
+boundary or context rollover, update `PHASE_HANDOFF.md`, validation results, and
+git status before stopping or restarting.
+
+---
+
 ## Mandatory Steps — Never Skip
 
 The following steps are NEVER optional regardless of time pressure:

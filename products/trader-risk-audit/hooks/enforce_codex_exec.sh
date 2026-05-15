@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 # PreToolUse hook: enforce_codex_exec.sh
-# Blocks direct Claude Write/Edit/MultiEdit operations on application code paths.
-# Code changes must go through `codex exec` via Bash so the implementation agent
-# remains the only writer of application code.
+# Optional guard for direct tool writes to application code paths.
+# In the Codex tmux setup, the active product Codex agent remains the only normal writer of application code. Do not use nested `codex exec`.
 #
 # Configuration:
 #   PLAYBOOK_CODE_PATH_PREFIXES  colon-separated relative path prefixes treated as
@@ -36,9 +35,9 @@ for PREFIX in "${PATHS[@]}"; do
   fi
 
   if [[ "$FILE_PATH" == "$PREFIX"* ]] || [[ "$FILE_PATH" == *"/${PREFIX}"* ]]; then
-    echo "BLOCKED: direct Claude edits to application code are disabled for '${FILE_PATH}'." >&2
-    echo "Use Bash -> codex exec, pass the prompt file, and wait for IMPLEMENTATION_RESULT." >&2
-    echo "This repository reserves application code writing for Codex, not Claude subagents." >&2
+    echo "BLOCKED: direct tool edits to application code are disabled for '${FILE_PATH}'." >&2
+    echo "Continue in the active product Codex loop; do not spawn nested Codex or codex exec." >&2
+    echo "This repository reserves application code writing for the active product Codex agent." >&2
     exit 2
   fi
 done

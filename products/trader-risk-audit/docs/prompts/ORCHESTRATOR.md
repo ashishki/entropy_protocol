@@ -23,38 +23,25 @@ Skipping any of these is a violation of the Implementation Contract and must be 
 
 ## How to use
 
-Paste this entire file as a prompt to Claude Code. No variables to fill at runtime.
-The orchestrator reads all state from `docs/CODEX_PROMPT.md` and `docs/tasks.md` at runtime.
+This file is the operating loop for the already-running product Codex agent in its tmux window. Do not paste it into a new AI coding session, do not run `codex exec`, and do not spawn a nested Codex process for the normal development loop.
+
+The active Codex agent reads all state from `RUNBOOK.md`, `AGENT_NOTES.md`, `PHASE_HANDOFF.md` if present, `docs/CODEX_PROMPT.md`, and `docs/tasks.md` at runtime.
 
 ---
 
 ## Tool split — hard rule
 
-| Role | Tool | Why |
+| Role | Executor | Why |
 |---|---|---|
-| Implementer / fixer | `Bash` → `codex exec -s workspace-write` | writes files, runs tests |
-| Light reviewer | `Agent tool` (general-purpose) | fast checklist, no docs produced |
-| Deep review agents (META/ARCH/CODE/CONSOLIDATED) | `Agent tool` (general-purpose) | reasoning + file analysis |
-| Strategy reviewer | `Agent tool` (general-purpose) | architectural reasoning |
+| Orchestrator | Current product Codex agent | reads state, selects next action, maintains the loop |
+| Implementer / fixer | Current product Codex agent | writes files, installs dependencies in product `.venv`, runs tests |
+| Light reviewer | Current product Codex agent using the light-review checklist | fast issue detection, no separate AI process required |
+| Deep review (META/ARCH/CODE/CONSOLIDATED) | Current product Codex agent, preferably after a phase handoff/fresh context | reasoning + file analysis at phase boundary |
+| Strategy reviewer | Current product Codex agent, or fresh context after handoff | architectural reasoning while preserving the same orchestration order |
 
-<!-- codex exec -s workspace-write is the implementation agent invocation.
-     Default and recommended value:
-     - Codex CLI: codex exec -s workspace-write
+Normal loop rule: never call `codex`, `codex exec` or another AI process from inside this loop. Codex is already the running agent.
 
-     This playbook assumes application code is written by Codex via Bash -> codex exec,
-     not by Claude subagents. Replace this placeholder only if your environment requires
-     a wrapper around the same Codex CLI path.
-
-     The command must accept a prompt string as its final argument, be able to read/write
-     files under /home/ashishki/Documents/dev/ai-stack/projects/Entropy_Protocol/products/trader-risk-audit, and execute shell commands (test runner, linter). -->
-<!-- See reference/CODEX_CLI.md for Codex CLI invocation patterns, known sandbox
-     limitations (async test hangs, heavy deps), and prompt engineering guidelines. -->
-
-**Implementer invocation — always via variable, never stdin:**
-```bash
-PROMPT=$(cat /tmp/orchestrator_codex_prompt.txt)
-cd /home/ashishki/Documents/dev/ai-stack/projects/Entropy_Protocol/products/trader-risk-audit && codex exec -s workspace-write "$PROMPT"
-```
+Phase rollover rule: at a phase boundary, write `PHASE_HANDOFF.md`, update `AGENT_NOTES.md`, record validation and git status, then optionally restart a fresh Codex process in the same tmux window.
 
 ---
 
@@ -170,7 +157,7 @@ Check: does `docs/audit/PHASE1_AUDIT.md` exist?
 
 If Phase 1 validation is needed:
 
-Use **Agent tool** (`general-purpose`):
+Use the current product Codex agent with this review brief:
 ```
 You are the Phase 1 Validator for Trader Risk Audit.
 Project root: /home/ashishki/Documents/dev/ai-stack/projects/Entropy_Protocol/products/trader-risk-audit
@@ -294,7 +281,7 @@ For each active profile, check whether the next task carries a profile deep-revi
 
 **Skip if not at a true phase boundary (Step 0-C).**
 
-Use **Agent tool** (`general-purpose`):
+Use the current product Codex agent with this review brief:
 
 ```
 You are the Strategy Reviewer for Trader Risk Audit.
@@ -318,7 +305,7 @@ Read `docs/audit/STRATEGY_NOTE.md`.
 
 For each FIX-N item in order:
 
-Write to `/tmp/orchestrator_codex_prompt.txt`:
+Use this working brief internally:
 ```
 You are the implementation agent for Trader Risk Audit.
 Project root: /home/ashishki/Documents/dev/ai-stack/projects/Entropy_Protocol/products/trader-risk-audit
@@ -343,11 +330,7 @@ Test added: [file:function]
 Baseline: [N passed, N skipped, N failed]
 ```
 
-Execute:
-```bash
-PROMPT=$(cat /tmp/orchestrator_codex_prompt.txt)
-cd /home/ashishki/Documents/dev/ai-stack/projects/Entropy_Protocol/products/trader-risk-audit && codex exec -s workspace-write "$PROMPT"
-```
+Continue in the current product Codex session using the working brief above. Do not call `codex`, `codex exec` or another AI process.
 
 - `DONE` + 0 failures → next FIX item
 - Any failure → mark `[!]` in tasks.md, stop, report to user
@@ -360,7 +343,7 @@ After all fixes done → Step 3.
 
 Read the full task entry from `docs/tasks.md` (AC list + file scope).
 
-Write to `/tmp/orchestrator_codex_prompt.txt`:
+Use this working brief internally:
 ```
 You are the implementation agent for Trader Risk Audit.
 Project root: /home/ashishki/Documents/dev/ai-stack/projects/Entropy_Protocol/products/trader-risk-audit
@@ -413,12 +396,7 @@ Baseline after:  [N passed, N skipped, N failed]
 AC status: [AC-1: PASS | FAIL, ...]
 ```
 
-Execute:
-```bash
-export CURRENT_TASK="[T##]"   # replace [T##] with the actual task ID (e.g. T07)
-PROMPT=$(cat /tmp/orchestrator_codex_prompt.txt)
-cd /home/ashishki/Documents/dev/ai-stack/projects/Entropy_Protocol/products/trader-risk-audit && codex exec -s workspace-write "$PROMPT"
-```
+Continue in the current product Codex session using the working brief above. Do not call `codex`, `codex exec` or another AI process.
 
 - `DONE` + all AC PASS + 0 failures:
   → **Post-implementation tag check:** compare "Files modified" against capability signal patterns (same table as Step 0-E). If the modified files match a profile that differs from the task's `Type:` tag:
@@ -516,7 +494,7 @@ Choose tier based on Step 0 assessment.
 
 Single agent. Fast. No files produced.
 
-Use **Agent tool** (`general-purpose`):
+Use the current product Codex agent with this review brief:
 
 ```
 You are the Light Reviewer for Trader Risk Audit.
@@ -593,7 +571,7 @@ Parse result:
 
 **Step 4.0 — META**
 
-Use **Agent tool** (`general-purpose`):
+Use the current product Codex agent with this review brief:
 ```
 You are the META Analyst for Trader Risk Audit.
 Project root: /home/ashishki/Documents/dev/ai-stack/projects/Entropy_Protocol/products/trader-risk-audit
@@ -607,7 +585,7 @@ Verify `docs/audit/META_ANALYSIS.md` written.
 
 **Step 4.1 — ARCH**
 
-Use **Agent tool** (`general-purpose`):
+Use the current product Codex agent with this review brief:
 ```
 You are the Architecture Reviewer for Trader Risk Audit.
 Project root: /home/ashishki/Documents/dev/ai-stack/projects/Entropy_Protocol/products/trader-risk-audit
@@ -621,7 +599,7 @@ Verify `docs/audit/ARCH_REPORT.md` written.
 
 **Step 4.2 — CODE**
 
-Use **Agent tool** (`general-purpose`):
+Use the current product Codex agent with this review brief:
 ```
 You are the Code Reviewer for Trader Risk Audit.
 Project root: /home/ashishki/Documents/dev/ai-stack/projects/Entropy_Protocol/products/trader-risk-audit
@@ -637,7 +615,7 @@ Capture full findings output — pass to Step 4.3.
 
 **Step 4.3 — CONSOLIDATED**
 
-Use **Agent tool** (`general-purpose`):
+Use the current product Codex agent with this review brief:
 ```
 You are the Consolidation Agent for Trader Risk Audit.
 Project root: /home/ashishki/Documents/dev/ai-stack/projects/Entropy_Protocol/products/trader-risk-audit
@@ -670,7 +648,7 @@ Done:
 
 **Light review issues:**
 
-Write to `/tmp/orchestrator_codex_prompt.txt`:
+Use this working brief internally:
 ```
 You are the Fixer for Trader Risk Audit.
 Project root: /home/ashishki/Documents/dev/ai-stack/projects/Entropy_Protocol/products/trader-risk-audit
@@ -690,11 +668,7 @@ FIXES_RESULT: DONE | PARTIAL
 Baseline: [N passed, N skipped, N failed]
 ```
 
-Execute:
-```bash
-PROMPT=$(cat /tmp/orchestrator_codex_prompt.txt)
-cd /home/ashishki/Documents/dev/ai-stack/projects/Entropy_Protocol/products/trader-risk-audit && codex exec -s workspace-write "$PROMPT"
-```
+Continue in the current product Codex session using the working brief above. Do not call `codex`, `codex exec` or another AI process.
 
 Re-run light reviewer on fixed files only.
 - PASS → Step 7
@@ -704,7 +678,7 @@ Re-run light reviewer on fixed files only.
 
 **Deep review P0:**
 
-Write to `/tmp/orchestrator_codex_prompt.txt`:
+Use this working brief internally:
 ```
 You are the Fix agent for Trader Risk Audit.
 Project root: /home/ashishki/Documents/dev/ai-stack/projects/Entropy_Protocol/products/trader-risk-audit
@@ -719,11 +693,7 @@ FIXES_RESULT: DONE | PARTIAL
 Baseline: [N passed, N skipped, N failed]
 ```
 
-Execute:
-```bash
-PROMPT=$(cat /tmp/orchestrator_codex_prompt.txt)
-cd /home/ashishki/Documents/dev/ai-stack/projects/Entropy_Protocol/products/trader-risk-audit && codex exec -s workspace-write "$PROMPT"
-```
+Continue in the current product Codex session using the working brief above. Do not call `codex`, `codex exec` or another AI process.
 
 Re-run Steps 4.2 + 4.3 (targeted at fixed files).
 - P0 resolved → Step 6
@@ -755,7 +725,7 @@ Fix Queue: [N items in CODEX_PROMPT.md]
 
 Only runs after a completed deep review cycle.
 
-Use **Agent tool** (`general-purpose`):
+Use the current product Codex agent with this review brief:
 
 ```
 You are the Doc Updater for Trader Risk Audit.
@@ -859,17 +829,19 @@ Print one-line progress: `[T##] done. Baseline: N pass. Next: [T## — Title].`
 
 Return to Step 0.
 
-Stop when:
-- All tasks `✅` → generate final completion report (same format as Phase Report, titled "PROJECT COMPLETE") → send notification → stop.
-- Task `[!]` → save checkpoint → print blocker → stop.
-- P0 unresolved after 2 attempts → save checkpoint → print findings → stop.
-- API rate limit (429 / "overloaded") → save checkpoint → send notification with suggested restart time (current time + 60 min) → print "RATE_LIMIT_HIT" → stop cleanly.
-  Notification format (adapt to none — local sandbox, no out-of-band notifications):
-  ```
-  Rate limit hit. Resume at: [HH:MM UTC]
-  Next: [T## — Title]
-  Run: paste ORCHESTRATOR.md into Claude Code
-  ```
+Stop and pause policy:
+- Account/model limits until reset are the only unplanned stop condition. Save checkpoint, update `PHASE_HANDOFF.md` if useful, print `RATE_LIMIT_HIT`, and include the best known reset/resume time.
+- Phase boundary is a planned rollover point. Write `PHASE_HANDOFF.md`, update `AGENT_NOTES.md`, record validation and git status, then continue or restart a fresh Codex context in the same tmux window.
+- Human gate is a planned pause. Save checkpoint, ask the concrete question, and wait for the operator.
+- Project complete is a planned stop after the final report is written.
+- P0 unresolved after 2 attempts is a planned escalation: save checkpoint, print findings, and wait for operator direction.
+
+Limit notification format (adapt to {{NOTIFICATION_CHANNEL}}):
+```
+Rate limit hit. Resume after reset: [HH:MM UTC or provider reset text]
+Next: [T## — Title]
+Action: restart fresh Codex context in the same product tmux window and continue from PHASE_HANDOFF.md/AGENT_NOTES.md
+```
 
 ---
 
@@ -880,20 +852,26 @@ Stop when:
 3. Read any file freely to make decisions
 4. Write `docs/tasks.md`, `docs/audit/AUDIT_INDEX.md`, archive files freely
 5. Deep review steps are strictly sequential — never parallelize
-6. Implementation agent non-zero exit or empty output → mark `[!]`, stop, report
-7. Stateless across sessions — re-reads everything from files on every run
-8. Budget-aware — if a subagent returns BLOCKED citing iteration or context budget, treat it as a normal partial completion: commit what is done, add remaining work to Fix Queue with a `FQ-NN: [T##] Budget-interrupted — [what remains]` entry, continue to next step
-9. Provider fallback — on transient LLM or tool failure (timeout, HTTP 5xx, "overloaded"), retry once after 30 s before marking blocked; on second consecutive failure, save checkpoint, print `PROVIDER_FAILURE: [error text]`, stop cleanly so the user can resume
+6. Current Codex agent validation failure → mark `[!]`, checkpoint, report the blocker, and wait if human input is needed
+7. Stateless across context rollovers — re-reads everything from files on every fresh context
+8. Budget-aware — if context is getting heavy, finish the current coherent change, update `PHASE_HANDOFF.md`, add remaining work to Fix Queue with a `FQ-NN: [T##] Context rollover — [what remains]` entry, then continue in a fresh Codex context
+9. Provider fallback — on transient LLM or tool failure, retry once after 30 s; on second consecutive failure, save checkpoint, print `PROVIDER_FAILURE: [error text]`, and wait for operator direction
 
 ---
 
 ### Resuming
 
-Re-paste this file. Orchestrator picks up from current state in files.
+Resume in the existing product tmux window or restart a fresh Codex process in that same window. The agent picks up from files, not from chat memory.
+
+Start-of-context instruction:
+
+```text
+Continue this product from RUNBOOK.md, AGENT_NOTES.md, PHASE_HANDOFF.md if present, docs/CODEX_PROMPT.md, and docs/tasks.md. Do not spawn nested Codex. Continue the orchestration loop from the next pending task.
+```
 
 - Force re-review: reset tasks to `[ ]` in tasks.md
-- Skip review this run: start with "Run orchestrator, skip review this iteration."
-- Force deep review: start with "Run orchestrator, force deep review."
+- Skip review this run: tell the current agent "skip review this iteration"
+- Force deep review: tell the current agent "force deep review"
 
 ---
 
@@ -920,24 +898,19 @@ Replace every `{{PLACEHOLDER}}` before using this template. The table below list
 |---|---|---|
 | `Trader Risk Audit` | Human-readable project name used in agent system prompts | `my-api-service` |
 | `/home/ashishki/Documents/dev/ai-stack/projects/Entropy_Protocol/products/trader-risk-audit` | Absolute path to the repository root on disk | `/home/alice/my-api-service` |
-| `codex exec -s workspace-write` | The implementation agent invocation — see note below | `codex exec -s workspace-write` |
 | `none — local sandbox, no out-of-band notifications` | Optional out-of-band notification mechanism — see note below | Telegram bot, Slack webhook, or omit |
 
-**`codex exec -s workspace-write` — implementation agent options:**
+**Codex execution model:**
 
-The orchestrator expects a command that:
-1. Accepts a prompt string as its final argument (via shell variable, not stdin)
-2. Can read and write files under `/home/ashishki/Documents/dev/ai-stack/projects/Entropy_Protocol/products/trader-risk-audit`
-3. Can execute shell commands (to run your test suite and linter)
-4. Returns a non-zero exit code on failure
+The product agent is already running in tmux. Do not configure an implementation command for the normal loop. Do not use `codex exec` unless you are building a separate non-interactive automation path outside this orchestrator.
 
-Common choices:
+Expected runtime:
 
-| Option | Invocation |
-|---|---|
-| Codex CLI | `codex exec -s workspace-write` |
-| Claude Code subagent | Use the `Agent tool` with `general-purpose` instead of the Bash block; adapt Steps 2, 3, and 5 accordingly |
-| Any sandboxed executor | Replace the Bash block with whatever invocation your tool requires |
+```bash
+codex --sandbox danger-full-access --ask-for-approval never
+```
+
+This is safe only inside the VPS isolation model: one Unix user, one clone, and one log directory per product.
 
 Also replace `python -m pytest tests -q --tb=short` and `[YOUR_LINT_COMMAND]` in Steps 2, 3, and 5 with the actual commands for your project (e.g. `pytest tests/ -q` and `ruff check app/ tests/`).
 

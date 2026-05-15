@@ -13,6 +13,12 @@ from entropy.models.performance import DrawdownRecord, NetSharpe, PerformanceMet
 from entropy.models.registry import FillLog
 
 STUB_REASON_CODE: Final = "stub_pending_formula_verification"
+ARCHIVE_ONLY_ATTRIBUTION_NO_CLAIM_LABELS: Final = (
+    "archive_only_attribution",
+    "not_phase_gate_approval",
+    "not_oos_evidence",
+    "not_production",
+)
 ZERO: Final = Decimal("0")
 ONE: Final = Decimal("1")
 
@@ -46,6 +52,22 @@ def compute_streams(entries: Sequence[AttributionInput]) -> PnLStreams:
         stream_c=tuple(_cost_drag_return(entry.fill_log) for entry in entries),
         stream_d=tuple(entry.stream_d_return for entry in entries),
     )
+
+
+def archive_only_attribution_payload(pnl_streams: PnLStreams) -> dict[str, object]:
+    """Serialize archive-only attribution without performance claim labels."""
+    if not isinstance(pnl_streams, PnLStreams):
+        raise StreamBoundaryError("archive_only_attribution_payload requires PnLStreams")
+
+    stream_payload = pnl_streams.model_dump(mode="json")
+    return {
+        "archive_only": True,
+        "stream_a": stream_payload["stream_a"],
+        "stream_b": stream_payload["stream_b"],
+        "stream_c": stream_payload["stream_c"],
+        "stream_d": stream_payload["stream_d"],
+        "no_claim_labels": list(ARCHIVE_ONLY_ATTRIBUTION_NO_CLAIM_LABELS),
+    }
 
 
 def compute_net_sharpe(

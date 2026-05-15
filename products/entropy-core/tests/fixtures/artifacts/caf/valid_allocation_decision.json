@@ -1,0 +1,39 @@
+{
+  "caf_artifact_version": "entropy-caf-artifact/v1",
+  "artifact_contract_version": "entropy-core-artifact/v1",
+  "artifact_type": "allocation_decision",
+  "decision_id": "SYNTH-CAF-DECISION-001",
+  "portfolio_context_ref": "synthetic://caf/context/001",
+  "constraint_refs": [
+    "synthetic://caf/constraint/risk-budget",
+    "synthetic://caf/constraint/drawdown-limit"
+  ],
+  "evidence_refs": [
+    "synthetic://caf/evidence/bundle-001"
+  ],
+  "rationale_refs": [
+    "synthetic://caf/rationale/001"
+  ],
+  "attribution_refs": {
+    "stream_a_ref": "synthetic://caf/attribution/stream-a",
+    "stream_b_ref": "synthetic://caf/attribution/stream-b",
+    "stream_c_ref": "synthetic://caf/attribution/stream-c",
+    "stream_d_ref": "synthetic://caf/attribution/stream-d",
+    "net_sharpe_streams": [
+      "stream_a",
+      "stream_b",
+      "stream_c"
+    ]
+  },
+  "limitations": [
+    "synthetic CAF decision evidence only",
+    "not an instruction to move funds"
+  ],
+  "no_claim_boundary": [
+    "not_investment_advice",
+    "not_live_allocation",
+    "not_capital_ready",
+    "not_automated_execution",
+    "synthetic_fixture_only"
+  ]
+}

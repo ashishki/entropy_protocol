@@ -1,0 +1,14 @@
+schema_version: "1"
+account_scope:
+  - acct_demo_001
+timezone: UTC
+session:
+  start: "09:30"
+  end: "16:00"
+rules:
+  - rule_id: rule_ambiguous_daily_loss
+    type: max_daily_loss
+    threshold: null
+    unit: USD
+    params:
+      source_text: Stop if the day gets too red.

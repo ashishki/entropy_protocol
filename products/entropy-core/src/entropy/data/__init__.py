@@ -1,6 +1,7 @@
 """Data package."""
 
 from entropy.data.fixture_adapter import LocalFixtureAdapter
+from entropy.data.holdout import HoldoutReadDecision, HoldoutReadRequest, authorize_holdout_read
 from entropy.data.provider import (
     DataIngestionError,
     DataProvider,
@@ -42,6 +43,8 @@ __all__ = [
     "DataQualityReport",
     "GapDetectionError",
     "HealthStatus",
+    "HoldoutReadDecision",
+    "HoldoutReadRequest",
     "OHLCVSanityError",
     "ProviderNotFoundError",
     "LocalFixtureAdapter",
@@ -52,6 +55,7 @@ __all__ = [
     "DataStabilityRow",
     "DataStabilitySummary",
     "build_data_stability_summary",
+    "authorize_holdout_read",
     "check_ohlcv_sanity",
     "detect_gaps",
     "provider_registry",

@@ -1,0 +1,30 @@
+{
+  "research_artifact_version": "entropy-research-artifact/v1",
+  "artifact_contract_version": "entropy-core-artifact/v1",
+  "artifact_kind": "evaluation",
+  "candidate_id": "SYNTH-RESEARCH-001",
+  "dataset_hash": "sha256:synthetic-dataset",
+  "code_hash": "git:synthetic-research-code",
+  "policy_hash": "sha256:synthetic-policy",
+  "report_hash": "sha256:synthetic-report",
+  "leakage_status": "PASS",
+  "no_claim_labels": [
+    "archive_only_research",
+    "not_holdout_unlock",
+    "not_oos_performance",
+    "not_production",
+    "not_capital_ready"
+  ],
+  "source_refs": [
+    "synthetic/research/dataset-manifest.md"
+  ],
+  "generated_artifact_refs": [
+    "synthetic/research/evidence-packet.md"
+  ],
+  "limitations": [
+    "synthetic research artifact fixture only"
+  ],
+  "holdout_gate_status": "absent",
+  "oos_performance_gate_status": "absent",
+  "error_register_ref": "synthetic/research/error-register.md"
+}

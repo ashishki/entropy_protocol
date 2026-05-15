@@ -1,0 +1,5 @@
+timestamp,symbol,side,quantity,price,fees,account_id
+2026-02-03T09:30:00Z,ABCD,buy,100,100,0,acct_public_sample_001
+2026-02-03T10:00:00Z,ABCD,sell,100,60,0,acct_public_sample_001
+2026-02-03T10:10:00Z,RISKY,buy,50,250,0,acct_public_sample_001
+2026-02-03T10:20:00Z,MEGA,buy,1,12000,0,acct_public_sample_001
