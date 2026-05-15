@@ -1,8 +1,24 @@
 # План: безопасный read-only import с Binance и Bybit
 
 Дата: 2026-05-09
-Статус: accepted safety roadmap; real network code remains blocked until Phase 11 safety gates pass
+Статус: accepted safety roadmap; Phase 13/14 fixture-backed Bybit and Binance
+MVP paths are implemented; real network code remains blocked until explicit
+operator-controlled connector scope is approved.
 ADR: `docs/adr/ADR-002-read-only-exchange-import.md`
+
+## T93 Decision - 2026-05-15
+
+Verdict: defer real local read-only exchange network fetching.
+
+Phase 21 delivered the evidence dashboard and privacy-safe export, but no
+market customer evidence log was supplied showing that CSV/export friction is
+the binding blocker. Current measured counts for qualified prospects, valid
+exports, CSV/export blockers, API-request objections, paid reports,
+repeat/referral signals, and paid intent are all 0 in repo-visible evidence.
+
+T94-T97 remain blocked. Do not update ADR-002 for real fetching and do not
+implement real exchange network calls until a future privacy-safe evidence
+export justifies reopening the gate.
 
 ## Цель
 
@@ -41,6 +57,7 @@ Allowed:
 - manifest hashes over raw snapshots and generated outputs;
 - operator review before paid report delivery;
 - docs that teach users to create read-only, preferably IP-allowlisted keys.
+- CSV upload fallback for users who do not want API keys.
 
 Forbidden:
 
@@ -131,26 +148,56 @@ Exit gate:
 
 ## Phase 15 - Operator UX and Pilot Validation
 
-Goal: make read-only import usable in founder-led paid pilots without expanding
-to SaaS or live trading.
+Goal: make read-only import discussable and operable in founder-led paid pilots
+without expanding to SaaS or live trading.
+
+Status: complete for the Phase 15 gate. Cycle 20 deep review found P0:0, P1:0,
+P2:0, Stop-Ship: No. Real exchange network fetching is still not implemented
+and must not be represented as available until future approved work adds it.
 
 Tasks:
 
-- T59: Update operator runbook and paid pilot intake docs for read-only API
+- T59: Complete - update operator runbook and paid pilot intake docs for read-only API
   import.
-- T60: Add safe CLI guidance for key permissions, IP allowlisting, and local
+- T60: Complete - add safe CLI guidance for key permissions, IP allowlisting, and local
   secret handling.
-- T61: Add pilot evidence fields for import method and API-connection
+- T61: Complete - add pilot evidence fields for import method and API-connection
   objections.
-- T62: Run deep review focused on secret handling, permission enforcement,
+- T62: Complete - run deep review focused on secret handling, permission enforcement,
   reproducibility, and product boundary.
 
-Exit gate:
+Exit gate: passed.
 
 - Pilot docs explain CSV upload and read-only API import as two intake methods.
+- Read-only API setup docs require read-only keys, disabled trading/order,
+  withdrawal, transfer, leverage/margin, and account mutation permissions, and
+  preferred IP allowlisting.
+- API keys and secrets remain local-only and must not be stored in files,
+  metadata, queue records, reports, manifests, Telegram, email, screenshots, or
+  committed fixtures.
+- Docs repeat no-advice, no-live-control, no-order-blocking, no hosted-secret,
+  and no SaaS onboarding boundaries.
 - Evidence log can distinguish CSV pilots from exchange-import pilots.
 - Review confirms no broker control, no trading, no hosted secrets, and no
   advice scope.
+
+## Operator Intake Decision
+
+Use CSV upload when:
+
+- trader already has a clean CSV export;
+- trader does not want to create API keys;
+- permission status is unclear;
+- operator wants the lowest-risk intake path.
+
+Use read-only API import only when:
+
+- trader explicitly opts in;
+- the key is read-only or requires operator review when unverifiable;
+- trade/order, withdrawal, transfer, leverage/margin, and account mutation
+  permissions are disabled;
+- symbols/category and time range are explicit;
+- credentials are entered through the approved local secret path.
 
 ## Suggested CLI Shape
 

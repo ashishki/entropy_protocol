@@ -1,31 +1,45 @@
-# META_ANALYSIS - Cycle 18
-_Date: 2026-05-09 · Type: targeted_
+# META_ANALYSIS - Cycle 26
+_Date: 2026-05-15 · Type: full_
 
 ## Project State
-Historical Cycle 18 state: Phase 14 in progress. T55 - Binance Signed Account
-Request Helper complete. The then-next task was T56 - Binance Spot Trade Fetch
-Planner. Superseded on 2026-05-11 by Phase 16 artifact-first validation; current
-next task is T63 - Real Audit Scope Lock.
-Baseline: 176 pass, 0 skip.
+
+Phase 21 (T88-T92) complete. Next: T93 - CSV Friction Decision Gate.
+Baseline: 253 pass, 0 skip.
 
 ## Open Findings
+
 | ID | Sev | Description | Files | Status |
 |----|-----|-------------|-------|--------|
-| none | - | No open findings in `docs/CODEX_PROMPT.md`; ARCH-1, CODE-1, and CODE-2 are closed. | - | Closed |
+| None | - | No open findings before Cycle 26. | - | - |
 
 ## PROMPT_1 Scope (architecture)
-- Binance account-data signing helper under ADR-002.
-- Endpoint allowlist must expose only Spot account trade history.
-- No real network client, order/write/withdraw/transfer/leverage/margin endpoint, or secret persistence.
+
+- Hypothesis funnel event schema: safe local event rows for prospect, intake,
+  export, policy, audit, preview, CTA, paid report, repeat, and referral.
+- Evidence dashboard CLI: local aggregate counts, ratios, gate status,
+  objection/blocker tags, and next action.
+- Hypothesis gate rules: proceed / needs-more-evidence / pivot decision model.
+- Privacy-safe evidence export: aggregate CSV/Markdown with source provenance
+  by filename and hash only.
 
 ## PROMPT_2 Scope (code, priority order)
-1. `trader_risk_audit/exchange/binance.py`
-2. `tests/unit/exchange/test_binance_signing.py`
-3. `trader_risk_audit/exchange/credentials.py` dependency behavior
+
+1. `trader_risk_audit/evidence.py`
+2. `trader_risk_audit/cli.py`
+3. `tests/unit/evidence/test_hypothesis_funnel.py`
+4. `tests/integration/test_hypothesis_dashboard_cli.py`
+5. `tests/unit/evidence/test_hypothesis_gates.py`
+6. `tests/unit/evidence/test_evidence_export_privacy.py`
+7. `tests/integration/test_evidence_export_cli.py`
+8. `docs/HYPOTHESIS_EVIDENCE_DASHBOARD_RU.md`
+9. `docs/PILOT_EVIDENCE_LOG_RU.md`
 
 ## Cycle Type
-Targeted - security review triggered by T55 signed request/secret handling.
+
+Full - Phase 21 boundary review after T88-T91 implementation.
 
 ## Notes for PROMPT_3
-Focus on deterministic HMAC signing, signature/API key/API secret redaction,
-endpoint allowlist scope, and absence of real Binance network behavior.
+
+Focus on evidence integrity, demo/vanity metric separation, privacy-safe
+exports, gate correctness, and avoiding premature real exchange network
+fetching before the T93 decision gate.

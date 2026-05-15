@@ -1,8 +1,12 @@
 # Task Graph - Trader Risk Audit
 
-Version: 1.5
-Last updated: 2026-05-11
-Status: Phase 16 active - artifact-first real audit validation. Phase 14/15 exchange-import work remains available only when it directly supports a real audit artifact.
+Version: 1.7
+Last updated: 2026-05-15
+Status: roadmap complete through T93 decision. Phase 21 is complete and
+archived; T93 deferred real read-only exchange fetching, so T94-T97 remain
+blocked until future market evidence reopens the gate.
+Phase 14/15 exchange-import work is complete and remains available only when
+it directly supports the selected real audit artifact.
 
 ---
 
@@ -26,6 +30,12 @@ Status: Phase 16 active - artifact-first real audit validation. Phase 14/15 exch
 | 14 | Binance Read-Only MVP | T55-T58 | Binance signed account request helper, spot trade fetch planner, normalizer, and import-to-audit integration. | Binance Spot trade history can be imported safely from sanitized fixtures with explicit symbols/time range and deterministic audit outputs. |
 | 15 | Operator UX and Pilot Validation | T59-T62 | Exchange import runbook, safety guidance, evidence fields, and deep review. | Read-only exchange import is ready for founder-led pilot use only after secret handling, permission enforcement, reproducibility, and boundary review pass. |
 | 16 | Artifact-First Real Audit Validation | T63-T69 | Scope one real audit, ingest real data, generate a complete report pack, manually validate calculations, polish the report, package an internal demo, and decide external pilot readiness. | A real-data audit report is trusted by the operator, claim-safe, traceable to source rows, and ready for controlled warm-prospect delivery. |
+| 17 | Automated Intake Profiler | T70-T73 | Intake session model, CSV schema profiling, actionable intake report, and deep review. | A prospect export can be profiled automatically with safe field mapping, blockers, unsupported fields, privacy notes, and next action. |
+| 18 | Structured Rule Builder | T74-T78 | Supported rule catalog, profile-to-policy builder, threshold prompts, unsupported-rule register, and deep review. | A prospect can create a valid deterministic policy without hand-writing YAML, while unsupported free text is safely captured as a limitation/review item. |
+| 19 | One-Click Audit Runner | T79-T82 | End-to-end local audit session runner, status model, artifact bundle, reproducibility checks, and deep review. | A valid intake session and policy can produce the complete report pack without developer intervention. |
+| 20 | Report Preview And Paid CTA | T83-T87 | Claim-safe preview, redacted value summary, paid pilot CTA, conversion events, and deep review. | A prospect can see enough value to request/pay for a reviewed report without receiving unsafe claims or raw-data exposure. |
+| 21 | Hypothesis Evidence Dashboard | T88-T92 | Funnel event schema, dashboard CLI/report, validation thresholds, privacy-safe export, and deep review. | The operator can measure upload, valid export, preview, paid ask, paid report, repeat commitment, and referral evidence. |
+| 22 | Conditional Real Read-Only Import | T93-T97 | CSV friction decision gate, ADR update, minimal local real fetch path if justified, import-to-runner integration, and deep review. | Real read-only exchange fetching is added only if evidence shows CSV/export friction blocks conversion, and remains local, read-only, and no hosted secrets. |
 
 ---
 
@@ -44,13 +54,33 @@ Do not wait for a separate user instruction between planned phases unless the ne
 ## Artifact-First Priority Override
 
 As of 2026-05-11, the operator confirmed warm demand/pre-order interest and
-asked to validate real report artifacts before going to people. The next
-orchestration priority is Phase 16.
+asked to validate real report artifacts before going to people. On 2026-05-12,
+the operator clarified that if private data is missing, valid open sources
+should be used instead of blocking. Phase 16 is complete; this section remains
+as historical routing context only.
 
-T56-T62 remain valid planned work, but they should not block a real audit run.
-If the selected real audit requires Binance/Bybit read-only import, implement
-only the smallest part of T56-T62 needed for that artifact. Otherwise, run the
-real audit via CSV/export paths and continue Phase 16.
+T56-T62 are complete, but they should not drive the next orchestration step. If
+the selected real audit requires Binance/Bybit read-only import, use only the
+smallest completed path needed for that artifact. Otherwise, run the real audit
+via CSV/export paths. New implementation should follow the automated pilot
+priority below.
+
+For Phase 16, "real input" can mean either a private operator/customer export
+or a verified public/open-source transaction dataset with source metadata,
+privacy review, and limitation wording. Public/open-source artifact validation
+does not count as paid pilot evidence or PMF evidence.
+
+## Automated Pilot Priority
+
+As of 2026-05-14, Phase 16 proved artifact quality on a verified open-source
+pack. The next blocker is reducing founder/operator labor enough to test the
+hypothesis repeatedly. Phases 17-22 must automate intake, rules, audit running,
+preview/CTA, and evidence measurement before any public SaaS expansion.
+
+The automated loop must remain deterministic and local-first until paid/repeat
+evidence justifies hosted product work. Real exchange network fetching remains
+conditional on CSV/export friction evidence and must not be implemented before
+T93/T94.
 
 ---
 
@@ -2186,12 +2216,13 @@ Owner:      operator + codex
 Phase:      16
 Type:       validation
 Depends-On: none
-Status:     pending
+Status:     [x] complete - open-source SEC Form 4 scope locked
 
 Objective: |
-  Define the first real Trader Risk Audit run: source, period, timezone,
-  policy/rules, privacy boundary, allowed artifacts, and delivery format before
-  any implementation or report generation work begins.
+  Define the first real Trader Risk Audit run or open-source artifact
+  validation run: source, period, timezone, policy/rules, privacy boundary,
+  allowed artifacts, and delivery format before any implementation or report
+  generation work begins.
 
 Acceptance-Criteria:
   - id: AC-1
@@ -2206,6 +2237,7 @@ Acceptance-Criteria:
 
 Files:
   - docs/ARTIFACT_VALIDATION_ROADMAP.md
+  - docs/REAL_AUDIT_SCOPE_OPEN_SOURCE_EN.md
   - docs/CODEX_PROMPT.md
   - docs/IMPLEMENTATION_JOURNAL.md
 
@@ -2214,9 +2246,10 @@ Context-Refs:
   - ../../docs/ARTIFACT_FIRST_VALIDATION_ROADMAP.md#phase-0---scope-lock-and-evidence-rules
 
 Notes: |
-  Do not commit raw private trade exports. If no real data is available yet,
-  stop after recording the missing operator input rather than inventing a
-  synthetic substitute for this phase.
+  Do not commit raw private trade exports. If no private data is available,
+  use a valid public/open-source transaction dataset with source metadata,
+  privacy review, and explicit limits instead of inventing a synthetic
+  substitute.
 
 ## T64: Real Data Intake And Policy Mapping
 
@@ -2224,7 +2257,7 @@ Owner:      codex
 Phase:      16
 Type:       validation
 Depends-On: T63
-Status:     pending
+Status:     [x] complete - SEC Form 4 intake and policy mapping reviewed
 
 Objective: |
   Validate and normalize the real trade export or read-only historical export,
@@ -2246,6 +2279,9 @@ Files:
   - trader_risk_audit/trades/
   - trader_risk_audit/policy/
   - docs/ARTIFACT_VALIDATION_ROADMAP.md
+  - docs/REAL_DATA_INTAKE_SEC_FORM4_EN.md
+  - docs/POLICY_MAPPING_REVIEW_SEC_FORM4_EN.md
+  - demo/open_source_sec_form4_001/
   - docs/IMPLEMENTATION_JOURNAL.md
 
 Context-Refs:
@@ -2263,7 +2299,7 @@ Owner:      codex
 Phase:      16
 Type:       validation
 Depends-On: T64
-Status:     pending
+Status:     [x] complete - SEC Form 4 artifact pack generated
 
 Objective: |
   Run the deterministic audit workflow on the real validated input and produce
@@ -2287,6 +2323,8 @@ Files:
   - trader_risk_audit/reporting/
   - trader_risk_audit/evaluation/
   - docs/ARTIFACT_VALIDATION_ROADMAP.md
+  - docs/FIRST_AUDIT_RUN_SEC_FORM4_EN.md
+  - demo/open_source_sec_form4_001/output/
 
 Context-Refs:
   - docs/ARTIFACT_VALIDATION_ROADMAP.md#5-phase-tra-af-2---first-real-audit-run
@@ -2302,7 +2340,7 @@ Owner:      operator + codex
 Phase:      16
 Type:       validation
 Depends-On: T65
-Status:     pending
+Status:     [x] complete - manual SEC Form 4 validation passed with P2 polish item
 
 Objective: |
   Manually validate representative report findings against source data and
@@ -2323,6 +2361,7 @@ Files:
   - docs/ARTIFACT_VALIDATION_ROADMAP.md
   - docs/IMPLEMENTATION_JOURNAL.md
   - docs/EVIDENCE_INDEX.md
+  - docs/MANUAL_VALIDATION_SEC_FORM4_EN.md
 
 Context-Refs:
   - docs/ARTIFACT_VALIDATION_ROADMAP.md#6-phase-tra-af-3---manual-calculation-validation
@@ -2337,7 +2376,7 @@ Owner:      codex
 Phase:      16
 Type:       docs
 Depends-On: T66
-Status:     pending
+Status:     [x] complete - reviewed SEC report and packet are claim-safe
 
 Objective: |
   Polish the real audit report and delivery packet so a non-developer can read
@@ -2358,6 +2397,9 @@ Files:
   - trader_risk_audit/reporting/
   - docs/ARTIFACT_VALIDATION_ROADMAP.md
   - docs/IMPLEMENTATION_JOURNAL.md
+  - docs/REPORT_POLISH_SEC_FORM4_EN.md
+  - demo/open_source_sec_form4_001/output/report_reviewed.md
+  - demo/open_source_sec_form4_001/output/telegram_packet_reviewed.txt
 
 Context-Refs:
   - docs/ARTIFACT_VALIDATION_ROADMAP.md#7-phase-tra-af-4---report-polish-and-operator-trust-review
@@ -2372,7 +2414,7 @@ Owner:      codex
 Phase:      16
 Type:       docs
 Depends-On: T67
-Status:     pending
+Status:     [x] complete - SEC open-source internal demo pack ready
 
 Objective: |
   Package the validated real audit into an internal demo/pilot pack the operator
@@ -2394,6 +2436,7 @@ Files:
   - docs/ARTIFACT_VALIDATION_ROADMAP.md
   - docs/ICP_DEMO_VARIANTS_RU.md
   - docs/PAID_PILOT_OFFER_RU.md
+  - docs/INTERNAL_DEMO_PACK_SEC_FORM4_EN.md
   - docs/IMPLEMENTATION_JOURNAL.md
 
 Context-Refs:
@@ -2408,7 +2451,7 @@ Owner:      operator + codex
 Phase:      16
 Type:       review
 Depends-On: T68
-Status:     pending
+Status:     [x] complete - ready for controlled warm conversations
 
 Objective: |
   Decide whether the real audit artifact is ready for controlled external
@@ -2439,3 +2482,1059 @@ Context-Refs:
 Notes: |
   This is the gate for showing the validated artifact to warm prospects. It is
   not a gate for launching a public SaaS product.
+
+## T70: Automated Intake Session Contract
+
+Owner:      codex
+Phase:      17
+Type:       validation
+Depends-On: T69
+Status:     [x] complete - local intake session contract and CLI create command
+
+Objective: |
+  Define a local intake session contract that captures prospect/source metadata,
+  privacy choices, expected export type, source timezone, display timezone
+  (MSK by default for pilot evidence), session/currency, and safe status
+  transitions before parsing any rows.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Intake session model records source type, file refs, source timezone, display timezone, session, currency, privacy flags, prospect-safe label, and status without raw row data."
+    test: "tests/unit/intake/test_intake_session.py::test_intake_session_records_safe_metadata"
+  - id: AC-2
+    description: "Session validation rejects credentials, API keys, private notes, Telegram handles, and unsupported live-control flags in metadata."
+    test: "tests/unit/intake/test_intake_session.py::test_intake_session_rejects_sensitive_metadata"
+  - id: AC-3
+    description: "CLI can create a local intake session from explicit arguments and write a deterministic metadata JSON file."
+    test: "tests/integration/test_intake_session_cli.py::test_intake_session_create_writes_safe_metadata"
+
+Files:
+  - trader_risk_audit/intake/
+  - trader_risk_audit/cli.py
+  - tests/unit/intake/test_intake_session.py
+  - tests/integration/test_intake_session_cli.py
+  - docs/AUTOMATED_PILOT_ROADMAP.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Context-Refs:
+  - docs/AUTOMATED_PILOT_ROADMAP.md
+  - docs/PILOT_INTAKE_CONTRACT_RU.md
+  - docs/IMPLEMENTATION_CONTRACT.md
+
+Notes: |
+  Keep this local-first. Do not add accounts, auth, uploads over HTTP, checkout,
+  hosted storage, or exchange credential collection.
+
+## T71: CSV Schema Profiler
+
+Owner:      codex
+Phase:      17
+Type:       validation
+Depends-On: T70
+Status:     [x] complete - safe CSV schema profiler and CLI profile command
+
+Objective: |
+  Profile a submitted CSV/export before normalization and produce safe field
+  mapping candidates, missing fields, row counts, duplicate risks, timezone
+  assumptions, and unsupported data coverage.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Profiler maps known aliases to canonical fields and reports missing timestamp/symbol/side/quantity/price fields without raw row leakage."
+    test: "tests/unit/intake/test_csv_profiler.py::test_csv_profiler_maps_aliases_and_missing_fields"
+  - id: AC-2
+    description: "Profiler reports row count, duplicate row-id risk, timezone coverage, fee/leverage/P&L availability, and unsupported-field coverage."
+    test: "tests/unit/intake/test_csv_profiler.py::test_csv_profiler_reports_coverage"
+  - id: AC-3
+    description: "CLI profile command writes deterministic sanitized schema summary for an intake session."
+    test: "tests/integration/test_intake_profile_cli.py::test_intake_profile_writes_schema_summary"
+
+Files:
+  - trader_risk_audit/intake/
+  - trader_risk_audit/trades/importers.py
+  - trader_risk_audit/cli.py
+  - tests/unit/intake/test_csv_profiler.py
+  - tests/integration/test_intake_profile_cli.py
+  - docs/AUTOMATED_PILOT_ROADMAP.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Context-Refs:
+  - trader_risk_audit/trades/importers.py
+  - docs/REAL_DATA_INTAKE_SEC_FORM4_EN.md
+
+Notes: |
+  This is a profiler, not the final normalizer. It should help a prospect fix
+  export problems before a manual operator review.
+
+## T72: Actionable Intake Report
+
+Owner:      codex
+Phase:      17
+Type:       validation
+Depends-On: T71
+Status:     [x] complete - safe actionable intake Markdown report and CLI command
+
+Objective: |
+  Convert intake session metadata and schema profile into a prospect-readable
+  intake report with accepted fields, blockers, unsupported checks, and next
+  action.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Intake report separates runnable, needs-user-fix, needs-operator-review, and rejected states with concrete reasons."
+    test: "tests/unit/intake/test_intake_report.py::test_intake_report_status_sections"
+  - id: AC-2
+    description: "Report includes unsupported checks such as P&L, drawdown, leverage, fees, and account balance only when source fields are absent."
+    test: "tests/unit/intake/test_intake_report.py::test_intake_report_lists_unsupported_checks"
+  - id: AC-3
+    description: "CLI emits a Markdown intake report without raw trade rows or private identifiers."
+    test: "tests/integration/test_intake_report_cli.py::test_intake_report_cli_writes_safe_markdown"
+
+Files:
+  - trader_risk_audit/intake/
+  - trader_risk_audit/cli.py
+  - tests/unit/intake/test_intake_report.py
+  - tests/integration/test_intake_report_cli.py
+  - docs/AUTOMATED_PILOT_ROADMAP.md
+
+Context-Refs:
+  - docs/PILOT_INTAKE_CONTRACT_RU.md
+  - docs/OBJECTION_HANDLING_RU.md
+
+Notes: |
+  The report should reduce operator labor and make user-fixable upload errors
+  clear before a paid audit is requested.
+
+## T73: Automated Intake Profiler Deep Review
+
+Owner:      codex
+Phase:      17
+Type:       review
+Depends-On: T70, T71, T72
+Status:     [x] complete - Cycle 22 deep review archived with no stop-ship items
+
+Objective: |
+  Run the Phase 17 boundary review for automated intake profiling, focusing on
+  privacy, raw-row leakage, deterministic profiling, and operator handoff.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Review reports P0/P1/P2 findings across intake metadata, schema profiling, CLI output, docs, and tests."
+    test: "manual/review"
+  - id: AC-2
+    description: "Audit index, CODEX prompt, README, evidence index, and phase report are updated with final Phase 17 state."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "Any stop-ship privacy or raw-row leakage finding is fixed before Phase 18 begins."
+    test: "manual/review"
+
+Files:
+  - docs/audit/REVIEW_REPORT.md
+  - docs/audit/ARCH_REPORT.md
+  - docs/audit/PHASE_REPORT_LATEST.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/CODEX_PROMPT.md
+  - README.md
+
+Context-Refs:
+  - docs/prompts/ORCHESTRATOR.md
+  - docs/IMPLEMENTATION_CONTRACT.md
+
+Notes: |
+  This is a phase gate. Do not skip deep review.
+
+## T74: Supported Rule Catalog
+
+Owner:      codex
+Phase:      18
+Type:       validation
+Depends-On: T73
+Status:     [x] complete - deterministic catalog and availability tests added
+
+Objective: |
+  Define a structured catalog of supported audit rule types, required inputs,
+  threshold units, default copy, unsupported prerequisites, and profile
+  applicability.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Rule catalog lists every supported deterministic rule type with required source fields, threshold unit, and safe description."
+    test: "tests/unit/policy/test_rule_catalog.py::test_rule_catalog_lists_supported_rules"
+  - id: AC-2
+    description: "Catalog marks rules as unavailable when intake profile lacks required fields such as P&L, leverage, fees, or account balance."
+    test: "tests/unit/policy/test_rule_catalog.py::test_rule_catalog_marks_unavailable_rules"
+  - id: AC-3
+    description: "Catalog copy avoids advice, performance promises, and live-control language."
+    test: "tests/unit/policy/test_rule_catalog.py::test_rule_catalog_copy_is_claim_safe"
+
+Files:
+  - trader_risk_audit/policy/
+  - tests/unit/policy/test_rule_catalog.py
+  - docs/AUTOMATED_PILOT_ROADMAP.md
+  - docs/STARTER_POLICY_PROFILES_RU.md
+
+Context-Refs:
+  - trader_risk_audit/policy/schema.py
+  - docs/STARTER_POLICY_PROFILES_RU.md
+
+Notes: |
+  This catalog is the basis for automated rule building. Do not allow arbitrary
+  free text to become executable rule truth.
+
+## T75: Profile-To-Policy Builder
+
+Owner:      codex
+Phase:      18
+Type:       validation
+Depends-On: T74
+Status:     [x] complete - profile builder API and policy build CLI added
+
+Objective: |
+  Build valid `RiskPolicy` YAML/JSON from soft, medium, hard, and custom
+  structured threshold selections without hand-written policy files.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Builder creates valid policy objects from starter profiles and intake account/timezone/session metadata."
+    test: "tests/unit/policy/test_policy_builder.py::test_policy_builder_creates_profile_policy"
+  - id: AC-2
+    description: "Builder accepts explicit threshold overrides only for supported rule catalog fields and validates units."
+    test: "tests/unit/policy/test_policy_builder.py::test_policy_builder_validates_threshold_overrides"
+  - id: AC-3
+    description: "CLI can write generated policy YAML deterministically for an intake session."
+    test: "tests/integration/test_policy_builder_cli.py::test_policy_builder_cli_writes_yaml"
+
+Files:
+  - trader_risk_audit/policy/
+  - trader_risk_audit/cli.py
+  - tests/unit/policy/test_policy_builder.py
+  - tests/integration/test_policy_builder_cli.py
+
+Context-Refs:
+  - docs/STARTER_POLICY_PROFILES_RU.md
+  - trader_risk_audit/policy/schema.py
+
+Notes: |
+  Keep custom free-text rules outside executable policy until T77 records them
+  as unsupported/manual-review items.
+
+## T76: Rule Builder Prompt Flow
+
+Owner:      codex
+Phase:      18
+Type:       validation
+Depends-On: T75
+Status:     [x] complete - structured policy flow CLI and availability output added
+
+Objective: |
+  Add a local interactive/non-interactive CLI flow that asks only necessary
+  structured questions and outputs a valid policy or actionable blockers.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Non-interactive CLI accepts profile, thresholds, timezone/session, and account label to generate policy without prompts."
+    test: "tests/integration/test_rule_builder_flow_cli.py::test_rule_builder_noninteractive"
+  - id: AC-2
+    description: "Interactive CLI can be tested with provided stdin and never echoes secrets or raw trade rows."
+    test: "tests/integration/test_rule_builder_flow_cli.py::test_rule_builder_interactive_safe_output"
+  - id: AC-3
+    description: "Flow explains unavailable rules from the intake profile and suggests safe alternatives or manual review."
+    test: "tests/unit/policy/test_rule_builder_flow.py::test_rule_builder_explains_unavailable_rules"
+
+Files:
+  - trader_risk_audit/policy/
+  - trader_risk_audit/cli.py
+  - tests/unit/policy/test_rule_builder_flow.py
+  - tests/integration/test_rule_builder_flow_cli.py
+
+Context-Refs:
+  - docs/AUTOMATED_PILOT_ROADMAP.md
+
+Notes: |
+  This can be CLI-only. Do not add web UI or accounts.
+
+## T77: Unsupported Rule Register
+
+Owner:      codex
+Phase:      18
+Type:       validation
+Depends-On: T76
+Status:     [x] complete - sanitized unsupported-rule register and CLI append added
+
+Objective: |
+  Capture prospect free-text or unsupported rule requests as a safe register
+  that can appear in report limitations and evidence, without executing them as
+  deterministic rules.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Unsupported rule register records user text as redacted/sanitized summary with reason code and manual-review status."
+    test: "tests/unit/policy/test_unsupported_rule_register.py::test_register_sanitizes_unsupported_rules"
+  - id: AC-2
+    description: "Generated policy excludes unsupported rules while report/intake artifacts list them as limitations."
+    test: "tests/unit/policy/test_unsupported_rule_register.py::test_unsupported_rules_do_not_enter_policy"
+  - id: AC-3
+    description: "CLI can append unsupported rules without accepting credentials, handles, or private notes."
+    test: "tests/integration/test_unsupported_rule_register_cli.py::test_cli_rejects_sensitive_unsupported_rule_text"
+
+Files:
+  - trader_risk_audit/policy/
+  - trader_risk_audit/cli.py
+  - tests/unit/policy/test_unsupported_rule_register.py
+  - tests/integration/test_unsupported_rule_register_cli.py
+
+Context-Refs:
+  - docs/IMPLEMENTATION_CONTRACT.md
+  - trader_risk_audit/policy/review.py
+
+Notes: |
+  This preserves safety while still measuring what prospects ask for.
+
+## T78: Structured Rule Builder Deep Review
+
+Owner:      codex
+Phase:      18
+Type:       review
+Depends-On: T74, T75, T76, T77
+Status:     [x] complete - Cycle 23 deep review archived with no stop-ship items
+
+Objective: |
+  Run the Phase 18 boundary review for structured policy generation and
+  unsupported-rule handling.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Review checks deterministic rule ownership, unsupported text safety, claim boundaries, and policy validity."
+    test: "manual/review"
+  - id: AC-2
+    description: "Audit index, CODEX prompt, README, evidence index, and phase report are updated with final Phase 18 state."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "Any P0/P1 policy truth or advice-language finding is fixed before Phase 19 begins."
+    test: "manual/review"
+
+Files:
+  - docs/audit/REVIEW_REPORT.md
+  - docs/audit/ARCH_REPORT.md
+  - docs/audit/PHASE_REPORT_LATEST.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/CODEX_PROMPT.md
+  - README.md
+
+Context-Refs:
+  - docs/prompts/ORCHESTRATOR.md
+
+Notes: |
+  This is a phase gate. Do not skip deep review.
+
+## T79: Audit Session Runner
+
+Owner:      codex
+Phase:      19
+Type:       validation
+Depends-On: T78
+Status:     [x] complete - local audit session runner and safe run status added
+Completed:  2026-05-15
+
+Objective: |
+  Add a local one-click runner that consumes an intake session and generated
+  policy, then runs normalization, evaluation, attribution, report, packet, and
+  manifest generation.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Runner executes end-to-end from intake session + policy refs and writes a run status file."
+    test: "tests/integration/test_audit_session_runner.py::test_runner_writes_complete_status"
+  - id: AC-2
+    description: "Runner blocks before report generation when intake status or policy status is not runnable."
+    test: "tests/integration/test_audit_session_runner.py::test_runner_blocks_unready_inputs"
+  - id: AC-3
+    description: "Runner output never includes raw private rows in status, logs, or CLI stdout."
+    test: "tests/integration/test_audit_session_runner.py::test_runner_status_is_safe"
+
+Files:
+  - trader_risk_audit/audit_session/
+  - trader_risk_audit/cli.py
+  - tests/integration/test_audit_session_runner.py
+
+Context-Refs:
+  - trader_risk_audit/cli.py
+  - docs/AUTOMATED_PILOT_ROADMAP.md
+
+Notes: |
+  Use the existing deterministic audit internals. Do not create a long-lived
+  worker or service.
+
+## T80: Artifact Bundle Index
+
+Owner:      codex
+Phase:      19
+Type:       validation
+Depends-On: T79
+Status:     [x] complete - safe local bundle index and summary CLI added
+Completed:  2026-05-15
+
+Objective: |
+  Produce a single local bundle index for every automated audit run that points
+  to input metadata, normalized trades, report, packet, manifest, preview state,
+  and limitation registers.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Bundle index records safe artifact refs, hashes, status, and limitation refs without raw trade rows."
+    test: "tests/unit/audit_session/test_artifact_bundle.py::test_bundle_index_records_safe_refs"
+  - id: AC-2
+    description: "Bundle validation catches missing or drifted required artifacts."
+    test: "tests/unit/audit_session/test_artifact_bundle.py::test_bundle_validation_catches_drift"
+  - id: AC-3
+    description: "CLI can print a concise safe bundle summary for the operator."
+    test: "tests/integration/test_artifact_bundle_cli.py::test_bundle_summary_is_safe"
+
+Files:
+  - trader_risk_audit/audit_session/
+  - trader_risk_audit/cli.py
+  - tests/unit/audit_session/test_artifact_bundle.py
+  - tests/integration/test_artifact_bundle_cli.py
+
+Context-Refs:
+  - trader_risk_audit/artifacts/manifest.py
+
+Notes: |
+  This is the local substitute for a dashboard until Phase 21.
+
+## T81: Automated Run Reproducibility Gate
+
+Owner:      codex
+Phase:      19
+Type:       validation
+Depends-On: T80
+Status:     [x] complete - automated rerun hash gate added
+Completed:  2026-05-15
+
+Objective: |
+  Add a reproducibility gate that can rerun an automated audit session in a
+  separate output directory and compare content hashes before preview or
+  delivery.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Reproducibility gate reruns an audit session and reports matching/mismatched content hash."
+    test: "tests/integration/test_audit_session_reproducibility.py::test_reproducibility_gate_matches_hash"
+  - id: AC-2
+    description: "Mismatches block preview/delivery status and include actionable artifact refs."
+    test: "tests/integration/test_audit_session_reproducibility.py::test_reproducibility_mismatch_blocks_preview"
+  - id: AC-3
+    description: "Gate excludes generated timestamps and local output paths from deterministic comparison."
+    test: "tests/unit/audit_session/test_reproducibility_gate.py::test_reproducibility_excludes_paths_and_timestamps"
+
+Files:
+  - trader_risk_audit/audit_session/
+  - tests/unit/audit_session/test_reproducibility_gate.py
+  - tests/integration/test_audit_session_reproducibility.py
+
+Context-Refs:
+  - trader_risk_audit/artifacts/manifest.py
+  - docs/FIRST_AUDIT_RUN_SEC_FORM4_EN.md
+
+Notes: |
+  Preview should not proceed on nondeterministic artifact drift.
+
+## T82: One-Click Audit Runner Deep Review
+
+Owner:      codex
+Phase:      19
+Type:       review
+Depends-On: T79, T80, T81
+Status:     [x] complete - Cycle 24 deep review archived with no stop-ship items
+Completed:  2026-05-15
+
+Objective: |
+  Run the Phase 19 boundary review for automated audit session execution and
+  reproducibility.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Review checks runner determinism, safe status output, artifact references, and no runtime-tier drift."
+    test: "manual/review"
+  - id: AC-2
+    description: "Audit index, CODEX prompt, README, evidence index, and phase report are updated with final Phase 19 state."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "Any stop-ship artifact drift or raw-data leakage finding is fixed before Phase 20 begins."
+    test: "manual/review"
+
+Files:
+  - docs/audit/REVIEW_REPORT.md
+  - docs/audit/ARCH_REPORT.md
+  - docs/audit/PHASE_REPORT_LATEST.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/CODEX_PROMPT.md
+  - README.md
+
+Context-Refs:
+  - docs/prompts/ORCHESTRATOR.md
+
+Notes: |
+  This is a phase gate. Do not skip deep review.
+
+## T83: Claim-Safe Report Preview Model
+
+Owner:      codex
+Phase:      20
+Type:       validation
+Depends-On: T82
+Status:     [x] complete - redacted claim-safe preview model and CLI added
+Completed:  2026-05-15
+
+Objective: |
+  Generate a limited preview from a completed audit bundle that shows value,
+  limitations, and next action without exposing full source-row tables or unsafe
+  claims.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Preview model includes counts, top rule categories, unsupported fields, and safe source coverage without full raw rows."
+    test: "tests/unit/preview/test_preview_model.py::test_preview_model_is_redacted"
+  - id: AC-2
+    description: "Preview text passes claim guard and contains required no-advice/no-live-control boundary."
+    test: "tests/unit/preview/test_preview_model.py::test_preview_claim_guard"
+  - id: AC-3
+    description: "CLI can generate preview Markdown from an artifact bundle."
+    test: "tests/integration/test_preview_cli.py::test_preview_cli_writes_markdown"
+
+Files:
+  - trader_risk_audit/preview/
+  - trader_risk_audit/cli.py
+  - tests/unit/preview/test_preview_model.py
+  - tests/integration/test_preview_cli.py
+
+Context-Refs:
+  - trader_risk_audit/reporting/claim_guard.py
+  - docs/REPORT_POLISH_SEC_FORM4_EN.md
+
+Notes: |
+  Preview should create enough interest for a paid reviewed report, not give
+  away unsafe or unsupported conclusions.
+
+## T84: Paid Pilot CTA Copy And Package
+
+Owner:      codex
+Phase:      20
+Type:       docs
+Depends-On: T83
+Status:     [x] complete - manual paid-pilot CTA copy and eligible preview packaging added
+Completed:  2026-05-15
+
+Objective: |
+  Attach a narrow paid pilot CTA to preview output with inputs, deliverables,
+  turnaround, pricing hypothesis, and boundaries.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "CTA states one manual reviewed audit report, required inputs, 48-72 hour turnaround, and $49-$149 pricing hypothesis."
+    test: "tests/test_paid_preview_cta.py::test_paid_preview_cta_package_terms"
+  - id: AC-2
+    description: "CTA does not imply SaaS, checkout, advice, live-control, or guaranteed improvement."
+    test: "tests/test_paid_preview_cta.py::test_paid_preview_cta_boundaries"
+  - id: AC-3
+    description: "Preview output includes CTA only when intake/report status is eligible."
+    test: "tests/unit/preview/test_preview_cta.py::test_preview_cta_requires_eligible_status"
+
+Files:
+  - trader_risk_audit/preview/
+  - docs/PAID_PILOT_OFFER_RU.md
+  - docs/PAID_PILOT_OFFER_EN.md
+  - tests/test_paid_preview_cta.py
+  - tests/unit/preview/test_preview_cta.py
+
+Context-Refs:
+  - docs/audit/PHASE16_ARTIFACT_VALIDATION_REVIEW.md
+  - docs/PAID_PILOT_OFFER_RU.md
+
+Notes: |
+  This is CTA copy and local preview packaging, not checkout implementation.
+
+## T85: Preview Conversion Events
+
+Owner:      codex
+Phase:      20
+Type:       validation
+Depends-On: T84
+Status:     [x] complete - privacy-safe preview conversion events and CLI summary added
+Completed:  2026-05-15
+
+Objective: |
+  Record privacy-safe events for preview generated, preview opened, CTA shown,
+  CTA accepted/requested, and objections.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Conversion event schema stores event type, timestamp, intake id, source type, and objection tags without raw rows or private identifiers."
+    test: "tests/unit/evidence/test_preview_events.py::test_preview_event_schema_is_safe"
+  - id: AC-2
+    description: "CLI can append preview/CTA events and summarize counts."
+    test: "tests/integration/test_preview_events_cli.py::test_preview_events_cli_summary"
+  - id: AC-3
+    description: "Events integrate with existing pilot evidence summary without counting demos/open-source samples as paid evidence."
+    test: "tests/unit/evidence/test_preview_events.py::test_preview_events_do_not_count_demo_as_paid"
+
+Files:
+  - trader_risk_audit/evidence.py
+  - trader_risk_audit/cli.py
+  - tests/unit/evidence/test_preview_events.py
+  - tests/integration/test_preview_events_cli.py
+
+Context-Refs:
+  - trader_risk_audit/evidence.py
+  - docs/PILOT_EVIDENCE_LOG_RU.md
+
+Notes: |
+  Evidence must measure hypothesis validation, not vanity usage.
+
+## T86: Paid Unlock Boundary
+
+Owner:      codex
+Phase:      20
+Type:       validation
+Depends-On: T85
+Status:     [x] complete - local paid preview unlock status boundary added
+Completed:  2026-05-15
+
+Objective: |
+  Define local status transitions for preview-only, paid-requested,
+  operator-reviewed, and delivered report packages without implementing
+  payment processing or checkout.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Status model separates preview from full reviewed report and blocks delivery when review/claim safety is missing."
+    test: "tests/unit/preview/test_paid_unlock_boundary.py::test_paid_unlock_status_blocks_unreviewed_delivery"
+  - id: AC-2
+    description: "Paid-requested status records manual payment/intent evidence without storing payment identifiers."
+    test: "tests/unit/preview/test_paid_unlock_boundary.py::test_paid_requested_status_is_privacy_safe"
+  - id: AC-3
+    description: "CLI can mark paid-requested/operator-reviewed/delivered with safe metadata."
+    test: "tests/integration/test_paid_unlock_cli.py::test_paid_unlock_cli_status_flow"
+
+Files:
+  - trader_risk_audit/preview/
+  - trader_risk_audit/evidence.py
+  - trader_risk_audit/cli.py
+  - tests/unit/preview/test_paid_unlock_boundary.py
+  - tests/integration/test_paid_unlock_cli.py
+
+Context-Refs:
+  - docs/PAID_PILOT_OFFER_RU.md
+  - docs/IMPLEMENTATION_CONTRACT.md
+
+Notes: |
+  Do not implement Stripe, checkout, accounts, invoices, or hosted payment data.
+
+## T87: Preview And Paid CTA Deep Review
+
+Owner:      codex
+Phase:      20
+Type:       review
+Depends-On: T83, T84, T85, T86
+Status:     [x] complete - Cycle 25 deep review archived with no stop-ship items
+Completed:  2026-05-15
+
+Objective: |
+  Run the Phase 20 boundary review for claim-safe preview, CTA copy, conversion
+  events, and paid unlock boundary.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Review checks claim safety, preview redaction, paid evidence integrity, and no checkout/SaaS scope creep."
+    test: "manual/review"
+  - id: AC-2
+    description: "Audit index, CODEX prompt, README, evidence index, and phase report are updated with final Phase 20 state."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "Any P0/P1 unsafe claim or payment-data finding is fixed before Phase 21 begins."
+    test: "manual/review"
+
+Files:
+  - docs/audit/REVIEW_REPORT.md
+  - docs/audit/ARCH_REPORT.md
+  - docs/audit/PHASE_REPORT_LATEST.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/CODEX_PROMPT.md
+  - README.md
+
+Context-Refs:
+  - docs/prompts/ORCHESTRATOR.md
+
+Notes: |
+  This is a phase gate. Do not skip deep review.
+
+## T88: Hypothesis Funnel Event Schema
+
+Owner:      codex
+Phase:      21
+Type:       validation
+Depends-On: T87
+Status:     complete
+
+Objective: |
+  Define a single evidence schema for automated hypothesis funnel events:
+  prospect qualified, intake started, valid export, policy built, audit run,
+  preview generated, CTA accepted, paid report, repeat commitment, referral.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Funnel schema supports required event types and rejects raw trade data, credentials, direct identifiers, and payment identifiers."
+    test: "tests/unit/evidence/test_hypothesis_funnel.py::test_funnel_schema_rejects_sensitive_fields"
+  - id: AC-2
+    description: "Event loader can read old pilot evidence rows and new funnel events together."
+    test: "tests/unit/evidence/test_hypothesis_funnel.py::test_funnel_loader_preserves_legacy_rows"
+  - id: AC-3
+    description: "Evidence docs define which events count toward hypothesis gates and which are vanity/demo events."
+    test: "tests/test_hypothesis_evidence_docs.py::test_hypothesis_docs_define_gate_events"
+
+Files:
+  - trader_risk_audit/evidence.py
+  - docs/PILOT_EVIDENCE_LOG_RU.md
+  - docs/HYPOTHESIS_EVIDENCE_DASHBOARD_RU.md
+  - tests/unit/evidence/test_hypothesis_funnel.py
+  - tests/test_hypothesis_evidence_docs.py
+
+Context-Refs:
+  - docs/PILOT_EVIDENCE_LOG_RU.md
+  - docs/audit/PHASE16_ARTIFACT_VALIDATION_REVIEW.md
+
+Notes: |
+  This is measurement infrastructure, not a CRM.
+
+## T89: Evidence Dashboard CLI
+
+Owner:      codex
+Phase:      21
+Type:       validation
+Depends-On: T88
+Status:     complete
+
+Objective: |
+  Add a local dashboard command that summarizes funnel counts, conversion
+  ratios, gate status, objections, unsupported-field blockers, and next action.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Dashboard summarizes counts for qualified prospects, intake started, valid export, preview, CTA accepted, paid report, repeat, and referral."
+    test: "tests/integration/test_hypothesis_dashboard_cli.py::test_dashboard_cli_counts_funnel"
+  - id: AC-2
+    description: "Dashboard excludes demos/open-source samples from paid/PMF evidence while still listing them as artifact evidence."
+    test: "tests/integration/test_hypothesis_dashboard_cli.py::test_dashboard_excludes_demo_from_paid_gate"
+  - id: AC-3
+    description: "Dashboard prints no raw trade rows or private identifiers."
+    test: "tests/integration/test_hypothesis_dashboard_cli.py::test_dashboard_output_is_privacy_safe"
+
+Files:
+  - trader_risk_audit/evidence.py
+  - trader_risk_audit/cli.py
+  - tests/integration/test_hypothesis_dashboard_cli.py
+
+Context-Refs:
+  - docs/HYPOTHESIS_EVIDENCE_DASHBOARD_RU.md
+
+Notes: |
+  Keep this local CLI/report first. Do not build web dashboard yet.
+
+## T90: Hypothesis Gate Rules
+
+Owner:      codex
+Phase:      21
+Type:       validation
+Depends-On: T89
+Status:     complete
+
+Objective: |
+  Encode explicit hypothesis gate rules for proceed / needs more evidence /
+  pivot decisions based on paid audits, repeat commitments, referrals, and
+  blocking objections.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Gate evaluator returns proceed when thresholds are met: 10 qualified, 5 valid exports/rules, 3 paid reports, 2 repeat/referral signals."
+    test: "tests/unit/evidence/test_hypothesis_gates.py::test_gate_evaluator_proceed"
+  - id: AC-2
+    description: "Gate evaluator returns needs_more_evidence or pivot with concrete reasons when thresholds are not met or objections dominate."
+    test: "tests/unit/evidence/test_hypothesis_gates.py::test_gate_evaluator_needs_more_or_pivot"
+  - id: AC-3
+    description: "Gate docs warn that uploads/API connections alone are not PMF."
+    test: "tests/test_hypothesis_evidence_docs.py::test_hypothesis_docs_reject_vanity_metrics"
+
+Files:
+  - trader_risk_audit/evidence.py
+  - docs/HYPOTHESIS_EVIDENCE_DASHBOARD_RU.md
+  - tests/unit/evidence/test_hypothesis_gates.py
+  - tests/test_hypothesis_evidence_docs.py
+
+Context-Refs:
+  - docs/INTERNAL_DEMO_PACK_SEC_FORM4_EN.md
+  - docs/PAID_PILOT_OFFER_RU.md
+
+Notes: |
+  This is the product decision gate before larger automation investments.
+
+## T91: Privacy-Safe Evidence Export
+
+Owner:      codex
+Phase:      21
+Type:       validation
+Depends-On: T90
+Status:     complete
+
+Objective: |
+  Export hypothesis evidence as a sanitized CSV/Markdown report for review,
+  preserving metrics and objections while excluding raw user data.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Export command writes CSV and Markdown summaries with aggregate counts, gate verdict, and objection tags."
+    test: "tests/integration/test_evidence_export_cli.py::test_evidence_export_writes_safe_reports"
+  - id: AC-2
+    description: "Export scanner rejects emails, phone numbers, Telegram handles, payment ids, credentials, and raw row-like fields."
+    test: "tests/unit/evidence/test_evidence_export_privacy.py::test_evidence_export_rejects_sensitive_fields"
+  - id: AC-3
+    description: "Export includes enough provenance to reproduce gate calculation from source event log."
+    test: "tests/unit/evidence/test_evidence_export_privacy.py::test_evidence_export_includes_provenance"
+
+Files:
+  - trader_risk_audit/evidence.py
+  - trader_risk_audit/cli.py
+  - tests/unit/evidence/test_evidence_export_privacy.py
+  - tests/integration/test_evidence_export_cli.py
+
+Context-Refs:
+  - docs/IMPLEMENTATION_CONTRACT.md
+
+Notes: |
+  This report can support investor/advisor discussions without exposing users.
+
+## T92: Hypothesis Evidence Dashboard Deep Review
+
+Owner:      codex
+Phase:      21
+Type:       review
+Depends-On: T88, T89, T90, T91
+Status:     complete
+
+Objective: |
+  Run the Phase 21 boundary review for automated evidence capture, dashboard,
+  gate rules, and privacy-safe export.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Review checks evidence integrity, vanity metric separation, privacy safety, and gate correctness."
+    test: "manual/review"
+  - id: AC-2
+    description: "Audit index, CODEX prompt, README, evidence index, and phase report are updated with final Phase 21 state."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "Any P0/P1 privacy or false-PMF finding is fixed before Phase 22 begins."
+    test: "manual/review"
+
+Files:
+  - docs/audit/REVIEW_REPORT.md
+  - docs/audit/ARCH_REPORT.md
+  - docs/audit/PHASE_REPORT_LATEST.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/CODEX_PROMPT.md
+  - README.md
+
+Context-Refs:
+  - docs/prompts/ORCHESTRATOR.md
+
+Notes: |
+  This is a phase gate. Do not skip deep review.
+
+## T93: CSV Friction Decision Gate
+
+Owner:      operator + codex
+Phase:      22
+Type:       review
+Depends-On: T92
+Status:     complete
+
+Objective: |
+  Decide from Phase 21 evidence whether CSV/export upload friction justifies
+  implementing real local read-only exchange network fetching.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Decision report quantifies CSV/export blockers, valid-export drop-off, API-request objections, and paid-intent evidence."
+    test: "manual-evidence: CSV friction decision report exists."
+  - id: AC-2
+    description: "Decision is proceed / defer / reject for real read-only fetch, with explicit safety and commercial rationale."
+    test: "manual-evidence: decision verdict exists."
+  - id: AC-3
+    description: "If proceed, ADR update task is activated before implementation; if defer/reject, T94-T97 remain blocked."
+    test: "manual/docs-review"
+
+Files:
+  - docs/EXCHANGE_API_IMPORT_PLAN_RU.md
+  - docs/HYPOTHESIS_EVIDENCE_DASHBOARD_RU.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+  - docs/tasks.md
+
+Context-Refs:
+  - docs/adr/ADR-002-read-only-exchange-import.md
+  - docs/HYPOTHESIS_EVIDENCE_DASHBOARD_RU.md
+
+Notes: |
+  Do not implement real exchange network fetching unless this gate says proceed.
+
+## T94: Real Read-Only Import ADR Update
+
+Owner:      codex
+Phase:      22
+Type:       docs
+Depends-On: T93
+Status:     blocked_by_t93_defer
+
+Objective: |
+  If T93 says proceed, update ADR-002 or add a new ADR for minimal real local
+  read-only exchange network fetching with no hosted secrets and no write/control
+  endpoints.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "ADR states allowed exchange(s), endpoints, credential input method, redaction rules, rate-limit behavior, and stop conditions."
+    test: "manual/docs-review"
+  - id: AC-2
+    description: "ADR explicitly forbids hosted secrets, write/control endpoints, withdrawals, transfers, order placement, order cancellation, leverage/margin mutation, and Telegram credential collection."
+    test: "tests/test_exchange_import_runbook.py::test_exchange_runbook_preserves_boundaries"
+  - id: AC-3
+    description: "CODEX prompt, tasks, and exchange import plan reflect the ADR decision before any code implementation."
+    test: "manual/docs-review"
+
+Files:
+  - docs/adr/ADR-002-read-only-exchange-import.md
+  - docs/EXCHANGE_API_IMPORT_PLAN_RU.md
+  - docs/CODEX_PROMPT.md
+  - docs/tasks.md
+
+Context-Refs:
+  - docs/adr/ADR-002-read-only-exchange-import.md
+  - docs/EXCHANGE_IMPORT_GUIDE_EN.md
+  - docs/EXCHANGE_IMPORT_GUIDE_RU.md
+
+Notes: |
+  This task is conditional. If T93 is not proceed, mark blocked/deferred.
+
+## T95: Minimal Local Real Fetch Path
+
+Owner:      codex
+Phase:      22
+Type:       validation
+Depends-On: T94
+Status:     blocked_by_t93_defer
+
+Objective: |
+  Implement the smallest real local read-only fetch path approved by ADR:
+  explicit symbol/category/range, local env/prompt secrets, redacted request
+  metadata, raw snapshot, no hosted secret storage, no write/control endpoints.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Fetch command requires explicit scope and refuses missing symbol/category/range or non-read-only permission status."
+    test: "tests/integration/test_real_read_only_fetch_cli.py::test_fetch_requires_explicit_scope"
+  - id: AC-2
+    description: "Fetched raw snapshot and logs contain no credentials, signatures, account ids, or secret-bearing request strings."
+    test: "tests/integration/test_real_read_only_fetch_redaction.py::test_real_fetch_redacts_secrets"
+  - id: AC-3
+    description: "Endpoint allowlist excludes order/write/withdraw/transfer/leverage/margin mutation endpoints."
+    test: "tests/unit/exchange/test_real_fetch_endpoint_allowlist.py::test_real_fetch_has_no_write_endpoints"
+
+Files:
+  - trader_risk_audit/exchange/
+  - trader_risk_audit/cli.py
+  - tests/unit/exchange/test_real_fetch_endpoint_allowlist.py
+  - tests/integration/test_real_read_only_fetch_cli.py
+  - tests/integration/test_real_read_only_fetch_redaction.py
+
+Context-Refs:
+  - docs/adr/ADR-002-read-only-exchange-import.md
+  - docs/EXCHANGE_IMPORT_GUIDE_EN.md
+
+Notes: |
+  This task may need network-mocked tests by default and manual real-run notes
+  outside git. Do not commit real account data.
+
+## T96: Real Import To Automated Runner
+
+Owner:      codex
+Phase:      22
+Type:       validation
+Depends-On: T95
+Status:     blocked_by_t93_defer
+
+Objective: |
+  Connect the approved real read-only raw snapshot path to the automated intake
+  profiler and one-click audit runner.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Real read-only snapshot can be profiled into safe intake metadata and unsupported-field report."
+    test: "tests/integration/test_real_import_to_intake.py::test_real_snapshot_profiles_to_intake"
+  - id: AC-2
+    description: "Normalized output from real read-only snapshot can feed audit session runner deterministically."
+    test: "tests/integration/test_real_import_to_runner.py::test_real_import_feeds_runner"
+  - id: AC-3
+    description: "Evidence events distinguish CSV pilots from real read-only import pilots without treating API connection as PMF."
+    test: "tests/unit/evidence/test_real_import_evidence.py::test_real_import_evidence_is_not_pmf"
+
+Files:
+  - trader_risk_audit/exchange/
+  - trader_risk_audit/intake/
+  - trader_risk_audit/audit_session/
+  - trader_risk_audit/evidence.py
+  - tests/integration/test_real_import_to_intake.py
+  - tests/integration/test_real_import_to_runner.py
+  - tests/unit/evidence/test_real_import_evidence.py
+
+Context-Refs:
+  - docs/HYPOTHESIS_EVIDENCE_DASHBOARD_RU.md
+  - docs/adr/ADR-002-read-only-exchange-import.md
+
+Notes: |
+  Keep CSV fallback visible. API connection success alone is not validation.
+
+## T97: Conditional Real Import Deep Review
+
+Owner:      codex
+Phase:      22
+Type:       review
+Depends-On: T93, T94, T95, T96
+Status:     blocked_by_t93_defer
+
+Objective: |
+  Run the Phase 22 boundary review for the CSV-friction decision and any
+  approved real read-only import implementation.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Review checks evidence justification, ADR compliance, secrets, permissions, endpoint allowlist, reproducibility, and no live-control scope."
+    test: "manual/review"
+  - id: AC-2
+    description: "Audit index, CODEX prompt, README, evidence index, and phase report are updated with final Phase 22 state."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "Any P0/P1 secret, permission, or exchange-control finding is fixed before real import is considered validated."
+    test: "manual/review"
+
+Files:
+  - docs/audit/REVIEW_REPORT.md
+  - docs/audit/ARCH_REPORT.md
+  - docs/audit/PHASE_REPORT_LATEST.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/CODEX_PROMPT.md
+  - README.md
+
+Context-Refs:
+  - docs/prompts/ORCHESTRATOR.md
+  - docs/adr/ADR-002-read-only-exchange-import.md
+
+Notes: |
+  This is a phase gate. Do not skip deep review.

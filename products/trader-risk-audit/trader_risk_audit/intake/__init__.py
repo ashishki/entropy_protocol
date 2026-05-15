@@ -5,6 +5,27 @@ from dataclasses import dataclass
 from io import StringIO
 from pathlib import Path
 
+from trader_risk_audit.intake.profiler import (
+    CsvSchemaProfile,
+    profile_csv_schema,
+    profile_from_intake_session,
+    write_csv_schema_profile,
+)
+from trader_risk_audit.intake.report import (
+    IntakeReport,
+    build_intake_report,
+    write_intake_report,
+)
+from trader_risk_audit.intake.session import (
+    INTAKE_SESSION_STATUSES,
+    INTAKE_SOURCE_TYPES,
+    IntakePrivacyFlags,
+    IntakeSession,
+    IntakeSessionError,
+    build_intake_session,
+    transition_intake_session,
+    write_intake_session,
+)
 from trader_risk_audit.policy.profiles import CUSTOM_PROFILE, STARTER_PROFILES
 from trader_risk_audit.trades.schema import TradeRecord, TradeValidationError
 
@@ -217,3 +238,28 @@ def _build_column_map(fieldnames: tuple[str, ...]) -> dict[str, str]:
 
 def _normalize_column(column: str) -> str:
     return column.strip().casefold().replace("-", "_").replace(" ", "_")
+
+
+__all__ = [
+    "INTAKE_SESSION_STATUSES",
+    "INTAKE_SOURCE_TYPES",
+    "MAX_INTAKE_FILE_BYTES",
+    "CsvSchemaProfile",
+    "IntakeFile",
+    "IntakePrivacyFlags",
+    "IntakeReport",
+    "IntakeSession",
+    "IntakeSessionError",
+    "IntakeValidationIssue",
+    "IntakeValidationResult",
+    "build_intake_session",
+    "build_intake_report",
+    "profile_csv_schema",
+    "profile_from_intake_session",
+    "transition_intake_session",
+    "validate_intake_files",
+    "validate_uploaded_trade_file",
+    "write_csv_schema_profile",
+    "write_intake_session",
+    "write_intake_report",
+]
