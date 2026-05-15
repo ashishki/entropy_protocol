@@ -1,36 +1,77 @@
 # Signal Analytics Sandbox Workspace
 
-Purpose:
+Report-product candidate for public Telegram/X-style source analytics. It is
+separate from Entropy Core and Trader Risk Audit.
 
-Validate whether public Telegram/X signal-source analytics is a paid product
-wedge separate from Entropy Core and Trader Risk Audit.
+## Current Status
 
-## Scope In
+- Phase: 21 Artifact-First Real Public-Source Report Validation
+- Next task: SAS-AF-001 Channel And Report Scope Lock
+- Baseline: 157 passing tests, 0 skipped
+- Current priority: validate one real public-source report artifact
 
-- Public source ledger.
-- Manual signal extraction.
-- Timestamped signal record.
-- Historical signal outcome report.
-- Legal/terms risk memo.
+## Promise
 
-## Scope Out
-
-- Private Telegram group scraping.
-- Scraping behind access controls.
-- Paid X API dependence before validation.
-- Signal marketplace.
-- Claims that signals are investment advice.
-- Contamination of Entropy Core evidence.
+Analyze a public source/channel and produce a bounded research report covering
+source evidence, reviewed market ideas/signals, ambiguity, historical outcomes
+where supported, and limitations.
 
 ## Read First
 
 1. `docs/CODEX_PROMPT.md`
-2. `docs/tasks.md`
-3. `../../docs/PRODUCT_PORTFOLIO.md`
-4. `../../docs/AI_DEVELOPMENT_OPERATING_MODEL.md`
+2. `docs/ARTIFACT_VALIDATION_ROADMAP.md`
+3. `../../docs/ARTIFACT_FIRST_VALIDATION_ROADMAP.md`
+4. `docs/tasks.md` Phase 21, SAS-AF-001..008
+5. `docs/legal_risk_memo.md`
 
-## Local AI Workflow
+## Implemented Surface
 
-This workspace has its own `PLAYBOOK.md`, `prompts/`, `templates/`, `hooks/`,
-`ci/`, and `.claude/` configuration. Do not rely on root-level workflow files
-for Signal Analytics Sandbox development.
+- source manifests and public capture workflows;
+- signal/MarketIdea schemas and review queues;
+- local market-data snapshots and deterministic horizon metrics;
+- Author Market Intelligence flow;
+- report exports;
+- media artifact metadata, transcript/OCR draft paths, and multimodal source
+  joins;
+- reviewer coverage pack for existing `bablos79` corpus.
+
+Historical detail lives in `docs/IMPLEMENTATION_JOURNAL.md`, `docs/archive/`,
+`AGENT_NOTES.md`, and `docs/tasks.md`.
+
+## Artifact-First Work
+
+Active phase tasks:
+
+- SAS-AF-001 source/report scope lock;
+- SAS-AF-002 public capture pack;
+- SAS-AF-003 human review queue closure;
+- SAS-AF-004 market data/outcome prep;
+- SAS-AF-005 first real report;
+- SAS-AF-006 manual validity review;
+- SAS-AF-007 internal demo pack;
+- SAS-AF-008 external pilot ready gate.
+
+## Scope In
+
+- public source ledger;
+- manual/reviewed extraction;
+- timestamped signal or MarketIdea records;
+- historical outcome reports where evidence supports them;
+- legal/terms risk boundary.
+
+## Scope Out
+
+- private Telegram scraping;
+- access-control bypass;
+- paid X/Twitter dependency before validation;
+- marketplace/leaderboard;
+- investment advice or future-profit claims;
+- contamination of Entropy Core evidence.
+
+## Local Commands
+
+```bash
+python -m pip install -r requirements-dev.txt -e .
+signal-sandbox --help
+python -m pytest tests/ -q
+```

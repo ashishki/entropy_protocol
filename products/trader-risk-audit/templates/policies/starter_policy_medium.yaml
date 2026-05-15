@@ -1,0 +1,42 @@
+schema_version: "1"
+account_scope:
+  - acct_public_sample_001
+timezone: UTC
+session:
+  start: "00:00"
+  end: "23:59"
+rules:
+  - rule_id: starter_medium_max_daily_loss
+    type: max_daily_loss
+    threshold: "2000"
+    unit: USD
+    params:
+      rationale: "Approximate 2% daily-loss audit threshold for a 100000 USD example account."
+  - rule_id: starter_medium_max_drawdown
+    type: max_drawdown
+    threshold: "5000"
+    unit: USD
+    params:
+      rationale: "Approximate 5% drawdown audit threshold for a 100000 USD example account."
+  - rule_id: starter_medium_cooldown_after_loss
+    type: cooldown_after_loss
+    threshold: "30"
+    unit: minutes
+    params:
+      loss_threshold: "750"
+      cooldown_minutes: 30
+      rationale: "Baseline cooldown after a material realized loss; customize for trading cadence."
+  - rule_id: starter_medium_max_position_size
+    type: max_position_size
+    threshold: "15000"
+    unit: USD
+    params:
+      rationale: "Approximate 15% gross exposure cap for a 100000 USD example account."
+  - rule_id: starter_medium_forbidden_assets
+    type: forbidden_assets
+    threshold: null
+    unit: symbol
+    params:
+      symbols:
+        - CUSTOM_FORBIDDEN_SYMBOL
+      rationale: "Placeholder list; replace with trader-specific or account-specific forbidden assets."

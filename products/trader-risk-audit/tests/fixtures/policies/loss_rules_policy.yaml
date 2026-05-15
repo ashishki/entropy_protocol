@@ -1,0 +1,25 @@
+schema_version: "1"
+account_scope:
+  - acct_demo_001
+timezone: UTC
+session:
+  start: "00:00"
+  end: "23:59"
+rules:
+  - rule_id: rule_max_daily_loss
+    type: max_daily_loss
+    threshold: "50"
+    unit: USD
+    params: {}
+  - rule_id: rule_max_drawdown
+    type: max_drawdown
+    threshold: "50"
+    unit: USD
+    params: {}
+  - rule_id: rule_cooldown_after_loss
+    type: cooldown_after_loss
+    threshold: null
+    unit: minutes
+    params:
+      loss_threshold: "50"
+      cooldown_minutes: 30

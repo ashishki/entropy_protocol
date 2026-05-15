@@ -1,0 +1,34 @@
+{
+  "endpoint_family": "execution_history",
+  "exchange": "bybit",
+  "fields_removed": [
+    "api_key",
+    "api_secret",
+    "signature",
+    "account_id",
+    "account_balance",
+    "customer_identifiers",
+    "private_notes"
+  ],
+  "fixture_label": "synthetic_exchange_fixture",
+  "intended_use": "regression_test_only",
+  "privacy_review_date": "2026-05-09",
+  "privacy_reviewed_by": "operator",
+  "records": [
+    {
+      "category": "linear",
+      "exec_fee": "0.44",
+      "exec_id": "synthetic_exec_bybit_001",
+      "exec_price": "64000.50",
+      "exec_qty": "0.010",
+      "exec_time": "2026-04-01T12:00:00Z",
+      "fee_currency": "USDT",
+      "is_maker": false,
+      "order_id": "synthetic_order_bybit_001",
+      "side": "Buy",
+      "source_row_id": "synthetic_bybit_row_001",
+      "symbol": "BTCUSDT"
+    }
+  ],
+  "source_type": "synthetic"
+}

@@ -1,0 +1,47 @@
+schema_version: "1"
+account_scope:
+  - acct_public_sample_001
+timezone: UTC
+session:
+  start: "00:00"
+  end: "23:59"
+rules:
+  - rule_id: public_sample_hard_max_daily_loss
+    type: max_daily_loss
+    threshold: "1000"
+    unit: USD
+    params:
+      starter_profile: hard
+      rationale: "Approximate 1% daily-loss audit threshold for a 100000 USD example account."
+  - rule_id: public_sample_hard_max_drawdown
+    type: max_drawdown
+    threshold: "3000"
+    unit: USD
+    params:
+      starter_profile: hard
+      rationale: "Approximate 3% drawdown audit threshold for a 100000 USD example account."
+  - rule_id: public_sample_hard_cooldown_after_loss
+    type: cooldown_after_loss
+    threshold: "60"
+    unit: minutes
+    params:
+      starter_profile: hard
+      loss_threshold: "500"
+      cooldown_minutes: 60
+      rationale: "Strict cooldown after a material realized loss for internal stress testing."
+  - rule_id: public_sample_hard_max_position_size
+    type: max_position_size
+    threshold: "10000"
+    unit: USD
+    params:
+      starter_profile: hard
+      rationale: "Approximate 10% gross exposure cap for a 100000 USD example account."
+  - rule_id: public_sample_hard_forbidden_assets
+    type: forbidden_assets
+    threshold: null
+    unit: symbol
+    params:
+      starter_profile: hard
+      symbols:
+        - RISKY
+      rationale: "Public sample placeholder forbidden symbol for deterministic source-row traceability."

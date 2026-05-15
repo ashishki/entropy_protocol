@@ -1,0 +1,20 @@
+# Trader Risk Audit pilot intake request.
+# Fill with non-sensitive labels only. Do not include API keys, passwords, real
+# customer identifiers, Telegram handles, emails, or broker account numbers.
+trader_label: "demo_trader_label"
+broker_or_platform: "example_platform"
+export_file_name: "trades.csv"
+export_file_type: "csv" # csv | xlsx_candidate
+account_currency: "USD"
+timezone: "UTC"
+session_start: "09:30"
+session_end: "16:00"
+audit_period_start: "2026-03-01"
+audit_period_end: "2026-03-31"
+risk_rules_file: "risk_rules.md"
+known_export_limitations:
+  - "No known limitations"
+operator_review:
+  ambiguous_rules_require_approval: true
+  unsupported_export_columns_require_approval: true
+  report_delivery_requires_approval: true

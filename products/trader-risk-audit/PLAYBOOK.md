@@ -33,7 +33,7 @@ The repository is easiest to evolve safely if you interpret it through four logi
 1. **Policy / Governance** — phases, contracts, review policy, stop conditions, immutable rules
 2. **Proof / Evidence** — explicit evidence collection, evaluation artifacts, selective proof-first handling for risky work
 3. **Optional Execution Patterns** — parallel subagents, isolated worktrees, fanout/merge, runtime selection
-4. **Harness / Packaging** — hooks, Claude Code settings, bootstrap, templates, install story
+4. **Harness / Packaging** — Codex tmux launcher, checkpoint files, validation scripts, bootstrap, templates, install story
 
 This interpretation does not replace the operational layer map below. It clarifies what the playbook is optimizing for: governance first, execution substrate second.
 
@@ -86,18 +86,16 @@ Guardrails:
 
 ### Operational Load Distribution
 
-To avoid burning one model family's limits unnecessarily, distribute work by role:
-
-- **Claude / architecture-grade model**: Strategist, Phase 1 Validator, phase-boundary strategy review, deep review, architectural ambiguity resolution
-- **Codex / implementation-grade model**: task execution, narrow-scope fixes, tests, lint, local refactors within declared file scope
+All development roles are executed by the already-running Codex agent in the product tmux window. There is no external AI-session dependency and the normal loop must not spawn `codex`, `codex exec`, or any nested AI process.
 
 Operational rules:
-- do not spend architecture-grade context on routine file edits
-- do not spend implementation-grade runs on broad architecture reasoning
-- prefer small tasks with explicit file scope; this reduces token load for both sides
-- prefer pre-digested implementation prompts; do not make Codex reconstruct narrow task context from multiple long docs unless the task genuinely needs broad retrieval
+- keep one active tmux window per product and let that product agent advance at its own pace
+- preserve the role order: Strategist -> Orchestrator -> Implementer -> Reviewer -> Human gate
+- use fresh Codex context at phase boundaries when useful, but restart in the same product tmux window after writing handoff files
+- prefer small tasks with explicit file scope; this reduces context load and keeps phase handoffs clean
+- prefer pre-digested implementation prompts; do not make the active Codex agent reconstruct narrow task context from multiple long docs unless the task genuinely needs broad retrieval
 - run deep review only at phase boundaries or real risk boundaries, not after every small task
-- compact `CODEX_PROMPT.md` and phase history regularly so both agents read summaries, not full history
+- compact `CODEX_PROMPT.md`, `AGENT_NOTES.md`, and phase history regularly so a fresh Codex session reads summaries, not full history
 
 ---
 
@@ -743,39 +741,59 @@ A task whose `Type:` tag matches any row above is **not complete** until:
 
 ---
 
-## 2e. Session Start Ritual — The Loop Mechanism
+## 2e. Product Codex Loop — The Loop Mechanism
 
-This is the mechanism that makes the workflow run autonomously without manual step-by-step prompting.
+This is the mechanism that lets each product agent run autonomously inside its
+own tmux window without manual step-by-step prompting.
 
 ### The Problem It Solves
 
-Without a structured session start, the developer acts as the orchestrator — manually triggering each step (implement, review, archive, doc update, phase report). Each pause is a gap where context is lost and steps get skipped.
+Without a structured loop, the developer becomes the orchestrator: manually
+triggering each step, deciding when to review, and remembering what changed.
+Each pause is a gap where context is lost and steps get skipped.
 
-With the ritual, the orchestrator drives the entire cycle from a single paste. The developer's only job is approving phase gates and resolving blockers.
+With the loop, the already-running product Codex agent drives the cycle from
+project files. The developer's job is approving phase gates, resolving true
+blockers, and restarting a fresh context when a phase handoff is ready.
 
 ### How It Works
 
-Every session begins with a single action:
+The product Codex agent is started once by the VPS tmux launcher. Normal
+development does not call `codex`, `codex exec`, another AI coding session, or any nested AI
+process from inside the loop.
 
-```
-/orchestrate
-```
+At the beginning of a work segment, the active Codex agent reads:
 
-This slash command reads `docs/prompts/ORCHESTRATOR.md` and executes it. It is installed automatically when a project is bootstrapped — the file lives at `.claude/commands/orchestrate.md`. If the command is not available (e.g. legacy project), fall back to pasting the full contents of `docs/prompts/ORCHESTRATOR.md` manually.
+- `RUNBOOK.md`
+- `AGENT_NOTES.md`
+- `PHASE_HANDOFF.md` if it exists
+- `docs/CODEX_PROMPT.md`
+- `docs/tasks.md`
 
-The orchestrator then:
-1. Reads `docs/CODEX_PROMPT.md` and `docs/tasks.md` to determine current state
+The agent then:
+1. Reads current state from files
 2. Prints an `=== ORCHESTRATOR STATE ===` block showing what it sees
-3. Drives the full loop: Fix Queue → Strategy → Implement → Light Review → (if phase boundary) Deep Review → Archive → Doc Update → Phase Report → checkpoint → next task
+3. Drives the full loop: Fix Queue -> Strategy -> Implement -> Light Review -> (if phase boundary) Deep Review -> Archive -> Doc Update -> Phase Report -> checkpoint -> next task
 
-No manual prompting is needed between steps. The orchestrator stops only when:
-- A task is blocked `[!]` and needs human input
-- A P0 finding cannot be resolved after 2 attempts
-- All tasks are complete
-- An API rate limit is hit (sends notification with resume time)
-- A transient provider failure persists after one retry (prints `PROVIDER_FAILURE:` and saves checkpoint)
+No nested prompt execution is needed between steps.
 
-A budget-interrupted task (implementation agent returns BLOCKED citing context or iteration limits) is **not** a stop condition — the Orchestrator adds remaining work to the Fix Queue and continues normally.
+### Stop And Rollover Policy
+
+The only unplanned stop condition is account/model limits until the next reset.
+When limits are hit, the agent must write a checkpoint and stop cleanly with the
+best known reset/resume time.
+
+Planned pauses are different from stops:
+
+- **Human gate:** checkpoint, state the question, and wait.
+- **Phase boundary:** write `PHASE_HANDOFF.md`, update `AGENT_NOTES.md`, record
+  validation and git status, then optionally restart a fresh Codex context in
+  the same tmux window.
+- **Project complete:** write the final report and stop.
+
+A budget-interrupted task is not a failure. The Orchestrator adds remaining work
+to the Fix Queue and continues if context remains usable; otherwise it performs
+a phase-style handoff and resumes in a fresh context.
 
 ### What ORCHESTRATOR.md Must Contain
 
@@ -785,7 +803,7 @@ Every project's `docs/prompts/ORCHESTRATOR.md` must have all 7 steps filled in w
 |---|---|
 | Project name | Used in all agent system prompts |
 | Project root | Absolute path on disk |
-| Implementation agent command | `codex exec` or `Agent tool (general-purpose)` — whichever is available |
+| Product Codex runtime | already-running tmux Codex agent; no nested `codex exec` in normal loop |
 | Test command | `pytest tests/ -q` or `python3 -m unittest discover tests/ -q` |
 | Lint command | `ruff check` or skip if not enforced |
 | Notification channel | Telegram bot, Slack, desktop notify, or remove if not needed |
@@ -817,7 +835,7 @@ If a project already has code but lacks the workflow scaffolding:
 5. Copy audit prompt templates to `docs/audit/`
 6. Create `docs/audit/AUDIT_INDEX.md` (start at Cycle 1)
 
-After retrofit, paste ORCHESTRATOR.md and the loop runs identically to a greenfield project.
+After retrofit, continue from ORCHESTRATOR.md in the already-running product Codex tmux window. The loop runs identically to a greenfield project without spawning nested Codex.
 
 For a practical retrofit sequence, see `docs/usage_guide.md`.
 
@@ -1005,7 +1023,7 @@ PROMPT_1 (META) and PROMPT_2 (ARCH) can run concurrently — they read different
 
 A user-triggered pass focused on reducing redundancy, dead code, over-abstraction, and over-comment density. Runs separately from the mandatory META → ARCH → CODE → CONSOLIDATED cycle. It is opt-in and experimental — see §8 Experiment E5 in the integration assessment.
 
-- **Trigger:** explicit user invocation (e.g. via `templates/.claude/commands/simplify.md`). Never automatic. Never part of the mandatory phase-boundary cycle.
+- **Trigger:** explicit user invocation in the current Codex tmux window. Never automatic. Never part of the mandatory phase-boundary cycle.
 - **Scope:** a user-named file or directory list, or — only as fallback — the scope from the most recent META analysis.
 - **Output:** `docs/audit/SIMPLIFICATION_REPORT.md` (overwrite per pass; row prefix `SIMP-N` so it does not collide with `CYCLE-N`).
 - **Approved simplifications** become normal Codex tasks with behavior-preservation acceptance criteria — existing tests pass, a new test pins the prior behavior when needed, and the complexity metric improves by a stated delta. The task runs through normal light or deep review like any other.
@@ -1331,21 +1349,21 @@ Observability operates at three independent layers. Each layer addresses a diffe
 
 ---
 
-### Layer 1: Process observability — Claude Code hooks
+### Layer 1: Process observability — validation scripts and optional hooks
 
 Hooks execute at the shell process level, independent of LLM decisions. They enforce the hardest-to-enforce rules and provide an independent audit trail.
 
 | Hook event | File | What it does |
 |-----------|------|-------------|
 | `PreToolUse(Write\|Edit\|MultiEdit)` | `hooks/guard_files.sh` | Blocks writes to `docs/IMPLEMENTATION_CONTRACT.md`, `prompts/ORCHESTRATOR.md`, and `docs/audit/AUDIT_INDEX.md`. Exit 2 stops the tool and feeds the reason back to the Orchestrator. |
-| `PostToolUse(Bash)` | `hooks/log_bash.sh` | Appends every Bash command and its exit code to `docs/hooks_log.txt`, tagged with `[TASK:T##]` when `CURRENT_TASK` env var is set by the orchestrator's Execute block. For `codex exec` invocations, also extracts and logs `IMPLEMENTATION_RESULT: DONE\|BLOCKED`. Async — does not slow the Orchestrator. |
-| `Stop` | `hooks/save_checkpoint.sh` | Writes active task, Fix Queue size, and timestamp to `/tmp/orchestrator_checkpoint.md` whenever the Claude Code session ends. If `NOTIFICATION_TOKEN` and `NOTIFICATION_TARGET` env vars are set and `SILENT` ≠ 1, also sends a brief resume summary to the configured notification channel. Set `SILENT=1` for automated or cron-driven sessions to suppress delivery while still writing the checkpoint file. |
+| `PostToolUse(Bash)` | `hooks/log_bash.sh` | Appends every Bash command and its exit code to `docs/hooks_log.txt`, tagged with `[TASK:T##]` when `CURRENT_TASK` env var is set by the orchestrator's Execute block. Async — does not slow the Orchestrator. |
+| `Stop` | `hooks/save_checkpoint.sh` | Writes active task, Fix Queue size, and timestamp to `/tmp/orchestrator_checkpoint.md` whenever the Codex tmux work segment ends. If `NOTIFICATION_TOKEN` and `NOTIFICATION_TARGET` env vars are set and `SILENT` ≠ 1, also sends a brief resume summary to the configured notification channel. Set `SILENT=1` for automated or cron-driven sessions to suppress delivery while still writing the checkpoint file. |
 
 **Activation** (per project, not in this template repo):
 1. Copy `hooks/` from the playbook to your project root.
-2. Copy `templates/.claude/settings.json` to `.claude/settings.json` in your project root.
+2. If your environment supports hooks, wire them into that environment. In the VPS tmux Codex setup, treat these scripts as manual/CI validation helpers unless explicitly integrated.
 3. Make scripts executable: `chmod +x hooks/*.sh`
-4. Verify: Claude Code will now block writes to protected files and log all Bash commands.
+4. Verify: protected-file checks and command logging run through your chosen manual or CI validation path.
 
 Override the protected file list via `PLAYBOOK_PROTECTED_FILES` env var (colon-separated paths). Override the log path via `PLAYBOOK_HOOKS_LOG`.
 
@@ -1353,7 +1371,7 @@ Per-session env vars:
 
 | Variable | Hook | Effect |
 |----------|------|--------|
-| `CURRENT_TASK=T07` | `log_bash.sh` | Tags every log line with the active task ID — set this in the orchestrator's Execute block before each `codex exec` call |
+| `CURRENT_TASK=T07` | `log_bash.sh` | Tags every log line with the active task ID — set this before validation commands when useful |
 | `SILENT=1` | `save_checkpoint.sh` | Suppresses session-end notification; checkpoint file is still written — use for cron or automated sessions |
 | `NOTIFICATION_TOKEN=<bot_token>` | `save_checkpoint.sh` | Telegram bot token for session-end push — omit to disable |
 | `NOTIFICATION_TARGET=<chat_id>` | `save_checkpoint.sh` | Telegram chat ID for session-end push — omit to disable |
