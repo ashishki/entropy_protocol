@@ -1,0 +1,23 @@
+{
+  "artifact_contract_version": "entropy-core-artifact/v1",
+  "product": "internal-core-fixture",
+  "run_id": "run-2026-05-14-002",
+  "input_refs": [
+    "fixtures/artifacts/input-manifest.json"
+  ],
+  "policy_config_hash": "sha256:policy",
+  "code_version_ref": "git:abcdef123456",
+  "generated_artifact_refs": [
+    "reports/internal-fixture.md"
+  ],
+  "limitations": [
+    "synthetic fixture only"
+  ],
+  "no_claim_boundary": [
+    "production"
+  ],
+  "manual_validation_status": "validated_for_public_release",
+  "error_register_ref": "error-registers/internal-fixture.md",
+  "external_delivery_approval_status": "approved_for_production",
+  "unexpected_claim_surface": "capital-ready"
+}
