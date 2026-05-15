@@ -11,8 +11,8 @@ from typing import Any
 
 from trader_risk_audit.trades.schema import TradeRecord
 
-_REQUIRED_CANONICAL_FIELDS = ("timestamp", "symbol", "side", "quantity", "price")
-_COLUMN_ALIASES: Mapping[str, tuple[str, ...]] = {
+REQUIRED_CANONICAL_FIELDS = ("timestamp", "symbol", "side", "quantity", "price")
+TRADE_COLUMN_ALIASES: Mapping[str, tuple[str, ...]] = {
     "timestamp": ("timestamp", "time", "executed_at", "executed at"),
     "symbol": ("symbol", "ticker", "instrument"),
     "side": ("side", "action"),
@@ -42,7 +42,7 @@ def normalize_csv(path: str | Path) -> tuple[TradeRecord, ...]:
         fieldnames = tuple(reader.fieldnames or ())
         column_map = _build_column_map(fieldnames)
         missing = tuple(
-            field for field in _REQUIRED_CANONICAL_FIELDS if field not in column_map
+            field for field in REQUIRED_CANONICAL_FIELDS if field not in column_map
         )
         if missing:
             raise CsvImportError(
@@ -71,16 +71,20 @@ def serialize_trade_records(records: Iterable[TradeRecord]) -> str:
     return json.dumps(payload, sort_keys=True, separators=(",", ":"))
 
 
-def _build_column_map(fieldnames: Iterable[str]) -> dict[str, str]:
+def build_trade_column_map(fieldnames: Iterable[str]) -> dict[str, str]:
     normalized_to_source = {_normalize_column(name): name for name in fieldnames}
     column_map: dict[str, str] = {}
-    for canonical_field, aliases in _COLUMN_ALIASES.items():
+    for canonical_field, aliases in TRADE_COLUMN_ALIASES.items():
         for alias in aliases:
             source_column = normalized_to_source.get(_normalize_column(alias))
             if source_column is not None:
                 column_map[canonical_field] = source_column
                 break
     return column_map
+
+
+def _build_column_map(fieldnames: Iterable[str]) -> dict[str, str]:
+    return build_trade_column_map(fieldnames)
 
 
 def _normalize_column(column: str) -> str:

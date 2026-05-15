@@ -1,9 +1,32 @@
+from trader_risk_audit.policy.builder import (
+    PolicyBuilderError,
+    ThresholdOverride,
+    build_policy_from_profile,
+    parse_threshold_overrides,
+    policy_to_yaml,
+    write_generated_policy,
+)
 from trader_risk_audit.policy.review import (
     PolicyReviewPacket,
     ReviewDecision,
     ReviewPacketItem,
     apply_review_decisions,
     build_review_packet,
+)
+from trader_risk_audit.policy.rule_builder_flow import (
+    RuleBuilderQuestionSet,
+    build_noninteractive_question_set,
+    explain_unavailable_rules,
+    load_schema_profile,
+    prompt_question_set,
+)
+from trader_risk_audit.policy.rule_catalog import (
+    RULE_CATALOG,
+    RuleAvailability,
+    RuleCatalogEntry,
+    list_rule_catalog,
+    rule_availability,
+    unavailable_rules,
 )
 from trader_risk_audit.policy.schema import (
     SUPPORTED_RULE_TYPES,
@@ -14,6 +37,14 @@ from trader_risk_audit.policy.schema import (
     load_policy,
     serialize_policy,
 )
+from trader_risk_audit.policy.unsupported_register import (
+    UnsupportedRuleEntry,
+    UnsupportedRuleRegisterError,
+    append_unsupported_rule_entry,
+    create_unsupported_rule_entry,
+    policy_excludes_unsupported_rules,
+    render_unsupported_rule_limitations,
+)
 from trader_risk_audit.policy.validation import (
     PolicyReviewRequiredError,
     ensure_policy_ready_for_evaluation,
@@ -22,16 +53,39 @@ from trader_risk_audit.policy.validation import (
 __all__ = [
     "PolicyReviewPacket",
     "PolicyReviewRequiredError",
+    "PolicyBuilderError",
+    "RULE_CATALOG",
     "SUPPORTED_RULE_TYPES",
     "PolicyRule",
     "RiskPolicy",
     "ReviewDecision",
+    "RuleAvailability",
+    "RuleBuilderQuestionSet",
+    "RuleCatalogEntry",
     "ReviewPacketItem",
     "SessionDefinition",
+    "ThresholdOverride",
+    "UnsupportedRuleEntry",
+    "UnsupportedRuleRegisterError",
     "UnsupportedRuleTypeError",
     "apply_review_decisions",
+    "append_unsupported_rule_entry",
     "build_review_packet",
+    "build_policy_from_profile",
+    "build_noninteractive_question_set",
+    "create_unsupported_rule_entry",
     "ensure_policy_ready_for_evaluation",
+    "explain_unavailable_rules",
+    "list_rule_catalog",
+    "load_schema_profile",
     "load_policy",
+    "parse_threshold_overrides",
+    "policy_to_yaml",
+    "policy_excludes_unsupported_rules",
+    "prompt_question_set",
+    "render_unsupported_rule_limitations",
+    "rule_availability",
     "serialize_policy",
+    "unavailable_rules",
+    "write_generated_policy",
 ]

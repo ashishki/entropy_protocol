@@ -1,70 +1,51 @@
-# Phase 13 Report - Bybit Read-Only MVP
+# Phase 22 Report - CSV Friction Decision Gate
 
-Date: 2026-05-09
+_Date: 2026-05-15_
 
-## What Was Built
+## Summary
 
-Phase 13 added the Bybit-specific read-only MVP over sanitized fixtures.
+Phase 22 reached the required decision gate. Real local read-only exchange
+network fetching is deferred because no repo-visible market evidence log shows
+CSV/export friction as the binding blocker.
 
-T51 added Bybit API key metadata inspection that accepts read-only metadata,
-rejects detectable write/control permissions, and keeps credential/account
-metadata redacted.
+## Completed / Blocked Tasks
 
-T52 added deterministic Bybit execution-history planning for `spot` and
-`linear`, including seven-day windows and mocked cursor pagination.
+- T93 - CSV Friction Decision Gate: complete, verdict defer
+- T94 - Real Read-Only Import ADR Update: blocked by T93 defer
+- T95 - Minimal Local Real Fetch Path: blocked by T93 defer
+- T96 - Real Import To Automated Runner: blocked by T93 defer
+- T97 - Conditional Real Import Deep Review: blocked by T93 defer
 
-T53 added Bybit execution normalization into canonical `TradeRecord` objects.
-It preserves deterministic same-timestamp ordering by execution/order ids and
-reports unsupported fields as field-only warnings.
+## Quantified Inputs
 
-T54 proved fixture-backed Bybit import into the existing deterministic audit
-workflow. The import writes `raw_snapshot.json`, `normalized_trades.csv`, and
-`import_manifest.json`; audit then writes report and audit manifest artifacts.
-Bybit execution ids survive as source-row ids in audit violation output.
+- Qualified market prospects: 0
+- Valid exports/rules: 0
+- CSV/export blockers: 0
+- Valid-export drop-off: 0/0, not measurable
+- API-request objections: 0
+- Paid reports / paid intent: 0
+- Repeat/referral signals: 0
+
+## Decision
+
+Defer. Keep fixture-backed import, CSV fallback, local audit automation, and
+privacy-safe evidence capture. Do not update ADR-002 for real fetching and do
+not implement real exchange network calls unless future market evidence reopens
+T93.
 
 ## Validation
 
-Baseline moved from 163 passing tests after T51 to 173 passing tests after
-T54 and the Cycle 17 CODE-2 fix.
+- Baseline after Phase 21: 253 passing tests, 0 skipped
+- Ruff: `ruff check trader_risk_audit tests` clean
+- Formatting: `ruff format --check trader_risk_audit tests` clean
 
-Final checks:
+## Health
 
-- `.venv/bin/python -m pytest tests -q --tb=short` -> 173 passed
-- `.venv/bin/python -m ruff check trader_risk_audit tests` -> passed
-- `.venv/bin/python -m ruff format --check trader_risk_audit tests` -> passed
-
-## Review Result
-
-Deep review Cycle 17 found:
-
-- P0: 0
-- P1: 0
-- P2: 1
-- Stop-Ship: No
-
-The P2 was CODE-2: imported CSV `row_id` values needed duplicate rejection to
-avoid attribution bucket collisions after row-id round-trip support. It was
-fixed during the review and covered by `tests/unit/trades/test_importers.py`.
-
-## Health Verdict
-
-Health: OK after fix.
-
-The implementation stayed inside ADR-002. It added no real exchange network
-calls, no order/write/withdrawal/transfer/leverage-control endpoints, no hosted
-secret storage, no trading advice, and no runtime-tier expansion.
-
-## Next Phase
-
-Phase 14 starts the Binance read-only MVP. The next task is T55 - Binance Signed
-Account Request Helper. T55 is security-typed and must use fixture credentials
-only; no real credentials or real network smoke tests belong in CI.
+OK. The roadmap is complete through the current evidence gate. The final state
+is local-first, deterministic, privacy-safe, no-checkout, no-SaaS, and
+no-real-fetch.
 
 ## Notification Summary
 
-Ph13 Bybit Read-Only MVP DONE
-Built: permission check, fetch planner, normalizer, import-to-audit
-Tests: 163->173 pass
-Issues: P1:0 P2:1 fixed
-Health: OK
-Next: Ph14 Binance Read-Only MVP
+T93 deferred real exchange fetching. T94-T97 remain blocked until future
+privacy-safe market evidence shows CSV/export friction is the binding blocker.

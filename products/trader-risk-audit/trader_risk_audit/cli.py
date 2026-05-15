@@ -8,6 +8,15 @@ from pathlib import Path
 
 from trader_risk_audit import __version__
 from trader_risk_audit.artifacts.manifest import build_audit_manifest, hash_file
+from trader_risk_audit.audit_session import (
+    AuditSessionRunnerError,
+    BundleValidationError,
+    build_artifact_bundle_index,
+    format_bundle_summary,
+    run_audit_session,
+    validate_artifact_bundle_index,
+    write_artifact_bundle_index,
+)
 from trader_risk_audit.evaluation.attribution import (
     attribute_pnl,
     ensure_reconciled,
@@ -19,31 +28,82 @@ from trader_risk_audit.evaluation.rules import (
 )
 from trader_risk_audit.evaluation.violations import serialize_violations
 from trader_risk_audit.evidence import (
+    INTAKE_METHODS,
     EvidenceRow,
     EvidenceValidationError,
+    PreviewEvent,
     append_customer_log_row,
+    append_preview_event,
+    export_hypothesis_evidence,
     load_customer_log,
+    load_hypothesis_evidence,
+    load_preview_events,
+    summarize_hypothesis_dashboard,
+    summarize_preview_events,
     summarize_validation_gate,
+)
+from trader_risk_audit.exchange.binance import (
+    BINANCE_SPOT_MY_TRADES_ENDPOINT,
+    BinanceFetchPlanError,
+    normalize_binance_spot_trades,
+    plan_binance_spot_trade_fetches,
+    serialize_binance_spot_fetch_plan,
 )
 from trader_risk_audit.exchange.bybit import normalize_bybit_executions
 from trader_risk_audit.exchange.manifest import build_exchange_import_manifest
 from trader_risk_audit.exchange.normalizer import normalize_exchange_records
 from trader_risk_audit.exchange.snapshot import FetchedPage, build_raw_exchange_snapshot
+from trader_risk_audit.intake import (
+    IntakeSessionError,
+    build_intake_report,
+    build_intake_session,
+    profile_from_intake_session,
+    write_csv_schema_profile,
+    write_intake_report,
+    write_intake_session,
+)
 from trader_risk_audit.pilot_queue import (
     PilotQueue,
     PilotQueueError,
     format_queue_list,
     format_queue_request,
 )
+from trader_risk_audit.policy.builder import (
+    PolicyBuilderError,
+    build_policy_from_profile,
+    parse_threshold_overrides,
+    write_generated_policy,
+)
 from trader_risk_audit.policy.profiles import (
     PolicyProfileSelectionError,
     resolve_policy_profile,
 )
 from trader_risk_audit.policy.review import build_review_packet
+from trader_risk_audit.policy.rule_builder_flow import (
+    build_noninteractive_question_set,
+    explain_unavailable_rules,
+    load_schema_profile,
+    prompt_question_set,
+)
 from trader_risk_audit.policy.schema import load_policy
+from trader_risk_audit.policy.unsupported_register import (
+    UnsupportedRuleRegisterError,
+    append_unsupported_rule_entry,
+    create_unsupported_rule_entry,
+)
 from trader_risk_audit.policy.validation import (
     PolicyReviewRequiredError,
     ensure_policy_ready_for_evaluation,
+)
+from trader_risk_audit.preview import (
+    PaidUnlockError,
+    PreviewError,
+    build_preview_model,
+    create_preview_unlock_state,
+    load_paid_unlock_state,
+    transition_paid_unlock_state,
+    write_paid_unlock_state,
+    write_preview_markdown,
 )
 from trader_risk_audit.reporting.claim_guard import ensure_report_claims_valid
 from trader_risk_audit.reporting.delivery import render_delivery_packet
@@ -71,6 +131,82 @@ def build_parser() -> argparse.ArgumentParser:
 
     subparsers = parser.add_subparsers(dest="command")
 
+    intake = subparsers.add_parser("intake", help="Manage local intake sessions.")
+    intake_subparsers = intake.add_subparsers(dest="intake_command")
+    intake_create = intake_subparsers.add_parser(
+        "create",
+        help="Create deterministic local intake session metadata.",
+    )
+    intake_create.add_argument("--output-dir", required=True)
+    intake_create.add_argument("--prospect-label", required=True)
+    intake_create.add_argument("--source-type", required=True)
+    intake_create.add_argument("--source-file", required=True)
+    intake_create.add_argument("--risk-rules-file")
+    intake_create.add_argument("--source-timezone", required=True)
+    intake_create.add_argument("--display-timezone", default="Europe/Moscow")
+    intake_create.add_argument("--session-start", required=True)
+    intake_create.add_argument("--session-end", required=True)
+    intake_create.add_argument("--currency", required=True)
+    intake_create.set_defaults(handler=_intake_create_command)
+    intake_profile = intake_subparsers.add_parser(
+        "profile",
+        help="Profile a local CSV export for a safe intake session.",
+    )
+    intake_profile.add_argument("--session", required=True)
+    intake_profile.add_argument("--csv", required=True)
+    intake_profile.add_argument("--output-dir", required=True)
+    intake_profile.set_defaults(handler=_intake_profile_command)
+    intake_report = intake_subparsers.add_parser(
+        "report",
+        help="Render a safe Markdown intake report.",
+    )
+    intake_report.add_argument("--session", required=True)
+    intake_report.add_argument("--profile", required=True)
+    intake_report.add_argument("--output-dir", required=True)
+    intake_report.set_defaults(handler=_intake_report_command)
+
+    policy = subparsers.add_parser("policy", help="Build local risk policies.")
+    policy_subparsers = policy.add_subparsers(dest="policy_command")
+    policy_build = policy_subparsers.add_parser(
+        "build",
+        help="Build deterministic policy YAML from an intake session.",
+    )
+    policy_build.add_argument("--session", required=True)
+    policy_build.add_argument("--profile", required=True)
+    policy_build.add_argument("--account-id", action="append", required=True)
+    policy_build.add_argument("--output-dir", required=True)
+    policy_build.add_argument("--threshold", action="append")
+    policy_build.set_defaults(handler=_policy_build_command)
+    policy_flow = policy_subparsers.add_parser(
+        "flow",
+        help="Run a structured local rule-builder flow.",
+    )
+    policy_flow.add_argument("--profile")
+    policy_flow.add_argument("--account-id", action="append")
+    policy_flow.add_argument("--source-timezone")
+    policy_flow.add_argument("--session-start")
+    policy_flow.add_argument("--session-end")
+    policy_flow.add_argument("--schema-profile")
+    policy_flow.add_argument("--output-dir", required=True)
+    policy_flow.add_argument("--threshold", action="append")
+    policy_flow.add_argument("--interactive", action="store_true")
+    policy_flow.set_defaults(handler=_policy_flow_command)
+    policy_unsupported = policy_subparsers.add_parser(
+        "unsupported",
+        help="Maintain unsupported rule request registers.",
+    )
+    policy_unsupported_subparsers = policy_unsupported.add_subparsers(
+        dest="policy_unsupported_command"
+    )
+    policy_unsupported_append = policy_unsupported_subparsers.add_parser(
+        "append",
+        help="Append a sanitized unsupported rule request.",
+    )
+    policy_unsupported_append.add_argument("--register", required=True)
+    policy_unsupported_append.add_argument("--text", required=True)
+    policy_unsupported_append.add_argument("--reason", required=True)
+    policy_unsupported_append.set_defaults(handler=_policy_unsupported_append_command)
+
     audit = subparsers.add_parser("audit", help="Run an audit workflow.")
     audit.add_argument("--trades", required=True, help="Path to a trade export.")
     audit.add_argument("--policy", required=True, help="Path to a risk policy file.")
@@ -81,8 +217,57 @@ def build_parser() -> argparse.ArgumentParser:
     )
     audit.set_defaults(handler=_audit_command)
 
+    audit_session = subparsers.add_parser(
+        "audit-session",
+        help="Run one local intake-session-backed audit.",
+    )
+    audit_session_subparsers = audit_session.add_subparsers(
+        dest="audit_session_command"
+    )
+    audit_session_run = audit_session_subparsers.add_parser(
+        "run",
+        help="Run a ready intake session with a generated policy.",
+    )
+    audit_session_run.add_argument("--session", required=True)
+    audit_session_run.add_argument("--policy", required=True)
+    audit_session_run.add_argument("--input-dir", required=True)
+    audit_session_run.add_argument("--output-dir", required=True)
+    audit_session_run.add_argument("--policy-status", default="approved")
+    audit_session_run.set_defaults(handler=_audit_session_run_command)
+    audit_session_bundle = audit_session_subparsers.add_parser(
+        "bundle",
+        help="Write and validate a safe local artifact bundle index.",
+    )
+    audit_session_bundle.add_argument("--run-dir", required=True)
+    audit_session_bundle.add_argument("--output")
+    audit_session_bundle.add_argument("--preview-status", default="not_generated")
+    audit_session_bundle.add_argument("--preview-ref")
+    audit_session_bundle.add_argument("--limitation-register", action="append")
+    audit_session_bundle.set_defaults(handler=_audit_session_bundle_command)
+
     manifest = subparsers.add_parser("manifest", help="Inspect audit manifests.")
     manifest.set_defaults(handler=_stub_command)
+
+    preview = subparsers.add_parser("preview", help="Generate safe report previews.")
+    preview_subparsers = preview.add_subparsers(dest="preview_command")
+    preview_build = preview_subparsers.add_parser(
+        "build",
+        help="Build a claim-safe Markdown preview from an artifact bundle.",
+    )
+    preview_build.add_argument("--bundle", required=True)
+    preview_build.add_argument("--output-dir", required=True)
+    preview_build.set_defaults(handler=_preview_build_command)
+    preview_unlock = preview_subparsers.add_parser(
+        "unlock",
+        help="Update local paid-preview unlock status.",
+    )
+    preview_unlock.add_argument("--state-file", required=True)
+    preview_unlock.add_argument("--audit-id")
+    preview_unlock.add_argument("--status", required=True)
+    preview_unlock.add_argument("--manual-payment-evidence")
+    preview_unlock.add_argument("--claim-safe", action="store_true")
+    preview_unlock.add_argument("--delivered-ref")
+    preview_unlock.set_defaults(handler=_preview_unlock_command)
 
     demo = subparsers.add_parser("demo", help="Show local demo artifacts.")
     demo_subparsers = demo.add_subparsers(dest="demo_command")
@@ -106,6 +291,14 @@ def build_parser() -> argparse.ArgumentParser:
     exchange_fixture.add_argument("--snapshot", required=True)
     exchange_fixture.add_argument("--output-dir", required=True)
     exchange_fixture.set_defaults(handler=_exchange_import_fixture_command)
+    binance_spot_plan = exchange_import_subparsers.add_parser(
+        "binance-spot-plan",
+        help="Plan Binance Spot myTrades requests without making network calls.",
+    )
+    binance_spot_plan.add_argument("--symbol", action="append", required=True)
+    binance_spot_plan.add_argument("--start-time", required=True)
+    binance_spot_plan.add_argument("--end-time", required=True)
+    binance_spot_plan.set_defaults(handler=_exchange_import_binance_spot_plan_command)
 
     retention = subparsers.add_parser("retention", help="Manage local audit retention.")
     retention_subparsers = retention.add_subparsers(dest="retention_command")
@@ -181,6 +374,12 @@ def build_parser() -> argparse.ArgumentParser:
         "objections",
     ):
         evidence_append.add_argument(f"--{field}", required=True)
+    evidence_append.add_argument(
+        "--intake-method",
+        choices=sorted(INTAKE_METHODS),
+        default="csv_export",
+    )
+    evidence_append.add_argument("--api-setup-objections", default="none")
     for field in (
         "export-provided",
         "rules-provided",
@@ -196,6 +395,38 @@ def build_parser() -> argparse.ArgumentParser:
     )
     evidence_summary.add_argument("--log-file", required=True)
     evidence_summary.set_defaults(handler=_evidence_summary_command)
+    evidence_preview_event_append = evidence_subparsers.add_parser(
+        "preview-event-append",
+        help="Append one privacy-safe preview conversion event.",
+    )
+    evidence_preview_event_append.add_argument("--event-log", required=True)
+    evidence_preview_event_append.add_argument("--event-type", required=True)
+    evidence_preview_event_append.add_argument("--timestamp", required=True)
+    evidence_preview_event_append.add_argument("--intake-id", required=True)
+    evidence_preview_event_append.add_argument("--source-type", required=True)
+    evidence_preview_event_append.add_argument("--objection-tag", action="append")
+    evidence_preview_event_append.set_defaults(handler=_evidence_preview_event_append)
+    evidence_preview_event_summary = evidence_subparsers.add_parser(
+        "preview-event-summary",
+        help="Summarize privacy-safe preview conversion events.",
+    )
+    evidence_preview_event_summary.add_argument("--event-log", required=True)
+    evidence_preview_event_summary.set_defaults(handler=_evidence_preview_event_summary)
+    evidence_dashboard = evidence_subparsers.add_parser(
+        "hypothesis-dashboard",
+        help="Summarize local hypothesis funnel evidence.",
+    )
+    evidence_dashboard.add_argument("--customer-log")
+    evidence_dashboard.add_argument("--funnel-log")
+    evidence_dashboard.set_defaults(handler=_evidence_hypothesis_dashboard)
+    evidence_export = evidence_subparsers.add_parser(
+        "export",
+        help="Write privacy-safe hypothesis evidence summary files.",
+    )
+    evidence_export.add_argument("--output-dir", required=True)
+    evidence_export.add_argument("--customer-log")
+    evidence_export.add_argument("--funnel-log")
+    evidence_export.set_defaults(handler=_evidence_export_command)
 
     return parser
 
@@ -203,6 +434,237 @@ def build_parser() -> argparse.ArgumentParser:
 def _stub_command(args: argparse.Namespace) -> int:
     print(f"{args.command} command is not implemented yet.")
     return 0
+
+
+def _intake_create_command(args: argparse.Namespace) -> int:
+    try:
+        session = build_intake_session(
+            prospect_label=args.prospect_label,
+            source_type=args.source_type,
+            source_file=args.source_file,
+            risk_rules_file=args.risk_rules_file,
+            source_timezone=args.source_timezone,
+            display_timezone=args.display_timezone,
+            session_start=args.session_start,
+            session_end=args.session_end,
+            account_currency=args.currency,
+            status="ready_for_schema_profile",
+        )
+        output_path = write_intake_session(session, args.output_dir)
+    except (OSError, IntakeSessionError) as error:
+        print(f"intake session create failed: {error}")
+        return 2
+
+    print(f"wrote intake session: {output_path}")
+    return 0
+
+
+def _intake_profile_command(args: argparse.Namespace) -> int:
+    try:
+        session_payload = json.loads(Path(args.session).read_text(encoding="utf-8"))
+        if not isinstance(session_payload, dict):
+            raise ValueError("intake session must contain a JSON object")
+        profile = profile_from_intake_session(args.csv, session_payload)
+        output_path = write_csv_schema_profile(profile, args.output_dir)
+    except (OSError, KeyError, TypeError, ValueError) as error:
+        print(f"intake profile failed: {error}")
+        return 2
+
+    print(f"wrote schema profile: {output_path}")
+    return 0
+
+
+def _intake_report_command(args: argparse.Namespace) -> int:
+    try:
+        session_payload = json.loads(Path(args.session).read_text(encoding="utf-8"))
+        profile_payload = json.loads(Path(args.profile).read_text(encoding="utf-8"))
+        if not isinstance(session_payload, dict) or not isinstance(
+            profile_payload, dict
+        ):
+            raise ValueError("intake report inputs must contain JSON objects")
+        report = build_intake_report(
+            session_payload=session_payload,
+            profile_payload=profile_payload,
+        )
+        output_path = write_intake_report(report, args.output_dir)
+    except (OSError, KeyError, TypeError, ValueError) as error:
+        print(f"intake report failed: {error}")
+        return 2
+
+    print(f"wrote intake report: {output_path}")
+    return 0
+
+
+def _policy_build_command(args: argparse.Namespace) -> int:
+    try:
+        session_payload = json.loads(Path(args.session).read_text(encoding="utf-8"))
+        if not isinstance(session_payload, dict):
+            raise ValueError("intake session must contain a JSON object")
+        policy = build_policy_from_profile(
+            profile=args.profile,
+            intake_session=session_payload,
+            account_scope=tuple(args.account_id),
+            threshold_overrides=parse_threshold_overrides(tuple(args.threshold or ())),
+        )
+        output_path = write_generated_policy(policy, args.output_dir)
+    except (
+        OSError,
+        KeyError,
+        TypeError,
+        ValueError,
+        PolicyBuilderError,
+    ) as error:
+        print(f"policy build failed: {error}")
+        return 2
+
+    print(f"wrote generated policy: {output_path}")
+    return 0
+
+
+def _policy_flow_command(args: argparse.Namespace) -> int:
+    try:
+        questions = (
+            prompt_question_set()
+            if args.interactive
+            else build_noninteractive_question_set(
+                profile=_required_arg(args.profile, "--profile"),
+                account_ids=tuple(_required_list_arg(args.account_id, "--account-id")),
+                source_timezone=_required_arg(
+                    args.source_timezone,
+                    "--source-timezone",
+                ),
+                session_start=_required_arg(args.session_start, "--session-start"),
+                session_end=_required_arg(args.session_end, "--session-end"),
+            )
+        )
+        profile_payload = load_schema_profile(args.schema_profile)
+        policy = build_policy_from_profile(
+            profile=questions.profile,
+            intake_session=questions.to_intake_session_payload(),
+            account_scope=questions.account_ids,
+            threshold_overrides=parse_threshold_overrides(tuple(args.threshold or ())),
+        )
+        output_path = write_generated_policy(policy, args.output_dir)
+        unavailable = (
+            explain_unavailable_rules(profile_payload) if args.schema_profile else ()
+        )
+    except (
+        OSError,
+        KeyError,
+        TypeError,
+        ValueError,
+        PolicyBuilderError,
+    ) as error:
+        print(f"rule builder flow failed: {error}")
+        return 2
+
+    print(f"wrote generated policy: {output_path}")
+    if unavailable:
+        print("Unavailable rules:")
+        for line in unavailable:
+            print(f"- {line}")
+    return 0
+
+
+def _policy_unsupported_append_command(args: argparse.Namespace) -> int:
+    try:
+        entry = create_unsupported_rule_entry(
+            user_text=args.text,
+            reason_code=args.reason,
+        )
+        register_path = append_unsupported_rule_entry(args.register, entry)
+    except (OSError, UnsupportedRuleRegisterError) as error:
+        print(f"unsupported rule append failed: {error}")
+        return 2
+
+    print(f"unsupported rule registered: {register_path}")
+    return 0
+
+
+def _audit_session_run_command(args: argparse.Namespace) -> int:
+    try:
+        result = run_audit_session(
+            session_path=args.session,
+            policy_path=args.policy,
+            input_dir=args.input_dir,
+            output_dir=args.output_dir,
+            policy_status=args.policy_status,
+        )
+    except AuditSessionRunnerError as error:
+        print(f"audit session failed: {error.reason_code}")
+        return 2
+
+    print(f"audit session status: {result.status}")
+    if result.reason_code:
+        print(f"reason_code: {result.reason_code}")
+    print(f"run_status: {result.status_path}")
+    return 0 if result.status == "complete" else 2
+
+
+def _audit_session_bundle_command(args: argparse.Namespace) -> int:
+    run_dir = Path(args.run_dir)
+    output_path = Path(args.output) if args.output else run_dir / "bundle_index.json"
+    try:
+        bundle = build_artifact_bundle_index(
+            run_dir=run_dir,
+            preview_status=args.preview_status,
+            preview_ref=args.preview_ref,
+            limitation_registers=tuple(args.limitation_register or ()),
+        )
+        bundle_path = write_artifact_bundle_index(bundle, output_path)
+        validate_artifact_bundle_index(bundle_path)
+    except (OSError, BundleValidationError, ValueError) as error:
+        print(f"audit session bundle failed: {error}")
+        return 2
+
+    print(format_bundle_summary(bundle, bundle_path))
+    return 0
+
+
+def _preview_build_command(args: argparse.Namespace) -> int:
+    try:
+        model = build_preview_model(args.bundle)
+        preview_path = write_preview_markdown(model, args.output_dir)
+    except (OSError, PreviewError, ValueError) as error:
+        print(f"preview build failed: {error}")
+        return 2
+
+    print(f"wrote preview: {preview_path.name}")
+    return 0
+
+
+def _preview_unlock_command(args: argparse.Namespace) -> int:
+    try:
+        state = (
+            create_preview_unlock_state(args.audit_id)
+            if args.audit_id
+            else load_paid_unlock_state(args.state_file)
+        )
+        updated = transition_paid_unlock_state(
+            state,
+            args.status,
+            manual_payment_evidence=args.manual_payment_evidence,
+            claim_safe=args.claim_safe,
+            delivered_ref=args.delivered_ref,
+        )
+        write_paid_unlock_state(updated, args.state_file)
+    except (OSError, PaidUnlockError) as error:
+        print(f"preview unlock failed: {error}")
+        return 2
+    print(f"preview unlock status: {updated.status}")
+    return 0
+
+
+def _required_arg(value: str | None, flag: str) -> str:
+    if value is None:
+        raise ValueError(f"{flag} is required unless --interactive is used")
+    return value
+
+
+def _required_list_arg(value: list[str] | None, flag: str) -> tuple[str, ...]:
+    if not value:
+        raise ValueError(f"{flag} is required unless --interactive is used")
+    return tuple(value)
 
 
 def _retention_list_command(args: argparse.Namespace) -> int:
@@ -247,7 +709,7 @@ def _exchange_import_fixture_command(args: argparse.Namespace) -> int:
         market = _fixture_market(exchange, records)
         symbols = _fixture_symbols(records)
         start_time, end_time = _fixture_time_range(records)
-        endpoint_label = f"{exchange}.{fixture['endpoint_family']}"
+        endpoint_label = _fixture_endpoint_label(exchange, fixture)
         raw_snapshot = build_raw_exchange_snapshot(
             exchange=exchange,
             market=market,
@@ -291,6 +753,20 @@ def _exchange_import_fixture_command(args: argparse.Namespace) -> int:
         return 2
 
     print(f"wrote exchange import manifest: {manifest_output}")
+    return 0
+
+
+def _exchange_import_binance_spot_plan_command(args: argparse.Namespace) -> int:
+    try:
+        windows = plan_binance_spot_trade_fetches(
+            symbols=tuple(args.symbol),
+            start_time=args.start_time,
+            end_time=args.end_time,
+        )
+    except BinanceFetchPlanError as error:
+        print(f"binance spot import plan failed: {error}")
+        return 2
+    print(serialize_binance_spot_fetch_plan(windows), end="")
     return 0
 
 
@@ -449,6 +925,8 @@ def _evidence_append_command(args: argparse.Namespace) -> int:
                 report_delivered=args.report_delivered,
                 repeat_requested=args.repeat_requested,
                 referral=args.referral,
+                intake_method=args.intake_method,
+                api_setup_objections=args.api_setup_objections,
             ),
         )
     except (OSError, EvidenceValidationError) as error:
@@ -465,6 +943,66 @@ def _evidence_summary_command(args: argparse.Namespace) -> int:
         print(str(error))
         return 2
     print(summary.format())
+    return 0
+
+
+def _evidence_preview_event_append(args: argparse.Namespace) -> int:
+    try:
+        append_preview_event(
+            args.event_log,
+            PreviewEvent(
+                event_type=args.event_type,
+                timestamp=args.timestamp,
+                intake_id=args.intake_id,
+                source_type=args.source_type,
+                objection_tags=tuple(args.objection_tag or ()),
+            ),
+        )
+    except (OSError, EvidenceValidationError) as error:
+        print(str(error))
+        return 2
+    print("Preview event appended.")
+    return 0
+
+
+def _evidence_preview_event_summary(args: argparse.Namespace) -> int:
+    try:
+        summary = summarize_preview_events(load_preview_events(args.event_log))
+    except (OSError, KeyError, EvidenceValidationError) as error:
+        print(str(error))
+        return 2
+    print(summary.format())
+    return 0
+
+
+def _evidence_hypothesis_dashboard(args: argparse.Namespace) -> int:
+    try:
+        summary = summarize_hypothesis_dashboard(
+            load_hypothesis_evidence(
+                customer_log_path=args.customer_log,
+                funnel_event_path=args.funnel_log,
+            )
+        )
+    except (OSError, KeyError, EvidenceValidationError) as error:
+        print(str(error))
+        return 2
+    print(summary.format())
+    return 0
+
+
+def _evidence_export_command(args: argparse.Namespace) -> int:
+    try:
+        export = export_hypothesis_evidence(
+            output_dir=args.output_dir,
+            customer_log_path=args.customer_log,
+            funnel_event_path=args.funnel_log,
+        )
+    except (OSError, KeyError, EvidenceValidationError) as error:
+        print(str(error))
+        return 2
+    print("Evidence export written.")
+    print(f"CSV: {export.csv_path.name}")
+    print(f"Markdown: {export.markdown_path.name}")
     return 0
 
 
@@ -669,6 +1207,12 @@ def _record_timestamp(record: dict[object, object]) -> str | None:
     return None
 
 
+def _fixture_endpoint_label(exchange: str, fixture: dict[str, object]) -> str:
+    if exchange == "binance":
+        return BINANCE_SPOT_MY_TRADES_ENDPOINT
+    return f"{exchange}.{fixture['endpoint_family']}"
+
+
 def _write_normalized_exchange_trades(
     path: Path,
     records: Sequence[TradeRecord],
@@ -707,6 +1251,8 @@ def _normalize_fixture_exchange_records(
     market: str,
     records: Sequence[dict[str, object]],
 ) -> tuple[TradeRecord, ...]:
+    if exchange == "binance":
+        return normalize_binance_spot_trades(records).trades
     if exchange == "bybit":
         return normalize_bybit_executions(records, category=market).trades
     return normalize_exchange_records(

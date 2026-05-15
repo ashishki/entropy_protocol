@@ -1,17 +1,18 @@
-# STRATEGY_NOTE - Phase 13 Review
-_Date: 2026-05-09 · Reviewing: Phase 13 (T51-T54)_
+# STRATEGY_NOTE - Phase 19 Review
+_Date: 2026-05-15 · Reviewing: Phase 19 (T79-T82)_
 
 ## Recommendation: Proceed
 
 ## Check Results
+
 | Check | Verdict | Notes |
 |-------|---------|-------|
-| Phase coherence | COHERENT | T51-T54 map to the Phase 13 gate: Bybit permission checks, fetch planning, fixture-backed normalization, and import-to-audit proof. |
-| Open findings gate | CLEAR | `docs/CODEX_PROMPT.md` Fix Queue is empty and Open Findings has no active P0/P1. |
-| Architectural drift | ALIGNED | Phase 12 added local fixture-backed exchange import artifacts and CLI plumbing consistent with the architecture's planned exchange import component. |
-| Solution shape / governance / runtime drift | ALIGNED | Work remains workflow orchestration, Standard governance, and T0 local CLI/file IO. No LLM-owned truth, agent loop, runtime mutation, or exchange control path is present. |
-| ADR compliance | HONOURED | ADR-001 remains unaffected. ADR-002 is honoured: local read-only import artifacts only, no exchange write/control endpoints, no hosted secrets, no advice. |
-| Capability Profile gate | N/A | All capability profiles remain OFF. |
+| Phase coherence | COHERENT | Phase 19 one-click runner tasks map to the automated pilot goal: consume validated intake/policy artifacts and produce deterministic local audit outputs without developer intervention. |
+| Open findings gate | CLEAR | `docs/CODEX_PROMPT.md` lists no open findings or Fix Queue items. |
+| Architectural drift | ALIGNED | Phase 18 added local deterministic policy-building modules and CLI flows. Architecture docs need a component/data-flow refresh during the phase doc update, but no blocking drift is present. |
+| Solution shape / governance / runtime drift | ALIGNED | Work remains workflow orchestration, Standard governance, T0 local CLI/file I/O. No LLM-owned rule truth, agent loop, hosted account, checkout, service worker, or runtime mutation was introduced. |
+| ADR compliance | HONOURED | ADR-001 Telegram remains constrained and unused by Phase 18. ADR-002 read-only exchange import remains bounded and no real network fetch was added. |
+| Capability Profile gate | N/A | RAG, Tool-Use, Agentic, Planning, and Compliance profiles remain OFF. |
 
 ## Findings / Blockers
 
@@ -19,4 +20,7 @@ None.
 
 ## Warnings
 
-- T51 is security-typed and must use mocked or fixture metadata only; real Bybit network calls and real credentials remain outside CI and require explicit operator action.
+- Phase 18 introduced `policy.rule_catalog`, `policy.builder`,
+  `policy.rule_builder_flow`, and `policy.unsupported_register`; ensure
+  `docs/ARCHITECTURE.md`, `README.md`, and state docs reflect these during
+  the T78 doc update.

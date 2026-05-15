@@ -118,6 +118,14 @@ Retrieval mode is no retrieval for v1. User-provided rules and templates are loa
 | Risk policy schema | `trader_risk_audit/policy/schema.py` | Define supported rule types, thresholds, units, account scope, and schema version. |
 | Policy review packet | `trader_risk_audit/policy/review.py` | Produce deterministic human review artifacts for ambiguous policy mappings and apply approved deterministic fields. |
 | Policy validator | `trader_risk_audit/policy/validation.py` | Produce explicit errors for unsupported, ambiguous, or missing rule fields. |
+| Rule catalog | `trader_risk_audit/policy/rule_catalog.py` | Define supported deterministic rule catalog entries, required source fields, threshold units, safe descriptions, starter profile applicability, and intake-profile availability checks. |
+| Policy builder | `trader_risk_audit/policy/builder.py` | Generate valid local `RiskPolicy` objects and deterministic `policy.yaml` from starter/custom structured selections. |
+| Rule builder flow | `trader_risk_audit/policy/rule_builder_flow.py`, `trader_risk_audit/cli.py` | Provide local interactive/non-interactive structured policy-building prompts and unavailable-rule explanations without LLM interpretation or web accounts. |
+| Unsupported rule register | `trader_risk_audit/policy/unsupported_register.py` | Store unsupported/free-text rule requests as sanitized manual-review limitations and keep them out of executable policy rules. |
+| Audit session runner | `trader_risk_audit/audit_session/runner.py` | Run a ready local intake session plus policy through deterministic normalization, evaluation, attribution, report, packet, and manifest generation while writing safe complete/blocked status. |
+| Artifact bundle index | `trader_risk_audit/audit_session/artifact_bundle.py` | Write and validate local `bundle_index.json` records with safe artifact refs, hashes, run status, preview state, and limitation register refs. |
+| Reproducibility gate | `trader_risk_audit/audit_session/reproducibility.py` | Rerun a completed automated audit session into a separate local output directory and block preview/delivery status when stable manifest content hashes drift. |
+| Preview model | `trader_risk_audit/preview/model.py` | Build claim-safe redacted Markdown previews from completed artifact bundles using counts, rule categories, limitation refs, and safe source coverage only. |
 | Calendar and aggregation | `trader_risk_audit/evaluation/calendar.py`, `trader_risk_audit/evaluation/aggregates.py` | Build session/day groupings, daily P&L, equity curve, exposure, and drawdown inputs. |
 | Rule evaluators | `trader_risk_audit/evaluation/rules.py` | Evaluate max daily loss, drawdown, cooldown, position size, forbidden assets, and leverage rules. |
 | Violation model | `trader_risk_audit/evaluation/violations.py` | Store rule id, source rows, evaluated values, threshold, timestamps, severity, and attribution fields. |
@@ -130,13 +138,81 @@ Retrieval mode is no retrieval for v1. User-provided rules and templates are loa
 | Exchange raw snapshot schema | `trader_risk_audit/exchange/snapshot.py` | Define deterministic local raw snapshot metadata for exchange, market/category, symbols, time range, fetched pages, endpoint labels, and sanitized raw records. |
 | Exchange import manifest | `trader_risk_audit/exchange/manifest.py` | Hash raw snapshots and normalized exchange outputs separately from final audit manifests, excluding generated timestamps from deterministic content hashes. |
 | Exchange normalizer interface | `trader_risk_audit/exchange/normalizer.py` | Map sanitized exchange raw fills/executions into canonical trade records without changing evaluator semantics. |
+| Bybit read-only fixture connector | `trader_risk_audit/exchange/bybit.py` | Provide fixture/mocked Bybit API-key permission review, execution fetch planning, synthetic execution normalization, and import-to-audit traceability without real network calls. |
+| Binance read-only fixture connector | `trader_risk_audit/exchange/binance.py` | Provide Binance Spot `myTrades` request signing, explicit symbol/window planning, synthetic trade normalization, and import-to-audit traceability without real network calls. |
 | Fixture-backed exchange import CLI | `trader_risk_audit/cli.py` | Provide local `exchange-import fixture` plumbing that writes raw snapshot, normalized CSV, and import manifest artifacts without real exchange network calls. |
 | Exchange fixture policy | `docs/EXCHANGE_FIXTURE_POLICY_RU.md`, `tests/fixtures/exchange/` | Define synthetic/sanitized exchange fixture rules and store only redacted regression fixtures with no credentials, account ids, balances, customer identifiers, or private notes. |
 | Local workspace | `trader_risk_audit/workspace.py` | Create operator-controlled local audit workspaces with input, output, notes, artifacts, and non-sensitive metadata. |
 | Telegram pilot intake/delivery | `trader_risk_audit/telegram_bot/` | Provide disabled-by-default Telegram intake handlers, local file storage, and approved-report delivery abstractions inside ADR-001 boundaries; no broker control, signal parsing, advice, or unapproved report sending. |
 | Pilot review queue | `trader_risk_audit/pilot_queue.py` | Persist local operator-owned request statuses and non-sensitive file references for manual review and approval gates. |
+| Automated intake session | `trader_risk_audit/intake/session.py` | Write deterministic local `intake_session.json` metadata with safe source type, file references, timezone/session/currency/privacy/status fields, and explicit status transitions before row parsing. |
+| CSV schema profiler | `trader_risk_audit/intake/profiler.py` | Profile local CSV headers and limited shape information into `schema_profile.json` with mapping candidates, missing fields, row counts, duplicate row-id risk, timezone coverage, and unsupported column names without emitting cell values. |
+| Intake report renderer | `trader_risk_audit/intake/report.py` | Render prospect-readable `intake_report.md` with status, reasons, accepted fields, blockers, unsupported checks, unsupported columns, and next action without raw row values or private identifiers. |
 | Retention/delete workflow | `trader_risk_audit/storage/retention.py` | Delete or archive local pilot data according to explicit operator decisions. |
 | Test fixtures | `tests/fixtures/` | Store anonymized exports, policies, and expected outputs for regression tests. |
+
+## Data Flow - Automated Intake Profiler
+
+1. Operator supplies a local export path plus prospect-safe intake metadata.
+2. `intake create` writes `intake_session.json` with source type, safe file
+   references, source/display timezone, session bounds, account currency,
+   privacy flags, and status.
+3. `intake profile` reads the local CSV and writes `schema_profile.json` with
+   column names, canonical mapping candidates, missing required fields, row
+   count, duplicate row-id risk, timestamp timezone coverage, fee/leverage/P&L
+   availability, and unsupported columns by name only.
+4. `intake report` reads the session and schema profile and writes
+   `intake_report.md` with runnable/user-fix/operator-review/rejected status,
+   reasons, accepted fields, blockers, unsupported checks, and next action.
+5. Raw export rows, cell values, private notes, account balances, private
+   customer directories, credentials, and live-control metadata are not emitted
+   in intake artifacts.
+
+## Data Flow - Structured Rule Builder
+
+1. Operator or prospect supplies structured profile choice, account label,
+   timezone/session fields, optional threshold overrides, and optional sanitized
+   schema profile coverage.
+2. `policy.rule_catalog` lists supported deterministic rule types and marks
+   rules unavailable when required source fields or coverage flags are absent.
+3. `policy build` or `policy flow` generates deterministic local `policy.yaml`
+   from supported starter/custom structured selections.
+4. Unavailable or free-text rule requests are recorded through
+   `policy unsupported append` as sanitized `unsupported_rules.md` limitations
+   with `manual_review_required` status.
+5. Unsupported/free-text requests do not enter executable policy rules, do not
+   affect violation truth, and require operator review before any future rule
+   semantics are added.
+
+## Data Flow - Audit Session Runner
+
+1. `audit-session run` reads a local `intake_session.json`, generated/approved
+   policy ref, input directory, and output directory.
+2. The runner resolves the safe source export reference, then blocks before
+   report generation unless intake status is `ready_for_audit` and policy
+   status is runnable.
+3. Runnable sessions reuse the deterministic audit internals for normalization,
+   policy review gating, rule evaluation, P&L attribution, report rendering,
+   delivery packet rendering, and manifest generation.
+4. The runner writes `run_status.json` with status, reason code, safe file refs,
+   and artifact refs only. Raw rows, private notes, account balances, private
+   directories, credentials, and free-text row values are not emitted in status
+   or CLI stdout.
+5. `audit-session bundle` writes `bundle_index.json` from the run directory,
+   including safe refs and hashes for run status, manifest, normalized trades,
+   violations, attribution, report, delivery packet, preview state, and
+   limitation registers.
+6. Bundle validation checks required completed-run artifacts for presence and
+   SHA drift before preview or delivery steps use the run.
+7. The reproducibility gate reruns the same intake session and policy into a
+   separate local output directory, compares stable manifest content hashes that
+   exclude generated timestamps and local paths, and writes
+   `reproducibility_status.json`.
+8. `preview build` reads the completed bundle and aggregate artifacts, then
+   renders `preview.md` with counts, top rule categories, limitation register
+   refs, and the required no-advice/no-live-control disclaimer. It does not
+   emit raw rows, source-row ids, symbols, full violation tables, or private
+   output directories.
 
 ## Data Flow - Primary Audit Path
 
@@ -154,6 +230,11 @@ Retrieval mode is no retrieval for v1. User-provided rules and templates are loa
 12. Manifest writer records input hashes, policy hash, normalized artifact hash, violation hash, attribution hash, report hash, delivery packet hash, tool version, and generated paths.
 
 ## Data Flow - Planned Read-Only Exchange Import
+
+Phase 13 and Phase 14 have implemented fixture-backed Bybit and Binance paths
+for tests and local artifact generation. Real exchange network access remains
+gated by ADR-002, operator-controlled local credentials, permission review, and
+future task scope; exchange write/control calls remain forbidden.
 
 1. User creates a read-only exchange API key and preferably IP-allowlists it.
 2. User provides credentials to a local import command through environment

@@ -1,0 +1,14 @@
+Trader Risk Audit Summary
+Trades reviewed: 6
+Violations recorded: 7
+Violating P&L: 0
+
+Top violation counts:
+- sec_form4_max_transaction_notional_proxy: 5
+- sec_form4_watchlist_symbol_svre: 2
+
+Limitations:
+- sec_form4_leverage_unsupported_register: unsupported_leverage_data
+
+Report: report.md
+This audit is not investment advice and does not control live trading.

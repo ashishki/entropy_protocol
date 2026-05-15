@@ -1,7 +1,7 @@
 # Implementation Journal - Trader Risk Audit
 
 Version: 1.0
-Last updated: 2026-05-09
+Last updated: 2026-05-15
 Status: append-only
 
 This file records durable handoff context across agents and sessions. It is not the source of truth for architecture, policy, or task contracts.
@@ -22,6 +22,734 @@ This file records durable handoff context across agents and sessions. It is not 
 ```
 
 ## Entries
+
+### 2026-05-15 - T93 - CSV Friction Decision Gate
+
+- Scope: `docs/CSV_FRICTION_DECISION_REPORT.md`,
+  `docs/EXCHANGE_API_IMPORT_PLAN_RU.md`,
+  `docs/HYPOTHESIS_EVIDENCE_DASHBOARD_RU.md`, `docs/tasks.md`,
+  `docs/CODEX_PROMPT.md`, `README.md`, handoff docs.
+- Why this work happened: Phase 22 requires an evidence decision before any
+  ADR update or real local read-only exchange network fetching work.
+- Decisions applied: `D-010`, `D-001`, ADR-002.
+- Evidence collected: repo-visible market evidence counts are 0 for qualified
+  prospects, valid exports/rules, CSV/export blockers, API objections, paid
+  reports, repeat/referral signals, and paid intent. No market customer log was
+  supplied in repo context.
+- Follow-ups: none in the current roadmap. T94-T97 remain blocked unless a
+  future privacy-safe evidence export reopens the gate.
+- Notes for next agent: T93 verdict is defer, not proceed. Do not implement
+  real exchange network fetching or ADR expansion from the current evidence.
+
+### 2026-05-15 - T92 - Hypothesis Evidence Dashboard Deep Review
+
+- Scope: `docs/audit/META_ANALYSIS.md`, `docs/audit/ARCH_REPORT.md`,
+  `docs/audit/REVIEW_REPORT.md`, `docs/archive/PHASE21_REVIEW.md`,
+  `docs/audit/AUDIT_INDEX.md`, `docs/audit/PHASE_REPORT_LATEST.md`,
+  `docs/CODEX_PROMPT.md`, `README.md`, `docs/EVIDENCE_INDEX.md`,
+  `docs/tasks.md`.
+- Why this work happened: Phase 21 required a boundary review for evidence
+  integrity, privacy-safe exports, demo/vanity separation, gate correctness,
+  and false-PMF risk before Phase 22.
+- Decisions applied: `D-010`, `D-001`, ADR-002.
+- Evidence collected: Cycle 26 deep review found P0:0, P1:0, P2:0,
+  Stop-Ship: No. `.venv/bin/python -m pytest tests -q --tb=short` -> 253
+  passed; ruff check/format passed.
+- Follow-ups: start T93 CSV Friction Decision Gate.
+- Notes for next agent: Phase 22 must decide before building. T94-T97 stay
+  blocked if T93 returns defer or reject.
+
+### 2026-05-15 - T91 - Privacy-Safe Evidence Export
+
+- Scope: `trader_risk_audit/evidence.py`, `trader_risk_audit/cli.py`,
+  `tests/unit/evidence/test_evidence_export_privacy.py`,
+  `tests/integration/test_evidence_export_cli.py`, docs state.
+- Why this work happened: Phase 21 needs a shareable evidence snapshot for
+  review/advisor discussions without exposing raw user data or identifiers.
+- Decisions applied: `D-010`, `D-001`, ADR-002.
+- Evidence collected: `.venv/bin/python -m pytest
+  tests/unit/evidence/test_evidence_export_privacy.py
+  tests/integration/test_evidence_export_cli.py -q --tb=short` -> 3 passed;
+  ruff check passed.
+- Follow-ups: run T92 Hypothesis Evidence Dashboard Deep Review.
+- Notes for next agent: `evidence export` writes aggregate CSV/Markdown only.
+  Provenance is source filename plus sha256; private source paths are not
+  printed or exported.
+
+### 2026-05-15 - T90 - Hypothesis Gate Rules
+
+- Scope: `trader_risk_audit/evidence.py`,
+  `docs/HYPOTHESIS_EVIDENCE_DASHBOARD_RU.md`,
+  `tests/unit/evidence/test_hypothesis_gates.py`,
+  `tests/test_hypothesis_evidence_docs.py`, docs state.
+- Why this work happened: Phase 21 needs explicit proceed /
+  needs-more-evidence / pivot rules before using evidence to decide whether to
+  invest in real read-only import work.
+- Decisions applied: `D-010`, `D-001`, ADR-002.
+- Evidence collected: `.venv/bin/python -m pytest
+  tests/unit/evidence/test_hypothesis_gates.py
+  tests/test_hypothesis_evidence_docs.py -q --tb=short` -> 4 passed; ruff
+  check passed.
+- Follow-ups: implement T91 Privacy-Safe Evidence Export.
+- Notes for next agent: uploads, API connections, policy builds, audit runs,
+  and preview generation are supporting funnel evidence only. Paid reports,
+  repeat commitments, and referrals drive gate decisions.
+
+### 2026-05-15 - T89 - Evidence Dashboard CLI
+
+- Scope: `trader_risk_audit/evidence.py`, `trader_risk_audit/cli.py`,
+  `tests/integration/test_hypothesis_dashboard_cli.py`, docs state.
+- Why this work happened: Phase 21 needs a local dashboard before any web UI
+  so the operator can see funnel counts, ratios, gate status, objections,
+  unsupported blockers, and next action.
+- Decisions applied: `D-010`, `D-001`, ADR-002.
+- Evidence collected: `.venv/bin/python -m pytest
+  tests/integration/test_hypothesis_dashboard_cli.py -q --tb=short` -> 3
+  passed; ruff check passed.
+- Follow-ups: implement T90 Hypothesis Gate Rules.
+- Notes for next agent: `evidence hypothesis-dashboard` reads optional
+  `--customer-log` and `--funnel-log`, excludes demo/open-source from paid
+  gate counts, and keeps output aggregate-only.
+
+### 2026-05-15 - T88 - Hypothesis Funnel Event Schema
+
+- Scope: `trader_risk_audit/evidence.py`,
+  `docs/PILOT_EVIDENCE_LOG_RU.md`,
+  `docs/HYPOTHESIS_EVIDENCE_DASHBOARD_RU.md`,
+  `tests/unit/evidence/test_hypothesis_funnel.py`,
+  `tests/test_hypothesis_evidence_docs.py`, docs state.
+- Why this work happened: Phase 21 needs one safe event schema for measuring
+  funnel progression without turning pilot evidence into a CRM or leaking
+  private data.
+- Decisions applied: `D-010`, `D-001`, ADR-002.
+- Evidence collected: `.venv/bin/python -m pytest
+  tests/unit/evidence/test_hypothesis_funnel.py
+  tests/test_hypothesis_evidence_docs.py -q --tb=short` -> 4 passed; ruff
+  check passed.
+- Follow-ups: implement T89 Evidence Dashboard CLI.
+- Notes for next agent: new funnel events coexist with legacy
+  `EvidenceRow` customer logs through `load_hypothesis_evidence`. Demo/open
+  source events remain vanity/demo evidence and must not count as paid/customer
+  validation.
+
+### 2026-05-15 - T87 - Preview And Paid CTA Deep Review
+
+- Scope: `docs/audit/META_ANALYSIS.md`, `docs/audit/ARCH_REPORT.md`,
+  `docs/audit/REVIEW_REPORT.md`, `docs/archive/PHASE20_REVIEW.md`,
+  `docs/audit/AUDIT_INDEX.md`, `docs/audit/PHASE_REPORT_LATEST.md`,
+  `docs/CODEX_PROMPT.md`, `README.md`, `docs/EVIDENCE_INDEX.md`,
+  `docs/tasks.md`.
+- Why this work happened: Phase 20 required a boundary review for preview
+  redaction, claim safety, paid CTA copy, conversion events, paid unlock
+  boundary, and checkout/SaaS scope.
+- Decisions applied: `D-010`, `D-001`, `D-006`, ADR-001, ADR-002.
+- Evidence collected: Cycle 25 deep review found P0:0, P1:0, P2:0,
+  Stop-Ship: No. `.venv/bin/python -m pytest tests -q --tb=short` -> 240
+  passed; ruff check/format passed.
+- Follow-ups: start T88 Hypothesis Funnel Event Schema.
+- Notes for next agent: Phase 20 preview and paid CTA work is local-only,
+  claim-guarded, no-checkout, and no-SaaS. Phase 21 should measure actual
+  hypothesis evidence and keep demo/open-source usage separate from paid/PMF
+  evidence.
+
+### 2026-05-15 - T86 - Paid Unlock Boundary
+
+- Scope: `trader_risk_audit/preview/unlock.py`,
+  `trader_risk_audit/preview/__init__.py`, `trader_risk_audit/cli.py`,
+  `tests/unit/preview/test_paid_unlock_boundary.py`,
+  `tests/integration/test_paid_unlock_cli.py`, docs state.
+- Why this work happened: Phase 20 needs local status transitions from preview
+  to paid-requested, operator-reviewed, and delivered without implementing
+  checkout/payment processing or leaking payment identifiers.
+- Decisions applied: `D-010`, `D-001`, `D-006`, ADR-001.
+- Evidence collected: `.venv/bin/python -m pytest
+  tests/unit/preview/test_paid_unlock_boundary.py
+  tests/integration/test_paid_unlock_cli.py -q --tb=short` -> 3 passed;
+  `.venv/bin/python -m pytest tests -q --tb=short` -> 240 passed; ruff
+  check/format passed.
+- Follow-ups: run T87 Phase 20 deep review.
+- Notes for next agent: `preview unlock` is a local JSON state transition tool.
+  It stores safe manual payment/intent evidence only. Delivery is blocked until
+  operator review and claim safety are both true.
+
+### 2026-05-15 - T85 - Preview Conversion Events
+
+- Scope: `trader_risk_audit/evidence.py`, `trader_risk_audit/cli.py`,
+  `tests/unit/evidence/test_preview_events.py`,
+  `tests/integration/test_preview_events_cli.py`, docs state.
+- Why this work happened: Phase 20 needs privacy-safe measurement of preview
+  generation, CTA exposure/acceptance, and objections without treating demos as
+  paid evidence.
+- Decisions applied: `D-010`, `D-001`, `D-006`.
+- Evidence collected: `.venv/bin/python -m pytest
+  tests/unit/evidence/test_preview_events.py
+  tests/integration/test_preview_events_cli.py -q --tb=short` -> 3 passed;
+  `.venv/bin/python -m pytest tests -q --tb=short` -> 237 passed; ruff
+  check/format passed.
+- Follow-ups: implement T86 Paid Unlock Boundary.
+- Notes for next agent: `evidence preview-event-append` and
+  `preview-event-summary` are local CSV tools. Event schema stores safe event
+  metadata only and excludes `public_sample_demo`, `internal_demo`, and
+  `demo_artifact` from market CTA accepted/requested counts.
+
+### 2026-05-15 - T84 - Paid Pilot CTA Copy And Package
+
+- Scope: `trader_risk_audit/preview/cta.py`,
+  `trader_risk_audit/preview/model.py`, `tests/test_paid_preview_cta.py`,
+  `tests/unit/preview/test_preview_cta.py`, docs state.
+- Why this work happened: Phase 20 needs preview packaging that can ask for a
+  narrow manual paid pilot without implying checkout, SaaS, advice, live
+  control, or guaranteed improvement.
+- Decisions applied: `D-010`, `D-001`, `D-006`, ADR-001, ADR-002.
+- Evidence collected: `.venv/bin/python -m pytest
+  tests/test_paid_preview_cta.py tests/unit/preview/test_preview_cta.py
+  tests/unit/preview/test_preview_model.py tests/integration/test_preview_cli.py
+  -q --tb=short` -> 6 passed; `.venv/bin/python -m pytest tests -q
+  --tb=short` -> 234 passed; ruff check/format passed.
+- Follow-ups: implement T85 Preview Conversion Events.
+- Notes for next agent: CTA rendering is status-gated on complete previews and
+  remains manual paid-pilot packaging only. No checkout, payment processing,
+  account model, or hosted flow was added.
+
+### 2026-05-15 - T83 - Claim-Safe Report Preview Model
+
+- Scope: `trader_risk_audit/preview/`, `trader_risk_audit/cli.py`,
+  `tests/unit/preview/test_preview_model.py`,
+  `tests/integration/test_preview_cli.py`, docs state.
+- Why this work happened: Phase 20 needs a limited preview from completed
+  bundles that shows value without exposing full source-row tables, raw rows,
+  or unsafe customer-facing claims.
+- Decisions applied: `D-010`, `D-001`, `D-006`, ADR-001, ADR-002.
+- Evidence collected: `.venv/bin/python -m pytest
+  tests/unit/preview/test_preview_model.py tests/integration/test_preview_cli.py
+  -q --tb=short` -> 3 passed; `.venv/bin/python -m pytest tests -q
+  --tb=short` -> 231 passed; `.venv/bin/python -m ruff check
+  trader_risk_audit tests` -> passed; `.venv/bin/python -m ruff format
+  --check trader_risk_audit tests` -> passed; light review passed with P0:0,
+  P1:0.
+- Follow-ups: implement T84 Paid Pilot CTA Copy And Package.
+- Notes for next agent: `preview build` reads bundle refs and aggregate
+  artifacts only. It counts normalized trades/violations, aggregates rule
+  types, references limitation registers by safe names, runs claim guard, and
+  writes `preview.md`. It does not emit symbols, source-row ids, raw rows, or
+  private output directories in CLI stdout.
+
+### 2026-05-15 - T82 - One-Click Audit Runner Deep Review
+
+- Scope: `docs/audit/META_ANALYSIS.md`, `docs/audit/ARCH_REPORT.md`,
+  `docs/audit/REVIEW_REPORT.md`, `docs/archive/PHASE19_REVIEW.md`,
+  `docs/audit/AUDIT_INDEX.md`, `docs/audit/PHASE_REPORT_LATEST.md`,
+  `docs/CODEX_PROMPT.md`, `README.md`, `docs/EVIDENCE_INDEX.md`,
+  `docs/tasks.md`, `MEMORY.md`, `AGENT_NOTES.md`, `PHASE_HANDOFF.md`.
+- Why this work happened: Phase 19 required a boundary review focused on
+  deterministic audit session execution, safe status/bundle outputs,
+  reproducibility, artifact drift, and runtime-tier scope before Phase 20.
+- Decisions applied: `D-010`, `D-001`, `D-006`, ADR-001, ADR-002.
+- Evidence collected: Cycle 24 deep review found P0:0, P1:0, P2:0,
+  Stop-Ship: No. `.venv/bin/python -m pytest tests -q --tb=short` -> 228
+  passed; `.venv/bin/python -m ruff check trader_risk_audit tests` -> passed;
+  `.venv/bin/python -m ruff format --check trader_risk_audit tests` -> passed.
+- Follow-ups: start T83 Claim-Safe Report Preview Model in Phase 20.
+- Notes for next agent: Phase 19 runner/bundle/reproducibility artifacts are
+  local-only and deterministic. Preview work must consume safe bundle/status
+  metadata and report artifacts without exposing raw rows, full source-row
+  tables, or unsupported claims.
+
+### 2026-05-15 - T81 - Automated Run Reproducibility Gate
+
+- Scope: `trader_risk_audit/audit_session/reproducibility.py`,
+  `trader_risk_audit/audit_session/__init__.py`,
+  `tests/unit/audit_session/test_reproducibility_gate.py`,
+  `tests/integration/test_audit_session_reproducibility.py`, docs state.
+- Why this work happened: Phase 19 needs to prove automated audit session runs
+  reproduce deterministic artifact hashes before preview or delivery can
+  proceed.
+- Decisions applied: `D-010`, `D-001`, `D-006`, ADR-002.
+- Evidence collected: `.venv/bin/python -m pytest
+  tests/unit/audit_session/test_reproducibility_gate.py
+  tests/integration/test_audit_session_reproducibility.py -q --tb=short` -> 3
+  passed; `.venv/bin/python -m pytest tests -q --tb=short` -> 228 passed;
+  `.venv/bin/python -m ruff check trader_risk_audit tests` -> passed;
+  `.venv/bin/python -m ruff format --check trader_risk_audit tests` -> passed;
+  light review passed with P0:0, P1:0.
+- Follow-ups: run T82 Phase 19 deep review.
+- Notes for next agent: `run_reproducibility_gate` reruns a completed session
+  into a separate output directory, recomputes stable manifest content hashes
+  from artifact names/SHA/package version, ignores generated timestamps and
+  local paths, writes `reproducibility_status.json`, and sets
+  `blocked_reproducibility` on drift.
+
+### 2026-05-15 - T80 - Artifact Bundle Index
+
+- Scope: `trader_risk_audit/audit_session/artifact_bundle.py`,
+  `trader_risk_audit/audit_session/__init__.py`, `trader_risk_audit/cli.py`,
+  `tests/unit/audit_session/test_artifact_bundle.py`,
+  `tests/integration/test_artifact_bundle_cli.py`, docs state.
+- Why this work happened: Phase 19 needs a local dashboard substitute that
+  points to automated run inputs, outputs, preview state, and limitation
+  registers without exposing private trade rows.
+- Decisions applied: `D-010`, `D-001`, `D-006`, ADR-002.
+- Evidence collected: `.venv/bin/python -m pytest
+  tests/unit/audit_session/test_artifact_bundle.py
+  tests/integration/test_artifact_bundle_cli.py -q --tb=short` -> 3 passed;
+  `.venv/bin/python -m pytest tests -q --tb=short` -> 225 passed;
+  `.venv/bin/python -m ruff check trader_risk_audit tests` -> passed;
+  `.venv/bin/python -m ruff format --check trader_risk_audit tests` -> passed;
+  light review passed with P0:0, P1:0.
+- Follow-ups: start T81 Automated Run Reproducibility Gate.
+- Notes for next agent: `audit-session bundle` writes and validates
+  `bundle_index.json` from a run directory. Complete bundles require
+  `run_status`, `manifest`, normalized trades, violations, attribution, report,
+  and delivery packet refs. The index stores refs/hashes/status/preview state
+  and limitation register refs only, not artifact contents.
+
+### 2026-05-15 - T79 - Audit Session Runner
+
+- Scope: `trader_risk_audit/audit_session/`, `trader_risk_audit/cli.py`,
+  `tests/integration/test_audit_session_runner.py`, docs state.
+- Why this work happened: Phase 19 needs a local one-click runner that can turn
+  a ready intake session plus generated/approved policy into the complete audit
+  artifact pack without developer intervention.
+- Decisions applied: `D-010`, `D-001`, `D-006`, ADR-002.
+- Evidence collected: `.venv/bin/python -m pytest
+  tests/integration/test_audit_session_runner.py -q --tb=short` -> 3 passed;
+  `.venv/bin/python -m pytest tests -q --tb=short` -> 222 passed;
+  `.venv/bin/python -m ruff check trader_risk_audit tests` -> passed;
+  `.venv/bin/python -m ruff format --check trader_risk_audit tests` -> passed;
+  light review passed with P0:0, P1:0.
+- Follow-ups: start T80 Artifact Bundle Index.
+- Notes for next agent: `audit-session run` resolves the safe source export ref
+  from `intake_session.json`, gates on `ready_for_audit` intake status and a
+  runnable policy status, runs the existing deterministic audit internals, and
+  writes `run_status.json` with safe refs/status only. Blocked runs return code
+  2 before report/manifest generation.
+
+### 2026-05-15 - T78 - Structured Rule Builder Deep Review
+
+- Scope: `docs/audit/META_ANALYSIS.md`, `docs/audit/ARCH_REPORT.md`,
+  `docs/audit/REVIEW_REPORT.md`, `docs/archive/PHASE18_REVIEW.md`,
+  `docs/audit/AUDIT_INDEX.md`, `docs/audit/PHASE_REPORT_LATEST.md`,
+  `docs/ARCHITECTURE.md`, `docs/CODEX_PROMPT.md`, `README.md`,
+  `docs/EVIDENCE_INDEX.md`, `docs/tasks.md`, `MEMORY.md`,
+  `AGENT_NOTES.md`, `PHASE_HANDOFF.md`.
+- Why this work happened: Phase 18 required a boundary review focused on
+  deterministic policy generation, unsupported text safety, claim boundaries,
+  policy validity, and runtime scope before Phase 19.
+- Decisions applied: `D-010`, `D-001`, `D-006`, ADR-001, ADR-002.
+- Evidence collected: Cycle 23 deep review found P0:0, P1:0, P2:1 architecture
+  doc drift; the P2 was closed during the phase doc update.
+  `.venv/bin/python -m pytest tests -q --tb=short` -> 219 passed;
+  `.venv/bin/ruff check trader_risk_audit tests` -> passed;
+  `.venv/bin/ruff format --check trader_risk_audit tests` -> passed.
+- Follow-ups: start T79 Audit Session Runner in Phase 19.
+- Notes for next agent: Phase 18 policy/rule-builder artifacts are local-only,
+  deterministic, and structured. Unsupported/free-text requests stay in a
+  manual-review register and must not become executable rule truth.
+
+### 2026-05-15 - T77 - Unsupported Rule Register
+
+- Scope: `trader_risk_audit/policy/unsupported_register.py`,
+  `trader_risk_audit/policy/__init__.py`, `trader_risk_audit/cli.py`,
+  `tests/unit/policy/test_unsupported_rule_register.py`,
+  `tests/integration/test_unsupported_rule_register_cli.py`, docs state.
+- Why this work happened: Phase 18 needed unsupported/free-text rule requests
+  preserved as limitations/manual-review items without letting them become
+  executable deterministic policy rules.
+- Decisions applied: `D-010`, `D-001`, `D-006`.
+- Evidence collected: `.venv/bin/python -m pytest
+  tests/unit/policy/test_unsupported_rule_register.py
+  tests/integration/test_unsupported_rule_register_cli.py -q --tb=short` -> 3
+  passed; `.venv/bin/python -m pytest tests -q --tb=short` -> 219 passed;
+  `.venv/bin/ruff check trader_risk_audit tests` -> passed;
+  `.venv/bin/ruff format --check trader_risk_audit tests` -> passed.
+- Follow-ups: run T78 Phase 18 deep review before Phase 19 begins.
+- Notes for next agent: `policy unsupported append` refuses credential,
+  handle, and private-note shaped text. Accepted unsupported requests are
+  written to a local Markdown register with deterministic request ids,
+  sanitized summaries, reason codes, and `manual_review_required` status.
+
+### 2026-05-15 - T76 - Rule Builder Prompt Flow
+
+- Scope: `trader_risk_audit/policy/rule_builder_flow.py`,
+  `trader_risk_audit/policy/__init__.py`, `trader_risk_audit/cli.py`,
+  `tests/unit/policy/test_rule_builder_flow.py`,
+  `tests/integration/test_rule_builder_flow_cli.py`, docs state.
+- Why this work happened: Phase 18 needs local structured policy-building
+  flows before unsupported free-text rule requests can be safely captured.
+- Decisions applied: `D-010`, `D-001`, `D-006`.
+- Evidence collected: `.venv/bin/python -m pytest
+  tests/unit/policy/test_rule_builder_flow.py
+  tests/integration/test_rule_builder_flow_cli.py
+  tests/integration/test_policy_builder_cli.py -q --tb=short` -> 5 passed;
+  `.venv/bin/python -m pytest tests -q --tb=short` -> 216 passed;
+  `.venv/bin/ruff check trader_risk_audit tests` -> passed;
+  `.venv/bin/ruff format --check trader_risk_audit tests` -> passed.
+- Follow-ups: implement T77 Unsupported Rule Register so free-text or
+  unsupported requests are preserved as limitations/manual-review items, never
+  executable rule truth.
+- Notes for next agent: `policy flow` supports non-interactive structured
+  inputs and an stdin-driven interactive path. It writes deterministic
+  `policy.yaml` and can print unavailable catalog-rule explanations from a
+  sanitized schema profile.
+
+### 2026-05-15 - T75 - Profile-To-Policy Builder
+
+- Scope: `trader_risk_audit/policy/builder.py`,
+  `trader_risk_audit/policy/__init__.py`, `trader_risk_audit/cli.py`,
+  `tests/unit/policy/test_policy_builder.py`,
+  `tests/integration/test_policy_builder_cli.py`, docs state.
+- Why this work happened: Phase 18 needs generated deterministic policies from
+  starter profiles and structured threshold choices before adding prompt flow.
+- Decisions applied: `D-010`, `D-001`, `D-006`.
+- Evidence collected: `.venv/bin/python -m pytest
+  tests/unit/policy/test_policy_builder.py
+  tests/integration/test_policy_builder_cli.py -q --tb=short` -> 3 passed;
+  `.venv/bin/python -m pytest tests -q --tb=short` -> 212 passed;
+  `.venv/bin/ruff check trader_risk_audit tests` -> passed;
+  `.venv/bin/ruff format --check trader_risk_audit tests` -> passed.
+- Follow-ups: implement T76 Rule Builder Prompt Flow on top of
+  `policy build`, the builder API, and the rule catalog availability output.
+- Notes for next agent: `policy build` writes deterministic `policy.yaml` from
+  an intake session JSON, starter/custom profile, explicit account ids, and
+  catalog-validated threshold overrides. Custom free text remains outside
+  executable policy.
+
+### 2026-05-15 - T74 - Supported Rule Catalog
+
+- Scope: `trader_risk_audit/policy/rule_catalog.py`,
+  `trader_risk_audit/policy/__init__.py`,
+  `tests/unit/policy/test_rule_catalog.py`, docs state.
+- Why this work happened: Phase 18 needs a deterministic catalog before
+  automated policy building can replace manual YAML authoring.
+- Decisions applied: `D-010`, `D-001`, `D-006`.
+- Evidence collected: `.venv/bin/python -m pytest
+  tests/unit/policy/test_rule_catalog.py -q --tb=short` -> 3 passed;
+  `.venv/bin/python -m pytest tests -q --tb=short` -> 209 passed;
+  `.venv/bin/ruff check trader_risk_audit tests` -> passed;
+  `.venv/bin/ruff format --check trader_risk_audit tests` -> passed.
+- Follow-ups: implement T75 Profile-To-Policy Builder using the catalog and
+  starter policy profile docs.
+- Notes for next agent: The catalog exposes every supported schema rule type,
+  threshold unit, safe description, starter-profile applicability, and
+  availability requirements from sanitized intake profile fields. Arbitrary
+  free text still must not become executable rule truth.
+
+### 2026-05-14 - T73 - Automated Intake Profiler Deep Review
+
+- Scope: `docs/audit/META_ANALYSIS.md`, `docs/audit/ARCH_REPORT.md`,
+  `docs/audit/REVIEW_REPORT.md`, `docs/archive/PHASE17_REVIEW.md`,
+  `docs/audit/AUDIT_INDEX.md`, `docs/audit/PHASE_REPORT_LATEST.md`,
+  `docs/ARCHITECTURE.md`, `docs/CODEX_PROMPT.md`, `README.md`,
+  `docs/EVIDENCE_INDEX.md`, `docs/tasks.md`, `MEMORY.md`,
+  `AGENT_NOTES.md`, `PHASE_HANDOFF.md`.
+- Why this work happened: Phase 17 required a boundary review focused on
+  privacy, raw-row leakage, deterministic profiling, CLI output, docs, and
+  operator handoff before Phase 18.
+- Decisions applied: `D-010`, `D-001`, `D-006`, ADR-001, ADR-002.
+- Evidence collected: Cycle 22 deep review found P0:0, P1:0, P2:1
+  architecture doc drift; the P2 was closed during the phase doc update.
+  `.venv/bin/python -m pytest tests -q --tb=short` -> 206 passed;
+  `.venv/bin/ruff check trader_risk_audit tests` -> passed;
+  `.venv/bin/ruff format --check trader_risk_audit tests` -> passed.
+- Follow-ups: start T74 Supported Rule Catalog in Phase 18.
+- Notes for next agent: Phase 17 intake artifacts are local-only and safe
+  metadata surfaces. Phase 18 should build deterministic policy/rule selection
+  on top of the intake profile without allowing arbitrary free text to become
+  executable rule truth.
+
+### 2026-05-14 - T72 - Actionable Intake Report
+
+- Scope: `trader_risk_audit/intake/report.py`,
+  `trader_risk_audit/cli.py`, `tests/unit/intake/test_intake_report.py`,
+  `tests/integration/test_intake_report_cli.py`,
+  `docs/AUTOMATED_PILOT_ROADMAP.md`.
+- Why this work happened: Phase 17 needs a prospect-readable summary that turns
+  intake/session profile metadata into concrete blockers, accepted fields,
+  unsupported checks, and next action before paid audit work.
+- Decisions applied: `D-010`, T70/T71 local intake artifacts, no-advice and
+  privacy boundaries from the pilot intake contract.
+- Evidence collected: `.venv/bin/python -m pytest
+  tests/unit/intake/test_intake_report.py
+  tests/integration/test_intake_report_cli.py -q --tb=short` -> 4 passed;
+  `.venv/bin/python -m pytest tests -q --tb=short` -> 206 passed;
+  `.venv/bin/ruff check trader_risk_audit tests` -> passed;
+  `.venv/bin/ruff format --check trader_risk_audit tests` -> passed.
+- Follow-ups: T73 Phase 17 deep review should verify privacy, determinism,
+  status semantics, and scope boundaries across T70-T72.
+- Notes for next agent: The report renderer emits only status, reasons,
+  accepted field mappings, unsupported column names, unsupported check labels,
+  and next action. It does not emit CSV cell values.
+
+### 2026-05-14 - T71 - CSV Schema Profiler
+
+- Scope: `trader_risk_audit/intake/profiler.py`,
+  `trader_risk_audit/trades/importers.py`, `trader_risk_audit/cli.py`,
+  `tests/unit/intake/test_csv_profiler.py`,
+  `tests/integration/test_intake_profile_cli.py`,
+  `docs/AUTOMATED_PILOT_ROADMAP.md`.
+- Why this work happened: Phase 17 needs safe CSV/export profiling before
+  normalization so prospects and operators can see mappings, blockers, and
+  coverage without exposing raw rows.
+- Decisions applied: `D-010`, T70 intake session contract, and the local-first
+  `T0` runtime boundary.
+- Evidence collected: `.venv/bin/python -m pytest
+  tests/unit/intake/test_csv_profiler.py
+  tests/integration/test_intake_profile_cli.py -q --tb=short` -> 3 passed;
+  `.venv/bin/python -m pytest tests -q --tb=short` -> 202 passed;
+  `.venv/bin/ruff check trader_risk_audit tests` -> passed;
+  `.venv/bin/ruff format --check trader_risk_audit tests` -> passed.
+- Follow-ups: T72 Actionable Intake Report should consume `schema_profile.json`
+  and translate missing fields, unsupported columns, and coverage into safe next
+  actions.
+- Notes for next agent: The profiler outputs only file names, column names,
+  counts, booleans, and timezone/coverage labels. It does not emit cell values
+  or raw rows.
+
+### 2026-05-14 - T70 - Automated Intake Session Contract
+
+- Scope: `trader_risk_audit/intake/`, `trader_risk_audit/cli.py`,
+  `tests/unit/intake/test_intake_session.py`,
+  `tests/integration/test_intake_session_cli.py`,
+  `docs/AUTOMATED_PILOT_ROADMAP.md`.
+- Why this work happened: Phase 17 needs a deterministic local intake session
+  metadata boundary before CSV schema profiling or any row parsing.
+- Decisions applied: `D-010`, plus existing local-first/runtime `T0`
+  boundaries in `docs/ARCHITECTURE.md`.
+- Evidence collected: `.venv/bin/python -m pytest
+  tests/unit/intake/test_intake_session.py
+  tests/integration/test_intake_session_cli.py -q --tb=short` -> 5 passed;
+  `.venv/bin/python -m pytest tests -q --tb=short` -> 199 passed;
+  `.venv/bin/ruff check trader_risk_audit tests` -> passed;
+  `.venv/bin/ruff format --check trader_risk_audit tests` -> passed.
+- Follow-ups: T71 CSV Schema Profiler should consume `intake_session.json` and
+  keep raw private rows out of logs, docs, and committed fixtures.
+- Notes for next agent: `trader_risk_audit.intake` is now a package preserving
+  the prior intake-file validation imports while adding
+  `trader_risk_audit.intake.session`.
+
+### 2026-05-14 - Phase 17-22 - Automated Pilot Roadmap
+
+- Scope: `docs/AUTOMATED_PILOT_ROADMAP.md`, `docs/tasks.md`,
+  `docs/CODEX_PROMPT.md`, `README.md`, `MEMORY.md`, `AGENT_NOTES.md`,
+  `PHASE_HANDOFF.md`, `docs/DECISION_LOG.md`, `docs/EVIDENCE_INDEX.md`,
+  `docs/ARTIFACT_VALIDATION_ROADMAP.md`.
+- Why this work happened: Phase 16 proved artifact quality on a verified
+  open-source report pack, but hypothesis validation still required repeated
+  prospect runs with too much manual setup work.
+- Decisions applied: `D-010`, plus existing `D-006`, `D-007`, `D-009`, ADR-002.
+- Evidence collected: planning-only documentation pass;
+  `.venv/bin/python -m pytest tests -q --tb=short` -> 194 passed;
+  `.venv/bin/ruff check trader_risk_audit tests` -> passed;
+  `.venv/bin/ruff format --check trader_risk_audit tests` -> passed.
+- Follow-ups: start T70 Automated Intake Session Contract.
+- Notes for next agent: Keep Phases 17-21 local-first and deterministic. Do not
+  implement hosted uploads, checkout, SaaS accounts, or real exchange fetching
+  before the explicit T93/T94 CSV friction decision gate.
+
+### 2026-05-12 - T69 - External Pilot Ready Gate
+
+- Scope: `docs/audit/PHASE16_ARTIFACT_VALIDATION_REVIEW.md`,
+  `docs/EVIDENCE_INDEX.md`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`,
+  `README.md`, `MEMORY.md`, `AGENT_NOTES.md`, `PHASE_HANDOFF.md`.
+- Why this work happened: Phase 16 needed a go/no-go decision after internal
+  demo packaging and claim-safety review.
+- Decisions applied: `D-001`, `D-006`, `D-009`, ADR-002.
+- Evidence collected: ready-gate review states controlled warm conversations
+  are allowed with explicit open-source limits; paid/customer delivery still
+  requires approved real trader input and written rules. No P0/P1 findings.
+- Follow-ups: run mandatory Phase 16 phase-boundary deep review and archive it.
+- Notes for next agent: Do not treat SEC open-source validation as PMF, paid
+  pilot, customer proof, or issuer/trading advice. The paid pilot package is one
+  manual audit report for `$49-$149`, 48-72 hours after complete approved input.
+
+### 2026-05-12 - T68 - Internal Demo Pack
+
+- Scope: `docs/INTERNAL_DEMO_PACK_SEC_FORM4_EN.md`, `docs/tasks.md`,
+  `docs/CODEX_PROMPT.md`, `README.md`, `MEMORY.md`, `AGENT_NOTES.md`,
+  `PHASE_HANDOFF.md`.
+- Why this work happened: Phase 16 needed operator-facing demo packaging around
+  the reviewed SEC artifact without requiring the operator to open code or raw
+  data.
+- Decisions applied: `D-001`, `D-006`, `D-009`, ADR-002.
+- Evidence collected: demo pack points to reviewed report, reviewed packet,
+  manifest, run notes, intake summary, manual validation, and claim-safety
+  review. Privacy review confirms no private customer data or reporting-owner
+  fields are included.
+- Follow-ups: run T69 external pilot ready gate.
+- Notes for next agent: Use the demo pack for controlled warm conversations
+  only. The ask is one paid audit pilot on approved private export/read-only
+  import plus written rules; do not imply SaaS, advice, live control, or market
+  validation proof.
+
+### 2026-05-12 - T67 - Report Polish And Claim Safety Review
+
+- Scope: `demo/open_source_sec_form4_001/output/report_reviewed.md`,
+  `demo/open_source_sec_form4_001/output/telegram_packet_reviewed.txt`,
+  `docs/REPORT_POLISH_SEC_FORM4_EN.md`, `docs/tasks.md`,
+  `docs/CODEX_PROMPT.md`, `README.md`, `MEMORY.md`, `AGENT_NOTES.md`,
+  `PHASE_HANDOFF.md`.
+- Why this work happened: T66 found P2 limitation wording risk in the generic
+  first screen; T67 needed a readable, claim-safe reviewed report and packet
+  before any internal demo packaging.
+- Decisions applied: `D-001`, `D-006`, `D-009`, ADR-002.
+- Evidence collected: existing `validate_report_claims` returned
+  `report_reviewed.md=True` and `telegram_packet_reviewed.txt=True`; reviewed
+  hashes are recorded in `docs/REPORT_POLISH_SEC_FORM4_EN.md`.
+- Follow-ups: package T68 internal demo pack using the reviewed report and
+  packet.
+- Notes for next agent: T66-P2-001 is closed for internal/demo use. Do not
+  present this as customer, paid-pilot, PMF, or issuer recommendation evidence.
+
+### 2026-05-12 - T66 - Manual Calculation Validation
+
+- Scope: `docs/MANUAL_VALIDATION_SEC_FORM4_EN.md`, `docs/tasks.md`,
+  `docs/CODEX_PROMPT.md`, `README.md`, `MEMORY.md`, `AGENT_NOTES.md`,
+  `PHASE_HANDOFF.md`.
+- Why this work happened: Phase 16 needed manual correctness validation before
+  any report polish or external delivery.
+- Decisions applied: `D-001`, `D-006`, `D-009`, ADR-002.
+- Evidence collected: manually validated all seven generated violation rows
+  plus one non-flagged control row against
+  `demo/open_source_sec_form4_001/trades.csv`,
+  `demo/open_source_sec_form4_001/output/violations.json`, and
+  `demo/open_source_sec_form4_001/output/report.md`.
+- Follow-ups: T67 must address or explicitly accept T66-P2-001: first-screen
+  report wording needs clearer open-source validation and unsupported P&L /
+  drawdown limitations.
+- Notes for next agent: No P0/P1 correctness issues found. External delivery
+  remains blocked until T67 claim-safety/report-polish review closes or accepts
+  the P2 item.
+
+### 2026-05-12 - T65 - First Real Audit Artifact Run
+
+- Scope: `demo/open_source_sec_form4_001/output/`,
+  `docs/FIRST_AUDIT_RUN_SEC_FORM4_EN.md`, `docs/tasks.md`,
+  `docs/CODEX_PROMPT.md`, `README.md`, `MEMORY.md`, `AGENT_NOTES.md`,
+  `PHASE_HANDOFF.md`.
+- Why this work happened: Phase 16 needed a complete deterministic report pack
+  from the validated SEC Form 4 open-source fixture before manual validation.
+- Decisions applied: `D-001`, `D-006`, `D-009`, ADR-002.
+- Evidence collected: `.venv/bin/python -m trader_risk_audit audit --trades
+  demo/open_source_sec_form4_001/trades.csv --policy
+  demo/open_source_sec_form4_001/policy.yaml --output-dir
+  demo/open_source_sec_form4_001/output` wrote normalized trades, violations,
+  attribution summary, Markdown report, delivery packet, and manifest. Rerun in
+  `/tmp/trader-risk-audit-sec/open_source_sec_form4_rerun` produced the same
+  manifest content hash `9cfdd76e5904f3e512f6c04a9321706b7071e712b3868841c8817e93469907e8`.
+- Follow-ups: run T66 manual calculation validation before any external
+  delivery or report polish.
+- Notes for next agent: The artifact pack is mechanically complete but not
+  externally ready. T66/T67 must keep SEC-source limitations visible:
+  transaction-notional proxy only, watchlist validation only, no customer P&L,
+  no drawdown proof, no advice, and no paid-pilot evidence.
+
+### 2026-05-12 - T64 - Real Data Intake And Policy Mapping
+
+- Scope: `demo/open_source_sec_form4_001/`,
+  `docs/REAL_DATA_INTAKE_SEC_FORM4_EN.md`,
+  `docs/POLICY_MAPPING_REVIEW_SEC_FORM4_EN.md`, `docs/tasks.md`,
+  `docs/CODEX_PROMPT.md`, `README.md`, `MEMORY.md`, `AGENT_NOTES.md`,
+  `PHASE_HANDOFF.md`.
+- Why this work happened: Phase 16 needed a safe, traceable open-source intake
+  and policy mapping before generating a report artifact.
+- Decisions applied: `D-001`, `D-006`, `D-009`, ADR-002.
+- Evidence collected: SEC 2026 Q1 Form 4 zip was downloaded to
+  `/tmp/trader-risk-audit-sec/2026q1_form345.zip` and not committed. The
+  sanitized fixture uses six non-derivative transaction rows with mapped SEC
+  dates, tickers, side, quantity, price, and accession/key trace ids. Manual
+  validation loaded six normalized trade records and three policy rules.
+- Follow-ups: run T65 audit artifact generation against
+  `demo/open_source_sec_form4_001/trades.csv` and
+  `demo/open_source_sec_form4_001/policy.yaml`.
+- Notes for next agent: Treat `max_position_size` as a transaction-notional
+  proxy only, `SVRE` as validation watchlist only, and `max_leverage` as an
+  expected unsupported-data limitation. Do not claim customer P&L, causal loss,
+  advice, or paid-pilot validation from this source.
+
+### 2026-05-12 - T63 - Real Audit Scope Lock
+
+- Scope: `docs/REAL_AUDIT_SCOPE_OPEN_SOURCE_EN.md`, `docs/tasks.md`,
+  `docs/ARTIFACT_VALIDATION_ROADMAP.md`, `docs/CODEX_PROMPT.md`, `README.md`,
+  `MEMORY.md`, `AGENT_NOTES.md`, `PHASE_HANDOFF.md`.
+- Why this work happened: Orchestrator Step 0 routed to Phase 16 T63. The
+  operator clarified that absence of private data should not block artifact
+  validation; valid open sources should be used instead.
+- Decisions applied: `D-001`, `D-006`, `D-009`, ADR-002.
+- Evidence collected: Step 0 placeholder check found no unresolved `{{...}}`
+  placeholders in required docs. T63 scope is locked to SEC EDGAR Form 4
+  open-source transaction records, English report language, Europe/Moscow
+  timezone, and anonymized account `acct_open_sec_form4_msk_001`. No product
+  tests were rerun because this was a docs/routing task.
+- Follow-ups: implement T64 by deriving a compact sanitized CSV fixture from
+  the selected SEC dataset, recording exact source metadata, unsupported
+  fields, and policy mapping before any report run.
+- Notes for next agent: Public/open-source artifact validation is allowed for
+  Phase 16 when private data is unavailable. It proves artifact quality only;
+  it is not paid pilot evidence, PMF evidence, customer validation, or proof
+  that traders will pay.
+
+### 2026-05-09 - T62 - Exchange Import Deep Review
+
+- Scope: `docs/audit/STRATEGY_NOTE.md`, `docs/audit/META_ANALYSIS.md`, `docs/audit/ARCH_REPORT.md`, `docs/audit/REVIEW_REPORT.md`, `docs/audit/PHASE_REPORT_LATEST.md`, `docs/audit/AUDIT_INDEX.md`, `docs/archive/PHASE15_REVIEW.md`, `README.md`, `docs/CODEX_PROMPT.md`, `docs/EVIDENCE_INDEX.md`.
+- Why this work happened: Phase 15 needed a boundary review focused on secrets, permissions, reproducibility, deterministic truth, evidence capture, and product scope before exchange import could be discussed in founder-led pilots.
+- Decisions applied: `D-009`, ADR-002
+- Evidence collected: `.venv/bin/python -m pytest tests -q --tb=short` -> 194 passed; `.venv/bin/python -m ruff check trader_risk_audit tests` -> passed; `.venv/bin/python -m ruff format --check trader_risk_audit tests` -> passed; Cycle 20 deep review found P0:0, P1:0, P2:0, Stop-Ship: No.
+- Follow-ups: no planned implementation task remains; next work should come from pilot evidence, review findings, or an explicit roadmap update.
+- Notes for next agent: Phase 15 is complete and archived in `docs/archive/PHASE15_REVIEW.md`. Operator materials are ready for founder-led pilot conversations and local fixture/planning demonstrations, but real exchange network fetching remains unimplemented and must not be represented as available.
+
+### 2026-05-09 - T61 - Exchange Import Evidence Fields
+
+- Scope: `trader_risk_audit/evidence.py`, `trader_risk_audit/cli.py`, `docs/PILOT_EVIDENCE_LOG_RU.md`, `templates/pilot_customer_log.csv`, `tests/unit/test_evidence_capture.py`, `tests/test_pilot_evidence_log.py`.
+- Why this work happened: Phase 15 needed pilot evidence capture to distinguish CSV pilots from read-only exchange-import pilots and track non-sensitive API setup objections.
+- Decisions applied: `D-009`, ADR-002
+- Evidence collected: `.venv/bin/python -m pytest tests/unit/test_evidence_capture.py tests/test_pilot_evidence_log.py -q --tb=short` -> 9 passed; `.venv/bin/python -m pytest tests -q --tb=short` -> 194 passed; `.venv/bin/python -m ruff check trader_risk_audit tests` -> passed; `.venv/bin/python -m ruff format --check trader_risk_audit tests` -> passed; light review passed with P0:0, P1:0.
+- Follow-ups: run T62 Exchange Import Deep Review before treating exchange import as pilot-ready.
+- Notes for next agent: Evidence rows now include `intake_method` values `csv_export`, `bybit_read_only_api`, and `binance_read_only_api`, plus `api_setup_objections`; old logs without these columns load as CSV rows. The validation summary counts CSV versus exchange-import pilots separately, but paid reports and repeat-use commitments remain the gate.
+
+### 2026-05-09 - T60 - Exchange Import CLI Safety Guidance
+
+- Scope: `docs/EXCHANGE_IMPORT_GUIDE_RU.md`, `docs/EXCHANGE_IMPORT_GUIDE_EN.md`, `tests/test_exchange_import_guidance.py`.
+- Why this work happened: Phase 15 needed factual local command guidance, setup checklist, troubleshooting, and CSV fallback copy for read-only exchange import.
+- Decisions applied: `D-009`, ADR-002
+- Evidence collected: `.venv/bin/python -m pytest tests/test_exchange_import_guidance.py -q --tb=short` -> 3 passed; `.venv/bin/python -m pytest tests -q --tb=short` -> 191 passed; `.venv/bin/python -m ruff check trader_risk_audit tests` -> passed; `.venv/bin/python -m ruff format --check trader_risk_audit tests` -> passed. Review skipped under orchestrator doc/test-only skip rule.
+- Follow-ups: implement T61 Exchange Import Evidence Fields.
+- Notes for next agent: RU/EN exchange import guides show env-var and non-echo prompt examples, forbid persisted keys/secrets, document non-read-only/missing symbol/category/time range/rate limit/unverifiable permission failures, and keep CSV upload as fallback.
+
+### 2026-05-09 - T59 - Exchange Import Operator Runbook
+
+- Scope: `docs/AUDIT_WORKSPACE_RUNBOOK_RU.md`, `docs/PILOT_INTAKE_CONTRACT_RU.md`, `docs/EXCHANGE_API_IMPORT_PLAN_RU.md`, `tests/test_exchange_import_runbook.py`.
+- Why this work happened: Phase 15 needed operator and intake docs to present read-only API import as an optional path alongside CSV upload without expanding product scope.
+- Decisions applied: `D-009`, ADR-002
+- Evidence collected: `.venv/bin/python -m pytest tests/test_exchange_import_runbook.py -q --tb=short` -> 3 passed; `.venv/bin/python -m pytest tests -q --tb=short` -> 188 passed; `.venv/bin/python -m ruff check trader_risk_audit tests` -> passed; `.venv/bin/python -m ruff format --check trader_risk_audit tests` -> passed. Review skipped under orchestrator doc/test-only skip rule.
+- Follow-ups: implement T60 Exchange Import CLI Safety Guidance.
+- Notes for next agent: Docs now distinguish `csv_export`, `bybit_read_only_api`, and `binance_read_only_api`; require read-only keys with trading/order, withdrawal, transfer, leverage/margin, and account-mutation permissions disabled; prefer IP allowlisting; and repeat local-secret/no-advice/no-live-control/no-order-blocking boundaries.
+
+### 2026-05-09 - T58 - Binance Import-to-Audit Integration
+
+- Scope: `trader_risk_audit/cli.py`, `tests/integration/test_binance_import_to_audit.py`, `tests/fixtures/exchange/binance/`.
+- Why this work happened: Phase 14 needed proof that the Binance Spot fixture import path feeds the deterministic audit workflow end to end before the phase gate.
+- Decisions applied: `D-009`, ADR-002
+- Evidence collected: `.venv/bin/python -m pytest tests/integration/test_binance_import_to_audit.py tests/integration/test_exchange_import_cli.py -q --tb=short` -> 5 passed; `.venv/bin/python -m pytest tests -q --tb=short` -> 185 passed; `.venv/bin/python -m ruff check trader_risk_audit tests` -> passed; `.venv/bin/python -m ruff format --check trader_risk_audit tests` -> passed; light review passed with P0:0, P1:0.
+- Follow-ups: run Phase 14 boundary review before starting T59.
+- Notes for next agent: `exchange-import fixture` now routes Binance fixtures through `normalize_binance_spot_trades`, records `binance.spot.my_trades` as the raw snapshot endpoint label, writes normalized CSV row ids that survive the existing `audit` command, and keeps credentials/signatures out of report and audit manifest output.
+
+### 2026-05-09 - T57 - Binance Raw-to-Canonical Normalizer
+
+- Scope: `trader_risk_audit/exchange/binance.py`, `tests/unit/exchange/test_binance_normalizer.py`, `tests/fixtures/exchange/binance/`.
+- Why this work happened: Phase 14 needed Binance Spot trade-history records mapped into canonical trade records before proving import-to-audit integration.
+- Decisions applied: `D-009`, ADR-002
+- Evidence collected: `.venv/bin/python -m pytest tests/unit/exchange/test_binance_normalizer.py -q --tb=short` -> 3 passed; `.venv/bin/python -m pytest tests/test_exchange_fixture_policy.py tests/unit/exchange/test_binance_normalizer.py -q --tb=short` -> 6 passed; `.venv/bin/python -m pytest tests -q --tb=short` -> 182 passed; `.venv/bin/python -m ruff check trader_risk_audit tests` -> passed; `.venv/bin/python -m ruff format --check trader_risk_audit tests` -> passed; light review passed with P0:0, P1:0.
+- Follow-ups: implement T58 Binance Import-to-Audit Integration, then run the Phase 14 boundary review.
+- Notes for next agent: `normalize_binance_spot_trades` sorts synthetic/raw-like Binance Spot records by time, order id, trade id, and symbol; delegates canonical mapping to the shared exchange normalizer; replaces row ids with traceable `binance_spot_{symbol}_{order}_{trade}_{timestamp}` values; preserves fee asset and maker/taker metadata; and emits field-only unsupported-field warnings.
+
+### 2026-05-09 - T56 - Binance Spot Trade Fetch Planner
+
+- Scope: `trader_risk_audit/exchange/binance.py`, `trader_risk_audit/cli.py`, `tests/unit/exchange/test_binance_fetch_plan.py`, `tests/integration/test_binance_import_cli.py`.
+- Why this work happened: Phase 14 needed deterministic Binance Spot `myTrades` request planning before fixture-backed Binance normalization and import-to-audit integration.
+- Decisions applied: `D-009`, ADR-002
+- Evidence collected: `.venv/bin/python -m pytest tests/unit/exchange/test_binance_fetch_plan.py tests/integration/test_binance_import_cli.py -q --tb=short` -> 3 passed; `.venv/bin/python -m pytest tests -q --tb=short` -> 179 passed; `.venv/bin/python -m ruff check trader_risk_audit tests` -> passed; `.venv/bin/python -m ruff format --check trader_risk_audit tests` -> passed; light review passed with P0:0, P1:0.
+- Follow-ups: implement T57 Binance Raw-to-Canonical Normalizer.
+- Notes for next agent: `plan_binance_spot_trade_fetches` requires explicit symbols plus timezone-qualified start/end times, normalizes symbols to sorted uppercase unique values, emits 24-hour Spot `myTrades` windows with safe endpoint metadata, and the CLI `exchange-import binance-spot-plan` prints the plan without network calls or credentials.
 
 ### 2026-05-09 - T55 - Binance Signed Account Request Helper
 

@@ -1,0 +1,52 @@
+{
+  "artifacts": [
+    {
+      "name": "source_export",
+      "path": "demo/open_source_sec_form4_001/trades.csv",
+      "sha256": "7ced77044c53e39bcdb03a8a708826a75dae1a152db4c5fab31c55f03dcdfe4e"
+    },
+    {
+      "name": "policy_file",
+      "path": "demo/open_source_sec_form4_001/policy.yaml",
+      "sha256": "236ee1f0375f1cbe19b0edfb913b126b84fc4b6a1a8e272b2eda84cb464c705e"
+    },
+    {
+      "name": "normalized_trades",
+      "path": "demo/open_source_sec_form4_001/output/normalized_trades.json",
+      "sha256": "648df0bac83a16a0229515b7a26d10e93dc3c1e89ead9631db26b8bfdabff856"
+    },
+    {
+      "name": "violations",
+      "path": "demo/open_source_sec_form4_001/output/violations.json",
+      "sha256": "c123323724d99fed7896019f73c8f68049ec2680af4db156ca2e649eb2759582"
+    },
+    {
+      "name": "attribution_summary",
+      "path": "demo/open_source_sec_form4_001/output/attribution_summary.json",
+      "sha256": "b797673281937accdd0349e18e155dc4acce9eab824bea196fcf0740659c74e8"
+    },
+    {
+      "name": "report_markdown",
+      "path": "demo/open_source_sec_form4_001/output/report.md",
+      "sha256": "02aeb77e66c59869b72e56a6d89f6b348e2002a713728c2854fa8ee55cd1d524"
+    },
+    {
+      "name": "delivery_packet",
+      "path": "demo/open_source_sec_form4_001/output/telegram_packet.txt",
+      "sha256": "9eda7aeb28ab2d1f435bdc0622f6dcb58f5c4114e7f30c62aa6aa1430fbc0070"
+    }
+  ],
+  "command": "trader-risk-audit audit",
+  "command_arguments": [
+    "--trades",
+    "demo/open_source_sec_form4_001/trades.csv",
+    "--policy",
+    "demo/open_source_sec_form4_001/policy.yaml",
+    "--output-dir",
+    "demo/open_source_sec_form4_001/output"
+  ],
+  "content_hash": "9cfdd76e5904f3e512f6c04a9321706b7071e712b3868841c8817e93469907e8",
+  "generated_at": "2026-05-12T11:28:42.549119+00:00",
+  "manifest_id": "9cfdd76e5904f3e5",
+  "package_version": "0.1.0"
+}

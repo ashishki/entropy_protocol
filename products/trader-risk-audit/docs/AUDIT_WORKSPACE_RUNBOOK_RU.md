@@ -7,6 +7,22 @@ Workspace нужен, чтобы intake request, входные файлы, oper
 generated artifacts и final output были предсказуемо разложены. No database,
 SaaS surface, hosted storage, multi-tenant auth, and no network dependency.
 
+## Intake Methods
+
+Оператор может принять audit input двумя разными способами:
+
+1. **CSV upload / file export** - stable path для большинства pilots. Trader
+   передает готовый `.csv` export и written risk rules. Риск ниже: нет API
+   credentials, нет exchange connection setup, нет permission review.
+2. **Read-only API import** - optional path для Binance/Bybit historical
+   fills/executions. Trader создает read-only key, отключает trading/order,
+   withdrawal, transfer, leverage/margin и account-mutation permissions,
+   preferably включает IP allowlisting, а оператор запускает local import.
+
+Эти методы нельзя смешивать в metadata как один source. Укажите intake method
+явно: `csv_export`, `bybit_read_only_api` или `binance_read_only_api`.
+Если trader не хочет создавать API key, используйте CSV upload path.
+
 ## Layout
 
 Для каждого audit id оператор создает отдельную директорию:
@@ -36,6 +52,12 @@ pilot_workspaces/
 имена, email, Telegram handles, broker account ids, free-text notes или source
 file contents.
 
+For read-only API import, `metadata.json` may store only non-sensitive local
+references such as `intake_method`, `exchange`, `market`, `symbols`,
+`time_range`, `raw_snapshot_path`, `normalized_trades_path`, and
+`import_manifest_path`. It must not store API keys, API secrets, signatures,
+request headers, exchange account ids, balances, or raw rows.
+
 ## Manual Handoff
 
 1. Intake: оператор получает заполненный `templates/intake_request.yaml`,
@@ -53,6 +75,20 @@ file contents.
 7. Delivery: approved report и copy-ready delivery text переносятся в `output/`
    для ручной доставки.
 
+For read-only API import, before step 5 the operator must verify:
+
+- key is read-only where the exchange exposes metadata;
+- trading/order, withdrawal, transfer, leverage/margin and account mutation
+  permissions are disabled;
+- IP allowlisting is preferred and documented if available;
+- credentials are entered only through the approved local secret path;
+- CSV upload remains the fallback if permission status is unclear or user does
+  not want an API key.
+
+The import command writes `raw_snapshot.json`, `normalized_trades.csv`, and
+`import_manifest.json`; the existing `audit` command consumes
+`normalized_trades.csv`.
+
 ## Status Values
 
 - `intake_received`
@@ -65,6 +101,14 @@ file contents.
 
 Status updates остаются локальными metadata changes. Они не создают hosted
 state, user accounts, external queues или Telegram automation.
+
+## Boundary Reminders
+
+Read-only API import is not live trading. It must not place, amend, cancel, or
+manage orders; withdraw or transfer funds; change leverage or margin settings;
+block orders; parse signals; produce trading advice; or collect credentials
+through Telegram. It is only an optional local intake method for historical
+executed fills.
 
 ## Operator CLI
 

@@ -1,1 +1,1 @@
-prospect_source,icp,call_date,export_provided,rules_provided,paid_amount,objections,report_delivered,repeat_requested,referral
+prospect_source,icp,call_date,intake_method,export_provided,rules_provided,paid_amount,objections,api_setup_objections,report_delivered,repeat_requested,referral

@@ -1,0 +1,23 @@
+Trader Risk Audit - SEC Form 4 Open Source Validation
+
+This audit is not investment advice and does not control live trading.
+
+Scope: internal artifact validation using six sanitized SEC EDGAR Form 4 non-derivative transaction rows from 2026 Q1.
+Timezone: Europe/Moscow, UTC+03:00.
+Account label: acct_open_sec_form4_msk_001.
+
+Summary:
+- 6 rows reviewed
+- 7 deterministic findings
+- 5 transaction-notional proxy threshold breaches
+- 2 validation-only SVRE watchlist matches
+
+Critical limits:
+- Not customer data
+- Not paid-pilot or PMF evidence
+- Not account P&L, drawdown, leverage, strategy, or intent proof
+- P&L is shown as 0 only because the source lacks account-ledger P&L fields
+
+Reviewed report: report_reviewed.md
+Generated manifest: manifest.json
+Manual validation: docs/MANUAL_VALIDATION_SEC_FORM4_EN.md
