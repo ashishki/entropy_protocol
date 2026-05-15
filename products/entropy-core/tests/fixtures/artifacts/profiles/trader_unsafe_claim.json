@@ -1,0 +1,32 @@
+{
+  "artifact_contract_version": "entropy-core-artifact/v1",
+  "product": "trader-risk-audit-synthetic",
+  "run_id": "synthetic-trader-run-unsafe",
+  "input_refs": [
+    "synthetic/trader/redacted-source-pack.json"
+  ],
+  "input_hashes": [
+    "sha256:synthetic-trader-input"
+  ],
+  "policy_config_hash": "sha256:synthetic-trader-policy",
+  "code_version_ref": "git:synthetic-trader-profile",
+  "generated_artifact_refs": [
+    "synthetic/trader/report.md"
+  ],
+  "limitations": [
+    "synthetic profile fixture only"
+  ],
+  "no_claim_boundary": [
+    "not_order_blocking",
+    "not_live_trading",
+    "not_broker_exchange_execution",
+    "not_production",
+    "not_capital_ready",
+    "not_investment_advice",
+    "not_core_phase_gate_approval",
+    "order_blocking"
+  ],
+  "manual_validation_status": "not_reviewed",
+  "error_register_ref": "synthetic/trader/error-register.md",
+  "external_delivery_approval_status": "not_requested"
+}

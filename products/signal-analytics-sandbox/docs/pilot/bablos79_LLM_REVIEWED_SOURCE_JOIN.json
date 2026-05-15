@@ -1,0 +1,48 @@
+{
+  "rows": [
+    {
+      "document_id": "bablos79:bablos79-10476",
+      "capture_id": "bablos79-10476",
+      "source_id": "bablos79",
+      "author": "bablos79",
+      "timestamp_utc": "2026-05-07T18:51:32Z",
+      "text": "Утреннее. Звонок.",
+      "evidence_url": "https://t.me/bablos79/10476",
+      "text_sha256": "fced0cd89e597531ae3082941397f7c9f0804a1b41779edfea295cb55c95b4fe",
+      "media_refs": [
+        "workspace/media/bablos79/bablos79-10476.ogg"
+      ],
+      "transcript_refs": [
+        "docs/pilot/transcripts/transcript_57b6461001b54e10.json"
+      ],
+      "ocr_refs": [],
+      "metadata": {},
+      "llm_review_artifact": "docs/pilot/bablos79_TRANSCRIPT_LLM_REVIEW.json",
+      "llm_review_decision": "usable_internal",
+      "llm_market_relevance": "broad_market_thesis",
+      "llm_claim_count": 2
+    },
+    {
+      "document_id": "bablos79:bablos79-10478",
+      "capture_id": "bablos79-10478",
+      "source_id": "bablos79",
+      "author": "bablos79",
+      "timestamp_utc": "2026-05-07T18:51:32Z",
+      "text": "Про майские",
+      "evidence_url": "https://t.me/bablos79/10478",
+      "text_sha256": "bcccb754e9c8fec7d32e8c2ea9852c2b24667fd490edd8863c232ee302c96718",
+      "media_refs": [
+        "workspace/media/bablos79/bablos79-10478.ogg"
+      ],
+      "transcript_refs": [
+        "docs/pilot/transcripts/transcript_92ad5bf2e9088056.json"
+      ],
+      "ocr_refs": [],
+      "metadata": {},
+      "llm_review_artifact": "docs/pilot/bablos79_TRANSCRIPT_LLM_REVIEW.json",
+      "llm_review_decision": "usable_internal",
+      "llm_market_relevance": "broad_market_thesis",
+      "llm_claim_count": 1
+    }
+  ]
+}

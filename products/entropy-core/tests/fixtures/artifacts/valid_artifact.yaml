@@ -1,0 +1,23 @@
+artifact_contract_version: entropy-core-artifact/v1
+product: internal-core-fixture
+run_id: run-2026-05-14-001
+input_refs:
+  - fixtures/artifacts/input-manifest.json
+input_hashes:
+  - sha256:input
+policy_config_hash: sha256:policy
+code_version_ref: git:abcdef123456
+generated_artifact_refs:
+  - reports/internal-fixture.md
+limitations:
+  - synthetic fixture only
+no_claim_boundary:
+  - not_production
+  - not_capital_ready
+  - not_investment_advice
+  - no_holdout_approval
+  - blocked_live_execution
+  - not_future_performance
+manual_validation_status: not_reviewed
+error_register_ref: error-registers/internal-fixture.md
+external_delivery_approval_status: not_requested

@@ -1,52 +1,79 @@
 # Entropy Core Workspace
 
-Purpose:
+Internal governed protocol, artifact-validity, evidence, and audit-bundle
+kernel. Core is not the market-facing product, public SDK, or hosted service.
 
-Maintain the governed protocol engine and reusable audit primitives without
-weakening existing research discipline.
+## Current Status
 
-This workspace is not a separate commercial application. It is the protocol-safe
-foundation that future product surfaces may call only through approved bridges.
+- Phase: 27 Core V1 Productization
+- Next task: none - Core V1 checkpoint complete
+- Baseline: 625 passing tests, 20 skipped
+- Current priority: wait for a human-approved Core V2 roadmap before starting
+  new roadmap tasks
 
-## Scope In
+## Role
 
-- Core package code under `src/entropy/`.
-- Core tests under `tests/`.
-- Core migrations under `migrations/`.
-- Trial Registry bridge design.
-- Append-only audit event contracts.
-- Deterministic report primitives.
-- Risk policy and violation record contracts if validated by Trader Risk Audit.
-- Human-gated hypothesis/backtest bridge design.
+Core should provide:
 
-## Scope Out
+- no-claim boundary discipline;
+- executable artifact validation;
+- artifact registry, reproducibility, evidence packet, and governance
+  primitives;
+- research, product-profile, CAF, lineage, and audit-bundle schemas;
+- report validity checklist and operator runbook;
+- narrow product bridge notes;
+- shared review templates where useful.
 
-- Live broker or exchange integration.
-- Live capital.
-- Public SaaS infrastructure.
-- Signal scraping.
-- AI-generated strategy execution.
-- Any OOS or performance claim outside the root evaluation protocol.
+Core should not become a public SDK, hosted service, live execution layer, or
+generic platform during Core V1 productization.
 
 ## Read First
 
 1. `docs/CODEX_PROMPT.md`
-2. `docs/tasks.md`
-3. `../../docs/PRODUCT_PORTFOLIO.md`
-4. `docs/IMPLEMENTATION_CONTRACT.md`
+2. `docs/AI_LOOP_OPERATING_MODEL.md`
+3. `docs/CORE_12_MONTH_EXECUTION_ROADMAP.md`
+4. `docs/tasks.md` Phase 27, T119-T122
+5. `docs/IMPLEMENTATION_CONTRACT.md`
+
+## Active Guardrails
+
+- holdout remains locked;
+- live capital is not approved;
+- broker/exchange execution is not approved;
+- production credentials are not approved;
+- OOS/performance claims are not approved;
+- T66-T68 replay continuation is deferred unless explicitly reactivated.
+
+## Scope In
+
+- `src/entropy/` core primitives;
+- tests and migrations;
+- append-only/evidence/no-claim contracts;
+- artifact support contracts for product reports;
+- product bridge docs when needed by Trader or Signal.
+- artifact support review: `docs/audit/ARTIFACT_SUPPORT_REVIEW.md`.
+- Core V1 surface freeze and runbook:
+  `docs/core/CORE_V1_SURFACE_FREEZE.md`, `RUNBOOK.md`.
+
+## Scope Out
+
+- live broker/exchange integration;
+- live capital;
+- holdout reads or unlocks without explicit gate;
+- public SaaS infrastructure;
+- signal scraping;
+- AI strategy execution;
+- public Core productization;
+- external compliance certification or enterprise SLA claims.
 
 ## Local Commands
 
-Run these from `products/entropy-core/`:
+Run from `products/entropy-core/`:
 
 ```bash
-.venv/bin/python -m pytest -q tests/
+PYTHONPATH=src .venv/bin/python -m pytest tests -q --tb=short
 .venv/bin/python -m ruff check src/entropy tests
+.venv/bin/python -m ruff format --check src/entropy tests
 .venv/bin/python -m pyright src/entropy
+git diff --check
 ```
-
-## Local AI Workflow
-
-This workspace has its own `PLAYBOOK.md`, `prompts/`, `templates/`, `hooks/`,
-`ci/`, and `.claude/` configuration. Do not rely on root-level workflow files
-for core development.

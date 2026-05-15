@@ -143,3 +143,114 @@ class GovernanceEvent(Base):
         nullable=False,
         server_default=func.now(),
     )
+
+
+class ArtifactRecordMetadata(Base):
+    """Artifact registry metadata persisted for internal audit lookup."""
+
+    __tablename__ = "artifact_records"
+
+    artifact_id: Mapped[str] = mapped_column(String(128), primary_key=True)
+    artifact_contract_version: Mapped[str] = mapped_column(String(64), nullable=False)
+    product: Mapped[str] = mapped_column(String(128), nullable=False)
+    source_run_id: Mapped[str] = mapped_column(String(128), nullable=False)
+    validation_status: Mapped[str] = mapped_column(String(32), nullable=False)
+    current_governance_state: Mapped[str] = mapped_column(String(64), nullable=False)
+    artifact_hash: Mapped[str] = mapped_column(String(128), nullable=False)
+    policy_config_hash: Mapped[str] = mapped_column(String(128), nullable=False)
+    code_version_ref: Mapped[str] = mapped_column(String(256), nullable=False)
+    metadata_payload: Mapped[dict[str, object]] = mapped_column("metadata", JSONB, nullable=False)
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        nullable=False,
+        server_default=func.now(),
+    )
+
+
+class ArtifactValidationEvent(Base):
+    """Append-only artifact validation event metadata."""
+
+    __tablename__ = "artifact_validation_events"
+
+    event_id: Mapped[str] = mapped_column(String(128), primary_key=True)
+    artifact_id: Mapped[str] = mapped_column(
+        String(128),
+        ForeignKey("artifact_records.artifact_id"),
+        nullable=False,
+    )
+    validation_status: Mapped[str] = mapped_column(String(32), nullable=False)
+    error_count: Mapped[int] = mapped_column(Integer, nullable=False)
+    payload: Mapped[dict[str, object]] = mapped_column(JSONB, nullable=False)
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        nullable=False,
+        server_default=func.now(),
+    )
+
+
+class ArtifactReproducibilityEvent(Base):
+    """Append-only artifact reproducibility event metadata."""
+
+    __tablename__ = "artifact_reproducibility_events"
+
+    event_id: Mapped[str] = mapped_column(String(128), primary_key=True)
+    artifact_id: Mapped[str] = mapped_column(
+        String(128),
+        ForeignKey("artifact_records.artifact_id"),
+        nullable=False,
+    )
+    reproducibility_status: Mapped[str] = mapped_column(String(64), nullable=False)
+    manifest_ref: Mapped[str] = mapped_column(Text, nullable=False)
+    payload: Mapped[dict[str, object]] = mapped_column(JSONB, nullable=False)
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        nullable=False,
+        server_default=func.now(),
+    )
+
+
+class ArtifactEvidencePacketMetadata(Base):
+    """Artifact evidence packet metadata persisted for internal audit lookup."""
+
+    __tablename__ = "artifact_evidence_packets"
+
+    packet_id: Mapped[str] = mapped_column(String(128), primary_key=True)
+    artifact_id: Mapped[str] = mapped_column(
+        String(128),
+        ForeignKey("artifact_records.artifact_id"),
+        nullable=False,
+    )
+    packet_version: Mapped[str] = mapped_column(String(64), nullable=False)
+    packet_ref: Mapped[str] = mapped_column(Text, nullable=False)
+    packet_hash: Mapped[str] = mapped_column(String(128), nullable=False)
+    approval_state: Mapped[str] = mapped_column(String(64), nullable=False)
+    payload: Mapped[dict[str, object]] = mapped_column(JSONB, nullable=False)
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        nullable=False,
+        server_default=func.now(),
+    )
+
+
+class ArtifactGovernanceTransitionMetadata(Base):
+    """Append-only artifact governance transition event metadata."""
+
+    __tablename__ = "artifact_governance_transition_events"
+
+    event_id: Mapped[str] = mapped_column(String(128), primary_key=True)
+    artifact_id: Mapped[str] = mapped_column(
+        String(128),
+        ForeignKey("artifact_records.artifact_id"),
+        nullable=False,
+    )
+    prior_state: Mapped[str] = mapped_column(String(64), nullable=False)
+    next_state: Mapped[str] = mapped_column(String(64), nullable=False)
+    approval_event_ref: Mapped[str | None] = mapped_column(String(128), nullable=True)
+    actor: Mapped[str] = mapped_column(String(128), nullable=False)
+    reason: Mapped[str] = mapped_column(Text, nullable=False)
+    payload: Mapped[dict[str, object]] = mapped_column(JSONB, nullable=False)
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        nullable=False,
+        server_default=func.now(),
+    )

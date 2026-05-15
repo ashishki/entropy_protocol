@@ -1,196 +1,163 @@
-# CODEX_PROMPT.md — Signal Analytics Sandbox
+# CODEX_PROMPT.md - Signal Analytics Sandbox
 
-Version: 1.0
-Date: 2026-05-07
-Phase: 1 (pending Phase 0 acknowledgement)
+Version: 2.67
+Date: 2026-05-14
+Phase: 21
 
----
+This file is compact session state. Detailed history belongs in
+`docs/IMPLEMENTATION_JOURNAL.md`, `docs/archive/`, and `docs/tasks.md`.
 
 ## Phase 0 Gate Status
 
-Engineering Phase 1 (T01+) MUST NOT begin until both rows below are marked `acknowledged` by the operator.
+Engineering Phase 1 (T01+) may begin because both rows below are marked
+`acknowledged` by the operator.
 
 | Gate | Status | Evidence | Acknowledged date |
 |------|--------|----------|-------------------|
-| SAS-001: Paid Pilot Demand Validation | pending | `docs/PILOT_LOG.md` (not yet created) | — |
-| SAS-002: Public-Source Legal/Terms Memo | pending | `docs/legal_risk_memo.md` (not yet created) | — |
+| SAS-001: Paid Pilot Demand Validation | acknowledged | `docs/PILOT_LOG.md` | 2026-05-07 |
+| SAS-002: Public-Source Legal/Terms Memo | acknowledged | `docs/legal_risk_memo.md` | 2026-05-07 |
 
-To acknowledge a gate, the operator edits this block — replaces `pending` with `acknowledged`, references the evidence file, and dates the acknowledgement. The Orchestrator refuses to dispatch T01–T20 while either row is pending (per IMPLEMENTATION_CONTRACT §PSR-10).
-
----
+Initial pilot sources acknowledged on 2026-05-07:
+`https://t.me/bablos79`, `https://t.me/nemphiscrypts`,
+`https://t.me/pifagortrade`.
 
 ## Current State
 
-- **Phase:** 1 (queued — blocked by Phase 0)
-- **Baseline:** 0 passing tests (pre-implementation)
-- **Ruff:** not yet configured
-- **Pyright:** not yet configured
-- **Last CI run:** not yet configured
-- **Last updated:** 2026-05-07
-- **Session tokens (approx):** not yet tracked
-- **Cumulative phase tokens (approx):** not yet tracked
+- Phase: 21 (Artifact-First Real Public-Source Report Validation)
+- Baseline: 166 passing tests, 0 skipped
+- Ruff: `ruff check src/ tests/` passes
+- Pyright: `pyright` passes
+- Last CI run: local CI-equivalent commands pass; GitHub run not yet observed
+- Last updated: 2026-05-14
+- Current priority: decide whether internal LLM-reviewed media report is enough
+  for demo or whether external delivery needs operator/human acceptance
 
----
+## Read First
 
-## Continuity Pointers
+1. `docs/ARTIFACT_VALIDATION_ROADMAP.md`
+2. `../../docs/ARTIFACT_FIRST_VALIDATION_ROADMAP.md`
+3. `docs/MULTIMODAL_REPORT_DEVELOPMENT_PLAN.md`
+4. `docs/tasks.md` Phase 21, SAS-LIVE-001..009 then SAS-AF-006..008
+5. task-specific `Context-Refs` in `docs/tasks.md`
 
-- **Decision log:** `docs/DECISION_LOG.md`
-- **Implementation journal:** `docs/IMPLEMENTATION_JOURNAL.md`
-- **Evidence index:** deferred in v1 — heavy-task evidence lives in `docs/audit/HEAVY_T{NN}_EVIDENCE.md`
-- **Project brief:** `templates/PROJECT_BRIEF.md` (canonical), `docs/PROJECT_BRIEF.md` (pointer)
-- **Architecture:** `docs/ARCHITECTURE.md`
-- **Spec:** `docs/spec.md`
-- **Tasks:** `docs/tasks.md`
-- **Implementation contract:** `docs/IMPLEMENTATION_CONTRACT.md`
-- **Task-scoped context:** read `Context-Refs` in `docs/tasks.md` before broad searching
-- **Legal/risk memo (SAS-002 output):** `docs/legal_risk_memo.md` (created by SAS-002)
-- **Pilot log (SAS-001 output):** `docs/PILOT_LOG.md` (created by SAS-001)
+Other useful links:
 
----
+- `docs/DECISION_LOG.md`
+- `docs/IMPLEMENTATION_JOURNAL.md`
+- `docs/legal_risk_memo.md`
+- `docs/PILOT_LOG.md`
+- `docs/pilot/AUTHOR_MARKET_INTELLIGENCE_ROADMAP.md`
+- `docs/pilot/MEDIA_MODALITY_DEVELOPMENT_PLAN.md`
+- `docs/archive/PHASE20_REVIEW.md`
 
 ## Next Task
 
-**Phase 0 — SAS-001: Paid Pilot Demand Validation** (operator-owned, non-codex)
+Managed Whisper provider wiring is implemented, the `bablos79` media transcript
+draft run completed, and OpenAI `gpt-4.1` LLM review produced an internal
+media-backed result. External delivery remains blocked until the operator
+accepts LLM review as the review gate or adds human/operator acceptance.
 
-Engineering T01 is queued behind Phase 0. After both Phase 0 gates are acknowledged in the table above, the next task becomes:
+All Phase 21 tasks through `SAS-AF-008` are complete and archived. The current
+decision is `reject_source_window_for_external_delivery` for the `bablos79`
+media-backed report route.
 
-**T01: Project Skeleton**
+## Active Guardrails
 
-Inline digest for the Orchestrator (when T01 unblocks):
-- Pyproject + console-script `signal-sandbox`; Python ≥ 3.12.
-- Subpackages: sources/, capture/, extraction/, ledger/, prices/, outcomes/, reports/.
-- Shared `get_tracer()` in `src/signal_sandbox/observability.py` (no inline noop spans).
-- All subcommands except `status` exit code 2 with "not implemented".
-- Files: see `docs/tasks.md::T01::Files`.
-- Applicable rules: PSR-1 (no scraping code paths in stubs), Shared Tracing Module (universal), Pre-Task Protocol (universal).
-
-Only send codex to the full ARCHITECTURE.md / IMPLEMENTATION_CONTRACT.md when a task is heavy or touches cross-cutting boundaries.
-
----
-
-## Fix Queue
-
-empty
-
-<!--
-The Fix Queue contains items that must be addressed before the next phase gate but
-were deferred from the current task. Format:
-
-- FQ-01: [T-NN] Description. Added: YYYY-MM-DD.
--->
-
----
-
-## Open Findings
-
-### Open ADRs (block specific phases)
-- ADR-001 (`docs/adr/ADR-001-snapshot-serialization.md`) — research pending; **blocks Phase 4 (T09 onward)**. Must reach Status: ACCEPTED before T09 implementation begins.
-
-### Findings from review cycles
-none
-
-<!--
-### P1 Findings (block next phase gate)
-- (none)
-
-### P2 Findings (must resolve within 3 cycles)
-- (none)
-
-### P3 Findings (optional)
-- (none)
--->
-
----
-
-## Completed Tasks
-
-none
-
----
-
-## Profile State: RAG
-
-- RAG Status: OFF
-- Active corpora: n/a
-- Retrieval baseline: n/a
-- Open retrieval findings: none
-- Index schema version: n/a
-- Pending reindex actions: none
-- Retrieval-related next tasks: none
-- Retrieval-driven tasks: none
-
----
-
-## Tool-Use State
-
-- Tool-Use Profile: OFF
-- Active tools: n/a
-- Tool eval baseline: n/a
-- Open tool findings: none
-
----
-
-## Agentic State
-
-- Agentic Profile: OFF
-- Active agent roles: n/a
-- Loop termination state: n/a
-- Open agentic findings: none
-
----
-
-## Planning State
-
-- Planning Profile: OFF
-- Plan schema version: n/a
-- Open plan findings: none
-
----
-
-## Compliance State
-
-- Compliance Profile: OFF
-- Active frameworks: none
-- Compliance eval baseline: n/a
-- Open compliance findings: none
-
----
+- Public/operator-authorized sources only.
+- No private Telegram groups or access-control bypass.
+- No paid X/Twitter dependency before Telegram/public-source artifact
+  validation.
+- Media evidence remains internal-only until transcript/OCR is human-reviewed.
+- No marketplace, leaderboard, investment advice, or future-profit claims.
 
 ## Evaluation State
 
+### Last Evaluation
+
+- Task: SAS-LIVE-006 - Reviewed Multimodal Source Join
+- Date: 2026-05-14
+- Eval Source: `.venv/bin/python -m pytest tests/unit/test_multimodal_source_join.py -q`, run 2026-05-14
+- Artifact: `docs/retrieval_eval.md`
+- Primary metric: source-join preservation pass rate
+- Result: PASS, 100%
+
 ### Regression Thresholds
 
-- Default: >15% regression → P0; >5% regression → P1; ≤5% → no finding.
-- Apply to extraction acceptance rate (T20) once a baseline is recorded.
+- P0: primary metric drop > 15% from baseline
+- P1: primary metric drop > 5% from baseline
 
-### Recorded Baselines
+## Fix Queue
 
-- (none yet)
+Empty.
 
----
+## Open Findings
 
-## Heavy-Task Evidence Index
+Open findings are product-gate blockers for external delivery of the current
+source/window, not implementation stop-ship findings.
 
-Heavy tasks defined in `docs/tasks.md`:
+| ID | Severity | Summary | Canonical artifact |
+|----|----------|---------|--------------------|
+| P21-E02 | P1 | Two transcript refs are LLM-reviewed usable for internal source join; zero refs are human/operator accepted for external delivery. | `docs/audit/PHASE21_ERROR_REGISTER.md` |
+| P21-E03 | P1 | Internal media-backed report has 3 LLM-reviewed broad-market claims but zero deterministic outcome-ready rows. | `docs/audit/PHASE21_ERROR_REGISTER.md` |
+| P21-E04 | P2 | The exact follow-up video promised by `bablos79-10465` was not identified in the public window. | `docs/audit/PHASE21_ERROR_REGISTER.md` |
 
-| Task | Heavy reason | Evidence file (created at task close) |
-|------|--------------|----------------------------------------|
-| T12  | Outcome matching is the load-bearing reproducibility surface; floating-point determinism + rule-citation correctness must be auditable | `docs/audit/HEAVY_T12_EVIDENCE.md` |
-| T14  | Markdown report is the user-facing artifact; disclaimer integrity, provenance, and per-signal evidence are P0 boundaries | `docs/audit/HEAVY_T14_EVIDENCE.md` |
-| T20  | LLM extraction adapter introduces a non-deterministic source whose output must never become "truth"; cost-cap and review-gate are load-bearing | `docs/audit/HEAVY_T20_EVIDENCE.md` |
+## Historical Pointers
 
----
+- Phase 20 completed through SAS-MEDIA-008; details are in
+  `docs/archive/PHASE20_REVIEW.md`, `docs/pilot/MEDIA_MODALITY_DECISION.md`,
+  and `docs/pilot/bablos79_MULTIMODAL_COVERAGE_PACK.md`.
+- Phase 21 scope is locked to `https://t.me/bablos79`, the existing
+  2026-04-27..2026-05-06 public text capture window, and a text-only
+  Russian-first public-source report boundary in
+  `docs/ARTIFACT_VALIDATION_ROADMAP.md#sas-af-001-scope-lock-note`.
+- Phase 21 capture pack is generated at `docs/pilot/bablos79_CAPTURE_PACK.md`
+  and `docs/pilot/bablos79_CAPTURE_PACK.json` from 60 public text captures plus
+  validated pseudo-labels: 50 `not_a_signal`, 7 `insufficient_fields`, and
+  3 `needs_review`.
+- Phase 21 review queue is closed at
+  `docs/pilot/bablos79_REVIEW_QUEUE_CLOSED.md` and
+  `docs/pilot/bablos79_REVIEW_QUEUE_CLOSED.json`: 50
+  `rejected_not_market_related`, 7 `insufficient_evidence`, 3
+  `ambiguous_needs_operator_review`, and 0 customer-report-eligible rows.
+- Phase 21 outcome prep is at `docs/pilot/bablos79_OUTCOME_PREP.md` and
+  `docs/pilot/bablos79_OUTCOME_PREP.json`: 0 market-data fetches, 0 outcome
+  metrics, 50 not-applicable rows, 7 insufficient-evidence rows, and 3
+  operator-review-required rows.
+- Phase 21 report draft is at
+  `docs/pilot/reports/bablos79_SIGNAL_REPORT_V1.md`.
+- The text-only report is not the final target. It proved that real media
+  acquisition was required before claiming audio/image analysis. The completed
+  media route still rejects external delivery because no reviewed usable media
+  refs exist.
+- `SAS-LIVE-001` completed on 2026-05-14 at
+  `docs/pilot/bablos79_REAL_MEDIA_INTAKE.md`.
+- `SAS-LIVE-002..SAS-AF-008` completed on 2026-05-14. Two public voice files
+  were acquired, but no transcript provider was configured, zero reviewed usable
+  media refs exist, and the ready gate rejects this source/window for external
+  delivery.
+- Phase 21 deep review is archived at `docs/archive/PHASE21_REVIEW.md`.
+- Managed Whisper wiring was added on 2026-05-15 using the previously discussed
+  `Dream_Motif_Interpreter` provider pattern. `signal-sandbox transcribe-media`
+  produced two draft transcript artifacts under `docs/pilot/transcripts/`.
+- LLM review was added on 2026-05-15 at
+  `docs/pilot/bablos79_TRANSCRIPT_LLM_REVIEW.md`: OpenAI `gpt-4.1` marked both
+  transcript refs usable for internal source join and extracted 3 media-backed
+  broad-market claims. The internal report is
+  `docs/pilot/reports/bablos79_MEDIA_BACKED_REPORT_V2_LLM_REVIEWED.md`.
+- Latest validation: 166 passing tests, 0 skipped; ruff and pyright pass.
+- Phase 19 review coverage details are in
+  `docs/pilot/bablos79_REVIEW_COVERAGE_PACK.md`.
+- Earlier phase history is in `docs/IMPLEMENTATION_JOURNAL.md`,
+  `AGENT_NOTES.md`, and `docs/archive/`.
 
-## Instructions for Codex
+## Maintenance Rule
 
-1. Read `docs/IMPLEMENTATION_CONTRACT.md` before starting any task.
-2. Read the full task definition in `docs/tasks.md` before writing any code.
-3. Read all Depends-On tasks to understand interface contracts.
-4. Read the task's `Context-Refs` and the relevant entries in `docs/DECISION_LOG.md` and `docs/IMPLEMENTATION_JOURNAL.md` when the task depends on prior decisions, proof, or findings.
-5. Run `python -m pytest tests/ -q` to capture the current baseline before making any changes.
-6. Run `ruff check src/ tests/` — must exit 0 before starting. If not, fix in a separate commit, then restart.
-7. Write tests before or alongside implementation. Every acceptance criterion has a passing test.
-8. Update this file at every phase boundary (new baseline, next task, open findings).
-9. Commit with format: `type(scope): description` — one logical change per commit. No `Co-Authored-By` from AI agents.
-10. When done: return `IMPLEMENTATION_RESULT: DONE` with the new baseline and what changed.
-11. When blocked: return `IMPLEMENTATION_RESULT: BLOCKED` with the exact blocker.
+At every phase boundary update only:
+
+- current phase;
+- baseline and validation status;
+- next task;
+- open findings;
+- links if canonical docs move.
+
+Do not append long closeout digests here.

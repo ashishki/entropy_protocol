@@ -1,0 +1,115 @@
+{
+  "reviewer_type": "llm",
+  "prompt_version": "transcript-llm-review-v1",
+  "overall_decision": "llm_usable_internal",
+  "overall_reason": "Both transcripts are coherent, source-bound, and contain relevant macro and specific market commentary. No explicit investment advice or deterministic trade setups are present. Claims are suitable for internal LLM-reviewed source join, but not for external delivery or deterministic outcome tracking.",
+  "rows": [
+    {
+      "media_id": "public_voice_bablos79_10476",
+      "transcript_id": "transcript_57b6461001b54e10",
+      "source_url": "https://t.me/bablos79/10476",
+      "quality_decision": "usable_internal",
+      "quality_confidence": "high",
+      "quality_notes": [
+        "Transcript is clear and contextually coherent.",
+        "No major transcription errors detected.",
+        "Market and geopolitical commentary is present."
+      ],
+      "market_relevance": "broad_market_thesis",
+      "market_claims": [
+        {
+          "claim_id": "bablos79_10476_claim1",
+          "claim_type": "macro_context",
+          "asset_scope": "global geopolitics, US, UK, Russia",
+          "asset_id": null,
+          "direction": "negative",
+          "horizon_text": null,
+          "thesis": "Geopolitical tensions are increasing, with the UK allegedly seeking to draw the US into conflicts to weaken it, and the US losing influence globally.",
+          "event_trigger": null,
+          "evidence_span": "британцы хотят втянуть конкретно США в войну против России...американцы будут ослабеть и самое главное терять своё влияние в мире, что сейчас и происходит",
+          "deterministic_outcome_eligible": false,
+          "outcome_blockers": [
+            "No explicit asset or measurable outcome.",
+            "Claim is broad and speculative."
+          ],
+          "report_use": "internal_llm_reviewed_only"
+        },
+        {
+          "claim_id": "bablos79_10476_claim2",
+          "claim_type": "directional_bias",
+          "asset_scope": "Московская биржа, широкий рынок активов",
+          "asset_id": null,
+          "direction": "negative",
+          "horizon_text": "майские праздники",
+          "thesis": "Negative trend continues for the Moscow Exchange and broad asset market; possible short-term bounce before May holidays, but attacks expected during holidays will likely push the market down.",
+          "event_trigger": "Attacks during May holidays",
+          "evidence_span": "по московской бирже, по широкому рынку активов негатив продолжается, сейчас может быть какой-то мы получим отскок перед майскими праздниками, но я думаю, что на майские праздники будут атаки, и тогда движение вниз продолжится",
+          "deterministic_outcome_eligible": false,
+          "outcome_blockers": [
+            "No explicit asset or trade setup.",
+            "No deterministic price or outcome specified."
+          ],
+          "report_use": "internal_llm_reviewed_only"
+        }
+      ],
+      "rejected_claims": [],
+      "next_action": "source_join_internal"
+    },
+    {
+      "media_id": "public_voice_bablos79_10478",
+      "transcript_id": "transcript_92ad5bf2e9088056",
+      "source_url": "https://t.me/bablos79/10478",
+      "quality_decision": "usable_internal",
+      "quality_confidence": "high",
+      "quality_notes": [
+        "Transcript is clear and contextually coherent.",
+        "No major transcription errors detected.",
+        "Contains market and event risk commentary."
+      ],
+      "market_relevance": "broad_market_thesis",
+      "market_claims": [
+        {
+          "claim_id": "bablos79_10478_claim1",
+          "claim_type": "event_risk",
+          "asset_scope": "Российская биржа",
+          "asset_id": null,
+          "direction": "negative",
+          "horizon_text": "майские праздники",
+          "thesis": "There is a risk of mass attacks and provocations during the May holidays, which will negatively affect the Russian exchange.",
+          "event_trigger": "Mass attacks and provocations during May holidays",
+          "evidence_span": "есть опасность что на майские праздники будут налеты массовые очень массовые налеты будут...это будет негатив по бирже",
+          "deterministic_outcome_eligible": false,
+          "outcome_blockers": [
+            "No explicit asset or deterministic outcome.",
+            "Claim is event-driven and speculative."
+          ],
+          "report_use": "internal_llm_reviewed_only"
+        }
+      ],
+      "rejected_claims": [],
+      "next_action": "source_join_internal"
+    }
+  ],
+  "report_summary": {
+    "usable_transcript_refs": [
+      "transcript_57b6461001b54e10",
+      "transcript_92ad5bf2e9088056"
+    ],
+    "media_backed_claim_count": 3,
+    "deterministic_outcome_ready_count": 0,
+    "external_delivery_status": "blocked_pending_human_or_operator_acceptance",
+    "limitations": [
+      "No explicit tickers, prices, or trade setups.",
+      "Claims are broad, speculative, and not outcome-deterministic.",
+      "Transcripts are not audio-verified; only draft provider output."
+    ]
+  },
+  "reviewed_at_utc": "2026-05-15T05:15:11.801997+00:00",
+  "reviewer_provider": "openai",
+  "reviewer_model": "gpt-4.1",
+  "input_artifacts": [
+    "docs/pilot/transcripts/transcript_57b6461001b54e10.json",
+    "docs/pilot/transcripts/transcript_92ad5bf2e9088056.json"
+  ],
+  "prompt_artifact": "docs/pilot/bablos79_TRANSCRIPT_LLM_REVIEW_PROMPT.md"
+}

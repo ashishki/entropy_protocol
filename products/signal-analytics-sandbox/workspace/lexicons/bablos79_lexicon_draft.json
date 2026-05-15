@@ -1,0 +1,470 @@
+{
+  "candidates": [
+    {
+      "category": "asset_alias",
+      "confidence": 0.92,
+      "evidence_capture_ids": [
+        "bablos79-10442",
+        "bablos79-10458",
+        "bablos79-10464"
+      ],
+      "evidence_excerpts": [
+        "☄️ По #X5 кто то жестко набирает, но мне очень кажется",
+        "#X5 ну вы поняли",
+        "#X5  Конечно не так красиво, но пока закрыл. Фью"
+      ],
+      "false_positive_risk": "low: explicit hashtag ticker; still only an asset candidate, not a signal.",
+      "profile_state": "accepted_for_draft",
+      "term": "#X5"
+    },
+    {
+      "category": "asset_alias",
+      "confidence": 0.92,
+      "evidence_capture_ids": [
+        "bablos79-10443",
+        "bablos79-10446"
+      ],
+      "evidence_excerpts": [
+        "#VTBR похоже на грани срыва. У банка недостаток ли",
+        "#VTBR да! По нормативам ЦБ нехватка резервов- 700 "
+      ],
+      "false_positive_risk": "low: explicit hashtag ticker; surrounding text may still be news/commentary.",
+      "profile_state": "accepted_for_draft",
+      "term": "#VTBR"
+    },
+    {
+      "category": "asset_alias",
+      "confidence": 0.93,
+      "evidence_capture_ids": [
+        "bablos79-10450",
+        "bablos79-10467",
+        "bablos79-10497",
+        "bablos79-10501"
+      ],
+      "evidence_excerpts": [
+        "#MAGN совет директоров порекомендовал не выплачива",
+        "ренним удивлением обсуждают коррекцию актива #MAGN 📉.  В свою очередь, я с глубоким интересом и",
+        "Вот этот клоун загонял подписоту в #MAGN",
+        "Это просто красиво #MAGN  Часть закрыл стоп подвинул"
+      ],
+      "false_positive_risk": "low for asset detection, medium for signal detection because several mentions criticize other authors.",
+      "profile_state": "accepted_for_draft",
+      "term": "#MAGN"
+    },
+    {
+      "category": "asset_alias",
+      "confidence": 0.9,
+      "evidence_capture_ids": [
+        "bablos79-10459"
+      ],
+      "evidence_excerpts": [
+        "По #AMD отбой. Пока не буду шортить его, может еще д"
+      ],
+      "false_positive_risk": "low for asset detection; the evidence row is explicitly a no-trade deferral.",
+      "profile_state": "accepted_for_draft",
+      "term": "#AMD"
+    },
+    {
+      "category": "asset_alias",
+      "confidence": 0.88,
+      "evidence_capture_ids": [
+        "bablos79-10453"
+      ],
+      "evidence_excerpts": [
+        "про #VKCO"
+      ],
+      "false_positive_risk": "low for asset detection; ticker-only topic marker is not signal evidence.",
+      "profile_state": "accepted_for_draft",
+      "term": "#VKCO"
+    },
+    {
+      "category": "asset_alias",
+      "confidence": 0.9,
+      "evidence_capture_ids": [
+        "bablos79-10489",
+        "bablos79-10490"
+      ],
+      "evidence_excerpts": [
+        "Во первых, это красиво! #GAZP",
+        "Когда инвесторы #GAZP вышли в прибыль"
+      ],
+      "false_positive_risk": "low for asset detection; examples are commentary, not author trade setup.",
+      "profile_state": "accepted_for_draft",
+      "term": "#GAZP"
+    },
+    {
+      "category": "asset_alias",
+      "confidence": 0.9,
+      "evidence_capture_ids": [
+        "bablos79-10492"
+      ],
+      "evidence_excerpts": [
+        " и хочется взбодриться. ... юмором, то Ромка #SBER сегодня покупал 😁"
+      ],
+      "false_positive_risk": "low for asset detection; example describes another person buying, so not signal truth.",
+      "profile_state": "accepted_for_draft",
+      "term": "#SBER"
+    },
+    {
+      "category": "asset_alias",
+      "confidence": 0.9,
+      "evidence_capture_ids": [
+        "bablos79-10499"
+      ],
+      "evidence_excerpts": [
+        "#SFIN закрыл почти в ноль. Продажи пошли."
+      ],
+      "false_positive_risk": "low for asset detection; row is close/reduce management without original setup.",
+      "profile_state": "accepted_for_draft",
+      "term": "#SFIN"
+    },
+    {
+      "category": "asset_alias",
+      "confidence": 0.9,
+      "evidence_capture_ids": [
+        "bablos79-10500"
+      ],
+      "evidence_excerpts": [
+        "Зафиксировал часть #CHMF  Стоп перенес"
+      ],
+      "false_positive_risk": "low for asset detection; row is partial fixation without original setup.",
+      "profile_state": "accepted_for_draft",
+      "term": "#CHMF"
+    },
+    {
+      "category": "direction_short",
+      "confidence": 0.74,
+      "evidence_capture_ids": [
+        "bablos79-10450",
+        "bablos79-10459",
+        "bablos79-10504"
+      ],
+      "evidence_excerpts": [
+        "нды.  Теханализ опять опережает новости.  Мы шортили с текущих хаев.",
+        "По #AMD отбой. Пока не буду шортить его, может еще дать.",
+        "Как вовремя я закрыл часть шортов.  Но это просто откат. Картина не меняется"
+      ],
+      "false_positive_risk": "medium: can occur in historical close/no-trade context; may draft a short direction only with negation/close guards.",
+      "profile_state": "accepted_for_draft",
+      "term": "шорт"
+    },
+    {
+      "category": "direction_short",
+      "confidence": 0.72,
+      "evidence_capture_ids": [
+        "bablos79-10450"
+      ],
+      "evidence_excerpts": [
+        "нды.  Теханализ опять опережает новости.  Мы шортили с текущих хаев."
+      ],
+      "false_positive_risk": "medium: past-tense author trade language; not enough for current evaluable signal.",
+      "profile_state": "accepted_for_draft",
+      "term": "шортили"
+    },
+    {
+      "category": "direction_short",
+      "confidence": 0.45,
+      "evidence_capture_ids": [
+        "bablos79-10459"
+      ],
+      "evidence_excerpts": [
+        "По #AMD отбой. Пока не буду шортить его, может еще дать."
+      ],
+      "false_positive_risk": "high: example is explicitly negated by \"Пока не буду\".",
+      "profile_state": "needs_review",
+      "term": "шортить"
+    },
+    {
+      "category": "direction_short",
+      "confidence": 0.48,
+      "evidence_capture_ids": [
+        "bablos79-10504"
+      ],
+      "evidence_excerpts": [
+        "Как вовремя я закрыл часть шортов.  Но это просто откат. Картина не меняется."
+      ],
+      "false_positive_risk": "high: appears in close/management language with no asset symbol in the post.",
+      "profile_state": "needs_review",
+      "term": "шортов"
+    },
+    {
+      "category": "close_or_reduce",
+      "confidence": 0.78,
+      "evidence_capture_ids": [
+        "bablos79-10464",
+        "bablos79-10499",
+        "bablos79-10501",
+        "bablos79-10504"
+      ],
+      "evidence_excerpts": [
+        "#X5  Конечно не так красиво, но пока закрыл. Фьючерсом перезайду может.  Был в отъезде б",
+        "#SFIN закрыл почти в ноль. Продажи пошли.",
+        "Это просто красиво #MAGN  Часть закрыл стоп подвинул",
+        "Как вовремя я закрыл часть шортов.  Но это просто откат. Картина "
+      ],
+      "false_positive_risk": "medium: close/reduce marker, but requires linked original setup before any evaluable record.",
+      "profile_state": "accepted_for_draft",
+      "term": "закрыл"
+    },
+    {
+      "category": "close_or_reduce",
+      "confidence": 0.8,
+      "evidence_capture_ids": [
+        "bablos79-10501"
+      ],
+      "evidence_excerpts": [
+        "Это просто красиво #MAGN  Часть закрыл стоп подвинул"
+      ],
+      "false_positive_risk": "medium: partial close marker; cannot create approved record without original entry/stop/target.",
+      "profile_state": "accepted_for_draft",
+      "term": "часть закрыл"
+    },
+    {
+      "category": "close_or_reduce",
+      "confidence": 0.78,
+      "evidence_capture_ids": [
+        "bablos79-10504"
+      ],
+      "evidence_excerpts": [
+        "Как вовремя я закрыл часть шортов.  Но это просто откат. Картина не мен"
+      ],
+      "false_positive_risk": "medium: partial close marker; missing asset in observed row.",
+      "profile_state": "accepted_for_draft",
+      "term": "закрыл часть"
+    },
+    {
+      "category": "close_or_reduce",
+      "confidence": 0.82,
+      "evidence_capture_ids": [
+        "bablos79-10500"
+      ],
+      "evidence_excerpts": [
+        "Зафиксировал часть #CHMF  Стоп перенес"
+      ],
+      "false_positive_risk": "medium: profit-taking marker, not original entry evidence.",
+      "profile_state": "accepted_for_draft",
+      "term": "зафиксировал"
+    },
+    {
+      "category": "stop_or_invalidation",
+      "confidence": 0.66,
+      "evidence_capture_ids": [
+        "bablos79-10500",
+        "bablos79-10501"
+      ],
+      "evidence_excerpts": [
+        "Зафиксировал часть #CHMF  Стоп перенес",
+        "Это просто красиво #MAGN  Часть закрыл стоп подвинул"
+      ],
+      "false_positive_risk": "medium-high: observed as moved stop without numeric stop value.",
+      "profile_state": "needs_review",
+      "term": "стоп"
+    },
+    {
+      "category": "stop_or_invalidation",
+      "confidence": 0.64,
+      "evidence_capture_ids": [
+        "bablos79-10500"
+      ],
+      "evidence_excerpts": [
+        "Зафиксировал часть #CHMF  Стоп перенес"
+      ],
+      "false_positive_risk": "medium-high: stop-management phrase lacks a numeric level.",
+      "profile_state": "needs_review",
+      "term": "стоп перенес"
+    },
+    {
+      "category": "stop_or_invalidation",
+      "confidence": 0.64,
+      "evidence_capture_ids": [
+        "bablos79-10501"
+      ],
+      "evidence_excerpts": [
+        "Это просто красиво #MAGN  Часть закрыл стоп подвинул"
+      ],
+      "false_positive_risk": "medium-high: stop-management phrase lacks a numeric level.",
+      "profile_state": "needs_review",
+      "term": "стоп подвинул"
+    },
+    {
+      "category": "entry_intent",
+      "confidence": 0.42,
+      "evidence_capture_ids": [
+        "bablos79-10442"
+      ],
+      "evidence_excerpts": [
+        "☄️ По #X5 кто то жестко набирает, но мне очень кажется, что зря…"
+      ],
+      "false_positive_risk": "high: can describe someone else accumulating rather than author entry.",
+      "profile_state": "needs_review",
+      "term": "набирает"
+    },
+    {
+      "category": "entry_intent",
+      "confidence": 0.44,
+      "evidence_capture_ids": [
+        "bablos79-10464"
+      ],
+      "evidence_excerpts": [
+        "но не так красиво, но пока закрыл. Фьючерсом перезайду может.  Был в отъезде без интернета"
+      ],
+      "false_positive_risk": "high: future/conditional re-entry, not current entry.",
+      "profile_state": "needs_review",
+      "term": "перезайду"
+    },
+    {
+      "category": "direction_long",
+      "confidence": 0.35,
+      "evidence_capture_ids": [
+        "bablos79-10470"
+      ],
+      "evidence_excerpts": [
+        "По валюте пока негатив. Если буду покупать — будут знаки."
+      ],
+      "false_positive_risk": "high: observed in conditional future phrase \"Если буду покупать\".",
+      "profile_state": "needs_review",
+      "term": "покупать"
+    },
+    {
+      "category": "direction_long",
+      "confidence": 0.28,
+      "evidence_capture_ids": [
+        "bablos79-10492"
+      ],
+      "evidence_excerpts": [
+        "одриться. ... юмором, то Ромка #SBER сегодня покупал 😁"
+      ],
+      "false_positive_risk": "high: observed as third-party humorous reference, not author signal.",
+      "profile_state": "excluded",
+      "term": "покупал"
+    },
+    {
+      "category": "uncertainty",
+      "confidence": 0.82,
+      "evidence_capture_ids": [
+        "bablos79-10459"
+      ],
+      "evidence_excerpts": [
+        "По #AMD отбой. Пока не буду шортить его, может еще дать."
+      ],
+      "false_positive_risk": "low: useful cancellation/deferral marker; should suppress signal approval.",
+      "profile_state": "accepted_for_draft",
+      "term": "отбой"
+    },
+    {
+      "category": "uncertainty",
+      "confidence": 0.86,
+      "evidence_capture_ids": [
+        "bablos79-10459"
+      ],
+      "evidence_excerpts": [
+        "По #AMD отбой. Пока не буду шортить его, может еще дать."
+      ],
+      "false_positive_risk": "low: explicit no-action/deferral marker; should force needs_review/not_a_signal.",
+      "profile_state": "accepted_for_draft",
+      "term": "пока не буду"
+    },
+    {
+      "category": "uncertainty",
+      "confidence": 0.5,
+      "evidence_capture_ids": [
+        "bablos79-10470"
+      ],
+      "evidence_excerpts": [
+        "По валюте пока негатив. Если буду покупать — будут знаки."
+      ],
+      "false_positive_risk": "medium: future-sign marker indicates watchlist, not current trade.",
+      "profile_state": "needs_review",
+      "term": "будут знаки"
+    },
+    {
+      "category": "noise_or_promo",
+      "confidence": 0.9,
+      "evidence_capture_ids": [
+        "bablos79-10449",
+        "bablos79-10456",
+        "bablos79-10487",
+        "bablos79-10493"
+      ],
+      "evidence_excerpts": [
+        "В 19 мск стрим. Разбор рынков. Политота.",
+        "Стрим  https://vkvideo.ru/video-116920723_45624179",
+        "Сегодня в 19 мск стрим. Трейдинг, экономика, политота",
+        "стрим https://vkvideo.ru/video-116920723_456241795"
+      ],
+      "false_positive_risk": "low: recurring broadcast/promo marker; not extraction signal.",
+      "profile_state": "excluded",
+      "term": "стрим"
+    },
+    {
+      "category": "watch_or_commentary",
+      "confidence": 0.76,
+      "evidence_capture_ids": [
+        "bablos79-10449"
+      ],
+      "evidence_excerpts": [
+        "В 19 мск стрим. Разбор рынков. Политота."
+      ],
+      "false_positive_risk": "low: analysis/broadcast context, not trade setup.",
+      "profile_state": "excluded",
+      "term": "разбор"
+    },
+    {
+      "category": "watch_or_commentary",
+      "confidence": 0.84,
+      "evidence_capture_ids": [
+        "bablos79-10450"
+      ],
+      "evidence_excerpts": [
+        "вет директоров порекомендовал не выплачивать дивиденды.  Теханализ опять опережает новости.  Мы шор"
+      ],
+      "false_positive_risk": "low: news/commentary marker by itself.",
+      "profile_state": "excluded",
+      "term": "дивиденды"
+    },
+    {
+      "category": "watch_or_commentary",
+      "confidence": 0.74,
+      "evidence_capture_ids": [
+        "bablos79-10447",
+        "bablos79-10470",
+        "bablos79-10486"
+      ],
+      "evidence_excerpts": [
+        "Рынок с утра в понедельник тоже не растет. Негативный признак. Слишком много негативных сигнало",
+        "По валюте пока негатив. Если буду покупать — будут знаки.",
+        "Интересно, есть какой-то негатив дополнительно? Или все в рамках моей голосов"
+      ],
+      "false_positive_risk": "medium: sentiment marker, not direction/entry.",
+      "profile_state": "excluded",
+      "term": "негатив"
+    },
+    {
+      "category": "watch_or_commentary",
+      "confidence": 0.72,
+      "evidence_capture_ids": [
+        "bablos79-10490"
+      ],
+      "evidence_excerpts": [
+        "Когда инвесторы #GAZP вышли в прибыль"
+      ],
+      "false_positive_risk": "medium: performance/commentary word, not author entry.",
+      "profile_state": "excluded",
+      "term": "прибыль"
+    }
+  ],
+  "date": "2026-05-08",
+  "input_artifacts": [
+    "docs/pilot/bablos79_PSEUDO_LABELS.md",
+    "workspace/extraction/bablos79_pseudo_labels.jsonl",
+    "workspace/captures/bablos79/"
+  ],
+  "profile_state_policy": {
+    "accepted_for_draft": "May inform future deterministic draft suggestions only; never enough for approved ledger write.",
+    "excluded": "Must not affect parser draft behavior except as a suppress/noise marker if a later deterministic validator explicitly uses it.",
+    "needs_review": "Must be routed to exception review or guarded before parser use."
+  },
+  "runtime_boundary": "Offline profile discovery only. No runtime LLM call, parser implementation, ledger write, CLI export, or approved extraction truth is introduced by this artifact.",
+  "source_id": "bablos79",
+  "status": "draft_only_unapproved"
+}

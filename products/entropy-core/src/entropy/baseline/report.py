@@ -44,6 +44,7 @@ class Phase1IEvaluationReport:
     phase_gate_evidence: bool = False
     production_label: bool = False
     capital_ready_label: bool = False
+    oos_label: bool = False
 
 
 def build_phase1i_evaluation_report(
@@ -97,6 +98,7 @@ def phase1i_evaluation_report_payload(report: Phase1IEvaluationReport) -> dict[s
         "phase_gate_evidence": report.phase_gate_evidence,
         "production_label": report.production_label,
         "capital_ready_label": report.capital_ready_label,
+        "oos_label": report.oos_label,
         "report_hash": report.report_hash,
     }
 
@@ -126,6 +128,7 @@ def _report_payload_without_hash(
         "phase_gate_evidence": False,
         "production_label": False,
         "capital_ready_label": False,
+        "oos_label": False,
     }
 
 

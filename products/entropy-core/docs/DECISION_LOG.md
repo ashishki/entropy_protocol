@@ -1,7 +1,7 @@
 # Decision Log - Entropy Core
 
 Version: 1.0
-Last updated: 2026-05-07
+Last updated: 2026-05-08
 
 This file is retrieval convenience only. Canonical documents win on conflict.
 
@@ -15,6 +15,7 @@ This file is retrieval convenience only. Canonical documents win on conflict.
 | D-RESET-004 | 2026-05-07 | Active | Runtime tier is T1 bounded local/CI process with PostgreSQL service dependency. | Matches existing DB/migration/test surface without privileged workers. | `docs/ARCHITECTURE.md#runtime-and-isolation-model` | none |
 | D-RESET-005 | 2026-05-07 | Active | Legacy active workflow files moved under `docs/legacy/old-workflow/2026-05-07/`. | Prevents old prompts/logs from controlling the new loop while preserving evidence. | `docs/legacy/CORE_LEGACY_SUMMARY.md` | old active workflow |
 | D-RESET-006 | 2026-05-07 | Active | Heavy-task evidence applies to leakage/holdout and attribution stream boundaries. | These are the highest false-claim risk surfaces. | `docs/tasks.md#t08-data-and-leakage-gate-verification`; `docs/tasks.md#t10-attribution-stream-boundary-audit` | none |
+| D-ROADMAP-001 | 2026-05-08 | Active | Roadmap phases 7 through 13 are planned direction, and Phase 7 is active. After every phase, the loop must deep-review, fix findings, validate, evaluate and rewrite the roadmap, open the next logical active phase, and continue automatically. | Keeps development strategy visible while allowing pure AI development to proceed without human stops at every phase boundary. | `CODEX_LOOP.md#stop-policy`; `docs/tasks.md#roadmap-governance`; `docs/tasks.md#phase-plan`; `docs/CODEX_PROMPT.md#next-task` | none |
 
 ## Legacy Decision Carry-Forward
 

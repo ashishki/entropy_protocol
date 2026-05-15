@@ -1,0 +1,8 @@
+pydantic>=2
+polars
+pandas
+duckdb
+ccxt
+yfinance
+click
+openai>=1

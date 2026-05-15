@@ -1,14 +1,14 @@
 # Architecture - Entropy Core
 
-Version: 1.0
-Last updated: 2026-05-07
-Status: Draft after governance reset
+Version: 1.1
+Last updated: 2026-05-14
+Status: Core V1 internal product kernel
 
 ---
 
 ## System Overview
 
-Entropy Core is a governed systematic research engine and deterministic audit primitive layer for the Entropy Protocol product portfolio. It provides local, human-gated research workflows for registering research objects, binding data/code/policy hashes, running leakage-resistant historical evaluation where explicitly approved, generating deterministic evidence/report packets, and exposing protocol-safe primitives to product workspaces. It does not run live trading, broker integration, autonomous AI strategy execution, or unsupported OOS/performance claims.
+Entropy Core is a governed systematic research engine and deterministic audit primitive layer for the Entropy Protocol product portfolio. It provides local, human-gated research workflows, executable artifact validation, append-only artifact metadata, reproducibility classification, evidence packets, governance states, CAF decision artifacts, audit bundles, and protocol-safe primitives for approved product bridge profiles. It does not run live trading, broker integration, autonomous AI strategy execution, hosted services, public SDKs, or unsupported OOS/performance/compliance claims.
 
 ## Capability Profiles
 
@@ -108,6 +108,7 @@ Runtime retrieval is not active. Development continuity uses scoped text retriev
 | Attribution | `src/entropy/attribution/` | P&L stream decomposition and attribution metrics. |
 | Governance | `src/entropy/governance/` | Phase/state-machine controls and events. |
 | Evidence | `src/entropy/evidence/` | Evidence/report packet creation and index updates. |
+| Artifact trust layer | `src/entropy/artifacts/` | Artifact contracts, validation, registry, reproducibility, evidence packets, product bridge profiles, governance states, research/CAF schemas, storage/repository helpers, internal API/jobs, lineage, and audit bundles. |
 | Baseline archive surfaces | `src/entropy/baseline/` | D-K archive-only baseline logic retained as current code surface. |
 | Protocol docs | `docs/core/` | Charter, protocol spec, glossary, evolution docs. |
 | Governance docs | `docs/governance/` | Research firewall, governor, readiness gate, portfolio monitor docs. |
@@ -207,6 +208,7 @@ entropy-core/
 | `DATABASE_URL` | PostgreSQL connection string for registry/run/governance metadata. | `postgresql://entropy:test@localhost:5432/entropy` | Yes for DB-backed commands/tests |
 | `ENTROPY_DATA_DIR` | Root directory for local Parquet datasets. | `./data/market` | Yes for data workflows |
 | `ENTROPY_REGISTRY_DIR` | Root directory for local registry/evidence artifacts. | `./artifacts/registry` | Yes for artifact workflows |
+| `ENTROPY_REPRODUCIBILITY_MANIFEST_DIR` | Root directory for local reproducibility manifests. | `./artifacts/reproducibility/manifests` | Yes for artifact compare workflows |
 | `LOG_LEVEL` | Structured log level. | `INFO` | No |
 
 ## Continuity and Retrieval Model
