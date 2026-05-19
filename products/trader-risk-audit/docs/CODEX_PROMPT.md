@@ -1,6 +1,6 @@
 # CODEX_PROMPT.md
 
-Version: 1.96
+Version: 1.97
 Date: 2026-05-19
 Phase: Phase 26
 
@@ -25,11 +25,12 @@ history here; use links below.
 - Open findings: P2 carry-forwards only; no P0/P1. Phase 29 added PH29-P2-001
   and Phase 30 added PH30-P2-001: no privacy-safe aggregate
   market/report-review/outreach evidence has been supplied yet. Phase 31 added
-  no new findings.
+  no new findings. Phase 32 added PH32-P2-001 and PH32-P2-002 as accepted
+  public-Dune source-shape limitations.
 - Current priority: T116 remains blocked until one operator-approved
   private/anonymized export exists outside git. Until then, run the Phase 29
   concierge validation loop outside git and record only safe aggregate evidence.
-- Last completed: T136 Aggregate Evidence Safety Tooling Review
+- Last completed: T140 Dune Public Wallet Rehearsal Review
 
 ## Read First
 
@@ -71,6 +72,8 @@ Other useful links:
 - `docs/archive/PHASE30_REVIEW.md`
 - `docs/AGGREGATE_EVIDENCE_VALIDATION_CLI.md`
 - `docs/archive/PHASE31_REVIEW.md`
+- `docs/DUNE_PUBLIC_WALLET_REHEARSAL.md`
+- `docs/archive/PHASE32_REVIEW.md`
 
 ## Next Task
 
@@ -83,7 +86,9 @@ Immediate intent:
 - if supplied, run the local audit workflow only against that outside-git
   artifact and update safe metadata only;
 - if not supplied, continue Phase 29 operator-led discovery/report review
-  outside git and record only aggregate non-identifying evidence;
+  outside git and record only aggregate non-identifying evidence; the Dune
+  public wallet report may be used as a report-review conversation artifact
+  only, not as private/customer/paid evidence;
 - do not commit private rows, identifiers, credentials, private paths,
   screenshots, payment identifiers, wallet ownership claims, or customer notes.
 
@@ -110,7 +115,7 @@ Immediate intent:
 
 ## Historical Pointers
 
-- Completed through T136; details are in `docs/IMPLEMENTATION_JOURNAL.md`,
+- Completed through T140; details are in `docs/IMPLEMENTATION_JOURNAL.md`,
   `docs/EVIDENCE_INDEX.md`, `docs/archive/`, and `docs/tasks.md`.
 - T94-T97 remain blocked by T93 defer.
 - Active planned work is T116. It remains blocked until operator private input

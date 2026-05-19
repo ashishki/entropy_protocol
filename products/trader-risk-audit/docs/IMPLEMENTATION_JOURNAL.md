@@ -23,6 +23,28 @@ This file records durable handoff context across agents and sessions. It is not 
 
 ## Entries
 
+### 2026-05-19 - T137-T140 - Dune Public Wallet Rehearsal
+
+- Scope: `demo/dune_public_wallet_dex_001/`,
+  `docs/DUNE_PUBLIC_WALLET_REHEARSAL.md`,
+  `docs/audit/real_open_data_case_reviews/dune_public_wallet_dex_001.md`,
+  `docs/audit/PHASE32_ERROR_REGISTER.md`,
+  `docs/archive/PHASE32_REVIEW.md`, and state docs.
+- Why this work happened: the operator supplied Dune API access and asked to
+  use real public data while no T116 private/anonymized export exists.
+- Decisions applied: Dune public `dex.trades` rows can strengthen technical
+  and report-review confidence, but they cannot be counted as private,
+  customer, paid, PMF, market-demand, or willingness-to-pay evidence.
+- Evidence collected: Dune API SQL execution succeeded; 80 real public
+  Ethereum DEX rows were transformed into canonical audit input; reviewed
+  report records 76 max-position findings and one unsupported leverage
+  limitation; reproducibility status is passed; `case-bank validate` passed.
+- Follow-ups: use the reviewed Dune report only for report-review
+  conversations and record only aggregate non-identifying outcomes. Return to
+  T116 if an approved private/anonymized export appears outside git.
+- Notes for next agent: do not commit or document the supplied Dune key. The
+  key was pasted in chat and should be rotated by the operator.
+
 ### 2026-05-19 - T136 - Aggregate Evidence Safety Tooling Review
 
 - Scope: `docs/archive/PHASE31_REVIEW.md`, `docs/audit/AUDIT_INDEX.md`,

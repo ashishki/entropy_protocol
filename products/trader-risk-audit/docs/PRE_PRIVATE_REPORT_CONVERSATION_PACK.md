@@ -20,7 +20,8 @@ readiness, or market demand.
 | 2 | `demo/risk_audit_case_001/output/report_reviewed.md` | Strong positive report shape with source-row traceability. | Controlled demo-quality pack, not private data. |
 | 3 | `demo/real_open_dex_contract_sequence_001/output/report_reviewed.md` | Real public account-scoped rehearsal with no-breach/control flavor. | Public contract-recipient sequence, not verified trader ledger. |
 | 4 | `demo/real_open_dex_swaps_001/output/report_reviewed.md` | Real public pair-level DEX flow with visible limitations. | Pair-level market flow, not account ledger. |
-| 5 | `demo/synthetic_schema_reject_missing_price_001/output/run_status.json` | Shows reject behavior when required data is missing. | Rejection/control artifact only. |
+| 5 | `demo/dune_public_wallet_dex_001/output/report_reviewed.md` | Real public Dune wallet-scope DEX rehearsal with high-notional findings and visible missing-data limitations. | Public Dune submitter scope, not verified trader ledger or customer evidence. |
+| 6 | `demo/synthetic_schema_reject_missing_price_001/output/run_status.json` | Shows reject behavior when required data is missing. | Rejection/control artifact only. |
 
 ## Conversation Goals
 
@@ -30,6 +31,8 @@ Use these reports to learn:
 - which findings map to their current review workflow;
 - which fields they require before trusting a report;
 - whether visible limitations increase or reduce trust;
+- whether public Dune-style source traceability is enough for conversation, or
+  whether they require their own approved export before the report is useful;
 - whether the next step should be an approved anonymized export.
 
 ## Safe Talk Track
@@ -57,4 +60,3 @@ After each report review, record only:
 | `trust_blocker` | `missing_fees`, `missing_pnl`, `missing_leverage`, `source_shape`, `policy_mapping`, `privacy`, `other_safe_tag`, `none` |
 | `workflow_fit` | `weekly_review`, `post_session_review`, `coach_review`, `governance_review`, `incident_review`, `none` |
 | `next_action` | `send_redaction_checklist`, `schedule_private_export`, `revise_report`, `narrow_icp`, `no_fit` |
-

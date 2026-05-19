@@ -29,6 +29,7 @@ can move to `ready`.
 | Feedback loop | `docs/PRIVATE_PILOT_FEEDBACK_LOG_TEMPLATE.md` | pass | Captures safe usefulness, trust, clarity, objection, payment, repeat, and referral evidence. |
 | Real open-data rehearsal | `demo/real_open_dex_swaps_001/`, `docs/audit/PHASE27_ERROR_REGISTER.md` | pass_for_development_only | Real public Uniswap V2 pair-level swaps exercise extraction/report workflow, but they are not private, paid-pilot, customer, PMF, market-demand, or willingness-to-pay evidence. Gate remains `needs_fixes`. |
 | Account-scoped real-open rehearsal | `demo/real_open_dex_contract_sequence_001/`, `docs/audit/PHASE28_ERROR_REGISTER.md` | pass_for_development_only | Real public swaps filtered to a repeated contract recipient are more scoped than pair-level flow, but still not a verified trader ledger or private evidence. Gate remains `needs_fixes`. |
+| Dune public wallet rehearsal | `demo/dune_public_wallet_dex_001/`, `docs/audit/PHASE32_ERROR_REGISTER.md` | pass_for_development_only | Real public Dune `dex.trades` rows filtered to one public submitter exercise Dune extraction and report review, but they are not private, paid-pilot, customer, PMF, market-demand, or willingness-to-pay evidence. Gate remains `needs_fixes`. |
 | Pre-private hypothesis validation | `docs/HYPOTHESIS_VALIDATION_WITHOUT_PRIVATE_EXPORT_PLAN.md`, `docs/PRE_PRIVATE_HYPOTHESIS_EVIDENCE_MATRIX.md`, `docs/PRE_PRIVATE_OUTREACH_EVIDENCE_REVIEW.md` | complete_warn_supporting_only | Phase 29 prepared the validation loop and reviewed the absence of aggregate market/report-review evidence. It does not approve private report delivery because no T116 evidence exists. Gate remains `needs_fixes`. |
 | Concierge validation execution kit | `docs/CONCIERGE_VALIDATION_EXECUTION_PLAN.md`, `docs/archive/PHASE30_REVIEW.md` | complete_warn_execution_only | Phase 30 prepares operator outreach execution, but it does not create actual outreach responses, export willingness, paid evidence, or private run evidence. Gate remains `needs_fixes`. |
 
@@ -166,3 +167,20 @@ manual pilot asks. The Phase 29 decision is `continue_concierge_validation`.
 Phase 30 added the execution kit for that concierge validation loop. It still
 does not change this gate because templates, rubrics, and aggregate-log formats
 are not customer evidence by themselves.
+
+## Dune Rehearsal Note
+
+Phase 32 added `dune_public_wallet_dex_001`, a real public Dune `dex.trades`
+case pack scoped to one public Ethereum `tx_from` submitter. It produced 80
+canonical rows, 76 deterministic max-position findings, a reviewed report, and
+passed reproducibility/case-pack validation.
+
+It does not change this gate because:
+
+- Dune public submitter rows are not an operator-approved private/anonymized
+  export;
+- wallet ownership and private account identity are not verified;
+- gas, LP fees, slippage/MEV, leverage, balances, and verified realized P&L are
+  unsupported;
+- no paid user, repeat, referral, customer validation, or willingness-to-pay
+  signal exists.

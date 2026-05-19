@@ -9,13 +9,13 @@ and `docs/tasks.md`.
 ## Current State
 
 - Phase: 26 Private Pilot Evidence Collection
-- Last completed: T136 Aggregate Evidence Safety Tooling Review
+- Last completed: T140 Dune Public Wallet Rehearsal Review
 - Active task: T116 Operator-Approved Private Run And Reviewed Report Evidence
   (blocked pending operator private input)
 - Baseline: 263 pass / 0 skip
 - Ruff: clean
 - Open findings: P2 carry-forwards only; no P0/P1. Phase 23, Phase 25, Phase
-  27, and Phase 28 caveats remain accepted/blocked limitations.
+  27, Phase 28, and Phase 32 caveats remain accepted/blocked limitations.
 - Constraint state: T93 deferred real local read-only exchange fetching; Phase
   22 implementation tasks are blocked. Core is paused.
 - Branch: product-local working branch
@@ -38,6 +38,8 @@ Read:
 Start T116 only after operator private input exists outside git. If it does not
 exist, run the Phase 30 concierge outreach loop outside git and validate
 aggregate logs with `evidence aggregate-validate` before promoting summaries.
+The Dune report can support report-review conversations, but it is not
+private/customer/paid evidence.
 T98 created `docs/OPEN_SOURCE_CASE_BANK.md` with the
 source-selection protocol, allowed/excluded source classes, license/terms
 notes, anti-cherry-pick batch composition, and artifact-quality-only evidence
@@ -105,7 +107,12 @@ aggregate outreach/report-review evidence and chose
 Stop-Ship: No, P0:0, P1:0, P2:1. T128-T132 added the Phase 30 concierge
 validation execution kit and archived it with WARN health, Stop-Ship: No,
 P0:0, P1:0, P2:1. T133-T136 added Phase 31 aggregate evidence safety tooling
-and archived it with OK health, Stop-Ship: No, P0:0, P1:0, P2:0. T94-T97 are
+and archived it with OK health, Stop-Ship: No, P0:0, P1:0, P2:0. T137-T140
+added `demo/dune_public_wallet_dex_001/`, a Dune public Ethereum `dex.trades`
+case pack with 80 real public rows, 76 max-position findings, one unsupported
+leverage limitation, passed reproducibility, and P0:0, P1:0, P2:2 accepted
+caveats. It is report-review/development evidence only and does not close T116.
+T94-T97 are
 blocked until future privacy-safe market evidence reopens T93. Phase 17 added deterministic local
 `intake_session.json`,
 sanitized `schema_profile.json`, safe `intake_report.md`, and Cycle 22 deep
@@ -165,7 +172,7 @@ friction as the binding blocker.
 
 ## Historical Pointers
 
-- Completed through T136. T94-T97 blocked. Active route is T116 if approved
+- Completed through T140. T94-T97 blocked. Active route is T116 if approved
   private input appears; otherwise run Phase 30 concierge outreach
   outside git.
 - New active roadmap: `docs/OPEN_SOURCE_AUDIT_VALIDATION_ROADMAP.md`.

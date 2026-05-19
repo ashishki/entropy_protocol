@@ -4900,3 +4900,137 @@ Files:
 Context-Refs:
   - docs/prompts/ORCHESTRATOR.md
   - docs/AGGREGATE_EVIDENCE_VALIDATION_CLI.md
+
+---
+
+## T137: Dune Public Data Source Discovery
+
+Owner:      codex
+Phase:      32
+Type:       data
+Depends-On: T136
+Status:     complete - Dune public wallet candidate selected
+
+Objective: |
+  Use Dune as a real public-data source to find a wallet-scoped DEX rehearsal
+  candidate without committing credentials, private rows, or ownership claims.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Dune access is verified through a read-only SQL execution."
+    test: "manual/API-smoke"
+  - id: AC-2
+    description: "Candidate selection uses real public `dex.trades` rows and records query provenance without recording the key."
+    test: "manual/source-review"
+  - id: AC-3
+    description: "The selected scope is labeled as public submitter-scoped data, not a verified trader ledger."
+    test: "manual/privacy-review"
+
+Files:
+  - docs/DUNE_PUBLIC_WALLET_REHEARSAL.md
+  - demo/dune_public_wallet_dex_001/source.md
+
+Context-Refs:
+  - docs/REAL_OPEN_DATA_REHEARSAL_PLAN.md
+  - docs/PRE_PRIVATE_REPORT_CONVERSATION_PACK.md
+
+## T138: Dune Public Wallet Case Pack
+
+Owner:      codex
+Phase:      32
+Type:       data
+Depends-On: T137
+Status:     complete - Dune public wallet case pack generated
+
+Objective: |
+  Transform real public Dune DEX rows into a runnable canonical case pack that
+  exercises deterministic report generation and preserves unsupported-data
+  limitations.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`demo/dune_public_wallet_dex_001/trades.csv` contains real public Dune rows transformed into canonical audit fields."
+    test: "case-bank validate"
+  - id: AC-2
+    description: "The report records deterministic findings and unsupported leverage without inferring missing private fields."
+    test: "manual/report-review"
+  - id: AC-3
+    description: "Reproducibility status is passed with matching stable content hashes."
+    test: "manual/repro-review"
+
+Files:
+  - demo/dune_public_wallet_dex_001/
+
+Context-Refs:
+  - docs/DUNE_PUBLIC_WALLET_REHEARSAL.md
+
+## T139: Dune Case Review And Conversation Plan
+
+Owner:      codex
+Phase:      32
+Type:       docs
+Depends-On: T138
+Status:     complete - Dune review and conversation plan documented
+
+Objective: |
+  Add a manual review note, error register, and usage guidance so the Dune
+  report can support client report-review conversations without overclaiming.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/audit/real_open_data_case_reviews/dune_public_wallet_dex_001.md` records P0/P1/P2 counts and accepted caveats."
+    test: "manual/review"
+  - id: AC-2
+    description: "`docs/DUNE_PUBLIC_WALLET_REHEARSAL.md` explains what the Dune pack shows and what it cannot prove."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "Report-conversation and ready-gate docs include the new pack without changing T116 or paid readiness."
+    test: "manual/docs-review"
+
+Files:
+  - docs/DUNE_PUBLIC_WALLET_REHEARSAL.md
+  - docs/audit/real_open_data_case_reviews/dune_public_wallet_dex_001.md
+  - docs/audit/PHASE32_ERROR_REGISTER.md
+  - docs/PRE_PRIVATE_REPORT_CONVERSATION_PACK.md
+  - docs/PAID_PILOT_READY_GATE.md
+
+Context-Refs:
+  - docs/PRE_PRIVATE_REPORT_CONVERSATION_PACK.md
+  - docs/PAID_PILOT_READY_GATE.md
+
+## T140: Dune Public Wallet Rehearsal Review
+
+Owner:      codex
+Phase:      32
+Type:       review
+Depends-On: T139
+Status:     complete - Phase 32 archived WARN
+
+Objective: |
+  Archive Phase 32 and update state docs with the honest outcome: Dune improves
+  real-public-data confidence and client conversation material, but does not
+  close T116.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/archive/PHASE32_REVIEW.md` records Stop-Ship, P0/P1/P2 counts, evidence status, and next action."
+    test: "manual/review"
+  - id: AC-2
+    description: "Audit index, CODEX prompt, README, handoff docs, evidence index, and latest review reports are updated."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "No paid-pilot ready, PMF, market-demand, private-readiness, SaaS, checkout, live-control, order-blocking, or advice claim is made."
+    test: "manual/review"
+
+Files:
+  - docs/archive/PHASE32_REVIEW.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/CODEX_PROMPT.md
+  - README.md
+  - PHASE_HANDOFF.md
+  - AGENT_NOTES.md
+  - MEMORY.md
+
+Context-Refs:
+  - docs/prompts/ORCHESTRATOR.md
+  - docs/DUNE_PUBLIC_WALLET_REHEARSAL.md

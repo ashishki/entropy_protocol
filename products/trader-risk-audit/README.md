@@ -11,7 +11,7 @@ rules; the product returns a deterministic post-trade audit report.
 - Baseline: 263 passing tests, 0 skipped
 - Current priority: collect one approved private/anonymized export outside git,
   or run Phase 30 concierge outreach outside git until that exists
-- Last completed: T136 Aggregate Evidence Safety Tooling Review
+- Last completed: T140 Dune Public Wallet Rehearsal Review
 
 ## Promise
 
@@ -80,6 +80,8 @@ Upload/export trades plus rules. Receive a report showing:
   WARN archive.
 - Phase 31 aggregate evidence safety tooling with `evidence aggregate-validate`,
   schema/tag/privacy validation, tests, docs, and OK archive.
+- Phase 32 Dune public wallet rehearsal with real public `dex.trades` rows,
+  reviewed report, reproducibility status, and WARN archive.
 
 Historical detail lives in `docs/IMPLEMENTATION_JOURNAL.md`,
 `docs/EVIDENCE_INDEX.md`, `docs/archive/`, and `docs/tasks.md`.
@@ -129,6 +131,8 @@ Active phase plan:
   conversations (complete; WARN; actual outreach evidence still required).
 - Phase 31, T133-T136: aggregate evidence safety tooling for validating
   outreach aggregate CSVs before docs promotion (complete; OK).
+- Phase 32, T137-T140: Dune public wallet rehearsal using real public
+  `dex.trades` rows (complete; WARN; development/report-review evidence only).
 
 Validation success means truthful, reproducible reports with preserved
 limitations and counterexamples. It does not mean cherry-picked positive

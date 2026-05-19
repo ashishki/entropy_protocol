@@ -1,6 +1,6 @@
 # Open-Source Audit Quality Dashboard
 
-Status: active dashboard with Phase 27 rehearsal update
+Status: active dashboard with Phase 32 Dune rehearsal update
 Date: 2026-05-19
 
 This dashboard summarizes the Phase 23 case-bank outputs for Phase 24
@@ -13,7 +13,7 @@ trading advice, or hosted-product readiness evidence.
 | Category | Count | Packs | Decision |
 |---|---:|---|---|
 | Controlled internal demo-quality | 3 | `public_sample_001`, `risk_audit_case_001`, `synthetic_limit_leverage_001` | Enough for Phase 24 controlled internal demo pack assembly: positive-finding and limitation examples are both represented. |
-| Real open-data rehearsal only | 2 | `real_open_dex_swaps_001`, `real_open_dex_contract_sequence_001` | Useful for development rehearsal on real public data; not private, paid-pilot, customer, PMF, or market-demand evidence. |
+| Real open-data rehearsal only | 3 | `real_open_dex_swaps_001`, `real_open_dex_contract_sequence_001`, `dune_public_wallet_dex_001` | Useful for development rehearsal on real public data; not private, paid-pilot, customer, PMF, or market-demand evidence. |
 | Internal reference only | 1 | `open_source_sec_form4_001` | Keep as the high-traceability reference, not as customer-ledger evidence. |
 | Blocked / rejection-only | 1 | `synthetic_schema_reject_missing_price_001` | Keep visible as schema-rejection evidence; no report demo. |
 
@@ -31,6 +31,7 @@ items remain accepted caveats and must stay visible in any reviewed demo copy.
 | `synthetic_schema_reject_missing_price_001` | rejected | blocked / rejection-only | not scored; no report artifact | 0 | 0 | expected schema rejection; no registered P2 | not applicable | Missing `price` blocks report generation; only safe `run_status.json` exists. |
 | `real_open_dex_swaps_001` | complete rehearsal | real open-data rehearsal only | manual review complete; scorecard not used for private-readiness claims | 8 | 1 | `PH27-P2-001`, `PH27-P2-002` accepted caveats | passed | Real Uniswap V2 WETH/USDC pair-level swaps exercise the workflow on public on-chain data, but they are not a trader account ledger and do not close T116. |
 | `real_open_dex_contract_sequence_001` | complete rehearsal | real open-data rehearsal only | manual review complete; scorecard not used for private-readiness claims | 0 | 1 | `PH28-P2-001`, `PH28-P2-002` accepted caveats | passed | Real Uniswap V2 WETH/USDC swaps filtered to a repeated public contract recipient; useful no-breach/control-style rehearsal, but still not a verified trader ledger and does not close T116. |
+| `dune_public_wallet_dex_001` | complete rehearsal | real open-data rehearsal only | manual review complete; scorecard not used for private-readiness claims | 76 | 1 | `PH32-P2-001`, `PH32-P2-002` accepted caveats | passed | Real public Dune `dex.trades` rows filtered to one public `tx_from` submitter; useful for report-review conversation and Dune extraction confidence, but not a verified trader ledger and does not close T116. |
 
 ## Quality Class Definitions
 
@@ -66,14 +67,14 @@ Blocked / rejection-only:
 
 | Metric | Count |
 |---|---:|
-| Complete packs | 6 |
+| Complete packs | 7 |
 | Rejected packs | 1 |
-| Total deterministic findings in complete packs | 37 |
-| Total explicit limitations in complete packs | 6 |
-| Packs with passed reproducibility | 6 |
+| Total deterministic findings in complete packs | 113 |
+| Total explicit limitations in complete packs | 7 |
+| Packs with passed reproducibility | 7 |
 | Packs with not-applicable reproducibility due expected rejection | 1 |
 | Unresolved P0/P1 findings | 0 |
-| Accepted P2 caveats | 7 |
+| Accepted P2 caveats | 9 |
 
 ## Next Concrete Gap
 
@@ -113,3 +114,9 @@ anonymized evidence exists.
 Phase 28 adds `real_open_dex_contract_sequence_001` as a more scoped no-key
 contract-recipient sequence. It is useful as real-open-data no-breach/control
 coverage, but it still does not prove private report readiness.
+
+Phase 32 adds `dune_public_wallet_dex_001` as a Dune-backed real public
+wallet-scope rehearsal. It improves confidence in Dune extraction and gives a
+stronger report-review conversation artifact, but it still does not prove
+private report readiness, customer demand, PMF, paid-pilot readiness, or
+willingness to pay.

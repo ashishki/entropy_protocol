@@ -1,15 +1,13 @@
-# META_ANALYSIS - Cycle 34
+# META_ANALYSIS - Cycle 35
 _Date: 2026-05-19 · Type: full_
 
 ## Project State
 
-Phase 31 (T133-T136) complete as aggregate evidence safety tooling. T116
+Phase 32 (T137-T140) is complete as a Dune real-public-data rehearsal. T116
 remains blocked pending operator-approved private/anonymized evidence outside
-git. The Phase 31 decision is `operator_outreach_required`: run outreach
-outside git, validate aggregate logs locally, and return to T116 only if an
-approved export appears.
-
-Baseline before final validation: 258 pass, 0 skip.
+git. The Phase 32 decision is `supporting_report_review_artifact_ready`: use the
+Dune report for client report-review conversations, but do not treat it as
+private, customer, paid, PMF, market-demand, or willingness-to-pay evidence.
 
 ## Open Findings
 
@@ -23,36 +21,39 @@ Baseline before final validation: 258 pass, 0 skip.
 | PH27-P2-002 | P2 | Fees are unsupported by pair logs and P&L is a rehearsal calculation, not verified trader-realized P&L. | `demo/real_open_dex_swaps_001/output/report_reviewed.md` | Accepted limitation |
 | PH29-P2-001 | P2 | No privacy-safe aggregate market/report-review evidence has been supplied yet. | `docs/PRE_PRIVATE_OUTREACH_EVIDENCE_REVIEW.md` | Open - blocked on operator outreach |
 | PH30-P2-001 | P2 | Phase 30 provides execution materials only; actual outreach/export/paid evidence is still missing. | `docs/archive/PHASE30_REVIEW.md` | Open - blocked on operator outreach |
+| PH32-P2-001 | P2 | Dune public `tx_from` rows are not a verified private trader account ledger. | `demo/dune_public_wallet_dex_001/source.md` | Accepted limitation |
+| PH32-P2-002 | P2 | Dune transform lacks execution costs, leverage, balances, and verified realized P&L. | `demo/dune_public_wallet_dex_001/output/report_reviewed.md` | Accepted limitation |
 
 No unresolved P0/P1 findings are open.
 
 ## PROMPT_1 Scope
 
-- Confirm aggregate evidence schema and CLI preserve privacy boundaries.
-- Confirm validator rejects unsafe identifiers/raw-row markers.
-- Confirm CLI output avoids private path echo.
-- Confirm docs preserve that Phase 31 does not close T116.
+- Confirm Dune case pack preserves real public source provenance without
+  committing the key.
+- Confirm reviewed report preserves Dune source-shape and unsupported-data
+  caveats.
+- Confirm case-bank validation and reproducibility passed.
+- Confirm docs preserve that Phase 32 does not close T116.
 - Confirm no SaaS, checkout, hosted upload/storage, live exchange control,
-  order blocking, trading advice, credentials, or private paths were added.
+  order blocking, trading advice, credentials, private paths, or customer
+  identifiers were added.
 
 ## PROMPT_2 Scope
 
-1. `trader_risk_audit/evidence.py`
-2. `trader_risk_audit/cli.py`
-3. `tests/unit/evidence/test_aggregate_evidence.py`
-4. `tests/integration/test_aggregate_evidence_cli.py`
-5. `docs/AGGREGATE_EVIDENCE_VALIDATION_CLI.md`
-6. `docs/SAFE_AGGREGATE_EVIDENCE_LOG_TEMPLATE.md`
-7. `docs/archive/PHASE31_REVIEW.md`
-8. `docs/tasks.md`
+1. `demo/dune_public_wallet_dex_001/`
+2. `docs/DUNE_PUBLIC_WALLET_REHEARSAL.md`
+3. `docs/audit/real_open_data_case_reviews/dune_public_wallet_dex_001.md`
+4. `docs/audit/PHASE32_ERROR_REGISTER.md`
+5. `docs/archive/PHASE32_REVIEW.md`
+6. `docs/PAID_PILOT_READY_GATE.md`
+7. `docs/tasks.md`
 
 ## Cycle Type
 
-Full - Phase 31 boundary review.
+Full - Phase 32 boundary review.
 
 ## Notes
 
 The next active task remains T116, blocked on operator private input. If no
-approved export exists, run Phase 30 concierge outreach outside git and
-validate aggregate logs locally. Do not substitute Phase 31 validation success
-for private/paid/customer evidence.
+approved export exists, use the Dune report in Phase 30-style report-review
+conversations and validate any aggregate outcomes before docs promotion.

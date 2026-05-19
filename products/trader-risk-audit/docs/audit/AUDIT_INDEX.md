@@ -42,6 +42,7 @@ Append-only. One row per review cycle.
 | 32 | Phase 29 - Pre-Private Hypothesis Validation | 2026-05-19 | T123-T127 | No | 0 | 0 | 1 |
 | 33 | Phase 30 - Concierge Validation Execution Kit | 2026-05-19 | T128-T132 | No | 0 | 0 | 1 |
 | 34 | Phase 31 - Aggregate Evidence Safety Tooling | 2026-05-19 | T133-T136 | No | 0 | 0 | 0 |
+| 35 | Phase 32 - Dune Public Wallet Rehearsal | 2026-05-19 | T137-T140 | No | 0 | 0 | 2 |
 
 ---
 
@@ -83,6 +84,7 @@ Append-only. One row per review cycle.
 | 32 | `docs/archive/PHASE29_REVIEW.md` | Phase 29 - Pre-Private Hypothesis Validation | WARN |
 | 33 | `docs/archive/PHASE30_REVIEW.md` | Phase 30 - Concierge Validation Execution Kit | WARN |
 | 34 | `docs/archive/PHASE31_REVIEW.md` | Phase 31 - Aggregate Evidence Safety Tooling | OK |
+| 35 | `docs/archive/PHASE32_REVIEW.md` | Phase 32 - Dune Public Wallet Rehearsal | WARN |
 
 ---
 

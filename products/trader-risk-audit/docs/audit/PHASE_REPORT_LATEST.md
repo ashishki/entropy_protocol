@@ -1,26 +1,31 @@
-# Phase 31 Report - Aggregate Evidence Safety Tooling
+# Phase 32 Report - Dune Public Wallet Rehearsal
 
 ## What Was Built
 
-Phase 31 added local safety tooling for Phase 30 aggregate outreach logs:
+Phase 32 added `demo/dune_public_wallet_dex_001/`, a real public Dune
+`dex.trades` case pack scoped to one public Ethereum `tx_from` submitter.
 
-- `trader_risk_audit.evidence.AggregateEvidenceRow`
-- `load_aggregate_evidence_log`
-- `summarize_aggregate_evidence`
-- `evidence aggregate-validate`
-- `docs/AGGREGATE_EVIDENCE_VALIDATION_CLI.md`
-- `docs/archive/PHASE31_REVIEW.md`
+It includes:
+
+- source metadata and SQL provenance;
+- canonical `trades.csv`;
+- a local risk policy;
+- generated and reviewed reports;
+- manifest, violations, attribution, Telegram packet, and reproducibility
+  status;
+- manual review and error register.
 
 ## Validation
 
-- Review: Cycle 34 / Phase 31, Stop-Ship: No, P0:0, P1:0, P2:0.
-- Focused aggregate validator tests passed.
+- `case-bank validate --case-dir demo/dune_public_wallet_dex_001` -> passed.
+- Reproducibility status -> passed.
+- Review: Cycle 35 / Phase 32, Stop-Ship: No, P0:0, P1:0, P2:2.
 
 ## Gate Decision
 
-Phase 31 is complete with OK health.
+Phase 32 is complete with WARN health.
 
-Decision: `operator_outreach_required`.
+Decision: `supporting_report_review_artifact_ready`.
 
 It does not close T116 and does not move `docs/PAID_PILOT_READY_GATE.md` out
 of `needs_fixes`.
@@ -32,17 +37,10 @@ of `needs_fixes`.
 - Privacy-safe aggregate report-review evidence.
 - Export willingness and manual pilot evidence.
 
-## Health Verdict
-
-WARN, not RED. The operator execution kit is ready, but no market/report-review
-aggregate evidence has been supplied yet. Phase 31 itself is OK because it is
-safety tooling and produced no new findings.
-
 ## Next Task
 
 T116 - Operator-Approved Private Run And Reviewed Report Evidence.
 
 Status: blocked until the operator supplies one approved private or anonymized
-artifact outside git. If no export exists, run Phase 30 concierge outreach
-outside git, validate aggregate logs with `evidence aggregate-validate`, and
-record only safe aggregate evidence.
+artifact outside git. If no export exists, use the Dune report in report-review
+conversations and record only aggregate non-identifying outcomes.

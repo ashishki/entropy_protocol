@@ -9,7 +9,7 @@ and `docs/tasks.md`.
 ## Active State
 
 - Phase: 26 Private Pilot Evidence Collection
-- Last completed: T136 Aggregate Evidence Safety Tooling Review
+- Last completed: T140 Dune Public Wallet Rehearsal Review
 - Active task: T116 Operator-Approved Private Run And Reviewed Report Evidence
   (blocked pending operator private input)
 - Baseline: 263 pass / 0 skip
@@ -19,8 +19,8 @@ and `docs/tasks.md`.
 
 The next priority is still T116 if an approved private/anonymized export exists
 outside git. If it does not exist, run the Phase 30 concierge outreach loop
-outside git and record only safe aggregate evidence. Phase 27 and Phase 28
-remain technical rehearsal evidence only.
+outside git and record only safe aggregate evidence. Phase 27, Phase 28, and
+Phase 32 remain technical/report-review rehearsal evidence only.
 
 ## Operator Input Needed
 
@@ -41,6 +41,8 @@ remain technical rehearsal evidence only.
   outreach responses/export willingness/paid evidence are still missing;
 - Phase 31 is archived OK because aggregate evidence validation tooling is
   complete, but it does not create market/private/paid evidence;
+- Phase 32 is archived WARN because Dune produced a useful real-public-data
+  report-review artifact, but it is not private/customer/paid evidence;
 - do not add real read-only exchange fetching before the T93/T94 CSV friction
   gate.
 
@@ -85,6 +87,9 @@ remain technical rehearsal evidence only.
 - `demo/real_open_dex_swaps_001/`
 - `docs/archive/PHASE28_REVIEW.md`
 - `demo/real_open_dex_contract_sequence_001/`
+- `docs/DUNE_PUBLIC_WALLET_REHEARSAL.md`
+- `demo/dune_public_wallet_dex_001/`
+- `docs/archive/PHASE32_REVIEW.md`
 - `docs/HYPOTHESIS_VALIDATION_WITHOUT_PRIVATE_EXPORT_PLAN.md`
 - `docs/PRE_PRIVATE_HYPOTHESIS_EVIDENCE_MATRIX.md`
 - `docs/PRE_PRIVATE_DISCOVERY_SCRIPT_RU.md`
