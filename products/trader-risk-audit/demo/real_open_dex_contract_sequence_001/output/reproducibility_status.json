@@ -1,0 +1,11 @@
+{
+  "artifact_refs": {
+    "baseline_manifest": "manifest.json",
+    "rerun_manifest": "not_committed_t122_rerun_manifest"
+  },
+  "baseline_content_hash": "e869cbf6caf3098d6ba6caecc3ab81b027671af801b40e039f854db8a73b0048",
+  "method": "T122 rerun with deterministic direct audit command",
+  "recorded_at": "2026-05-19",
+  "rerun_content_hash": "e869cbf6caf3098d6ba6caecc3ab81b027671af801b40e039f854db8a73b0048",
+  "status": "passed"
+}
