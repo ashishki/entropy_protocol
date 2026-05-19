@@ -1,51 +1,48 @@
-# Phase 22 Report - CSV Friction Decision Gate
+# Phase 31 Report - Aggregate Evidence Safety Tooling
 
-_Date: 2026-05-15_
+## What Was Built
 
-## Summary
+Phase 31 added local safety tooling for Phase 30 aggregate outreach logs:
 
-Phase 22 reached the required decision gate. Real local read-only exchange
-network fetching is deferred because no repo-visible market evidence log shows
-CSV/export friction as the binding blocker.
-
-## Completed / Blocked Tasks
-
-- T93 - CSV Friction Decision Gate: complete, verdict defer
-- T94 - Real Read-Only Import ADR Update: blocked by T93 defer
-- T95 - Minimal Local Real Fetch Path: blocked by T93 defer
-- T96 - Real Import To Automated Runner: blocked by T93 defer
-- T97 - Conditional Real Import Deep Review: blocked by T93 defer
-
-## Quantified Inputs
-
-- Qualified market prospects: 0
-- Valid exports/rules: 0
-- CSV/export blockers: 0
-- Valid-export drop-off: 0/0, not measurable
-- API-request objections: 0
-- Paid reports / paid intent: 0
-- Repeat/referral signals: 0
-
-## Decision
-
-Defer. Keep fixture-backed import, CSV fallback, local audit automation, and
-privacy-safe evidence capture. Do not update ADR-002 for real fetching and do
-not implement real exchange network calls unless future market evidence reopens
-T93.
+- `trader_risk_audit.evidence.AggregateEvidenceRow`
+- `load_aggregate_evidence_log`
+- `summarize_aggregate_evidence`
+- `evidence aggregate-validate`
+- `docs/AGGREGATE_EVIDENCE_VALIDATION_CLI.md`
+- `docs/archive/PHASE31_REVIEW.md`
 
 ## Validation
 
-- Baseline after Phase 21: 253 passing tests, 0 skipped
-- Ruff: `ruff check trader_risk_audit tests` clean
-- Formatting: `ruff format --check trader_risk_audit tests` clean
+- Review: Cycle 34 / Phase 31, Stop-Ship: No, P0:0, P1:0, P2:0.
+- Focused aggregate validator tests passed.
 
-## Health
+## Gate Decision
 
-OK. The roadmap is complete through the current evidence gate. The final state
-is local-first, deterministic, privacy-safe, no-checkout, no-SaaS, and
-no-real-fetch.
+Phase 31 is complete with OK health.
 
-## Notification Summary
+Decision: `operator_outreach_required`.
 
-T93 deferred real exchange fetching. T94-T97 remain blocked until future
-privacy-safe market evidence shows CSV/export friction is the binding blocker.
+It does not close T116 and does not move `docs/PAID_PILOT_READY_GATE.md` out
+of `needs_fixes`.
+
+## Remaining Gaps
+
+- T116 private/anonymized operator-approved report evidence.
+- Privacy-safe aggregate problem-interview evidence.
+- Privacy-safe aggregate report-review evidence.
+- Export willingness and manual pilot evidence.
+
+## Health Verdict
+
+WARN, not RED. The operator execution kit is ready, but no market/report-review
+aggregate evidence has been supplied yet. Phase 31 itself is OK because it is
+safety tooling and produced no new findings.
+
+## Next Task
+
+T116 - Operator-Approved Private Run And Reviewed Report Evidence.
+
+Status: blocked until the operator supplies one approved private or anonymized
+artifact outside git. If no export exists, run Phase 30 concierge outreach
+outside git, validate aggregate logs with `evidence aggregate-validate`, and
+record only safe aggregate evidence.

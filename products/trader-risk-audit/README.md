@@ -5,12 +5,13 @@ rules; the product returns a deterministic post-trade audit report.
 
 ## Current Status
 
-- Phase: 23 Open-Source Audit Case Bank
-- Next task: T98 Open-Source Source Selection Protocol
-- Baseline: 253 passing tests, 0 skipped
-- Current priority: build a larger open-source audit validation bank and
-  multi-case report-quality loop before warm prospect delivery
-- Last completed: T93 CSV Friction Decision Gate
+- Phase: 26 Private Pilot Evidence Collection
+- Next task: T116 Operator-Approved Private Run And Reviewed Report Evidence
+  (blocked pending operator private input)
+- Baseline: 263 passing tests, 0 skipped
+- Current priority: collect one approved private/anonymized export outside git,
+  or run Phase 30 concierge outreach outside git until that exists
+- Last completed: T136 Aggregate Evidence Safety Tooling Review
 
 ## Promise
 
@@ -25,13 +26,15 @@ Upload/export trades plus rules. Receive a report showing:
 ## Read First
 
 1. `docs/CODEX_PROMPT.md`
-2. `docs/OPEN_SOURCE_AUDIT_VALIDATION_ROADMAP.md`
-3. `docs/tasks.md` Phase 23, T98-T103
-4. `docs/AUTOMATED_PILOT_ROADMAP.md`
-5. `docs/IMPLEMENTATION_CONTRACT.md`
-6. `docs/PILOT_INTAKE_CONTRACT_RU.md`
-7. `docs/ARTIFACT_VALIDATION_ROADMAP.md`
-8. `docs/STARTER_POLICY_PROFILES_RU.md`
+2. `docs/tasks.md` Phase 26, T116
+3. `docs/HYPOTHESIS_VALIDATION_WITHOUT_PRIVATE_EXPORT_PLAN.md`
+4. `docs/OPEN_SOURCE_AUDIT_VALIDATION_ROADMAP.md`
+5. `docs/PRE_PRIVATE_OUTREACH_EVIDENCE_REVIEW.md`
+6. `docs/AUTOMATED_PILOT_ROADMAP.md`
+7. `docs/IMPLEMENTATION_CONTRACT.md`
+8. `docs/PILOT_INTAKE_CONTRACT_RU.md`
+9. `docs/ARTIFACT_VALIDATION_ROADMAP.md`
+10. `docs/STARTER_POLICY_PROFILES_RU.md`
 
 ## Implemented Surface
 
@@ -59,6 +62,24 @@ Upload/export trades plus rules. Receive a report showing:
 - hypothesis funnel event schema, legacy evidence loader, and local evidence
   dashboard CLI;
 - privacy-safe hypothesis evidence export.
+- open-source case-bank source protocol, reusable case-pack validator, batch
+  index, reviewed report caveats, and Phase 23 error register.
+- Phase 24 report-quality scorecard, coverage matrix, dashboard, regression
+  decision log, and internal open-source demo pack.
+- Phase 25 private intake checklist, private report review checklist, and
+  safe private run-note register with current blocker status.
+- Phase 25 manual paid-pilot package and privacy-safe feedback log template.
+- Phase 25 paid-pilot ready gate with `needs_fixes` status until one private or
+  anonymized report is run and manually reviewed outside git.
+- Phase 25 deep review archive with WARN health and explicit T116 blocker.
+- Phase 29 pre-private hypothesis validation plan, evidence matrix, discovery
+  script, report conversation pack, safe evidence capture runbook, zero-evidence
+  review, and WARN archive.
+- Phase 30 concierge validation execution kit with ICP rubric, RU outreach
+  templates, safe aggregate evidence template, conversation scoring rubric, and
+  WARN archive.
+- Phase 31 aggregate evidence safety tooling with `evidence aggregate-validate`,
+  schema/tag/privacy validation, tests, docs, and OK archive.
 
 Historical detail lives in `docs/IMPLEMENTATION_JOURNAL.md`,
 `docs/EVIDENCE_INDEX.md`, `docs/archive/`, and `docs/tasks.md`.
@@ -86,12 +107,28 @@ quality baseline, not paid/customer/PMF evidence.
 Active phase plan:
 
 - Phase 23, T98-T103: source-selection protocol, open-source case pack
-  contract, 5+ candidate packs, batch runs, manual validation notes, and deep
-  review;
+  contract, 5 candidate packs, batch runs, manual validation notes, and deep
+  review (complete; P0:0, P1:0, P2:3; no stop-ship);
 - Phase 24, T104-T109: multi-case report-quality scorecard, rule/data coverage
-  matrix, dashboard, regression coverage, internal demo pack, and deep review;
+  matrix, dashboard, regression coverage, internal demo pack, and deep review
+  (complete; P0:0, P1:0, P2:3 accepted carry-forward caveats; no stop-ship);
 - Phase 25, T110-T115: private-pilot intake/review checklists, local private
-  run notes outside git, paid-pilot package, ready gate, and deep review.
+  run notes outside git, paid-pilot package, ready gate, and deep review
+  (complete; WARN; gate is `needs_fixes`);
+- Phase 26, T116: operator-approved private/anonymized report evidence
+  collection (blocked pending operator input).
+- Phase 27: real-open-data rehearsal with real public data only, no synthetic
+  rows, complete and archived as development evidence only.
+- Phase 28: account-scoped real-open-data rehearsal using a repeated public
+  contract recipient, complete and archived as development evidence only.
+- Phase 29, T123-T127: pre-private hypothesis validation through report
+  reviews, problem interviews, export willingness asks, safe aggregate evidence
+  capture, and decision review while preserving that T116 remains blocked
+  (complete; WARN; decision `continue_concierge_validation`).
+- Phase 30, T128-T132: concierge validation execution kit for the first 10-15
+  conversations (complete; WARN; actual outreach evidence still required).
+- Phase 31, T133-T136: aggregate evidence safety tooling for validating
+  outreach aggregate CSVs before docs promotion (complete; OK).
 
 Validation success means truthful, reproducible reports with preserved
 limitations and counterexamples. It does not mean cherry-picked positive

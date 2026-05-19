@@ -83,6 +83,40 @@ is useful funnel diagnosis, but it does not prove willingness-to-pay, does not
 replace paid_report, does not replace repeat_commitment, and does not replace
 referral.
 
+## Phase 29 Pre-Private Validation
+
+When no operator-approved private/anonymized export exists, use
+`docs/HYPOTHESIS_VALIDATION_WITHOUT_PRIVATE_EXPORT_PLAN.md` and the Phase 29
+docs to collect weaker but useful evidence:
+
+- problem interviews based on past behavior, not compliments;
+- report review sessions using open/demo artifacts with explicit boundaries;
+- export willingness asks after pain and workflow fit are visible;
+- manual pilot asks after export willingness is credible.
+
+Phase 29 evidence must be classified as:
+
+- `technical_evidence` for reproducible reports and deterministic workflow;
+- `product_evidence` for report usefulness, clarity, and trust;
+- `market_evidence` for qualified pain, current workaround, and export
+  willingness;
+- `paid_evidence` for paid report, repeat commitment, or referral;
+- `blocked_private_evidence` when T116 is still missing.
+
+Do not count open-source reports, real-open-data rehearsals, report review
+compliments, or demo conversations as paid reports, repeat commitments,
+referrals, PMF, or private report readiness.
+
+Current Phase 29 review status: `reviewed_no_aggregate_evidence`. The planning
+artifacts are complete, but no safe aggregate discovery/report-review rows have
+been supplied yet. Decision is `continue_concierge_validation`, not
+`return_to_t116`, because no approved anonymized export exists.
+
+Phase 30 execution status: `operator_outreach_required`. The outreach templates,
+ICP rubric, aggregate evidence template, and outcome scoring rubric are ready,
+but they are execution materials only. They do not count as market evidence,
+paid evidence, repeat commitments, referrals, PMF, or private report readiness.
+
 ## T93 CSV Friction Decision
 
 2026-05-15 verdict: defer real local read-only exchange network fetching.
