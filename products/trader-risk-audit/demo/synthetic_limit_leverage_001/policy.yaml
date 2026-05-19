@@ -1,0 +1,18 @@
+schema_version: "1"
+account_scope:
+  - synthetic_limit_leverage_001
+timezone: UTC
+session:
+  start: "00:00"
+  end: "23:59"
+rules:
+  - rule_id: synthetic_limit_max_leverage
+    type: max_leverage
+    threshold: "3"
+    unit: ratio
+    params: {}
+  - rule_id: synthetic_limit_max_position_size
+    type: max_position_size
+    threshold: "5000"
+    unit: USD
+    params: {}

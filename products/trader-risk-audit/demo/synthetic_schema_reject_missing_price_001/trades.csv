@@ -1,0 +1,2 @@
+timestamp,symbol,side,quantity,fees,account_id
+2026-05-02T09:00:00Z,BTCUSD,buy,0.2,1,synthetic_schema_reject_missing_price_001

@@ -1,0 +1,13 @@
+Trader Risk Audit Summary
+Trades reviewed: 2
+Violations recorded: 0
+Violating P&L: 0
+
+Top violation counts:
+- None
+
+Limitations:
+- synthetic_limit_max_leverage: unsupported_leverage_data
+
+Report: report.md
+This audit is not investment advice and does not control live trading.
