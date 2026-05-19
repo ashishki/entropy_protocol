@@ -54,6 +54,42 @@ def test_evidence_backed_violation_language_passes() -> None:
     assert result.findings == ()
 
 
+def test_open_source_evidence_overclaim_phrases_fail_validation() -> None:
+    report = (
+        f"{REQUIRED_DISCLAIMER}\n\n"
+        "This open-source validation proves PMF. "
+        "The demo evidence proves customer demand. "
+        "The open-source pack is paid-pilot evidence."
+    )
+
+    result = validate_report_claims(report)
+
+    assert result.passed is False
+    assert [finding.category for finding in result.findings] == [
+        "evidence_overclaim",
+        "evidence_overclaim",
+        "evidence_overclaim",
+    ]
+    assert [finding.matched_text for finding in result.findings] == [
+        "proves PMF",
+        "demo evidence proves customer demand",
+        "open-source pack is paid-pilot evidence",
+    ]
+
+
+def test_open_source_boundary_language_passes_validation() -> None:
+    report = (
+        f"{REQUIRED_DISCLAIMER}\n\n"
+        "This open-source artifact is not PMF evidence, not customer "
+        "validation, and not proof that traders will pay."
+    )
+
+    result = validate_report_claims(report)
+
+    assert result.passed is True
+    assert result.findings == ()
+
+
 def _report_model():
     trades = _trades()
     violations = _violations(trades)

@@ -35,9 +35,11 @@ from trader_risk_audit.evidence import (
     append_customer_log_row,
     append_preview_event,
     export_hypothesis_evidence,
+    load_aggregate_evidence_log,
     load_customer_log,
     load_hypothesis_evidence,
     load_preview_events,
+    summarize_aggregate_evidence,
     summarize_hypothesis_dashboard,
     summarize_preview_events,
     summarize_validation_gate,
@@ -115,6 +117,7 @@ from trader_risk_audit.storage.retention import (
 )
 from trader_risk_audit.trades.importers import normalize_csv, serialize_trade_records
 from trader_risk_audit.trades.schema import TradeRecord
+from trader_risk_audit.validation import validate_open_source_case_pack
 from trader_risk_audit.workspace import create_audit_workspace
 
 
@@ -277,6 +280,18 @@ def build_parser() -> argparse.ArgumentParser:
     )
     public_sample.set_defaults(handler=_public_sample_demo_command)
 
+    case_bank = subparsers.add_parser(
+        "case-bank",
+        help="Validate open-source audit case packs.",
+    )
+    case_bank_subparsers = case_bank.add_subparsers(dest="case_bank_command")
+    case_bank_validate = case_bank_subparsers.add_parser(
+        "validate",
+        help="Validate one open-source audit case-pack directory.",
+    )
+    case_bank_validate.add_argument("--case-dir", required=True)
+    case_bank_validate.set_defaults(handler=_case_bank_validate_command)
+
     exchange_import = subparsers.add_parser(
         "exchange-import",
         help="Run local fixture-backed exchange import workflows.",
@@ -427,6 +442,12 @@ def build_parser() -> argparse.ArgumentParser:
     evidence_export.add_argument("--customer-log")
     evidence_export.add_argument("--funnel-log")
     evidence_export.set_defaults(handler=_evidence_export_command)
+    evidence_aggregate_validate = evidence_subparsers.add_parser(
+        "aggregate-validate",
+        help="Validate a privacy-safe aggregate outreach evidence log.",
+    )
+    evidence_aggregate_validate.add_argument("--log-file", required=True)
+    evidence_aggregate_validate.set_defaults(handler=_evidence_aggregate_validate)
 
     return parser
 
@@ -696,6 +717,18 @@ def _public_sample_demo_command(args: argparse.Namespace) -> int:
         *summary_lines,
     ]
     print("\n".join(lines))
+    return 0
+
+
+def _case_bank_validate_command(args: argparse.Namespace) -> int:
+    result = validate_open_source_case_pack(args.case_dir)
+    print(f"case pack validation: {result.status}")
+    print(f"case_id: {result.case_id}")
+    if result.issues:
+        print("issues:")
+        for issue in result.issues:
+            print(f"- {issue.code}: {issue.path}: {issue.message}")
+        return 2
     return 0
 
 
@@ -1003,6 +1036,18 @@ def _evidence_export_command(args: argparse.Namespace) -> int:
     print("Evidence export written.")
     print(f"CSV: {export.csv_path.name}")
     print(f"Markdown: {export.markdown_path.name}")
+    return 0
+
+
+def _evidence_aggregate_validate(args: argparse.Namespace) -> int:
+    try:
+        summary = summarize_aggregate_evidence(
+            load_aggregate_evidence_log(args.log_file)
+        )
+    except (OSError, KeyError, EvidenceValidationError) as error:
+        print(str(error))
+        return 2
+    print(summary.format())
     return 0
 
 
