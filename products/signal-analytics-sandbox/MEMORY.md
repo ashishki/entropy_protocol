@@ -1,7 +1,7 @@
 # MEMORY - Signal Analytics Sandbox
 
-Last completed: SAS-IMPACT-008 Cross-Channel Impact Recompute And Gate at 2026-05-22
-Baseline: 316 pass / 0 skip
+Last completed: Two-Month Public Window Run at 2026-05-22
+Baseline: 318 pass / 0 skip
 Next task: operator decision for internal dashboard prototype or more evidence completion
 Phase: Phase 36 - Channel Impact Framework And Cross-Channel Completion
 Review tier next: light

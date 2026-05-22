@@ -5,9 +5,9 @@ Date: 2026-05-22
 ## Current State
 
 - Phase 36 is active: Channel Impact Framework And Cross-Channel Completion.
-- Latest completed item: SAS-IMPACT-008 Cross-Channel Impact Recompute And Gate.
+- Latest completed item: Two-Month Public Window Run.
 - Next task: operator decision for internal dashboard prototype or more evidence completion.
-- Baseline: 316 passing tests, 0 skipped.
+- Baseline: 318 passing tests, 0 skipped.
 - Ruff: pass.
 - Pyright: pass.
 - External gate: `approve_internal_only`.
@@ -33,6 +33,8 @@ confidence.
 - `docs/specs/CHANNEL_DASHBOARD_SCORE_SCHEMA.md`
 - `docs/pilot/three_channel_PHASE36_IMPACT_SCORECARD.md`
 - `docs/pilot/three_channel_PHASE36_EXTERNAL_READY_GATE.md`
+- `docs/pilot/three_channel_2M_RUN_SUMMARY.md`
+- `docs/pilot/three_channel_2M_METRIC_RESULTS.json`
 - `docs/pilot/three_channel_V1_METRIC_RESULTS.json`
 - `docs/pilot/three_channel_FULL_REVIEW_QUEUE.json`
 - `docs/pilot/three_channel_FALSE_NEGATIVE_PASS.json`

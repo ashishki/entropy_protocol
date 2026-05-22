@@ -10,11 +10,11 @@ Compact restart state only. Detailed history lives in
 ## Current State
 
 - Phase: 36 (Channel Impact Framework And Cross-Channel Completion)
-- Baseline: 316 passing tests, 0 skipped
+- Baseline: 318 passing tests, 0 skipped
 - Ruff: `ruff check src/ tests/ scripts/` passes
 - Format: `ruff format --check src/ tests/ scripts/` passes
 - Pyright: `pyright` passes
-- Latest completed: `SAS-IMPACT-008 Cross-Channel Impact Recompute And Gate`
+- Latest completed: `Two-Month Public Window Run`
 - Phase 0 gates acknowledged; Engineering Phase 1 (T01+) may begin.
 - | SAS-001: Paid Pilot Demand Validation | acknowledged |
 - | SAS-002: Public-Source Legal/Terms Memo | acknowledged |
@@ -28,9 +28,6 @@ Compact restart state only. Detailed history lives in
 Active route: Phase 36 complete; next operator decision is internal dashboard
 prototype vs another evidence-completion loop.
 
-- `SAS-IMPACT-001..002` define broad impact criteria, source-of-truth layers,
-  dashboard vs paid-report boundary, and the same loop for `bablos79`,
-  `nemphiscrypts`, and `pifagortrade`.
 - `SAS-BABLOS-003` adds the media linkage queue: 8 candidates, 2
   source-linked audio rows ready for transcript acceptance, 0 OCR-ready rows,
   0 customer-facing media claims allowed.
@@ -41,21 +38,21 @@ prototype vs another evidence-completion loop.
   and `pifagortrade`.
 - `SAS-IMPACT-005..008` add taxonomy, dashboard schema, paid boundary,
   three-channel scorecard, gate, and deep review.
+- Two-month run `2026-03-22..2026-05-22`: 526 text rows, 37 normalized
+  claims, 28 7d evaluable, 19 confirmed, 9 contradicted.
 
 1. `docs/AI_DEVELOPMENT_PLAN_RU.md`
 2. `docs/tasks.md` Phase 36
-3. `docs/specs/CHANNEL_IMPACT_FRAMEWORK.md`
-4. `docs/pilot/three_channel_PHASE36_IMPACT_DEVELOPMENT_LOOP.md`
-5. `docs/pilot/three_channel_PHASE36_IMPACT_SCORECARD.md`
-6. `docs/pilot/three_channel_PHASE36_EXTERNAL_READY_GATE.md`
+3. `docs/pilot/three_channel_PHASE36_IMPACT_SCORECARD.md`
+4. `docs/pilot/three_channel_2M_RUN_SUMMARY.md`
 
 ## Canonical Artifacts
 
-- Phase 36 loop: `docs/pilot/three_channel_PHASE36_IMPACT_DEVELOPMENT_LOOP.md`
 - `bablos79` media queue: `docs/pilot/bablos79_PHASE36_MEDIA_LINKAGE_QUEUE.md`
 - `bablos79` Phase 36 gate: `docs/pilot/bablos79_PHASE36_EXTERNAL_READY_GATE.md`
 - Phase 36 scorecard: `docs/pilot/three_channel_PHASE36_IMPACT_SCORECARD.md`
 - Phase 36 gate: `docs/pilot/three_channel_PHASE36_EXTERNAL_READY_GATE.md`
+- Two-month run: `docs/pilot/three_channel_2M_RUN_SUMMARY.md`
 - V1 metrics: `docs/pilot/three_channel_V1_METRIC_RESULTS.json`
 - V1 report: `docs/pilot/reports/three_channel_V1_CHANNEL_UTILITY_REPORT.md`
 - V1 gate: `docs/pilot/three_channel_V1_EXTERNAL_READY_GATE.md`

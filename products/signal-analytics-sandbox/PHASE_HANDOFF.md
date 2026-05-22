@@ -6,7 +6,7 @@ Date: 2026-05-22
 
 - Phase: 36 Channel Impact Framework And Cross-Channel Completion
 - Active task: Phase 36 complete; await operator decision
-- Baseline: 316 pass / 0 skip
+- Baseline: 318 pass / 0 skip
 - Ruff: clean
 - Pyright: clean
 - External gate: `approve_internal_only`
@@ -24,6 +24,8 @@ vs paid-report boundary, and equal evidence completion for all three channels.
 equivalent completion scopes for `nemphiscrypts` and `pifagortrade`.
 `SAS-IMPACT-005..008` completed taxonomy, dashboard schema, paid boundary,
 scorecard, external gate, and deep review.
+Latest practical run: two-month public window `2026-03-22..2026-05-22`;
+526 text rows, 37 normalized claims, 28 7d evaluable.
 
 ## Read First
 
@@ -35,6 +37,7 @@ scorecard, external gate, and deep review.
 6. `docs/pilot/three_channel_PHASE36_IMPACT_DEVELOPMENT_LOOP.md`
 7. `docs/pilot/three_channel_PHASE36_IMPACT_SCORECARD.md`
 8. `docs/pilot/three_channel_PHASE36_EXTERNAL_READY_GATE.md`
+9. `docs/pilot/three_channel_2M_RUN_SUMMARY.md`
 
 ## Do Not Do
 

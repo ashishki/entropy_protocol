@@ -485,6 +485,12 @@ def summarize(
                 "public_text_rows": len(
                     [r for r in rows_by_channel[channel] if r["text"]]
                 ),
+                "coverage_start_utc": _coverage_edge(
+                    rows_by_channel[channel], first=True
+                ),
+                "coverage_end_utc": _coverage_edge(
+                    rows_by_channel[channel], first=False
+                ),
                 "normalized_claims": len(claims),
                 "primary_evaluable_claims": len(primary),
                 "confirmed_hits": len(hits),
@@ -495,6 +501,9 @@ def summarize(
                 "avg_mfe_pct": avg_decimal(mfe),
                 "avg_mae_pct": avg_decimal(mae),
                 "coverage_evaluable_rate": ratio(len(primary), len(claims)),
+                "evaluation_status_counts": dict(
+                    Counter(claim["evaluation_status"] for claim in evaluated)
+                ),
                 "excluded_counts": dict(excluded_by_channel[channel]),
                 "provider_counts": dict(Counter(c["provider"] for c in primary)),
                 "asset_counts": dict(
@@ -503,6 +512,15 @@ def summarize(
             }
         )
     return summaries
+
+
+def _coverage_edge(rows: list[dict[str, Any]], *, first: bool) -> str | None:
+    timestamps = sorted(
+        row["timestamp_utc"] for row in rows if row.get("timestamp_utc")
+    )
+    if not timestamps:
+        return None
+    return timestamps[0] if first else timestamps[-1]
 
 
 def ratio(numerator: int, denominator: int) -> str | None:
@@ -533,6 +551,10 @@ def render_report(artifact: dict[str, Any]) -> str:
         "## Boundary",
         "",
         "- Sources: public Telegram `/s/` pages only.",
+        "- Date window: `{start}` through `{end}` inclusive.".format(
+            start=artifact["method"].get("start_date") or "unbounded",
+            end=artifact["method"].get("end_date") or "unbounded",
+        ),
         "- Market validation: open/public daily OHLCV windows via Binance public klines and MOEX ISS candles.",
         "- Storage posture: no bulk market-history database; this run stores only compact per-claim metrics and provider confirmation metadata.",
         "- Primary comparison horizon: `7d` directional return after the public post timestamp using the first available daily candle on/after the post date.",
@@ -547,12 +569,13 @@ def render_report(artifact: dict[str, Any]) -> str:
         "",
         "## Channel Comparison",
         "",
-        "| channel | text rows | normalized claims | 7d evaluable | confirmed | contradicted | hit rate | avg directional 7d return | avg MFE | avg MAE |",
-        "|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|",
+        "| channel | coverage | text rows | normalized claims | 7d evaluable | confirmed | contradicted | hit rate | avg directional 7d return | avg MFE | avg MAE |",
+        "|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|",
     ]
     for summary in artifact["channel_summaries"]:
         lines.append(
-            "| `{source_id}` | {public_text_rows} | {normalized_claims} | "
+            "| `{source_id}` | {coverage_start_utc} -> {coverage_end_utc} | "
+            "{public_text_rows} | {normalized_claims} | "
             "{primary_evaluable_claims} | {confirmed_hits} | {contradicted_misses} | "
             "{primary_hit_rate} | {avg_directional_return_pct} | {avg_mfe_pct} | "
             "{avg_mae_pct} |".format(
@@ -578,7 +601,13 @@ def render_report(artifact: dict[str, Any]) -> str:
     )
     for summary in artifact["channel_summaries"]:
         lines.append(f"### `{summary['source_id']}`")
+        if summary.get("evaluation_status_counts"):
+            lines.append("Evaluation statuses:")
+            for key, value in sorted(summary["evaluation_status_counts"].items()):
+                lines.append(f"- `{key}`: {value}")
+            lines.append("")
         if summary["excluded_counts"]:
+            lines.append("Extraction exclusions:")
             for key, value in sorted(summary["excluded_counts"].items()):
                 lines.append(f"- `{key}`: {value}")
         else:
@@ -619,12 +648,42 @@ def render_report(artifact: dict[str, Any]) -> str:
     return "\n".join(lines).rstrip() + "\n"
 
 
-def build_artifact(max_pages: int) -> dict[str, Any]:
+def filter_rows_by_date(
+    rows: list[dict[str, Any]],
+    start_date: date | None,
+    end_date: date | None,
+) -> list[dict[str, Any]]:
+    if start_date is None and end_date is None:
+        return rows
+
+    filtered = []
+    for row in rows:
+        timestamp = row.get("timestamp_utc")
+        if timestamp is None:
+            continue
+        row_date = parse_dt(timestamp).date()
+        if start_date is not None and row_date < start_date:
+            continue
+        if end_date is not None and row_date > end_date:
+            continue
+        filtered.append(row)
+    return filtered
+
+
+def build_artifact(
+    max_pages: int,
+    start_date: date | None = None,
+    end_date: date | None = None,
+) -> dict[str, Any]:
     generated_at = (
         datetime.now(UTC).replace(microsecond=0).isoformat().replace("+00:00", "Z")
     )
-    rows_by_channel = {
+    raw_rows_by_channel = {
         channel: fetch_public_rows(channel, max_pages) for channel in CHANNELS
+    }
+    rows_by_channel = {
+        channel: filter_rows_by_date(rows, start_date, end_date)
+        for channel, rows in raw_rows_by_channel.items()
     }
     claims_by_channel = {}
     excluded_by_channel = {}
@@ -669,12 +728,14 @@ def build_artifact(max_pages: int) -> dict[str, Any]:
         ),
     }
     return {
-        "artifact_id": "three-channel-metric-results-v0-2026-05-17",
+        "artifact_id": "three-channel-metric-results-windowed",
         "generated_at_utc": generated_at,
         "status": "historical_metric_results_v0_open_public_data",
         "method": {
             "source_method": "public_telegram_s_html",
             "max_pages_per_channel": max_pages,
+            "start_date": start_date.isoformat() if start_date else None,
+            "end_date": end_date.isoformat() if end_date else None,
             "primary_horizon": PRIMARY_HORIZON,
             "horizons": list(HORIZONS),
             "providers": ["binance_public_klines", "moex_iss_candles"],
@@ -691,6 +752,8 @@ def build_artifact(max_pages: int) -> dict[str, Any]:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--max-pages", type=int, default=MAX_PAGES)
+    parser.add_argument("--start-date", type=date.fromisoformat, default=None)
+    parser.add_argument("--end-date", type=date.fromisoformat, default=None)
     parser.add_argument(
         "--json-output",
         type=Path,
@@ -702,7 +765,7 @@ def main() -> None:
         default=Path("docs/pilot/three_channel_METRIC_REPORT.md"),
     )
     args = parser.parse_args()
-    artifact = build_artifact(args.max_pages)
+    artifact = build_artifact(args.max_pages, args.start_date, args.end_date)
     args.json_output.parent.mkdir(parents=True, exist_ok=True)
     args.json_output.write_text(
         json.dumps(artifact, ensure_ascii=False, indent=2) + "\n",

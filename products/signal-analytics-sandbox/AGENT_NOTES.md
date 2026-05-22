@@ -9,7 +9,7 @@ Restart-relevant state only. Historical detail lives in
 
 - Phase: 36 Channel Impact Framework And Cross-Channel Completion
 - Active task: Phase 36 complete; await operator decision
-- Baseline: 316 pass / 0 skip
+- Baseline: 318 pass / 0 skip
 - External gate: `approve_internal_only`
 - External delivery: not approved
 - Core: paused
@@ -29,6 +29,8 @@ loop for `bablos79`, `nemphiscrypts`, and `pifagortrade`.
 equivalent completion scopes for `nemphiscrypts` and `pifagortrade`.
 `SAS-IMPACT-005..008` added taxonomy, dashboard schema, paid boundary,
 scorecard, external gate, and deep review.
+Two-month run `2026-03-22..2026-05-22` produced 526 text rows,
+37 normalized claims, 28 7d evaluable, 19 confirmed, 9 contradicted.
 
 Read first:
 
@@ -39,6 +41,7 @@ Read first:
 5. `docs/pilot/three_channel_PHASE36_IMPACT_DEVELOPMENT_LOOP.md`
 6. `docs/pilot/three_channel_PHASE36_IMPACT_SCORECARD.md`
 7. `docs/pilot/three_channel_PHASE36_EXTERNAL_READY_GATE.md`
+8. `docs/pilot/three_channel_2M_RUN_SUMMARY.md`
 
 ## Canonical Links
 
