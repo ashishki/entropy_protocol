@@ -9,7 +9,7 @@ Restart-relevant state only. Historical detail lives in
 
 - Phase: 36 Channel Impact Framework And Cross-Channel Completion
 - Active task: Phase 36 complete; await operator decision
-- Baseline: 322 pass / 0 skip
+- Baseline: 326 pass / 0 skip
 - External gate: `approve_internal_only`
 - External delivery: not approved
 - Core: paused
@@ -36,6 +36,9 @@ multimodal extraction and setup/RR quality, not post counts. A new two-month
 multimodal pass now covers 570 public posts, 295 media refs, 70 voice
 transcripts, 185 image/OCR drafts, 40 video/manual blockers, and 1 internal
 RR-ready setup draft.
+Model-reviewer pass now adds `gpt-4.1-mini` mass review over 255 media drafts
+and `gpt-4.1` arbiter review over 35 high-signal rows; 9 arbiter candidates
+are accepted for internal follow-up only.
 
 Read first:
 
@@ -49,6 +52,7 @@ Read first:
 8. `docs/pilot/three_channel_2M_RUN_SUMMARY.md`
 9. `docs/pilot/three_channel_MULTIMODAL_RESEARCH_REPORT.md`
 10. `docs/pilot/three_channel_MULTIMODAL_RR_DRAFTS.json`
+11. `docs/pilot/three_channel_MEDIA_REVIEW_REPORT.md`
 
 ## Canonical Links
 
@@ -64,6 +68,8 @@ Read first:
   `docs/specs/CHANNEL_IMPACT_FRAMEWORK.md`
 - Two-month multimodal research:
   `docs/pilot/three_channel_MULTIMODAL_RESEARCH_REPORT.md`
+- Media reviewer pass:
+  `docs/pilot/three_channel_MEDIA_REVIEW_REPORT.md`
 - Phase 36 development loop:
   `docs/pilot/three_channel_PHASE36_IMPACT_DEVELOPMENT_LOOP.md`
 - Phase 36 bablos gate:

@@ -1830,3 +1830,11 @@ This file is durable handoff context across agents and sessions. It records what
 - Decisions applied: public `/s/` Telegram only; raw media stays in ignored `workspace/`; per-media transcript/OCR cache stays ignored; compact manifest/queue/RR/report artifacts are committed; draft transcript/OCR rows remain internal until human/operator accepted.
 - Evidence collected: 570 public posts in `2026-03-22..2026-05-22`, 295 media refs, 255 draft transcript/OCR rows (70 voice, 185 image), 40 video/manual blockers, 549 RR draft rows, and 1 internal RR-ready setup draft (`bablos79` post `10450`, `MAGN` short, entry `28400`, stop `28600`, target `26364`, computed RR `10.18`, customer-facing blocked by media review).
 - Follow-ups: review/accept or reject draft transcript/OCR rows before customer-facing use; add video processing only if product/legal gate accepts it; improve asset aliasing for Russian names and exchange-specific symbols; run outcome simulation for accepted RR setups.
+
+### 2026-05-22 — Media Reviewer Model Pass
+
+- Scope: `scripts/three_channel_media_reviewer.py`, `docs/pilot/three_channel_MEDIA_REVIEW_RESULTS.json`, `docs/pilot/three_channel_MEDIA_REVIEW_REPORT.md`, `tests/unit/test_three_channel_media_reviewer.py`, active-state handoff docs.
+- Why this work happened: the operator asked to add proportionate models that can act as media reviewers and show what they find in image/audio-derived evidence.
+- Decisions applied: `gpt-4.1-mini` performs mass review over all 255 transcript/OCR draft rows; `gpt-4.1` performs arbiter review over 35 high-signal rows; model review remains internal-only and does not replace human/operator acceptance.
+- Evidence collected: mass reviewer accepted 1 internal candidate, marked 177 rows needs-human-review, 66 reject-noise, 4 context-only, and 7 unable-to-review. Arbiter accepted 9 internal candidates: `pifagortrade` posts `3214`, `3218`, `3225`, `3234`, `3264`, `3274`, `3276`; `bablos79` post `10450`; and `nemphiscrypts` post `3958`.
+- Follow-ups: route the 9 arbiter-accepted rows to human/operator review, then recompute setup/RR/outcomes only for accepted rows.

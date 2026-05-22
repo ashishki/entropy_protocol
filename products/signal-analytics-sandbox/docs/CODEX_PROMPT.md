@@ -9,7 +9,7 @@ Compact restart state only. Detailed history lives in
 ## Current State
 
 - Phase: 36 (Channel Impact Framework And Cross-Channel Completion)
-- Baseline: 322 passing tests, 0 skipped
+- Baseline: 326 passing tests, 0 skipped
 - Ruff: `ruff check src/ tests/ scripts/` passes
 - Format: `ruff format --check src/ tests/ scripts/` passes
 - Pyright: `pyright` passes
@@ -42,6 +42,8 @@ prototype vs another evidence-completion loop.
 - Two-month multimodal run `2026-03-22..2026-05-22`: 570 posts, 295 media
   refs, 70 voice transcripts, 185 image/OCR drafts, 40 video/manual blockers,
   1 internal RR-ready setup draft.
+- Media reviewer pass: `gpt-4.1-mini` reviewed 255 media drafts; `gpt-4.1`
+  arbitrated 35 high-signal rows and accepted 9 internal candidates.
 
 Read first: `docs/AI_DEVELOPMENT_PLAN_RU.md`, `docs/tasks.md` Phase 36,
 `docs/pilot/three_channel_PHASE36_IMPACT_SCORECARD.md`,
@@ -55,6 +57,7 @@ Read first: `docs/AI_DEVELOPMENT_PLAN_RU.md`, `docs/tasks.md` Phase 36,
 - Phase 36 gate: `docs/pilot/three_channel_PHASE36_EXTERNAL_READY_GATE.md`
 - Two-month run: `docs/pilot/three_channel_2M_RUN_SUMMARY.md`
 - Two-month multimodal run: `docs/pilot/three_channel_MULTIMODAL_RESEARCH_REPORT.md`, `docs/pilot/three_channel_MULTIMODAL_RR_DRAFTS.json`
+- Media reviewer run: `docs/pilot/three_channel_MEDIA_REVIEW_REPORT.md`
 - V1 metrics: `docs/pilot/three_channel_V1_METRIC_RESULTS.json`
 - V1 report: `docs/pilot/reports/three_channel_V1_CHANNEL_UTILITY_REPORT.md`
 - V1 gate: `docs/pilot/three_channel_V1_EXTERNAL_READY_GATE.md`

@@ -6,7 +6,7 @@ Date: 2026-05-22
 
 - Phase: 36 Channel Impact Framework And Cross-Channel Completion
 - Active task: Phase 36 complete; await operator decision
-- Baseline: 322 pass / 0 skip
+- Baseline: 326 pass / 0 skip
 - Ruff: clean
 - Pyright: clean
 - External gate: `approve_internal_only`
@@ -31,6 +31,9 @@ route; 570 posts, 295 media refs, 255 draft transcript/OCR rows
 (70 voice, 185 image), 40 video/manual blockers, and 1 internal RR-ready setup
 draft. Raw media and per-media cache files are local/ignored; compact JSON/MD
 artifacts are in `docs/pilot/three_channel_MULTIMODAL_*`.
+Model-reviewer pass adds `gpt-4.1-mini` mass review over 255 media drafts and
+`gpt-4.1` arbiter review over 35 high-signal rows; 9 internal candidates were
+accepted by arbiter, still not customer-facing until human/operator review.
 
 ## Read First
 
@@ -45,6 +48,7 @@ artifacts are in `docs/pilot/three_channel_MULTIMODAL_*`.
 9. `docs/pilot/three_channel_2M_RUN_SUMMARY.md`
 10. `docs/pilot/three_channel_MULTIMODAL_RESEARCH_REPORT.md`
 11. `docs/pilot/three_channel_MULTIMODAL_RR_DRAFTS.json`
+12. `docs/pilot/three_channel_MEDIA_REVIEW_REPORT.md`
 
 ## Do Not Do
 
