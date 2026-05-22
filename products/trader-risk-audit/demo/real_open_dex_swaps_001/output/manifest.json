@@ -1,0 +1,52 @@
+{
+  "artifacts": [
+    {
+      "name": "source_export",
+      "path": "demo/real_open_dex_swaps_001/trades.csv",
+      "sha256": "bac972d3c3463301f57d984e75b0296c5f67e34e19559adb367049f3a3e99beb"
+    },
+    {
+      "name": "policy_file",
+      "path": "demo/real_open_dex_swaps_001/policy.yaml",
+      "sha256": "2f6fda9d6c46f33b962a666416d01af2f5867cc2d42fa9ea24d0540e93bc0f83"
+    },
+    {
+      "name": "normalized_trades",
+      "path": "demo/real_open_dex_swaps_001/output/normalized_trades.json",
+      "sha256": "e1646edf4ac22194a4dec89bacfce71ee98f7de4eb38385a356bf431ddb65826"
+    },
+    {
+      "name": "violations",
+      "path": "demo/real_open_dex_swaps_001/output/violations.json",
+      "sha256": "8568eb17995a283b5f17eb13f9e8d1fbb0b9e1c59d734995dcfd395ab7d32ddb"
+    },
+    {
+      "name": "attribution_summary",
+      "path": "demo/real_open_dex_swaps_001/output/attribution_summary.json",
+      "sha256": "ac01bde87a0ad0154ef56a3586d6b9ea70eaf99c06f6cc3060f222549f757593"
+    },
+    {
+      "name": "report_markdown",
+      "path": "demo/real_open_dex_swaps_001/output/report.md",
+      "sha256": "1e65b262c8b7c11a5845b03f88d66f4ee81f6b97bdffc9d95f699ac44551ba29"
+    },
+    {
+      "name": "delivery_packet",
+      "path": "demo/real_open_dex_swaps_001/output/telegram_packet.txt",
+      "sha256": "88b494c42df8399ef95578a89849bd5559090fe9b6b9fbe294a605144d7ac597"
+    }
+  ],
+  "command": "trader-risk-audit audit",
+  "command_arguments": [
+    "--trades",
+    "demo/real_open_dex_swaps_001/trades.csv",
+    "--policy",
+    "demo/real_open_dex_swaps_001/policy.yaml",
+    "--output-dir",
+    "demo/real_open_dex_swaps_001/output"
+  ],
+  "content_hash": "b73964915d714cc384b45a3f8064e3752639a9d64f94fa7c6ecb4e49f9709ddb",
+  "generated_at": "2026-05-19T10:11:30.235494+00:00",
+  "manifest_id": "b73964915d714cc3",
+  "package_version": "0.1.0"
+}

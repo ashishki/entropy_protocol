@@ -1,0 +1,13 @@
+Trader Risk Audit Summary
+Trades reviewed: 40
+Violations recorded: 8
+Violating P&L: -6.85913150435952
+
+Top violation counts:
+- real_open_max_position_size: 8
+
+Limitations:
+- real_open_max_leverage_unsupported: unsupported_leverage_data
+
+Report: report.md
+This audit is not investment advice and does not control live trading.

@@ -34,6 +34,15 @@ Append-only. One row per review cycle.
 | 24 | Phase 19 - One-Click Audit Runner | 2026-05-15 | T79-T82 | No | 0 | 0 | 0 |
 | 25 | Phase 20 - Report Preview And Paid CTA | 2026-05-15 | T83-T87 | No | 0 | 0 | 0 |
 | 26 | Phase 21 - Hypothesis Evidence Dashboard | 2026-05-15 | T88-T92 | No | 0 | 0 | 0 |
+| 27 | Phase 23 - Open-Source Audit Case Bank | 2026-05-15 | T98-T103 | No | 0 | 0 | 3 |
+| 28 | Phase 24 - Multi-Case Report Quality Loop | 2026-05-15 | T104-T109 | No | 0 | 0 | 3 |
+| 29 | Phase 25 - Private Pilot Readiness | 2026-05-15 | T110-T115 | No | 0 | 0 | 4 |
+| 30 | Phase 27 - Real Open Data Rehearsal | 2026-05-19 | T117-T121 | No | 0 | 0 | 2 |
+| 31 | Phase 28 - Account-Scoped Real Open Data Rehearsal | 2026-05-19 | T122 | No | 0 | 0 | 2 |
+| 32 | Phase 29 - Pre-Private Hypothesis Validation | 2026-05-19 | T123-T127 | No | 0 | 0 | 1 |
+| 33 | Phase 30 - Concierge Validation Execution Kit | 2026-05-19 | T128-T132 | No | 0 | 0 | 1 |
+| 34 | Phase 31 - Aggregate Evidence Safety Tooling | 2026-05-19 | T133-T136 | No | 0 | 0 | 0 |
+| 35 | Phase 32 - Dune Public Wallet Rehearsal | 2026-05-19 | T137-T140 | No | 0 | 0 | 2 |
 
 ---
 
@@ -67,6 +76,15 @@ Append-only. One row per review cycle.
 | 24 | `docs/archive/PHASE19_REVIEW.md` | Phase 19 - One-Click Audit Runner | OK |
 | 25 | `docs/archive/PHASE20_REVIEW.md` | Phase 20 - Report Preview And Paid CTA | OK |
 | 26 | `docs/archive/PHASE21_REVIEW.md` | Phase 21 - Hypothesis Evidence Dashboard | OK |
+| 27 | `docs/archive/PHASE23_REVIEW.md` | Phase 23 - Open-Source Audit Case Bank | WARN |
+| 28 | `docs/archive/PHASE24_REVIEW.md` | Phase 24 - Multi-Case Report Quality Loop | WARN |
+| 29 | `docs/archive/PHASE25_REVIEW.md` | Phase 25 - Private Pilot Readiness | WARN |
+| 30 | `docs/archive/PHASE27_REVIEW.md` | Phase 27 - Real Open Data Rehearsal | WARN |
+| 31 | `docs/archive/PHASE28_REVIEW.md` | Phase 28 - Account-Scoped Real Open Data Rehearsal | WARN |
+| 32 | `docs/archive/PHASE29_REVIEW.md` | Phase 29 - Pre-Private Hypothesis Validation | WARN |
+| 33 | `docs/archive/PHASE30_REVIEW.md` | Phase 30 - Concierge Validation Execution Kit | WARN |
+| 34 | `docs/archive/PHASE31_REVIEW.md` | Phase 31 - Aggregate Evidence Safety Tooling | OK |
+| 35 | `docs/archive/PHASE32_REVIEW.md` | Phase 32 - Dune Public Wallet Rehearsal | WARN |
 
 ---
 

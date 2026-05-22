@@ -36,6 +36,20 @@ HYPOTHESIS_FUNNEL_EVENT_FIELDS = (
     "evidence_source",
     "tags",
 )
+AGGREGATE_EVIDENCE_FIELDS = (
+    "date",
+    "batch_id",
+    "source_type",
+    "icp_label",
+    "event_type",
+    "count",
+    "past_incident_tag",
+    "current_workaround_tag",
+    "trust_blocker_tag",
+    "export_willingness_tag",
+    "pilot_ask_tag",
+    "next_action_tag",
+)
 HYPOTHESIS_EXPORT_FIELDS = ("metric", "value")
 DEMO_SOURCES = frozenset({"public_sample_demo", "internal_demo", "demo_artifact"})
 INTAKE_METHODS = frozenset(
@@ -69,6 +83,103 @@ HYPOTHESIS_FUNNEL_EVENT_TYPES = frozenset(
 )
 HYPOTHESIS_FUNNEL_SOURCE_TYPES = PREVIEW_SOURCE_TYPES
 HYPOTHESIS_EVIDENCE_SOURCES = MARKET_EVIDENCE_SOURCES | DEMO_SOURCES
+AGGREGATE_SOURCE_TYPES = MARKET_EVIDENCE_SOURCES | DEMO_SOURCES
+AGGREGATE_EVENT_TYPES = frozenset(
+    {
+        "targets_scored",
+        "outreach_sent",
+        "problem_interview",
+        "report_review",
+        "export_willingness_ask",
+        "manual_pilot_ask",
+    }
+)
+AGGREGATE_ICP_LABELS = frozenset(
+    {
+        "solo_crypto",
+        "prop_funded",
+        "coach",
+        "dao_treasury",
+        "fund_operator",
+        "other_safe_label",
+    }
+)
+PAST_INCIDENT_TAGS = frozenset(
+    {
+        "max_daily_loss",
+        "max_drawdown",
+        "position_size",
+        "forbidden_asset",
+        "cooldown",
+        "leverage",
+        "session_rule",
+        "no_recent_incident",
+        "not_applicable",
+    }
+)
+CURRENT_WORKAROUND_TAGS = frozenset(
+    {
+        "spreadsheet",
+        "journal",
+        "exchange_dashboard",
+        "dune_query",
+        "python_notebook",
+        "screenshots",
+        "coach_review",
+        "manual_memory",
+        "none",
+        "not_applicable",
+    }
+)
+TRUST_BLOCKER_TAGS = frozenset(
+    {
+        "missing_fees",
+        "missing_pnl",
+        "missing_leverage",
+        "policy_mapping",
+        "privacy",
+        "source_shape",
+        "report_clarity",
+        "none",
+        "not_applicable",
+    }
+)
+EXPORT_WILLINGNESS_TAGS = frozenset(
+    {
+        "export_willing_yes",
+        "export_willing_later",
+        "export_blocked_privacy",
+        "export_blocked_effort",
+        "export_blocked_no_rules",
+        "export_blocked_no_value",
+        "not_asked",
+    }
+)
+PILOT_ASK_TAGS = frozenset(
+    {
+        "pilot_yes_paid",
+        "pilot_yes_free_first",
+        "pilot_later",
+        "pilot_no_price",
+        "pilot_no_trust",
+        "pilot_no_urgency",
+        "pilot_needs_team_approval",
+        "not_asked",
+    }
+)
+NEXT_ACTION_TAGS = frozenset(
+    {
+        "start_outreach",
+        "ask_report_review",
+        "ask_export_willingness",
+        "ask_manual_pilot",
+        "return_to_t116",
+        "continue_validation",
+        "narrow_icp",
+        "revise_offer",
+        "pause_or_pivot",
+    }
+)
 EXCHANGE_INTAKE_METHODS = frozenset({"bybit_read_only_api", "binance_read_only_api"})
 _EMAIL_PATTERN = re.compile(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}")
 _HANDLE_PATTERN = re.compile(r"@[A-Za-z][A-Za-z0-9_]{4,}")
@@ -166,6 +277,88 @@ class HypothesisFunnelEvent:
 class HypothesisEvidenceDataset:
     legacy_rows: tuple[EvidenceRow, ...]
     funnel_events: tuple[HypothesisFunnelEvent, ...]
+
+
+@dataclass(frozen=True)
+class AggregateEvidenceRow:
+    date: str
+    batch_id: str
+    source_type: str
+    icp_label: str
+    event_type: str
+    count: int
+    past_incident_tag: str
+    current_workaround_tag: str
+    trust_blocker_tag: str
+    export_willingness_tag: str
+    pilot_ask_tag: str
+    next_action_tag: str
+
+    def to_csv_row(self) -> dict[str, str]:
+        payload = {
+            "date": self.date,
+            "batch_id": self.batch_id,
+            "source_type": _validate_choice(
+                "source_type", self.source_type, AGGREGATE_SOURCE_TYPES
+            ),
+            "icp_label": _validate_choice(
+                "icp_label", self.icp_label, AGGREGATE_ICP_LABELS
+            ),
+            "event_type": _validate_choice(
+                "event_type", self.event_type, AGGREGATE_EVENT_TYPES
+            ),
+            "count": str(_validate_count(self.count)),
+            "past_incident_tag": _validate_choice(
+                "past_incident_tag", self.past_incident_tag, PAST_INCIDENT_TAGS
+            ),
+            "current_workaround_tag": _validate_choice(
+                "current_workaround_tag",
+                self.current_workaround_tag,
+                CURRENT_WORKAROUND_TAGS,
+            ),
+            "trust_blocker_tag": _validate_choice(
+                "trust_blocker_tag", self.trust_blocker_tag, TRUST_BLOCKER_TAGS
+            ),
+            "export_willingness_tag": _validate_choice(
+                "export_willingness_tag",
+                self.export_willingness_tag,
+                EXPORT_WILLINGNESS_TAGS,
+            ),
+            "pilot_ask_tag": _validate_choice(
+                "pilot_ask_tag", self.pilot_ask_tag, PILOT_ASK_TAGS
+            ),
+            "next_action_tag": _validate_choice(
+                "next_action_tag", self.next_action_tag, NEXT_ACTION_TAGS
+            ),
+        }
+        _validate_safe_fields(payload)
+        return payload
+
+
+@dataclass(frozen=True)
+class AggregateEvidenceSummary:
+    rows: int
+    total_count: int
+    market_count: int
+    demo_count: int
+    export_willing_yes: int
+    pilot_yes: int
+    return_to_t116: int
+
+    def format(self) -> str:
+        return "\n".join(
+            (
+                "Aggregate Evidence Validation",
+                f"Rows: {self.rows}",
+                f"Total count: {self.total_count}",
+                f"Market count: {self.market_count}",
+                f"Demo count: {self.demo_count}",
+                f"Export willing yes: {self.export_willing_yes}",
+                f"Pilot yes: {self.pilot_yes}",
+                f"Return to T116 signals: {self.return_to_t116}",
+                "Status: valid",
+            )
+        )
 
 
 @dataclass(frozen=True)
@@ -365,6 +558,54 @@ def load_hypothesis_evidence(
             load_hypothesis_funnel_events(funnel_event_path)
             if funnel_event_path
             else ()
+        ),
+    )
+
+
+def load_aggregate_evidence_log(path: str | Path) -> tuple[AggregateEvidenceRow, ...]:
+    log_path = Path(path)
+    if not log_path.exists():
+        return ()
+    with log_path.open(newline="", encoding="utf-8") as log_file:
+        reader = csv.DictReader(log_file)
+        if tuple(reader.fieldnames or ()) != AGGREGATE_EVIDENCE_FIELDS:
+            expected = ", ".join(AGGREGATE_EVIDENCE_FIELDS)
+            raise EvidenceValidationError(
+                f"aggregate evidence fields must be exactly: {expected}"
+            )
+        return tuple(_aggregate_evidence_row_from_mapping(row) for row in reader)
+
+
+def summarize_aggregate_evidence(
+    rows: tuple[AggregateEvidenceRow, ...],
+) -> AggregateEvidenceSummary:
+    validated_rows = tuple(_validate_aggregate_evidence_row(row) for row in rows)
+    total_count = sum(row.count for row in validated_rows)
+    market_count = sum(
+        row.count
+        for row in validated_rows
+        if row.source_type in MARKET_EVIDENCE_SOURCES
+    )
+    demo_count = total_count - market_count
+    return AggregateEvidenceSummary(
+        rows=len(validated_rows),
+        total_count=total_count,
+        market_count=market_count,
+        demo_count=demo_count,
+        export_willing_yes=sum(
+            row.count
+            for row in validated_rows
+            if row.export_willingness_tag == "export_willing_yes"
+        ),
+        pilot_yes=sum(
+            row.count
+            for row in validated_rows
+            if row.pilot_ask_tag in {"pilot_yes_paid", "pilot_yes_free_first"}
+        ),
+        return_to_t116=sum(
+            row.count
+            for row in validated_rows
+            if row.next_action_tag == "return_to_t116"
         ),
     )
 
@@ -640,6 +881,47 @@ def _hypothesis_funnel_event_from_mapping(
     )
 
 
+def _aggregate_evidence_row_from_mapping(
+    row: dict[str, str],
+) -> AggregateEvidenceRow:
+    return _validate_aggregate_evidence_row(
+        AggregateEvidenceRow(
+            date=row["date"],
+            batch_id=row["batch_id"],
+            source_type=row["source_type"],
+            icp_label=row["icp_label"],
+            event_type=row["event_type"],
+            count=_parse_count(row["count"]),
+            past_incident_tag=row["past_incident_tag"],
+            current_workaround_tag=row["current_workaround_tag"],
+            trust_blocker_tag=row["trust_blocker_tag"],
+            export_willingness_tag=row["export_willingness_tag"],
+            pilot_ask_tag=row["pilot_ask_tag"],
+            next_action_tag=row["next_action_tag"],
+        )
+    )
+
+
+def _validate_aggregate_evidence_row(
+    row: AggregateEvidenceRow,
+) -> AggregateEvidenceRow:
+    payload = row.to_csv_row()
+    return AggregateEvidenceRow(
+        date=payload["date"],
+        batch_id=payload["batch_id"],
+        source_type=payload["source_type"],
+        icp_label=payload["icp_label"],
+        event_type=payload["event_type"],
+        count=_parse_count(payload["count"]),
+        past_incident_tag=payload["past_incident_tag"],
+        current_workaround_tag=payload["current_workaround_tag"],
+        trust_blocker_tag=payload["trust_blocker_tag"],
+        export_willingness_tag=payload["export_willingness_tag"],
+        pilot_ask_tag=payload["pilot_ask_tag"],
+        next_action_tag=payload["next_action_tag"],
+    )
+
+
 def _validate_safe_fields(payload: dict[str, object]) -> None:
     for field, value in payload.items():
         text = str(value)
@@ -715,6 +997,28 @@ def _validate_hypothesis_evidence_source(value: str) -> str:
         supported = ", ".join(sorted(HYPOTHESIS_EVIDENCE_SOURCES))
         raise EvidenceValidationError(f"evidence_source must be one of: {supported}")
     return evidence_source
+
+
+def _validate_choice(field: str, value: str, allowed: frozenset[str]) -> str:
+    normalized = _safe_tag(value)
+    if normalized not in allowed:
+        supported = ", ".join(sorted(allowed))
+        raise EvidenceValidationError(f"{field} must be one of: {supported}")
+    return normalized
+
+
+def _parse_count(value: object) -> int:
+    try:
+        count = int(str(value))
+    except ValueError as error:
+        raise EvidenceValidationError("count must be an integer") from error
+    return _validate_count(count)
+
+
+def _validate_count(value: int) -> int:
+    if value < 0:
+        raise EvidenceValidationError("count must be non-negative")
+    return value
 
 
 def _safe_tag(value: str) -> str:

@@ -1,24 +1,18 @@
-# REVIEW_REPORT - Cycle 26
-_Date: 2026-05-15 · Scope: Phase 21 T88-T92_
+# REVIEW_REPORT - Cycle 35
+_Date: 2026-05-19 · Scope: T137-T140_
 
 ## Executive Summary
 
-- Stop-Ship: No
-- Phase 21 hypothesis evidence dashboard is implemented and ready for the
-  Phase 22 CSV friction decision gate.
-- Funnel events cover prospect, intake, valid export, policy, audit, preview,
-  CTA, paid report, repeat commitment, and referral milestones.
-- Legacy pilot evidence rows and new funnel events can be loaded together.
-- Dashboard output stays aggregate-only and separates demo/open-source artifact
-  activity from market/customer/paid-pilot evidence.
-- Gate rules return proceed, needs_more_evidence, or pivot with concrete
-  reasons; uploads/API connections/demo activity do not count as PMF.
-- Evidence export writes sanitized CSV/Markdown summaries with source log names
-  and sha256 hashes, not private paths or raw events.
-- Runtime remains T0 local CLI/file I/O; no hosted dashboard, CRM, checkout,
-  account system, real exchange fetching, credential collection, or live-control
-  path was added.
-- Baseline is 253 passing tests, 0 skipped; ruff check and format check pass.
+- Stop-Ship: No for development rehearsal and report-review conversation use.
+- Phase 32 produced `demo/dune_public_wallet_dex_001/` from real public Dune
+  `dex.trades` rows.
+- The reviewed report records 76 deterministic max-position findings and one
+  unsupported leverage limitation.
+- Review found P0:0, P1:0, P2:2 accepted source-shape caveats.
+- T116 remains blocked and `docs/PAID_PILOT_READY_GATE.md` remains
+  `needs_fixes`.
+- No Dune key, private rows, customer identifiers, wallet-owner claims, SaaS,
+  checkout, live exchange control, order blocking, or trading advice were added.
 
 ## P0 Issues
 
@@ -32,19 +26,24 @@ None.
 
 | ID | Description | Files | Status |
 |----|-------------|-------|--------|
-| None | No P2 findings in Cycle 26. | - | - |
+| PH32-P2-001 | Dune public `tx_from` scope is not a verified private trader account ledger. | `demo/dune_public_wallet_dex_001/source.md` | Accepted limitation |
+| PH32-P2-002 | Fees, gas, slippage/MEV, leverage, balances, and verified realized P&L are unsupported by the committed Dune transform. | `demo/dune_public_wallet_dex_001/output/report_reviewed.md` | Accepted limitation |
 
-## Carry-Forward Status
+Carry-forward findings remain PH23-P2-001, PH23-P2-002, PH23-P2-003,
+PH25-P2-001, PH27/PH28 accepted real-open-data caveats, PH29-P2-001, and
+PH30-P2-001.
 
-| ID | Sev | Description | Status | Change |
-|----|-----|-------------|--------|--------|
-| T66-P2-001 | P2 | Generic generated report first screen did not explain open-source validation limits. | Closed | Still closed; Phase 21 docs keep open-source/demo evidence out of paid/PMF gates. |
-| CODE-1 | P2 | Delivery packet hash absent from manifests in earlier report flow. | Closed | Still closed; Phase 21 export provenance is separate and does not alter audit manifests. |
-| ARCH-1 (prior) | P2 | Product spec needed bounded local read-only exchange import feature area aligned with ADR-002. | Closed | Still closed; Phase 21 did not add real exchange fetching. |
-| CODE-2 | P2 | Imported CSV duplicate row ids could collide in attribution buckets. | Closed | Still closed; Phase 21 did not alter trade normalization or attribution. |
+## Review Checks
+
+| Area | Verdict | Evidence |
+|---|---|---|
+| Real public source | PASS | Dune `dex.trades` extraction recorded source SQL and execution ids. |
+| Case pack contract | PASS | `case-bank validate --case-dir demo/dune_public_wallet_dex_001` passed. |
+| Reproducibility | PASS | Stable manifest content hashes match. |
+| Report honesty | PASS | Reviewed header preserves Dune source, fee, leverage, P&L, and ownership caveats. |
+| Gate honesty | PASS | Ready gate remains `needs_fixes`; T116 remains blocked. |
 
 ## Stop-Ship Decision
 
-No - Phase 21 stays local, deterministic, privacy-safe, evidence-safe, and
-within the T0 runtime boundary. No P0/P1/P2 findings remain. Phase 22 may begin
-with T93 CSV Friction Decision Gate.
+No stop-ship for repository changes. Phase 32 is complete with WARN health
+because the Dune artifact is useful but still supporting-only evidence.

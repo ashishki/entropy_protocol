@@ -1,7 +1,7 @@
 # Implementation Journal - Trader Risk Audit
 
 Version: 1.0
-Last updated: 2026-05-15
+Last updated: 2026-05-19
 Status: append-only
 
 This file records durable handoff context across agents and sessions. It is not the source of truth for architecture, policy, or task contracts.
@@ -22,6 +22,655 @@ This file records durable handoff context across agents and sessions. It is not 
 ```
 
 ## Entries
+
+### 2026-05-19 - T137-T140 - Dune Public Wallet Rehearsal
+
+- Scope: `demo/dune_public_wallet_dex_001/`,
+  `docs/DUNE_PUBLIC_WALLET_REHEARSAL.md`,
+  `docs/audit/real_open_data_case_reviews/dune_public_wallet_dex_001.md`,
+  `docs/audit/PHASE32_ERROR_REGISTER.md`,
+  `docs/archive/PHASE32_REVIEW.md`, and state docs.
+- Why this work happened: the operator supplied Dune API access and asked to
+  use real public data while no T116 private/anonymized export exists.
+- Decisions applied: Dune public `dex.trades` rows can strengthen technical
+  and report-review confidence, but they cannot be counted as private,
+  customer, paid, PMF, market-demand, or willingness-to-pay evidence.
+- Evidence collected: Dune API SQL execution succeeded; 80 real public
+  Ethereum DEX rows were transformed into canonical audit input; reviewed
+  report records 76 max-position findings and one unsupported leverage
+  limitation; reproducibility status is passed; `case-bank validate` passed.
+- Follow-ups: use the reviewed Dune report only for report-review
+  conversations and record only aggregate non-identifying outcomes. Return to
+  T116 if an approved private/anonymized export appears outside git.
+- Notes for next agent: do not commit or document the supplied Dune key. The
+  key was pasted in chat and should be rotated by the operator.
+
+### 2026-05-19 - T136 - Aggregate Evidence Safety Tooling Review
+
+- Scope: `docs/archive/PHASE31_REVIEW.md`, `docs/audit/AUDIT_INDEX.md`,
+  `docs/CODEX_PROMPT.md`, `README.md`, `PHASE_HANDOFF.md`,
+  `AGENT_NOTES.md`, `MEMORY.md`.
+- Why this work happened: Phase 31 needed a boundary review after adding local
+  aggregate evidence validation tooling.
+- Decisions applied: validator success is not market, private, paid, or PMF
+  evidence; T116 remains blocked until approved private/anonymized export
+  exists outside git.
+- Evidence collected: focused aggregate validator tests passed;
+  `.venv/bin/python -m pytest tests -q --tb=short` -> 263 passed;
+  `.venv/bin/ruff check trader_risk_audit tests` -> passed;
+  `.venv/bin/ruff format --check trader_risk_audit tests` -> passed.
+- Follow-ups: operator should run outreach outside git, validate aggregate logs
+  locally, and resume T116 if approved anonymized/private export appears.
+- Notes for next agent: Phase 31 is safety tooling only and should not be
+  described as customer validation.
+
+### 2026-05-19 - T133-T135 - Aggregate Evidence Safety Tooling
+
+- Scope: `trader_risk_audit/evidence.py`, `trader_risk_audit/cli.py`,
+  `tests/unit/evidence/test_aggregate_evidence.py`,
+  `tests/integration/test_aggregate_evidence_cli.py`,
+  `docs/AGGREGATE_EVIDENCE_VALIDATION_CLI.md`,
+  `docs/SAFE_AGGREGATE_EVIDENCE_LOG_TEMPLATE.md`.
+- Why this work happened: Phase 30 created an aggregate evidence template, but
+  future logs needed local validation before any aggregate summary enters
+  git-visible docs.
+- Decisions applied: safety-only local tooling is allowed; no outreach
+  automation, CRM, hosted forms, SaaS, checkout, live-control, order blocking,
+  advice, or customer evidence claim.
+- Evidence collected: `.venv/bin/python -m pytest
+  tests/unit/evidence/test_aggregate_evidence.py
+  tests/integration/test_aggregate_evidence_cli.py -q --tb=short` -> 5 passed.
+- Follow-ups: T136 archive/review, then operator-led outreach outside git.
+- Notes for next agent: `evidence aggregate-validate` prints only aggregate
+  counts and does not echo private input paths.
+
+### 2026-05-19 - T132 - Concierge Validation Execution Review
+
+- Scope: `docs/archive/PHASE30_REVIEW.md`, `docs/audit/AUDIT_INDEX.md`,
+  `docs/CODEX_PROMPT.md`, `README.md`, `PHASE_HANDOFF.md`,
+  `AGENT_NOTES.md`, `MEMORY.md`.
+- Why this work happened: The operator asked to continue phases without
+  stopping; since T116 remains blocked, Phase 30 prepared the operator
+  execution loop for collecting real aggregate validation evidence.
+- Decisions applied: T116 remains blocked until approved private/anonymized
+  export exists outside git; no new product automation is justified without
+  outreach evidence.
+- Evidence collected: docs-only phase review; no private data processed.
+  `.venv/bin/python -m pytest tests -q --tb=short` -> 258 passed;
+  `.venv/bin/ruff check trader_risk_audit tests` -> passed;
+  `.venv/bin/ruff format --check trader_risk_audit tests` -> passed.
+- Follow-ups: operator should run the outreach loop outside git; resume T116
+  if an approved anonymized/private export appears.
+- Notes for next agent: Phase 30 completed with WARN health because it provides
+  execution materials only, not actual customer/market/paid evidence.
+
+### 2026-05-19 - T128-T131 - Concierge Validation Execution Kit
+
+- Scope: `docs/CONCIERGE_VALIDATION_EXECUTION_PLAN.md`,
+  `docs/ICP_OUTREACH_TARGETING_RUBRIC.md`,
+  `docs/OUTREACH_MESSAGE_TEMPLATES_RU.md`,
+  `docs/SAFE_AGGREGATE_EVIDENCE_LOG_TEMPLATE.md`,
+  `docs/CONVERSATION_OUTCOME_SCORING_RUBRIC.md`.
+- Why this work happened: Phase 29 ended with `continue_concierge_validation`
+  but no aggregate evidence. The next useful docs work was to remove execution
+  ambiguity for the operator's first 10-15 conversations.
+- Decisions applied: manual founder-led validation before automation; no
+  identifiers or raw private data in git; no SaaS/checkout/live-control/advice.
+- Evidence collected: docs-only update; no product code changed.
+- Follow-ups: T132 archive/review, then operator-led outreach outside git.
+- Notes for next agent: The execution kit is not market evidence by itself.
+
+### 2026-05-19 - T127 - Pre-Private Hypothesis Validation Review
+
+- Scope: `docs/archive/PHASE29_REVIEW.md`, `docs/audit/AUDIT_INDEX.md`,
+  `docs/CODEX_PROMPT.md`, `README.md`, `PHASE_HANDOFF.md`,
+  `AGENT_NOTES.md`, `MEMORY.md`.
+- Why this work happened: Phase 29 needed a boundary review after the
+  pre-private evidence system and T126 zero-evidence review.
+- Decisions applied: Phase 29 decision is `continue_concierge_validation`;
+  T116 remains blocked until approved private/anonymized export exists outside
+  git.
+- Evidence collected: docs-only phase review; no private data processed.
+  `.venv/bin/python -m pytest tests -q --tb=short` -> 258 passed;
+  `.venv/bin/ruff check trader_risk_audit tests` -> passed;
+  `.venv/bin/ruff format --check trader_risk_audit tests` -> passed.
+- Follow-ups: run operator-led discovery/report-review loop outside git, or
+  resume T116 if approved anonymized export appears.
+- Notes for next agent: Phase 29 completed with WARN health because market and
+  paid evidence are still missing, not because of a product-code defect.
+
+### 2026-05-19 - T126 - Pre-Private Outreach Evidence Review
+
+- Scope: `docs/PRE_PRIVATE_OUTREACH_EVIDENCE_REVIEW.md`,
+  `docs/PRE_PRIVATE_HYPOTHESIS_EVIDENCE_MATRIX.md`,
+  `docs/HYPOTHESIS_EVIDENCE_DASHBOARD_RU.md`,
+  `docs/PAID_PILOT_READY_GATE.md`.
+- Why this work happened: The operator asked to proceed without private export;
+  the only honest next step was to review whether aggregate outreach/report
+  review evidence exists.
+- Decisions applied: no aggregate rows were supplied; decision is
+  `continue_concierge_validation`, not `return_to_t116`.
+- Evidence collected: privacy review found no private rows, identifiers,
+  screenshots, private paths, payment identifiers, wallet ownership claims,
+  account ids, emails, handles, or customer notes committed.
+- Follow-ups: collect safe aggregate evidence outside git using Phase 29
+  scripts/runbook; resume T116 if an approved anonymized export appears.
+- Notes for next agent: Do not mark the paid gate ready from this review. It is
+  a zero-evidence review, not customer validation.
+
+### 2026-05-19 - T125 - Pre-Private Evidence Capture Runbook
+
+- Scope: `docs/PRE_PRIVATE_EVIDENCE_CAPTURE_RUNBOOK.md`,
+  `docs/HYPOTHESIS_EVIDENCE_DASHBOARD_RU.md`,
+  `docs/PAID_PILOT_READY_GATE.md`, state docs.
+- Why this work happened: The operator asked what can support product
+  hypothesis validation while no private/anonymized export is available yet.
+- Decisions applied: T116 remains blocked; Phase 29 evidence can support
+  product/market learning but cannot approve private report delivery.
+- Evidence collected: docs-only update; no product code changed. Boundary
+  rules now classify pre-private evidence as technical, product, market, paid,
+  or blocked private evidence.
+- Follow-ups: T126 should review only privacy-safe aggregate market/report
+  review evidence. If an approved anonymized export exists outside git, return
+  to T116.
+- Notes for next agent: Do not commit names, handles, wallet ownership claims,
+  account ids, raw rows, screenshots, private paths, payment identifiers, or
+  private notes.
+
+### 2026-05-19 - T124 - Discovery And Report Review Kit
+
+- Scope: `docs/PRE_PRIVATE_DISCOVERY_SCRIPT_RU.md`,
+  `docs/PRE_PRIVATE_REPORT_CONVERSATION_PACK.md`.
+- Why this work happened: Phase 29 needed an operator-ready script for
+  problem interviews, report review sessions, export willingness asks, and
+  manual pilot asks.
+- Decisions applied: use past-behavior questions only; open/demo reports are
+  product review artifacts, not private/paid/PMF proof.
+- Evidence collected: docs-only update; no product code changed.
+- Follow-ups: collect aggregate evidence outside git using the runbook before
+  T126 review.
+- Notes for next agent: The report conversation pack points to existing
+  validated reports and requires the operator to say the limitation boundary
+  aloud.
+
+### 2026-05-19 - T123 - Pre-Private Hypothesis Evidence Plan
+
+- Scope: `docs/HYPOTHESIS_VALIDATION_WITHOUT_PRIVATE_EXPORT_PLAN.md`,
+  `docs/PRE_PRIVATE_HYPOTHESIS_EVIDENCE_MATRIX.md`, `docs/tasks.md`.
+- Why this work happened: The operator asked for a detailed plan to strengthen
+  the hypothesis and product evidence before a private export exists.
+- Decisions applied: T116 remains the only path to private report readiness;
+  Phase 29 runs as pre-private validation while T116 is blocked.
+- Evidence collected: docs-only update; no product code changed.
+- Follow-ups: T124/T125 prepare discovery and safe capture; T126 reviews
+  aggregate evidence when available.
+- Notes for next agent: The strongest non-private evidence is report usefulness
+  review, past-behavior pain, export willingness, and manual pilot acceptance.
+
+### 2026-05-19 - T122 - Account-Scoped Real Open Data Rehearsal
+
+- Scope: `demo/real_open_dex_contract_sequence_001/`,
+  `docs/REAL_OPEN_DATA_ACCOUNT_SCOPED_REHEARSAL.md`,
+  `docs/audit/real_open_data_case_reviews/real_open_dex_contract_sequence_001.md`,
+  `docs/audit/PHASE28_ERROR_REGISTER.md`, `docs/archive/PHASE28_REVIEW.md`,
+  dashboard/coverage/ready-gate/state docs.
+- Why this work happened: The operator asked to proceed toward more
+  account-like open data; Dune CSV/API access requires an API key, so the
+  no-key route used real public logs filtered to a repeated contract recipient.
+- Decisions applied: Phase 27 real-open-data plan; T116 remains blocked; ready
+  gate remains `needs_fixes`.
+- Evidence collected: generated 40 transformed rows from 54 real Ethereum
+  mainnet Uniswap V2 WETH/USDC `Swap` logs filtered to a public contract
+  recipient verified by `eth_getCode`; audit generated complete artifacts;
+  rerun manifest content hash matched; `case-bank validate --case-dir
+  demo/real_open_dex_contract_sequence_001` passed. Review found P0:0, P1:0,
+  P2:2 accepted source-shape/fees-P&L caveats.
+  `.venv/bin/python -m pytest tests -q --tb=short` -> 258 passed;
+  `.venv/bin/python -m ruff check trader_risk_audit tests` -> passed;
+  `.venv/bin/python -m ruff format --check trader_risk_audit tests` -> passed;
+  `case-bank validate` passed for both `real_open_dex_swaps_001` and
+  `real_open_dex_contract_sequence_001`. Boundary scan found only negative
+  boundary language.
+- Follow-ups: T116 remains blocked until operator private/anonymized input
+  exists outside git.
+- Notes for next agent: This pack is closer to account-scoped than pair-level
+  flow, but it is still not a verified trader ledger and cannot count as
+  private/paid/customer/PMF/market-demand evidence.
+
+### 2026-05-19 - T121 - Real Open Data Rehearsal Gate Update
+
+- Scope: `docs/OPEN_SOURCE_AUDIT_QUALITY_DASHBOARD.md`,
+  `docs/OPEN_SOURCE_RULE_COVERAGE_MATRIX.md`,
+  `docs/PAID_PILOT_READY_GATE.md`, `docs/archive/PHASE27_REVIEW.md`,
+  `docs/audit/REVIEW_REPORT.md`, `docs/audit/ARCH_REPORT.md`,
+  `docs/audit/META_ANALYSIS.md`, `docs/audit/PHASE_REPORT_LATEST.md`,
+  `docs/audit/AUDIT_INDEX.md`, state docs.
+- Why this work happened: Phase 27 needed to record what the real-open-data
+  rehearsal proves and does not prove before returning to the T116 blocker.
+- Decisions applied: Phase 27 real-open-data plan; Phase 25 ready gate
+  `needs_fixes`; T93 defer decision.
+- Evidence collected: Cycle 30 review found Stop-Ship: No, P0:0, P1:0, P2:2.
+  Dashboard and coverage matrix include `real_open_dex_swaps_001` as
+  development rehearsal only. `docs/PAID_PILOT_READY_GATE.md` remains
+  `needs_fixes`. `.venv/bin/python -m pytest tests -q --tb=short` -> 258
+  passed; `.venv/bin/python -m ruff check trader_risk_audit tests` -> passed;
+  `.venv/bin/python -m ruff format --check trader_risk_audit tests` -> passed;
+  `.venv/bin/python -m trader_risk_audit.cli case-bank validate --case-dir
+  demo/real_open_dex_swaps_001` -> passed. Boundary scans found only negative
+  boundary language and forbidden-data exclusions.
+- Follow-ups: T116 remains blocked until operator private/anonymized input
+  exists outside git.
+- Notes for next agent: Do not count Phase 27 as private, paid-pilot,
+  customer-validation, PMF, market-demand, or willingness-to-pay evidence.
+
+### 2026-05-19 - T119/T120 - Real Open Data Case Pack And Review
+
+- Scope: `demo/real_open_dex_swaps_001/`,
+  `docs/audit/real_open_data_case_reviews/real_open_dex_swaps_001.md`,
+  `docs/audit/PHASE27_ERROR_REGISTER.md`, `docs/tasks.md`.
+- Why this work happened: Phase 27 needed one real, public, non-synthetic
+  rehearsal pack and manual review while T116 remains blocked on private input.
+- Decisions applied: `docs/REAL_OPEN_DATA_SOURCE_SELECTION.md`,
+  `docs/REAL_OPEN_DATA_EXTRACTION_CONTRACT.md`.
+- Evidence collected: generated 40 transformed rows from real Ethereum mainnet
+  Uniswap V2 WETH/USDC `Swap` logs; `audit` generated report, violations,
+  attribution, manifest, and delivery packet; rerun manifest content hash
+  matched; `case-bank validate --case-dir demo/real_open_dex_swaps_001` passed.
+  T120 review found P0:0, P1:0, P2:2 accepted source-shape/fees-P&L caveats.
+- Follow-ups: complete T121 dashboard, coverage, ready-gate, and Phase 27
+  review updates.
+- Notes for next agent: This pack is real open-data development rehearsal only.
+  It is pair-level market-flow data, not a trader ledger, and it cannot close
+  T116 or the paid-pilot ready gate.
+
+### 2026-05-19 - T117/T118 - Real Open Data Source And Extraction Contract
+
+- Scope: `docs/REAL_OPEN_DATA_SOURCE_SELECTION.md`,
+  `docs/REAL_OPEN_DATA_EXTRACTION_CONTRACT.md`, `docs/tasks.md`.
+- Why this work happened: The operator approved proceeding with real open-data
+  rehearsal while private input remains unavailable.
+- Decisions applied: Phase 27 real-open-data plan; T93 defer decision; Phase 25
+  `needs_fixes` ready gate.
+- Evidence collected: public JSON-RPC smoke checks succeeded for
+  `https://rpcfree.com/ethereum-rpc` and `https://ethereum.publicnode.com`;
+  `eth_getLogs` returned real Uniswap V2 WETH/USDC `Swap` logs for the selected
+  pair. Validation pending after task batch.
+- Follow-ups: implement T119 real-open-data case pack if bounded extraction
+  produces unambiguous rows.
+- Notes for next agent: Source is real public Ethereum mainnet Uniswap V2
+  WETH/USDC pair-level swap logs, not account ledger data. It is labeled
+  `real_open_data_rehearsal_not_private_evidence` and cannot close T116.
+
+### 2026-05-19 - Real Open Data Rehearsal Development Plan
+
+- Scope: `docs/REAL_OPEN_DATA_REHEARSAL_PLAN.md`, `docs/tasks.md`,
+  `docs/OPEN_SOURCE_AUDIT_VALIDATION_ROADMAP.md`, `docs/CODEX_PROMPT.md`,
+  README.
+- Why this work happened: The operator does not currently have private pilot
+  data and asked for a development plan using real open data only, with no
+  synthetic rows.
+- Decisions applied: `D-011`, `D-012`, T93 defer decision, Phase 25
+  `needs_fixes` ready gate.
+- Evidence collected: `.venv/bin/python -m pytest tests -q --tb=short` -> 258
+  passed; `.venv/bin/python -m ruff check trader_risk_audit tests` -> passed;
+  `.venv/bin/python -m ruff format --check trader_risk_audit tests` ->
+  passed. Boundary scan confirms Phase 27 labels the route as real open-data
+  rehearsal only and keeps `docs/PAID_PILOT_READY_GATE.md` at `needs_fixes`
+  unless T116 private evidence exists.
+- Follow-ups: operator chooses source path before T117: Dune/on-chain preferred,
+  BigQuery alternative, SEC official-reference fallback, Binance market-tape
+  control only.
+- Notes for next agent: The new plan is development rehearsal only. It must not
+  close T116, must not make private/paid/PMF/customer-demand claims, and must
+  use real public data only.
+
+### 2026-05-15 - T115 - Private Pilot Readiness Deep Review
+
+- Scope: `docs/archive/PHASE25_REVIEW.md`, `docs/audit/REVIEW_REPORT.md`,
+  `docs/audit/ARCH_REPORT.md`, `docs/audit/META_ANALYSIS.md`,
+  `docs/audit/PHASE_REPORT_LATEST.md`, `docs/audit/AUDIT_INDEX.md`,
+  `docs/tasks.md`, README and state docs.
+- Why this work happened: Phase 25 required a boundary review before any
+  paid-pilot readiness claim.
+- Decisions applied: `D-011`, `D-012`, T93 defer decision.
+- Evidence collected: Cycle 29 review found Stop-Ship: No, P0:0, P1:0, P2:4.
+  Phase 25 artifacts are safe, but paid-pilot delivery readiness remains
+  `needs_fixes` because no operator-approved private/anonymized report has been
+  run and reviewed. `.venv/bin/python -m pytest tests -q --tb=short` -> 258
+  passed; `.venv/bin/python -m ruff check trader_risk_audit tests` -> passed;
+  `.venv/bin/python -m ruff format --check trader_risk_audit tests` -> passed;
+  placeholder scan found none; `case-bank validate` passed for the four
+  complete runnable packs.
+- Follow-ups: T116 Operator-Approved Private Run And Reviewed Report Evidence,
+  blocked until operator private input exists outside git.
+- Notes for next agent: Do not claim private report readiness. The only next
+  implementation route is safe metadata after an operator-approved private run;
+  SaaS, checkout, hosted uploads, real exchange fetching, order blocking, and
+  trading advice remain out of scope.
+
+### 2026-05-15 - T114 - Paid Pilot Ready Gate
+
+- Scope: `docs/PAID_PILOT_READY_GATE.md`, state docs.
+- Why this work happened: Phase 25 needed an explicit ready / needs-fixes /
+  reject decision before any warm paid-pilot delivery claim.
+- Decisions applied: `D-011`, `D-012`, T93 defer decision.
+- Evidence collected: acceptance criteria reviewed manually against
+  `docs/PAID_PILOT_READY_GATE.md`, `docs/PAID_PILOT_PACKAGE.md`, and
+  `docs/private_pilot_runs/pilot_waiting_for_input_001.md`.
+  `.venv/bin/python -m pytest tests -q --tb=short` -> 258 passed;
+  `.venv/bin/python -m ruff check trader_risk_audit tests` -> passed;
+  `.venv/bin/python -m ruff format --check trader_risk_audit tests` ->
+  passed. Gate scan confirms status remains `needs_fixes` and private report
+  delivery remains blocked.
+- Follow-ups: run T115 Private Pilot Readiness Deep Review.
+- Notes for next agent: Gate status is `needs_fixes`, not ready, because no
+  operator-approved private/anonymized run was supplied, run, or manually
+  reviewed. The exact first-user ask is drafted, but delivery readiness remains
+  blocked until one private/anonymized report is reviewed outside git.
+
+### 2026-05-15 - T113 - Paid Pilot Package And Feedback Log
+
+- Scope: `docs/PAID_PILOT_PACKAGE.md`,
+  `docs/PRIVATE_PILOT_FEEDBACK_LOG_TEMPLATE.md`, state docs.
+- Why this work happened: Phase 25 needed a manual paid-pilot offer and
+  feedback capture loop before the go/no-go gate.
+- Decisions applied: `D-011`, `D-012`, T93 defer decision.
+- Evidence collected: acceptance criteria reviewed manually against
+  `docs/PAID_PILOT_PACKAGE.md`,
+  `docs/PRIVATE_PILOT_FEEDBACK_LOG_TEMPLATE.md`, and
+  `docs/INTERNAL_DEMO_PACK_OPEN_SOURCE_AUDITS.md`.
+  `.venv/bin/python -m pytest tests -q --tb=short` -> 258 passed;
+  `.venv/bin/python -m ruff check trader_risk_audit tests` -> passed;
+  `.venv/bin/python -m ruff format --check trader_risk_audit tests` ->
+  passed. Boundary scan found only explicit exclusions and forbidden-data
+  language.
+- Follow-ups: implement T114 Paid Pilot Ready Gate.
+- Notes for next agent: Package keeps the ask to one manual reviewed audit,
+  $49-$149 pricing hypothesis, 48-72 hour turnaround after complete inputs,
+  no checkout/payment processor, no SaaS, no live control, no order blocking,
+  and no advice/performance promise. Feedback template records safe aggregate
+  usefulness/trust/clarity/objection/payment/repeat/referral evidence only.
+
+### 2026-05-15 - T112 - Local Private Pilot Artifact Run Notes
+
+- Scope: `docs/private_pilot_runs/`, state docs.
+- Why this work happened: Phase 25 needed a safe repo-visible way to record
+  private pilot run metadata without committing private artifacts.
+- Decisions applied: `D-011`, `D-012`, T93 defer decision.
+- Evidence collected: safe blocker note created at
+  `docs/private_pilot_runs/pilot_waiting_for_input_001.md`; acceptance
+  criteria reviewed manually against `docs/PRIVATE_PILOT_INTAKE_CHECKLIST.md`
+  and `docs/PRIVATE_PILOT_REPORT_REVIEW_CHECKLIST.md`.
+  `.venv/bin/python -m pytest tests -q --tb=short` -> 258 passed;
+  `.venv/bin/python -m ruff check trader_risk_audit tests` -> passed;
+  `.venv/bin/python -m ruff format --check trader_risk_audit tests` ->
+  passed. Privacy-marker scan found only checklist/template prohibitions and
+  placeholders.
+- Follow-ups: implement T113 Paid Pilot Package And Feedback Log.
+- Notes for next agent: No operator-approved private/anonymized input exists in
+  repo-visible context. T112 records blocker status only:
+  `blocked_no_operator_approved_input` and `blocked_do_not_deliver`. Do not
+  claim a private report was run or reviewed until an operator supplies an
+  approved local artifact outside git.
+
+### 2026-05-15 - T111 - Private Pilot Report Review Checklist
+
+- Scope: `docs/PRIVATE_PILOT_REPORT_REVIEW_CHECKLIST.md`,
+  `docs/REPORT_QUALITY_SCORECARD.md`, state docs.
+- Why this work happened: Phase 25 needed a manual delivery gate before any
+  private pilot report can be sent externally.
+- Decisions applied: `D-011`, `D-012`, T93 defer decision.
+- Evidence collected: `.venv/bin/python -m pytest tests -q --tb=short` -> 258
+  passed; `.venv/bin/python -m ruff check trader_risk_audit tests` -> passed;
+  `.venv/bin/python -m ruff format --check trader_risk_audit tests` -> passed.
+  Acceptance criteria reviewed manually against
+  `docs/PRIVATE_PILOT_REPORT_REVIEW_CHECKLIST.md`.
+- Follow-ups: implement T112 Local Private Pilot Artifact Run Notes.
+- Notes for next agent: Checklist blocks delivery for unresolved P0/P1 report
+  truth, privacy, policy, advice, live-control, or performance-claim issues
+  and defines safe external delivery statuses plus signoff fields.
+
+### 2026-05-15 - T110 - Private Pilot Intake And Redaction Checklist
+
+- Scope: `docs/PRIVATE_PILOT_INTAKE_CHECKLIST.md`,
+  `docs/PILOT_INTAKE_CONTRACT_RU.md`, state docs.
+- Why this work happened: Phase 25 needed a local-only private/anonymized input
+  checklist before any private run-note or report-review work.
+- Decisions applied: `D-011`, `D-012`, T93 defer decision.
+- Evidence collected: `.venv/bin/python -m pytest tests -q --tb=short` -> 258
+  passed; `.venv/bin/python -m ruff check trader_risk_audit tests` -> passed;
+  `.venv/bin/python -m ruff format --check trader_risk_audit tests` -> passed.
+  Acceptance criteria reviewed manually against
+  `docs/PRIVATE_PILOT_INTAKE_CHECKLIST.md`.
+- Follow-ups: implement T111 Private Pilot Report Review Checklist.
+- Notes for next agent: Checklist forbids committing raw rows, account ids,
+  credentials, Telegram handles, payment ids, private paths, and unapproved
+  screenshots; maps intake to existing local CLI commands only.
+
+### 2026-05-15 - T109 - Multi-Case Report Quality Deep Review
+
+- Scope: `docs/audit/META_ANALYSIS.md`, `docs/audit/ARCH_REPORT.md`,
+  `docs/audit/REVIEW_REPORT.md`, `docs/audit/PHASE_REPORT_LATEST.md`,
+  `docs/archive/PHASE24_REVIEW.md`, `docs/audit/AUDIT_INDEX.md`, README and
+  state docs.
+- Why this work happened: Phase 24 required a boundary review before entering
+  private-pilot readiness work.
+- Decisions applied: `D-011`, `D-012`, T93 defer decision.
+- Evidence collected: `.venv/bin/python -m pytest tests -q --tb=short` -> 258
+  passed; `.venv/bin/python -m ruff check trader_risk_audit tests` -> passed;
+  `.venv/bin/python -m ruff format --check trader_risk_audit tests` -> passed;
+  `case-bank validate` passed for all four complete runnable packs. Review
+  found Stop-Ship: No, P0:0, P1:0, P2:3 accepted carry-forward caveats.
+- Follow-ups: start T110 Private Pilot Intake And Redaction Checklist.
+- Notes for next agent: Phase 24 gate is satisfied with 3 controlled internal
+  demo-quality packs. This unblocks Phase 25 readiness checklists, not SaaS,
+  checkout, live exchange control, or unreviewed private delivery.
+
+### 2026-05-15 - T108 - Internal Demo Pack From Validated Cases
+
+- Scope: `docs/INTERNAL_DEMO_PACK_OPEN_SOURCE_AUDITS.md`,
+  `docs/OPEN_SOURCE_AUDIT_QUALITY_DASHBOARD.md`, `demo/`, state docs.
+- Why this work happened: Phase 24 needed a concise operator-only demo pack
+  assembled from the strongest validated open-source/synthetic cases.
+- Decisions applied: `D-011`, `D-012`, T93 defer decision.
+- Evidence collected: `.venv/bin/python -m pytest tests -q --tb=short` -> 258
+  passed; `.venv/bin/python -m ruff check trader_risk_audit tests` -> passed;
+  `.venv/bin/python -m ruff format --check trader_risk_audit tests` -> passed.
+  Acceptance criteria reviewed manually against
+  `docs/INTERNAL_DEMO_PACK_OPEN_SOURCE_AUDITS.md`.
+- Follow-ups: run T109 Multi-Case Report Quality Deep Review.
+- Notes for next agent: Demo pack uses `risk_audit_case_001` as the positive
+  case, `synthetic_limit_leverage_001` as the limitation case, and
+  `synthetic_schema_reject_missing_price_001` as the edge-case rejection
+  explanation. It keeps artifact quality separate from paid-pilot demand,
+  customer PMF, or market evidence.
+
+### 2026-05-15 - T107 - Regression Tests For Discovered Report Issues
+
+- Scope: `trader_risk_audit/reporting/claim_guard.py`,
+  `tests/unit/reporting/test_claim_guard.py`,
+  `docs/PHASE24_REGRESSION_DECISIONS.md`, state docs.
+- Why this work happened: Phase 24 needed discovered report-quality issues
+  converted into regression coverage or documented docs-only reasons before
+  demo-pack assembly.
+- Decisions applied: `D-011`, `D-012`, T93 defer decision.
+- Evidence collected: `.venv/bin/python -m pytest
+  tests/unit/reporting/test_claim_guard.py -q --tb=short` -> 5 passed;
+  `.venv/bin/python -m pytest tests -q --tb=short` -> 258 passed;
+  `.venv/bin/python -m ruff check trader_risk_audit tests` -> passed;
+  `.venv/bin/python -m ruff format --check trader_risk_audit tests` -> passed.
+- Follow-ups: implement T108 Internal Demo Pack From Open-Source Audits.
+- Notes for next agent: Added `evidence_overclaim` claim-guard phrases for
+  positive PMF/customer-demand/paid-pilot overclaims from open-source/demo
+  artifacts. Docs-only decisions preserve the accepted Phase 23 P2 caveats.
+
+### 2026-05-15 - T106 - Multi-Case Quality Dashboard
+
+- Scope: `docs/OPEN_SOURCE_AUDIT_QUALITY_DASHBOARD.md`,
+  `docs/REPORT_QUALITY_SCORECARD.md`, `docs/audit/PHASE23_ERROR_REGISTER.md`,
+  state docs.
+- Why this work happened: Phase 24 needed one operator-facing dashboard that
+  separates demo-quality, internal-only, and blocked packs before regression
+  and demo-pack tasks.
+- Decisions applied: `D-011`, `D-012`, T93 defer decision.
+- Evidence collected: `.venv/bin/python -m pytest tests -q --tb=short` -> 256
+  passed; `.venv/bin/python -m ruff check trader_risk_audit tests` -> passed;
+  `.venv/bin/python -m ruff format --check trader_risk_audit tests` -> passed.
+  Acceptance criteria reviewed manually against
+  `docs/OPEN_SOURCE_AUDIT_QUALITY_DASHBOARD.md`.
+- Follow-ups: implement T107 Regression Tests For Discovered Report Issues.
+- Notes for next agent: Dashboard classifies `public_sample_001`,
+  `risk_audit_case_001`, and `synthetic_limit_leverage_001` as controlled
+  internal demo-quality; SEC Form 4 remains internal reference only; missing
+  price remains blocked/rejection-only. Next concrete data gap is a session
+  timezone boundary fixture.
+
+### 2026-05-15 - T105 - Open-Source Rule And Data Coverage Matrix
+
+- Scope: `docs/OPEN_SOURCE_RULE_COVERAGE_MATRIX.md`,
+  `docs/OPEN_SOURCE_CASE_BANK.md`, `demo/`, state docs.
+- Why this work happened: Phase 24 needed a pack-by-pack view of rule, field,
+  limitation, output-section, and missing-coverage status before the quality
+  dashboard.
+- Decisions applied: `D-011`, `D-012`, T93 defer decision.
+- Evidence collected: `.venv/bin/python -m pytest tests -q --tb=short` -> 256
+  passed; `.venv/bin/python -m ruff check trader_risk_audit tests` -> passed;
+  `.venv/bin/python -m ruff format --check trader_risk_audit tests` -> passed.
+  Acceptance criteria reviewed manually against
+  `docs/OPEN_SOURCE_RULE_COVERAGE_MATRIX.md`.
+- Follow-ups: implement T106 Multi-Case Quality Dashboard.
+- Notes for next agent: Missing coverage is explicit, not hidden. Follow-up
+  cases are drawdown-only, session-timezone boundary, realized-P&L wording, and
+  no-breach control. Leverage support and fee-specific rules remain accepted
+  limitations unless future data supports them.
+
+### 2026-05-15 - T104 - Report Quality Scorecard
+
+- Scope: `docs/REPORT_QUALITY_SCORECARD.md`,
+  `demo/open_source_sec_form4_001/output/report_reviewed.md`,
+  `docs/IMPLEMENTATION_JOURNAL.md`.
+- Why this work happened: Phase 24 needed a repeatable report-quality scoring
+  aid before building coverage and dashboard views.
+- Decisions applied: `D-011`, `D-012`, T93 defer decision.
+- Evidence collected: pre-change `.venv/bin/python -m pytest tests -q
+  --tb=short` -> 256 passed; `.venv/bin/python -m ruff check
+  trader_risk_audit tests` -> passed; `.venv/bin/python -m ruff format
+  --check trader_risk_audit tests` -> passed. Acceptance criteria reviewed
+  manually against `docs/REPORT_QUALITY_SCORECARD.md`.
+- Follow-ups: implement T105 Open-Source Rule And Data Coverage Matrix.
+- Notes for next agent: SEC Form 4 reviewed report scored 17/18 with no fail
+  condition. The scorecard is a review aid only, not a marketing or customer
+  outcome claim.
+
+### 2026-05-15 - T103 - Open-Source Case Bank Deep Review
+
+- Scope: `docs/audit/META_ANALYSIS.md`, `docs/audit/ARCH_REPORT.md`,
+  `docs/audit/REVIEW_REPORT.md`, `docs/archive/PHASE23_REVIEW.md`,
+  `docs/audit/AUDIT_INDEX.md`, `docs/audit/PHASE_REPORT_LATEST.md`,
+  `docs/CODEX_PROMPT.md`, `README.md`, `docs/ARCHITECTURE.md`, handoff docs.
+- Why this work happened: Phase 23 required a boundary review before entering
+  the multi-case report quality loop.
+- Decisions applied: `D-011`, `D-012`, T93 defer decision.
+- Evidence collected: Phase 23 review found Stop-Ship: No, P0:0, P1:0, P2:3;
+  `.venv/bin/python -m pytest tests -q --tb=short` -> 256 passed;
+  `.venv/bin/python -m ruff check trader_risk_audit tests` -> passed;
+  `.venv/bin/python -m ruff format --check trader_risk_audit tests` -> passed.
+- Follow-ups: start T104 Report Quality Scorecard.
+- Notes for next agent: P2 caveats are accepted limitations/wording/provenance
+  items and should be carried into Phase 24 scorecard and coverage work, not
+  hidden or treated as market validation.
+
+### 2026-05-15 - T102 - Manual Validation Notes And Error Register
+
+- Scope: `docs/audit/open_source_case_reviews/`,
+  `docs/audit/PHASE23_ERROR_REGISTER.md`, `demo/*/output/report_reviewed.md`,
+  `docs/IMPLEMENTATION_JOURNAL.md`.
+- Why this work happened: Phase 23 needed manual review notes and an error
+  register before the boundary review.
+- Decisions applied: `D-011`, `D-012`, T93 defer decision.
+- Evidence collected: `.venv/bin/python -m pytest tests -q --tb=short` -> 256
+  passed; `.venv/bin/python -m ruff check trader_risk_audit tests` -> passed;
+  `.venv/bin/python -m ruff format --check trader_risk_audit tests` -> passed.
+- Follow-ups: run T103 Open-Source Case Bank Deep Review.
+- Notes for next agent: Phase 23 register is P0:0, P1:0, P2:3. P2 findings
+  are accepted limitation/provenance/wording caveats; no P0/P1 blocks Phase 24
+  from the T102 review alone.
+
+### 2026-05-15 - T101 - Batch Audit Run And Artifact Generation
+
+- Scope: `demo/`, `docs/OPEN_SOURCE_AUDIT_BATCH_INDEX.md`,
+  `docs/IMPLEMENTATION_JOURNAL.md`.
+- Why this work happened: Phase 23 needed generated or explicitly rejected
+  artifacts for every T100 candidate pack before manual validation.
+- Decisions applied: `D-011`, `D-012`, T93 defer decision.
+- Evidence collected: `case-bank validate` passed for
+  `open_source_sec_form4_001`, `public_sample_001`, `risk_audit_case_001`,
+  and `synthetic_limit_leverage_001`; `.venv/bin/python -m pytest tests -q
+  --tb=short` -> 256 passed; `.venv/bin/python -m ruff check
+  trader_risk_audit tests` -> passed; `.venv/bin/python -m ruff format
+  --check trader_risk_audit tests` -> passed.
+- Follow-ups: implement T102 Manual Validation Notes And Error Register.
+- Notes for next agent: `docs/OPEN_SOURCE_AUDIT_BATCH_INDEX.md` summarizes
+  status, finding count, limitation count, and reproducibility without raw
+  rows. The missing-price pack has only `output/run_status.json` and no partial
+  report artifacts.
+
+### 2026-05-15 - T100 - First Open-Source Candidate Case Packs
+
+- Scope: `docs/OPEN_SOURCE_CASE_BANK.md`, `demo/risk_audit_case_001/source.md`,
+  `demo/synthetic_limit_leverage_001/`,
+  `demo/synthetic_schema_reject_missing_price_001/`,
+  `docs/IMPLEMENTATION_JOURNAL.md`.
+- Why this work happened: Phase 23 needed at least 5 listed candidate packs
+  across multiple data shapes before batch audit generation.
+- Decisions applied: `D-011`, `D-012`, T93 defer decision.
+- Evidence collected: pre-change `.venv/bin/python -m pytest tests -q
+  --tb=short` -> 256 passed; `.venv/bin/python -m ruff check
+  trader_risk_audit tests` -> passed; `.venv/bin/python -m ruff format
+  --check trader_risk_audit tests` -> passed. Acceptance criteria reviewed
+  manually against `docs/OPEN_SOURCE_CASE_BANK.md`.
+- Follow-ups: implement T101 Batch Audit Run And Artifact Generation.
+- Notes for next agent: the T100 inventory lists five candidates and three
+  data shapes. `synthetic_limit_leverage_001` is intended to preserve an
+  unsupported leverage limitation. `synthetic_schema_reject_missing_price_001`
+  is intended to reject before report generation.
+
+### 2026-05-15 - T99 - Case Pack Directory Contract
+
+- Scope: `trader_risk_audit/validation/open_source_case.py`,
+  `trader_risk_audit/validation/__init__.py`, `trader_risk_audit/cli.py`,
+  `tests/unit/test_open_source_case_contract.py`,
+  `tests/integration/test_open_source_case_contract_cli.py`,
+  `demo/open_source_sec_form4_001/output/reproducibility_status.json`,
+  docs state.
+- Why this work happened: Phase 23 needed a reusable contract validator before
+  adding more open-source or synthetic case packs.
+- Decisions applied: `D-011`, `D-012`, T93 defer decision.
+- Evidence collected: `.venv/bin/python -m pytest tests/unit/test_open_source_case_contract.py tests/integration/test_open_source_case_contract_cli.py -q --tb=short` -> 3 passed; `.venv/bin/python -m pytest tests -q --tb=short` -> 256 passed; `.venv/bin/python -m ruff check trader_risk_audit tests` -> passed; `.venv/bin/python -m ruff format --check trader_risk_audit tests` -> passed.
+- Follow-ups: implement T100 First Open-Source Candidate Case Packs.
+- Notes for next agent: `case-bank validate --case-dir <path>` checks required
+  case files, manifest artifact entries, reproducibility status, and
+  secret/private markers. The SEC Form 4 pack is now the passing reference
+  pack.
+
+### 2026-05-15 - T98 - Open-Source Source Selection Protocol
+
+- Scope: `docs/OPEN_SOURCE_CASE_BANK.md`,
+  `docs/OPEN_SOURCE_AUDIT_VALIDATION_ROADMAP.md`,
+  `docs/DECISION_LOG.md`, `docs/IMPLEMENTATION_JOURNAL.md`.
+- Why this work happened: Phase 23 needed source-selection and
+  anti-cherry-pick rules before creating more candidate audit packs.
+- Decisions applied: `D-011`, `D-012`, T93 defer decision.
+- Evidence collected: pre-change `.venv/bin/python -m pytest tests -q
+  --tb=short` -> 253 passed; `.venv/bin/python -m ruff check
+  trader_risk_audit tests` -> passed; `.venv/bin/python -m ruff format
+  --check trader_risk_audit tests` -> passed. Acceptance criteria reviewed
+  manually against `docs/OPEN_SOURCE_CASE_BANK.md`.
+- Follow-ups: implement T99 Case Pack Directory Contract.
+- Notes for next agent: `docs/OPEN_SOURCE_CASE_BANK.md` is the source
+  selection protocol. It requires positive, limitation/reject, and edge/schema
+  coverage where available and labels public/open-source packs as
+  artifact-quality evidence only, not paid-pilot or PMF evidence.
 
 ### 2026-05-15 - T98-T115 Planning - Open-Source Audit Validation Route
 

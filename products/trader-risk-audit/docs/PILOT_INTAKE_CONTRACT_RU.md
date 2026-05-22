@@ -103,6 +103,15 @@ delivery требуют явного operator approval до evaluation или de
 - Перед запуском audit workflow нет unresolved policy review items.
 - Перед delivery оператор проверил report claim boundaries и limitations.
 
+## Private Pilot Intake Checklist
+
+Перед любым Phase 25 private/anonymized pilot run оператор должен пройти
+`docs/PRIVATE_PILOT_INTAKE_CHECKLIST.md`. Этот checklist фиксирует allowed
+files, forbidden data, redaction expectations, local storage rules, deletion
+trigger, operator approval step и mapping к существующим local CLI commands.
+Raw private rows, account ids, credentials, Telegram handles, payment ids,
+private paths и unapproved screenshots не должны попадать в git.
+
 ## Privacy and Disclaimer Summary
 
 Pilot inputs and generated reports are local-only by default. Trader Risk Audit

@@ -1,52 +1,47 @@
-# ARCH_REPORT - Cycle 26
-_Date: 2026-05-15_
+# ARCH_REPORT - Cycle 35
+_Date: 2026-05-19_
 
 ## Component Verdicts
 
 | Component | Verdict | Note |
 |-----------|---------|------|
-| Funnel event schema | PASS | Captures required hypothesis milestones with safe labels and rejects identifiers, credentials, payment ids, account-like ids, raw-row markers, and unsafe tags. |
-| Legacy/new loader | PASS | Reads legacy pilot customer rows and new funnel events together without requiring migration. |
-| Evidence dashboard CLI | PASS | Summarizes aggregate counts, ratios, gate status, objection/blocker tags, and next action while separating demo/open-source artifact events from market evidence. |
-| Gate evaluator | PASS | Encodes proceed, needs_more_evidence, and pivot decisions using paid reports, repeat/referral signals, valid exports/rules, qualified prospects, and blocker dominance. |
-| Privacy-safe export | PASS | Writes aggregate CSV/Markdown summaries with source filenames and sha256 hashes only; rejects sensitive exported content. |
+| Dune source discovery | PASS | Real public `dex.trades` rows were queried without committing the supplied key. |
+| Dune case pack | PASS | Canonical CSV, policy, report, manifest, reviewed report, and reproducibility status exist. |
+| Case validator | PASS | New pack passes the existing open-source case-pack contract. |
+| Docs | PASS | Dune usage, review caveats, and gate limits are documented. |
+| Paid-pilot ready gate | PASS | Gate remains `needs_fixes`; Phase 32 does not close T116. |
 
 ## Contract Compliance
 
 | Rule | Verdict | Note |
 |------|---------|------|
-| SQL safety / tenant / auth / Redis | PASS | No DB, tenant, auth, Redis, hosted dashboard, or account model added. |
-| PII and confidential data handling | PASS | Evidence rows, dashboard output, and exports avoid direct identifiers, private paths, raw rows, credentials, payment identifiers, and phone numbers. |
-| Credentials | PASS | No secret capture or real exchange network fetching added. |
-| Deterministic violation truth | PASS | Phase 21 measures validation evidence and does not alter audit evaluation truth. |
-| False-PMF boundaries | PASS | Docs and gates explicitly reject uploads/API connections/demo activity as PMF substitutes. |
-| Runtime boundary | PASS | Runtime remains T0 local CLI/file I/O. |
-
-## ADR Compliance
-
-| ADR | Verdict | Note |
-|-----|---------|------|
-| ADR-001 Telegram Intake and Delivery Boundary | PASS | No Telegram automation or unapproved delivery path added. |
-| ADR-002 Read-Only Exchange Import Boundary | PASS | No real exchange fetching, credential collection, or exchange control added before T93. |
+| Deterministic violation truth | PASS | Existing evaluator/reporting logic was reused; 76 max-position findings are source-row traceable. |
+| Human approval boundaries | PASS | T116 still requires operator-approved private/anonymized input outside git. |
+| Evidence boundary | PASS | Dune public data is development/report-review evidence only. |
+| Confidential data handling | PASS | No key, private rows, private paths, customer identifiers, or wallet-owner claims are committed. |
+| Report claim boundaries | PASS | Reviewed report and docs preserve unsupported fee/leverage/P&L limitations. |
+| Runtime boundary | PASS | No hosted service, checkout, live exchange control, or background import was added. |
 
 ## Architecture Findings
 
-None.
+| ID | Severity | Finding | Status |
+|----|----------|---------|--------|
+| PH32-P2-001 | P2 | Public Dune submitter scope is not a verified private trader ledger. | Accepted limitation |
+| PH32-P2-002 | P2 | Dune transform lacks execution costs, leverage, balances, and verified realized P&L. | Accepted limitation |
 
 ## Right-Sizing / Runtime Checks
 
 | Check | Verdict | Note |
 |-------|---------|------|
-| Solution shape still appropriate | PASS | Phase 21 is local measurement infrastructure, not CRM or SaaS. |
-| Deterministic-owned areas remain deterministic | PASS | Summaries, gates, and exports are deterministic transformations of local logs. |
-| Runtime tier unchanged / justified | PASS | Local CLI/file I/O only. |
-| Evidence boundary still valid | PASS | Demo/open-source evidence is listed separately and excluded from paid/PMF gate counts. |
-| Minimum viable control surface still proportionate | PASS | No web dashboard or hosted reporting added. |
+| Solution shape still appropriate | PASS | Phase 32 stays in local CLI/docs/artifact workflow. |
+| Runtime tier unchanged | PASS | Runtime remains T0 local CLI/file workflow plus one manual Dune API extraction. |
+| Scope boundary preserved | PASS | No SaaS/checkout/live-control expansion; T116 remains blocked. |
 
-## Doc Patches Needed
+## Doc Patches Applied
 
 | File | Section | Change |
 |------|---------|--------|
-| `docs/CODEX_PROMPT.md` | Current state / next task | Roll from Phase 21 completion to Phase 22 T93. |
-| `README.md` | Current status / implemented surface | Mark Phase 21 complete and list evidence dashboard/export surface. |
-| `docs/audit/PHASE_REPORT_LATEST.md` | Phase report | Write Phase 21 final report. |
+| `docs/tasks.md` | Phase 32 / T137-T140 | Added completed Dune rehearsal tasks. |
+| `docs/DUNE_PUBLIC_WALLET_REHEARSAL.md` | New | Documented source, transform, evidence, and conversation use. |
+| `docs/PAID_PILOT_READY_GATE.md` | Evidence review | Added Dune row while preserving `needs_fixes`. |
+| State docs | Active State | Recorded T140 completion and T116 blocker. |

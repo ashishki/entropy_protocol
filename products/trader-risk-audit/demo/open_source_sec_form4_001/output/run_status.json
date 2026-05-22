@@ -1,0 +1,17 @@
+{
+  "artifact_refs": {
+    "attribution": "output/attribution_summary.json",
+    "delivery_packet": "output/telegram_packet.txt",
+    "manifest": "output/manifest.json",
+    "normalized_trades": "output/normalized_trades.json",
+    "report": "output/report.md",
+    "report_reviewed": "output/report_reviewed.md",
+    "reproducibility_status": "output/reproducibility_status.json",
+    "violations": "output/violations.json"
+  },
+  "case_id": "open_source_sec_form4_001",
+  "finding_count": 7,
+  "limitation_count": 3,
+  "reason_code": null,
+  "status": "complete"
+}

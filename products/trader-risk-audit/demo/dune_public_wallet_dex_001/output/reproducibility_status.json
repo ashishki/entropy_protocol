@@ -1,0 +1,11 @@
+{
+  "artifact_refs": {
+    "baseline_manifest": "manifest.json",
+    "rerun_manifest": "not_committed_dune_public_wallet_rerun_manifest"
+  },
+  "baseline_content_hash": "709ac4b6494bb44aa04df954fd64074a4d69fb9e902fbfb992b09c413f4aee51",
+  "method": "Dune pack rerun with deterministic direct audit command",
+  "recorded_at": "2026-05-19",
+  "rerun_content_hash": "709ac4b6494bb44aa04df954fd64074a4d69fb9e902fbfb992b09c413f4aee51",
+  "status": "passed"
+}
