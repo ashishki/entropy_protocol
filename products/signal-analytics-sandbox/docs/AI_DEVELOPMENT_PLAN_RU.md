@@ -394,13 +394,18 @@ Start with Phase 36 impact framework, not with dashboard UI or marketplace.
 
 Current next task is:
 
-`SAS-BABLOS-004 Transcript Acceptance Pass`
+Phase 36 complete; next operator decision is internal dashboard prototype vs
+another evidence-completion loop.
 
 Why:
 
 - `SAS-IMPACT-001..002` already define the framework and cross-channel loop;
-- `SAS-BABLOS-003` produced the media queue: 8 candidates, 2 linked audio
-  rows, 0 OCR-ready image/chart rows, 0 customer-facing media claims;
-- the two linked audio rows now need human/operator transcript acceptance;
-- the same linkage/completion pattern will then be applied to `nemphiscrypts`
-  and `pifagortrade`.
+- `SAS-BABLOS-003..008` completed the `bablos79` Phase 36 pass as
+  internal-only: 0 human/operator accepted transcripts, 0 OCR drafts,
+  0 accepted media claims, 0 computed outcomes;
+- `SAS-IMPACT-003..004` applied the same corpus/media/truth completion scope to
+  `nemphiscrypts` and `pifagortrade`;
+- `SAS-IMPACT-005..008` added taxonomy, dashboard score schema, paid boundary,
+  three-channel scorecard, external gate, and deep review;
+- public dashboard and paid report remain blocked until a new external-ready
+  gate approves them.

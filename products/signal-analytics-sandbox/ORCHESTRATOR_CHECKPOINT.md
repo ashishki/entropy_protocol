@@ -5,9 +5,9 @@ Date: 2026-05-22
 ## Current State
 
 - Phase 36 is active: Channel Impact Framework And Cross-Channel Completion.
-- Latest completed item: SAS-BABLOS-003 Media Linkage Queue.
-- Next task: SAS-BABLOS-004 Transcript Acceptance Pass.
-- Baseline: 306 passing tests, 0 skipped.
+- Latest completed item: SAS-IMPACT-008 Cross-Channel Impact Recompute And Gate.
+- Next task: operator decision for internal dashboard prototype or more evidence completion.
+- Baseline: 316 passing tests, 0 skipped.
 - Ruff: pass.
 - Pyright: pass.
 - External gate: `approve_internal_only`.
@@ -27,6 +27,12 @@ confidence.
 - `docs/pilot/bablos79_PHASE36_CORPUS_COMPLETION_SCOPE.md`
 - `docs/pilot/bablos79_PHASE36_TEXT_RECAPTURE_PLAN.md`
 - `docs/pilot/bablos79_PHASE36_MEDIA_LINKAGE_QUEUE.md`
+- `docs/pilot/bablos79_PHASE36_EXTERNAL_READY_GATE.md`
+- `docs/pilot/nemphiscrypts_PHASE36_CORPUS_COMPLETION_SCOPE.md`
+- `docs/pilot/pifagortrade_PHASE36_CORPUS_COMPLETION_SCOPE.md`
+- `docs/specs/CHANNEL_DASHBOARD_SCORE_SCHEMA.md`
+- `docs/pilot/three_channel_PHASE36_IMPACT_SCORECARD.md`
+- `docs/pilot/three_channel_PHASE36_EXTERNAL_READY_GATE.md`
 - `docs/pilot/three_channel_V1_METRIC_RESULTS.json`
 - `docs/pilot/three_channel_FULL_REVIEW_QUEUE.json`
 - `docs/pilot/three_channel_FALSE_NEGATIVE_PASS.json`

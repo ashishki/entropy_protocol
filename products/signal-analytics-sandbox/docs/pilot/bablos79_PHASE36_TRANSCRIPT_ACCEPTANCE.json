@@ -1,0 +1,60 @@
+{
+  "artifact_id": "bablos79_phase36_transcript_acceptance",
+  "generated_at_utc": "2026-05-22T00:00:00Z",
+  "source_id": "bablos79",
+  "status": "complete_no_human_operator_acceptance",
+  "summary": {
+    "transcript_refs_reviewed": 2,
+    "human_operator_accepted": 0,
+    "rejected": 0,
+    "needs_context": 2,
+    "media_backed_claims_reviewed": 3,
+    "media_backed_claims_customer_facing_allowed": 0,
+    "deterministic_outcome_ready": 0
+  },
+  "rows": [
+    {
+      "media_id": "public_voice_bablos79_10476",
+      "transcript_id": "transcript_57b6461001b54e10",
+      "source_url": "https://t.me/bablos79/10476",
+      "source_media_sha256": "dc35f04c417d644b603c9336d96108d485682e467e88e1e476500b1add1e115c",
+      "transcript_sha256": "4509a917e93f875642c246421f714c9011d92c3d4e44e0e0bcd27419ca1bb103",
+      "prior_policy_status": "llm_reviewed_internal",
+      "phase36_acceptance_status": "needs_context",
+      "human_operator_accepted": false,
+      "accepted_claim_boundary": null,
+      "customer_facing_allowed": false,
+      "deterministic_outcome_ready": false,
+      "reason": "LLM review found the transcript coherent for internal source joins, but no human/operator audio verification or external waiver exists.",
+      "claim_ids_excluded": [
+        "bablos79_10476_claim1",
+        "bablos79_10476_claim2"
+      ],
+      "required_next_action": "Human/operator must listen to the source audio or explicitly waive audio verification with named risk owner before external use."
+    },
+    {
+      "media_id": "public_voice_bablos79_10478",
+      "transcript_id": "transcript_92ad5bf2e9088056",
+      "source_url": "https://t.me/bablos79/10478",
+      "source_media_sha256": "87ae688d3e55e4ab0eed95c2e4ec3d6ec3aa8a8022acc37a70703b255d6e8b00",
+      "transcript_sha256": "28d9d9744aa4490a21b6699e6f7d9c7509b56b7fc2708d2533ecca77d07f5561",
+      "prior_policy_status": "llm_reviewed_internal",
+      "phase36_acceptance_status": "needs_context",
+      "human_operator_accepted": false,
+      "accepted_claim_boundary": null,
+      "customer_facing_allowed": false,
+      "deterministic_outcome_ready": false,
+      "reason": "LLM review found the transcript coherent for internal source joins, but no human/operator audio verification or external waiver exists.",
+      "claim_ids_excluded": [
+        "bablos79_10478_claim1"
+      ],
+      "required_next_action": "Human/operator must listen to the source audio or explicitly waive audio verification with named risk owner before external use."
+    }
+  ],
+  "policy_result": {
+    "internal_source_join_allowed": true,
+    "customer_facing_media_claims_allowed": false,
+    "external_delivery_allowed": false,
+    "reason": "Both transcript refs remain needs_context because human/operator acceptance is absent."
+  }
+}

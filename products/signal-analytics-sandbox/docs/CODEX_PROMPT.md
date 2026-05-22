@@ -10,11 +10,11 @@ Compact restart state only. Detailed history lives in
 ## Current State
 
 - Phase: 36 (Channel Impact Framework And Cross-Channel Completion)
-- Baseline: 306 passing tests, 0 skipped
+- Baseline: 316 passing tests, 0 skipped
 - Ruff: `ruff check src/ tests/ scripts/` passes
 - Format: `ruff format --check src/ tests/ scripts/` passes
 - Pyright: `pyright` passes
-- Latest completed: `SAS-BABLOS-003 Media Linkage Queue`
+- Latest completed: `SAS-IMPACT-008 Cross-Channel Impact Recompute And Gate`
 - Phase 0 gates acknowledged; Engineering Phase 1 (T01+) may begin.
 - | SAS-001: Paid Pilot Demand Validation | acknowledged |
 - | SAS-002: Public-Source Legal/Terms Memo | acknowledged |
@@ -25,34 +25,37 @@ Compact restart state only. Detailed history lives in
 
 ## Next Task
 
-Active route: `SAS-BABLOS-004 Transcript Acceptance Pass`, while image/OCR
-stays blocked until source-linked image/chart artifacts exist.
+Active route: Phase 36 complete; next operator decision is internal dashboard
+prototype vs another evidence-completion loop.
 
-- `SAS-NEXT-001..032` are complete.
 - `SAS-IMPACT-001..002` define broad impact criteria, source-of-truth layers,
   dashboard vs paid-report boundary, and the same loop for `bablos79`,
   `nemphiscrypts`, and `pifagortrade`.
-- `SAS-BABLOS-001..002` document that current `bablos79` evidence is partial:
-  60 text captures over about 9 days, 2 internal-only audio refs, 0
-  source-linked image/OCR artifacts, 14 reviewable non-blocker rows, 0
-  deterministic deep-ledger outcome-ready rows.
 - `SAS-BABLOS-003` adds the media linkage queue: 8 candidates, 2
   source-linked audio rows ready for transcript acceptance, 0 OCR-ready rows,
   0 customer-facing media claims allowed.
+- `SAS-BABLOS-004..008` close the `bablos79` Phase 36 pass as internal-only:
+  0 human/operator accepted transcripts, 0 OCR drafts, 0 accepted media claims,
+  0 computed outcomes, external delivery rejected.
+- `SAS-IMPACT-003..004` add equivalent completion scopes for `nemphiscrypts`
+  and `pifagortrade`.
+- `SAS-IMPACT-005..008` add taxonomy, dashboard schema, paid boundary,
+  three-channel scorecard, gate, and deep review.
 
 1. `docs/AI_DEVELOPMENT_PLAN_RU.md`
 2. `docs/tasks.md` Phase 36
 3. `docs/specs/CHANNEL_IMPACT_FRAMEWORK.md`
 4. `docs/pilot/three_channel_PHASE36_IMPACT_DEVELOPMENT_LOOP.md`
-5. `docs/pilot/bablos79_PHASE36_CORPUS_COMPLETION_SCOPE.md`
-6. `docs/pilot/bablos79_PHASE36_MEDIA_LINKAGE_QUEUE.md`
+5. `docs/pilot/three_channel_PHASE36_IMPACT_SCORECARD.md`
+6. `docs/pilot/three_channel_PHASE36_EXTERNAL_READY_GATE.md`
 
 ## Canonical Artifacts
 
-- Impact framework: `docs/specs/CHANNEL_IMPACT_FRAMEWORK.md`
 - Phase 36 loop: `docs/pilot/three_channel_PHASE36_IMPACT_DEVELOPMENT_LOOP.md`
-- `bablos79` scope: `docs/pilot/bablos79_PHASE36_CORPUS_COMPLETION_SCOPE.md`
 - `bablos79` media queue: `docs/pilot/bablos79_PHASE36_MEDIA_LINKAGE_QUEUE.md`
+- `bablos79` Phase 36 gate: `docs/pilot/bablos79_PHASE36_EXTERNAL_READY_GATE.md`
+- Phase 36 scorecard: `docs/pilot/three_channel_PHASE36_IMPACT_SCORECARD.md`
+- Phase 36 gate: `docs/pilot/three_channel_PHASE36_EXTERNAL_READY_GATE.md`
 - V1 metrics: `docs/pilot/three_channel_V1_METRIC_RESULTS.json`
 - V1 report: `docs/pilot/reports/three_channel_V1_CHANNEL_UTILITY_REPORT.md`
 - V1 gate: `docs/pilot/three_channel_V1_EXTERNAL_READY_GATE.md`

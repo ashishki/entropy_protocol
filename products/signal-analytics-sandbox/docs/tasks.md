@@ -3553,7 +3553,7 @@ Notes: |
   transcript acceptance, 0 OCR-ready image/chart rows, and 0 customer-facing
   media claims allowed until review gates pass.
 
-### SAS-BABLOS-004: Transcript Acceptance Pass
+### SAS-BABLOS-004: Transcript Acceptance Pass ✅
 
 Owner:      operator
 Phase:      36
@@ -3567,15 +3567,21 @@ Objective: |
 Acceptance-Criteria:
   - id: AC-1
     description: "Each transcript ref has human/operator status and reason."
-    test: "manual/review"
+    test: "tests/unit/test_bablos79_phase36_completion.py::test_phase36_transcript_acceptance_excludes_unaccepted_media"
   - id: AC-2
     description: "Rejected or needs_context transcript claims remain excluded from customer-facing metrics."
-    test: "manual/review"
+    test: "tests/unit/test_bablos79_phase36_completion.py::test_phase36_transcript_acceptance_excludes_unaccepted_media"
 
 Files:
   - docs/pilot/bablos79_PHASE36_TRANSCRIPT_ACCEPTANCE.md
+  - docs/pilot/bablos79_PHASE36_TRANSCRIPT_ACCEPTANCE.json
 
-### SAS-BABLOS-005: OCR/Vision Draft Pass
+Notes: |
+  Completed with both transcript refs marked `needs_context`, not
+  human/operator accepted. No transcript-backed customer-facing claims are
+  allowed.
+
+### SAS-BABLOS-005: OCR/Vision Draft Pass ✅
 
 Owner:      codex + operator
 Phase:      36
@@ -3589,15 +3595,20 @@ Objective: |
 Acceptance-Criteria:
   - id: AC-1
     description: "OCR artifacts record source linkage, checksum, provider/model, confidence/limitations, and draft status."
-    test: "manual/docs-review"
+    test: "tests/unit/test_bablos79_phase36_completion.py::test_phase36_ocr_drafts_are_blocked_without_source_linkage"
   - id: AC-2
     description: "No chart interpretation claim is approved without manual review."
-    test: "manual/docs-review"
+    test: "tests/unit/test_bablos79_phase36_completion.py::test_phase36_ocr_drafts_are_blocked_without_source_linkage"
 
 Files:
   - docs/pilot/bablos79_PHASE36_OCR_DRAFTS.md
+  - docs/pilot/bablos79_PHASE36_OCR_DRAFTS.json
 
-### SAS-BABLOS-006: Multimodal Claim Recompute
+Notes: |
+  Completed as a blocked OCR pass: 0 source-linked image/chart artifacts,
+  0 OCR drafts, 0 chart interpretations approved.
+
+### SAS-BABLOS-006: Multimodal Claim Recompute ✅
 
 Owner:      codex
 Phase:      36
@@ -3611,16 +3622,20 @@ Objective: |
 Acceptance-Criteria:
   - id: AC-1
     description: "The recomputed ledger separates text, accepted transcript, accepted OCR, rejected media, and blockers."
-    test: "manual/docs-review"
+    test: "tests/unit/test_bablos79_phase36_completion.py::test_phase36_claim_ledger_has_no_new_accepted_media_claims"
   - id: AC-2
     description: "Every deterministic candidate has asset, direction, horizon, and review state or explicit blocker."
-    test: "manual/docs-review"
+    test: "tests/unit/test_bablos79_phase36_completion.py::test_phase36_claim_ledger_has_no_new_accepted_media_claims"
 
 Files:
   - docs/pilot/bablos79_PHASE36_CLAIM_LEDGER.md
   - docs/pilot/bablos79_PHASE36_CLAIM_LEDGER.json
 
-### SAS-BABLOS-007: Proxy And Outcome Recompute
+Notes: |
+  Completed with 0 accepted transcript claims, 0 accepted OCR claims, and
+  0 deterministic outcome-ready rows.
+
+### SAS-BABLOS-007: Proxy And Outcome Recompute ✅
 
 Owner:      codex + operator
 Phase:      36
@@ -3634,16 +3649,20 @@ Objective: |
 Acceptance-Criteria:
   - id: AC-1
     description: "Provider gaps are exclusions, not losses."
-    test: "manual/docs-review"
+    test: "tests/unit/test_bablos79_phase36_completion.py::test_phase36_outcomes_and_gate_reject_external_delivery"
   - id: AC-2
     description: "Outcome artifacts include source refs, provider refs, horizon, metric, and unsupported-row counts."
-    test: "manual/docs-review"
+    test: "tests/unit/test_bablos79_phase36_completion.py::test_phase36_outcomes_and_gate_reject_external_delivery"
 
 Files:
   - docs/pilot/bablos79_PHASE36_OUTCOMES.md
   - docs/pilot/bablos79_PHASE36_OUTCOMES.json
 
-### SAS-BABLOS-008: Phase 36 External Gate
+Notes: |
+  Completed with no market fetch and 0 computed outcomes. Unsupported rows and
+  provider/proxy gaps remain exclusions, not losses.
+
+### SAS-BABLOS-008: Phase 36 External Gate ✅
 
 Owner:      operator + codex
 Phase:      36
@@ -3657,15 +3676,20 @@ Objective: |
 Acceptance-Criteria:
   - id: AC-1
     description: "Gate records external-ready / internal-only / rejected with blockers, evidence coverage, media status, and no-advice boundary."
-    test: "manual/review"
+    test: "tests/unit/test_bablos79_phase36_completion.py::test_phase36_outcomes_and_gate_reject_external_delivery"
   - id: AC-2
     description: "Gate does not approve external delivery if media review, provider coverage, or deterministic outcome quality remains insufficient."
-    test: "manual/review"
+    test: "tests/unit/test_bablos79_phase36_completion.py::test_phase36_outcomes_and_gate_reject_external_delivery"
 
 Files:
   - docs/pilot/bablos79_PHASE36_EXTERNAL_READY_GATE.md
+  - docs/archive/PHASE36_BABLOS79_DEEP_REVIEW.md
 
-### SAS-IMPACT-003: nemphiscrypts Corpus Completion Scope
+Notes: |
+  Deep review completed for the `bablos79` Phase 36 pass. External delivery
+  remains rejected/internal-only.
+
+### SAS-IMPACT-003: nemphiscrypts Corpus Completion Scope ✅
 
 Owner:      codex + operator
 Phase:      36
@@ -3680,15 +3704,15 @@ Objective: |
 Acceptance-Criteria:
   - id: AC-1
     description: "The scope records source coverage, media status, missing periods/IDs, and next capture/review steps."
-    test: "manual/docs-review"
+    test: "tests/unit/test_phase36_other_channel_scopes.py::test_nemphiscrypts_phase36_scope_records_coverage_media_and_next_steps"
   - id: AC-2
     description: "The scope uses the same truth and impact dimensions defined in `CHANNEL_IMPACT_FRAMEWORK.md`."
-    test: "manual/docs-review"
+    test: "tests/unit/test_phase36_other_channel_scopes.py::test_other_channel_scopes_use_same_impact_and_truth_model"
 
 Files:
   - docs/pilot/nemphiscrypts_PHASE36_CORPUS_COMPLETION_SCOPE.md
 
-### SAS-IMPACT-004: pifagortrade Corpus Completion Scope
+### SAS-IMPACT-004: pifagortrade Corpus Completion Scope ✅
 
 Owner:      codex + operator
 Phase:      36
@@ -3703,15 +3727,15 @@ Objective: |
 Acceptance-Criteria:
   - id: AC-1
     description: "The scope records source coverage, media status, missing periods/IDs, and next capture/review steps."
-    test: "manual/docs-review"
+    test: "tests/unit/test_phase36_other_channel_scopes.py::test_pifagortrade_phase36_scope_records_coverage_media_and_next_steps"
   - id: AC-2
     description: "The scope uses the same truth and impact dimensions defined in `CHANNEL_IMPACT_FRAMEWORK.md`."
-    test: "manual/docs-review"
+    test: "tests/unit/test_phase36_other_channel_scopes.py::test_other_channel_scopes_use_same_impact_and_truth_model"
 
 Files:
   - docs/pilot/pifagortrade_PHASE36_CORPUS_COMPLETION_SCOPE.md
 
-### SAS-IMPACT-005: Impact Claim Taxonomy Expansion
+### SAS-IMPACT-005: Impact Claim Taxonomy Expansion ✅
 
 Owner:      codex
 Phase:      36
@@ -3726,15 +3750,15 @@ Objective: |
 Acceptance-Criteria:
   - id: AC-1
     description: "Taxonomy distinguishes explicit trade setup, trend/regime view, macro thesis, risk/process statement, watchlist, and non-market commentary."
-    test: "manual/docs-review"
+    test: "tests/unit/test_phase36_final_impact_artifacts.py::test_impact_claim_taxonomy_distinguishes_pnl_and_non_pnl_claims"
   - id: AC-2
     description: "Non-PnL claims have review/evidence/confidence fields and cannot become win/loss rows without deterministic market mapping."
-    test: "manual/docs-review"
+    test: "tests/unit/test_phase36_final_impact_artifacts.py::test_impact_claim_taxonomy_distinguishes_pnl_and_non_pnl_claims"
 
 Files:
   - docs/specs/CHANNEL_IMPACT_CLAIM_TAXONOMY.md
 
-### SAS-IMPACT-006: Dashboard Score Schema
+### SAS-IMPACT-006: Dashboard Score Schema ✅
 
 Owner:      codex + operator
 Phase:      36
@@ -3748,15 +3772,15 @@ Objective: |
 Acceptance-Criteria:
   - id: AC-1
     description: "Schema includes signal performance, trend sense, insight depth, methodology clarity, risk discipline, practical usefulness, creativity, evidence confidence, sample size, and external gate."
-    test: "manual/docs-review"
+    test: "tests/unit/test_phase36_final_impact_artifacts.py::test_dashboard_schema_and_paid_boundary_preserve_product_guardrails"
   - id: AC-2
     description: "Schema forbids best-channel, future-profit, and investment-advice language."
-    test: "manual/docs-review"
+    test: "tests/unit/test_phase36_final_impact_artifacts.py::test_dashboard_schema_and_paid_boundary_preserve_product_guardrails"
 
 Files:
   - docs/specs/CHANNEL_DASHBOARD_SCORE_SCHEMA.md
 
-### SAS-IMPACT-007: Paid Deep Report Boundary
+### SAS-IMPACT-007: Paid Deep Report Boundary ✅
 
 Owner:      codex + operator
 Phase:      36
@@ -3770,15 +3794,15 @@ Objective: |
 Acceptance-Criteria:
   - id: AC-1
     description: "Boundary separates compact public metrics from paid evidence appendix, examples, counterexamples, methodology/risk notes, and source limitations."
-    test: "manual/docs-review"
+    test: "tests/unit/test_phase36_final_impact_artifacts.py::test_dashboard_schema_and_paid_boundary_preserve_product_guardrails"
   - id: AC-2
     description: "Boundary preserves no-advice, no-future-profit, no-private-source, and external-gate rules."
-    test: "manual/docs-review"
+    test: "tests/unit/test_phase36_final_impact_artifacts.py::test_dashboard_schema_and_paid_boundary_preserve_product_guardrails"
 
 Files:
   - docs/specs/PAID_CHANNEL_REPORT_BOUNDARY.md
 
-### SAS-IMPACT-008: Cross-Channel Impact Recompute And Gate
+### SAS-IMPACT-008: Cross-Channel Impact Recompute And Gate ✅
 
 Owner:      codex + operator
 Phase:      36
@@ -3792,14 +3816,15 @@ Objective: |
 Acceptance-Criteria:
   - id: AC-1
     description: "Comparison includes all three channels and uses confidence/sample-size caveats."
-    test: "manual/review"
+    test: "tests/unit/test_phase36_final_impact_artifacts.py::test_phase36_scorecard_and_gate_are_internal_only_and_three_channel"
   - id: AC-2
     description: "Gate explicitly decides dashboard-safe fields, paid-report-only fields, internal-only fields, and blocked claims."
-    test: "manual/review"
+    test: "tests/unit/test_phase36_final_impact_artifacts.py::test_phase36_scorecard_and_gate_are_internal_only_and_three_channel"
 
 Files:
   - docs/pilot/three_channel_PHASE36_IMPACT_SCORECARD.md
   - docs/pilot/three_channel_PHASE36_EXTERNAL_READY_GATE.md
+  - docs/archive/PHASE36_DEEP_REVIEW.md
 
 ## Phase 28 — External-Ready Review Sprint
 

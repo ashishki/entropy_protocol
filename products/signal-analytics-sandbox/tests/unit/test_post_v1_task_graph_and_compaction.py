@@ -23,8 +23,11 @@ def test_post_v1_task_graph_lists_next_phases_and_active_task() -> None:
     assert (
         "## Phase 36 — Channel Impact Framework And Cross-Channel Completion" in tasks
     )
-    assert "Latest completed: `SAS-BABLOS-003 Media Linkage Queue`" in prompt
-    assert "Active route: `SAS-BABLOS-004 Transcript Acceptance Pass`" in prompt
+    assert (
+        "Latest completed: `SAS-IMPACT-008 Cross-Channel Impact Recompute And Gate`"
+        in prompt
+    )
+    assert "Active route: Phase 36 complete" in prompt
 
 
 def test_active_state_files_are_compacted_to_current_links() -> None:

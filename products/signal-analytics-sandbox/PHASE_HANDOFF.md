@@ -5,8 +5,8 @@ Date: 2026-05-22
 ## Current State
 
 - Phase: 36 Channel Impact Framework And Cross-Channel Completion
-- Active task: SAS-BABLOS-004 Transcript Acceptance Pass
-- Baseline: 306 pass / 0 skip
+- Active task: Phase 36 complete; await operator decision
+- Baseline: 316 pass / 0 skip
 - Ruff: clean
 - Pyright: clean
 - External gate: `approve_internal_only`
@@ -18,10 +18,12 @@ cross-channel impact loop: broader criteria, source-of-truth model, dashboard
 vs paid-report boundary, and equal evidence completion for all three channels.
 
 `SAS-IMPACT-001..002` created the framework and development loop.
-`SAS-BABLOS-001..003` created the first per-channel recovery path and media
-queue. Next work is `SAS-BABLOS-004` transcript acceptance for the two linked
-audio artifacts. OCR remains blocked until image/chart artifacts are
-source-linked with checksums.
+`SAS-BABLOS-001..008` closed the `bablos79` Phase 36 pass as internal-only:
+0 human/operator accepted transcripts, 0 OCR drafts, 0 accepted media claims,
+0 computed outcomes, external delivery rejected. `SAS-IMPACT-003..004` added
+equivalent completion scopes for `nemphiscrypts` and `pifagortrade`.
+`SAS-IMPACT-005..008` completed taxonomy, dashboard schema, paid boundary,
+scorecard, external gate, and deep review.
 
 ## Read First
 
@@ -31,8 +33,8 @@ source-linked with checksums.
 4. `docs/tasks.md` Phase 36
 5. `docs/specs/CHANNEL_IMPACT_FRAMEWORK.md`
 6. `docs/pilot/three_channel_PHASE36_IMPACT_DEVELOPMENT_LOOP.md`
-7. `docs/pilot/bablos79_PHASE36_CORPUS_COMPLETION_SCOPE.md`
-8. `docs/pilot/bablos79_PHASE36_MEDIA_LINKAGE_QUEUE.md`
+7. `docs/pilot/three_channel_PHASE36_IMPACT_SCORECARD.md`
+8. `docs/pilot/three_channel_PHASE36_EXTERNAL_READY_GATE.md`
 
 ## Do Not Do
 
