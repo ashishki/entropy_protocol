@@ -126,6 +126,7 @@ Retrieval mode is no retrieval for v1. User-provided rules and templates are loa
 | Artifact bundle index | `trader_risk_audit/audit_session/artifact_bundle.py` | Write and validate local `bundle_index.json` records with safe artifact refs, hashes, run status, preview state, and limitation register refs. |
 | Reproducibility gate | `trader_risk_audit/audit_session/reproducibility.py` | Rerun a completed automated audit session into a separate local output directory and block preview/delivery status when stable manifest content hashes drift. |
 | Preview model | `trader_risk_audit/preview/model.py` | Build claim-safe redacted Markdown previews from completed artifact bundles using counts, rule categories, limitation refs, and safe source coverage only. |
+| Open-source case validator | `trader_risk_audit/validation/open_source_case.py`, `trader_risk_audit/cli.py` | Validate committed open-source case-pack directories for required artifacts, manifest entries, reproducibility status, and secret/private marker rejection. |
 | Calendar and aggregation | `trader_risk_audit/evaluation/calendar.py`, `trader_risk_audit/evaluation/aggregates.py` | Build session/day groupings, daily P&L, equity curve, exposure, and drawdown inputs. |
 | Rule evaluators | `trader_risk_audit/evaluation/rules.py` | Evaluate max daily loss, drawdown, cooldown, position size, forbidden assets, and leverage rules. |
 | Violation model | `trader_risk_audit/evaluation/violations.py` | Store rule id, source rows, evaluated values, threshold, timestamps, severity, and attribution fields. |

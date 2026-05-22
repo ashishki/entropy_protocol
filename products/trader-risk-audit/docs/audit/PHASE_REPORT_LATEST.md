@@ -1,51 +1,46 @@
-# Phase 22 Report - CSV Friction Decision Gate
+# Phase 32 Report - Dune Public Wallet Rehearsal
 
-_Date: 2026-05-15_
+## What Was Built
 
-## Summary
+Phase 32 added `demo/dune_public_wallet_dex_001/`, a real public Dune
+`dex.trades` case pack scoped to one public Ethereum `tx_from` submitter.
 
-Phase 22 reached the required decision gate. Real local read-only exchange
-network fetching is deferred because no repo-visible market evidence log shows
-CSV/export friction as the binding blocker.
+It includes:
 
-## Completed / Blocked Tasks
-
-- T93 - CSV Friction Decision Gate: complete, verdict defer
-- T94 - Real Read-Only Import ADR Update: blocked by T93 defer
-- T95 - Minimal Local Real Fetch Path: blocked by T93 defer
-- T96 - Real Import To Automated Runner: blocked by T93 defer
-- T97 - Conditional Real Import Deep Review: blocked by T93 defer
-
-## Quantified Inputs
-
-- Qualified market prospects: 0
-- Valid exports/rules: 0
-- CSV/export blockers: 0
-- Valid-export drop-off: 0/0, not measurable
-- API-request objections: 0
-- Paid reports / paid intent: 0
-- Repeat/referral signals: 0
-
-## Decision
-
-Defer. Keep fixture-backed import, CSV fallback, local audit automation, and
-privacy-safe evidence capture. Do not update ADR-002 for real fetching and do
-not implement real exchange network calls unless future market evidence reopens
-T93.
+- source metadata and SQL provenance;
+- canonical `trades.csv`;
+- a local risk policy;
+- generated and reviewed reports;
+- manifest, violations, attribution, Telegram packet, and reproducibility
+  status;
+- manual review and error register.
 
 ## Validation
 
-- Baseline after Phase 21: 253 passing tests, 0 skipped
-- Ruff: `ruff check trader_risk_audit tests` clean
-- Formatting: `ruff format --check trader_risk_audit tests` clean
+- `case-bank validate --case-dir demo/dune_public_wallet_dex_001` -> passed.
+- Reproducibility status -> passed.
+- Review: Cycle 35 / Phase 32, Stop-Ship: No, P0:0, P1:0, P2:2.
 
-## Health
+## Gate Decision
 
-OK. The roadmap is complete through the current evidence gate. The final state
-is local-first, deterministic, privacy-safe, no-checkout, no-SaaS, and
-no-real-fetch.
+Phase 32 is complete with WARN health.
 
-## Notification Summary
+Decision: `supporting_report_review_artifact_ready`.
 
-T93 deferred real exchange fetching. T94-T97 remain blocked until future
-privacy-safe market evidence shows CSV/export friction is the binding blocker.
+It does not close T116 and does not move `docs/PAID_PILOT_READY_GATE.md` out
+of `needs_fixes`.
+
+## Remaining Gaps
+
+- T116 private/anonymized operator-approved report evidence.
+- Privacy-safe aggregate problem-interview evidence.
+- Privacy-safe aggregate report-review evidence.
+- Export willingness and manual pilot evidence.
+
+## Next Task
+
+T116 - Operator-Approved Private Run And Reviewed Report Evidence.
+
+Status: blocked until the operator supplies one approved private or anonymized
+artifact outside git. If no export exists, use the Dune report in report-review
+conversations and record only aggregate non-identifying outcomes.

@@ -1,0 +1,18 @@
+schema_version: "1"
+account_scope:
+  - real_open_uniswap_v2_contract_recipient_scope
+timezone: UTC
+session:
+  start: "00:00"
+  end: "23:59"
+rules:
+  - rule_id: real_open_contract_max_position_size
+    type: max_position_size
+    threshold: "1000"
+    unit: USD
+    params: {}
+  - rule_id: real_open_contract_max_leverage_unsupported
+    type: max_leverage
+    threshold: "2"
+    unit: ratio
+    params: {}

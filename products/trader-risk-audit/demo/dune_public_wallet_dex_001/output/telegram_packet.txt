@@ -1,0 +1,13 @@
+Trader Risk Audit Summary
+Trades reviewed: 80
+Violations recorded: 76
+Violating P&L: 0
+
+Top violation counts:
+- dune_public_wallet_max_position_size: 76
+
+Limitations:
+- dune_public_wallet_max_leverage_unsupported: unsupported_leverage_data
+
+Report: report.md
+This audit is not investment advice and does not control live trading.

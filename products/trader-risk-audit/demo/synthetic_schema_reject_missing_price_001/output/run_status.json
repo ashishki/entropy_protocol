@@ -1,0 +1,10 @@
+{
+  "artifact_refs": {},
+  "case_id": "synthetic_schema_reject_missing_price_001",
+  "finding_count": 0,
+  "limitation_count": 0,
+  "reason_code": "missing_canonical_field_price",
+  "rejected_command": "trader-risk-audit audit",
+  "safe_error": "missing canonical fields: price; inspected columns: timestamp, symbol, side, quantity, fees, account_id",
+  "status": "rejected"
+}

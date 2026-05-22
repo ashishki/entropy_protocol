@@ -40,6 +40,17 @@ DEFAULT_FORBIDDEN_PHRASES = (
     ForbiddenPhrase("causal_loss_assertion", "caused losses"),
     ForbiddenPhrase("counterfactual_returns", "would have made"),
     ForbiddenPhrase("counterfactual_returns", "would have prevented losses"),
+    ForbiddenPhrase("evidence_overclaim", "proves PMF"),
+    ForbiddenPhrase("evidence_overclaim", "proves product-market fit"),
+    ForbiddenPhrase("evidence_overclaim", "proves customer validation"),
+    ForbiddenPhrase("evidence_overclaim", "proves market demand"),
+    ForbiddenPhrase("evidence_overclaim", "proves traders will pay"),
+    ForbiddenPhrase(
+        "evidence_overclaim",
+        "open-source validation proves customer demand",
+    ),
+    ForbiddenPhrase("evidence_overclaim", "demo evidence proves customer demand"),
+    ForbiddenPhrase("evidence_overclaim", "open-source pack is paid-pilot evidence"),
 )
 
 

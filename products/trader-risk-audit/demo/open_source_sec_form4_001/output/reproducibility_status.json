@@ -1,0 +1,11 @@
+{
+  "artifact_refs": {
+    "baseline_manifest": "manifest.json",
+    "rerun_manifest": "not_committed_manual_rerun_manifest"
+  },
+  "baseline_content_hash": "9cfdd76e5904f3e512f6c04a9321706b7071e712b3868841c8817e93469907e8",
+  "method": "manual rerun recorded in docs/FIRST_AUDIT_RUN_SEC_FORM4_EN.md",
+  "recorded_at": "2026-05-12",
+  "rerun_content_hash": "9cfdd76e5904f3e512f6c04a9321706b7071e712b3868841c8817e93469907e8",
+  "status": "passed"
+}

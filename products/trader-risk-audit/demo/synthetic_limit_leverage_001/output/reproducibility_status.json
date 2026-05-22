@@ -1,0 +1,11 @@
+{
+  "artifact_refs": {
+    "baseline_manifest": "manifest.json",
+    "rerun_manifest": "not_committed_t101_rerun_manifest"
+  },
+  "baseline_content_hash": "eee3efada21aac49c635d0b83b681d1d859f60327b0806e3928bb292dca2efd9",
+  "method": "T101 rerun with deterministic audit command",
+  "recorded_at": "2026-05-15",
+  "rerun_content_hash": "eee3efada21aac49c635d0b83b681d1d859f60327b0806e3928bb292dca2efd9",
+  "status": "passed"
+}
