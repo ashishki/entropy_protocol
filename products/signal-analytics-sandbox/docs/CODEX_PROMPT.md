@@ -9,58 +9,49 @@ Compact restart state only. Detailed history lives in
 
 ## Current State
 
-- Phase: 36 (`bablos79` Corpus Completion And Media Recovery)
+- Phase: 36 (Channel Impact Framework And Cross-Channel Completion)
 - Baseline: 295 passing tests, 0 skipped
 - Ruff: `ruff check src/ tests/ scripts/` passes
 - Format: `ruff format --check src/ tests/ scripts/` passes
 - Pyright: `pyright` passes
-- Latest completed: `SAS-BABLOS-002 Public Text Recapture Plan`
+- Latest completed: `SAS-IMPACT-002 Cross-Channel Development Loop`
+- Phase 0 gates acknowledged; Engineering Phase 1 (T01+) may begin.
+- | SAS-001: Paid Pilot Demand Validation | acknowledged |
+- | SAS-002: Public-Source Legal/Terms Memo | acknowledged |
 - External gate: `approve_internal_only`
 - External delivery: not approved
-- Current priority: finish `bablos79` evidence recovery before stronger author
-  capability claims
-
-## Phase 0 Gate Status
-
-- SAS-001/SAS-002 are complete and acknowledged.
-- Engineering Phase 1 (T01+) may begin.
-
-| Gate | Status |
-| --- | --- |
-| SAS-001: Paid Pilot Demand Validation | acknowledged |
-| SAS-002: Public-Source Legal/Terms Memo | acknowledged |
+- Current priority: apply the same impact/evidence loop to all three channels
+  before dashboard/deep-report comparison
 
 ## Next Task
 
-Active route: `SAS-BABLOS-003 Media Linkage Queue`.
+Active route: `SAS-BABLOS-003 Media Linkage Queue`, then equivalent completion
+scopes for `nemphiscrypts` and `pifagortrade`.
 
 - `SAS-NEXT-001..032` are complete.
-- `SAS-BABLOS-001..002` started Phase 36 and documented that current `bablos79`
-  evidence is partial: 60 text captures over about 9 days, 2 internal-only
-  audio refs, 0 source-linked image/OCR artifacts, 14 reviewable non-blocker
-  rows, 0 deterministic deep-ledger outcome-ready rows.
+- `SAS-IMPACT-001..002` define broad impact criteria, source-of-truth layers,
+  dashboard vs paid-report boundary, and the same loop for `bablos79`,
+  `nemphiscrypts`, and `pifagortrade`.
+- `SAS-BABLOS-001..002` document that current `bablos79` evidence is partial:
+  60 text captures over about 9 days, 2 internal-only audio refs, 0
+  source-linked image/OCR artifacts, 14 reviewable non-blocker rows, 0
+  deterministic deep-ledger outcome-ready rows.
 
 1. `docs/AI_DEVELOPMENT_PLAN_RU.md`
 2. `docs/tasks.md` Phase 36
-3. `docs/pilot/bablos79_PHASE36_CORPUS_COMPLETION_SCOPE.md`
-4. `docs/pilot/bablos79_PHASE36_TEXT_RECAPTURE_PLAN.md`
-5. `docs/pilot/bablos79_CORPUS_GAP_REGISTER.md`
-6. `docs/pilot/bablos79_MEDIA_INVENTORY_EXPANDED.md`
+3. `docs/specs/CHANNEL_IMPACT_FRAMEWORK.md`
+4. `docs/pilot/three_channel_PHASE36_IMPACT_DEVELOPMENT_LOOP.md`
+5. `docs/pilot/bablos79_PHASE36_CORPUS_COMPLETION_SCOPE.md`
+6. `docs/pilot/bablos79_PHASE36_TEXT_RECAPTURE_PLAN.md`
 
 ## Canonical Artifacts
 
-- Phase 36 scope:
-  `docs/pilot/bablos79_PHASE36_CORPUS_COMPLETION_SCOPE.md`
-- Phase 36 text recapture plan:
-  `docs/pilot/bablos79_PHASE36_TEXT_RECAPTURE_PLAN.md`
-- V1 metrics:
-  `docs/pilot/three_channel_V1_METRIC_RESULTS.json`
-- V1 report:
-  `docs/pilot/reports/three_channel_V1_CHANNEL_UTILITY_REPORT.md`
-- V1 external gate:
-  `docs/pilot/three_channel_V1_EXTERNAL_READY_GATE.md`
-- False-negative pass:
-  `docs/pilot/three_channel_FALSE_NEGATIVE_PASS.json`
+- Impact framework: `docs/specs/CHANNEL_IMPACT_FRAMEWORK.md`
+- Phase 36 loop: `docs/pilot/three_channel_PHASE36_IMPACT_DEVELOPMENT_LOOP.md`
+- `bablos79` scope: `docs/pilot/bablos79_PHASE36_CORPUS_COMPLETION_SCOPE.md`
+- V1 metrics: `docs/pilot/three_channel_V1_METRIC_RESULTS.json`
+- V1 report: `docs/pilot/reports/three_channel_V1_CHANNEL_UTILITY_REPORT.md`
+- V1 gate: `docs/pilot/three_channel_V1_EXTERNAL_READY_GATE.md`
 ## Key Product Facts
 
 - Internal V1 validation is complete.
@@ -79,6 +70,9 @@ Active route: `SAS-BABLOS-003 Media Linkage Queue`.
 - `bablos79` Phase 36 blocker: current corpus is not a full 90-day multimodal
   capture; image/OCR is blocked until media is source-linked; audio remains
   internal-only until human/operator accepted.
+- Impact dimensions now include signal performance, trend sense, insight depth,
+  methodology, risk discipline, practical usefulness, creativity, and evidence
+  confidence.
 
 ## Active Guardrails
 

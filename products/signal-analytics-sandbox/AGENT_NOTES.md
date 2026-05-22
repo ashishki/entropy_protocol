@@ -7,8 +7,8 @@ Restart-relevant state only. Historical detail lives in
 
 ## Active State
 
-- Phase: 36 bablos79 Corpus Completion And Media Recovery
-- Active task: SAS-BABLOS-003 Media Linkage Queue
+- Phase: 36 Channel Impact Framework And Cross-Channel Completion
+- Active task: SAS-BABLOS-003 Media Linkage Queue, then SAS-IMPACT-003/004
 - Baseline: 295 pass / 0 skip
 - External gate: `approve_internal_only`
 - External delivery: not approved
@@ -17,24 +17,24 @@ Restart-relevant state only. Historical detail lives in
 ## Current Decision
 
 Internal V1 channel utility validation is complete for three channels. Phase 36
-is active because `bablos79` should not be presented as a full 90-day
-text/audio/image retrospective: current validated coverage is only 60 text
-captures over about 9 days, 2 internal-only audio refs, 0 source-linked
-image/OCR artifacts, and too few deterministic claims.
+now defines broader channel impact criteria and an equal evidence-completion
+loop for `bablos79`, `nemphiscrypts`, and `pifagortrade`.
 
 ## Next Action
 
-`SAS-BABLOS-001..002` created the Phase 36 scope and public text recapture
-plan. Continue with `SAS-BABLOS-003`: media linkage queue.
+`SAS-IMPACT-001..002` created the impact framework and three-channel loop.
+`SAS-BABLOS-001..002` created the first per-channel recovery path. Continue
+with `SAS-BABLOS-003`, then create equivalent scopes for the other two
+channels.
 
 Read first:
 
 1. `docs/CODEX_PROMPT.md`
 2. `docs/AI_DEVELOPMENT_PLAN_RU.md`
 3. `docs/tasks.md` Phase 36
-4. `docs/pilot/bablos79_PHASE36_CORPUS_COMPLETION_SCOPE.md`
-5. `docs/pilot/bablos79_PHASE36_TEXT_RECAPTURE_PLAN.md`
-6. `docs/pilot/bablos79_MEDIA_INVENTORY_EXPANDED.md`
+4. `docs/specs/CHANNEL_IMPACT_FRAMEWORK.md`
+5. `docs/pilot/three_channel_PHASE36_IMPACT_DEVELOPMENT_LOOP.md`
+6. `docs/pilot/bablos79_PHASE36_CORPUS_COMPLETION_SCOPE.md`
 
 ## Canonical Links
 
@@ -46,8 +46,10 @@ Read first:
   `docs/archive/PHASE27_REVIEW.md`
 - Follow-on plan:
   `docs/AI_DEVELOPMENT_PLAN_RU.md`
-- Phase 36 scope:
-  `docs/pilot/bablos79_PHASE36_CORPUS_COMPLETION_SCOPE.md`
+- Phase 36 impact framework:
+  `docs/specs/CHANNEL_IMPACT_FRAMEWORK.md`
+- Phase 36 development loop:
+  `docs/pilot/three_channel_PHASE36_IMPACT_DEVELOPMENT_LOOP.md`
 - State compaction archive:
   `docs/archive/POST_V1_STATE_COMPACTION_2026-05-19.md`
 

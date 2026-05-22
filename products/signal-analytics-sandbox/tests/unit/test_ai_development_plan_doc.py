@@ -16,7 +16,7 @@ def test_ai_development_plan_has_execution_tracks_and_phases() -> None:
         "Product packaging",
         "Phase 28 - External-Ready Review Sprint",
         "Phase 35 - Reliability And Scaling",
-        "Phase 36 - bablos79 Corpus Completion And Media Recovery",
+        "Phase 36 - Channel Impact Framework And Cross-Channel Completion",
     ):
         assert required in plan
 
@@ -37,6 +37,6 @@ def test_ai_development_plan_preserves_product_guardrails() -> None:
 def test_ai_development_plan_names_next_action_and_validation() -> None:
     plan = (PROJECT_ROOT / "docs/AI_DEVELOPMENT_PLAN_RU.md").read_text(encoding="utf-8")
 
-    assert "SAS-BABLOS-001 Corpus completion scope and gap plan" in plan
+    assert "SAS-BABLOS-003 Media Linkage Queue" in plan
     assert ".venv/bin/python -m pytest tests/ -q" in plan
     assert ".venv/bin/ruff check src/ tests/ scripts/" in plan

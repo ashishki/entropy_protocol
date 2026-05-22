@@ -240,57 +240,63 @@ Tasks:
 | SAS-NEXT-031 | Regression suite for known channels | golden tests | Known claims and metrics do not drift unexpectedly. |
 | SAS-NEXT-032 | Cost/time instrumentation | run metrics | Capture, review, market data, and report generation time/cost are measured. |
 
-### Phase 36 - bablos79 Corpus Completion And Media Recovery
+### Phase 36 - Channel Impact Framework And Cross-Channel Completion
 
-Goal: не делать сильный вывод по `bablos79`, пока не закрыт главный evidence
-gap: текущий corpus не является полноценным 90-day text/audio/image
-retrospective.
+Goal: перейти от "прибыль/убыток по сигналам" к широкой оценке импакта канала
+и применить одинаковый evidence loop к `bablos79`, `nemphiscrypts` и
+`pifagortrade`.
 
-Current reality:
+Core idea:
 
-- locked window был 90 дней: `2026-02-15` -> `2026-05-15`;
-- валидированный seed corpus содержит 60 text captures;
-- фактическое покрытие seed corpus: `2026-04-27` -> `2026-05-06`;
-- есть 2 audio rows и 3 transcript-derived broad claims, но они internal-only;
-- source-linked image/chart artifacts: 0, OCR не запускался;
-- reviewable non-blocker rows: 14, ниже target 30-50;
-- deterministic outcome-ready rows in deep `bablos79` ledger: 0.
+- dashboard должен показывать компактные базовые метрики и confidence;
+- paid deep report объясняет, почему канал так оценен, с evidence appendix;
+- PnL - только один слой, а не вся ценность канала;
+- trend sense, insight depth, methodology, risk management, practical
+  usefulness и creativity должны быть first-class criteria;
+- source of truth всегда разделяется на author statement, interpretation,
+  market outcome, and product conclusion.
 
 Tasks:
 
 | Task ID | Task | Output | Acceptance Criteria |
 |---|---|---|---|
-| SAS-BABLOS-001 | Corpus completion scope and gap plan | `docs/pilot/bablos79_PHASE36_CORPUS_COMPLETION_SCOPE.md` | Current coverage and media blockers are explicit. |
-| SAS-BABLOS-002 | Public text recapture plan | text recapture plan | Missing periods and message IDs have public capture or unavailable classification rules. |
-| SAS-BABLOS-003 | Media linkage queue | media queue md/json | Every image/chart/audio candidate has source linkage or blocker. |
-| SAS-BABLOS-004 | Transcript acceptance pass | transcript acceptance artifact | Audio claims stay internal until human/operator accepted. |
-| SAS-BABLOS-005 | OCR/vision draft pass | OCR draft artifact | OCR runs only on source-linked artifacts and remains draft pending review. |
-| SAS-BABLOS-006 | Multimodal claim recompute | updated ledger | Text + accepted transcript + accepted OCR claims are normalized. |
-| SAS-BABLOS-007 | Proxy and outcome recompute | outcome artifacts | Only deterministic rows with approved provider/proxy produce metrics. |
-| SAS-BABLOS-008 | Phase 36 external gate | gate artifact | Delivery is external-ready / internal-only / rejected with exact blockers. |
+| SAS-IMPACT-001 | Impact rubric and truth model | `docs/specs/CHANNEL_IMPACT_FRAMEWORK.md` | PnL and non-PnL dimensions plus source-of-truth layers are explicit. |
+| SAS-IMPACT-002 | Cross-channel development loop | loop artifact | Same loop applies to `bablos79`, `nemphiscrypts`, `pifagortrade`. |
+| SAS-BABLOS-001..008 | `bablos79` completion path | per-channel artifacts | Text/audio/image gaps are closed or carried as blockers. |
+| SAS-IMPACT-003 | `nemphiscrypts` completion scope | scope artifact | Same corpus/media/truth loop is defined. |
+| SAS-IMPACT-004 | `pifagortrade` completion scope | scope artifact | Same corpus/media/truth loop is defined. |
+| SAS-IMPACT-005 | Impact claim taxonomy expansion | taxonomy spec | Trend/insight/methodology/risk/creativity are reviewed evidence types. |
+| SAS-IMPACT-006 | Dashboard score schema | score schema | Compact metrics, confidence, sample size, and gate are defined. |
+| SAS-IMPACT-007 | Paid deep report boundary | boundary spec | Dashboard vs paid evidence/report content is separated. |
+| SAS-IMPACT-008 | Cross-channel impact recompute and gate | scorecard + gate | Three-channel comparison is confidence-aware and no-advice. |
 
 Stop condition:
 
 - If source rows or media cannot be linked to public/operator-authorized
   evidence, keep them as blockers; do not infer claims.
-- If after recapture the corpus still has too few deterministic claims, produce
-  an insufficient-evidence report instead of forcing a score.
+- If a channel has useful qualitative evidence but few deterministic trade
+  signals, score it as confidence-limited instead of forcing PnL conclusions.
 
 ## 5. Recommended Execution Order
 
 Do not start with a big dashboard. The highest-signal order is:
 
-1. `SAS-BABLOS-001..008` - finish the `bablos79` evidence gap before using it
+1. `SAS-IMPACT-001..002` - lock impact criteria, truth model, and dev loop.
+2. `SAS-BABLOS-001..008` - finish the `bablos79` evidence gap before using it
    as a long-period multimodal example.
-2. `SAS-NEXT-001..004` - external-ready review sprint.
-3. `SAS-NEXT-005..008` - review UI/workflow.
-4. `SAS-NEXT-013..016` - quant metrics V2.
-5. `SAS-NEXT-009..012` - provider/proxy expansion.
-6. `SAS-NEXT-021..024` - report productization.
-7. `SAS-NEXT-025..028` - buyer discovery and paid pilot.
-8. `SAS-NEXT-017..020` - multimodal expansion, unless buyer feedback proves
+3. `SAS-IMPACT-003..004` - apply the same completion scope to the other two
+   channels.
+4. `SAS-IMPACT-005..008` - taxonomy, dashboard schema, paid boundary, and
+   cross-channel recompute/gate.
+5. `SAS-NEXT-001..004` - external-ready review sprint.
+6. `SAS-NEXT-005..008` - review UI/workflow.
+7. `SAS-NEXT-013..016` - quant metrics V2.
+8. `SAS-NEXT-009..012` - provider/proxy expansion.
+9. `SAS-NEXT-021..024` - report productization.
+10. `SAS-NEXT-025..028` - buyer discovery and paid pilot.
+11. `SAS-NEXT-017..020` - multimodal expansion, unless buyer feedback proves
    media is urgent earlier.
-9. `SAS-NEXT-029..032` - reliability/scaling.
+12. `SAS-NEXT-029..032` - reliability/scaling.
 
 Reasoning:
 
@@ -384,16 +390,16 @@ Product success:
 
 ## 9. Current Recommendation
 
-Start with Phase 36 for `bablos79`, not with dashboard or marketplace.
+Start with Phase 36 impact framework, not with dashboard UI or marketplace.
 
-The next best task is:
+Current next task is:
 
-`SAS-BABLOS-001 Corpus completion scope and gap plan`
+`SAS-BABLOS-003 Media Linkage Queue`
 
 Why:
 
-- the current `bablos79` result is not a full 90-day multimodal retrospective;
-- image/OCR did not run because source-linked image artifacts are missing;
-- audio claims are internal-only until accepted;
-- only 14 reviewable non-blocker rows exist, below the 30-50 target;
-- fixing evidence coverage improves trust faster than UI polish.
+- `SAS-IMPACT-001..002` already define the framework and cross-channel loop;
+- `bablos79` is the first incomplete per-channel evidence case;
+- media linkage is the blocker before audio/OCR can become reviewed evidence;
+- the same linkage/completion pattern will then be applied to `nemphiscrypts`
+  and `pifagortrade`.

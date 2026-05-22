@@ -38,8 +38,8 @@ Phases:
 - **Phase 26** — Operator-gated evidence repair for `bablos79`.
 - **Phase 27** — Three-channel V1 metric report: reviewed extraction,
   level-aware outcomes, multimodal claims, and external-ready gate.
-- **Phase 36** — `bablos79` corpus completion and media recovery before any
-  stronger author-capability conclusion.
+- **Phase 36** — Channel impact framework and cross-channel evidence
+  completion before dashboard/deep-report comparison.
 
 Current active focus:
 
@@ -58,11 +58,9 @@ Current active focus:
   path but remains internal research. Phase 27 turns it into a reviewed V1
   channel comparison with extraction calibration, level-aware outcomes,
   multimodal evidence, provider/proxy expansion, and an external-ready gate.
-- After Phase 35, the new active route is Phase 36: fix the `bablos79`
-  evidence gap before claiming a long-period multimodal retrospective. The
-  current `bablos79` corpus has 60 validated text captures over about 9 days,
-  two internal-only audio transcripts, zero source-linked image/OCR artifacts,
-  and too few deterministic outcome-ready claims.
+- After Phase 35, the new active route is Phase 36: define a broader channel
+  impact framework and run the same evidence-completion loop for `bablos79`,
+  `nemphiscrypts`, and `pifagortrade` before dashboard/deep-report comparison.
 
 ---
 
@@ -3384,9 +3382,9 @@ Notes: |
 
 ---
 
-## Phase 36 — bablos79 Corpus Completion And Media Recovery
+## Phase 36 — Channel Impact Framework And Cross-Channel Completion
 
-### SAS-BABLOS-001: Corpus Completion Scope And Gap Plan ✅
+### SAS-IMPACT-001: Impact Rubric And Truth Model ✅
 
 Owner:      codex + operator
 Phase:      36
@@ -3394,11 +3392,79 @@ Type:       docs
 Depends-On: SAS-NEXT-032
 
 Objective: |
-  Convert the `bablos79` insufficient-evidence finding into a concrete recovery
-  phase. The task must make clear that the existing 90-day window is not fully
-  captured, images/OCR did not run, audio is internal-only, and the small
-  number of strict signals is an evidence-quality result rather than a product
-  bug.
+  Define the source-of-truth model and broad channel impact rubric used by the
+  future dashboard and paid deep report. The rubric must include PnL-like
+  signal performance, trend sense, insight depth, trading methodology, risk
+  management, practical usefulness, creativity/differentiation, and evidence
+  confidence.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/specs/CHANNEL_IMPACT_FRAMEWORK.md` defines author-statement truth, interpretation truth, market-outcome truth, and product-conclusion truth."
+    test: "tests/unit/test_channel_impact_framework.py::test_impact_framework_defines_truth_layers"
+  - id: AC-2
+    description: "The framework lists non-PnL dimensions: trend sense, insight depth, methodology, risk management, practical usefulness, creativity, and evidence confidence."
+    test: "tests/unit/test_channel_impact_framework.py::test_impact_framework_lists_non_pnl_dimensions"
+  - id: AC-3
+    description: "The framework separates dashboard fields from paid deep report content and blocks leaderboard/advice/future-profit framing."
+    test: "tests/unit/test_channel_impact_framework.py::test_impact_framework_defines_dashboard_and_paid_report_boundary"
+
+Files:
+  - docs/specs/CHANNEL_IMPACT_FRAMEWORK.md
+  - docs/tasks.md
+  - docs/AI_DEVELOPMENT_PLAN_RU.md
+  - docs/CODEX_PROMPT.md
+  - PHASE_HANDOFF.md
+  - AGENT_NOTES.md
+  - ORCHESTRATOR_CHECKPOINT.md
+  - MEMORY.md
+  - tests/unit/test_channel_impact_framework.py
+
+Context-Refs:
+  - docs/specs/CHANNEL_UTILITY_EVALUATION.md
+  - docs/specs/CHANNEL_QUANT_METRICS_V2.md
+  - docs/pilot/reports/three_channel_V1_CHANNEL_UTILITY_REPORT.md
+
+Notes: |
+  This task expands evaluation criteria. It does not change existing V1 metrics
+  or approve external delivery.
+
+### SAS-IMPACT-002: Cross-Channel Development Loop ✅
+
+Owner:      codex + operator
+Phase:      36
+Type:       docs
+Depends-On: SAS-IMPACT-001
+
+Objective: |
+  Turn the impact framework into a repeated development loop for `bablos79`,
+  `nemphiscrypts`, and `pifagortrade`: source coverage, multimodal intake,
+  claim normalization, truth mapping, impact scoring, and cross-channel
+  comparison.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/three_channel_PHASE36_IMPACT_DEVELOPMENT_LOOP.md` lists the same loop steps for all three channels."
+    test: "tests/unit/test_channel_impact_framework.py::test_cross_channel_loop_covers_three_channels"
+  - id: AC-2
+    description: "The loop states dashboard output and paid deep report output separately."
+    test: "tests/unit/test_channel_impact_framework.py::test_cross_channel_loop_separates_dashboard_and_paid_report"
+
+Files:
+  - docs/pilot/three_channel_PHASE36_IMPACT_DEVELOPMENT_LOOP.md
+
+### SAS-BABLOS-001: bablos79 Corpus Completion Scope And Gap Plan ✅
+
+Owner:      codex + operator
+Phase:      36
+Type:       docs
+Depends-On: SAS-IMPACT-002
+
+Objective: |
+  Apply the Phase 36 cross-channel loop to `bablos79` first. The task must make
+  clear that the existing 90-day window is not fully captured, images/OCR did
+  not run, audio is internal-only, and the small number of strict signals is an
+  evidence-quality result rather than a product bug.
 
 Acceptance-Criteria:
   - id: AC-1
@@ -3430,7 +3496,7 @@ Context-Refs:
   - docs/pilot/bablos79_TRANSCRIPT_LLM_REVIEW.md
 
 Notes: |
-  This task starts Phase 36 but does not run public recapture, OCR,
+  This task starts the per-channel `bablos79` recovery path but does not run public recapture, OCR,
   transcription, market-data fetch, or outcome recompute.
 
 ### SAS-BABLOS-002: Public Text Recapture Plan ✅
@@ -3592,6 +3658,142 @@ Acceptance-Criteria:
 
 Files:
   - docs/pilot/bablos79_PHASE36_EXTERNAL_READY_GATE.md
+
+### SAS-IMPACT-003: nemphiscrypts Corpus Completion Scope
+
+Owner:      codex + operator
+Phase:      36
+Type:       docs
+Depends-On: SAS-IMPACT-002
+
+Objective: |
+  Create the same corpus/media completion scope for `nemphiscrypts` that exists
+  for `bablos79`, including text coverage, audio/image/chart status, claim
+  count, provider gaps, and stop conditions.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "The scope records source coverage, media status, missing periods/IDs, and next capture/review steps."
+    test: "manual/docs-review"
+  - id: AC-2
+    description: "The scope uses the same truth and impact dimensions defined in `CHANNEL_IMPACT_FRAMEWORK.md`."
+    test: "manual/docs-review"
+
+Files:
+  - docs/pilot/nemphiscrypts_PHASE36_CORPUS_COMPLETION_SCOPE.md
+
+### SAS-IMPACT-004: pifagortrade Corpus Completion Scope
+
+Owner:      codex + operator
+Phase:      36
+Type:       docs
+Depends-On: SAS-IMPACT-002
+
+Objective: |
+  Create the same corpus/media completion scope for `pifagortrade`, including
+  text coverage, audio/image/chart status, claim count, provider gaps, and stop
+  conditions.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "The scope records source coverage, media status, missing periods/IDs, and next capture/review steps."
+    test: "manual/docs-review"
+  - id: AC-2
+    description: "The scope uses the same truth and impact dimensions defined in `CHANNEL_IMPACT_FRAMEWORK.md`."
+    test: "manual/docs-review"
+
+Files:
+  - docs/pilot/pifagortrade_PHASE36_CORPUS_COMPLETION_SCOPE.md
+
+### SAS-IMPACT-005: Impact Claim Taxonomy Expansion
+
+Owner:      codex
+Phase:      36
+Type:       validation
+Depends-On: SAS-IMPACT-001, SAS-BABLOS-006, SAS-IMPACT-003, SAS-IMPACT-004
+
+Objective: |
+  Expand normalized claim/idea taxonomy so trend sense, insight depth,
+  methodology, risk management, practical usefulness, and creativity can be
+  reviewed as first-class evidence, not forced into PnL-only signal rows.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Taxonomy distinguishes explicit trade setup, trend/regime view, macro thesis, risk/process statement, watchlist, and non-market commentary."
+    test: "manual/docs-review"
+  - id: AC-2
+    description: "Non-PnL claims have review/evidence/confidence fields and cannot become win/loss rows without deterministic market mapping."
+    test: "manual/docs-review"
+
+Files:
+  - docs/specs/CHANNEL_IMPACT_CLAIM_TAXONOMY.md
+
+### SAS-IMPACT-006: Dashboard Score Schema
+
+Owner:      codex + operator
+Phase:      36
+Type:       validation
+Depends-On: SAS-IMPACT-005
+
+Objective: |
+  Define the dashboard-ready dataset and score schema for compact channel
+  comparison with confidence labels and no universal leaderboard.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Schema includes signal performance, trend sense, insight depth, methodology clarity, risk discipline, practical usefulness, creativity, evidence confidence, sample size, and external gate."
+    test: "manual/docs-review"
+  - id: AC-2
+    description: "Schema forbids best-channel, future-profit, and investment-advice language."
+    test: "manual/docs-review"
+
+Files:
+  - docs/specs/CHANNEL_DASHBOARD_SCORE_SCHEMA.md
+
+### SAS-IMPACT-007: Paid Deep Report Boundary
+
+Owner:      codex + operator
+Phase:      36
+Type:       docs
+Depends-On: SAS-IMPACT-006
+
+Objective: |
+  Define what stays in the paid deep report versus what can safely appear in a
+  public/free dashboard.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Boundary separates compact public metrics from paid evidence appendix, examples, counterexamples, methodology/risk notes, and source limitations."
+    test: "manual/docs-review"
+  - id: AC-2
+    description: "Boundary preserves no-advice, no-future-profit, no-private-source, and external-gate rules."
+    test: "manual/docs-review"
+
+Files:
+  - docs/specs/PAID_CHANNEL_REPORT_BOUNDARY.md
+
+### SAS-IMPACT-008: Cross-Channel Impact Recompute And Gate
+
+Owner:      codex + operator
+Phase:      36
+Type:       review
+Depends-On: SAS-BABLOS-008, SAS-IMPACT-003, SAS-IMPACT-004, SAS-IMPACT-006, SAS-IMPACT-007
+
+Objective: |
+  Recompute cross-channel comparison using the impact framework and decide what
+  is dashboard-safe, paid-report-only, internal-only, or blocked.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Comparison includes all three channels and uses confidence/sample-size caveats."
+    test: "manual/review"
+  - id: AC-2
+    description: "Gate explicitly decides dashboard-safe fields, paid-report-only fields, internal-only fields, and blocked claims."
+    test: "manual/review"
+
+Files:
+  - docs/pilot/three_channel_PHASE36_IMPACT_SCORECARD.md
+  - docs/pilot/three_channel_PHASE36_EXTERNAL_READY_GATE.md
 
 ## Phase 28 — External-Ready Review Sprint
 

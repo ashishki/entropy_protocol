@@ -4,8 +4,8 @@ Date: 2026-05-22
 
 ## Current State
 
-- Phase: 36 bablos79 Corpus Completion And Media Recovery
-- Active task: SAS-BABLOS-003 Media Linkage Queue
+- Phase: 36 Channel Impact Framework And Cross-Channel Completion
+- Active task: SAS-BABLOS-003 Media Linkage Queue, then SAS-IMPACT-003/004
 - Baseline: 295 pass / 0 skip
 - Ruff: clean
 - Pyright: clean
@@ -13,12 +13,13 @@ Date: 2026-05-22
 
 ## Handoff
 
-Planned phases 0-35 and `SAS-NEXT-001..032` are complete. Phase 36 is now
-active because the current `bablos79` evidence is partial, not a full 90-day
-text/audio/image retrospective.
+Planned phases 0-35 and `SAS-NEXT-001..032` are complete. Phase 36 is now a
+cross-channel impact loop: broader criteria, source-of-truth model, dashboard
+vs paid-report boundary, and equal evidence completion for all three channels.
 
-`SAS-BABLOS-001..002` created the scope and public text recapture plan. Next
-work is the media linkage queue for image/chart/audio candidates.
+`SAS-IMPACT-001..002` created the framework and development loop.
+`SAS-BABLOS-001..002` created the first per-channel recovery path. Next work is
+`SAS-BABLOS-003`, then equivalent scopes for `nemphiscrypts` and `pifagortrade`.
 
 ## Read First
 
@@ -26,9 +27,9 @@ work is the media linkage queue for image/chart/audio candidates.
 2. `docs/CODEX_PROMPT.md`
 3. `docs/AI_DEVELOPMENT_PLAN_RU.md`
 4. `docs/tasks.md` Phase 36
-5. `docs/pilot/bablos79_PHASE36_CORPUS_COMPLETION_SCOPE.md`
-6. `docs/pilot/bablos79_PHASE36_TEXT_RECAPTURE_PLAN.md`
-7. `docs/pilot/bablos79_MEDIA_INVENTORY_EXPANDED.md`
+5. `docs/specs/CHANNEL_IMPACT_FRAMEWORK.md`
+6. `docs/pilot/three_channel_PHASE36_IMPACT_DEVELOPMENT_LOOP.md`
+7. `docs/pilot/bablos79_PHASE36_CORPUS_COMPLETION_SCOPE.md`
 
 ## Do Not Do
 

@@ -4,6 +4,10 @@ Date: 2026-05-22
 Status: scope_complete_text_recapture_plan_started
 Owner: codex + operator
 
+Parent phase: Channel Impact Framework And Cross-Channel Completion.
+Cross-channel loop: `docs/pilot/three_channel_PHASE36_IMPACT_DEVELOPMENT_LOOP.md`.
+Impact framework: `docs/specs/CHANNEL_IMPACT_FRAMEWORK.md`.
+
 ## Why This Phase Exists
 
 The current `bablos79` retrospective should not be described as a long-period
@@ -23,7 +27,9 @@ Current evidence state:
 | Reviewable non-blocker claim rows | 14 | Below 30-50 target. |
 | Deterministic outcome-ready rows | 0 in deep `bablos79` ledger | No strict per-author outcome metrics yet. |
 
-This phase converts the limitation into a concrete recovery plan.
+This per-channel path converts the limitation into a concrete recovery plan.
+The same evidence-completion pattern must later run for `nemphiscrypts` and
+`pifagortrade` before cross-channel comparison.
 
 ## Phase Goal
 

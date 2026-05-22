@@ -4,9 +4,10 @@ Date: 2026-05-22
 
 ## Current State
 
-- Phase 36 is active: `bablos79` Corpus Completion And Media Recovery.
-- Latest completed item: SAS-BABLOS-002 Public Text Recapture Plan.
-- Next task: SAS-BABLOS-003 Media Linkage Queue.
+- Phase 36 is active: Channel Impact Framework And Cross-Channel Completion.
+- Latest completed item: SAS-IMPACT-002 Cross-Channel Development Loop.
+- Next task: SAS-BABLOS-003 Media Linkage Queue, then SAS-IMPACT-003/004
+  per-channel completion scopes for `nemphiscrypts` and `pifagortrade`.
 - Baseline: 295 passing tests, 0 skipped.
 - Ruff: pass.
 - Pyright: pass.
@@ -14,14 +15,16 @@ Date: 2026-05-22
 
 ## Current Blocker
 
-External delivery remains `approve_internal_only`. The current `bablos79`
-evidence is partial: 60 validated text captures over about 9 days, 2
-internal-only audio refs, 0 source-linked image/OCR artifacts, and too few
-deterministic claims for a long-period author conclusion.
+External delivery remains `approve_internal_only`. Phase 36 now evaluates
+channel impact beyond PnL: signal performance, trend sense, insight depth,
+methodology, risk discipline, practical usefulness, creativity, and evidence
+confidence.
 
 ## Canonical Artifacts
 
 - `docs/AI_DEVELOPMENT_PLAN_RU.md`
+- `docs/specs/CHANNEL_IMPACT_FRAMEWORK.md`
+- `docs/pilot/three_channel_PHASE36_IMPACT_DEVELOPMENT_LOOP.md`
 - `docs/pilot/bablos79_PHASE36_CORPUS_COMPLETION_SCOPE.md`
 - `docs/pilot/bablos79_PHASE36_TEXT_RECAPTURE_PLAN.md`
 - `docs/pilot/three_channel_V1_METRIC_RESULTS.json`
