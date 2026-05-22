@@ -1,9 +1,9 @@
 # MEMORY - Signal Analytics Sandbox
 
-Last completed: SAS-NEXT-032 Cost And Time Instrumentation at 2026-05-19
+Last completed: SAS-BABLOS-002 Public Text Recapture Plan at 2026-05-22
 Baseline: 295 pass / 0 skip
-Next task: none in current SAS-NEXT roadmap
-Phase: Phase 35 - Reliability And Scaling
+Next task: SAS-BABLOS-003 Media Linkage Queue
+Phase: Phase 36 - bablos79 Corpus Completion And Media Recovery
 Review tier next: light
 External gate: approve_internal_only
-Any blockers: external delivery remains approve_internal_only until durable operator decisions, provider/media expansion, and setup/RR coverage are complete. Core is paused.
+Any blockers: current bablos79 evidence is not full 90-day multimodal coverage; image/OCR has 0 source-linked artifacts; audio is internal-only until human/operator accepted; text coverage needs recapture/classification.

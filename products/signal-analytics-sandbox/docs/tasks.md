@@ -38,6 +38,8 @@ Phases:
 - **Phase 26** — Operator-gated evidence repair for `bablos79`.
 - **Phase 27** — Three-channel V1 metric report: reviewed extraction,
   level-aware outcomes, multimodal claims, and external-ready gate.
+- **Phase 36** — `bablos79` corpus completion and media recovery before any
+  stronger author-capability conclusion.
 
 Current active focus:
 
@@ -56,6 +58,11 @@ Current active focus:
   path but remains internal research. Phase 27 turns it into a reviewed V1
   channel comparison with extraction calibration, level-aware outcomes,
   multimodal evidence, provider/proxy expansion, and an external-ready gate.
+- After Phase 35, the new active route is Phase 36: fix the `bablos79`
+  evidence gap before claiming a long-period multimodal retrospective. The
+  current `bablos79` corpus has 60 validated text captures over about 9 days,
+  two internal-only audio transcripts, zero source-linked image/OCR artifacts,
+  and too few deterministic outcome-ready claims.
 
 ---
 
@@ -3374,6 +3381,217 @@ Context-Refs:
 
 Notes: |
   This is a phase gate. Do not skip deep review.
+
+---
+
+## Phase 36 — bablos79 Corpus Completion And Media Recovery
+
+### SAS-BABLOS-001: Corpus Completion Scope And Gap Plan ✅
+
+Owner:      codex + operator
+Phase:      36
+Type:       docs
+Depends-On: SAS-NEXT-032
+
+Objective: |
+  Convert the `bablos79` insufficient-evidence finding into a concrete recovery
+  phase. The task must make clear that the existing 90-day window is not fully
+  captured, images/OCR did not run, audio is internal-only, and the small
+  number of strict signals is an evidence-quality result rather than a product
+  bug.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/bablos79_PHASE36_CORPUS_COMPLETION_SCOPE.md` records the current text/audio/image coverage counts and explains why the current corpus cannot support a long-period multimodal author conclusion."
+    test: "tests/unit/test_bablos79_phase36_scope.py::test_phase36_scope_records_current_bablos_limitations"
+  - id: AC-2
+    description: "The phase defines tasks for text recapture, media linkage, transcript acceptance, OCR/vision draft pass, claim recompute, proxy/outcome recompute, and external gate rerun."
+    test: "tests/unit/test_bablos79_phase36_scope.py::test_phase36_scope_lists_recovery_tasks"
+  - id: AC-3
+    description: "The phase states that OCR/vision and transcript output are draft/internal until human/operator accepted."
+    test: "tests/unit/test_bablos79_phase36_scope.py::test_phase36_scope_preserves_media_guardrails"
+
+Files:
+  - docs/pilot/bablos79_PHASE36_CORPUS_COMPLETION_SCOPE.md
+  - docs/tasks.md
+  - docs/AI_DEVELOPMENT_PLAN_RU.md
+  - docs/CODEX_PROMPT.md
+  - PHASE_HANDOFF.md
+  - AGENT_NOTES.md
+  - ORCHESTRATOR_CHECKPOINT.md
+  - MEMORY.md
+  - tests/unit/test_bablos79_phase36_scope.py
+
+Context-Refs:
+  - docs/pilot/bablos79_EXPANDED_CAPTURE_PACK.md
+  - docs/pilot/bablos79_CORPUS_GAP_REGISTER.md
+  - docs/pilot/bablos79_MEDIA_INVENTORY_EXPANDED.md
+  - docs/pilot/bablos79_OCR_RUN_EXPANDED.md
+  - docs/pilot/bablos79_TRANSCRIPT_LLM_REVIEW.md
+
+Notes: |
+  This task starts Phase 36 but does not run public recapture, OCR,
+  transcription, market-data fetch, or outcome recompute.
+
+### SAS-BABLOS-002: Public Text Recapture Plan ✅
+
+Owner:      codex + operator
+Phase:      36
+Type:       docs
+Depends-On: SAS-BABLOS-001
+
+Objective: |
+  Plan the public Telegram `/s/` recapture for missing `bablos79` periods and
+  missing message IDs without private scraping or guessing unavailable rows.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "The plan enumerates pre-seed and post-seed windows, missing IDs, capture method, and unavailable/deleted/media-only classification rules."
+    test: "manual/docs-review"
+  - id: AC-2
+    description: "The plan states that absent rows are neither positive nor negative author evidence."
+    test: "manual/docs-review"
+
+Files:
+  - docs/pilot/bablos79_PHASE36_TEXT_RECAPTURE_PLAN.md
+
+Notes: |
+  This task creates the plan only. It does not run public network recapture.
+
+### SAS-BABLOS-003: Media Linkage Queue
+
+Owner:      codex + operator
+Phase:      36
+Type:       docs
+Depends-On: SAS-BABLOS-002
+
+Objective: |
+  Build a queue for image/chart/audio candidates that records exact source
+  URL, capture ID, source document ID, media file/checksum, and blocker status.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Every image/chart/audio candidate has a source-linked artifact or explicit blocker."
+    test: "manual/docs-review"
+  - id: AC-2
+    description: "Chart rows require manual interpretation review before claim use."
+    test: "manual/docs-review"
+
+Files:
+  - docs/pilot/bablos79_PHASE36_MEDIA_LINKAGE_QUEUE.md
+  - docs/pilot/bablos79_PHASE36_MEDIA_LINKAGE_QUEUE.json
+
+### SAS-BABLOS-004: Transcript Acceptance Pass
+
+Owner:      operator
+Phase:      36
+Type:       review
+Depends-On: SAS-BABLOS-003
+
+Objective: |
+  Accept/reject/needs_context each transcript before it can create
+  customer-facing claims.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Each transcript ref has human/operator status and reason."
+    test: "manual/review"
+  - id: AC-2
+    description: "Rejected or needs_context transcript claims remain excluded from customer-facing metrics."
+    test: "manual/review"
+
+Files:
+  - docs/pilot/bablos79_PHASE36_TRANSCRIPT_ACCEPTANCE.md
+
+### SAS-BABLOS-005: OCR/Vision Draft Pass
+
+Owner:      codex + operator
+Phase:      36
+Type:       validation
+Depends-On: SAS-BABLOS-003
+
+Objective: |
+  Run OCR/vision only on source-linked image/chart artifacts and keep output as
+  draft evidence pending human/operator review.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "OCR artifacts record source linkage, checksum, provider/model, confidence/limitations, and draft status."
+    test: "manual/docs-review"
+  - id: AC-2
+    description: "No chart interpretation claim is approved without manual review."
+    test: "manual/docs-review"
+
+Files:
+  - docs/pilot/bablos79_PHASE36_OCR_DRAFTS.md
+
+### SAS-BABLOS-006: Multimodal Claim Recompute
+
+Owner:      codex
+Phase:      36
+Type:       validation
+Depends-On: SAS-BABLOS-004, SAS-BABLOS-005
+
+Objective: |
+  Recompute the `bablos79` claim ledger using text plus accepted transcript and
+  accepted OCR evidence.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "The recomputed ledger separates text, accepted transcript, accepted OCR, rejected media, and blockers."
+    test: "manual/docs-review"
+  - id: AC-2
+    description: "Every deterministic candidate has asset, direction, horizon, and review state or explicit blocker."
+    test: "manual/docs-review"
+
+Files:
+  - docs/pilot/bablos79_PHASE36_CLAIM_LEDGER.md
+  - docs/pilot/bablos79_PHASE36_CLAIM_LEDGER.json
+
+### SAS-BABLOS-007: Proxy And Outcome Recompute
+
+Owner:      codex + operator
+Phase:      36
+Type:       validation
+Depends-On: SAS-BABLOS-006
+
+Objective: |
+  Recompute market outcomes only for deterministic rows with approved
+  provider/proxy mapping.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Provider gaps are exclusions, not losses."
+    test: "manual/docs-review"
+  - id: AC-2
+    description: "Outcome artifacts include source refs, provider refs, horizon, metric, and unsupported-row counts."
+    test: "manual/docs-review"
+
+Files:
+  - docs/pilot/bablos79_PHASE36_OUTCOMES.md
+  - docs/pilot/bablos79_PHASE36_OUTCOMES.json
+
+### SAS-BABLOS-008: Phase 36 External Gate
+
+Owner:      operator + codex
+Phase:      36
+Type:       review
+Depends-On: SAS-BABLOS-007
+
+Objective: |
+  Decide whether the completed `bablos79` retrospective is external-ready,
+  internal-only, or still rejected.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Gate records external-ready / internal-only / rejected with blockers, evidence coverage, media status, and no-advice boundary."
+    test: "manual/review"
+  - id: AC-2
+    description: "Gate does not approve external delivery if media review, provider coverage, or deterministic outcome quality remains insufficient."
+    test: "manual/review"
+
+Files:
+  - docs/pilot/bablos79_PHASE36_EXTERNAL_READY_GATE.md
 
 ## Phase 28 — External-Ready Review Sprint
 

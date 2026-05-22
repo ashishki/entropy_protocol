@@ -9,13 +9,14 @@ def test_post_v1_task_graph_lists_next_phases_and_active_task() -> None:
     tasks = (PROJECT_ROOT / "docs/tasks.md").read_text(encoding="utf-8")
     prompt = (PROJECT_ROOT / "docs/CODEX_PROMPT.md").read_text(encoding="utf-8")
 
-    for task_id in ("SAS-NEXT-001", "SAS-NEXT-004", "SAS-NEXT-032"):
+    for task_id in ("SAS-NEXT-001", "SAS-NEXT-004", "SAS-NEXT-032", "SAS-BABLOS-001"):
         assert task_id in tasks
 
     assert "## Phase 28 — External-Ready Review Sprint" in tasks
     assert "## Phase 35 — Reliability And Scaling" in tasks
-    assert "Latest completed: `SAS-NEXT-032 Cost And Time Instrumentation`" in prompt
-    assert "No active `SAS-NEXT` task remains in the current roadmap." in prompt
+    assert "## Phase 36 — bablos79 Corpus Completion And Media Recovery" in tasks
+    assert "Latest completed: `SAS-BABLOS-002 Public Text Recapture Plan`" in prompt
+    assert "Active route: `SAS-BABLOS-003 Media Linkage Queue`." in prompt
 
 
 def test_active_state_files_are_compacted_to_current_links() -> None:

@@ -240,19 +240,57 @@ Tasks:
 | SAS-NEXT-031 | Regression suite for known channels | golden tests | Known claims and metrics do not drift unexpectedly. |
 | SAS-NEXT-032 | Cost/time instrumentation | run metrics | Capture, review, market data, and report generation time/cost are measured. |
 
+### Phase 36 - bablos79 Corpus Completion And Media Recovery
+
+Goal: не делать сильный вывод по `bablos79`, пока не закрыт главный evidence
+gap: текущий corpus не является полноценным 90-day text/audio/image
+retrospective.
+
+Current reality:
+
+- locked window был 90 дней: `2026-02-15` -> `2026-05-15`;
+- валидированный seed corpus содержит 60 text captures;
+- фактическое покрытие seed corpus: `2026-04-27` -> `2026-05-06`;
+- есть 2 audio rows и 3 transcript-derived broad claims, но они internal-only;
+- source-linked image/chart artifacts: 0, OCR не запускался;
+- reviewable non-blocker rows: 14, ниже target 30-50;
+- deterministic outcome-ready rows in deep `bablos79` ledger: 0.
+
+Tasks:
+
+| Task ID | Task | Output | Acceptance Criteria |
+|---|---|---|---|
+| SAS-BABLOS-001 | Corpus completion scope and gap plan | `docs/pilot/bablos79_PHASE36_CORPUS_COMPLETION_SCOPE.md` | Current coverage and media blockers are explicit. |
+| SAS-BABLOS-002 | Public text recapture plan | text recapture plan | Missing periods and message IDs have public capture or unavailable classification rules. |
+| SAS-BABLOS-003 | Media linkage queue | media queue md/json | Every image/chart/audio candidate has source linkage or blocker. |
+| SAS-BABLOS-004 | Transcript acceptance pass | transcript acceptance artifact | Audio claims stay internal until human/operator accepted. |
+| SAS-BABLOS-005 | OCR/vision draft pass | OCR draft artifact | OCR runs only on source-linked artifacts and remains draft pending review. |
+| SAS-BABLOS-006 | Multimodal claim recompute | updated ledger | Text + accepted transcript + accepted OCR claims are normalized. |
+| SAS-BABLOS-007 | Proxy and outcome recompute | outcome artifacts | Only deterministic rows with approved provider/proxy produce metrics. |
+| SAS-BABLOS-008 | Phase 36 external gate | gate artifact | Delivery is external-ready / internal-only / rejected with exact blockers. |
+
+Stop condition:
+
+- If source rows or media cannot be linked to public/operator-authorized
+  evidence, keep them as blockers; do not infer claims.
+- If after recapture the corpus still has too few deterministic claims, produce
+  an insufficient-evidence report instead of forcing a score.
+
 ## 5. Recommended Execution Order
 
 Do not start with a big dashboard. The highest-signal order is:
 
-1. `SAS-NEXT-001..004` - external-ready review sprint.
-2. `SAS-NEXT-005..008` - review UI/workflow.
-3. `SAS-NEXT-013..016` - quant metrics V2.
-4. `SAS-NEXT-009..012` - provider/proxy expansion.
-5. `SAS-NEXT-021..024` - report productization.
-6. `SAS-NEXT-025..028` - buyer discovery and paid pilot.
-7. `SAS-NEXT-017..020` - multimodal expansion, unless buyer feedback proves
+1. `SAS-BABLOS-001..008` - finish the `bablos79` evidence gap before using it
+   as a long-period multimodal example.
+2. `SAS-NEXT-001..004` - external-ready review sprint.
+3. `SAS-NEXT-005..008` - review UI/workflow.
+4. `SAS-NEXT-013..016` - quant metrics V2.
+5. `SAS-NEXT-009..012` - provider/proxy expansion.
+6. `SAS-NEXT-021..024` - report productization.
+7. `SAS-NEXT-025..028` - buyer discovery and paid pilot.
+8. `SAS-NEXT-017..020` - multimodal expansion, unless buyer feedback proves
    media is urgent earlier.
-8. `SAS-NEXT-029..032` - reliability/scaling.
+9. `SAS-NEXT-029..032` - reliability/scaling.
 
 Reasoning:
 
@@ -346,15 +384,16 @@ Product success:
 
 ## 9. Current Recommendation
 
-Start with Phase 28, not with dashboard or marketplace.
+Start with Phase 36 for `bablos79`, not with dashboard or marketplace.
 
 The next best task is:
 
-`SAS-NEXT-001 Full-corpus human review queue`
+`SAS-BABLOS-001 Corpus completion scope and gap plan`
 
 Why:
 
-- current gate is blocked mostly by review coverage;
-- review coverage improves trust faster than new UI polish;
-- full review gives the data needed for better extractor precision/recall;
-- it directly supports a paid pilot report.
+- the current `bablos79` result is not a full 90-day multimodal retrospective;
+- image/OCR did not run because source-linked image artifacts are missing;
+- audio claims are internal-only until accepted;
+- only 14 reviewable non-blocker rows exist, below the 30-50 target;
+- fixing evidence coverage improves trust faster than UI polish.
