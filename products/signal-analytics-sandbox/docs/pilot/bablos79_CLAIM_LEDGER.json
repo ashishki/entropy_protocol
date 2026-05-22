@@ -1,0 +1,2193 @@
+{
+  "ledger_id": "bablos79-claim-ledger-draft-v1",
+  "generated_at_utc": "2026-05-15T13:25:00+00:00",
+  "status": "draft_insufficient_reviewable_claims_external_blocked",
+  "source_id": "bablos79",
+  "taxonomy_artifact": "docs/pilot/bablos79_CLAIM_TAXONOMY.md",
+  "input_artifacts": [
+    "docs/pilot/bablos79_CAPTURE_PACK.json",
+    "docs/pilot/bablos79_EXPANDED_CAPTURE_MANIFEST.json",
+    "docs/pilot/bablos79_TRANSCRIPT_LLM_REVIEW.json",
+    "docs/pilot/bablos79_REVIEWED_MEDIA_EVIDENCE.md",
+    "docs/pilot/bablos79_CORPUS_GAP_REGISTER.md"
+  ],
+  "summary": {
+    "total_rows": 67,
+    "text_capture_rows": 60,
+    "llm_reviewed_transcript_claims": 3,
+    "unsupported_media_blocker_rows": 4,
+    "reviewable_claim_rows": 14,
+    "target_reviewable_claim_floor": 30,
+    "target_reviewable_claim_ceiling": 50,
+    "insufficient_corpus_decision": true,
+    "deterministic_outcome_ready_rows": 0,
+    "customer_report_eligible_rows": 0,
+    "external_delivery_status": "blocked_no_external_eligible_media_or_outcomes",
+    "category_counts": {
+      "directional_bias": 6,
+      "event_risk": 1,
+      "level_timing_call": 4,
+      "macro_context": 2,
+      "non_market_commentary": 49,
+      "unsupported_media_claim": 4,
+      "watchlist": 1
+    },
+    "review_state_counts": {
+      "ambiguous_needs_operator_review": 3,
+      "blocked_missing_capture_rows": 2,
+      "blocked_missing_source_linkage": 2,
+      "llm_reviewed_internal": 3,
+      "reviewed_context_only": 1,
+      "reviewed_excluded_non_market": 49,
+      "reviewed_insufficient_evidence": 7
+    },
+    "measurability_counts": {
+      "ambiguous_or_insufficient": 4,
+      "ambiguous_weak": 1,
+      "context_only": 1,
+      "insufficient_fields": 4,
+      "non_measurable": 1,
+      "non_measurable_internal_only": 3,
+      "not_applicable": 49,
+      "unsupported_media": 4
+    }
+  },
+  "insufficient_corpus_reasons": [
+    "Only 14 reviewable non-blocker claim rows are present, below the 30-50 target.",
+    "The locked 90-day window is only partially represented by local seed captures.",
+    "Two transcript refs are LLM-reviewed internal only and not external accepted.",
+    "Zero reviewed image/OCR refs exist.",
+    "All deterministic outcome-ready counts are zero pending proxy mapping and market data."
+  ],
+  "claims": [
+    {
+      "claim_id": "claim_text_bablos79_10442",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10442",
+      "source_document_id": "bablos79:bablos79-10442",
+      "source_timestamp_utc": "2026-04-27T07:12:22Z",
+      "evidence_url": "https://t.me/bablos79/10442",
+      "text_sha256": "b3efd9207df62a8bc98381986770a9856d6a895fd6eba5d1d845a235ec50bb39",
+      "category": "directional_bias",
+      "market_idea_type": "directional_thesis",
+      "asset_proxy_candidates": [
+        "X5"
+      ],
+      "direction": "unknown",
+      "horizon": null,
+      "review_state": "reviewed_insufficient_evidence",
+      "measurability_status": "ambiguous_or_insufficient",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10442.json"
+      ],
+      "claim_text": "☄️ По #X5 кто то жестко набирает, но мне очень кажется, что зря…",
+      "evidence_span": "☄️ По #X5 кто то жестко набирает, но мне очень кажется, что зря…",
+      "outcome_blockers": [
+        "Missing fields: direction, entry, stop, target",
+        "Required deterministic outcome fields are missing or ambiguous."
+      ],
+      "source_review_status": "insufficient_fields",
+      "confidence": 0.39,
+      "uncertainty_reason": "Ticker is present, but phrase is accumulation/commentary without an actionable entry, stop, or target."
+    },
+    {
+      "claim_id": "claim_text_bablos79_10443",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10443",
+      "source_document_id": "bablos79:bablos79-10443",
+      "source_timestamp_utc": "2026-04-27T07:37:49Z",
+      "evidence_url": "https://t.me/bablos79/10443",
+      "text_sha256": "e8cc076d6964b735e01793ea6306204aa895ffa5817f3656d8547d9ec7bc54c0",
+      "category": "directional_bias",
+      "market_idea_type": "directional_thesis",
+      "asset_proxy_candidates": [
+        "VTBR"
+      ],
+      "direction": "unknown",
+      "horizon": null,
+      "review_state": "reviewed_insufficient_evidence",
+      "measurability_status": "ambiguous_or_insufficient",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10443.json"
+      ],
+      "claim_text": "#VTBR похоже на грани срыва.\nУ банка недостаток ликвидности.\nОпять загнали народ, ничему не учатся…",
+      "evidence_span": "#VTBR похоже на грани срыва.\nУ банка недостаток ликвидности.\nОпять загнали народ, ничему не учатся…",
+      "outcome_blockers": [
+        "Missing fields: direction, entry, stop, target",
+        "Required deterministic outcome fields are missing or ambiguous."
+      ],
+      "source_review_status": "insufficient_fields",
+      "confidence": 0.36,
+      "uncertainty_reason": "VTBR risk commentary is present, but no trade setup fields are stated."
+    },
+    {
+      "claim_id": "claim_text_bablos79_10444",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10444",
+      "source_document_id": "bablos79:bablos79-10444",
+      "source_timestamp_utc": "2026-04-27T08:12:53Z",
+      "evidence_url": "https://t.me/bablos79/10444",
+      "text_sha256": "c785dddfdda0d6930af3bbfadddf809c8be0d5b408571a850bb086b8ca94e420",
+      "category": "non_market_commentary",
+      "market_idea_type": "non_market",
+      "asset_proxy_candidates": [],
+      "direction": "unknown",
+      "horizon": null,
+      "review_state": "reviewed_excluded_non_market",
+      "measurability_status": "not_applicable",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10444.json"
+      ],
+      "claim_text": "Только что из военкомата звонили, предлагали на контракт.\nВторой раз за последние дни.\n\nДо этого не звонили никогда.",
+      "evidence_span": "Только что из военкомата звонили, предлагали на контракт.\nВторой раз за последние дни.\n\nДо этого не звонили никогда.",
+      "outcome_blockers": [
+        "Not a strict performance/outcome row by taxonomy."
+      ],
+      "source_review_status": "not_a_signal",
+      "confidence": 0.72,
+      "uncertainty_reason": "Pseudo-label/review classified this row as not a market signal."
+    },
+    {
+      "claim_id": "claim_text_bablos79_10445",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10445",
+      "source_document_id": "bablos79:bablos79-10445",
+      "source_timestamp_utc": "2026-04-27T08:22:42Z",
+      "evidence_url": "https://t.me/bablos79/10445",
+      "text_sha256": "7240bc06c96033184438ba48ba40c034c36d48d1a7b58b48350014b510b52e24",
+      "category": "non_market_commentary",
+      "market_idea_type": "non_market",
+      "asset_proxy_candidates": [],
+      "direction": "unknown",
+      "horizon": null,
+      "review_state": "reviewed_excluded_non_market",
+      "measurability_status": "not_applicable",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10445.json"
+      ],
+      "claim_text": "утреннее, рынок выходного дня",
+      "evidence_span": "утреннее, рынок выходного дня",
+      "outcome_blockers": [
+        "Not a strict performance/outcome row by taxonomy."
+      ],
+      "source_review_status": "not_a_signal",
+      "confidence": 0.72,
+      "uncertainty_reason": "Pseudo-label/review classified this row as not a market signal."
+    },
+    {
+      "claim_id": "claim_text_bablos79_10446",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10446",
+      "source_document_id": "bablos79:bablos79-10446",
+      "source_timestamp_utc": "2026-04-27T09:35:58Z",
+      "evidence_url": "https://t.me/bablos79/10446",
+      "text_sha256": "cf0691306ee1a12f6c7afb6bf6fbefd21b9fe4375c707d4b8a73d9d8bb7981a6",
+      "category": "non_market_commentary",
+      "market_idea_type": "non_market",
+      "asset_proxy_candidates": [
+        "VTBR"
+      ],
+      "direction": "unknown",
+      "horizon": null,
+      "review_state": "reviewed_excluded_non_market",
+      "measurability_status": "not_applicable",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10446.json"
+      ],
+      "claim_text": "#VTBR да! По нормативам ЦБ нехватка резервов- 700 млрд.",
+      "evidence_span": "#VTBR да! По нормативам ЦБ нехватка резервов- 700 млрд.",
+      "outcome_blockers": [
+        "Not a strict performance/outcome row by taxonomy."
+      ],
+      "source_review_status": "not_a_signal",
+      "confidence": 0.62,
+      "uncertainty_reason": "Pseudo-label/review classified this row as not a market signal."
+    },
+    {
+      "claim_id": "claim_text_bablos79_10447",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10447",
+      "source_document_id": "bablos79:bablos79-10447",
+      "source_timestamp_utc": "2026-04-27T10:03:37Z",
+      "evidence_url": "https://t.me/bablos79/10447",
+      "text_sha256": "4c1b16c3073103c7fa2112eb38cfdfc2fac847bb74223db72855b12f6c0a07a1",
+      "category": "non_market_commentary",
+      "market_idea_type": "non_market",
+      "asset_proxy_candidates": [],
+      "direction": "unknown",
+      "horizon": null,
+      "review_state": "reviewed_excluded_non_market",
+      "measurability_status": "not_applicable",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10447.json"
+      ],
+      "claim_text": "Рынок с утра в понедельник тоже не растет.\nНегативный признак.\nСлишком много негативных сигналов.",
+      "evidence_span": "Рынок с утра в понедельник тоже не растет.\nНегативный признак.\nСлишком много негативных сигналов.",
+      "outcome_blockers": [
+        "Not a strict performance/outcome row by taxonomy."
+      ],
+      "source_review_status": "not_a_signal",
+      "confidence": 0.72,
+      "uncertainty_reason": "Pseudo-label/review classified this row as not a market signal."
+    },
+    {
+      "claim_id": "claim_text_bablos79_10448",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10448",
+      "source_document_id": "bablos79:bablos79-10448",
+      "source_timestamp_utc": "2026-04-27T11:06:10Z",
+      "evidence_url": "https://t.me/bablos79/10448",
+      "text_sha256": "0149b7b2ee6d9efb9ca18961423c3f2dd0cd4370b1c695734d0863417d93575b",
+      "category": "non_market_commentary",
+      "market_idea_type": "non_market",
+      "asset_proxy_candidates": [],
+      "direction": "unknown",
+      "horizon": null,
+      "review_state": "reviewed_excluded_non_market",
+      "measurability_status": "not_applicable",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10448.json"
+      ],
+      "claim_text": "В Мали, французы в союзе с арабскими и африканскими ваххабитами выбивают Российские ЧВК и захватывают государственные структуры.",
+      "evidence_span": "В Мали, французы в союзе с арабскими и африканскими ваххабитами выбивают Российские ЧВК и захватывают государственные структуры.",
+      "outcome_blockers": [
+        "Not a strict performance/outcome row by taxonomy."
+      ],
+      "source_review_status": "not_a_signal",
+      "confidence": 0.72,
+      "uncertainty_reason": "Pseudo-label/review classified this row as not a market signal."
+    },
+    {
+      "claim_id": "claim_text_bablos79_10449",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10449",
+      "source_document_id": "bablos79:bablos79-10449",
+      "source_timestamp_utc": "2026-04-27T11:09:24Z",
+      "evidence_url": "https://t.me/bablos79/10449",
+      "text_sha256": "72e56d34e32a4e31b0b02ea09c6457df57d825190b53483ecbe10f0557ac91a8",
+      "category": "non_market_commentary",
+      "market_idea_type": "non_market",
+      "asset_proxy_candidates": [],
+      "direction": "unknown",
+      "horizon": null,
+      "review_state": "reviewed_excluded_non_market",
+      "measurability_status": "not_applicable",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10449.json"
+      ],
+      "claim_text": "В 19 мск стрим. Разбор рынков. Политота.",
+      "evidence_span": "В 19 мск стрим. Разбор рынков. Политота.",
+      "outcome_blockers": [
+        "Not a strict performance/outcome row by taxonomy."
+      ],
+      "source_review_status": "not_a_signal",
+      "confidence": 0.72,
+      "uncertainty_reason": "Pseudo-label/review classified this row as not a market signal."
+    },
+    {
+      "claim_id": "claim_text_bablos79_10450",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10450",
+      "source_document_id": "bablos79:bablos79-10450",
+      "source_timestamp_utc": "2026-04-27T11:16:37Z",
+      "evidence_url": "https://t.me/bablos79/10450",
+      "text_sha256": "f0de04a2127086f91c07862f86b26fe3568a1410c5ede6c824992f27d7f447d4",
+      "category": "directional_bias",
+      "market_idea_type": "directional_thesis",
+      "asset_proxy_candidates": [
+        "MAGN"
+      ],
+      "direction": "negative",
+      "horizon": null,
+      "review_state": "reviewed_insufficient_evidence",
+      "measurability_status": "ambiguous_or_insufficient",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10450.json"
+      ],
+      "claim_text": "#MAGN совет директоров порекомендовал не выплачивать дивиденды.\n\nТеханализ опять опережает новости. \nМы шортили с текущих хаев.",
+      "evidence_span": "#MAGN совет директоров порекомендовал не выплачивать дивиденды.\n\nТеханализ опять опережает новости. \nМы шортили с текущих хаев.",
+      "outcome_blockers": [
+        "Missing fields: entry, stop, target",
+        "Required deterministic outcome fields are missing or ambiguous."
+      ],
+      "source_review_status": "insufficient_fields",
+      "confidence": 0.49,
+      "uncertainty_reason": "Historical short mention exists, but the current post lacks a precise entry, stop, and target."
+    },
+    {
+      "claim_id": "claim_text_bablos79_10451",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10451",
+      "source_document_id": "bablos79:bablos79-10451",
+      "source_timestamp_utc": "2026-04-27T11:23:25Z",
+      "evidence_url": "https://t.me/bablos79/10451",
+      "text_sha256": "6cae57c6496b8c2551106790e961ebc8854ee996b6683a048420dabd191b7f3d",
+      "category": "non_market_commentary",
+      "market_idea_type": "non_market",
+      "asset_proxy_candidates": [],
+      "direction": "unknown",
+      "horizon": null,
+      "review_state": "reviewed_excluded_non_market",
+      "measurability_status": "not_applicable",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10451.json"
+      ],
+      "claim_text": "⚠️ Рейтинг Путина снижается 7 недель подряд.\nИ это цифры ВЦИОМ, которые всегда задирают цифры.\nНа мой взгляд, реальные цифры гораздо ниже. Около 35-40%.",
+      "evidence_span": "⚠️ Рейтинг Путина снижается 7 недель подряд.\nИ это цифры ВЦИОМ, которые всегда задирают цифры.\nНа мой взгляд, реальные цифры гораздо ниже. Около 35-40%.",
+      "outcome_blockers": [
+        "Not a strict performance/outcome row by taxonomy."
+      ],
+      "source_review_status": "not_a_signal",
+      "confidence": 0.72,
+      "uncertainty_reason": "Pseudo-label/review classified this row as not a market signal."
+    },
+    {
+      "claim_id": "claim_text_bablos79_10452",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10452",
+      "source_document_id": "bablos79:bablos79-10452",
+      "source_timestamp_utc": "2026-04-27T12:58:04Z",
+      "evidence_url": "https://t.me/bablos79/10452",
+      "text_sha256": "3a843c2ba81a9d72443a6c792b6b04741b02857052952b259a009c51d19e8754",
+      "category": "non_market_commentary",
+      "market_idea_type": "non_market",
+      "asset_proxy_candidates": [],
+      "direction": "unknown",
+      "horizon": null,
+      "review_state": "reviewed_excluded_non_market",
+      "measurability_status": "not_applicable",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10452.json"
+      ],
+      "claim_text": "Извините",
+      "evidence_span": "Извините",
+      "outcome_blockers": [
+        "Not a strict performance/outcome row by taxonomy."
+      ],
+      "source_review_status": "not_a_signal",
+      "confidence": 0.72,
+      "uncertainty_reason": "Pseudo-label/review classified this row as not a market signal."
+    },
+    {
+      "claim_id": "claim_text_bablos79_10453",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10453",
+      "source_document_id": "bablos79:bablos79-10453",
+      "source_timestamp_utc": "2026-04-27T15:08:57Z",
+      "evidence_url": "https://t.me/bablos79/10453",
+      "text_sha256": "be89906be98d4bc265d665e31dfc6523a957f2d417925c14d195b5128831feae",
+      "category": "non_market_commentary",
+      "market_idea_type": "non_market",
+      "asset_proxy_candidates": [
+        "VKCO"
+      ],
+      "direction": "unknown",
+      "horizon": null,
+      "review_state": "reviewed_excluded_non_market",
+      "measurability_status": "not_applicable",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10453.json"
+      ],
+      "claim_text": "про #VKCO",
+      "evidence_span": "про #VKCO",
+      "outcome_blockers": [
+        "Not a strict performance/outcome row by taxonomy."
+      ],
+      "source_review_status": "not_a_signal",
+      "confidence": 0.6,
+      "uncertainty_reason": "Pseudo-label/review classified this row as not a market signal."
+    },
+    {
+      "claim_id": "claim_text_bablos79_10454",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10454",
+      "source_document_id": "bablos79:bablos79-10454",
+      "source_timestamp_utc": "2026-04-27T15:26:58Z",
+      "evidence_url": "https://t.me/bablos79/10454",
+      "text_sha256": "6a62902462312b50342e131ddfce6a815df27f781ca51b6e97e32aaf54239cbd",
+      "category": "non_market_commentary",
+      "market_idea_type": "non_market",
+      "asset_proxy_candidates": [],
+      "direction": "unknown",
+      "horizon": null,
+      "review_state": "reviewed_excluded_non_market",
+      "measurability_status": "not_applicable",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10454.json"
+      ],
+      "claim_text": "☄️☄️ Готовлюсь к диалогу с Александром Резвяковым. На днях запишем.\nПишите вопросы, которые вас интересуют, я их ему задам.",
+      "evidence_span": "☄️☄️ Готовлюсь к диалогу с Александром Резвяковым. На днях запишем.\nПишите вопросы, которые вас интересуют, я их ему задам.",
+      "outcome_blockers": [
+        "Not a strict performance/outcome row by taxonomy."
+      ],
+      "source_review_status": "not_a_signal",
+      "confidence": 0.72,
+      "uncertainty_reason": "Pseudo-label/review classified this row as not a market signal."
+    },
+    {
+      "claim_id": "claim_text_bablos79_10455",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10455",
+      "source_document_id": "bablos79:bablos79-10455",
+      "source_timestamp_utc": "2026-04-27T15:40:05Z",
+      "evidence_url": "https://t.me/bablos79/10455",
+      "text_sha256": "29a9f48d84913fa017f621e4e00216d3629426f24ac10388387ede56f2d75291",
+      "category": "non_market_commentary",
+      "market_idea_type": "non_market",
+      "asset_proxy_candidates": [],
+      "direction": "unknown",
+      "horizon": null,
+      "review_state": "reviewed_excluded_non_market",
+      "measurability_status": "not_applicable",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10455.json"
+      ],
+      "claim_text": "13-15 мая.\nРашн трейдинг вик \nБуду в нескольких секциях вещать. Первый раз на этой конфе, приходите, пообщаемся.\n\nРасписания выступления пока нет.",
+      "evidence_span": "13-15 мая.\nРашн трейдинг вик \nБуду в нескольких секциях вещать. Первый раз на этой конфе, приходите, пообщаемся.\n\nРасписания выступления пока нет.",
+      "outcome_blockers": [
+        "Not a strict performance/outcome row by taxonomy."
+      ],
+      "source_review_status": "not_a_signal",
+      "confidence": 0.72,
+      "uncertainty_reason": "Pseudo-label/review classified this row as not a market signal."
+    },
+    {
+      "claim_id": "claim_text_bablos79_10456",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10456",
+      "source_document_id": "bablos79:bablos79-10456",
+      "source_timestamp_utc": "2026-04-27T16:15:32Z",
+      "evidence_url": "https://t.me/bablos79/10456",
+      "text_sha256": "4f57ce3fde201a68de82ce2b258f8a963b988f08b4bdeec0169de3b3a32aaae7",
+      "category": "non_market_commentary",
+      "market_idea_type": "non_market",
+      "asset_proxy_candidates": [],
+      "direction": "unknown",
+      "horizon": null,
+      "review_state": "reviewed_excluded_non_market",
+      "measurability_status": "not_applicable",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10456.json"
+      ],
+      "claim_text": "Стрим\n\nhttps://vkvideo.ru/video-116920723_456241792?list=ln-381PPTZYsmSKJwtdvZ\n\nhttps://rutube.ru/video/a447b4d9182d997bff81ce7df4b077f3/",
+      "evidence_span": "Стрим\n\nhttps://vkvideo.ru/video-116920723_456241792?list=ln-381PPTZYsmSKJwtdvZ\n\nhttps://rutube.ru/video/a447b4d9182d997bff81ce7df4b077f3/",
+      "outcome_blockers": [
+        "Not a strict performance/outcome row by taxonomy."
+      ],
+      "source_review_status": "not_a_signal",
+      "confidence": 0.72,
+      "uncertainty_reason": "Pseudo-label/review classified this row as not a market signal."
+    },
+    {
+      "claim_id": "claim_text_bablos79_10457",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10457",
+      "source_document_id": "bablos79:bablos79-10457",
+      "source_timestamp_utc": "2026-04-28T06:05:11Z",
+      "evidence_url": "https://t.me/bablos79/10457",
+      "text_sha256": "981135b1151f5e7ade7a45b77974d91953e6df0a743783f576d0d66bdec68650",
+      "category": "non_market_commentary",
+      "market_idea_type": "non_market",
+      "asset_proxy_candidates": [],
+      "direction": "unknown",
+      "horizon": null,
+      "review_state": "reviewed_excluded_non_market",
+      "measurability_status": "not_applicable",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10457.json"
+      ],
+      "claim_text": "Утреннее, про мошенников и трейдеров",
+      "evidence_span": "Утреннее, про мошенников и трейдеров",
+      "outcome_blockers": [
+        "Not a strict performance/outcome row by taxonomy."
+      ],
+      "source_review_status": "not_a_signal",
+      "confidence": 0.72,
+      "uncertainty_reason": "Pseudo-label/review classified this row as not a market signal."
+    },
+    {
+      "claim_id": "claim_text_bablos79_10458",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10458",
+      "source_document_id": "bablos79:bablos79-10458",
+      "source_timestamp_utc": "2026-04-28T06:35:35Z",
+      "evidence_url": "https://t.me/bablos79/10458",
+      "text_sha256": "314619c54cb8df0aad973401084b0a32c0ba2b8282c2be4c5f9f04a2e3014330",
+      "category": "non_market_commentary",
+      "market_idea_type": "non_market",
+      "asset_proxy_candidates": [
+        "X5"
+      ],
+      "direction": "unknown",
+      "horizon": null,
+      "review_state": "reviewed_excluded_non_market",
+      "measurability_status": "not_applicable",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10458.json"
+      ],
+      "claim_text": "#X5 ну вы поняли",
+      "evidence_span": "#X5 ну вы поняли",
+      "outcome_blockers": [
+        "Not a strict performance/outcome row by taxonomy."
+      ],
+      "source_review_status": "not_a_signal",
+      "confidence": 0.55,
+      "uncertainty_reason": "Pseudo-label/review classified this row as not a market signal."
+    },
+    {
+      "claim_id": "claim_text_bablos79_10459",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10459",
+      "source_document_id": "bablos79:bablos79-10459",
+      "source_timestamp_utc": "2026-04-28T06:44:46Z",
+      "evidence_url": "https://t.me/bablos79/10459",
+      "text_sha256": "5e4d38246fc612f4537539c758291acbd91d2c0763e6d0c9b9ca8414be95b471",
+      "category": "directional_bias",
+      "market_idea_type": "directional_thesis",
+      "asset_proxy_candidates": [
+        "AMD"
+      ],
+      "direction": "negative",
+      "horizon": null,
+      "review_state": "ambiguous_needs_operator_review",
+      "measurability_status": "ambiguous_or_insufficient",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10459.json"
+      ],
+      "claim_text": "По #AMD отбой. Пока не буду шортить его, может еще дать.",
+      "evidence_span": "По #AMD отбой. Пока не буду шортить его, может еще дать.",
+      "outcome_blockers": [
+        "Missing fields: entry, stop, target",
+        "Required deterministic outcome fields are missing or ambiguous."
+      ],
+      "source_review_status": "needs_review",
+      "confidence": 0.42,
+      "uncertainty_reason": "Author explicitly says he will not short yet; this is a useful negative/deferral pattern, not an actionable signal."
+    },
+    {
+      "claim_id": "claim_text_bablos79_10460",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10460",
+      "source_document_id": "bablos79:bablos79-10460",
+      "source_timestamp_utc": "2026-04-28T06:54:17Z",
+      "evidence_url": "https://t.me/bablos79/10460",
+      "text_sha256": "2994d72d218ae1ae294241527ae0c863c958b4e292dd68dfbd86ad9cd0d5c360",
+      "category": "non_market_commentary",
+      "market_idea_type": "non_market",
+      "asset_proxy_candidates": [],
+      "direction": "unknown",
+      "horizon": null,
+      "review_state": "reviewed_excluded_non_market",
+      "measurability_status": "not_applicable",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10460.json"
+      ],
+      "claim_text": "про ВВП",
+      "evidence_span": "про ВВП",
+      "outcome_blockers": [
+        "Not a strict performance/outcome row by taxonomy."
+      ],
+      "source_review_status": "not_a_signal",
+      "confidence": 0.72,
+      "uncertainty_reason": "Pseudo-label/review classified this row as not a market signal."
+    },
+    {
+      "claim_id": "claim_text_bablos79_10461",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10461",
+      "source_document_id": "bablos79:bablos79-10461",
+      "source_timestamp_utc": "2026-04-28T07:18:30Z",
+      "evidence_url": "https://t.me/bablos79/10461",
+      "text_sha256": "bcd28f0ae86c9e4e82c2c26e1886c87ae367f0c0862f4126fe4d36cb98d6eb16",
+      "category": "non_market_commentary",
+      "market_idea_type": "non_market",
+      "asset_proxy_candidates": [],
+      "direction": "unknown",
+      "horizon": null,
+      "review_state": "reviewed_excluded_non_market",
+      "measurability_status": "not_applicable",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10461.json"
+      ],
+      "claim_text": "Соколы мои",
+      "evidence_span": "Соколы мои",
+      "outcome_blockers": [
+        "Not a strict performance/outcome row by taxonomy."
+      ],
+      "source_review_status": "not_a_signal",
+      "confidence": 0.72,
+      "uncertainty_reason": "Pseudo-label/review classified this row as not a market signal."
+    },
+    {
+      "claim_id": "claim_text_bablos79_10463",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10463",
+      "source_document_id": "bablos79:bablos79-10463",
+      "source_timestamp_utc": "2026-04-28T14:16:30Z",
+      "evidence_url": "https://t.me/bablos79/10463",
+      "text_sha256": "587105d1433275166f7d649a4d16bbbaaa90c2639760f42c012d6ff19348a8e6",
+      "category": "non_market_commentary",
+      "market_idea_type": "non_market",
+      "asset_proxy_candidates": [],
+      "direction": "unknown",
+      "horizon": null,
+      "review_state": "reviewed_excluded_non_market",
+      "measurability_status": "not_applicable",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10463.json"
+      ],
+      "claim_text": "⚠️ Глава ЦБ РФ: ставку сильно снижать не будем, Россияне дуреют от этой прикормки….",
+      "evidence_span": "⚠️ Глава ЦБ РФ: ставку сильно снижать не будем, Россияне дуреют от этой прикормки….",
+      "outcome_blockers": [
+        "Not a strict performance/outcome row by taxonomy."
+      ],
+      "source_review_status": "not_a_signal",
+      "confidence": 0.72,
+      "uncertainty_reason": "Pseudo-label/review classified this row as not a market signal."
+    },
+    {
+      "claim_id": "claim_text_bablos79_10464",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10464",
+      "source_document_id": "bablos79:bablos79-10464",
+      "source_timestamp_utc": "2026-04-28T16:04:15Z",
+      "evidence_url": "https://t.me/bablos79/10464",
+      "text_sha256": "375b7806d8438cd0f640e31038bb0a6e8366ace2d11d51d60f9b9c527201ff4e",
+      "category": "level_timing_call",
+      "market_idea_type": "directional_thesis",
+      "asset_proxy_candidates": [
+        "X5"
+      ],
+      "direction": "management",
+      "horizon": null,
+      "review_state": "reviewed_insufficient_evidence",
+      "measurability_status": "insufficient_fields",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10464.json"
+      ],
+      "claim_text": "#X5  Конечно не так красиво, но пока закрыл.\nФьючерсом перезайду может.\n\nБыл в отъезде без интернета",
+      "evidence_span": "#X5  Конечно не так красиво, но пока закрыл.\nФьючерсом перезайду может.\n\nБыл в отъезде без интернета",
+      "outcome_blockers": [
+        "Missing fields: entry, stop, target",
+        "Required deterministic outcome fields are missing or ambiguous."
+      ],
+      "source_review_status": "insufficient_fields",
+      "confidence": 0.52,
+      "uncertainty_reason": "Close/re-entry language exists, but the original setup and evaluable levels are absent."
+    },
+    {
+      "claim_id": "claim_text_bablos79_10465",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10465",
+      "source_document_id": "bablos79:bablos79-10465",
+      "source_timestamp_utc": "2026-04-29T07:30:41Z",
+      "evidence_url": "https://t.me/bablos79/10465",
+      "text_sha256": "b26087182a1d71069e57e2dd5e739c9427414e5f96934fd3a037b07e1dc966c2",
+      "category": "macro_context",
+      "market_idea_type": "market_regime",
+      "asset_proxy_candidates": [],
+      "direction": "unknown",
+      "horizon": null,
+      "review_state": "reviewed_context_only",
+      "measurability_status": "non_measurable",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10465.json"
+      ],
+      "claim_text": "Карл третий приехал в США и уговаривает начать совместную войну против России.\nПочувствовали запах крови, как я об этого уже постоянно говорю.\n\nНаби ведет себя дерзко, как никогда.\nЗапишу видео.",
+      "evidence_span": "Карл третий приехал в США и уговаривает начать совместную войну против России.\nПочувствовали запах крови, как я об этого уже постоянно говорю.\n\nНаби ведет себя дерзко, как никогда.\nЗапишу видео.",
+      "outcome_blockers": [
+        "No benchmark/proxy, horizon, and outcome method approved yet."
+      ],
+      "source_review_status": "not_a_signal",
+      "confidence": 0.72,
+      "uncertainty_reason": "Text contains macro/geopolitical context and promises a follow-up video that remains unresolved."
+    },
+    {
+      "claim_id": "claim_text_bablos79_10466",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10466",
+      "source_document_id": "bablos79:bablos79-10466",
+      "source_timestamp_utc": "2026-04-29T09:31:05Z",
+      "evidence_url": "https://t.me/bablos79/10466",
+      "text_sha256": "22a52915b201add32224fe70b2d4bd20f51b5b25d0a1443d0d17e3066e5bda0b",
+      "category": "non_market_commentary",
+      "market_idea_type": "non_market",
+      "asset_proxy_candidates": [],
+      "direction": "unknown",
+      "horizon": null,
+      "review_state": "reviewed_excluded_non_market",
+      "measurability_status": "not_applicable",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10466.json"
+      ],
+      "claim_text": "Тотальная некомпетентность конечно.\nБлогеры бросились обьяснять, почему сегодня цена отскочила на 0,5% \n\nРука лицо жпг",
+      "evidence_span": "Тотальная некомпетентность конечно.\nБлогеры бросились обьяснять, почему сегодня цена отскочила на 0,5% \n\nРука лицо жпг",
+      "outcome_blockers": [
+        "Not a strict performance/outcome row by taxonomy."
+      ],
+      "source_review_status": "not_a_signal",
+      "confidence": 0.72,
+      "uncertainty_reason": "Pseudo-label/review classified this row as not a market signal."
+    },
+    {
+      "claim_id": "claim_text_bablos79_10467",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10467",
+      "source_document_id": "bablos79:bablos79-10467",
+      "source_timestamp_utc": "2026-04-29T09:44:27Z",
+      "evidence_url": "https://t.me/bablos79/10467",
+      "text_sha256": "81cc2fcf0ddacc3511b991e6e3953235fbc452dc4001a893a94fd91c73e25410",
+      "category": "non_market_commentary",
+      "market_idea_type": "non_market",
+      "asset_proxy_candidates": [
+        "MAGN"
+      ],
+      "direction": "unknown",
+      "horizon": null,
+      "review_state": "reviewed_excluded_non_market",
+      "measurability_status": "not_applicable",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10467.json"
+      ],
+      "claim_text": "Только что поделился инсайтом о динамике рынка: многие инфлюенсеры с искренним удивлением обсуждают коррекцию актива #MAGN 📉.\n\nВ свою очередь, я с глубоким интересом и профессиональным любопытством задаюсь вопросом: каковы были стратегические драйверы и видение синергии, побудившие этих лидеров мнений включить этот актив в свой инвестиционный портфель? 🤔🚀 #трейдинг #инвестиции",
+      "evidence_span": "Только что поделился инсайтом о динамике рынка: многие инфлюенсеры с искренним удивлением обсуждают коррекцию актива #MAGN 📉.\n\nВ свою очередь, я с глубоким интересом и профессиональным любопытством задаюсь вопросом: каковы были стратегические драйверы и видение синергии, побудившие этих лидеров мнений включить этот актив в свой инвестиционный портфель? 🤔🚀 #трейдинг #инвестиции",
+      "outcome_blockers": [
+        "Not a strict performance/outcome row by taxonomy."
+      ],
+      "source_review_status": "not_a_signal",
+      "confidence": 0.66,
+      "uncertainty_reason": "Pseudo-label/review classified this row as not a market signal."
+    },
+    {
+      "claim_id": "claim_text_bablos79_10468",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10468",
+      "source_document_id": "bablos79:bablos79-10468",
+      "source_timestamp_utc": "2026-04-29T10:10:07Z",
+      "evidence_url": "https://t.me/bablos79/10468",
+      "text_sha256": "c89e9cd6a04c988cdd6ed2efb30505cb64536a894fbc4c559932431cec027298",
+      "category": "non_market_commentary",
+      "market_idea_type": "non_market",
+      "asset_proxy_candidates": [],
+      "direction": "unknown",
+      "horizon": null,
+      "review_state": "reviewed_excluded_non_market",
+      "measurability_status": "not_applicable",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10468.json"
+      ],
+      "claim_text": "Сбербанк понизил прогноз по ВВП и повысил прогноз по инфляции.\nПредположительно, Герман Греф не доверяет ни правительству, ни ЦБ, ни Путину, который, по его мнению, механически повторяет их риторику.",
+      "evidence_span": "Сбербанк понизил прогноз по ВВП и повысил прогноз по инфляции.\nПредположительно, Герман Греф не доверяет ни правительству, ни ЦБ, ни Путину, который, по его мнению, механически повторяет их риторику.",
+      "outcome_blockers": [
+        "Not a strict performance/outcome row by taxonomy."
+      ],
+      "source_review_status": "not_a_signal",
+      "confidence": 0.72,
+      "uncertainty_reason": "Pseudo-label/review classified this row as not a market signal."
+    },
+    {
+      "claim_id": "claim_text_bablos79_10469",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10469",
+      "source_document_id": "bablos79:bablos79-10469",
+      "source_timestamp_utc": "2026-04-29T10:34:29Z",
+      "evidence_url": "https://t.me/bablos79/10469",
+      "text_sha256": "0b5aa688f63697610fe62dc5c368856762d9541ed17e475691785255add216ee",
+      "category": "non_market_commentary",
+      "market_idea_type": "non_market",
+      "asset_proxy_candidates": [],
+      "direction": "unknown",
+      "horizon": null,
+      "review_state": "reviewed_excluded_non_market",
+      "measurability_status": "not_applicable",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10469.json"
+      ],
+      "claim_text": "Инвесторы поддерживают прогноз Сбера , но не доверяют Путину.\nСудя по реакции рынка.\n\nОчень забавная началась история. Политический кризис набирает обороты.\n\nНу собственно показался еще один субъект политики.",
+      "evidence_span": "Инвесторы поддерживают прогноз Сбера , но не доверяют Путину.\nСудя по реакции рынка.\n\nОчень забавная началась история. Политический кризис набирает обороты.\n\nНу собственно показался еще один субъект политики.",
+      "outcome_blockers": [
+        "Not a strict performance/outcome row by taxonomy."
+      ],
+      "source_review_status": "not_a_signal",
+      "confidence": 0.72,
+      "uncertainty_reason": "Pseudo-label/review classified this row as not a market signal."
+    },
+    {
+      "claim_id": "claim_text_bablos79_10470",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10470",
+      "source_document_id": "bablos79:bablos79-10470",
+      "source_timestamp_utc": "2026-04-29T10:49:41Z",
+      "evidence_url": "https://t.me/bablos79/10470",
+      "text_sha256": "54790a51f20dc62a35d9c1c5d267ac627302015633850a412b362e860a12960d",
+      "category": "watchlist",
+      "market_idea_type": "watchlist",
+      "asset_proxy_candidates": [],
+      "direction": "unknown",
+      "horizon": null,
+      "review_state": "ambiguous_needs_operator_review",
+      "measurability_status": "context_only",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10470.json"
+      ],
+      "claim_text": "По валюте пока негатив. Если буду покупать — будут знаки.",
+      "evidence_span": "По валюте пока негатив. Если буду покупать — будут знаки.",
+      "outcome_blockers": [
+        "Missing fields: asset_symbol, entry, stop, target",
+        "Not a strict performance/outcome row by taxonomy."
+      ],
+      "source_review_status": "needs_review",
+      "confidence": 0.34,
+      "uncertainty_reason": "Currency-market watch language says signs may appear later; not a current trade."
+    },
+    {
+      "claim_id": "claim_text_bablos79_10471",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10471",
+      "source_document_id": "bablos79:bablos79-10471",
+      "source_timestamp_utc": "2026-04-29T12:13:40Z",
+      "evidence_url": "https://t.me/bablos79/10471",
+      "text_sha256": "e5d93244a7998d1c34889d863e3c164f95c22e29b828021962cfd1a1f6030c84",
+      "category": "non_market_commentary",
+      "market_idea_type": "non_market",
+      "asset_proxy_candidates": [],
+      "direction": "unknown",
+      "horizon": null,
+      "review_state": "reviewed_excluded_non_market",
+      "measurability_status": "not_applicable",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10471.json"
+      ],
+      "claim_text": "Жуковский курильщика/ Жуковский нормального человека 🤣🤣🤣🤣🤣🤣🤣🤣🤣🤣🤣🤣",
+      "evidence_span": "Жуковский курильщика/ Жуковский нормального человека 🤣🤣🤣🤣🤣🤣🤣🤣🤣🤣🤣🤣",
+      "outcome_blockers": [
+        "Not a strict performance/outcome row by taxonomy."
+      ],
+      "source_review_status": "not_a_signal",
+      "confidence": 0.72,
+      "uncertainty_reason": "Pseudo-label/review classified this row as not a market signal."
+    },
+    {
+      "claim_id": "claim_text_bablos79_10472",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10472",
+      "source_document_id": "bablos79:bablos79-10472",
+      "source_timestamp_utc": "2026-04-29T13:40:03Z",
+      "evidence_url": "https://t.me/bablos79/10472",
+      "text_sha256": "1ee4fcb3aa2f8026adb30e4fc0f9b7af506f1dc17e63e267be4bba931be17ea0",
+      "category": "non_market_commentary",
+      "market_idea_type": "non_market",
+      "asset_proxy_candidates": [],
+      "direction": "unknown",
+      "horizon": null,
+      "review_state": "reviewed_excluded_non_market",
+      "measurability_status": "not_applicable",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10472.json"
+      ],
+      "claim_text": "Тепленькая пошла (с)",
+      "evidence_span": "Тепленькая пошла (с)",
+      "outcome_blockers": [
+        "Not a strict performance/outcome row by taxonomy."
+      ],
+      "source_review_status": "not_a_signal",
+      "confidence": 0.72,
+      "uncertainty_reason": "Pseudo-label/review classified this row as not a market signal."
+    },
+    {
+      "claim_id": "claim_text_bablos79_10475",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10475",
+      "source_document_id": "bablos79:bablos79-10475",
+      "source_timestamp_utc": "2026-04-29T18:36:49Z",
+      "evidence_url": "https://t.me/bablos79/10475",
+      "text_sha256": "dce8cdd67a81f02d5173f19b90cb8f9298afc16180edd64be985a10629fb27ae",
+      "category": "non_market_commentary",
+      "market_idea_type": "non_market",
+      "asset_proxy_candidates": [],
+      "direction": "unknown",
+      "horizon": null,
+      "review_state": "reviewed_excluded_non_market",
+      "measurability_status": "not_applicable",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10475.json"
+      ],
+      "claim_text": "Актуально как никогда",
+      "evidence_span": "Актуально как никогда",
+      "outcome_blockers": [
+        "Not a strict performance/outcome row by taxonomy."
+      ],
+      "source_review_status": "not_a_signal",
+      "confidence": 0.72,
+      "uncertainty_reason": "Pseudo-label/review classified this row as not a market signal."
+    },
+    {
+      "claim_id": "claim_text_bablos79_10476",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10476",
+      "source_document_id": "bablos79:bablos79-10476",
+      "source_timestamp_utc": "2026-04-30T07:34:30Z",
+      "evidence_url": "https://t.me/bablos79/10476",
+      "text_sha256": "fced0cd89e597531ae3082941397f7c9f0804a1b41779edfea295cb55c95b4fe",
+      "category": "non_market_commentary",
+      "market_idea_type": "non_market",
+      "asset_proxy_candidates": [],
+      "direction": "unknown",
+      "horizon": null,
+      "review_state": "reviewed_excluded_non_market",
+      "measurability_status": "not_applicable",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10476.json"
+      ],
+      "claim_text": "Утреннее. Звонок.",
+      "evidence_span": "Утреннее. Звонок.",
+      "outcome_blockers": [
+        "Not a strict performance/outcome row by taxonomy."
+      ],
+      "source_review_status": "not_a_signal",
+      "confidence": 0.72,
+      "uncertainty_reason": "Pseudo-label/review classified this row as not a market signal."
+    },
+    {
+      "claim_id": "claim_text_bablos79_10477",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10477",
+      "source_document_id": "bablos79:bablos79-10477",
+      "source_timestamp_utc": "2026-04-30T07:57:35Z",
+      "evidence_url": "https://t.me/bablos79/10477",
+      "text_sha256": "4029171bf7202547ef279d8a62e02cd80abc139fd2c93a6dac24b7770315b563",
+      "category": "non_market_commentary",
+      "market_idea_type": "non_market",
+      "asset_proxy_candidates": [],
+      "direction": "unknown",
+      "horizon": null,
+      "review_state": "reviewed_excluded_non_market",
+      "measurability_status": "not_applicable",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10477.json"
+      ],
+      "claim_text": "Исповедь лудомана",
+      "evidence_span": "Исповедь лудомана",
+      "outcome_blockers": [
+        "Not a strict performance/outcome row by taxonomy."
+      ],
+      "source_review_status": "not_a_signal",
+      "confidence": 0.72,
+      "uncertainty_reason": "Pseudo-label/review classified this row as not a market signal."
+    },
+    {
+      "claim_id": "claim_text_bablos79_10478",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10478",
+      "source_document_id": "bablos79:bablos79-10478",
+      "source_timestamp_utc": "2026-04-30T09:46:50Z",
+      "evidence_url": "https://t.me/bablos79/10478",
+      "text_sha256": "bcccb754e9c8fec7d32e8c2ea9852c2b24667fd490edd8863c232ee302c96718",
+      "category": "non_market_commentary",
+      "market_idea_type": "non_market",
+      "asset_proxy_candidates": [],
+      "direction": "unknown",
+      "horizon": null,
+      "review_state": "reviewed_excluded_non_market",
+      "measurability_status": "not_applicable",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10478.json"
+      ],
+      "claim_text": "Про майские",
+      "evidence_span": "Про майские",
+      "outcome_blockers": [
+        "Not a strict performance/outcome row by taxonomy."
+      ],
+      "source_review_status": "not_a_signal",
+      "confidence": 0.72,
+      "uncertainty_reason": "Pseudo-label/review classified this row as not a market signal."
+    },
+    {
+      "claim_id": "claim_text_bablos79_10479",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10479",
+      "source_document_id": "bablos79:bablos79-10479",
+      "source_timestamp_utc": "2026-04-30T10:42:21Z",
+      "evidence_url": "https://t.me/bablos79/10479",
+      "text_sha256": "da772f0d9e752d072dddf0f41915513405e67cc67202c3ec35019d381e655b8c",
+      "category": "non_market_commentary",
+      "market_idea_type": "non_market",
+      "asset_proxy_candidates": [],
+      "direction": "unknown",
+      "horizon": null,
+      "review_state": "reviewed_excluded_non_market",
+      "measurability_status": "not_applicable",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10479.json"
+      ],
+      "claim_text": "Сервис Cloudflare присвоил мессенджеру Max статус шпионского приложения. Ранее аналогичная метка была выдана мессенджеру Telega.\n\nПосле маркировки Telega была удалена из App Store.",
+      "evidence_span": "Сервис Cloudflare присвоил мессенджеру Max статус шпионского приложения. Ранее аналогичная метка была выдана мессенджеру Telega.\n\nПосле маркировки Telega была удалена из App Store.",
+      "outcome_blockers": [
+        "Not a strict performance/outcome row by taxonomy."
+      ],
+      "source_review_status": "not_a_signal",
+      "confidence": 0.72,
+      "uncertainty_reason": "Pseudo-label/review classified this row as not a market signal."
+    },
+    {
+      "claim_id": "claim_text_bablos79_10482",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10482",
+      "source_document_id": "bablos79:bablos79-10482",
+      "source_timestamp_utc": "2026-05-02T06:42:00Z",
+      "evidence_url": "https://t.me/bablos79/10482",
+      "text_sha256": "a4b8fd5c114751814fcfe35e3a5fc6e15b9e9d92996a7216a10887d3a669c24f",
+      "category": "non_market_commentary",
+      "market_idea_type": "non_market",
+      "asset_proxy_candidates": [],
+      "direction": "unknown",
+      "horizon": null,
+      "review_state": "reviewed_excluded_non_market",
+      "measurability_status": "not_applicable",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10482.json"
+      ],
+      "claim_text": "Судя по атакам не регионы, договорнячок о перемирии лишь в головах старых маразматиков.",
+      "evidence_span": "Судя по атакам не регионы, договорнячок о перемирии лишь в головах старых маразматиков.",
+      "outcome_blockers": [
+        "Not a strict performance/outcome row by taxonomy."
+      ],
+      "source_review_status": "not_a_signal",
+      "confidence": 0.72,
+      "uncertainty_reason": "Pseudo-label/review classified this row as not a market signal."
+    },
+    {
+      "claim_id": "claim_text_bablos79_10483",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10483",
+      "source_document_id": "bablos79:bablos79-10483",
+      "source_timestamp_utc": "2026-05-02T13:00:12Z",
+      "evidence_url": "https://t.me/bablos79/10483",
+      "text_sha256": "5667c87486143ec8e10631c52de30e2ba5219d6f6550de9829e60bb917287a32",
+      "category": "non_market_commentary",
+      "market_idea_type": "non_market",
+      "asset_proxy_candidates": [],
+      "direction": "unknown",
+      "horizon": null,
+      "review_state": "reviewed_excluded_non_market",
+      "measurability_status": "not_applicable",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10483.json"
+      ],
+      "claim_text": "Картонное перемирие",
+      "evidence_span": "Картонное перемирие",
+      "outcome_blockers": [
+        "Not a strict performance/outcome row by taxonomy."
+      ],
+      "source_review_status": "not_a_signal",
+      "confidence": 0.72,
+      "uncertainty_reason": "Pseudo-label/review classified this row as not a market signal."
+    },
+    {
+      "claim_id": "claim_text_bablos79_10485",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10485",
+      "source_document_id": "bablos79:bablos79-10485",
+      "source_timestamp_utc": "2026-05-04T08:13:14Z",
+      "evidence_url": "https://t.me/bablos79/10485",
+      "text_sha256": "30cd37eac992847668be9edd79d432a78aad9e7e7819312a3d1cd1a168629645",
+      "category": "non_market_commentary",
+      "market_idea_type": "non_market",
+      "asset_proxy_candidates": [],
+      "direction": "unknown",
+      "horizon": null,
+      "review_state": "reviewed_excluded_non_market",
+      "measurability_status": "not_applicable",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10485.json"
+      ],
+      "claim_text": "Утреннее. невеселые дни.",
+      "evidence_span": "Утреннее. невеселые дни.",
+      "outcome_blockers": [
+        "Not a strict performance/outcome row by taxonomy."
+      ],
+      "source_review_status": "not_a_signal",
+      "confidence": 0.72,
+      "uncertainty_reason": "Pseudo-label/review classified this row as not a market signal."
+    },
+    {
+      "claim_id": "claim_text_bablos79_10486",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10486",
+      "source_document_id": "bablos79:bablos79-10486",
+      "source_timestamp_utc": "2026-05-04T09:20:20Z",
+      "evidence_url": "https://t.me/bablos79/10486",
+      "text_sha256": "664beec95f743f383930f568f677d93b233b54d06ef24d16d2b19547df789fd0",
+      "category": "non_market_commentary",
+      "market_idea_type": "non_market",
+      "asset_proxy_candidates": [],
+      "direction": "unknown",
+      "horizon": null,
+      "review_state": "reviewed_excluded_non_market",
+      "measurability_status": "not_applicable",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10486.json"
+      ],
+      "claim_text": "Интересно, есть какой-то негатив дополнительно?\nИли все в рамках моей голосовой?",
+      "evidence_span": "Интересно, есть какой-то негатив дополнительно?\nИли все в рамках моей голосовой?",
+      "outcome_blockers": [
+        "Not a strict performance/outcome row by taxonomy."
+      ],
+      "source_review_status": "not_a_signal",
+      "confidence": 0.72,
+      "uncertainty_reason": "Pseudo-label/review classified this row as not a market signal."
+    },
+    {
+      "claim_id": "claim_text_bablos79_10487",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10487",
+      "source_document_id": "bablos79:bablos79-10487",
+      "source_timestamp_utc": "2026-05-04T11:05:13Z",
+      "evidence_url": "https://t.me/bablos79/10487",
+      "text_sha256": "cfaad0156d0f44ee79710ad5d08ca07546672797fbe59fe8032998cb94ffe9a0",
+      "category": "non_market_commentary",
+      "market_idea_type": "non_market",
+      "asset_proxy_candidates": [],
+      "direction": "unknown",
+      "horizon": null,
+      "review_state": "reviewed_excluded_non_market",
+      "measurability_status": "not_applicable",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10487.json"
+      ],
+      "claim_text": "Сегодня в 19 мск стрим. Трейдинг, экономика, политота",
+      "evidence_span": "Сегодня в 19 мск стрим. Трейдинг, экономика, политота",
+      "outcome_blockers": [
+        "Not a strict performance/outcome row by taxonomy."
+      ],
+      "source_review_status": "not_a_signal",
+      "confidence": 0.72,
+      "uncertainty_reason": "Pseudo-label/review classified this row as not a market signal."
+    },
+    {
+      "claim_id": "claim_text_bablos79_10488",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10488",
+      "source_document_id": "bablos79:bablos79-10488",
+      "source_timestamp_utc": "2026-05-04T11:13:39Z",
+      "evidence_url": "https://t.me/bablos79/10488",
+      "text_sha256": "23ca9bd011c477dd2be12f72f5402757e81bb2c7bda84cfade4c305e5736362d",
+      "category": "non_market_commentary",
+      "market_idea_type": "non_market",
+      "asset_proxy_candidates": [],
+      "direction": "unknown",
+      "horizon": null,
+      "review_state": "reviewed_excluded_non_market",
+      "measurability_status": "not_applicable",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10488.json"
+      ],
+      "claim_text": "про подливу",
+      "evidence_span": "про подливу",
+      "outcome_blockers": [
+        "Not a strict performance/outcome row by taxonomy."
+      ],
+      "source_review_status": "not_a_signal",
+      "confidence": 0.72,
+      "uncertainty_reason": "Pseudo-label/review classified this row as not a market signal."
+    },
+    {
+      "claim_id": "claim_text_bablos79_10489",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10489",
+      "source_document_id": "bablos79:bablos79-10489",
+      "source_timestamp_utc": "2026-05-04T12:45:53Z",
+      "evidence_url": "https://t.me/bablos79/10489",
+      "text_sha256": "d49d71e85992e6da607784cc21fd15c1fa999d194e26fa2ac187bd3aaf066fbf",
+      "category": "non_market_commentary",
+      "market_idea_type": "non_market",
+      "asset_proxy_candidates": [
+        "GAZP"
+      ],
+      "direction": "unknown",
+      "horizon": null,
+      "review_state": "reviewed_excluded_non_market",
+      "measurability_status": "not_applicable",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10489.json"
+      ],
+      "claim_text": "Во первых, это красиво! #GAZP",
+      "evidence_span": "Во первых, это красиво! #GAZP",
+      "outcome_blockers": [
+        "Not a strict performance/outcome row by taxonomy."
+      ],
+      "source_review_status": "not_a_signal",
+      "confidence": 0.58,
+      "uncertainty_reason": "Pseudo-label/review classified this row as not a market signal."
+    },
+    {
+      "claim_id": "claim_text_bablos79_10490",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10490",
+      "source_document_id": "bablos79:bablos79-10490",
+      "source_timestamp_utc": "2026-05-04T13:56:36Z",
+      "evidence_url": "https://t.me/bablos79/10490",
+      "text_sha256": "683f1e126ea775817f58016fe45d22ef07d1cce3ee2a4b9bec64bbea2e17b008",
+      "category": "non_market_commentary",
+      "market_idea_type": "non_market",
+      "asset_proxy_candidates": [
+        "GAZP"
+      ],
+      "direction": "unknown",
+      "horizon": null,
+      "review_state": "reviewed_excluded_non_market",
+      "measurability_status": "not_applicable",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10490.json"
+      ],
+      "claim_text": "Когда инвесторы #GAZP вышли в прибыль",
+      "evidence_span": "Когда инвесторы #GAZP вышли в прибыль",
+      "outcome_blockers": [
+        "Not a strict performance/outcome row by taxonomy."
+      ],
+      "source_review_status": "not_a_signal",
+      "confidence": 0.63,
+      "uncertainty_reason": "Pseudo-label/review classified this row as not a market signal."
+    },
+    {
+      "claim_id": "claim_text_bablos79_10491",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10491",
+      "source_document_id": "bablos79:bablos79-10491",
+      "source_timestamp_utc": "2026-05-04T14:33:46Z",
+      "evidence_url": "https://t.me/bablos79/10491",
+      "text_sha256": "24f1b54621d697fb0de9461c36f599d1604645fe7610caa79989da3c237b066e",
+      "category": "non_market_commentary",
+      "market_idea_type": "non_market",
+      "asset_proxy_candidates": [],
+      "direction": "unknown",
+      "horizon": null,
+      "review_state": "reviewed_excluded_non_market",
+      "measurability_status": "not_applicable",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10491.json"
+      ],
+      "claim_text": "РКН, ты на кого рот поднимаешь!!",
+      "evidence_span": "РКН, ты на кого рот поднимаешь!!",
+      "outcome_blockers": [
+        "Not a strict performance/outcome row by taxonomy."
+      ],
+      "source_review_status": "not_a_signal",
+      "confidence": 0.72,
+      "uncertainty_reason": "Pseudo-label/review classified this row as not a market signal."
+    },
+    {
+      "claim_id": "claim_text_bablos79_10492",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10492",
+      "source_document_id": "bablos79:bablos79-10492",
+      "source_timestamp_utc": "2026-05-04T15:20:20Z",
+      "evidence_url": "https://t.me/bablos79/10492",
+      "text_sha256": "83b4068532e725a76133aa315f663dcfdb82effc7d62725a52215e550c15ec46",
+      "category": "non_market_commentary",
+      "market_idea_type": "non_market",
+      "asset_proxy_candidates": [
+        "SBER"
+      ],
+      "direction": "unknown",
+      "horizon": null,
+      "review_state": "reviewed_excluded_non_market",
+      "measurability_status": "not_applicable",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10492.json"
+      ],
+      "claim_text": "Если вам грустно и хочется взбодриться. ... юмором, то Ромка #SBER сегодня покупал 😁",
+      "evidence_span": "Если вам грустно и хочется взбодриться. ... юмором, то Ромка #SBER сегодня покупал 😁",
+      "outcome_blockers": [
+        "Not a strict performance/outcome row by taxonomy."
+      ],
+      "source_review_status": "not_a_signal",
+      "confidence": 0.61,
+      "uncertainty_reason": "Pseudo-label/review classified this row as not a market signal."
+    },
+    {
+      "claim_id": "claim_text_bablos79_10493",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10493",
+      "source_document_id": "bablos79:bablos79-10493",
+      "source_timestamp_utc": "2026-05-04T16:11:44Z",
+      "evidence_url": "https://t.me/bablos79/10493",
+      "text_sha256": "34e43305e8f08d4a1e3551e4855ca41ca86d39dbecd1f88f773648862b16bca6",
+      "category": "non_market_commentary",
+      "market_idea_type": "non_market",
+      "asset_proxy_candidates": [],
+      "direction": "unknown",
+      "horizon": null,
+      "review_state": "reviewed_excluded_non_market",
+      "measurability_status": "not_applicable",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10493.json"
+      ],
+      "claim_text": "стрим https://vkvideo.ru/video-116920723_456241795?list=ln-h9QiUIObatgSFmuKLB  https://rutube.ru/video/35492242bedf0234c641fb1b4371fc74/  https://youtube.com/live/b1zbTOWHndA?feature=share",
+      "evidence_span": "стрим https://vkvideo.ru/video-116920723_456241795?list=ln-h9QiUIObatgSFmuKLB  https://rutube.ru/video/35492242bedf0234c641fb1b4371fc74/  https://youtube.com/live/b1zbTOWHndA?feature=share",
+      "outcome_blockers": [
+        "Not a strict performance/outcome row by taxonomy."
+      ],
+      "source_review_status": "not_a_signal",
+      "confidence": 0.72,
+      "uncertainty_reason": "Pseudo-label/review classified this row as not a market signal."
+    },
+    {
+      "claim_id": "claim_text_bablos79_10495",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10495",
+      "source_document_id": "bablos79:bablos79-10495",
+      "source_timestamp_utc": "2026-05-05T05:06:35Z",
+      "evidence_url": "https://t.me/bablos79/10495",
+      "text_sha256": "7544545bea2fccbf781da94d9c908d757013464cd17bf9c2c68f8d287fea82ba",
+      "category": "non_market_commentary",
+      "market_idea_type": "non_market",
+      "asset_proxy_candidates": [],
+      "direction": "unknown",
+      "horizon": null,
+      "review_state": "reviewed_excluded_non_market",
+      "measurability_status": "not_applicable",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10495.json"
+      ],
+      "claim_text": "Крупный капитал еще не выходил из акции МБ",
+      "evidence_span": "Крупный капитал еще не выходил из акции МБ",
+      "outcome_blockers": [
+        "Not a strict performance/outcome row by taxonomy."
+      ],
+      "source_review_status": "not_a_signal",
+      "confidence": 0.72,
+      "uncertainty_reason": "Pseudo-label/review classified this row as not a market signal."
+    },
+    {
+      "claim_id": "claim_text_bablos79_10496",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10496",
+      "source_document_id": "bablos79:bablos79-10496",
+      "source_timestamp_utc": "2026-05-05T07:11:04Z",
+      "evidence_url": "https://t.me/bablos79/10496",
+      "text_sha256": "8a182b4496f304dc9675a3181be7052000305da5419ec11e53ac3c70cf91f31d",
+      "category": "non_market_commentary",
+      "market_idea_type": "non_market",
+      "asset_proxy_candidates": [],
+      "direction": "unknown",
+      "horizon": null,
+      "review_state": "reviewed_excluded_non_market",
+      "measurability_status": "not_applicable",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10496.json"
+      ],
+      "claim_text": "⚠️ ВЦИОМ перестал каждую неделю публиковать рейтинг политиков.\nВидимо засекретили, как данные по демографии.\nПо законам военного времени, так сказать…",
+      "evidence_span": "⚠️ ВЦИОМ перестал каждую неделю публиковать рейтинг политиков.\nВидимо засекретили, как данные по демографии.\nПо законам военного времени, так сказать…",
+      "outcome_blockers": [
+        "Not a strict performance/outcome row by taxonomy."
+      ],
+      "source_review_status": "not_a_signal",
+      "confidence": 0.72,
+      "uncertainty_reason": "Pseudo-label/review classified this row as not a market signal."
+    },
+    {
+      "claim_id": "claim_text_bablos79_10497",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10497",
+      "source_document_id": "bablos79:bablos79-10497",
+      "source_timestamp_utc": "2026-05-05T08:06:18Z",
+      "evidence_url": "https://t.me/bablos79/10497",
+      "text_sha256": "0167db24e8bf4e9e016c5cbf4da9f00342263525bda1fa8980f1ef216eaa8ed5",
+      "category": "non_market_commentary",
+      "market_idea_type": "non_market",
+      "asset_proxy_candidates": [
+        "MAGN"
+      ],
+      "direction": "unknown",
+      "horizon": null,
+      "review_state": "reviewed_excluded_non_market",
+      "measurability_status": "not_applicable",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10497.json"
+      ],
+      "claim_text": "Вот этот клоун загонял подписоту в #MAGN",
+      "evidence_span": "Вот этот клоун загонял подписоту в #MAGN",
+      "outcome_blockers": [
+        "Not a strict performance/outcome row by taxonomy."
+      ],
+      "source_review_status": "not_a_signal",
+      "confidence": 0.61,
+      "uncertainty_reason": "Pseudo-label/review classified this row as not a market signal."
+    },
+    {
+      "claim_id": "claim_text_bablos79_10498",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10498",
+      "source_document_id": "bablos79:bablos79-10498",
+      "source_timestamp_utc": "2026-05-05T08:25:36Z",
+      "evidence_url": "https://t.me/bablos79/10498",
+      "text_sha256": "627ad313c6a7a1a67498b5f096741bc767c3c6023e21a07627531a4bf9ee9415",
+      "category": "non_market_commentary",
+      "market_idea_type": "non_market",
+      "asset_proxy_candidates": [],
+      "direction": "unknown",
+      "horizon": null,
+      "review_state": "reviewed_excluded_non_market",
+      "measurability_status": "not_applicable",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10498.json"
+      ],
+      "claim_text": "Успешный успех",
+      "evidence_span": "Успешный успех",
+      "outcome_blockers": [
+        "Not a strict performance/outcome row by taxonomy."
+      ],
+      "source_review_status": "not_a_signal",
+      "confidence": 0.72,
+      "uncertainty_reason": "Pseudo-label/review classified this row as not a market signal."
+    },
+    {
+      "claim_id": "claim_text_bablos79_10499",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10499",
+      "source_document_id": "bablos79:bablos79-10499",
+      "source_timestamp_utc": "2026-05-05T08:31:27Z",
+      "evidence_url": "https://t.me/bablos79/10499",
+      "text_sha256": "884b974dda969c24208324a6ca27a3e6274e44485a389ab5dd107816c6f0cb51",
+      "category": "level_timing_call",
+      "market_idea_type": "directional_thesis",
+      "asset_proxy_candidates": [
+        "SFIN"
+      ],
+      "direction": "management",
+      "horizon": null,
+      "review_state": "reviewed_insufficient_evidence",
+      "measurability_status": "insufficient_fields",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10499.json"
+      ],
+      "claim_text": "#SFIN закрыл почти в ноль.\nПродажи пошли.",
+      "evidence_span": "#SFIN закрыл почти в ноль.\nПродажи пошли.",
+      "outcome_blockers": [
+        "Missing fields: entry, stop, target",
+        "Required deterministic outcome fields are missing or ambiguous."
+      ],
+      "source_review_status": "insufficient_fields",
+      "confidence": 0.55,
+      "uncertainty_reason": "Close/exit language exists, but no original entry/stop/target is provided in this post."
+    },
+    {
+      "claim_id": "claim_text_bablos79_10500",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10500",
+      "source_document_id": "bablos79:bablos79-10500",
+      "source_timestamp_utc": "2026-05-05T12:43:44Z",
+      "evidence_url": "https://t.me/bablos79/10500",
+      "text_sha256": "d83aa742b3b62cc11c256c20b1e48388d4a3f2cddfcef217d0339fce9d339dbb",
+      "category": "level_timing_call",
+      "market_idea_type": "directional_thesis",
+      "asset_proxy_candidates": [
+        "CHMF"
+      ],
+      "direction": "management",
+      "horizon": null,
+      "review_state": "reviewed_insufficient_evidence",
+      "measurability_status": "insufficient_fields",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10500.json"
+      ],
+      "claim_text": "Зафиксировал часть #CHMF \nСтоп перенес",
+      "evidence_span": "Зафиксировал часть #CHMF \nСтоп перенес",
+      "outcome_blockers": [
+        "Missing fields: entry, stop, target",
+        "Required deterministic outcome fields are missing or ambiguous."
+      ],
+      "source_review_status": "insufficient_fields",
+      "confidence": 0.58,
+      "uncertainty_reason": "Partial fixation and moved stop are trade-management language, but original setup levels are missing."
+    },
+    {
+      "claim_id": "claim_text_bablos79_10501",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10501",
+      "source_document_id": "bablos79:bablos79-10501",
+      "source_timestamp_utc": "2026-05-05T12:55:18Z",
+      "evidence_url": "https://t.me/bablos79/10501",
+      "text_sha256": "ab0d4d95c21c133f8fa8faa77e3be944d0dc1bd153bed5c069182d645dd341fd",
+      "category": "level_timing_call",
+      "market_idea_type": "directional_thesis",
+      "asset_proxy_candidates": [
+        "MAGN"
+      ],
+      "direction": "management",
+      "horizon": null,
+      "review_state": "reviewed_insufficient_evidence",
+      "measurability_status": "insufficient_fields",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10501.json"
+      ],
+      "claim_text": "Это просто красиво #MAGN \nЧасть закрыл стоп подвинул",
+      "evidence_span": "Это просто красиво #MAGN \nЧасть закрыл стоп подвинул",
+      "outcome_blockers": [
+        "Missing fields: entry, stop, target",
+        "Required deterministic outcome fields are missing or ambiguous."
+      ],
+      "source_review_status": "insufficient_fields",
+      "confidence": 0.57,
+      "uncertainty_reason": "Partial close and moved stop are trade-management language, but no entry/target/stop values are stated."
+    },
+    {
+      "claim_id": "claim_text_bablos79_10502",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10502",
+      "source_document_id": "bablos79:bablos79-10502",
+      "source_timestamp_utc": "2026-05-05T13:15:14Z",
+      "evidence_url": "https://t.me/bablos79/10502",
+      "text_sha256": "53150f5b948c504706a6341bf2bc83c4f5fb05ae3b79f362d65909f187dbd1fa",
+      "category": "non_market_commentary",
+      "market_idea_type": "non_market",
+      "asset_proxy_candidates": [],
+      "direction": "unknown",
+      "horizon": null,
+      "review_state": "reviewed_excluded_non_market",
+      "measurability_status": "not_applicable",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10502.json"
+      ],
+      "claim_text": "Американцы спешно выводят военный контингент из Германии.\nФинляндии предоставляет воздушное пространство для ударов по территории РФ.",
+      "evidence_span": "Американцы спешно выводят военный контингент из Германии.\nФинляндии предоставляет воздушное пространство для ударов по территории РФ.",
+      "outcome_blockers": [
+        "Not a strict performance/outcome row by taxonomy."
+      ],
+      "source_review_status": "not_a_signal",
+      "confidence": 0.72,
+      "uncertainty_reason": "Pseudo-label/review classified this row as not a market signal."
+    },
+    {
+      "claim_id": "claim_text_bablos79_10503",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10503",
+      "source_document_id": "bablos79:bablos79-10503",
+      "source_timestamp_utc": "2026-05-05T13:16:37Z",
+      "evidence_url": "https://t.me/bablos79/10503",
+      "text_sha256": "19b3a107864a752f4f13395a96ae49e47a32d9c7a71a54f78fa25649dac453e7",
+      "category": "non_market_commentary",
+      "market_idea_type": "non_market",
+      "asset_proxy_candidates": [],
+      "direction": "unknown",
+      "horizon": null,
+      "review_state": "reviewed_excluded_non_market",
+      "measurability_status": "not_applicable",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10503.json"
+      ],
+      "claim_text": "В соцсети залил разговор с Александром Резвяковым.",
+      "evidence_span": "В соцсети залил разговор с Александром Резвяковым.",
+      "outcome_blockers": [
+        "Not a strict performance/outcome row by taxonomy."
+      ],
+      "source_review_status": "not_a_signal",
+      "confidence": 0.72,
+      "uncertainty_reason": "Pseudo-label/review classified this row as not a market signal."
+    },
+    {
+      "claim_id": "claim_text_bablos79_10504",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10504",
+      "source_document_id": "bablos79:bablos79-10504",
+      "source_timestamp_utc": "2026-05-05T15:29:49Z",
+      "evidence_url": "https://t.me/bablos79/10504",
+      "text_sha256": "fb3f5b4c48c0909d6d869a5349ec07e1733d07a94f35e9722e036438c406c299",
+      "category": "directional_bias",
+      "market_idea_type": "directional_thesis",
+      "asset_proxy_candidates": [],
+      "direction": "management",
+      "horizon": null,
+      "review_state": "ambiguous_needs_operator_review",
+      "measurability_status": "ambiguous_weak",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10504.json"
+      ],
+      "claim_text": "Как вовремя я закрыл часть шортов. \nНо это просто откат. Картина не меняется.",
+      "evidence_span": "Как вовремя я закрыл часть шортов. \nНо это просто откат. Картина не меняется.",
+      "outcome_blockers": [
+        "Missing fields: asset_symbol, entry, stop, target"
+      ],
+      "source_review_status": "needs_review",
+      "confidence": 0.41,
+      "uncertainty_reason": "Short-management language implies unchanged negative picture, but no asset/proxy or setup fields are present."
+    },
+    {
+      "claim_id": "claim_text_bablos79_10505",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10505",
+      "source_document_id": "bablos79:bablos79-10505",
+      "source_timestamp_utc": "2026-05-05T18:21:20Z",
+      "evidence_url": "https://t.me/bablos79/10505",
+      "text_sha256": "072ba1c45b4f5a50ee655c6e3d86484ca1238e3237105bbf17259568463ae545",
+      "category": "non_market_commentary",
+      "market_idea_type": "non_market",
+      "asset_proxy_candidates": [],
+      "direction": "unknown",
+      "horizon": null,
+      "review_state": "reviewed_excluded_non_market",
+      "measurability_status": "not_applicable",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10505.json"
+      ],
+      "claim_text": "Ахах",
+      "evidence_span": "Ахах",
+      "outcome_blockers": [
+        "Not a strict performance/outcome row by taxonomy."
+      ],
+      "source_review_status": "not_a_signal",
+      "confidence": 0.72,
+      "uncertainty_reason": "Pseudo-label/review classified this row as not a market signal."
+    },
+    {
+      "claim_id": "claim_text_bablos79_10506",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10506",
+      "source_document_id": "bablos79:bablos79-10506",
+      "source_timestamp_utc": "2026-05-06T06:15:03Z",
+      "evidence_url": "https://t.me/bablos79/10506",
+      "text_sha256": "d6878e9eb042da2aa11fe3e13d5827482da014176a6e8d6a27820a5cff3d5d2e",
+      "category": "non_market_commentary",
+      "market_idea_type": "non_market",
+      "asset_proxy_candidates": [],
+      "direction": "unknown",
+      "horizon": null,
+      "review_state": "reviewed_excluded_non_market",
+      "measurability_status": "not_applicable",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10506.json"
+      ],
+      "claim_text": "Какао какао о о о!\nКакао какао о о о!",
+      "evidence_span": "Какао какао о о о!\nКакао какао о о о!",
+      "outcome_blockers": [
+        "Not a strict performance/outcome row by taxonomy."
+      ],
+      "source_review_status": "not_a_signal",
+      "confidence": 0.72,
+      "uncertainty_reason": "Pseudo-label/review classified this row as not a market signal."
+    },
+    {
+      "claim_id": "claim_text_bablos79_10507",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10507",
+      "source_document_id": "bablos79:bablos79-10507",
+      "source_timestamp_utc": "2026-05-06T06:27:27Z",
+      "evidence_url": "https://t.me/bablos79/10507",
+      "text_sha256": "6e8bdea5257f67dfdc94a2fd5210b75bcc929eb45197513c5ef5f71c6b746617",
+      "category": "non_market_commentary",
+      "market_idea_type": "non_market",
+      "asset_proxy_candidates": [],
+      "direction": "unknown",
+      "horizon": null,
+      "review_state": "reviewed_excluded_non_market",
+      "measurability_status": "not_applicable",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10507.json"
+      ],
+      "claim_text": "Когда у меня спрашивают: \nВыйдут ли скоро инвесторы в ноль?\n\nЯ:",
+      "evidence_span": "Когда у меня спрашивают: \nВыйдут ли скоро инвесторы в ноль?\n\nЯ:",
+      "outcome_blockers": [
+        "Not a strict performance/outcome row by taxonomy."
+      ],
+      "source_review_status": "not_a_signal",
+      "confidence": 0.72,
+      "uncertainty_reason": "Pseudo-label/review classified this row as not a market signal."
+    },
+    {
+      "claim_id": "claim_text_bablos79_10508",
+      "source_id": "bablos79",
+      "source_type": "text_capture",
+      "capture_id": "bablos79-10508",
+      "source_document_id": "bablos79:bablos79-10508",
+      "source_timestamp_utc": "2026-05-06T06:57:32Z",
+      "evidence_url": "https://t.me/bablos79/10508",
+      "text_sha256": "64110f41bea0d2341261991d60d733023f5f67a415f68fe33bc11de8076f7ede",
+      "category": "non_market_commentary",
+      "market_idea_type": "non_market",
+      "asset_proxy_candidates": [],
+      "direction": "unknown",
+      "horizon": null,
+      "review_state": "reviewed_excluded_non_market",
+      "measurability_status": "not_applicable",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "workspace/captures/bablos79/bablos79-10508.json"
+      ],
+      "claim_text": "Утренняя сессия это конечно нечто!\nНо характер поведения там изменился.",
+      "evidence_span": "Утренняя сессия это конечно нечто!\nНо характер поведения там изменился.",
+      "outcome_blockers": [
+        "Not a strict performance/outcome row by taxonomy."
+      ],
+      "source_review_status": "not_a_signal",
+      "confidence": 0.72,
+      "uncertainty_reason": "Pseudo-label/review classified this row as not a market signal."
+    },
+    {
+      "claim_id": "claim_transcript_bablos79_10476_claim1",
+      "source_id": "bablos79",
+      "source_type": "voice_transcript_llm_review",
+      "capture_id": "bablos79-10476",
+      "source_document_id": "bablos79:bablos79-10476",
+      "source_timestamp_utc": "2026-04-30T07:34:30Z",
+      "evidence_url": "https://t.me/bablos79/10476",
+      "text_sha256": "fced0cd89e597531ae3082941397f7c9f0804a1b41779edfea295cb55c95b4fe",
+      "category": "macro_context",
+      "market_idea_type": "market_regime",
+      "asset_proxy_candidates": [
+        "global geopolitics, US, UK, Russia"
+      ],
+      "direction": "negative",
+      "horizon": null,
+      "review_state": "llm_reviewed_internal",
+      "measurability_status": "non_measurable_internal_only",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [
+        "workspace/media/bablos79/bablos79-10476.ogg"
+      ],
+      "evidence_refs": [
+        "docs/pilot/transcripts/transcript_57b6461001b54e10.json",
+        "docs/pilot/bablos79_TRANSCRIPT_LLM_REVIEW.json"
+      ],
+      "claim_text": "Geopolitical tensions are increasing, with the UK allegedly seeking to draw the US into conflicts to weaken it, and the US losing influence globally.",
+      "evidence_span": "британцы хотят втянуть конкретно США в войну против России...американцы будут ослабеть и самое главное терять своё влияние в мире, что сейчас и происходит",
+      "outcome_blockers": [
+        "No explicit asset or measurable outcome.",
+        "Claim is broad and speculative.",
+        "Transcript is LLM-reviewed internal, not human/operator accepted for external delivery."
+      ],
+      "source_review_status": "usable_internal",
+      "confidence": null,
+      "uncertainty_reason": "No explicit asset or measurable outcome.; Claim is broad and speculative."
+    },
+    {
+      "claim_id": "claim_transcript_bablos79_10476_claim2",
+      "source_id": "bablos79",
+      "source_type": "voice_transcript_llm_review",
+      "capture_id": "bablos79-10476",
+      "source_document_id": "bablos79:bablos79-10476",
+      "source_timestamp_utc": "2026-04-30T07:34:30Z",
+      "evidence_url": "https://t.me/bablos79/10476",
+      "text_sha256": "fced0cd89e597531ae3082941397f7c9f0804a1b41779edfea295cb55c95b4fe",
+      "category": "directional_bias",
+      "market_idea_type": "directional_thesis",
+      "asset_proxy_candidates": [
+        "Московская биржа, широкий рынок активов"
+      ],
+      "direction": "negative",
+      "horizon": "майские праздники",
+      "review_state": "llm_reviewed_internal",
+      "measurability_status": "non_measurable_internal_only",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [
+        "workspace/media/bablos79/bablos79-10476.ogg"
+      ],
+      "evidence_refs": [
+        "docs/pilot/transcripts/transcript_57b6461001b54e10.json",
+        "docs/pilot/bablos79_TRANSCRIPT_LLM_REVIEW.json"
+      ],
+      "claim_text": "Negative trend continues for the Moscow Exchange and broad asset market; possible short-term bounce before May holidays, but attacks expected during holidays will likely push the market down.",
+      "evidence_span": "по московской бирже, по широкому рынку активов негатив продолжается, сейчас может быть какой-то мы получим отскок перед майскими праздниками, но я думаю, что на майские праздники будут атаки, и тогда движение вниз продолжится",
+      "outcome_blockers": [
+        "No explicit asset or trade setup.",
+        "No deterministic price or outcome specified.",
+        "Transcript is LLM-reviewed internal, not human/operator accepted for external delivery."
+      ],
+      "source_review_status": "usable_internal",
+      "confidence": null,
+      "uncertainty_reason": "No explicit asset or trade setup.; No deterministic price or outcome specified."
+    },
+    {
+      "claim_id": "claim_transcript_bablos79_10478_claim1",
+      "source_id": "bablos79",
+      "source_type": "voice_transcript_llm_review",
+      "capture_id": "bablos79-10478",
+      "source_document_id": "bablos79:bablos79-10478",
+      "source_timestamp_utc": "2026-04-30T09:46:50Z",
+      "evidence_url": "https://t.me/bablos79/10478",
+      "text_sha256": "bcccb754e9c8fec7d32e8c2ea9852c2b24667fd490edd8863c232ee302c96718",
+      "category": "event_risk",
+      "market_idea_type": "catalyst_reaction",
+      "asset_proxy_candidates": [
+        "Российская биржа"
+      ],
+      "direction": "negative",
+      "horizon": "майские праздники",
+      "review_state": "llm_reviewed_internal",
+      "measurability_status": "non_measurable_internal_only",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [
+        "workspace/media/bablos79/bablos79-10478.ogg"
+      ],
+      "evidence_refs": [
+        "docs/pilot/transcripts/transcript_92ad5bf2e9088056.json",
+        "docs/pilot/bablos79_TRANSCRIPT_LLM_REVIEW.json"
+      ],
+      "claim_text": "There is a risk of mass attacks and provocations during the May holidays, which will negatively affect the Russian exchange.",
+      "evidence_span": "есть опасность что на майские праздники будут налеты массовые очень массовые налеты будут...это будет негатив по бирже",
+      "outcome_blockers": [
+        "No explicit asset or deterministic outcome.",
+        "Claim is event-driven and speculative.",
+        "Transcript is LLM-reviewed internal, not human/operator accepted for external delivery."
+      ],
+      "source_review_status": "usable_internal",
+      "confidence": null,
+      "uncertainty_reason": "No explicit asset or deterministic outcome.; Claim is event-driven and speculative."
+    },
+    {
+      "claim_id": "claim_media_blocked_image_channel_level_screenshot",
+      "source_id": "bablos79",
+      "source_type": "media_blocker",
+      "capture_id": null,
+      "source_document_id": null,
+      "source_timestamp_utc": null,
+      "evidence_url": null,
+      "text_sha256": null,
+      "category": "unsupported_media_claim",
+      "market_idea_type": "queued_for_review",
+      "asset_proxy_candidates": [],
+      "direction": "unknown",
+      "horizon": null,
+      "review_state": "blocked_missing_source_linkage",
+      "measurability_status": "unsupported_media",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "docs/pilot/bablos79_IMAGE_REVIEW_QUEUE.md"
+      ],
+      "claim_text": "Channel-level image/screenshot candidate has no exact public source-document linkage.",
+      "evidence_span": "blocked_image_channel_level_screenshot",
+      "outcome_blockers": [
+        "No exact public source URL.",
+        "No capture ID, source-document ID, or checksumable media."
+      ]
+    },
+    {
+      "claim_id": "claim_media_blocked_chart_channel_level_screenshot",
+      "source_id": "bablos79",
+      "source_type": "media_blocker",
+      "capture_id": null,
+      "source_document_id": null,
+      "source_timestamp_utc": null,
+      "evidence_url": null,
+      "text_sha256": null,
+      "category": "unsupported_media_claim",
+      "market_idea_type": "queued_for_review",
+      "asset_proxy_candidates": [],
+      "direction": "unknown",
+      "horizon": null,
+      "review_state": "blocked_missing_source_linkage",
+      "measurability_status": "unsupported_media",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "docs/pilot/bablos79_IMAGE_REVIEW_QUEUE.md"
+      ],
+      "claim_text": "Channel-level chart candidate has no exact public source-document linkage.",
+      "evidence_span": "blocked_chart_channel_level_screenshot",
+      "outcome_blockers": [
+        "No exact public chart source linkage.",
+        "Chart interpretation remains manual-review-only."
+      ]
+    },
+    {
+      "claim_id": "claim_media_blocked_gap_pre_seed_window_images",
+      "source_id": "bablos79",
+      "source_type": "media_blocker",
+      "capture_id": "gap:gap-pre-seed-window",
+      "source_document_id": "gap:gap-pre-seed-window",
+      "source_timestamp_utc": null,
+      "evidence_url": null,
+      "text_sha256": null,
+      "category": "unsupported_media_claim",
+      "market_idea_type": "queued_for_review",
+      "asset_proxy_candidates": [],
+      "direction": "unknown",
+      "horizon": null,
+      "review_state": "blocked_missing_capture_rows",
+      "measurability_status": "unsupported_media",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "docs/pilot/bablos79_CORPUS_GAP_REGISTER.md"
+      ],
+      "claim_text": "No source rows exist for image/media review in the pre-seed locked-window period.",
+      "evidence_span": "blocked_gap_pre_seed_window_images",
+      "outcome_blockers": [
+        "No source rows exist for this locked-window period."
+      ]
+    },
+    {
+      "claim_id": "claim_media_blocked_gap_post_seed_window_images",
+      "source_id": "bablos79",
+      "source_type": "media_blocker",
+      "capture_id": "gap:gap-post-seed-window",
+      "source_document_id": "gap:gap-post-seed-window",
+      "source_timestamp_utc": null,
+      "evidence_url": null,
+      "text_sha256": null,
+      "category": "unsupported_media_claim",
+      "market_idea_type": "queued_for_review",
+      "asset_proxy_candidates": [],
+      "direction": "unknown",
+      "horizon": null,
+      "review_state": "blocked_missing_capture_rows",
+      "measurability_status": "unsupported_media",
+      "deterministic_outcome_ready": false,
+      "customer_report_eligible": false,
+      "media_refs": [],
+      "evidence_refs": [
+        "docs/pilot/bablos79_CORPUS_GAP_REGISTER.md"
+      ],
+      "claim_text": "No source rows exist for image/media review in the post-seed locked-window period.",
+      "evidence_span": "blocked_gap_post_seed_window_images",
+      "outcome_blockers": [
+        "No source rows exist for this locked-window period."
+      ]
+    }
+  ]
+}
