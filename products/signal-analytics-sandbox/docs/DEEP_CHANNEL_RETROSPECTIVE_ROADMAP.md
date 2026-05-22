@@ -53,6 +53,44 @@ Input:
 - legal/terms memo and public-only boundary;
 - proposed expanded window, default 60-120 days unless the operator narrows it.
 
+Scope lock:
+
+- `SAS-DR-001` locks `bablos79` to a 90-day public Telegram window:
+  `2026-02-15T00:00:00+00:00` through `2026-05-15T23:59:59+00:00`.
+- The scope is fixed before expanded capture, claim extraction, market proxy
+  mapping, or outcome analysis.
+- Phase 21 rejected the narrow source/window for external delivery, not the
+  channel as a whole.
+
+Capture registration:
+
+- `SAS-DR-002` registers the available seed corpus in
+  `docs/pilot/bablos79_EXPANDED_CAPTURE_MANIFEST.json` and
+  `docs/pilot/bablos79_EXPANDED_CAPTURE_PACK.md`.
+- Current registered coverage is 60 public text captures from
+  `2026-04-27T07:12:22+00:00` through `2026-05-06T06:57:32+00:00`, with 2
+  media-linked rows and 3 explicit gap entries for the larger locked window.
+- No market outcome analysis has run for this expanded scope.
+
+Media inventory:
+
+- `SAS-DR-003` writes
+  `docs/pilot/bablos79_MEDIA_INVENTORY_EXPANDED.md`.
+- Current media state is 2 acquired public voice refs, 2 missing linked media
+  refs, 2 unlinked channel-level image/chart candidates, and gap-window media
+  blockers.
+- No OCR, image analysis, chart interpretation, transcript acceptance, or
+  customer-facing media claim is approved by the inventory.
+
+Gap register:
+
+- `SAS-DR-004` writes `docs/pilot/bablos79_CORPUS_GAP_REGISTER.md`.
+- Current known gaps include missing locked-window periods, message-ID
+  continuity, linked-media blockers, unlinked image/chart candidates, forbidden
+  source classes, and unresolved timestamps.
+- Gaps are limitations or operator-input needs; they are not evidence of author
+  quality.
+
 Build:
 
 - anti-cherry-pick source-window protocol;
@@ -101,6 +139,7 @@ Outputs:
 - `docs/pilot/bablos79_OCR_RUN_EXPANDED.md`;
 - `docs/pilot/bablos79_IMAGE_REVIEW_QUEUE.md`;
 - `docs/pilot/bablos79_REVIEWED_MEDIA_EVIDENCE.md`;
+- `docs/pilot/bablos79_TRANSCRIPT_ACCEPTANCE_POLICY.md`;
 - `docs/pilot/bablos79_MULTIMODAL_SOURCE_PREVIEW_V2.md`.
 
 Gate:

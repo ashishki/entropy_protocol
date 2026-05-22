@@ -29,6 +29,12 @@ _Append-only. One row per review cycle._
 | 19 | Phase 19 | 2026-05-09 | SAS-MI-018-SAS-MI-019 | No | 0 | 0 | 0 |
 | 20 | Phase 20 | 2026-05-09 | SAS-MEDIA-001-SAS-MEDIA-008 | No | 0 | 0 | 0 |
 | 21 | Phase 21 | 2026-05-14 | SAS-LIVE-001-SAS-LIVE-009, SAS-AF-006-SAS-AF-008 | No | 0 | 0 | 0 |
+| 22 | Phase 22 | 2026-05-15 | SAS-DR-001-SAS-DR-005 | No | 0 | 0 | 0 |
+| 23 | Phase 23 | 2026-05-15 | SAS-DR-006-SAS-DR-010 | No | 0 | 0 | 0 |
+| 24 | Phase 24 | 2026-05-15 | SAS-DR-012-SAS-DR-017 | No | 0 | 0 | 0 |
+| 25 | Phase 25 | 2026-05-15 | SAS-DR-018-SAS-DR-022 | No | 0 | 0 | 0 |
+| 26 | Phase 26 | 2026-05-19 | SAS-ER-000-SAS-ER-006 | No | 0 | 0 | 0 |
+| 27 | Phase 27 | 2026-05-19 | SAS-V1-001-SAS-V1-009 | No | 0 | 0 | 0 |
 
 ---
 
@@ -57,6 +63,12 @@ _Append-only. One row per review cycle._
 | 19 | `docs/archive/PHASE19_REVIEW.md` | Phase 19 | OK |
 | 20 | `docs/archive/PHASE20_REVIEW.md` | Phase 20 | OK |
 | 21 | `docs/archive/PHASE21_REVIEW.md` | Phase 21 | OK |
+| 22 | `docs/archive/PHASE22_REVIEW.md` | Phase 22 | OK |
+| 23 | `docs/archive/PHASE23_REVIEW.md` | Phase 23 | OK |
+| 24 | `docs/archive/PHASE24_REVIEW.md` | Phase 24 | OK |
+| 25 | `docs/archive/PHASE25_RETROSPECTIVE_REVIEW.md` | Phase 25 | OK |
+| 26 | `docs/archive/PHASE26_REVIEW.md` | Phase 26 | OK |
+| 27 | `docs/archive/PHASE27_REVIEW.md` | Phase 27 | OK |
 
 ---
 

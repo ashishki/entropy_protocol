@@ -1,66 +1,50 @@
-# Meta Analysis - Cycle 21
+# META_ANALYSIS - Cycle 25
+_Date: 2026-05-15 · Type: full_
 
-Date: 2026-05-14
-Phase: 21
-Scope: SAS-LIVE-001..009 and SAS-AF-006..008
+## Project State
 
-## Status
+Phase 25 (`SAS-DR-018` through `SAS-DR-022`) is at final boundary review. The
+current planned task graph is complete after this review.
 
-Phase 21 is complete through the external pilot ready gate. The selected
-`bablos79` source/window produced two public voice-file artifacts but zero
-human-reviewed transcript/OCR references, so the media-backed route is rejected
-for external delivery.
+Baseline: 171 pass, 0 skip.
 
-## Baseline
+## Open Findings
 
-- Tests: 163 passing, 0 skipped
-- Ruff: pass
-- Pyright: pass
-- Review trigger: phase boundary deep review
+| ID | Sev | Description | Files | Status |
+|----|-----|-------------|-------|--------|
+| P21-E02 | P1 | Two transcript refs are `llm_reviewed_internal`; zero refs are human/operator accepted for external delivery. | `docs/audit/PHASE21_ERROR_REGISTER.md` | final external-delivery blocker |
+| P21-E03 | P1 | Internal media-backed report has broad-market transcript claims but zero deterministic outcome-ready rows. | `docs/audit/PHASE21_ERROR_REGISTER.md` | final external-delivery blocker |
+| P21-E04 | P2 | The exact follow-up video promised by `bablos79-10465` remains unidentified. | `docs/audit/PHASE21_ERROR_REGISTER.md` | source-linkage gap |
+| P22-G01 | P1 | Locked 90-day public window is only partially represented by local seed captures. | `docs/pilot/bablos79_CORPUS_GAP_REGISTER.md` | corpus limitation |
+| P22-G02 | P1 | Image/chart candidates are not acquisition-ready without exact public source-document linkage. | `docs/pilot/bablos79_MEDIA_INVENTORY_EXPANDED.md` | media limitation |
 
-## Prompt Scope
+## PROMPT_1 Scope (architecture)
 
-### PROMPT_1_ARCH
+- Phase 25 report posture: internal-only insufficient-evidence retrospective.
+- External ready gate: reject external delivery, do not expand into
+  marketplace/leaderboard/advice scope.
+- Next work, if any, must repair evidence: corpus coverage, accepted media,
+  explicit proxies, market snapshots, and computed outcomes.
 
-Review architecture, contracts, roadmap alignment, ADR compliance, evidence
-boundaries, and docs for the completed Phase 21 artifact-first/media-backed
-validation route.
+## PROMPT_2 Scope (docs, priority order)
 
-### PROMPT_2_CODE
+1. `docs/pilot/bablos79_AUTHOR_CAPABILITY_SCORECARD.md`
+2. `docs/pilot/reports/bablos79_AUTHOR_CAPABILITY_REPORT_V1.md`
+3. `docs/pilot/bablos79_DEEP_RETROSPECTIVE_DEMO_PACK.md`
+4. `docs/pilot/bablos79_DEEP_EXTERNAL_READY_GATE.md`
+5. `docs/archive/PHASE25_RETROSPECTIVE_REVIEW.md`
+6. `docs/audit/REVIEW_REPORT.md`
+7. `docs/audit/ARCH_REPORT.md`
+8. `docs/audit/PHASE_REPORT_LATEST.md`
+9. `docs/audit/AUDIT_INDEX.md`
 
-Prioritize files and behavior touched by Phase 21:
+## Cycle Type
 
-- `src/signal_sandbox/artifact_pipeline.py`
-- `src/signal_sandbox/cli.py`
-- `src/signal_sandbox/media/artifact.py`
-- `src/signal_sandbox/media/transcription.py`
-- `src/signal_sandbox/media/ocr.py`
-- `src/signal_sandbox/media/source_join.py`
-- `tests/unit/test_artifact_pipeline.py`
-- `tests/unit/test_multimodal_source_join.py`
-- `tests/unit/test_whisper_transcript_adapter.py`
-- `tests/unit/test_ocr_draft_adapter.py`
-- `tests/integration/test_cli_smoke.py`
+Full - Phase 25 is complete and closes the current deep channel retrospective
+task graph.
 
-Review the generated pilot artifacts as contract evidence, not as production
-runtime code.
+## Notes for PROMPT_3
 
-## Open Product Findings
-
-These findings block external delivery for this source/window but do not block
-archiving the implementation phase.
-
-| ID | Severity | Summary | Status |
-|----|----------|---------|--------|
-| P21-E01 | P1 | Two public voice files exist but no approved transcript provider produced drafts. | Open |
-| P21-E02 | P1 | Zero transcript/OCR references are human-reviewed usable evidence. | Open |
-| P21-E03 | P1 | Media-backed report has zero eligible rows and zero measurable outcome rows. | Open |
-| P21-E04 | P2 | The exact follow-up video promised by `bablos79-10465` was not identified in the public window. | Open |
-
-## Review Plan
-
-1. Confirm architecture and governance boundaries against ADR-001..004.
-2. Review Phase 21 implementation and tests for regressions, nondeterminism,
-   and evidence-boundary violations.
-3. Consolidate findings into `REVIEW_REPORT.md`.
-4. Archive the cycle report as `docs/archive/PHASE21_REVIEW.md`.
+Focus consolidation on final closure: planned phases are complete, external
+delivery is rejected, internal demo scope is allowed, and the next valid route
+is evidence repair/corpus expansion rather than marketplace scope.

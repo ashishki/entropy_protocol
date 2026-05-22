@@ -121,8 +121,7 @@ def test_openai_whisper_client_calls_managed_transcription(
     client = OpenAIWhisperTranscriptionClient(api_key="test-key")
 
     assert (
-        client.transcribe(media_path, model="whisper-test")
-        == "расшифровка голосового"
+        client.transcribe(media_path, model="whisper-test") == "расшифровка голосового"
     )
     assert calls == [("whisper-test", str(media_path), b"voice bytes")]
 

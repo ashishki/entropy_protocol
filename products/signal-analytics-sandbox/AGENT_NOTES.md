@@ -1,71 +1,58 @@
 # Agent Notes - Signal Analytics Sandbox
 
-Date: 2026-05-15
+Date: 2026-05-19
 
-This file keeps only restart-relevant notes. Detailed phase history lives in
+Restart-relevant state only. Historical detail lives in
 `docs/IMPLEMENTATION_JOURNAL.md`, `docs/archive/`, and `docs/tasks.md`.
 
 ## Active State
 
-- Phase: 22 Expanded Public Corpus
-- Active task: SAS-DR-001 Deep Retrospective Scope Lock
-- Baseline: 166 pass / 0 skip
-- Primary roadmap: `docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md`
+- Phase: 35 Reliability And Scaling
+- Active task: none in current SAS-NEXT roadmap
+- Baseline: 295 pass / 0 skip
+- External gate: `approve_internal_only`
+- External delivery: not approved
+- Core: paused
 
 ## Current Decision
 
-Warm demand/pre-order interest exists. Phase 21 produced a real internal
-LLM-reviewed media-backed result, but the source/window was too narrow for
-external delivery. The next route expands the public corpus, adds image/OCR,
-builds a reviewed claim ledger, and compares measurable claims to public market
-data.
+Internal V1 channel utility validation is complete for `bablos79`,
+`nemphiscrypts`, and `pifagortrade`. The system can produce an internal
+evidence-backed channel utility report with reviewed V1 metrics, but it cannot
+be sold or presented as external-ready until durable operator decisions,
+provider/media coverage, and stronger setup/RR coverage are closed.
 
-## Locked Scope
+## Next Action
 
-- Source/channel: `https://t.me/bablos79`
-- Period: existing public text capture window from 2026-04-27 through 2026-05-06.
-- Capture method: public/operator unauthenticated Telegram `/s/` HTML captures.
-- Report type: bounded public-source author/source research report.
-- Language: Russian-first pilot report.
-- Media scope: now required for the next loop because the text-only report has
-  0 customer-report-eligible metric rows.
+All `SAS-NEXT-001..032` tasks are complete. Await operator review, external
+gate decision, pilot execution, or next roadmap expansion.
 
-Capture pack: `docs/pilot/bablos79_CAPTURE_PACK.md` and
-`docs/pilot/bablos79_CAPTURE_PACK.json`.
+Read first:
 
-Review queue closure: `docs/pilot/bablos79_REVIEW_QUEUE_CLOSED.md` and
-`docs/pilot/bablos79_REVIEW_QUEUE_CLOSED.json`.
+1. `docs/CODEX_PROMPT.md`
+2. `docs/AI_DEVELOPMENT_PLAN_RU.md`
+3. `docs/tasks.md` Phase 35
+4. `docs/pilot/reports/three_channel_V1_REPORT_LANGUAGE_SAFETY.json`
+5. `docs/pilot/three_channel_V1_EXTRACTION_REVIEW.md`
+6. `docs/pilot/three_channel_V1_EXTERNAL_READY_GATE.md`
 
-Outcome prep: `docs/pilot/bablos79_OUTCOME_PREP.md` and
-`docs/pilot/bablos79_OUTCOME_PREP.json`.
+## Canonical Links
 
-Report draft: `docs/pilot/reports/bablos79_SIGNAL_REPORT_V1.md`.
-
-Multimodal plan: `docs/MULTIMODAL_REPORT_DEVELOPMENT_PLAN.md`.
-
-Real media intake: `docs/pilot/bablos79_REAL_MEDIA_INTAKE.md`.
-
-Current result: `SAS-LIVE-002..SAS-AF-008` completed and Phase 21 is archived.
-Two public voice files were acquired, but no transcript provider was configured,
-zero reviewed usable media refs exist, and the ready gate rejects this
-source/window for external delivery.
-
-Next task: run `SAS-DR-001` and create `docs/pilot/bablos79_DEEP_SCOPE.md`.
+- V1 report:
+  `docs/pilot/reports/three_channel_V1_CHANNEL_UTILITY_REPORT.md`
+- V1 gate:
+  `docs/pilot/three_channel_V1_EXTERNAL_READY_GATE.md`
+- Phase 27 review:
+  `docs/archive/PHASE27_REVIEW.md`
+- Follow-on plan:
+  `docs/AI_DEVELOPMENT_PLAN_RU.md`
+- State compaction archive:
+  `docs/archive/POST_V1_STATE_COMPACTION_2026-05-19.md`
 
 ## Guardrails
 
 - Public/operator-authorized sources only.
-- Media evidence remains draft/internal until human-reviewed.
-- No marketplace, leaderboard, advice, future-profit claims, private scraping,
-  or paid X/Twitter dependency.
-- Core is paused.
-- Keep weak/counterexamples and non-measurable claims; do not produce a
-  promotional channel-ranking report.
-
-## Key Links
-
-- `docs/CODEX_PROMPT.md`
-- `docs/tasks.md`
-- `docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md`
-- `docs/pilot/MEDIA_MODALITY_DECISION.md`
-- `docs/archive/PHASE21_REVIEW.md`
+- No private scraping, access-control bypass, advice, future-profit claims, or
+  leaderboard/marketplace framing.
+- Unsupported providers/proxies are exclusions, not wins/losses.
+- Unreviewed transcript/OCR/chart claims stay out of customer-facing metrics.

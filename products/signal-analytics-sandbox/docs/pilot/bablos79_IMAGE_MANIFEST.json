@@ -1,0 +1,153 @@
+{
+  "manifest_id": "bablos79-image-manifest-2026-05-15",
+  "generated_at_utc": "2026-05-15T13:25:00+00:00",
+  "task": "SAS-DR-006",
+  "status": "blocked_no_source_linked_image_artifacts",
+  "source": {
+    "source_id": "bablos79",
+    "source_url": "https://t.me/bablos79",
+    "source_class": "telegram_public"
+  },
+  "scope_artifacts": {
+    "expanded_capture_manifest": "docs/pilot/bablos79_EXPANDED_CAPTURE_MANIFEST.json",
+    "expanded_media_inventory": "docs/pilot/bablos79_MEDIA_INVENTORY_EXPANDED.md",
+    "corpus_gap_register": "docs/pilot/bablos79_CORPUS_GAP_REGISTER.md",
+    "legal_risk_memo": "docs/legal_risk_memo.md",
+    "media_adr": "docs/adr/ADR-004-media-evidence-pipeline.md"
+  },
+  "summary": {
+    "image_artifacts_acquired": 0,
+    "image_artifacts_registered": 0,
+    "blocked_candidate_rows": 4,
+    "private_media_committed": false,
+    "ocr_allowed_now": false,
+    "blocker": "No exact public/operator-authorized image, screenshot, or chart artifacts are linked to source-document IDs in the current workspace."
+  },
+  "retention_policy": {
+    "raw_media_storage": "local_operator_workspace_only",
+    "default_retention": "temporary_operational_data",
+    "retained_raw_media_limit": "pilot_duration_plus_up_to_90_days_unless_stricter_task_policy_applies",
+    "successful_ocr_cleanup": "delete_raw_operational_copies_after_checksum_and_draft_artifact_creation_unless_operator_explicitly_retains_local_evidence_snapshot",
+    "metadata_retained": [
+      "image_artifact_id",
+      "source_id",
+      "capture_id",
+      "source_document_id",
+      "media_url_or_ref",
+      "local_path_or_external_ref",
+      "sha256",
+      "mime_type",
+      "retention_status",
+      "review_status",
+      "deletion_timestamp",
+      "deletion_reason"
+    ],
+    "deletion_triggers": [
+      "operator_deletion_request",
+      "pilot_cancellation",
+      "source_eligibility_changes_to_blocked",
+      "media_found_private_authenticated_paywalled_or_otherwise_forbidden",
+      "orphaned_temporary_file_survives_cleanup_window",
+      "retention_window_expires"
+    ],
+    "logging_boundary": "Logs and audit notes must not include raw OCR text, author handles, evidence URLs, local workspace paths, or credentials."
+  },
+  "required_fields_for_future_acquisition": [
+    "image_artifact_id",
+    "source_id",
+    "capture_id",
+    "source_document_id",
+    "source_timestamp_utc",
+    "modality",
+    "media_url_or_ref",
+    "local_path_or_external_ref",
+    "sha256",
+    "mime_type",
+    "acquisition_status",
+    "authorization_status",
+    "retention_status",
+    "review_status"
+  ],
+  "artifacts": [],
+  "blocked_rows": [
+    {
+      "image_artifact_id": "blocked_image_channel_level_screenshot",
+      "source_id": "bablos79",
+      "capture_id": null,
+      "source_document_id": null,
+      "source_timestamp_utc": null,
+      "modality": "image_screenshot",
+      "media_url_or_ref": "channel-level bablos79 image/screenshot candidate",
+      "local_path_or_external_ref": null,
+      "sha256": null,
+      "mime_type": null,
+      "acquisition_status": "blocked_missing_source_document_linkage",
+      "authorization_status": "not_verifiable_without_exact_public_ref",
+      "retention_status": "no_raw_media_present",
+      "review_status": "not_ready_for_ocr",
+      "blocker_reason": "No exact post URL, capture ID, source-document ID, local file, or media ID is present.",
+      "required_action": "Provide or capture an exact public/operator-authorized screenshot/image row with source linkage and checksumable media."
+    },
+    {
+      "image_artifact_id": "blocked_chart_channel_level_screenshot",
+      "source_id": "bablos79",
+      "capture_id": null,
+      "source_document_id": null,
+      "source_timestamp_utc": null,
+      "modality": "chart_screenshot",
+      "media_url_or_ref": "channel-level bablos79 chart screenshot candidate",
+      "local_path_or_external_ref": null,
+      "sha256": null,
+      "mime_type": null,
+      "acquisition_status": "blocked_missing_source_document_linkage",
+      "authorization_status": "not_verifiable_without_exact_public_ref",
+      "retention_status": "no_raw_media_present",
+      "review_status": "not_ready_for_ocr_or_chart_review",
+      "blocker_reason": "No exact post URL, capture ID, source-document ID, local file, or media ID is present; chart interpretation is manual-review-only.",
+      "required_action": "Link exact public chart image before OCR visible-text extraction; keep support/resistance, entry, target, trend, and performance interpretation out of OCR."
+    },
+    {
+      "image_artifact_id": "blocked_gap_pre_seed_window_images",
+      "source_id": "bablos79",
+      "capture_id": null,
+      "source_document_id": "gap:gap-pre-seed-window",
+      "source_timestamp_utc": null,
+      "modality": "unknown_image_or_chart",
+      "media_url_or_ref": "locked window before first seed capture",
+      "local_path_or_external_ref": null,
+      "sha256": null,
+      "mime_type": null,
+      "acquisition_status": "blocked_missing_capture_rows",
+      "authorization_status": "unknown_until_public_rows_are_captured_or_operator_supplied",
+      "retention_status": "no_raw_media_present",
+      "review_status": "not_ready_for_ocr",
+      "blocker_reason": "No source rows exist for the pre-seed locked-window period.",
+      "required_action": "Capture/register public source rows first, then inventory exact media by source-document ID."
+    },
+    {
+      "image_artifact_id": "blocked_gap_post_seed_window_images",
+      "source_id": "bablos79",
+      "capture_id": null,
+      "source_document_id": "gap:gap-post-seed-window",
+      "source_timestamp_utc": null,
+      "modality": "unknown_image_or_chart",
+      "media_url_or_ref": "locked window after last seed capture",
+      "local_path_or_external_ref": null,
+      "sha256": null,
+      "mime_type": null,
+      "acquisition_status": "blocked_missing_capture_rows",
+      "authorization_status": "unknown_until_public_rows_are_captured_or_operator_supplied",
+      "retention_status": "no_raw_media_present",
+      "review_status": "not_ready_for_ocr",
+      "blocker_reason": "No source rows exist for the post-seed locked-window period.",
+      "required_action": "Capture/register public source rows first, then inventory exact media by source-document ID."
+    }
+  ],
+  "rejection_rules": [
+    "Reject media without public/operator authorization.",
+    "Reject media without source-document linkage.",
+    "Reject private, paywalled, login-walled, authenticated, or access-controlled media.",
+    "Reject autonomous channel-monitoring output.",
+    "Reject chart interpretation as OCR output; OCR may only recover visible text after linkage."
+  ]
+}

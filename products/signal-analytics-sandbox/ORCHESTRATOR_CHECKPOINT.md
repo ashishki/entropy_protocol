@@ -1,42 +1,39 @@
 # Orchestrator Checkpoint
 
-Date: 2026-05-15
+Date: 2026-05-19
 
 ## Current State
 
-- Phase 21 is complete and archived.
-- Latest completed item: deep retrospective roadmap/task update.
-- Next task: SAS-DR-001 Deep Retrospective Scope Lock.
-- Baseline: 166 passing tests, 0 skipped.
+- Phase 35 is active: Reliability And Scaling.
+- Latest completed item: SAS-NEXT-032 Cost And Time Instrumentation.
+- Next task: none in current SAS-NEXT roadmap.
+- Baseline: 295 passing tests, 0 skipped.
 - Ruff: pass.
 - Pyright: pass.
+- External gate: `approve_internal_only`.
 
-## Decision
+## Current Blocker
 
-The `bablos79` media-backed report route is rejected for external delivery for
-the current narrow source/window. The active route now expands the public
-corpus and adds image/OCR, claim-ledger, market-outcome, and author capability
-report work.
+External delivery remains `approve_internal_only`. All current `SAS-NEXT`
+roadmap tasks are complete; next step requires operator/product decision.
 
-## Blockers
+## Canonical Artifacts
 
-- Two public voice files were acquired.
-- Managed Whisper provider wiring exists and produced two draft transcript
-  artifacts.
-- Two transcript refs are LLM-reviewed usable for internal source join.
-- Three media-backed broad-market claims exist.
-- Zero deterministic outcome-ready rows exist.
-- External delivery needs a later deep retrospective ready gate.
-- Core is paused.
+- `docs/AI_DEVELOPMENT_PLAN_RU.md`
+- `docs/pilot/three_channel_V1_METRIC_RESULTS.json`
+- `docs/pilot/three_channel_FULL_REVIEW_QUEUE.json`
+- `docs/pilot/three_channel_FALSE_NEGATIVE_PASS.json`
+- `docs/pilot/reports/three_channel_V1_REPORT_LANGUAGE_SAFETY.json`
+- `docs/pilot/three_channel_V1_SCORECARD.md`
+- `docs/pilot/reports/three_channel_V1_CHANNEL_UTILITY_REPORT.md`
+- `docs/pilot/three_channel_V1_EXTERNAL_READY_GATE.md`
+- `docs/archive/PHASE27_REVIEW.md`
+- `docs/archive/POST_V1_STATE_COMPACTION_2026-05-19.md`
 
-## Canonical Files
+## Guardrails
 
-- `docs/archive/PHASE21_REVIEW.md`
-- `docs/audit/PHASE_REPORT_LATEST.md`
-- `docs/audit/PHASE21_ERROR_REGISTER.md`
-- `docs/pilot/bablos79_EXTERNAL_PILOT_READY_GATE.md`
-- `docs/pilot/bablos79_TRANSCRIPT_LLM_REVIEW.md`
-- `docs/pilot/reports/bablos79_MEDIA_BACKED_REPORT_V2_LLM_REVIEWED.md`
-- `docs/CODEX_PROMPT.md`
-- `docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md`
-- `docs/tasks.md` Phase 22, SAS-DR-001..005
+- Public/operator-authorized sources only.
+- No advice, future-profit claims, unsupported ranking, marketplace framing, or
+  private scraping.
+- Unsupported providers/proxies are exclusions.
+- Unreviewed media stays out of customer-facing metrics.
