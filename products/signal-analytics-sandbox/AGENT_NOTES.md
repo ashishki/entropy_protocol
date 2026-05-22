@@ -9,7 +9,7 @@ Restart-relevant state only. Historical detail lives in
 
 - Phase: 36 Channel Impact Framework And Cross-Channel Completion
 - Active task: Phase 36 complete; await operator decision
-- Baseline: 318 pass / 0 skip
+- Baseline: 322 pass / 0 skip
 - External gate: `approve_internal_only`
 - External delivery: not approved
 - Core: paused
@@ -31,6 +31,11 @@ equivalent completion scopes for `nemphiscrypts` and `pifagortrade`.
 scorecard, external gate, and deep review.
 Two-month run `2026-03-22..2026-05-22` produced 526 text rows,
 37 normalized claims, 28 7d evaluable, 19 confirmed, 9 contradicted.
+Operator then clarified this was insufficient because the real question is
+multimodal extraction and setup/RR quality, not post counts. A new two-month
+multimodal pass now covers 570 public posts, 295 media refs, 70 voice
+transcripts, 185 image/OCR drafts, 40 video/manual blockers, and 1 internal
+RR-ready setup draft.
 
 Read first:
 
@@ -42,6 +47,8 @@ Read first:
 6. `docs/pilot/three_channel_PHASE36_IMPACT_SCORECARD.md`
 7. `docs/pilot/three_channel_PHASE36_EXTERNAL_READY_GATE.md`
 8. `docs/pilot/three_channel_2M_RUN_SUMMARY.md`
+9. `docs/pilot/three_channel_MULTIMODAL_RESEARCH_REPORT.md`
+10. `docs/pilot/three_channel_MULTIMODAL_RR_DRAFTS.json`
 
 ## Canonical Links
 
@@ -55,6 +62,8 @@ Read first:
   `docs/AI_DEVELOPMENT_PLAN_RU.md`
 - Phase 36 impact framework:
   `docs/specs/CHANNEL_IMPACT_FRAMEWORK.md`
+- Two-month multimodal research:
+  `docs/pilot/three_channel_MULTIMODAL_RESEARCH_REPORT.md`
 - Phase 36 development loop:
   `docs/pilot/three_channel_PHASE36_IMPACT_DEVELOPMENT_LOOP.md`
 - Phase 36 bablos gate:

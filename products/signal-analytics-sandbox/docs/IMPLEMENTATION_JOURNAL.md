@@ -1822,3 +1822,11 @@ This file is durable handoff context across agents and sessions. It records what
 - Decisions applied: ADR-002 bounded Agentic profile; fixed operations, max iterations, cost cap, audit log, explicit stop reason, and no mutation/publication authority.
 - Evidence collected: added `BatchAnalystJob`, `BatchAnalystRunner`, stop reasons, allowed operation enum, and audit log models. Tests cover schema fields, stop reasons, and checksums for retrieval, metric reads, prompt input, and generated memo. Validation after task: 132 passed, 0 skipped; `ruff check src/ tests/` and `.venv/bin/pyright` pass. Strict agent-trigger review found no shell, network collector, broker, report publisher, ledger mutation, or package/runtime mutation surface.
 - Follow-ups: run `SAS-MI-015: Internal Analyst Memo Export` next.
+
+### 2026-05-22 — Two-Month Multimodal Research Run
+
+- Scope: `scripts/three_channel_multimodal_research.py`, `docs/pilot/three_channel_MULTIMODAL_*`, `tests/unit/test_three_channel_multimodal_research.py`, `docs/ANALYST_HANDOFF_RU.md`, `docs/CODEX_PROMPT.md`, `AGENT_NOTES.md`, `PHASE_HANDOFF.md`.
+- Why this work happened: the operator clarified that the two-month text-only run was insufficient; the research must extract from public Telegram images, voice/audio, and text, then account for entry, stop, target, RR, and position-size evidence where present.
+- Decisions applied: public `/s/` Telegram only; raw media stays in ignored `workspace/`; per-media transcript/OCR cache stays ignored; compact manifest/queue/RR/report artifacts are committed; draft transcript/OCR rows remain internal until human/operator accepted.
+- Evidence collected: 570 public posts in `2026-03-22..2026-05-22`, 295 media refs, 255 draft transcript/OCR rows (70 voice, 185 image), 40 video/manual blockers, 549 RR draft rows, and 1 internal RR-ready setup draft (`bablos79` post `10450`, `MAGN` short, entry `28400`, stop `28600`, target `26364`, computed RR `10.18`, customer-facing blocked by media review).
+- Follow-ups: review/accept or reject draft transcript/OCR rows before customer-facing use; add video processing only if product/legal gate accepts it; improve asset aliasing for Russian names and exchange-specific symbols; run outcome simulation for accepted RR setups.

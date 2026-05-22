@@ -6,7 +6,7 @@ Date: 2026-05-22
 
 - Phase: 36 Channel Impact Framework And Cross-Channel Completion
 - Active task: Phase 36 complete; await operator decision
-- Baseline: 318 pass / 0 skip
+- Baseline: 322 pass / 0 skip
 - Ruff: clean
 - Pyright: clean
 - External gate: `approve_internal_only`
@@ -26,6 +26,11 @@ equivalent completion scopes for `nemphiscrypts` and `pifagortrade`.
 scorecard, external gate, and deep review.
 Latest practical run: two-month public window `2026-03-22..2026-05-22`;
 526 text rows, 37 normalized claims, 28 7d evaluable.
+Latest correction run: two-month multimodal pass over the same public-source
+route; 570 posts, 295 media refs, 255 draft transcript/OCR rows
+(70 voice, 185 image), 40 video/manual blockers, and 1 internal RR-ready setup
+draft. Raw media and per-media cache files are local/ignored; compact JSON/MD
+artifacts are in `docs/pilot/three_channel_MULTIMODAL_*`.
 
 ## Read First
 
@@ -38,6 +43,8 @@ Latest practical run: two-month public window `2026-03-22..2026-05-22`;
 7. `docs/pilot/three_channel_PHASE36_IMPACT_SCORECARD.md`
 8. `docs/pilot/three_channel_PHASE36_EXTERNAL_READY_GATE.md`
 9. `docs/pilot/three_channel_2M_RUN_SUMMARY.md`
+10. `docs/pilot/three_channel_MULTIMODAL_RESEARCH_REPORT.md`
+11. `docs/pilot/three_channel_MULTIMODAL_RR_DRAFTS.json`
 
 ## Do Not Do
 
@@ -45,4 +52,6 @@ Latest practical run: two-month public window `2026-03-22..2026-05-22`;
 - Do not treat provider gaps as losses.
 - Do not include unreviewed media/OCR/chart claims in customer-facing metrics.
 - Do not describe `bablos79` as a full 90-day multimodal retrospective yet.
+- Do not treat draft transcript/OCR rows as customer-facing until
+  human/operator accepted.
 - Do not start marketplace/leaderboard scope.

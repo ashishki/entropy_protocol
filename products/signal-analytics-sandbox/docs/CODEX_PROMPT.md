@@ -3,18 +3,17 @@
 Version: 3.02
 Date: 2026-05-22
 Phase: 36
-
 Compact restart state only. Detailed history lives in
 `docs/IMPLEMENTATION_JOURNAL.md`, `docs/archive/`, and `docs/tasks.md`.
 
 ## Current State
 
 - Phase: 36 (Channel Impact Framework And Cross-Channel Completion)
-- Baseline: 318 passing tests, 0 skipped
+- Baseline: 322 passing tests, 0 skipped
 - Ruff: `ruff check src/ tests/ scripts/` passes
 - Format: `ruff format --check src/ tests/ scripts/` passes
 - Pyright: `pyright` passes
-- Latest completed: `Two-Month Public Window Run`
+- Latest completed: `Two-Month Multimodal Research Run`
 - Phase 0 gates acknowledged; Engineering Phase 1 (T01+) may begin.
 - | SAS-001: Paid Pilot Demand Validation | acknowledged |
 - | SAS-002: Public-Source Legal/Terms Memo | acknowledged |
@@ -40,11 +39,13 @@ prototype vs another evidence-completion loop.
   three-channel scorecard, gate, and deep review.
 - Two-month run `2026-03-22..2026-05-22`: 526 text rows, 37 normalized
   claims, 28 7d evaluable, 19 confirmed, 9 contradicted.
+- Two-month multimodal run `2026-03-22..2026-05-22`: 570 posts, 295 media
+  refs, 70 voice transcripts, 185 image/OCR drafts, 40 video/manual blockers,
+  1 internal RR-ready setup draft.
 
-1. `docs/AI_DEVELOPMENT_PLAN_RU.md`
-2. `docs/tasks.md` Phase 36
-3. `docs/pilot/three_channel_PHASE36_IMPACT_SCORECARD.md`
-4. `docs/pilot/three_channel_2M_RUN_SUMMARY.md`
+Read first: `docs/AI_DEVELOPMENT_PLAN_RU.md`, `docs/tasks.md` Phase 36,
+`docs/pilot/three_channel_PHASE36_IMPACT_SCORECARD.md`,
+`docs/pilot/three_channel_MULTIMODAL_RESEARCH_REPORT.md`.
 
 ## Canonical Artifacts
 
@@ -53,6 +54,7 @@ prototype vs another evidence-completion loop.
 - Phase 36 scorecard: `docs/pilot/three_channel_PHASE36_IMPACT_SCORECARD.md`
 - Phase 36 gate: `docs/pilot/three_channel_PHASE36_EXTERNAL_READY_GATE.md`
 - Two-month run: `docs/pilot/three_channel_2M_RUN_SUMMARY.md`
+- Two-month multimodal run: `docs/pilot/three_channel_MULTIMODAL_RESEARCH_REPORT.md`, `docs/pilot/three_channel_MULTIMODAL_RR_DRAFTS.json`
 - V1 metrics: `docs/pilot/three_channel_V1_METRIC_RESULTS.json`
 - V1 report: `docs/pilot/reports/three_channel_V1_CHANNEL_UTILITY_REPORT.md`
 - V1 gate: `docs/pilot/three_channel_V1_EXTERNAL_READY_GATE.md`
@@ -71,6 +73,9 @@ prototype vs another evidence-completion loop.
   cost, deterministic totals, and metrics hash.
 - Main blockers: missing durable operator decisions, provider/media gaps,
   sparse setup/RR.
+- Latest multimodal finding: media extraction works and materially expands
+  evidence coverage, but customer-facing use remains blocked by human/operator
+  review; strict RR setup coverage is still extremely sparse.
 - `bablos79` Phase 36 blocker: current corpus is not a full 90-day multimodal
   capture; image/OCR is blocked until media is source-linked; audio remains
   internal-only until human/operator accepted.
@@ -86,12 +91,3 @@ prototype vs another evidence-completion loop.
 - Unsupported providers/proxies are exclusions, not wins/losses.
 - Unreviewed transcript/OCR/chart claims stay out of customer-facing metrics.
 - Every customer-facing report requires an explicit external-ready gate.
-
-## Validation Commands
-
-```bash
-.venv/bin/python -m pytest tests/ -q
-.venv/bin/ruff check src/ tests/ scripts/
-.venv/bin/ruff format --check src/ tests/ scripts/
-.venv/bin/pyright
-```

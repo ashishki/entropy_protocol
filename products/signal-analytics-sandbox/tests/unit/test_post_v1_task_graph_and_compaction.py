@@ -23,7 +23,7 @@ def test_post_v1_task_graph_lists_next_phases_and_active_task() -> None:
     assert (
         "## Phase 36 — Channel Impact Framework And Cross-Channel Completion" in tasks
     )
-    assert "Latest completed: `Two-Month Public Window Run`" in prompt
+    assert "Latest completed: `Two-Month Multimodal Research Run`" in prompt
     assert "Active route: Phase 36 complete" in prompt
 
 
