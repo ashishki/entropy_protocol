@@ -8,8 +8,8 @@ Restart-relevant state only. Historical detail lives in
 ## Active State
 
 - Phase: 36 Channel Impact Framework And Cross-Channel Completion
-- Active task: SAS-BABLOS-003 Media Linkage Queue, then SAS-IMPACT-003/004
-- Baseline: 295 pass / 0 skip
+- Active task: SAS-BABLOS-004 Transcript Acceptance Pass
+- Baseline: 306 pass / 0 skip
 - External gate: `approve_internal_only`
 - External delivery: not approved
 - Core: paused
@@ -23,9 +23,10 @@ loop for `bablos79`, `nemphiscrypts`, and `pifagortrade`.
 ## Next Action
 
 `SAS-IMPACT-001..002` created the impact framework and three-channel loop.
-`SAS-BABLOS-001..002` created the first per-channel recovery path. Continue
-with `SAS-BABLOS-003`, then create equivalent scopes for the other two
-channels.
+`SAS-BABLOS-001..003` created the first per-channel recovery path and media
+queue. Continue with `SAS-BABLOS-004`: accept/reject/needs_context the two
+linked public voice transcripts. Keep OCR blocked until source-linked
+image/chart artifacts exist.
 
 Read first:
 
@@ -35,6 +36,7 @@ Read first:
 4. `docs/specs/CHANNEL_IMPACT_FRAMEWORK.md`
 5. `docs/pilot/three_channel_PHASE36_IMPACT_DEVELOPMENT_LOOP.md`
 6. `docs/pilot/bablos79_PHASE36_CORPUS_COMPLETION_SCOPE.md`
+7. `docs/pilot/bablos79_PHASE36_MEDIA_LINKAGE_QUEUE.md`
 
 ## Canonical Links
 
@@ -50,6 +52,8 @@ Read first:
   `docs/specs/CHANNEL_IMPACT_FRAMEWORK.md`
 - Phase 36 development loop:
   `docs/pilot/three_channel_PHASE36_IMPACT_DEVELOPMENT_LOOP.md`
+- Phase 36 media queue:
+  `docs/pilot/bablos79_PHASE36_MEDIA_LINKAGE_QUEUE.md`
 - State compaction archive:
   `docs/archive/POST_V1_STATE_COMPACTION_2026-05-19.md`
 

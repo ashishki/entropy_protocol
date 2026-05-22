@@ -37,6 +37,6 @@ def test_ai_development_plan_preserves_product_guardrails() -> None:
 def test_ai_development_plan_names_next_action_and_validation() -> None:
     plan = (PROJECT_ROOT / "docs/AI_DEVELOPMENT_PLAN_RU.md").read_text(encoding="utf-8")
 
-    assert "SAS-BABLOS-003 Media Linkage Queue" in plan
+    assert "SAS-BABLOS-004 Transcript Acceptance Pass" in plan
     assert ".venv/bin/python -m pytest tests/ -q" in plan
     assert ".venv/bin/ruff check src/ tests/ scripts/" in plan

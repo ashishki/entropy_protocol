@@ -10,11 +10,11 @@ Compact restart state only. Detailed history lives in
 ## Current State
 
 - Phase: 36 (Channel Impact Framework And Cross-Channel Completion)
-- Baseline: 295 passing tests, 0 skipped
+- Baseline: 306 passing tests, 0 skipped
 - Ruff: `ruff check src/ tests/ scripts/` passes
 - Format: `ruff format --check src/ tests/ scripts/` passes
 - Pyright: `pyright` passes
-- Latest completed: `SAS-IMPACT-002 Cross-Channel Development Loop`
+- Latest completed: `SAS-BABLOS-003 Media Linkage Queue`
 - Phase 0 gates acknowledged; Engineering Phase 1 (T01+) may begin.
 - | SAS-001: Paid Pilot Demand Validation | acknowledged |
 - | SAS-002: Public-Source Legal/Terms Memo | acknowledged |
@@ -25,8 +25,8 @@ Compact restart state only. Detailed history lives in
 
 ## Next Task
 
-Active route: `SAS-BABLOS-003 Media Linkage Queue`, then equivalent completion
-scopes for `nemphiscrypts` and `pifagortrade`.
+Active route: `SAS-BABLOS-004 Transcript Acceptance Pass`, while image/OCR
+stays blocked until source-linked image/chart artifacts exist.
 
 - `SAS-NEXT-001..032` are complete.
 - `SAS-IMPACT-001..002` define broad impact criteria, source-of-truth layers,
@@ -36,19 +36,23 @@ scopes for `nemphiscrypts` and `pifagortrade`.
   60 text captures over about 9 days, 2 internal-only audio refs, 0
   source-linked image/OCR artifacts, 14 reviewable non-blocker rows, 0
   deterministic deep-ledger outcome-ready rows.
+- `SAS-BABLOS-003` adds the media linkage queue: 8 candidates, 2
+  source-linked audio rows ready for transcript acceptance, 0 OCR-ready rows,
+  0 customer-facing media claims allowed.
 
 1. `docs/AI_DEVELOPMENT_PLAN_RU.md`
 2. `docs/tasks.md` Phase 36
 3. `docs/specs/CHANNEL_IMPACT_FRAMEWORK.md`
 4. `docs/pilot/three_channel_PHASE36_IMPACT_DEVELOPMENT_LOOP.md`
 5. `docs/pilot/bablos79_PHASE36_CORPUS_COMPLETION_SCOPE.md`
-6. `docs/pilot/bablos79_PHASE36_TEXT_RECAPTURE_PLAN.md`
+6. `docs/pilot/bablos79_PHASE36_MEDIA_LINKAGE_QUEUE.md`
 
 ## Canonical Artifacts
 
 - Impact framework: `docs/specs/CHANNEL_IMPACT_FRAMEWORK.md`
 - Phase 36 loop: `docs/pilot/three_channel_PHASE36_IMPACT_DEVELOPMENT_LOOP.md`
 - `bablos79` scope: `docs/pilot/bablos79_PHASE36_CORPUS_COMPLETION_SCOPE.md`
+- `bablos79` media queue: `docs/pilot/bablos79_PHASE36_MEDIA_LINKAGE_QUEUE.md`
 - V1 metrics: `docs/pilot/three_channel_V1_METRIC_RESULTS.json`
 - V1 report: `docs/pilot/reports/three_channel_V1_CHANNEL_UTILITY_REPORT.md`
 - V1 gate: `docs/pilot/three_channel_V1_EXTERNAL_READY_GATE.md`

@@ -3524,7 +3524,7 @@ Files:
 Notes: |
   This task creates the plan only. It does not run public network recapture.
 
-### SAS-BABLOS-003: Media Linkage Queue
+### SAS-BABLOS-003: Media Linkage Queue ✅
 
 Owner:      codex + operator
 Phase:      36
@@ -3538,14 +3538,20 @@ Objective: |
 Acceptance-Criteria:
   - id: AC-1
     description: "Every image/chart/audio candidate has a source-linked artifact or explicit blocker."
-    test: "manual/docs-review"
+    test: "tests/unit/test_bablos79_phase36_media_linkage_queue.py::test_phase36_media_linkage_queue_counts_and_gate"
   - id: AC-2
     description: "Chart rows require manual interpretation review before claim use."
-    test: "manual/docs-review"
+    test: "tests/unit/test_bablos79_phase36_media_linkage_queue.py::test_phase36_media_linkage_queue_preserves_review_policy"
 
 Files:
   - docs/pilot/bablos79_PHASE36_MEDIA_LINKAGE_QUEUE.md
   - docs/pilot/bablos79_PHASE36_MEDIA_LINKAGE_QUEUE.json
+  - tests/unit/test_bablos79_phase36_media_linkage_queue.py
+
+Notes: |
+  Completed queue result: 8 candidates, 2 source-linked audio rows ready for
+  transcript acceptance, 0 OCR-ready image/chart rows, and 0 customer-facing
+  media claims allowed until review gates pass.
 
 ### SAS-BABLOS-004: Transcript Acceptance Pass
 

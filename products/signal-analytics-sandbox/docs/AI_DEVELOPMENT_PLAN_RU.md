@@ -394,12 +394,13 @@ Start with Phase 36 impact framework, not with dashboard UI or marketplace.
 
 Current next task is:
 
-`SAS-BABLOS-003 Media Linkage Queue`
+`SAS-BABLOS-004 Transcript Acceptance Pass`
 
 Why:
 
 - `SAS-IMPACT-001..002` already define the framework and cross-channel loop;
-- `bablos79` is the first incomplete per-channel evidence case;
-- media linkage is the blocker before audio/OCR can become reviewed evidence;
+- `SAS-BABLOS-003` produced the media queue: 8 candidates, 2 linked audio
+  rows, 0 OCR-ready image/chart rows, 0 customer-facing media claims;
+- the two linked audio rows now need human/operator transcript acceptance;
 - the same linkage/completion pattern will then be applied to `nemphiscrypts`
   and `pifagortrade`.
