@@ -146,6 +146,6 @@ Source: `docs/pilot/reports/preclient/pifagortrade_DEEP_REPORT_V0.md`.
 the product format: compact metrics, evidence appendix, media review,
 post-factum separation, setup/RR blockers, and counterexamples in one report.
 
-Next required step: run `SAS-PRECLIENT-007` to recompute outcome/RR status only
-for candidates with sufficient public timestamp, asset/proxy, direction, entry,
-stop, target, and horizon fields.
+Next required step: run Phase 37 deep review, then continue internal hardening
+until human/operator acceptance, approved provider coverage, and market outcome
+recompute make a buyer-demo subset safe.

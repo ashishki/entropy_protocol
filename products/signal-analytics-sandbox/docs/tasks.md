@@ -42,6 +42,8 @@ Phases:
   completion before dashboard/deep-report comparison.
 - **Phase 37** — Pre-client artifact hardening: reliable free-dashboard,
   paid-report, review, evidence, and gate artifacts before outreach.
+- **Phase 38** — Client-readiness evidence acceptance: operator decisions,
+  accepted-row recompute, redacted buyer-demo subset, and discovery criteria.
 
 Current active focus:
 
@@ -63,10 +65,9 @@ Current active focus:
 - After Phase 35, the new active route is Phase 36: define a broader channel
   impact framework and run the same evidence-completion loop for `bablos79`,
   `nemphiscrypts`, and `pifagortrade` before dashboard/deep-report comparison.
-- After the two-month multimodal run and model-reviewer pass, the next active
-  route is Phase 37: harden all artifacts that can be produced without client
-  contact before any buyer outreach, private-channel partnership, or public
-  dashboard launch.
+- Phase 37 produced the internal artifact stack and deep review decision
+  `continue_internal_hardening`. The next active route is Phase 38: operator
+  acceptance, recompute, and redacted buyer-demo readiness before outreach.
 
 ---
 
@@ -4219,7 +4220,7 @@ Notes: |
   candidates after Phase 37 deep review; evidence appendices, model packet,
   candidate outcomes, and deep reports remain internal-only.
 
-### SAS-PRECLIENT-010: Phase 37 Deep Review And Client-Readiness Decision
+### SAS-PRECLIENT-010: Phase 37 Deep Review And Client-Readiness Decision ✅
 
 Owner:      codex + operator
 Phase:      37
@@ -4254,9 +4255,129 @@ Context-Refs:
   - docs/pilot/preclient_ARTIFACT_SAFETY_GATE.md
 
 Notes: |
-  This is the only Phase 37 task that may recommend going to clients. Do not
-  start outreach, pricing tests, partnerships, or private-channel analysis
-  before this gate.
+  Completed on 2026-05-23. The archived review decision is
+  `continue_internal_hardening`, not client-ready. Phase 37 produced a valid
+  internal diligence baseline, but buyer conversations, public dashboard use,
+  and paid delivery remain blocked until operator acceptance, accepted-row
+  market recompute, and redacted demo readiness are complete.
+
+## Phase 38 — Client-Readiness Evidence Acceptance
+
+Goal: turn the Phase 37 internal artifact stack into a defensible buyer-demo
+candidate without outreach yet. This phase must produce human/operator media
+decisions, recompute only accepted rows with approved public providers, redact a
+small showable demo subset, and define discovery success criteria. It must not
+start outreach, pricing, paid report delivery, private-channel analysis,
+private-channel partnership, or public ranking.
+
+### SAS-CLIENTREADY-001: Operator Media Acceptance Ledger
+
+Owner:      codex + operator
+Phase:      38
+Type:       validation
+Depends-On: SAS-PRECLIENT-010
+
+Objective: |
+  Convert the 9 model-reviewed media candidates into an operator decision
+  ledger with accepted, rejected, needs-context, or post-factum-only status.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "A ledger artifact records one row per `preclient_MODEL_REVIEW_PACKET` candidate with source URL, media ref, model decision, operator decision, and reason."
+    test: "tests/unit/test_clientready_operator_ledger.py"
+  - id: AC-2
+    description: "No row can become dashboard-safe or paid-report-safe from model review alone."
+    test: "tests/unit/test_clientready_operator_ledger.py"
+  - id: AC-3
+    description: "Post-factum-only rows remain blocked from predictive-call metrics."
+    test: "tests/unit/test_clientready_operator_ledger.py"
+
+Files:
+  - docs/pilot/clientready_OPERATOR_MEDIA_LEDGER.md
+  - docs/pilot/clientready_OPERATOR_MEDIA_LEDGER.json
+  - tests/unit/test_clientready_operator_ledger.py
+
+### SAS-CLIENTREADY-002: Accepted Candidate RR And Outcome Recompute
+
+Owner:      codex
+Phase:      38
+Type:       validation
+Depends-On: SAS-CLIENTREADY-001
+
+Objective: |
+  Recompute RR and market outcomes only for operator-accepted rows that have
+  sufficient public timestamp, asset/proxy, direction, entry, stop, target, and
+  horizon fields.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Every recomputed row cites public provider/proxy provenance and uses no bulk market-history storage."
+    test: "tests/unit/test_clientready_accepted_outcomes.py"
+  - id: AC-2
+    description: "Rows with missing fields, provider gaps, or post-factum status remain exclusions, not wins/losses."
+    test: "tests/unit/test_clientready_accepted_outcomes.py"
+  - id: AC-3
+    description: "The artifact reports counts for accepted, recomputed, excluded, and buyer-demo-safe rows."
+    test: "tests/unit/test_clientready_accepted_outcomes.py"
+
+Files:
+  - docs/pilot/clientready_ACCEPTED_OUTCOMES.md
+  - docs/pilot/clientready_ACCEPTED_OUTCOMES.json
+  - tests/unit/test_clientready_accepted_outcomes.py
+
+### SAS-CLIENTREADY-003: Redacted Buyer Demo Subset
+
+Owner:      codex + operator
+Phase:      38
+Type:       report
+Depends-On: SAS-CLIENTREADY-002
+
+Objective: |
+  Build a minimal buyer-demo subset from the dashboard and paid-style demo that
+  is safe to show in discovery if the gate approves it.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "The subset includes only approved compact fields, visible caveats, and source-linked examples; it does not expose the full evidence appendix."
+    test: "tests/unit/test_clientready_redacted_demo.py"
+  - id: AC-2
+    description: "The subset contains no advice, future-profit, ranking, marketplace, payment, or private-source language."
+    test: "tests/unit/test_clientready_redacted_demo.py"
+  - id: AC-3
+    description: "The subset declares whether it is showable now or still blocked."
+    test: "tests/unit/test_clientready_redacted_demo.py"
+
+Files:
+  - docs/pilot/clientready_REDACTED_BUYER_DEMO.md
+  - docs/pilot/clientready_REDACTED_BUYER_DEMO.json
+  - tests/unit/test_clientready_redacted_demo.py
+
+### SAS-CLIENTREADY-004: Discovery Gate And Success Criteria
+
+Owner:      codex + operator
+Phase:      38
+Type:       validation
+Depends-On: SAS-CLIENTREADY-003
+
+Objective: |
+  Decide whether the redacted demo is ready for narrow discovery conversations
+  and define what evidence is needed before charging for a report.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "A gate artifact records `ready_for_discovery`, `continue_internal_hardening`, or `pivot_scope` with explicit blockers."
+    test: "tests/unit/test_clientready_discovery_gate.py"
+  - id: AC-2
+    description: "Success criteria are discovery-only and do not include pricing, paid delivery, private partnerships, or public launch."
+    test: "tests/unit/test_clientready_discovery_gate.py"
+  - id: AC-3
+    description: "State files move to client discovery only if the gate says `ready_for_discovery`."
+    test: "tests/unit/test_clientready_discovery_gate.py"
+
+Files:
+  - docs/pilot/clientready_DISCOVERY_GATE.md
+  - docs/pilot/clientready_DISCOVERY_GATE.json
+  - tests/unit/test_clientready_discovery_gate.py
 
 ## Phase 28 — External-Ready Review Sprint
 

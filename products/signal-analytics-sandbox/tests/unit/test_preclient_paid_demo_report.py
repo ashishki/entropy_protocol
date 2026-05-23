@@ -43,6 +43,8 @@ def test_preclient_paid_demo_report_remains_internal_and_avoids_promises() -> No
 
     assert "Decision: `internal_demo_only`" in report
     assert "external gate remains `approve_internal_only`" in report
+    assert "run Phase 37 deep review" in report
+    assert "SAS-PRECLIENT-007" not in report
     assert "no public display or external delivery is approved" in lower
     for forbidden in (
         "future profit",

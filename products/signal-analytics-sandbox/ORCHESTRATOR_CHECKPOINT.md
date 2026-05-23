@@ -4,10 +4,10 @@ Date: 2026-05-23
 
 ## Current State
 
-- Phase 37 is active: Pre-Client Artifact Hardening.
-- Latest completed item: `SAS-PRECLIENT-009 Report Safety, Language, And Gate Pass`.
-- Next task: `SAS-PRECLIENT-010 Phase 37 Deep Review And Client-Readiness Decision`.
-- Baseline: 359 passing tests, 0 skipped.
+- Phase 38 is active: Client-Readiness Evidence Acceptance.
+- Latest completed item: `SAS-PRECLIENT-010 Phase 37 Deep Review And Client-Readiness Decision`.
+- Next task: `SAS-CLIENTREADY-001 Operator Media Acceptance Ledger`.
+- Baseline: 362 passing tests, 0 skipped.
 - Ruff: pass.
 - Pyright: pass.
 - External gate: `approve_internal_only`.
@@ -15,21 +15,17 @@ Date: 2026-05-23
 
 ## Current Blocker
 
-The pre-client artifact stack exists, but buyer conversations remain blocked
-until Phase 37 deep review records a client-readiness decision. Current safety
-gate found 0 forbidden phrase findings across 14 artifacts, but no artifact is
-showable now because human/operator media acceptance, dashboard-safe RR rows,
-and market outcome recomputation are still missing.
+Phase 37 deep review chose `continue_internal_hardening`. The internal
+diligence package is coherent, but buyer conversations are still blocked by
+0 operator-accepted media claims, 0 dashboard-safe RR rows, and
+0 market-outcome recomputed candidates.
 
 ## Canonical Artifacts
 
 - `docs/AI_DEVELOPMENT_PLAN_RU.md`
-- `docs/tasks.md` Phase 37
-- `docs/specs/CHANNEL_IMPACT_FRAMEWORK.md`
+- `docs/tasks.md` Phase 38
+- `docs/archive/PHASE37_PRECLIENT_REVIEW.md`
 - `docs/specs/PRECLIENT_ARTIFACT_CONTRACT.md`
-- `docs/pilot/three_channel_2M_RUN_SUMMARY.md`
-- `docs/pilot/three_channel_MULTIMODAL_RESEARCH_REPORT.md`
-- `docs/pilot/three_channel_MEDIA_REVIEW_REPORT.md`
 - `docs/pilot/preclient_MODEL_REVIEW_PACKET.md`
 - `docs/pilot/preclient_EVIDENCE_APPENDIX.md`
 - `docs/pilot/preclient_FREE_DASHBOARD_CARDS.md`
@@ -37,7 +33,6 @@ and market outcome recomputation are still missing.
 - `docs/pilot/preclient_dashboard/index.html`
 - `docs/pilot/preclient_ARTIFACT_SAFETY_GATE.md`
 - `docs/pilot/reports/preclient/`
-- `docs/archive/POST_V1_STATE_COMPACTION_2026-05-19.md`
 
 ## Guardrails
 
@@ -46,4 +41,4 @@ and market outcome recomputation are still missing.
   payment flow, private-source promise, or private scraping.
 - Unsupported providers/proxies are exclusions.
 - Unreviewed media stays out of customer-facing metrics.
-- Do not start buyer outreach before `SAS-PRECLIENT-010`.
+- Do not start buyer outreach before Phase 38 discovery gate approval.

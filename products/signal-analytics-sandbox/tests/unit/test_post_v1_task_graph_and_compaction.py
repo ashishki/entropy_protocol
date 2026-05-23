@@ -24,6 +24,8 @@ def test_post_v1_task_graph_lists_next_phases_and_active_task() -> None:
         "SAS-PRECLIENT-007",
         "SAS-PRECLIENT-008",
         "SAS-PRECLIENT-009",
+        "SAS-PRECLIENT-010",
+        "SAS-CLIENTREADY-001",
     ):
         assert task_id in tasks
 
@@ -33,11 +35,13 @@ def test_post_v1_task_graph_lists_next_phases_and_active_task() -> None:
         "## Phase 36 — Channel Impact Framework And Cross-Channel Completion" in tasks
     )
     assert "## Phase 37 — Pre-Client Artifact Hardening" in tasks
-    assert (
-        "Latest completed: `SAS-PRECLIENT-009 Report Safety, Language, And Gate Pass`"
-        in prompt
+    assert "## Phase 38 — Client-Readiness Evidence Acceptance" in tasks
+    latest_completed = (
+        "Latest completed: `SAS-PRECLIENT-010 Phase 37 Deep Review "
+        "And Client-Readiness Decision`"
     )
-    assert "Active route: Phase 37 pre-client artifact hardening" in prompt
+    assert latest_completed in prompt
+    assert "Active route: Phase 38 client-readiness evidence acceptance" in prompt
 
 
 def test_active_state_files_are_compacted_to_current_links() -> None:

@@ -1918,3 +1918,11 @@ This file is durable handoff context across agents and sessions. It records what
 - Decisions applied: buyer conversations remain on hold until `SAS-PRECLIENT-010`; no artifact is showable now; dashboard/free-card/demo artifacts are only candidates after Phase 37 deep review; evidence appendices, model packet, candidate outcomes, and deep reports remain internal-only.
 - Evidence collected: the gate covers 14 artifacts, records 0 forbidden phrase findings, blocks advice/future-profit/ranking/private-source/payment language categories, and carries blockers for missing operator-accepted media claims, dashboard-safe RR rows, and market outcome recomputation.
 - Follow-ups: run `SAS-PRECLIENT-010` Phase 37 deep review and record the client-readiness decision in `docs/archive/PHASE37_PRECLIENT_REVIEW.md`.
+
+### 2026-05-23 — SAS-PRECLIENT-010 — Phase 37 Deep Review
+
+- Scope: `docs/archive/PHASE37_PRECLIENT_REVIEW.md`, `docs/audit/AUDIT_INDEX.md`, `docs/tasks.md`, `docs/AI_DEVELOPMENT_PLAN_RU.md`, active-state docs, pre-client report wording.
+- Why this work happened: Phase 37 needed a phase-boundary decision on whether the internal artifact stack is ready for client discovery, needs more hardening, or should pivot.
+- Decisions applied: final decision is `continue_internal_hardening`; buyer conversations, public dashboard launch, paid delivery, pricing tests, and private-channel partnerships remain blocked.
+- Evidence collected: the review found 0 P0/P1/P2 implementation findings, repaired stale next-step wording in internal reports, and recorded the decisive blockers: 0 operator-accepted media claims, 0 dashboard-safe RR rows, 0 market-outcome recomputed candidates, and 0 customer-facing rows.
+- Follow-ups: start Phase 38 with `SAS-CLIENTREADY-001` operator media acceptance ledger, then recompute accepted rows, produce a redacted buyer demo subset, and run a discovery gate.

@@ -390,13 +390,14 @@ Product success:
 
 ## 9. Current Recommendation
 
-Phase 36 impact framework is complete. Start Phase 37 pre-client artifact
-hardening before dashboard UI, paid outreach, private-channel analysis, or
-marketplace scope.
+Phase 37 pre-client artifact hardening is complete. The review decision is
+`continue_internal_hardening`, so start Phase 38 client-readiness evidence
+acceptance before any buyer outreach, paid delivery, private-channel analysis,
+or marketplace scope.
 
 Current next task is:
 
-Phase 37 - Pre-Client Artifact Hardening.
+Phase 38 - Client-Readiness Evidence Acceptance.
 
 Why:
 
@@ -410,8 +411,9 @@ Why:
   three-channel scorecard, external gate, and deep review;
 - two-month multimodal and media-reviewer runs now provide enough internal
   evidence to build reliable artifacts before customer outreach;
-- public dashboard and paid report remain blocked until a Phase 37 safety gate
-  decides which fields can be shown in buyer conversations.
+- Phase 37 produced internal artifacts and a safety gate, but still has
+  0 operator-accepted media claims, 0 dashboard-safe RR rows, and
+  0 market-outcome recomputed candidates.
 
 ### Phase 37 - Pre-Client Artifact Hardening
 
@@ -442,3 +444,17 @@ Definition of done:
 - no dashboard/report text implies investment advice, future returns, ranking,
   or private-source access;
 - the safety gate says exactly what can be shown in first buyer conversations.
+
+### Phase 38 - Client-Readiness Evidence Acceptance
+
+Goal: turn the Phase 37 internal artifact stack into a defensible buyer-demo
+candidate without starting outreach yet.
+
+Tasks:
+
+| Task ID | Task | Output | Acceptance Criteria |
+|---|---|---|---|
+| SAS-CLIENTREADY-001 | Operator media acceptance ledger | `clientready_OPERATOR_MEDIA_LEDGER.md/json` | 9 model-reviewed candidates receive operator accepted/rejected/needs-context/post-factum decisions. |
+| SAS-CLIENTREADY-002 | Accepted candidate RR/outcome recompute | `clientready_ACCEPTED_OUTCOMES.md/json` | Only operator-accepted sufficient rows are recomputed through approved public providers. |
+| SAS-CLIENTREADY-003 | Redacted buyer demo subset | `clientready_REDACTED_BUYER_DEMO.md/json` | A compact showable candidate excludes full appendix/raw media and forbidden language. |
+| SAS-CLIENTREADY-004 | Discovery gate and success criteria | `clientready_DISCOVERY_GATE.md/json` | Decide ready_for_discovery, continue_internal_hardening, or pivot_scope before outreach. |

@@ -18,6 +18,7 @@ def test_ai_development_plan_has_execution_tracks_and_phases() -> None:
         "Phase 35 - Reliability And Scaling",
         "Phase 36 - Channel Impact Framework And Cross-Channel Completion",
         "Phase 37 - Pre-Client Artifact Hardening",
+        "Phase 38 - Client-Readiness Evidence Acceptance",
     ):
         assert required in plan
 
@@ -39,5 +40,7 @@ def test_ai_development_plan_names_next_action_and_validation() -> None:
     plan = (PROJECT_ROOT / "docs/AI_DEVELOPMENT_PLAN_RU.md").read_text(encoding="utf-8")
 
     assert "Phase 37 - Pre-Client Artifact Hardening" in plan
+    assert "SAS-CLIENTREADY-001" in plan
+    assert "continue_internal_hardening" in plan
     assert ".venv/bin/python -m pytest tests/ -q" in plan
     assert ".venv/bin/ruff check src/ tests/ scripts/" in plan
