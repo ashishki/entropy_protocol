@@ -5,8 +5,8 @@ Date: 2026-05-23
 ## Current State
 
 - Phase: 37 Pre-Client Artifact Hardening
-- Active task: `SAS-PRECLIENT-004`
-- Baseline: 337 pass / 0 skip
+- Active task: `SAS-PRECLIENT-005`
+- Baseline: 341 pass / 0 skip
 - Ruff: clean
 - Pyright: clean
 - External gate: `approve_internal_only`
@@ -47,7 +47,12 @@ and `.json` package 301 internal traceability rows across all three channels:
 255 media-review rows, 40 video/manual blockers, 3 text-only metric summaries,
 and 3 provider-gap summaries. It records source refs, artifact refs,
 hashes/checksums, review status, market-provider status, and blockers without
-raw media bytes. Next task is `SAS-PRECLIENT-004`.
+raw media bytes. `SAS-PRECLIENT-004` is complete:
+`docs/pilot/preclient_FREE_DASHBOARD_CARDS.md` and `.json` contain exactly one
+internal draft card per channel with compact text metrics, media coverage,
+RR/setup status, strengths, weaknesses, evidence confidence, blockers, and
+`internal_only_not_dashboard_safe` gate status. Next task is
+`SAS-PRECLIENT-005`.
 
 ## Read First
 
@@ -66,6 +71,7 @@ raw media bytes. Next task is `SAS-PRECLIENT-004`.
 13. `docs/specs/PRECLIENT_ARTIFACT_CONTRACT.md`
 14. `docs/pilot/preclient_MODEL_REVIEW_PACKET.md`
 15. `docs/pilot/preclient_EVIDENCE_APPENDIX.md`
+16. `docs/pilot/preclient_FREE_DASHBOARD_CARDS.md`
 
 ## Do Not Do
 

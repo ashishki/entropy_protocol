@@ -8,8 +8,8 @@ Restart-relevant state only. Historical detail lives in
 ## Active State
 
 - Phase: 37 Pre-Client Artifact Hardening
-- Active task: `SAS-PRECLIENT-004`
-- Baseline: 337 pass / 0 skip
+- Active task: `SAS-PRECLIENT-005`
+- Baseline: 341 pass / 0 skip
 - External gate: `approve_internal_only`
 - External delivery: not approved
 - Core: paused
@@ -33,12 +33,10 @@ RR-ready setup draft.
 Model-reviewer pass now adds `gpt-4.1-mini` mass review over 255 media drafts
 and `gpt-4.1` arbiter review over 35 high-signal rows; 9 arbiter candidates
 are accepted for internal follow-up only.
-`SAS-PRECLIENT-001..003` are complete. The review packet has 9 unique
-model-reviewed rows, all blocked pending human/operator review. The evidence
-appendix has 301 internal traceability rows across all three channels and
-includes hashes/checksums, source refs, model decisions, blockers, text metric
-summaries, provider gaps, and no raw media bytes. Next task is
-`SAS-PRECLIENT-004` free dashboard card dataset.
+`SAS-PRECLIENT-001..004` are complete: contract, 9-row model packet, 301-row
+evidence appendix, and 3 internal free dashboard card drafts. Media/RR
+customer-facing use remains blocked pending review gates. Next task is
+`SAS-PRECLIENT-005` per-channel internal deep reports.
 
 Read first:
 
@@ -56,6 +54,7 @@ Read first:
 12. `docs/specs/PRECLIENT_ARTIFACT_CONTRACT.md`
 13. `docs/pilot/preclient_MODEL_REVIEW_PACKET.md`
 14. `docs/pilot/preclient_EVIDENCE_APPENDIX.md`
+15. `docs/pilot/preclient_FREE_DASHBOARD_CARDS.md`
 
 ## Canonical Links
 
@@ -73,12 +72,11 @@ Read first:
   `docs/pilot/three_channel_MULTIMODAL_RESEARCH_REPORT.md`
 - Media reviewer pass:
   `docs/pilot/three_channel_MEDIA_REVIEW_REPORT.md`
-- Pre-client artifact contract:
-  `docs/specs/PRECLIENT_ARTIFACT_CONTRACT.md`
-- Pre-client model review packet:
-  `docs/pilot/preclient_MODEL_REVIEW_PACKET.md`
-- Pre-client evidence appendix:
-  `docs/pilot/preclient_EVIDENCE_APPENDIX.md`
+- Pre-client artifacts:
+  `docs/specs/PRECLIENT_ARTIFACT_CONTRACT.md`,
+  `docs/pilot/preclient_MODEL_REVIEW_PACKET.md`,
+  `docs/pilot/preclient_EVIDENCE_APPENDIX.md`,
+  `docs/pilot/preclient_FREE_DASHBOARD_CARDS.md`
 - Phase 36 development loop:
   `docs/pilot/three_channel_PHASE36_IMPACT_DEVELOPMENT_LOOP.md`
 - Phase 36 bablos gate:

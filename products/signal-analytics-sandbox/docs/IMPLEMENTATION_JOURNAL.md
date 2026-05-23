@@ -1870,3 +1870,11 @@ This file is durable handoff context across agents and sessions. It records what
 - Decisions applied: the appendix is internal-only, includes no raw media bytes or `workspace/media` paths, treats provider gaps as exclusions rather than author losses, and keeps model-reviewed media out of customer-facing metrics.
 - Evidence collected: the generated appendix has 301 rows: 255 media-review rows, 40 video/manual blockers, 3 text-only V1 metric summaries, and 3 provider-gap summaries. It distinguishes text-only claims, media-backed candidates, post-factum rows, context-only rows, rejected noise, provider gaps, and media-processing blockers.
 - Follow-ups: run `SAS-PRECLIENT-004` to derive compact free-dashboard card data from the appendix without promoting blocked media rows.
+
+### 2026-05-23 — SAS-PRECLIENT-004 — Per-Channel Free Dashboard Card Dataset
+
+- Scope: `docs/pilot/preclient_FREE_DASHBOARD_CARDS.md`, `docs/pilot/preclient_FREE_DASHBOARD_CARDS.json`, `tests/unit/test_preclient_dashboard_cards.py`, active-state docs.
+- Why this work happened: the pre-client product needs a compact acquisition-layer card shape before deeper internal reports and demos are generated.
+- Decisions applied: cards are internal dashboard prototypes only; no public display is approved, no ranking language is used, and media/RR rows remain blocked until review gates accept them.
+- Evidence collected: one card exists for each channel with compact V1 text metrics, media coverage counts, model-reviewed candidate counts, RR/setup status, strengths, weaknesses, evidence confidence, blocked claims, and `internal_only_not_dashboard_safe` gate status.
+- Follow-ups: run `SAS-PRECLIENT-005` to build per-channel internal deep reports using the cards and evidence appendix.

@@ -3973,7 +3973,7 @@ Notes: |
   media-processing blockers. No raw media bytes or private/authenticated source
   access are included.
 
-### SAS-PRECLIENT-004: Per-Channel Free Dashboard Card Dataset
+### SAS-PRECLIENT-004: Per-Channel Free Dashboard Card Dataset ✅
 
 Owner:      codex + operator
 Phase:      37
@@ -4008,8 +4008,12 @@ Context-Refs:
   - docs/pilot/three_channel_MEDIA_REVIEW_REPORT.md
 
 Notes: |
-  This is the free acquisition layer. It must be useful but not expose the full
-  paid evidence appendix.
+  Completed on 2026-05-23. `preclient_FREE_DASHBOARD_CARDS` contains exactly
+  one internal draft card for each channel. Cards include compact V1 text
+  metrics, media coverage, RR/setup status, strengths, weaknesses, evidence
+  confidence, blockers, and gate status. All cards remain
+  `internal_only_not_dashboard_safe`; media/RR fields are blocked pending
+  review gates and no full evidence appendix is exposed.
 
 ### SAS-PRECLIENT-005: Per-Channel Internal Deep Report V0
 

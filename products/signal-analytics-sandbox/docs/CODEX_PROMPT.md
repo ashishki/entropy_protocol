@@ -9,11 +9,11 @@ Compact restart state only. Detailed history lives in
 ## Current State
 
 - Phase: 37 (Pre-Client Artifact Hardening)
-- Baseline: 337 pass / 0 skip
+- Baseline: 341 pass / 0 skip
 - Ruff: `ruff check src/ tests/ scripts/` passes
 - Format: `ruff format --check src/ tests/ scripts/` passes
 - Pyright: `pyright` passes
-- Latest completed: `SAS-PRECLIENT-003 Evidence Appendix Builder`
+- Latest completed: `SAS-PRECLIENT-004 Per-Channel Free Dashboard Card Dataset`
 - Phase 0 gates acknowledged; Engineering Phase 1 (T01+) may begin.
 - | SAS-001: Paid Pilot Demand Validation | acknowledged |
 - | SAS-002: Public-Source Legal/Terms Memo | acknowledged |
@@ -32,16 +32,10 @@ Active route: Phase 37 pre-client artifact hardening.
   1 internal RR-ready setup draft.
 - Media reviewer pass: `gpt-4.1-mini` reviewed 255 media drafts; `gpt-4.1`
   arbitrated 35 high-signal rows and accepted 9 internal candidates.
-- `SAS-PRECLIENT-001` completed the product artifact contract and reliability
-  bar: artifact inventory, audience classes, reliability enum, gates, dashboard
-  card fields, paid report boundaries, done criteria, and non-goals.
-- `SAS-PRECLIENT-002` produced 9 unique model-reviewed packet rows:
-  `bablos79` 1, `nemphiscrypts` 1, `pifagortrade` 7; all remain blocked pending
-  human/operator review.
-- `SAS-PRECLIENT-003` produced 301 internal evidence appendix rows across all
-  three channels, with text metrics, media reviews, blockers, provider gaps,
-  hashes/checksums, and no raw media bytes.
-- Next task: `SAS-PRECLIENT-004` free dashboard card dataset.
+- `SAS-PRECLIENT-001..004` completed the artifact contract, 9-row
+  model-reviewed packet, 301-row evidence appendix, and 3 internal free-card
+  drafts. Media/RR customer-facing use remains blocked pending review gates.
+- Next task: `SAS-PRECLIENT-005` per-channel internal deep reports.
 
 Read first: `docs/tasks.md` Phase 37, `docs/AI_DEVELOPMENT_PLAN_RU.md`,
 `docs/specs/PRECLIENT_ARTIFACT_CONTRACT.md`,
@@ -64,6 +58,7 @@ Read first: `docs/tasks.md` Phase 37, `docs/AI_DEVELOPMENT_PLAN_RU.md`,
 - Pre-client contract: `docs/specs/PRECLIENT_ARTIFACT_CONTRACT.md`
 - Pre-client review packet: `docs/pilot/preclient_MODEL_REVIEW_PACKET.md`
 - Pre-client evidence appendix: `docs/pilot/preclient_EVIDENCE_APPENDIX.md`
+- Pre-client dashboard cards: `docs/pilot/preclient_FREE_DASHBOARD_CARDS.md`
 
 ## Key Product Facts
 
