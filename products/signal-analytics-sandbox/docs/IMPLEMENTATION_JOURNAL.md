@@ -1838,3 +1838,11 @@ This file is durable handoff context across agents and sessions. It records what
 - Decisions applied: `gpt-4.1-mini` performs mass review over all 255 transcript/OCR draft rows; `gpt-4.1` performs arbiter review over 35 high-signal rows; model review remains internal-only and does not replace human/operator acceptance.
 - Evidence collected: mass reviewer accepted 1 internal candidate, marked 177 rows needs-human-review, 66 reject-noise, 4 context-only, and 7 unable-to-review. Arbiter accepted 9 internal candidates: `pifagortrade` posts `3214`, `3218`, `3225`, `3234`, `3264`, `3274`, `3276`; `bablos79` post `10450`; and `nemphiscrypts` post `3958`.
 - Follow-ups: route the 9 arbiter-accepted rows to human/operator review, then recompute setup/RR/outcomes only for accepted rows.
+
+### 2026-05-23 — Phase 37 Pre-Client Artifact Task Graph
+
+- Scope: `docs/tasks.md`, `docs/AI_DEVELOPMENT_PLAN_RU.md`, `docs/CODEX_PROMPT.md`, `AGENT_NOTES.md`, `PHASE_HANDOFF.md`, `tests/unit/test_preclient_task_graph.py`, active-state task-graph tests.
+- Why this work happened: the operator asked to convert the dashboard/paid-report strategy into AI-loop tasks covering everything that can be done internally before client outreach, with reliable artifacts as the priority.
+- Decisions applied: no client outreach, private-channel analysis, partnership discussions, public dashboard launch, or paid report promise before Phase 37 produces traceable artifacts and passes the safety/deep-review gate.
+- Evidence planned: Phase 37 now defines 10 tasks covering artifact contract, model-reviewed candidate packet, evidence appendix, free dashboard cards, per-channel reports, paid-style demo report, candidate outcome/RR recompute, static dashboard prototype, artifact safety gate, and Phase 37 deep review.
+- Follow-ups: start `SAS-PRECLIENT-001` by writing `docs/specs/PRECLIENT_ARTIFACT_CONTRACT.md` and its tests.

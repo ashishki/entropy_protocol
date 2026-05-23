@@ -1,34 +1,28 @@
 # Agent Notes - Signal Analytics Sandbox
 
-Date: 2026-05-22
+Date: 2026-05-23
 
 Restart-relevant state only. Historical detail lives in
 `docs/IMPLEMENTATION_JOURNAL.md`, `docs/archive/`, and `docs/tasks.md`.
 
 ## Active State
 
-- Phase: 36 Channel Impact Framework And Cross-Channel Completion
-- Active task: Phase 36 complete; await operator decision
-- Baseline: 326 pass / 0 skip
+- Phase: 37 Pre-Client Artifact Hardening
+- Active task: `SAS-PRECLIENT-001`
+- Baseline: 329 pass / 0 skip
 - External gate: `approve_internal_only`
 - External delivery: not approved
 - Core: paused
 
 ## Current Decision
 
-Internal V1 channel utility validation is complete for three channels. Phase 36
-now defines broader channel impact criteria and an equal evidence-completion
-loop for `bablos79`, `nemphiscrypts`, and `pifagortrade`.
+Internal V1 and Phase 36 validation are complete for three channels. Phase 37
+turns current evidence into reliable pre-client artifacts before outreach.
 
 ## Next Action
 
-`SAS-IMPACT-001..002` created the impact framework and three-channel loop.
-`SAS-BABLOS-001..008` closed the `bablos79` Phase 36 pass as internal-only:
-0 human/operator accepted transcripts, 0 OCR drafts, 0 accepted media claims,
-0 computed outcomes, external delivery rejected. `SAS-IMPACT-003..004` added
-equivalent completion scopes for `nemphiscrypts` and `pifagortrade`.
-`SAS-IMPACT-005..008` added taxonomy, dashboard schema, paid boundary,
-scorecard, external gate, and deep review.
+`SAS-IMPACT-001..008` completed the Phase 36 framework, scorecard, paid
+boundary, and gate. External delivery remains blocked/internal-only.
 Two-month run `2026-03-22..2026-05-22` produced 526 text rows,
 37 normalized claims, 28 7d evaluable, 19 confirmed, 9 contradicted.
 Operator then clarified this was insufficient because the real question is
@@ -39,12 +33,15 @@ RR-ready setup draft.
 Model-reviewer pass now adds `gpt-4.1-mini` mass review over 255 media drafts
 and `gpt-4.1` arbiter review over 35 high-signal rows; 9 arbiter candidates
 are accepted for internal follow-up only.
+Next route: Phase 37 creates a contract, review packet, evidence appendix,
+free dashboard cards, per-channel internal reports, paid-style demo, candidate
+outcomes, static dashboard, safety gate, and deep review before clients.
 
 Read first:
 
 1. `docs/CODEX_PROMPT.md`
 2. `docs/AI_DEVELOPMENT_PLAN_RU.md`
-3. `docs/tasks.md` Phase 36
+3. `docs/tasks.md` Phase 37
 4. `docs/specs/CHANNEL_IMPACT_FRAMEWORK.md`
 5. `docs/pilot/three_channel_PHASE36_IMPACT_DEVELOPMENT_LOOP.md`
 6. `docs/pilot/three_channel_PHASE36_IMPACT_SCORECARD.md`

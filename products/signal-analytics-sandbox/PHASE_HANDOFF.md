@@ -1,21 +1,21 @@
 # PHASE_HANDOFF - Signal Analytics Sandbox
 
-Date: 2026-05-22
+Date: 2026-05-23
 
 ## Current State
 
-- Phase: 36 Channel Impact Framework And Cross-Channel Completion
-- Active task: Phase 36 complete; await operator decision
-- Baseline: 326 pass / 0 skip
+- Phase: 37 Pre-Client Artifact Hardening
+- Active task: `SAS-PRECLIENT-001`
+- Baseline: 329 pass / 0 skip
 - Ruff: clean
 - Pyright: clean
 - External gate: `approve_internal_only`
 
 ## Handoff
 
-Planned phases 0-35 and `SAS-NEXT-001..032` are complete. Phase 36 is now a
-cross-channel impact loop: broader criteria, source-of-truth model, dashboard
-vs paid-report boundary, and equal evidence completion for all three channels.
+Planned phases 0-36 and `SAS-NEXT-001..032` are complete. Phase 37 is the
+pre-client artifact hardening loop before any outreach, paid report sale,
+private-channel partnership, or public dashboard launch.
 
 `SAS-IMPACT-001..002` created the framework and development loop.
 `SAS-BABLOS-001..008` closed the `bablos79` Phase 36 pass as internal-only:
@@ -34,13 +34,17 @@ artifacts are in `docs/pilot/three_channel_MULTIMODAL_*`.
 Model-reviewer pass adds `gpt-4.1-mini` mass review over 255 media drafts and
 `gpt-4.1` arbiter review over 35 high-signal rows; 9 internal candidates were
 accepted by arbiter, still not customer-facing until human/operator review.
+Phase 37 next tasks turn this into reliable artifacts: artifact contract,
+review packet, evidence appendix, dashboard cards, internal reports,
+paid-style demo, candidate outcomes, static dashboard, safety gate, and deep
+review.
 
 ## Read First
 
 1. `docs/ANALYST_HANDOFF_RU.md`
 2. `docs/CODEX_PROMPT.md`
 3. `docs/AI_DEVELOPMENT_PLAN_RU.md`
-4. `docs/tasks.md` Phase 36
+4. `docs/tasks.md` Phase 37
 5. `docs/specs/CHANNEL_IMPACT_FRAMEWORK.md`
 6. `docs/pilot/three_channel_PHASE36_IMPACT_DEVELOPMENT_LOOP.md`
 7. `docs/pilot/three_channel_PHASE36_IMPACT_SCORECARD.md`

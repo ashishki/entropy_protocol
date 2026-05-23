@@ -40,6 +40,8 @@ Phases:
   level-aware outcomes, multimodal claims, and external-ready gate.
 - **Phase 36** — Channel impact framework and cross-channel evidence
   completion before dashboard/deep-report comparison.
+- **Phase 37** — Pre-client artifact hardening: reliable free-dashboard,
+  paid-report, review, evidence, and gate artifacts before outreach.
 
 Current active focus:
 
@@ -61,6 +63,10 @@ Current active focus:
 - After Phase 35, the new active route is Phase 36: define a broader channel
   impact framework and run the same evidence-completion loop for `bablos79`,
   `nemphiscrypts`, and `pifagortrade` before dashboard/deep-report comparison.
+- After the two-month multimodal run and model-reviewer pass, the next active
+  route is Phase 37: harden all artifacts that can be produced without client
+  contact before any buyer outreach, private-channel partnership, or public
+  dashboard launch.
 
 ---
 
@@ -3825,6 +3831,393 @@ Files:
   - docs/pilot/three_channel_PHASE36_IMPACT_SCORECARD.md
   - docs/pilot/three_channel_PHASE36_EXTERNAL_READY_GATE.md
   - docs/archive/PHASE36_DEEP_REVIEW.md
+
+## Phase 37 — Pre-Client Artifact Hardening
+
+Goal: produce reliable internal artifacts for a future free dashboard and paid
+deep reports before any client outreach, paid report sale, private-channel
+analysis, partnership discussion, or public ranking. This phase is explicitly
+pre-client: it can use public/operator-authorized sources, existing model
+reviewer outputs, deterministic market APIs, and internal review gates, but it
+must not claim customer validation or external approval.
+
+### SAS-PRECLIENT-001: Product Artifact Contract And Reliability Bar
+
+Owner:      codex + operator
+Phase:      37
+Type:       docs
+Depends-On: SAS-IMPACT-008
+
+Objective: |
+  Define the exact artifacts needed before client outreach: free source card,
+  paid deep report, evidence appendix, human/model review ledger, outcome
+  snapshot, safety gate, and demo pack. The contract must separate internal,
+  dashboard-safe, paid-report-only, and blocked content.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/specs/PRECLIENT_ARTIFACT_CONTRACT.md` lists every required artifact, owner, input dependencies, allowed audience, and reliability status enum."
+    test: "tests/unit/test_preclient_task_graph.py::test_preclient_phase_lists_reliable_artifact_contract"
+  - id: AC-2
+    description: "Contract defines reliability levels `draft`, `model_reviewed`, `operator_reviewed`, `market_validated`, `dashboard_safe`, `paid_report_safe`, and `blocked`."
+    test: "tests/unit/test_preclient_task_graph.py::test_preclient_phase_lists_reliable_artifact_contract"
+  - id: AC-3
+    description: "Contract states that model reviewers do not replace human/operator acceptance for customer-facing media claims."
+    test: "tests/unit/test_preclient_task_graph.py::test_preclient_phase_preserves_customer_safety_gates"
+
+Files:
+  - docs/specs/PRECLIENT_ARTIFACT_CONTRACT.md
+  - docs/tasks.md
+  - docs/AI_DEVELOPMENT_PLAN_RU.md
+  - docs/CODEX_PROMPT.md
+  - AGENT_NOTES.md
+  - PHASE_HANDOFF.md
+  - tests/unit/test_preclient_task_graph.py
+
+Context-Refs:
+  - docs/pilot/three_channel_MULTIMODAL_RESEARCH_REPORT.md
+  - docs/pilot/three_channel_MEDIA_REVIEW_REPORT.md
+  - docs/specs/CHANNEL_DASHBOARD_SCORE_SCHEMA.md
+  - docs/specs/PAID_CHANNEL_REPORT_BOUNDARY.md
+
+Notes: |
+  This task decides artifact shape only. It does not create customer-facing
+  claims, sales copy, client promises, private-source workflows, or rankings.
+
+### SAS-PRECLIENT-002: Model-Reviewed Candidate Review Packet
+
+Owner:      codex
+Phase:      37
+Type:       validation
+Depends-On: SAS-PRECLIENT-001
+
+Objective: |
+  Convert media reviewer outputs into a compact operator review packet for all
+  model-accepted and high-signal rows. The packet must include source URL,
+  media ref, transcript/OCR text, model reviewer decision, arbiter decision,
+  extracted setup fields, blocker reason, and recommended human action.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/preclient_MODEL_REVIEW_PACKET.md` and `.json` include all 9 arbiter-accepted internal candidates plus any mass-review accepted rows."
+    test: "tests/unit/test_preclient_model_review_packet.py"
+  - id: AC-2
+    description: "Every packet row has source link, media_ref_id, modality, model decisions, evidence types, setup/RR fields when present, and `required_operator_action`."
+    test: "tests/unit/test_preclient_model_review_packet.py"
+  - id: AC-3
+    description: "No packet row is marked customer-facing; all rows remain pending human/operator review or blocked."
+    test: "tests/unit/test_preclient_model_review_packet.py"
+
+Files:
+  - docs/pilot/preclient_MODEL_REVIEW_PACKET.md
+  - docs/pilot/preclient_MODEL_REVIEW_PACKET.json
+  - docs/pilot/three_channel_MEDIA_REVIEW_RESULTS.json
+  - docs/pilot/three_channel_MULTIMODAL_RR_DRAFTS.json
+  - tests/unit/test_preclient_model_review_packet.py
+
+Context-Refs:
+  - docs/pilot/three_channel_MEDIA_REVIEW_REPORT.md
+
+Notes: |
+  This is the work queue for internal acceptance. It is not a paid report.
+
+### SAS-PRECLIENT-003: Evidence Appendix Builder
+
+Owner:      codex
+Phase:      37
+Type:       code
+Depends-On: SAS-PRECLIENT-002
+
+Objective: |
+  Build a deterministic evidence appendix artifact that joins source posts,
+  media manifest rows, transcript/OCR drafts, model-review decisions,
+  structured RR fields, market outcome references, and blockers into one
+  reproducible appendix per channel.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Appendix JSON and Markdown exist for all three channels and each row has source URL, evidence kind, artifact refs, checksum or text hash, review status, market-provider status, and blocker list."
+    test: "tests/unit/test_preclient_evidence_appendix.py"
+  - id: AC-2
+    description: "Appendix distinguishes text-only claims, media-backed claims, post-factum rows, context-only rows, rejected noise, and provider gaps."
+    test: "tests/unit/test_preclient_evidence_appendix.py"
+  - id: AC-3
+    description: "Appendix does not include raw media bytes and does not require private/authenticated source access."
+    test: "tests/unit/test_preclient_evidence_appendix.py"
+
+Files:
+  - src/signal_sandbox/reports/evidence_appendix.py
+  - docs/pilot/preclient_EVIDENCE_APPENDIX.json
+  - docs/pilot/preclient_EVIDENCE_APPENDIX.md
+  - tests/unit/test_preclient_evidence_appendix.py
+
+Context-Refs:
+  - docs/pilot/three_channel_MULTIMODAL_MEDIA_MANIFEST.json
+  - docs/pilot/three_channel_MULTIMODAL_PROCESSING_QUEUE.json
+  - docs/pilot/three_channel_MEDIA_REVIEW_RESULTS.json
+  - docs/pilot/three_channel_V1_METRIC_RESULTS.json
+
+Notes: |
+  Reliable paid reports need one place where every claim can be traced.
+
+### SAS-PRECLIENT-004: Per-Channel Free Dashboard Card Dataset
+
+Owner:      codex + operator
+Phase:      37
+Type:       validation
+Depends-On: SAS-PRECLIENT-003
+
+Objective: |
+  Create a compact free-dashboard dataset for `bablos79`, `nemphiscrypts`, and
+  `pifagortrade`: what the source is about, primary markets, strengths,
+  weaknesses, measurable history, setup/RR availability, media coverage,
+  evidence confidence, and external gate state.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/preclient_FREE_DASHBOARD_CARDS.json` contains exactly one card per channel with stable fields from the dashboard score schema."
+    test: "tests/unit/test_preclient_dashboard_cards.py"
+  - id: AC-2
+    description: "Each card includes `what_it_is`, `strengths`, `weaknesses`, `measurable_claims`, `media_coverage`, `rr_setup_status`, `evidence_confidence`, and `gate_status`."
+    test: "tests/unit/test_preclient_dashboard_cards.py"
+  - id: AC-3
+    description: "Cards avoid leaderboard, best-channel, future-profit, and investment-advice wording."
+    test: "tests/unit/test_preclient_dashboard_cards.py"
+
+Files:
+  - docs/pilot/preclient_FREE_DASHBOARD_CARDS.json
+  - docs/pilot/preclient_FREE_DASHBOARD_CARDS.md
+  - tests/unit/test_preclient_dashboard_cards.py
+
+Context-Refs:
+  - docs/specs/CHANNEL_DASHBOARD_SCORE_SCHEMA.md
+  - docs/pilot/three_channel_PHASE36_IMPACT_SCORECARD.md
+  - docs/pilot/three_channel_MEDIA_REVIEW_REPORT.md
+
+Notes: |
+  This is the free acquisition layer. It must be useful but not expose the full
+  paid evidence appendix.
+
+### SAS-PRECLIENT-005: Per-Channel Internal Deep Report V0
+
+Owner:      codex
+Phase:      37
+Type:       report
+Depends-On: SAS-PRECLIENT-003, SAS-PRECLIENT-004
+
+Objective: |
+  Generate one internal deep report per channel using the same report outline:
+  executive summary, source/period, source style, measurable claims, media
+  findings, setup/RR findings, model-reviewed candidates, confirmed examples,
+  contradicted examples, limitations, and gate status.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Reports exist for `bablos79`, `nemphiscrypts`, and `pifagortrade` under `docs/pilot/reports/preclient/`."
+    test: "tests/unit/test_preclient_channel_reports.py"
+  - id: AC-2
+    description: "Every report cites the evidence appendix and states `internal_only` until human/operator review and external gate pass."
+    test: "tests/unit/test_preclient_channel_reports.py"
+  - id: AC-3
+    description: "Reports include strengths and weaknesses with at least one supporting source/evidence reference each when available."
+    test: "tests/unit/test_preclient_channel_reports.py"
+
+Files:
+  - docs/pilot/reports/preclient/bablos79_DEEP_REPORT_V0.md
+  - docs/pilot/reports/preclient/nemphiscrypts_DEEP_REPORT_V0.md
+  - docs/pilot/reports/preclient/pifagortrade_DEEP_REPORT_V0.md
+  - tests/unit/test_preclient_channel_reports.py
+
+Context-Refs:
+  - docs/specs/PAID_CHANNEL_REPORT_BOUNDARY.md
+  - docs/pilot/preclient_EVIDENCE_APPENDIX.md
+
+Notes: |
+  These reports are demo-quality internal artifacts, not customer-ready sales
+  deliverables.
+
+### SAS-PRECLIENT-006: Paid-Style Demo Report For Strongest Candidate
+
+Owner:      codex + operator
+Phase:      37
+Type:       report
+Depends-On: SAS-PRECLIENT-005
+
+Objective: |
+  Produce one polished paid-style demo report for the strongest current
+  candidate, expected to be `pifagortrade` unless the evidence appendix
+  disproves that choice. The report must show the product promise without
+  claiming external approval.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/reports/preclient/PAID_STYLE_DEMO_REPORT.md` names the selected channel and explains why it was selected from evidence, not taste."
+    test: "tests/unit/test_preclient_paid_demo_report.py"
+  - id: AC-2
+    description: "Demo report includes locked/paid sections: evidence appendix preview, post-factum vs real-time distinction, setup/RR review, counterexamples, and limitations."
+    test: "tests/unit/test_preclient_paid_demo_report.py"
+  - id: AC-3
+    description: "Demo report remains `internal_demo_only` and contains no pricing promise, future-profit claim, or private-source promise."
+    test: "tests/unit/test_preclient_paid_demo_report.py"
+
+Files:
+  - docs/pilot/reports/preclient/PAID_STYLE_DEMO_REPORT.md
+  - tests/unit/test_preclient_paid_demo_report.py
+
+Context-Refs:
+  - docs/pilot/three_channel_MEDIA_REVIEW_REPORT.md
+  - docs/pilot/preclient_FREE_DASHBOARD_CARDS.md
+
+Notes: |
+  This is the artifact to show internally before deciding whether to approach
+  buyers. It should be strong enough to sell the concept, not the channel.
+
+### SAS-PRECLIENT-007: Outcome And RR Recompute For Review Candidates
+
+Owner:      codex
+Phase:      37
+Type:       validation
+Depends-On: SAS-PRECLIENT-002, SAS-PRECLIENT-003
+
+Objective: |
+  Recompute deterministic market outcomes and RR/setup status for model
+  reviewer candidates where public timestamps, asset/proxy mapping, direction,
+  entry, stop, target, and horizon are sufficient. Rows with missing fields
+  remain blockers, not failures.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/preclient_CANDIDATE_OUTCOMES.json` records every reviewed candidate as evaluated, insufficient_fields, provider_gap, post_factum_only, or media_review_blocked."
+    test: "tests/unit/test_preclient_candidate_outcomes.py"
+  - id: AC-2
+    description: "Outcome rows include provider/source refs and do not use bulk market-history storage."
+    test: "tests/unit/test_preclient_candidate_outcomes.py"
+  - id: AC-3
+    description: "Post-factum screenshots are not treated as predictive calls unless source timing and forward-looking language are clear."
+    test: "tests/unit/test_preclient_candidate_outcomes.py"
+
+Files:
+  - docs/pilot/preclient_CANDIDATE_OUTCOMES.json
+  - docs/pilot/preclient_CANDIDATE_OUTCOMES.md
+  - scripts/three_channel_media_reviewer.py
+  - scripts/three_channel_multimodal_research.py
+  - tests/unit/test_preclient_candidate_outcomes.py
+
+Context-Refs:
+  - docs/pilot/preclient_MODEL_REVIEW_PACKET.json
+  - docs/specs/CHANNEL_QUANT_METRICS_V2.md
+
+Notes: |
+  This task makes setup/RR gaps explicit before any buyer sees a report.
+
+### SAS-PRECLIENT-008: Static Free Dashboard Prototype
+
+Owner:      codex
+Phase:      37
+Type:       frontend
+Depends-On: SAS-PRECLIENT-004, SAS-PRECLIENT-005
+
+Objective: |
+  Build a static internal dashboard prototype that renders the free channel
+  cards and links to internal reports. The dashboard must be utilitarian,
+  scannable, and clearly marked internal-only.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/preclient_dashboard/index.html` renders all three channel cards from the dashboard dataset."
+    test: "tests/unit/test_preclient_dashboard_static.py"
+  - id: AC-2
+    description: "Dashboard shows gate status, evidence confidence, measurable sample size, setup/RR status, media status, and no-advice disclaimer per channel."
+    test: "tests/unit/test_preclient_dashboard_static.py"
+  - id: AC-3
+    description: "Dashboard contains no payment flow, public ranking, private-source promise, or future-profit claim."
+    test: "tests/unit/test_preclient_dashboard_static.py"
+
+Files:
+  - docs/pilot/preclient_dashboard/index.html
+  - docs/pilot/preclient_FREE_DASHBOARD_CARDS.json
+  - tests/unit/test_preclient_dashboard_static.py
+
+Context-Refs:
+  - docs/specs/CHANNEL_DASHBOARD_SCORE_SCHEMA.md
+
+Notes: |
+  No app server is required. This is an internal static demo artifact.
+
+### SAS-PRECLIENT-009: Report Safety, Language, And Gate Pass
+
+Owner:      codex + operator
+Phase:      37
+Type:       validation
+Depends-On: SAS-PRECLIENT-005, SAS-PRECLIENT-006, SAS-PRECLIENT-008
+
+Objective: |
+  Run deterministic language and artifact safety checks across free dashboard
+  cards, internal deep reports, and paid-style demo report. Decide which fields
+  are dashboard-safe, paid-report-only, internal-only, or blocked.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/preclient_ARTIFACT_SAFETY_GATE.md` records the decision for every pre-client artifact and cites blockers."
+    test: "tests/unit/test_preclient_artifact_safety_gate.py"
+  - id: AC-2
+    description: "Safety scan blocks advice, future-profit claims, best-channel/ranking language, unsupported private-source claims, and unreviewed media claims."
+    test: "tests/unit/test_preclient_artifact_safety_gate.py"
+  - id: AC-3
+    description: "Gate states whether the team may proceed to buyer conversations, and if yes, which artifacts can be shown and under what wording."
+    test: "tests/unit/test_preclient_artifact_safety_gate.py"
+
+Files:
+  - docs/pilot/preclient_ARTIFACT_SAFETY_GATE.md
+  - docs/pilot/preclient_ARTIFACT_SAFETY_GATE.json
+  - tests/unit/test_preclient_artifact_safety_gate.py
+
+Context-Refs:
+  - docs/specs/PRECLIENT_ARTIFACT_CONTRACT.md
+  - docs/specs/PAID_CHANNEL_REPORT_BOUNDARY.md
+
+Notes: |
+  This is not a customer validation gate. It only decides if internal artifacts
+  are coherent and safe enough to discuss with potential buyers.
+
+### SAS-PRECLIENT-010: Phase 37 Deep Review And Client-Readiness Decision
+
+Owner:      codex + operator
+Phase:      37
+Type:       review
+Depends-On: SAS-PRECLIENT-001, SAS-PRECLIENT-002, SAS-PRECLIENT-003, SAS-PRECLIENT-004, SAS-PRECLIENT-005, SAS-PRECLIENT-006, SAS-PRECLIENT-007, SAS-PRECLIENT-008, SAS-PRECLIENT-009
+
+Objective: |
+  Run a phase-boundary deep review and decide whether the project is ready for
+  first client conversations, requires more internal artifact hardening, or
+  should pivot the buyer promise.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Deep review checks artifact traceability, report fairness, dashboard safety, model/human review boundary, outcome correctness, and buyer-promise clarity."
+    test: "manual/review"
+  - id: AC-2
+    description: "`docs/archive/PHASE37_PRECLIENT_REVIEW.md` records findings, open blockers, and final decision: proceed_to_client_discovery, continue_internal_hardening, or pivot_scope."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "State files are updated with the next route only after the decision is recorded."
+    test: "manual/docs-review"
+
+Files:
+  - docs/archive/PHASE37_PRECLIENT_REVIEW.md
+  - docs/pilot/preclient_ARTIFACT_SAFETY_GATE.md
+  - docs/CODEX_PROMPT.md
+  - AGENT_NOTES.md
+  - PHASE_HANDOFF.md
+
+Context-Refs:
+  - prompts/ORCHESTRATOR.md
+  - docs/pilot/preclient_ARTIFACT_SAFETY_GATE.md
+
+Notes: |
+  This is the only Phase 37 task that may recommend going to clients. Do not
+  start outreach, pricing tests, partnerships, or private-channel analysis
+  before this gate.
 
 ## Phase 28 — External-Ready Review Sprint
 

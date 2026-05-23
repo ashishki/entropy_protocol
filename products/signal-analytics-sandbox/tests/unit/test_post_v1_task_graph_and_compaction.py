@@ -15,6 +15,7 @@ def test_post_v1_task_graph_lists_next_phases_and_active_task() -> None:
         "SAS-NEXT-032",
         "SAS-IMPACT-001",
         "SAS-BABLOS-001",
+        "SAS-PRECLIENT-001",
     ):
         assert task_id in tasks
 
@@ -23,8 +24,9 @@ def test_post_v1_task_graph_lists_next_phases_and_active_task() -> None:
     assert (
         "## Phase 36 — Channel Impact Framework And Cross-Channel Completion" in tasks
     )
-    assert "Latest completed: `Two-Month Multimodal Research Run`" in prompt
-    assert "Active route: Phase 36 complete" in prompt
+    assert "## Phase 37 — Pre-Client Artifact Hardening" in tasks
+    assert "Latest completed: `Media Reviewer Model Pass`" in prompt
+    assert "Active route: Phase 37 pre-client artifact hardening" in prompt
 
 
 def test_active_state_files_are_compacted_to_current_links() -> None:

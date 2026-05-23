@@ -390,12 +390,13 @@ Product success:
 
 ## 9. Current Recommendation
 
-Start with Phase 36 impact framework, not with dashboard UI or marketplace.
+Phase 36 impact framework is complete. Start Phase 37 pre-client artifact
+hardening before dashboard UI, paid outreach, private-channel analysis, or
+marketplace scope.
 
 Current next task is:
 
-Phase 36 complete; next operator decision is internal dashboard prototype vs
-another evidence-completion loop.
+Phase 37 - Pre-Client Artifact Hardening.
 
 Why:
 
@@ -407,5 +408,37 @@ Why:
   `nemphiscrypts` and `pifagortrade`;
 - `SAS-IMPACT-005..008` added taxonomy, dashboard score schema, paid boundary,
   three-channel scorecard, external gate, and deep review;
-- public dashboard and paid report remain blocked until a new external-ready
-  gate approves them.
+- two-month multimodal and media-reviewer runs now provide enough internal
+  evidence to build reliable artifacts before customer outreach;
+- public dashboard and paid report remain blocked until a Phase 37 safety gate
+  decides which fields can be shown in buyer conversations.
+
+### Phase 37 - Pre-Client Artifact Hardening
+
+Goal: produce reliable internal artifacts for a free dashboard and paid deep
+report workflow before talking to clients. This phase includes only work the AI
+development loop can do itself with public/operator-authorized evidence and
+existing model-review outputs.
+
+Tasks:
+
+| Task ID | Task | Output | Acceptance Criteria |
+|---|---|---|---|
+| SAS-PRECLIENT-001 | Product artifact contract and reliability bar | `docs/specs/PRECLIENT_ARTIFACT_CONTRACT.md` | Artifact list, reliability states, audience boundary, and review gates are explicit. |
+| SAS-PRECLIENT-002 | Model-reviewed candidate review packet | `docs/pilot/preclient_MODEL_REVIEW_PACKET.md/json` | 9 arbiter-accepted rows and mass-accepted rows are source-linked and queued for operator action. |
+| SAS-PRECLIENT-003 | Evidence appendix builder | `preclient_EVIDENCE_APPENDIX.md/json` | Text/media/review/outcome refs are traceable by channel without raw media bytes. |
+| SAS-PRECLIENT-004 | Free dashboard card dataset | `preclient_FREE_DASHBOARD_CARDS.md/json` | One safe summary card per channel with strengths, weaknesses, confidence, and gate status. |
+| SAS-PRECLIENT-005 | Per-channel internal deep reports | `reports/preclient/*_DEEP_REPORT_V0.md` | Three channel reports cite evidence, strengths, weaknesses, examples, blockers, and internal gate. |
+| SAS-PRECLIENT-006 | Paid-style demo report | `PAID_STYLE_DEMO_REPORT.md` | One polished internal demo report shows the product promise without external approval. |
+| SAS-PRECLIENT-007 | Candidate outcome/RR recompute | `preclient_CANDIDATE_OUTCOMES.md/json` | Review candidates are evaluated or explicitly blocked by fields/provider/post-factum/media status. |
+| SAS-PRECLIENT-008 | Static free dashboard prototype | `preclient_dashboard/index.html` | Internal static dashboard renders the free cards, no ranking or advice. |
+| SAS-PRECLIENT-009 | Artifact safety gate | `preclient_ARTIFACT_SAFETY_GATE.md/json` | Dashboard-safe, paid-report-only, internal-only, and blocked fields are decided. |
+| SAS-PRECLIENT-010 | Phase 37 deep review | `docs/archive/PHASE37_PRECLIENT_REVIEW.md` | Decide proceed to client discovery, continue hardening, or pivot scope. |
+
+Definition of done:
+
+- every claim in a report/card traces to evidence or an explicit blocker;
+- model-reviewed media is not customer-facing until human/operator accepted;
+- no dashboard/report text implies investment advice, future returns, ranking,
+  or private-source access;
+- the safety gate says exactly what can be shown in first buyer conversations.
