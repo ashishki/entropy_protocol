@@ -5,8 +5,8 @@ Date: 2026-05-23
 ## Current State
 
 - Phase: 37 Pre-Client Artifact Hardening
-- Active task: `SAS-PRECLIENT-005`
-- Baseline: 341 pass / 0 skip
+- Active task: `SAS-PRECLIENT-006`
+- Baseline: 345 pass / 0 skip
 - Ruff: clean
 - Pyright: clean
 - External gate: `approve_internal_only`
@@ -51,8 +51,11 @@ raw media bytes. `SAS-PRECLIENT-004` is complete:
 `docs/pilot/preclient_FREE_DASHBOARD_CARDS.md` and `.json` contain exactly one
 internal draft card per channel with compact text metrics, media coverage,
 RR/setup status, strengths, weaknesses, evidence confidence, blockers, and
-`internal_only_not_dashboard_safe` gate status. Next task is
-`SAS-PRECLIENT-005`.
+`internal_only_not_dashboard_safe` gate status. `SAS-PRECLIENT-005` is
+complete: `docs/pilot/reports/preclient/` contains one internal-only deep
+report per channel with confirmed/contradicted examples, strengths,
+weaknesses, limitations, evidence refs, and `internal_only` gate status. Next
+task is `SAS-PRECLIENT-006`.
 
 ## Read First
 
@@ -72,6 +75,7 @@ RR/setup status, strengths, weaknesses, evidence confidence, blockers, and
 14. `docs/pilot/preclient_MODEL_REVIEW_PACKET.md`
 15. `docs/pilot/preclient_EVIDENCE_APPENDIX.md`
 16. `docs/pilot/preclient_FREE_DASHBOARD_CARDS.md`
+17. `docs/pilot/reports/preclient/`
 
 ## Do Not Do
 

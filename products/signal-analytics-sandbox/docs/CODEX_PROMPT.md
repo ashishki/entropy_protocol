@@ -9,11 +9,11 @@ Compact restart state only. Detailed history lives in
 ## Current State
 
 - Phase: 37 (Pre-Client Artifact Hardening)
-- Baseline: 341 pass / 0 skip
+- Baseline: 345 pass / 0 skip
 - Ruff: `ruff check src/ tests/ scripts/` passes
 - Format: `ruff format --check src/ tests/ scripts/` passes
 - Pyright: `pyright` passes
-- Latest completed: `SAS-PRECLIENT-004 Per-Channel Free Dashboard Card Dataset`
+- Latest completed: `SAS-PRECLIENT-005 Per-Channel Internal Deep Report V0`
 - Phase 0 gates acknowledged; Engineering Phase 1 (T01+) may begin.
 - | SAS-001: Paid Pilot Demand Validation | acknowledged |
 - | SAS-002: Public-Source Legal/Terms Memo | acknowledged |
@@ -32,10 +32,11 @@ Active route: Phase 37 pre-client artifact hardening.
   1 internal RR-ready setup draft.
 - Media reviewer pass: `gpt-4.1-mini` reviewed 255 media drafts; `gpt-4.1`
   arbitrated 35 high-signal rows and accepted 9 internal candidates.
-- `SAS-PRECLIENT-001..004` completed the artifact contract, 9-row
+- `SAS-PRECLIENT-001..005` completed the artifact contract, 9-row
   model-reviewed packet, 301-row evidence appendix, and 3 internal free-card
-  drafts. Media/RR customer-facing use remains blocked pending review gates.
-- Next task: `SAS-PRECLIENT-005` per-channel internal deep reports.
+  drafts, plus 3 internal deep reports. Media/RR customer-facing use remains
+  blocked pending review gates.
+- Next task: `SAS-PRECLIENT-006` paid-style demo report.
 
 Read first: `docs/tasks.md` Phase 37, `docs/AI_DEVELOPMENT_PLAN_RU.md`,
 `docs/specs/PRECLIENT_ARTIFACT_CONTRACT.md`,
@@ -59,6 +60,7 @@ Read first: `docs/tasks.md` Phase 37, `docs/AI_DEVELOPMENT_PLAN_RU.md`,
 - Pre-client review packet: `docs/pilot/preclient_MODEL_REVIEW_PACKET.md`
 - Pre-client evidence appendix: `docs/pilot/preclient_EVIDENCE_APPENDIX.md`
 - Pre-client dashboard cards: `docs/pilot/preclient_FREE_DASHBOARD_CARDS.md`
+- Pre-client reports: `docs/pilot/reports/preclient/`
 
 ## Key Product Facts
 

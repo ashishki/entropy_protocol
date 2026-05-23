@@ -1878,3 +1878,11 @@ This file is durable handoff context across agents and sessions. It records what
 - Decisions applied: cards are internal dashboard prototypes only; no public display is approved, no ranking language is used, and media/RR rows remain blocked until review gates accept them.
 - Evidence collected: one card exists for each channel with compact V1 text metrics, media coverage counts, model-reviewed candidate counts, RR/setup status, strengths, weaknesses, evidence confidence, blocked claims, and `internal_only_not_dashboard_safe` gate status.
 - Follow-ups: run `SAS-PRECLIENT-005` to build per-channel internal deep reports using the cards and evidence appendix.
+
+### 2026-05-23 — SAS-PRECLIENT-005 — Per-Channel Internal Deep Report V0
+
+- Scope: `docs/pilot/reports/preclient/*_DEEP_REPORT_V0.md`, `tests/unit/test_preclient_channel_reports.py`, active-state docs.
+- Why this work happened: Phase 37 needs a repeatable deep-report shape for each channel before generating a paid-style demo report.
+- Decisions applied: reports are internal-only, cite the evidence appendix, keep media/RR rows blocked pending human/operator review and external gate approval, and avoid treating provider gaps as source failures.
+- Evidence collected: `bablos79`, `nemphiscrypts`, and `pifagortrade` each have the same outline: executive summary, source/period, style, measurable claims, media findings, setup/RR findings, model-reviewed candidates, confirmed and contradicted examples, strengths, weaknesses, limitations, and report decision.
+- Follow-ups: run `SAS-PRECLIENT-006` to produce a paid-style internal demo report for the strongest current candidate without claiming external approval.

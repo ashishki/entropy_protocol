@@ -8,8 +8,8 @@ Restart-relevant state only. Historical detail lives in
 ## Active State
 
 - Phase: 37 Pre-Client Artifact Hardening
-- Active task: `SAS-PRECLIENT-005`
-- Baseline: 341 pass / 0 skip
+- Active task: `SAS-PRECLIENT-006`
+- Baseline: 345 pass / 0 skip
 - External gate: `approve_internal_only`
 - External delivery: not approved
 - Core: paused
@@ -33,10 +33,10 @@ RR-ready setup draft.
 Model-reviewer pass now adds `gpt-4.1-mini` mass review over 255 media drafts
 and `gpt-4.1` arbiter review over 35 high-signal rows; 9 arbiter candidates
 are accepted for internal follow-up only.
-`SAS-PRECLIENT-001..004` are complete: contract, 9-row model packet, 301-row
-evidence appendix, and 3 internal free dashboard card drafts. Media/RR
+`SAS-PRECLIENT-001..005` are complete: contract, 9-row model packet, 301-row
+evidence appendix, 3 free card drafts, and 3 internal deep reports. Media/RR
 customer-facing use remains blocked pending review gates. Next task is
-`SAS-PRECLIENT-005` per-channel internal deep reports.
+`SAS-PRECLIENT-006` paid-style demo report.
 
 Read first:
 
@@ -55,6 +55,7 @@ Read first:
 13. `docs/pilot/preclient_MODEL_REVIEW_PACKET.md`
 14. `docs/pilot/preclient_EVIDENCE_APPENDIX.md`
 15. `docs/pilot/preclient_FREE_DASHBOARD_CARDS.md`
+16. `docs/pilot/reports/preclient/`
 
 ## Canonical Links
 
@@ -76,7 +77,8 @@ Read first:
   `docs/specs/PRECLIENT_ARTIFACT_CONTRACT.md`,
   `docs/pilot/preclient_MODEL_REVIEW_PACKET.md`,
   `docs/pilot/preclient_EVIDENCE_APPENDIX.md`,
-  `docs/pilot/preclient_FREE_DASHBOARD_CARDS.md`
+  `docs/pilot/preclient_FREE_DASHBOARD_CARDS.md`,
+  `docs/pilot/reports/preclient/`
 - Phase 36 development loop:
   `docs/pilot/three_channel_PHASE36_IMPACT_DEVELOPMENT_LOOP.md`
 - Phase 36 bablos gate:

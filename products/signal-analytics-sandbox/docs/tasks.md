@@ -4015,7 +4015,7 @@ Notes: |
   `internal_only_not_dashboard_safe`; media/RR fields are blocked pending
   review gates and no full evidence appendix is exposed.
 
-### SAS-PRECLIENT-005: Per-Channel Internal Deep Report V0
+### SAS-PRECLIENT-005: Per-Channel Internal Deep Report V0 ✅
 
 Owner:      codex
 Phase:      37
@@ -4050,7 +4050,11 @@ Context-Refs:
   - docs/pilot/preclient_EVIDENCE_APPENDIX.md
 
 Notes: |
-  These reports are demo-quality internal artifacts, not customer-ready sales
+  Completed on 2026-05-23. Three internal-only deep reports now exist under
+  `docs/pilot/reports/preclient/`. Each uses the same outline, cites the
+  evidence appendix, records `internal_only` gate status, includes confirmed
+  and contradicted examples from the V1 utility report, and supports strengths
+  and weaknesses with evidence references. They are not customer-ready sales
   deliverables.
 
 ### SAS-PRECLIENT-006: Paid-Style Demo Report For Strongest Candidate
