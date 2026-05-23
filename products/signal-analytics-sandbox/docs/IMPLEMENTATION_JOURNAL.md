@@ -1854,3 +1854,11 @@ This file is durable handoff context across agents and sessions. It records what
 - Decisions applied: pre-client only; no outreach, no public dashboard, no paid promise, no private-channel analysis, no ranking, no advice; model-reviewed media cannot become dashboard-safe or paid-report-safe without human/operator gates.
 - Evidence collected: the contract defines required artifacts, reliability statuses (`draft`, `model_reviewed`, `operator_reviewed`, `market_validated`, `dashboard_safe`, `paid_report_safe`, `blocked`), audience classes, six artifact gates, free dashboard card fields, paid report boundaries, done criteria, and explicit non-goals.
 - Follow-ups: run `SAS-PRECLIENT-002` to build the model-reviewed candidate review packet from `three_channel_MEDIA_REVIEW_RESULTS.json` and `three_channel_MULTIMODAL_RR_DRAFTS.json`.
+
+### 2026-05-23 — SAS-PRECLIENT-002 — Model-Reviewed Candidate Review Packet
+
+- Scope: `docs/pilot/preclient_MODEL_REVIEW_PACKET.md`, `docs/pilot/preclient_MODEL_REVIEW_PACKET.json`, `tests/unit/test_preclient_model_review_packet.py`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `AGENT_NOTES.md`, `PHASE_HANDOFF.md`.
+- Why this work happened: Phase 37 needed a compact operator packet that joins model reviewer decisions with media/RR evidence before any dashboard card, report, or paid-style claim can use those rows.
+- Decisions applied: model review is triage only; every packet row remains `model_reviewed`, `blocked_pending_human_operator_review`, and excluded from customer-facing metrics until a human/operator accepts or rejects it.
+- Evidence collected: the packet contains 9 unique arbiter-accepted internal candidates: `bablos79` 1, `nemphiscrypts` 1, and `pifagortrade` 7. It preserves source links, `media_ref_id`, modality, mass/arbiter decisions, evidence types, extracted text excerpts, setup/RR fields where present, and required operator action. The packet also records 1 overlapping mass-review accepted row and 0 customer-facing rows.
+- Follow-ups: run `SAS-PRECLIENT-003` to build the evidence appendix over this packet, keeping all rows internal until operator review and market recompute are complete.

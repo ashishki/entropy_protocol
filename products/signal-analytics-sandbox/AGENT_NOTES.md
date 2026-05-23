@@ -8,8 +8,8 @@ Restart-relevant state only. Historical detail lives in
 ## Active State
 
 - Phase: 37 Pre-Client Artifact Hardening
-- Active task: `SAS-PRECLIENT-001`
-- Baseline: 330 pass / 0 skip
+- Active task: `SAS-PRECLIENT-003`
+- Baseline: 333 pass / 0 skip
 - External gate: `approve_internal_only`
 - External delivery: not approved
 - Core: paused
@@ -33,11 +33,10 @@ RR-ready setup draft.
 Model-reviewer pass now adds `gpt-4.1-mini` mass review over 255 media drafts
 and `gpt-4.1` arbiter review over 35 high-signal rows; 9 arbiter candidates
 are accepted for internal follow-up only.
-`SAS-PRECLIENT-001` is complete: `docs/specs/PRECLIENT_ARTIFACT_CONTRACT.md`
-defines artifact inventory, reliability statuses, audience classes, gates,
-dashboard/free-card fields, paid-report boundaries, done criteria, and
-non-goals. Next task is `SAS-PRECLIENT-002` model-reviewed candidate review
-packet.
+`SAS-PRECLIENT-001` and `SAS-PRECLIENT-002` are complete. The review packet has
+9 unique model-reviewed rows: `bablos79` 1, `nemphiscrypts` 1, `pifagortrade`
+7. All rows remain blocked pending human/operator review. Next task is
+`SAS-PRECLIENT-003` evidence appendix builder.
 
 Read first:
 
@@ -53,6 +52,7 @@ Read first:
 10. `docs/pilot/three_channel_MULTIMODAL_RR_DRAFTS.json`
 11. `docs/pilot/three_channel_MEDIA_REVIEW_REPORT.md`
 12. `docs/specs/PRECLIENT_ARTIFACT_CONTRACT.md`
+13. `docs/pilot/preclient_MODEL_REVIEW_PACKET.md`
 
 ## Canonical Links
 
@@ -72,6 +72,8 @@ Read first:
   `docs/pilot/three_channel_MEDIA_REVIEW_REPORT.md`
 - Pre-client artifact contract:
   `docs/specs/PRECLIENT_ARTIFACT_CONTRACT.md`
+- Pre-client model review packet:
+  `docs/pilot/preclient_MODEL_REVIEW_PACKET.md`
 - Phase 36 development loop:
   `docs/pilot/three_channel_PHASE36_IMPACT_DEVELOPMENT_LOOP.md`
 - Phase 36 bablos gate:

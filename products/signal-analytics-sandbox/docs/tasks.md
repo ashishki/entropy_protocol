@@ -3887,7 +3887,7 @@ Notes: |
   does not create customer-facing claims, sales copy, client promises,
   private-source workflows, or rankings.
 
-### SAS-PRECLIENT-002: Model-Reviewed Candidate Review Packet
+### SAS-PRECLIENT-002: Model-Reviewed Candidate Review Packet ✅
 
 Owner:      codex
 Phase:      37
@@ -3922,7 +3922,11 @@ Context-Refs:
   - docs/pilot/three_channel_MEDIA_REVIEW_REPORT.md
 
 Notes: |
-  This is the work queue for internal acceptance. It is not a paid report.
+  Completed on 2026-05-23. The packet includes 9 unique rows: all 9
+  arbiter-accepted candidates and the overlapping mass-review accepted row.
+  Channel split is `bablos79` 1, `nemphiscrypts` 1, `pifagortrade` 7. All rows
+  are `model_reviewed`, blocked from customer-facing metrics, and assigned a
+  required operator action.
 
 ### SAS-PRECLIENT-003: Evidence Appendix Builder
 

@@ -5,8 +5,8 @@ Date: 2026-05-23
 ## Current State
 
 - Phase: 37 Pre-Client Artifact Hardening
-- Active task: `SAS-PRECLIENT-001`
-- Baseline: 330 pass / 0 skip
+- Active task: `SAS-PRECLIENT-003`
+- Baseline: 333 pass / 0 skip
 - Ruff: clean
 - Pyright: clean
 - External gate: `approve_internal_only`
@@ -37,7 +37,11 @@ accepted by arbiter, still not customer-facing until human/operator review.
 `SAS-PRECLIENT-001` is complete: `docs/specs/PRECLIENT_ARTIFACT_CONTRACT.md`
 defines artifact inventory, reliability statuses, audience classes, gates,
 dashboard/free-card fields, paid-report boundaries, done criteria, and
-non-goals. Next task is `SAS-PRECLIENT-002`.
+non-goals. `SAS-PRECLIENT-002` is complete:
+`docs/pilot/preclient_MODEL_REVIEW_PACKET.md` and `.json` package 9 unique
+model-reviewed rows (`bablos79` 1, `nemphiscrypts` 1, `pifagortrade` 7) for
+operator review only. All rows are blocked from customer-facing metrics until
+human/operator acceptance. Next task is `SAS-PRECLIENT-003`.
 
 ## Read First
 
@@ -54,6 +58,7 @@ non-goals. Next task is `SAS-PRECLIENT-002`.
 11. `docs/pilot/three_channel_MULTIMODAL_RR_DRAFTS.json`
 12. `docs/pilot/three_channel_MEDIA_REVIEW_REPORT.md`
 13. `docs/specs/PRECLIENT_ARTIFACT_CONTRACT.md`
+14. `docs/pilot/preclient_MODEL_REVIEW_PACKET.md`
 
 ## Do Not Do
 

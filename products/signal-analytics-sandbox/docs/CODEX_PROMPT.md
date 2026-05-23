@@ -9,11 +9,11 @@ Compact restart state only. Detailed history lives in
 ## Current State
 
 - Phase: 37 (Pre-Client Artifact Hardening)
-- Baseline: 330 passing tests, 0 skipped
+- Baseline: 333 pass / 0 skip
 - Ruff: `ruff check src/ tests/ scripts/` passes
 - Format: `ruff format --check src/ tests/ scripts/` passes
 - Pyright: `pyright` passes
-- Latest completed: `SAS-PRECLIENT-001 Product Artifact Contract`
+- Latest completed: `SAS-PRECLIENT-002 Model-Reviewed Candidate Review Packet`
 - Phase 0 gates acknowledged; Engineering Phase 1 (T01+) may begin.
 - | SAS-001: Paid Pilot Demand Validation | acknowledged |
 - | SAS-002: Public-Source Legal/Terms Memo | acknowledged |
@@ -35,7 +35,10 @@ Active route: Phase 37 pre-client artifact hardening.
 - `SAS-PRECLIENT-001` completed the product artifact contract and reliability
   bar: artifact inventory, audience classes, reliability enum, gates, dashboard
   card fields, paid report boundaries, done criteria, and non-goals.
-- Next task: `SAS-PRECLIENT-002` model-reviewed candidate review packet.
+- `SAS-PRECLIENT-002` produced 9 unique model-reviewed packet rows:
+  `bablos79` 1, `nemphiscrypts` 1, `pifagortrade` 7; all remain blocked pending
+  human/operator review.
+- Next task: `SAS-PRECLIENT-003` evidence appendix builder.
 
 Read first: `docs/tasks.md` Phase 37, `docs/AI_DEVELOPMENT_PLAN_RU.md`,
 `docs/specs/PRECLIENT_ARTIFACT_CONTRACT.md`,
@@ -56,6 +59,8 @@ Read first: `docs/tasks.md` Phase 37, `docs/AI_DEVELOPMENT_PLAN_RU.md`,
 - V1 gate: `docs/pilot/three_channel_V1_EXTERNAL_READY_GATE.md`
 - Pre-client plan: `docs/tasks.md` Phase 37
 - Pre-client contract: `docs/specs/PRECLIENT_ARTIFACT_CONTRACT.md`
+- Pre-client review packet: `docs/pilot/preclient_MODEL_REVIEW_PACKET.md`
+
 ## Key Product Facts
 
 - Internal V1 validation is complete.
