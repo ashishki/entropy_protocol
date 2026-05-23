@@ -9,11 +9,11 @@ Compact restart state only. Detailed history lives in
 ## Current State
 
 - Phase: 37 (Pre-Client Artifact Hardening)
-- Baseline: 333 pass / 0 skip
+- Baseline: 337 pass / 0 skip
 - Ruff: `ruff check src/ tests/ scripts/` passes
 - Format: `ruff format --check src/ tests/ scripts/` passes
 - Pyright: `pyright` passes
-- Latest completed: `SAS-PRECLIENT-002 Model-Reviewed Candidate Review Packet`
+- Latest completed: `SAS-PRECLIENT-003 Evidence Appendix Builder`
 - Phase 0 gates acknowledged; Engineering Phase 1 (T01+) may begin.
 - | SAS-001: Paid Pilot Demand Validation | acknowledged |
 - | SAS-002: Public-Source Legal/Terms Memo | acknowledged |
@@ -38,7 +38,10 @@ Active route: Phase 37 pre-client artifact hardening.
 - `SAS-PRECLIENT-002` produced 9 unique model-reviewed packet rows:
   `bablos79` 1, `nemphiscrypts` 1, `pifagortrade` 7; all remain blocked pending
   human/operator review.
-- Next task: `SAS-PRECLIENT-003` evidence appendix builder.
+- `SAS-PRECLIENT-003` produced 301 internal evidence appendix rows across all
+  three channels, with text metrics, media reviews, blockers, provider gaps,
+  hashes/checksums, and no raw media bytes.
+- Next task: `SAS-PRECLIENT-004` free dashboard card dataset.
 
 Read first: `docs/tasks.md` Phase 37, `docs/AI_DEVELOPMENT_PLAN_RU.md`,
 `docs/specs/PRECLIENT_ARTIFACT_CONTRACT.md`,
@@ -60,6 +63,7 @@ Read first: `docs/tasks.md` Phase 37, `docs/AI_DEVELOPMENT_PLAN_RU.md`,
 - Pre-client plan: `docs/tasks.md` Phase 37
 - Pre-client contract: `docs/specs/PRECLIENT_ARTIFACT_CONTRACT.md`
 - Pre-client review packet: `docs/pilot/preclient_MODEL_REVIEW_PACKET.md`
+- Pre-client evidence appendix: `docs/pilot/preclient_EVIDENCE_APPENDIX.md`
 
 ## Key Product Facts
 

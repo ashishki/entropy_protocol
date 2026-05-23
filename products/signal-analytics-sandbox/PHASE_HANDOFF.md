@@ -5,8 +5,8 @@ Date: 2026-05-23
 ## Current State
 
 - Phase: 37 Pre-Client Artifact Hardening
-- Active task: `SAS-PRECLIENT-003`
-- Baseline: 333 pass / 0 skip
+- Active task: `SAS-PRECLIENT-004`
+- Baseline: 337 pass / 0 skip
 - Ruff: clean
 - Pyright: clean
 - External gate: `approve_internal_only`
@@ -41,7 +41,13 @@ non-goals. `SAS-PRECLIENT-002` is complete:
 `docs/pilot/preclient_MODEL_REVIEW_PACKET.md` and `.json` package 9 unique
 model-reviewed rows (`bablos79` 1, `nemphiscrypts` 1, `pifagortrade` 7) for
 operator review only. All rows are blocked from customer-facing metrics until
-human/operator acceptance. Next task is `SAS-PRECLIENT-003`.
+human/operator acceptance.
+`SAS-PRECLIENT-003` is complete: `docs/pilot/preclient_EVIDENCE_APPENDIX.md`
+and `.json` package 301 internal traceability rows across all three channels:
+255 media-review rows, 40 video/manual blockers, 3 text-only metric summaries,
+and 3 provider-gap summaries. It records source refs, artifact refs,
+hashes/checksums, review status, market-provider status, and blockers without
+raw media bytes. Next task is `SAS-PRECLIENT-004`.
 
 ## Read First
 
@@ -59,6 +65,7 @@ human/operator acceptance. Next task is `SAS-PRECLIENT-003`.
 12. `docs/pilot/three_channel_MEDIA_REVIEW_REPORT.md`
 13. `docs/specs/PRECLIENT_ARTIFACT_CONTRACT.md`
 14. `docs/pilot/preclient_MODEL_REVIEW_PACKET.md`
+15. `docs/pilot/preclient_EVIDENCE_APPENDIX.md`
 
 ## Do Not Do
 

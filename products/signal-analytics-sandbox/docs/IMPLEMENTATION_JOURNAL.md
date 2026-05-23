@@ -1862,3 +1862,11 @@ This file is durable handoff context across agents and sessions. It records what
 - Decisions applied: model review is triage only; every packet row remains `model_reviewed`, `blocked_pending_human_operator_review`, and excluded from customer-facing metrics until a human/operator accepts or rejects it.
 - Evidence collected: the packet contains 9 unique arbiter-accepted internal candidates: `bablos79` 1, `nemphiscrypts` 1, and `pifagortrade` 7. It preserves source links, `media_ref_id`, modality, mass/arbiter decisions, evidence types, extracted text excerpts, setup/RR fields where present, and required operator action. The packet also records 1 overlapping mass-review accepted row and 0 customer-facing rows.
 - Follow-ups: run `SAS-PRECLIENT-003` to build the evidence appendix over this packet, keeping all rows internal until operator review and market recompute are complete.
+
+### 2026-05-23 — SAS-PRECLIENT-003 — Evidence Appendix Builder
+
+- Scope: `src/signal_sandbox/reports/evidence_appendix.py`, `src/signal_sandbox/reports/__init__.py`, `docs/pilot/preclient_EVIDENCE_APPENDIX.md`, `docs/pilot/preclient_EVIDENCE_APPENDIX.json`, `tests/unit/test_preclient_evidence_appendix.py`, active-state docs.
+- Why this work happened: reliable dashboard cards and paid-style reports need one deterministic place where source posts, media refs, transcript/OCR artifacts, review decisions, market-provider state, and blockers can be traced.
+- Decisions applied: the appendix is internal-only, includes no raw media bytes or `workspace/media` paths, treats provider gaps as exclusions rather than author losses, and keeps model-reviewed media out of customer-facing metrics.
+- Evidence collected: the generated appendix has 301 rows: 255 media-review rows, 40 video/manual blockers, 3 text-only V1 metric summaries, and 3 provider-gap summaries. It distinguishes text-only claims, media-backed candidates, post-factum rows, context-only rows, rejected noise, provider gaps, and media-processing blockers.
+- Follow-ups: run `SAS-PRECLIENT-004` to derive compact free-dashboard card data from the appendix without promoting blocked media rows.

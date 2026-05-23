@@ -3928,7 +3928,7 @@ Notes: |
   are `model_reviewed`, blocked from customer-facing metrics, and assigned a
   required operator action.
 
-### SAS-PRECLIENT-003: Evidence Appendix Builder
+### SAS-PRECLIENT-003: Evidence Appendix Builder ✅
 
 Owner:      codex
 Phase:      37
@@ -3965,7 +3965,13 @@ Context-Refs:
   - docs/pilot/three_channel_V1_METRIC_RESULTS.json
 
 Notes: |
-  Reliable paid reports need one place where every claim can be traced.
+  Completed on 2026-05-23. `preclient_EVIDENCE_APPENDIX` contains 301
+  internal traceability rows across all three channels: 255 media-review rows,
+  40 video/manual blockers, 3 text-only V1 metric summaries, and 3 provider-gap
+  summaries. It distinguishes text-only claims, media-backed candidates,
+  post-factum rows, context-only rows, rejected noise, provider gaps, and
+  media-processing blockers. No raw media bytes or private/authenticated source
+  access are included.
 
 ### SAS-PRECLIENT-004: Per-Channel Free Dashboard Card Dataset
 
