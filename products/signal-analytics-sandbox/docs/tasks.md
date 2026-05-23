@@ -3841,7 +3841,7 @@ pre-client: it can use public/operator-authorized sources, existing model
 reviewer outputs, deterministic market APIs, and internal review gates, but it
 must not claim customer validation or external approval.
 
-### SAS-PRECLIENT-001: Product Artifact Contract And Reliability Bar
+### SAS-PRECLIENT-001: Product Artifact Contract And Reliability Bar ✅
 
 Owner:      codex + operator
 Phase:      37
@@ -3881,8 +3881,11 @@ Context-Refs:
   - docs/specs/PAID_CHANNEL_REPORT_BOUNDARY.md
 
 Notes: |
-  This task decides artifact shape only. It does not create customer-facing
-  claims, sales copy, client promises, private-source workflows, or rankings.
+  Completed on 2026-05-23. The contract defines artifact inventory,
+  reliability statuses, audience classes, artifact gates, dashboard/free card
+  fields, paid report boundaries, done criteria, and explicit non-goals. It
+  does not create customer-facing claims, sales copy, client promises,
+  private-source workflows, or rankings.
 
 ### SAS-PRECLIENT-002: Model-Reviewed Candidate Review Packet
 

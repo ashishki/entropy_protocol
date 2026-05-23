@@ -1846,3 +1846,11 @@ This file is durable handoff context across agents and sessions. It records what
 - Decisions applied: no client outreach, private-channel analysis, partnership discussions, public dashboard launch, or paid report promise before Phase 37 produces traceable artifacts and passes the safety/deep-review gate.
 - Evidence planned: Phase 37 now defines 10 tasks covering artifact contract, model-reviewed candidate packet, evidence appendix, free dashboard cards, per-channel reports, paid-style demo report, candidate outcome/RR recompute, static dashboard prototype, artifact safety gate, and Phase 37 deep review.
 - Follow-ups: start `SAS-PRECLIENT-001` by writing `docs/specs/PRECLIENT_ARTIFACT_CONTRACT.md` and its tests.
+
+### 2026-05-23 — SAS-PRECLIENT-001 — Product Artifact Contract
+
+- Scope: `docs/specs/PRECLIENT_ARTIFACT_CONTRACT.md`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `AGENT_NOTES.md`, `PHASE_HANDOFF.md`, `tests/unit/test_preclient_task_graph.py`.
+- Why this work happened: Phase 37 needed a reliability contract before generating any dashboard cards, paid-style reports, evidence appendices, or client-facing demo material.
+- Decisions applied: pre-client only; no outreach, no public dashboard, no paid promise, no private-channel analysis, no ranking, no advice; model-reviewed media cannot become dashboard-safe or paid-report-safe without human/operator gates.
+- Evidence collected: the contract defines required artifacts, reliability statuses (`draft`, `model_reviewed`, `operator_reviewed`, `market_validated`, `dashboard_safe`, `paid_report_safe`, `blocked`), audience classes, six artifact gates, free dashboard card fields, paid report boundaries, done criteria, and explicit non-goals.
+- Follow-ups: run `SAS-PRECLIENT-002` to build the model-reviewed candidate review packet from `three_channel_MEDIA_REVIEW_RESULTS.json` and `three_channel_MULTIMODAL_RR_DRAFTS.json`.

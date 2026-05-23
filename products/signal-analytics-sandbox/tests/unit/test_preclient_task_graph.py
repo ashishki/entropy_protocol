@@ -3,11 +3,13 @@ from __future__ import annotations
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
+CONTRACT_PATH = PROJECT_ROOT / "docs/specs/PRECLIENT_ARTIFACT_CONTRACT.md"
 
 
 def test_preclient_phase_lists_reliable_artifact_contract() -> None:
     tasks = (PROJECT_ROOT / "docs/tasks.md").read_text(encoding="utf-8")
     plan = (PROJECT_ROOT / "docs/AI_DEVELOPMENT_PLAN_RU.md").read_text(encoding="utf-8")
+    contract = CONTRACT_PATH.read_text(encoding="utf-8")
 
     assert "## Phase 37 — Pre-Client Artifact Hardening" in tasks
     assert "SAS-PRECLIENT-001: Product Artifact Contract And Reliability Bar" in tasks
@@ -22,7 +24,10 @@ def test_preclient_phase_lists_reliable_artifact_contract() -> None:
         "blocked",
     ):
         assert status in tasks
+        assert status in contract
     assert "Phase 37 - Pre-Client Artifact Hardening" in plan
+    assert "Required Artifact Inventory" in contract
+    assert "Allowed audience" in contract
 
 
 def test_preclient_phase_covers_all_before_client_artifacts() -> None:
@@ -57,6 +62,7 @@ def test_preclient_phase_covers_all_before_client_artifacts() -> None:
 
 def test_preclient_phase_preserves_customer_safety_gates() -> None:
     tasks = (PROJECT_ROOT / "docs/tasks.md").read_text(encoding="utf-8")
+    contract = CONTRACT_PATH.read_text(encoding="utf-8")
 
     for required in (
         "pre-client",
@@ -68,3 +74,45 @@ def test_preclient_phase_preserves_customer_safety_gates() -> None:
         "customer-facing",
     ):
         assert required in tasks
+
+    for required in (
+        "A model reviewer",
+        "cannot directly promote",
+        "Transcript/OCR/chart claims remain",
+        "Gate 5 - Wording Safety",
+        "buy/sell/hold recommendations",
+        "future-profit language",
+        "best/worst channel ranking",
+        "private-source access promises",
+        "ready for discovery",
+    ):
+        assert required in contract
+
+
+def test_preclient_artifact_contract_covers_dashboard_and_paid_report_boundaries() -> (
+    None
+):
+    contract = CONTRACT_PATH.read_text(encoding="utf-8")
+
+    for section in (
+        "Free Dashboard Card Contract",
+        "Paid Deep Report Contract",
+        "Pre-Client Done Criteria",
+        "Explicit Non-Goals",
+    ):
+        assert section in contract
+
+    for required in (
+        "source_id",
+        "what_it_is",
+        "setup_rr_status",
+        "media_coverage_summary",
+        "evidence_confidence",
+        "gate_status",
+        "full evidence appendix",
+        "post-factum vs forward-looking distinction",
+        "proceed_to_client_discovery",
+        "continue_internal_hardening",
+        "pivot_scope",
+    ):
+        assert required in contract

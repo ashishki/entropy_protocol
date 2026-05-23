@@ -9,11 +9,11 @@ Compact restart state only. Detailed history lives in
 ## Current State
 
 - Phase: 37 (Pre-Client Artifact Hardening)
-- Baseline: 329 passing tests, 0 skipped
+- Baseline: 330 passing tests, 0 skipped
 - Ruff: `ruff check src/ tests/ scripts/` passes
 - Format: `ruff format --check src/ tests/ scripts/` passes
 - Pyright: `pyright` passes
-- Latest completed: `Media Reviewer Model Pass`
+- Latest completed: `SAS-PRECLIENT-001 Product Artifact Contract`
 - Phase 0 gates acknowledged; Engineering Phase 1 (T01+) may begin.
 - | SAS-001: Paid Pilot Demand Validation | acknowledged |
 - | SAS-002: Public-Source Legal/Terms Memo | acknowledged |
@@ -32,9 +32,13 @@ Active route: Phase 37 pre-client artifact hardening.
   1 internal RR-ready setup draft.
 - Media reviewer pass: `gpt-4.1-mini` reviewed 255 media drafts; `gpt-4.1`
   arbitrated 35 high-signal rows and accepted 9 internal candidates.
-- Next task: `SAS-PRECLIENT-001` product artifact contract and reliability bar.
+- `SAS-PRECLIENT-001` completed the product artifact contract and reliability
+  bar: artifact inventory, audience classes, reliability enum, gates, dashboard
+  card fields, paid report boundaries, done criteria, and non-goals.
+- Next task: `SAS-PRECLIENT-002` model-reviewed candidate review packet.
 
 Read first: `docs/tasks.md` Phase 37, `docs/AI_DEVELOPMENT_PLAN_RU.md`,
+`docs/specs/PRECLIENT_ARTIFACT_CONTRACT.md`,
 `docs/pilot/three_channel_MEDIA_REVIEW_REPORT.md`,
 `docs/pilot/three_channel_MULTIMODAL_RESEARCH_REPORT.md`.
 
@@ -51,6 +55,7 @@ Read first: `docs/tasks.md` Phase 37, `docs/AI_DEVELOPMENT_PLAN_RU.md`,
 - V1 report: `docs/pilot/reports/three_channel_V1_CHANNEL_UTILITY_REPORT.md`
 - V1 gate: `docs/pilot/three_channel_V1_EXTERNAL_READY_GATE.md`
 - Pre-client plan: `docs/tasks.md` Phase 37
+- Pre-client contract: `docs/specs/PRECLIENT_ARTIFACT_CONTRACT.md`
 ## Key Product Facts
 
 - Internal V1 validation is complete.

@@ -6,7 +6,7 @@ Date: 2026-05-23
 
 - Phase: 37 Pre-Client Artifact Hardening
 - Active task: `SAS-PRECLIENT-001`
-- Baseline: 329 pass / 0 skip
+- Baseline: 330 pass / 0 skip
 - Ruff: clean
 - Pyright: clean
 - External gate: `approve_internal_only`
@@ -34,10 +34,10 @@ artifacts are in `docs/pilot/three_channel_MULTIMODAL_*`.
 Model-reviewer pass adds `gpt-4.1-mini` mass review over 255 media drafts and
 `gpt-4.1` arbiter review over 35 high-signal rows; 9 internal candidates were
 accepted by arbiter, still not customer-facing until human/operator review.
-Phase 37 next tasks turn this into reliable artifacts: artifact contract,
-review packet, evidence appendix, dashboard cards, internal reports,
-paid-style demo, candidate outcomes, static dashboard, safety gate, and deep
-review.
+`SAS-PRECLIENT-001` is complete: `docs/specs/PRECLIENT_ARTIFACT_CONTRACT.md`
+defines artifact inventory, reliability statuses, audience classes, gates,
+dashboard/free-card fields, paid-report boundaries, done criteria, and
+non-goals. Next task is `SAS-PRECLIENT-002`.
 
 ## Read First
 
@@ -53,6 +53,7 @@ review.
 10. `docs/pilot/three_channel_MULTIMODAL_RESEARCH_REPORT.md`
 11. `docs/pilot/three_channel_MULTIMODAL_RR_DRAFTS.json`
 12. `docs/pilot/three_channel_MEDIA_REVIEW_REPORT.md`
+13. `docs/specs/PRECLIENT_ARTIFACT_CONTRACT.md`
 
 ## Do Not Do
 
