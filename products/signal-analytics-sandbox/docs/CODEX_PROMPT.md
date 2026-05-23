@@ -1,6 +1,6 @@
 # CODEX_PROMPT.md - Signal Analytics Sandbox
 
-Version: 3.03
+Version: 3.04
 Date: 2026-05-23
 Phase: 37
 Compact restart state only. Detailed history lives in
@@ -9,11 +9,11 @@ Compact restart state only. Detailed history lives in
 ## Current State
 
 - Phase: 37 (Pre-Client Artifact Hardening)
-- Baseline: 355 pass / 0 skip
+- Baseline: 359 pass / 0 skip
 - Ruff: `ruff check src/ tests/ scripts/` passes
 - Format: `ruff format --check src/ tests/ scripts/` passes
 - Pyright: `pyright` passes
-- Latest completed: `SAS-PRECLIENT-008 Static Free Dashboard Prototype`
+- Latest completed: `SAS-PRECLIENT-009 Report Safety, Language, And Gate Pass`
 - Phase 0 gates acknowledged; Engineering Phase 1 (T01+) may begin.
 - | SAS-001: Paid Pilot Demand Validation | acknowledged |
 - | SAS-002: Public-Source Legal/Terms Memo | acknowledged |
@@ -32,11 +32,13 @@ Active route: Phase 37 pre-client artifact hardening.
   1 internal RR-ready setup draft.
 - Media reviewer pass: `gpt-4.1-mini` reviewed 255 media drafts; `gpt-4.1`
   arbitrated 35 high-signal rows and accepted 9 internal candidates.
-- `SAS-PRECLIENT-001..008` completed the artifact contract, 9-row
+- `SAS-PRECLIENT-001..009` completed the artifact contract, 9-row
   model-reviewed packet, 301-row evidence appendix, and 3 internal free-card
   drafts, plus 3 internal deep reports and a `pifagortrade` paid-style internal
-  demo. Candidate recompute and static internal dashboard prototype are done.
-- Next task: `SAS-PRECLIENT-009` report safety, language, and gate pass.
+  demo. Candidate recompute, static internal dashboard prototype, and artifact
+  safety gate are done.
+- Next task: `SAS-PRECLIENT-010` Phase 37 deep review and client-readiness
+  decision.
 
 Read first: `docs/tasks.md` Phase 37, `docs/AI_DEVELOPMENT_PLAN_RU.md`,
 `docs/specs/PRECLIENT_ARTIFACT_CONTRACT.md`,
@@ -62,6 +64,7 @@ Read first: `docs/tasks.md` Phase 37, `docs/AI_DEVELOPMENT_PLAN_RU.md`,
 - Pre-client dashboard cards: `docs/pilot/preclient_FREE_DASHBOARD_CARDS.md`
 - Pre-client candidate outcomes: `docs/pilot/preclient_CANDIDATE_OUTCOMES.md`
 - Pre-client dashboard: `docs/pilot/preclient_dashboard/index.html`
+- Pre-client safety gate: `docs/pilot/preclient_ARTIFACT_SAFETY_GATE.md`
 - Pre-client reports: `docs/pilot/reports/preclient/`
 
 ## Key Product Facts

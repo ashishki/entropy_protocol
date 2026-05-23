@@ -1,56 +1,49 @@
 # Orchestrator Checkpoint
 
-Date: 2026-05-22
+Date: 2026-05-23
 
 ## Current State
 
-- Phase 36 is active: Channel Impact Framework And Cross-Channel Completion.
-- Latest completed item: Two-Month Public Window Run.
-- Next task: operator decision for internal dashboard prototype or more evidence completion.
-- Baseline: 318 passing tests, 0 skipped.
+- Phase 37 is active: Pre-Client Artifact Hardening.
+- Latest completed item: `SAS-PRECLIENT-009 Report Safety, Language, And Gate Pass`.
+- Next task: `SAS-PRECLIENT-010 Phase 37 Deep Review And Client-Readiness Decision`.
+- Baseline: 359 passing tests, 0 skipped.
 - Ruff: pass.
 - Pyright: pass.
 - External gate: `approve_internal_only`.
+- External delivery: not approved.
 
 ## Current Blocker
 
-External delivery remains `approve_internal_only`. Phase 36 now evaluates
-channel impact beyond PnL: signal performance, trend sense, insight depth,
-methodology, risk discipline, practical usefulness, creativity, and evidence
-confidence.
+The pre-client artifact stack exists, but buyer conversations remain blocked
+until Phase 37 deep review records a client-readiness decision. Current safety
+gate found 0 forbidden phrase findings across 14 artifacts, but no artifact is
+showable now because human/operator media acceptance, dashboard-safe RR rows,
+and market outcome recomputation are still missing.
 
 ## Canonical Artifacts
 
 - `docs/AI_DEVELOPMENT_PLAN_RU.md`
+- `docs/tasks.md` Phase 37
 - `docs/specs/CHANNEL_IMPACT_FRAMEWORK.md`
-- `docs/pilot/three_channel_PHASE36_IMPACT_DEVELOPMENT_LOOP.md`
-- `docs/pilot/bablos79_PHASE36_CORPUS_COMPLETION_SCOPE.md`
-- `docs/pilot/bablos79_PHASE36_TEXT_RECAPTURE_PLAN.md`
-- `docs/pilot/bablos79_PHASE36_MEDIA_LINKAGE_QUEUE.md`
-- `docs/pilot/bablos79_PHASE36_EXTERNAL_READY_GATE.md`
-- `docs/pilot/nemphiscrypts_PHASE36_CORPUS_COMPLETION_SCOPE.md`
-- `docs/pilot/pifagortrade_PHASE36_CORPUS_COMPLETION_SCOPE.md`
-- `docs/specs/CHANNEL_DASHBOARD_SCORE_SCHEMA.md`
-- `docs/pilot/three_channel_PHASE36_IMPACT_SCORECARD.md`
-- `docs/pilot/three_channel_PHASE36_EXTERNAL_READY_GATE.md`
+- `docs/specs/PRECLIENT_ARTIFACT_CONTRACT.md`
 - `docs/pilot/three_channel_2M_RUN_SUMMARY.md`
-- `docs/pilot/three_channel_2M_METRIC_RESULTS.json`
-- `docs/pilot/three_channel_V1_METRIC_RESULTS.json`
-- `docs/pilot/three_channel_FULL_REVIEW_QUEUE.json`
-- `docs/pilot/three_channel_FALSE_NEGATIVE_PASS.json`
-- `docs/pilot/reports/three_channel_V1_REPORT_LANGUAGE_SAFETY.json`
-- `docs/pilot/three_channel_V1_SCORECARD.md`
-- `docs/pilot/reports/three_channel_V1_CHANNEL_UTILITY_REPORT.md`
-- `docs/pilot/three_channel_V1_EXTERNAL_READY_GATE.md`
-- `docs/archive/PHASE27_REVIEW.md`
+- `docs/pilot/three_channel_MULTIMODAL_RESEARCH_REPORT.md`
+- `docs/pilot/three_channel_MEDIA_REVIEW_REPORT.md`
+- `docs/pilot/preclient_MODEL_REVIEW_PACKET.md`
+- `docs/pilot/preclient_EVIDENCE_APPENDIX.md`
+- `docs/pilot/preclient_FREE_DASHBOARD_CARDS.md`
+- `docs/pilot/preclient_CANDIDATE_OUTCOMES.md`
+- `docs/pilot/preclient_dashboard/index.html`
+- `docs/pilot/preclient_ARTIFACT_SAFETY_GATE.md`
+- `docs/pilot/reports/preclient/`
 - `docs/archive/POST_V1_STATE_COMPACTION_2026-05-19.md`
 
 ## Guardrails
 
 - Public/operator-authorized sources only.
-- No advice, future-profit claims, unsupported ranking, marketplace framing, or
-  private scraping.
+- No advice, future-profit claims, unsupported ranking, marketplace framing,
+  payment flow, private-source promise, or private scraping.
 - Unsupported providers/proxies are exclusions.
 - Unreviewed media stays out of customer-facing metrics.
-- Do not present `bablos79` as full 90-day multimodal coverage until Phase 36
-  recapture/linkage/review is complete.
+- Do not start buyer outreach before `SAS-PRECLIENT-010`.

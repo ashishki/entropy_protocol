@@ -23,6 +23,7 @@ def test_post_v1_task_graph_lists_next_phases_and_active_task() -> None:
         "SAS-PRECLIENT-006",
         "SAS-PRECLIENT-007",
         "SAS-PRECLIENT-008",
+        "SAS-PRECLIENT-009",
     ):
         assert task_id in tasks
 
@@ -33,7 +34,7 @@ def test_post_v1_task_graph_lists_next_phases_and_active_task() -> None:
     )
     assert "## Phase 37 — Pre-Client Artifact Hardening" in tasks
     assert (
-        "Latest completed: `SAS-PRECLIENT-008 Static Free Dashboard Prototype`"
+        "Latest completed: `SAS-PRECLIENT-009 Report Safety, Language, And Gate Pass`"
         in prompt
     )
     assert "Active route: Phase 37 pre-client artifact hardening" in prompt

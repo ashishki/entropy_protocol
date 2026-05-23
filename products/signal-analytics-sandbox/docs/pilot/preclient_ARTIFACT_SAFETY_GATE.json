@@ -1,0 +1,363 @@
+{
+  "summary": {
+    "artifact_id": "preclient-artifact-safety-gate",
+    "generated_at_utc": "2026-05-23T16:05:00Z",
+    "status": "internal_artifact_safety_gate",
+    "artifact_count": 14,
+    "forbidden_findings_total": 0,
+    "team_may_proceed_to_buyer_conversations": false,
+    "buyer_conversation_decision": "hold_until_phase37_deep_review",
+    "gate_decision": "continue_internal_hardening",
+    "dashboard_safe_now": [],
+    "paid_report_safe_now": [],
+    "buyer_demo_candidates_after_deep_review": [
+      "docs/pilot/preclient_dashboard/index.html",
+      "docs/pilot/preclient_FREE_DASHBOARD_CARDS.md",
+      "docs/pilot/reports/preclient/PAID_STYLE_DEMO_REPORT.md"
+    ],
+    "global_blockers": [
+      "phase37_deep_review_required",
+      "external_gate_not_passed",
+      "0 operator_accepted_media_claims",
+      "0 dashboard_safe_rr_rows",
+      "0 market_outcome_recomputed_candidates"
+    ]
+  },
+  "safety_scan_policy": {
+    "blocked_categories": [
+      "advice",
+      "future_profit",
+      "payment_flow",
+      "private_source_promise",
+      "unsupported_ranking"
+    ],
+    "negated_safety_context_allowed": [
+      "no ",
+      "not ",
+      "without ",
+      "must not",
+      "do not",
+      "does not",
+      "disallowed",
+      "forbidden",
+      "must not promise",
+      "explicit non-goals"
+    ],
+    "bulk_market_history_storage_required": false
+  },
+  "buyer_conversation_policy": {
+    "decision": "hold_until_phase37_deep_review",
+    "may_start_now": false,
+    "required_next_gate": "SAS-PRECLIENT-010 Phase 37 Deep Review",
+    "candidate_artifacts_if_deep_review_passes": [
+      "docs/pilot/preclient_dashboard/index.html",
+      "docs/pilot/preclient_FREE_DASHBOARD_CARDS.md",
+      "docs/pilot/reports/preclient/PAID_STYLE_DEMO_REPORT.md"
+    ],
+    "wording": [
+      "Use source-diligence wording, not channel endorsement wording.",
+      "Say historical/internal research only.",
+      "Keep media/RR and post-factum caveats visible.",
+      "Do not leave behind full evidence appendix or internal deep reports."
+    ]
+  },
+  "artifact_decisions": [
+    {
+      "artifact_ref": "docs/specs/PRECLIENT_ARTIFACT_CONTRACT.md",
+      "scan_findings": [],
+      "forbidden_findings_count": 0,
+      "decision": "internal_contract_reference",
+      "allowed_audience": "internal_only",
+      "showable_in_buyer_conversation_now": false,
+      "showable_after_phase37_deep_review_candidate": false,
+      "blockers": [
+        "not_a_buyer_artifact"
+      ],
+      "wording_conditions": [
+        "historical research only",
+        "no recommendations or instructions",
+        "no future outcome promises",
+        "no public ranking or marketplace framing",
+        "no non-public source access promise",
+        "media/RR claims must stay visibly blocked unless later accepted"
+      ]
+    },
+    {
+      "artifact_ref": "docs/pilot/preclient_MODEL_REVIEW_PACKET.md",
+      "scan_findings": [],
+      "forbidden_findings_count": 0,
+      "decision": "internal_only_evidence_artifact",
+      "allowed_audience": "internal_only",
+      "showable_in_buyer_conversation_now": false,
+      "showable_after_phase37_deep_review_candidate": false,
+      "blockers": [
+        "contains_unaccepted_media_or_blocker_detail",
+        "external_gate_not_passed"
+      ],
+      "wording_conditions": [
+        "historical research only",
+        "no recommendations or instructions",
+        "no future outcome promises",
+        "no public ranking or marketplace framing",
+        "no non-public source access promise",
+        "media/RR claims must stay visibly blocked unless later accepted"
+      ]
+    },
+    {
+      "artifact_ref": "docs/pilot/preclient_MODEL_REVIEW_PACKET.json",
+      "scan_findings": [],
+      "forbidden_findings_count": 0,
+      "decision": "internal_only_evidence_artifact",
+      "allowed_audience": "internal_only",
+      "showable_in_buyer_conversation_now": false,
+      "showable_after_phase37_deep_review_candidate": false,
+      "blockers": [
+        "contains_unaccepted_media_or_blocker_detail",
+        "external_gate_not_passed"
+      ],
+      "wording_conditions": [
+        "historical research only",
+        "no recommendations or instructions",
+        "no future outcome promises",
+        "no public ranking or marketplace framing",
+        "no non-public source access promise",
+        "media/RR claims must stay visibly blocked unless later accepted"
+      ]
+    },
+    {
+      "artifact_ref": "docs/pilot/preclient_EVIDENCE_APPENDIX.md",
+      "scan_findings": [],
+      "forbidden_findings_count": 0,
+      "decision": "internal_only_evidence_artifact",
+      "allowed_audience": "internal_only",
+      "showable_in_buyer_conversation_now": false,
+      "showable_after_phase37_deep_review_candidate": false,
+      "blockers": [
+        "contains_unaccepted_media_or_blocker_detail",
+        "external_gate_not_passed"
+      ],
+      "wording_conditions": [
+        "historical research only",
+        "no recommendations or instructions",
+        "no future outcome promises",
+        "no public ranking or marketplace framing",
+        "no non-public source access promise",
+        "media/RR claims must stay visibly blocked unless later accepted"
+      ]
+    },
+    {
+      "artifact_ref": "docs/pilot/preclient_EVIDENCE_APPENDIX.json",
+      "scan_findings": [],
+      "forbidden_findings_count": 0,
+      "decision": "internal_only_evidence_artifact",
+      "allowed_audience": "internal_only",
+      "showable_in_buyer_conversation_now": false,
+      "showable_after_phase37_deep_review_candidate": false,
+      "blockers": [
+        "contains_unaccepted_media_or_blocker_detail",
+        "external_gate_not_passed"
+      ],
+      "wording_conditions": [
+        "historical research only",
+        "no recommendations or instructions",
+        "no future outcome promises",
+        "no public ranking or marketplace framing",
+        "no non-public source access promise",
+        "media/RR claims must stay visibly blocked unless later accepted"
+      ]
+    },
+    {
+      "artifact_ref": "docs/pilot/preclient_FREE_DASHBOARD_CARDS.md",
+      "scan_findings": [],
+      "forbidden_findings_count": 0,
+      "decision": "buyer_demo_candidate_after_phase37_deep_review",
+      "allowed_audience": "internal_dashboard_prototype",
+      "showable_in_buyer_conversation_now": false,
+      "showable_after_phase37_deep_review_candidate": true,
+      "blockers": [
+        "phase37_deep_review_required",
+        "external_gate_not_passed",
+        "media_rr_claims_blocked"
+      ],
+      "wording_conditions": [
+        "historical research only",
+        "no recommendations or instructions",
+        "no future outcome promises",
+        "no public ranking or marketplace framing",
+        "no non-public source access promise",
+        "media/RR claims must stay visibly blocked unless later accepted"
+      ]
+    },
+    {
+      "artifact_ref": "docs/pilot/preclient_FREE_DASHBOARD_CARDS.json",
+      "scan_findings": [],
+      "forbidden_findings_count": 0,
+      "decision": "buyer_demo_candidate_after_phase37_deep_review",
+      "allowed_audience": "internal_dashboard_prototype",
+      "showable_in_buyer_conversation_now": false,
+      "showable_after_phase37_deep_review_candidate": true,
+      "blockers": [
+        "phase37_deep_review_required",
+        "external_gate_not_passed",
+        "media_rr_claims_blocked"
+      ],
+      "wording_conditions": [
+        "historical research only",
+        "no recommendations or instructions",
+        "no future outcome promises",
+        "no public ranking or marketplace framing",
+        "no non-public source access promise",
+        "media/RR claims must stay visibly blocked unless later accepted"
+      ]
+    },
+    {
+      "artifact_ref": "docs/pilot/preclient_CANDIDATE_OUTCOMES.md",
+      "scan_findings": [],
+      "forbidden_findings_count": 0,
+      "decision": "internal_only_evidence_artifact",
+      "allowed_audience": "internal_only",
+      "showable_in_buyer_conversation_now": false,
+      "showable_after_phase37_deep_review_candidate": false,
+      "blockers": [
+        "contains_unaccepted_media_or_blocker_detail",
+        "external_gate_not_passed"
+      ],
+      "wording_conditions": [
+        "historical research only",
+        "no recommendations or instructions",
+        "no future outcome promises",
+        "no public ranking or marketplace framing",
+        "no non-public source access promise",
+        "media/RR claims must stay visibly blocked unless later accepted"
+      ]
+    },
+    {
+      "artifact_ref": "docs/pilot/preclient_CANDIDATE_OUTCOMES.json",
+      "scan_findings": [],
+      "forbidden_findings_count": 0,
+      "decision": "internal_only_evidence_artifact",
+      "allowed_audience": "internal_only",
+      "showable_in_buyer_conversation_now": false,
+      "showable_after_phase37_deep_review_candidate": false,
+      "blockers": [
+        "contains_unaccepted_media_or_blocker_detail",
+        "external_gate_not_passed"
+      ],
+      "wording_conditions": [
+        "historical research only",
+        "no recommendations or instructions",
+        "no future outcome promises",
+        "no public ranking or marketplace framing",
+        "no non-public source access promise",
+        "media/RR claims must stay visibly blocked unless later accepted"
+      ]
+    },
+    {
+      "artifact_ref": "docs/pilot/preclient_dashboard/index.html",
+      "scan_findings": [],
+      "forbidden_findings_count": 0,
+      "decision": "buyer_demo_candidate_after_phase37_deep_review",
+      "allowed_audience": "internal_dashboard_prototype",
+      "showable_in_buyer_conversation_now": false,
+      "showable_after_phase37_deep_review_candidate": true,
+      "blockers": [
+        "phase37_deep_review_required",
+        "external_gate_not_passed",
+        "media_rr_claims_blocked"
+      ],
+      "wording_conditions": [
+        "historical research only",
+        "no recommendations or instructions",
+        "no future outcome promises",
+        "no public ranking or marketplace framing",
+        "no non-public source access promise",
+        "media/RR claims must stay visibly blocked unless later accepted"
+      ]
+    },
+    {
+      "artifact_ref": "docs/pilot/reports/preclient/bablos79_DEEP_REPORT_V0.md",
+      "scan_findings": [],
+      "forbidden_findings_count": 0,
+      "decision": "internal_only_deep_report",
+      "allowed_audience": "internal_only",
+      "showable_in_buyer_conversation_now": false,
+      "showable_after_phase37_deep_review_candidate": false,
+      "blockers": [
+        "full_report_contains_internal_evidence",
+        "external_gate_not_passed"
+      ],
+      "wording_conditions": [
+        "historical research only",
+        "no recommendations or instructions",
+        "no future outcome promises",
+        "no public ranking or marketplace framing",
+        "no non-public source access promise",
+        "media/RR claims must stay visibly blocked unless later accepted"
+      ]
+    },
+    {
+      "artifact_ref": "docs/pilot/reports/preclient/nemphiscrypts_DEEP_REPORT_V0.md",
+      "scan_findings": [],
+      "forbidden_findings_count": 0,
+      "decision": "internal_only_deep_report",
+      "allowed_audience": "internal_only",
+      "showable_in_buyer_conversation_now": false,
+      "showable_after_phase37_deep_review_candidate": false,
+      "blockers": [
+        "full_report_contains_internal_evidence",
+        "external_gate_not_passed"
+      ],
+      "wording_conditions": [
+        "historical research only",
+        "no recommendations or instructions",
+        "no future outcome promises",
+        "no public ranking or marketplace framing",
+        "no non-public source access promise",
+        "media/RR claims must stay visibly blocked unless later accepted"
+      ]
+    },
+    {
+      "artifact_ref": "docs/pilot/reports/preclient/pifagortrade_DEEP_REPORT_V0.md",
+      "scan_findings": [],
+      "forbidden_findings_count": 0,
+      "decision": "internal_only_deep_report",
+      "allowed_audience": "internal_only",
+      "showable_in_buyer_conversation_now": false,
+      "showable_after_phase37_deep_review_candidate": false,
+      "blockers": [
+        "full_report_contains_internal_evidence",
+        "external_gate_not_passed"
+      ],
+      "wording_conditions": [
+        "historical research only",
+        "no recommendations or instructions",
+        "no future outcome promises",
+        "no public ranking or marketplace framing",
+        "no non-public source access promise",
+        "media/RR claims must stay visibly blocked unless later accepted"
+      ]
+    },
+    {
+      "artifact_ref": "docs/pilot/reports/preclient/PAID_STYLE_DEMO_REPORT.md",
+      "scan_findings": [],
+      "forbidden_findings_count": 0,
+      "decision": "internal_demo_only_pending_phase37_deep_review",
+      "allowed_audience": "internal_only",
+      "showable_in_buyer_conversation_now": false,
+      "showable_after_phase37_deep_review_candidate": true,
+      "blockers": [
+        "phase37_deep_review_required",
+        "not_customer_ready_deliverable",
+        "media_rr_claims_blocked"
+      ],
+      "wording_conditions": [
+        "historical research only",
+        "no recommendations or instructions",
+        "no future outcome promises",
+        "no public ranking or marketplace framing",
+        "no non-public source access promise",
+        "media/RR claims must stay visibly blocked unless later accepted"
+      ]
+    }
+  ]
+}

@@ -1910,3 +1910,11 @@ This file is durable handoff context across agents and sessions. It records what
 - Decisions applied: static HTML only, no app server, internal-only status, no payment flow, no public ranking, no private-source promise, and no future-profit claim.
 - Evidence collected: the dashboard renders all three channel cards from `preclient_FREE_DASHBOARD_CARDS.json`, shows gate status, evidence confidence, sample size, media status, setup/RR status, no-advice labels, and links to internal reports, candidate outcomes, and evidence appendix.
 - Follow-ups: run `SAS-PRECLIENT-009` to check language/gate safety across cards, dashboard, reports, demo, and appendix.
+
+### 2026-05-23 — SAS-PRECLIENT-009 — Report Safety, Language, And Gate Pass
+
+- Scope: `docs/pilot/preclient_ARTIFACT_SAFETY_GATE.md`, `docs/pilot/preclient_ARTIFACT_SAFETY_GATE.json`, `tests/unit/test_preclient_artifact_safety_gate.py`, active-state docs.
+- Why this work happened: Phase 37 needed a deterministic safety gate that decides which pre-client artifacts are internal-only, candidate demo material after deep review, or blocked before any buyer conversation.
+- Decisions applied: buyer conversations remain on hold until `SAS-PRECLIENT-010`; no artifact is showable now; dashboard/free-card/demo artifacts are only candidates after Phase 37 deep review; evidence appendices, model packet, candidate outcomes, and deep reports remain internal-only.
+- Evidence collected: the gate covers 14 artifacts, records 0 forbidden phrase findings, blocks advice/future-profit/ranking/private-source/payment language categories, and carries blockers for missing operator-accepted media claims, dashboard-safe RR rows, and market outcome recomputation.
+- Follow-ups: run `SAS-PRECLIENT-010` Phase 37 deep review and record the client-readiness decision in `docs/archive/PHASE37_PRECLIENT_REVIEW.md`.

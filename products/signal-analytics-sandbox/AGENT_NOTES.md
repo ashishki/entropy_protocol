@@ -8,8 +8,8 @@ Restart-relevant state only. Historical detail lives in
 ## Active State
 
 - Phase: 37 Pre-Client Artifact Hardening
-- Active task: `SAS-PRECLIENT-009`
-- Baseline: 355 pass / 0 skip
+- Active task: `SAS-PRECLIENT-010`
+- Baseline: 359 pass / 0 skip
 - External gate: `approve_internal_only`
 - External delivery: not approved
 - Core: paused
@@ -33,27 +33,23 @@ RR-ready setup draft.
 Model-reviewer pass now adds `gpt-4.1-mini` mass review over 255 media drafts
 and `gpt-4.1` arbiter review over 35 high-signal rows; 9 arbiter candidates
 are accepted for internal follow-up only.
-`SAS-PRECLIENT-001..008` are complete: contract, packet, appendix, cards,
-reports, demo, candidate outcomes, and static internal dashboard prototype.
-Next task is `SAS-PRECLIENT-009` safety/language/gate pass.
+`SAS-PRECLIENT-001..009` are complete: contract, packet, appendix, cards,
+reports, demo, candidate outcomes, static internal dashboard prototype, and
+artifact safety gate. The gate found 0 forbidden phrase findings but keeps all
+buyer conversations on hold until Phase 37 deep review.
+Next task is `SAS-PRECLIENT-010` Phase 37 deep review and client-readiness
+decision.
 
 Read first:
 
 1. `docs/CODEX_PROMPT.md`
-2. `docs/AI_DEVELOPMENT_PLAN_RU.md`
-3. `docs/tasks.md` Phase 37
-4. `docs/specs/CHANNEL_IMPACT_FRAMEWORK.md`
-5. `docs/pilot/three_channel_PHASE36_IMPACT_DEVELOPMENT_LOOP.md`
-6. `docs/pilot/three_channel_PHASE36_IMPACT_SCORECARD.md`
-7. `docs/pilot/three_channel_PHASE36_EXTERNAL_READY_GATE.md`
-8. `docs/pilot/three_channel_2M_RUN_SUMMARY.md`
-9. `docs/pilot/three_channel_MULTIMODAL_RESEARCH_REPORT.md`
-10. `docs/pilot/three_channel_MULTIMODAL_RR_DRAFTS.json`
-11. `docs/pilot/three_channel_MEDIA_REVIEW_REPORT.md`
-12. `docs/specs/PRECLIENT_ARTIFACT_CONTRACT.md`
-13. `docs/pilot/preclient_MODEL_REVIEW_PACKET.md`, `docs/pilot/preclient_EVIDENCE_APPENDIX.md`
-14. `docs/pilot/preclient_FREE_DASHBOARD_CARDS.md`, `docs/pilot/preclient_CANDIDATE_OUTCOMES.md`
-15. `docs/pilot/preclient_dashboard/index.html`, `docs/pilot/reports/preclient/`
+2. `docs/tasks.md` Phase 37
+3. `docs/AI_DEVELOPMENT_PLAN_RU.md`
+4. `docs/pilot/three_channel_MULTIMODAL_RESEARCH_REPORT.md`
+5. `docs/pilot/three_channel_MEDIA_REVIEW_REPORT.md`
+6. `docs/specs/PRECLIENT_ARTIFACT_CONTRACT.md`
+7. `docs/pilot/preclient_ARTIFACT_SAFETY_GATE.md`
+8. `docs/pilot/preclient_EVIDENCE_APPENDIX.md`, `docs/pilot/reports/preclient/`
 
 ## Canonical Links
 
@@ -77,6 +73,7 @@ Read first:
   `docs/pilot/preclient_EVIDENCE_APPENDIX.md`,
   `docs/pilot/preclient_FREE_DASHBOARD_CARDS.md`,
   `docs/pilot/preclient_CANDIDATE_OUTCOMES.md`,
+  `docs/pilot/preclient_ARTIFACT_SAFETY_GATE.md`,
   `docs/pilot/preclient_dashboard/index.html`,
   `docs/pilot/reports/preclient/`
 - Phase 36 development loop:
