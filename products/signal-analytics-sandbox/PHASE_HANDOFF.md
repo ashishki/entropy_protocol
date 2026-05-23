@@ -5,8 +5,8 @@ Date: 2026-05-23
 ## Current State
 
 - Phase: 37 Pre-Client Artifact Hardening
-- Active task: `SAS-PRECLIENT-008`
-- Baseline: 352 pass / 0 skip
+- Active task: `SAS-PRECLIENT-009`
+- Baseline: 355 pass / 0 skip
 - Ruff: clean
 - Pyright: clean
 - External gate: `approve_internal_only`
@@ -62,7 +62,10 @@ locked sections for evidence preview, post-factum distinction, setup/RR,
 counterexamples, and limitations. `SAS-PRECLIENT-007` is complete:
 `docs/pilot/preclient_CANDIDATE_OUTCOMES.md` and `.json` classify all 9
 candidates as 1 provider gap with internal RR math, 4 insufficient-field rows,
-and 4 post-factum-only rows. Next task is `SAS-PRECLIENT-008`.
+and 4 post-factum-only rows. `SAS-PRECLIENT-008` is complete:
+`docs/pilot/preclient_dashboard/index.html` renders the three internal free
+cards and links to reports/evidence/outcomes without payment flow, ranking, or
+external-ready claims. Next task is `SAS-PRECLIENT-009`.
 
 ## Read First
 
@@ -83,7 +86,8 @@ and 4 post-factum-only rows. Next task is `SAS-PRECLIENT-008`.
 15. `docs/pilot/preclient_EVIDENCE_APPENDIX.md`
 16. `docs/pilot/preclient_FREE_DASHBOARD_CARDS.md`
 17. `docs/pilot/preclient_CANDIDATE_OUTCOMES.md`
-18. `docs/pilot/reports/preclient/`
+18. `docs/pilot/preclient_dashboard/index.html`
+19. `docs/pilot/reports/preclient/`
 
 ## Do Not Do
 

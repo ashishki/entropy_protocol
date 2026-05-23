@@ -4140,7 +4140,7 @@ Notes: |
   instrument/proxy, direction, entry, stop, target, and horizon set. No bulk
   market-history storage was used.
 
-### SAS-PRECLIENT-008: Static Free Dashboard Prototype
+### SAS-PRECLIENT-008: Static Free Dashboard Prototype ✅
 
 Owner:      codex
 Phase:      37
@@ -4172,7 +4172,12 @@ Context-Refs:
   - docs/specs/CHANNEL_DASHBOARD_SCORE_SCHEMA.md
 
 Notes: |
-  No app server is required. This is an internal static demo artifact.
+  Completed on 2026-05-23. `docs/pilot/preclient_dashboard/index.html`
+  renders all three free dashboard cards with gate status, evidence
+  confidence, measurable sample, setup/RR status, media status, no-advice
+  labels, internal report links, evidence appendix link, and candidate outcome
+  link. It is static/internal-only and has no payment flow, public ranking,
+  private-source promise, or future-profit claim.
 
 ### SAS-PRECLIENT-009: Report Safety, Language, And Gate Pass
 

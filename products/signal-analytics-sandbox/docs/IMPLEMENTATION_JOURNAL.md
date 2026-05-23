@@ -1902,3 +1902,11 @@ This file is durable handoff context across agents and sessions. It records what
 - Decisions applied: post-factum screenshots are not predictive calls, missing target/ambiguous chart levels block recompute, provider gaps are exclusions, and no bulk market-history storage is used.
 - Evidence collected: all 9 candidates are classified: `bablos79` post 10450 has internal RR math (`10.180000`) but an unapproved exact-instrument provider gap; 4 rows are insufficient fields; 4 pifagortrade rows are post-factum-only; 0 market outcomes are recomputed.
 - Follow-ups: run `SAS-PRECLIENT-008` to render the internal static dashboard prototype from the card dataset and links.
+
+### 2026-05-23 — SAS-PRECLIENT-008 — Static Free Dashboard Prototype
+
+- Scope: `docs/pilot/preclient_dashboard/index.html`, `tests/unit/test_preclient_dashboard_static.py`, active-state docs.
+- Why this work happened: Phase 37 needed a scannable internal prototype for the free dashboard layer before safety/gate review.
+- Decisions applied: static HTML only, no app server, internal-only status, no payment flow, no public ranking, no private-source promise, and no future-profit claim.
+- Evidence collected: the dashboard renders all three channel cards from `preclient_FREE_DASHBOARD_CARDS.json`, shows gate status, evidence confidence, sample size, media status, setup/RR status, no-advice labels, and links to internal reports, candidate outcomes, and evidence appendix.
+- Follow-ups: run `SAS-PRECLIENT-009` to check language/gate safety across cards, dashboard, reports, demo, and appendix.

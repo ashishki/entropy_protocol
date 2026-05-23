@@ -9,11 +9,11 @@ Compact restart state only. Detailed history lives in
 ## Current State
 
 - Phase: 37 (Pre-Client Artifact Hardening)
-- Baseline: 352 pass / 0 skip
+- Baseline: 355 pass / 0 skip
 - Ruff: `ruff check src/ tests/ scripts/` passes
 - Format: `ruff format --check src/ tests/ scripts/` passes
 - Pyright: `pyright` passes
-- Latest completed: `SAS-PRECLIENT-007 Outcome And RR Recompute`
+- Latest completed: `SAS-PRECLIENT-008 Static Free Dashboard Prototype`
 - Phase 0 gates acknowledged; Engineering Phase 1 (T01+) may begin.
 - | SAS-001: Paid Pilot Demand Validation | acknowledged |
 - | SAS-002: Public-Source Legal/Terms Memo | acknowledged |
@@ -32,12 +32,11 @@ Active route: Phase 37 pre-client artifact hardening.
   1 internal RR-ready setup draft.
 - Media reviewer pass: `gpt-4.1-mini` reviewed 255 media drafts; `gpt-4.1`
   arbitrated 35 high-signal rows and accepted 9 internal candidates.
-- `SAS-PRECLIENT-001..007` completed the artifact contract, 9-row
+- `SAS-PRECLIENT-001..008` completed the artifact contract, 9-row
   model-reviewed packet, 301-row evidence appendix, and 3 internal free-card
   drafts, plus 3 internal deep reports and a `pifagortrade` paid-style internal
-  demo. Candidate recompute found 1 provider gap with internal RR math, 4
-  insufficient-field rows, and 4 post-factum-only rows.
-- Next task: `SAS-PRECLIENT-008` static internal dashboard prototype.
+  demo. Candidate recompute and static internal dashboard prototype are done.
+- Next task: `SAS-PRECLIENT-009` report safety, language, and gate pass.
 
 Read first: `docs/tasks.md` Phase 37, `docs/AI_DEVELOPMENT_PLAN_RU.md`,
 `docs/specs/PRECLIENT_ARTIFACT_CONTRACT.md`,
@@ -62,6 +61,7 @@ Read first: `docs/tasks.md` Phase 37, `docs/AI_DEVELOPMENT_PLAN_RU.md`,
 - Pre-client evidence appendix: `docs/pilot/preclient_EVIDENCE_APPENDIX.md`
 - Pre-client dashboard cards: `docs/pilot/preclient_FREE_DASHBOARD_CARDS.md`
 - Pre-client candidate outcomes: `docs/pilot/preclient_CANDIDATE_OUTCOMES.md`
+- Pre-client dashboard: `docs/pilot/preclient_dashboard/index.html`
 - Pre-client reports: `docs/pilot/reports/preclient/`
 
 ## Key Product Facts
