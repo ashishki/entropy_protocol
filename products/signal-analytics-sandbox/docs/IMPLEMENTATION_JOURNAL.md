@@ -1894,3 +1894,11 @@ This file is durable handoff context across agents and sessions. It records what
 - Decisions applied: `pifagortrade` was selected from evidence density, not endorsement; the report remains `internal_demo_only`, includes counterexamples and limitations, and makes no external approval, pricing, private-source, or future-outcome promise.
 - Evidence collected: the demo cites 107 V1 evaluable text claims, 7 model-reviewed packet candidates, 36 public media refs, 0 dashboard-safe RR rows, pifagortrade appendix slices, setup/RR blockers, post-factum rows, and a contradicted ETH example.
 - Follow-ups: run `SAS-PRECLIENT-007` to recompute outcome/RR status for review candidates where enough public fields exist.
+
+### 2026-05-23 — SAS-PRECLIENT-007 — Outcome And RR Recompute For Review Candidates
+
+- Scope: `docs/pilot/preclient_CANDIDATE_OUTCOMES.md`, `docs/pilot/preclient_CANDIDATE_OUTCOMES.json`, `tests/unit/test_preclient_candidate_outcomes.py`, active-state docs.
+- Why this work happened: before any buyer sees a report, setup/RR gaps and post-factum/predictive boundaries must be explicit for the 9 model-reviewed candidates.
+- Decisions applied: post-factum screenshots are not predictive calls, missing target/ambiguous chart levels block recompute, provider gaps are exclusions, and no bulk market-history storage is used.
+- Evidence collected: all 9 candidates are classified: `bablos79` post 10450 has internal RR math (`10.180000`) but an unapproved exact-instrument provider gap; 4 rows are insufficient fields; 4 pifagortrade rows are post-factum-only; 0 market outcomes are recomputed.
+- Follow-ups: run `SAS-PRECLIENT-008` to render the internal static dashboard prototype from the card dataset and links.

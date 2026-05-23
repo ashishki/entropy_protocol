@@ -5,8 +5,8 @@ Date: 2026-05-23
 ## Current State
 
 - Phase: 37 Pre-Client Artifact Hardening
-- Active task: `SAS-PRECLIENT-007`
-- Baseline: 348 pass / 0 skip
+- Active task: `SAS-PRECLIENT-008`
+- Baseline: 352 pass / 0 skip
 - Ruff: clean
 - Pyright: clean
 - External gate: `approve_internal_only`
@@ -59,7 +59,10 @@ weaknesses, limitations, evidence refs, and `internal_only` gate status.
 `docs/pilot/reports/preclient/PAID_STYLE_DEMO_REPORT.md` selects
 `pifagortrade` from evidence density and remains `internal_demo_only` with
 locked sections for evidence preview, post-factum distinction, setup/RR,
-counterexamples, and limitations. Next task is `SAS-PRECLIENT-007`.
+counterexamples, and limitations. `SAS-PRECLIENT-007` is complete:
+`docs/pilot/preclient_CANDIDATE_OUTCOMES.md` and `.json` classify all 9
+candidates as 1 provider gap with internal RR math, 4 insufficient-field rows,
+and 4 post-factum-only rows. Next task is `SAS-PRECLIENT-008`.
 
 ## Read First
 
@@ -79,7 +82,8 @@ counterexamples, and limitations. Next task is `SAS-PRECLIENT-007`.
 14. `docs/pilot/preclient_MODEL_REVIEW_PACKET.md`
 15. `docs/pilot/preclient_EVIDENCE_APPENDIX.md`
 16. `docs/pilot/preclient_FREE_DASHBOARD_CARDS.md`
-17. `docs/pilot/reports/preclient/`
+17. `docs/pilot/preclient_CANDIDATE_OUTCOMES.md`
+18. `docs/pilot/reports/preclient/`
 
 ## Do Not Do
 

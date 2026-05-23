@@ -4097,7 +4097,7 @@ Notes: |
   real-time distinction, setup/RR review, counterexamples, and limitations. It
   remains `internal_demo_only` with no external approval claim.
 
-### SAS-PRECLIENT-007: Outcome And RR Recompute For Review Candidates
+### SAS-PRECLIENT-007: Outcome And RR Recompute For Review Candidates ✅
 
 Owner:      codex
 Phase:      37
@@ -4133,7 +4133,12 @@ Context-Refs:
   - docs/specs/CHANNEL_QUANT_METRICS_V2.md
 
 Notes: |
-  This task makes setup/RR gaps explicit before any buyer sees a report.
+  Completed on 2026-05-23. `preclient_CANDIDATE_OUTCOMES` records all 9
+  model-reviewed candidates: 1 provider gap with internal RR recompute, 4
+  insufficient-field rows, and 4 post-factum-only rows. Market outcomes were
+  not recomputed because no candidate has the full approved source-time,
+  instrument/proxy, direction, entry, stop, target, and horizon set. No bulk
+  market-history storage was used.
 
 ### SAS-PRECLIENT-008: Static Free Dashboard Prototype
 
