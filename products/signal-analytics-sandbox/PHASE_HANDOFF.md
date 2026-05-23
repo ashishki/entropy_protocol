@@ -5,8 +5,8 @@ Date: 2026-05-23
 ## Current State
 
 - Phase: 37 Pre-Client Artifact Hardening
-- Active task: `SAS-PRECLIENT-006`
-- Baseline: 345 pass / 0 skip
+- Active task: `SAS-PRECLIENT-007`
+- Baseline: 348 pass / 0 skip
 - Ruff: clean
 - Pyright: clean
 - External gate: `approve_internal_only`
@@ -54,8 +54,12 @@ RR/setup status, strengths, weaknesses, evidence confidence, blockers, and
 `internal_only_not_dashboard_safe` gate status. `SAS-PRECLIENT-005` is
 complete: `docs/pilot/reports/preclient/` contains one internal-only deep
 report per channel with confirmed/contradicted examples, strengths,
-weaknesses, limitations, evidence refs, and `internal_only` gate status. Next
-task is `SAS-PRECLIENT-006`.
+weaknesses, limitations, evidence refs, and `internal_only` gate status.
+`SAS-PRECLIENT-006` is complete:
+`docs/pilot/reports/preclient/PAID_STYLE_DEMO_REPORT.md` selects
+`pifagortrade` from evidence density and remains `internal_demo_only` with
+locked sections for evidence preview, post-factum distinction, setup/RR,
+counterexamples, and limitations. Next task is `SAS-PRECLIENT-007`.
 
 ## Read First
 

@@ -8,8 +8,8 @@ Restart-relevant state only. Historical detail lives in
 ## Active State
 
 - Phase: 37 Pre-Client Artifact Hardening
-- Active task: `SAS-PRECLIENT-006`
-- Baseline: 345 pass / 0 skip
+- Active task: `SAS-PRECLIENT-007`
+- Baseline: 348 pass / 0 skip
 - External gate: `approve_internal_only`
 - External delivery: not approved
 - Core: paused
@@ -33,10 +33,10 @@ RR-ready setup draft.
 Model-reviewer pass now adds `gpt-4.1-mini` mass review over 255 media drafts
 and `gpt-4.1` arbiter review over 35 high-signal rows; 9 arbiter candidates
 are accepted for internal follow-up only.
-`SAS-PRECLIENT-001..005` are complete: contract, 9-row model packet, 301-row
-evidence appendix, 3 free card drafts, and 3 internal deep reports. Media/RR
-customer-facing use remains blocked pending review gates. Next task is
-`SAS-PRECLIENT-006` paid-style demo report.
+`SAS-PRECLIENT-001..006` are complete: contract, model packet, evidence
+appendix, free cards, internal reports, and `pifagortrade` paid-style internal
+demo. Media/RR customer-facing use remains blocked pending review gates. Next
+task is `SAS-PRECLIENT-007` candidate outcome/RR recompute.
 
 Read first:
 

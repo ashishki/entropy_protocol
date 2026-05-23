@@ -20,6 +20,7 @@ def test_post_v1_task_graph_lists_next_phases_and_active_task() -> None:
         "SAS-PRECLIENT-003",
         "SAS-PRECLIENT-004",
         "SAS-PRECLIENT-005",
+        "SAS-PRECLIENT-006",
     ):
         assert task_id in tasks
 
@@ -29,10 +30,7 @@ def test_post_v1_task_graph_lists_next_phases_and_active_task() -> None:
         "## Phase 36 — Channel Impact Framework And Cross-Channel Completion" in tasks
     )
     assert "## Phase 37 — Pre-Client Artifact Hardening" in tasks
-    assert (
-        "Latest completed: `SAS-PRECLIENT-005 Per-Channel Internal Deep Report V0`"
-        in prompt
-    )
+    assert "Latest completed: `SAS-PRECLIENT-006 Paid-Style Demo Report`" in prompt
     assert "Active route: Phase 37 pre-client artifact hardening" in prompt
 
 

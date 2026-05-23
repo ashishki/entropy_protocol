@@ -1886,3 +1886,11 @@ This file is durable handoff context across agents and sessions. It records what
 - Decisions applied: reports are internal-only, cite the evidence appendix, keep media/RR rows blocked pending human/operator review and external gate approval, and avoid treating provider gaps as source failures.
 - Evidence collected: `bablos79`, `nemphiscrypts`, and `pifagortrade` each have the same outline: executive summary, source/period, style, measurable claims, media findings, setup/RR findings, model-reviewed candidates, confirmed and contradicted examples, strengths, weaknesses, limitations, and report decision.
 - Follow-ups: run `SAS-PRECLIENT-006` to produce a paid-style internal demo report for the strongest current candidate without claiming external approval.
+
+### 2026-05-23 — SAS-PRECLIENT-006 — Paid-Style Demo Report
+
+- Scope: `docs/pilot/reports/preclient/PAID_STYLE_DEMO_REPORT.md`, `tests/unit/test_preclient_paid_demo_report.py`, active-state docs.
+- Why this work happened: Phase 37 needed one polished internal demo artifact that shows the paid-report product shape before any buyer conversation.
+- Decisions applied: `pifagortrade` was selected from evidence density, not endorsement; the report remains `internal_demo_only`, includes counterexamples and limitations, and makes no external approval, pricing, private-source, or future-outcome promise.
+- Evidence collected: the demo cites 107 V1 evaluable text claims, 7 model-reviewed packet candidates, 36 public media refs, 0 dashboard-safe RR rows, pifagortrade appendix slices, setup/RR blockers, post-factum rows, and a contradicted ETH example.
+- Follow-ups: run `SAS-PRECLIENT-007` to recompute outcome/RR status for review candidates where enough public fields exist.

@@ -4057,7 +4057,7 @@ Notes: |
   and weaknesses with evidence references. They are not customer-ready sales
   deliverables.
 
-### SAS-PRECLIENT-006: Paid-Style Demo Report For Strongest Candidate
+### SAS-PRECLIENT-006: Paid-Style Demo Report For Strongest Candidate ✅
 
 Owner:      codex + operator
 Phase:      37
@@ -4090,8 +4090,12 @@ Context-Refs:
   - docs/pilot/preclient_FREE_DASHBOARD_CARDS.md
 
 Notes: |
-  This is the artifact to show internally before deciding whether to approach
-  buyers. It should be strong enough to sell the concept, not the channel.
+  Completed on 2026-05-23. The demo selects `pifagortrade` from evidence
+  density, not taste: 107 V1 evaluable text claims, 7 model-reviewed packet
+  candidates, setup/risk/post-factum material, and clear counterexamples. It
+  includes locked paid-style sections for evidence preview, post-factum vs
+  real-time distinction, setup/RR review, counterexamples, and limitations. It
+  remains `internal_demo_only` with no external approval claim.
 
 ### SAS-PRECLIENT-007: Outcome And RR Recompute For Review Candidates
 
