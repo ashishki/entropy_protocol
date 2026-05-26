@@ -44,6 +44,10 @@ No active `SAS-NEXT` task remains in the current roadmap.
 5. `docs/pilot/three_channel_V1_EXTERNAL_READY_GATE.md`
 6. `docs/archive/PHASE27_REVIEW.md`
 
+Supporting cross-product cognition vault on this VPS:
+`/srv/codex-entropy/repos/product-3/engineering-cognition-vault/10-projects/entropy-protocol.md`.
+Product-local docs remain authoritative.
+
 ## Canonical V1 Artifacts
 
 - V1 approval matrix: `docs/pilot/three_channel_V1_APPROVAL_MATRIX.md`

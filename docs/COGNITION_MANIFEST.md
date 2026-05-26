@@ -55,6 +55,22 @@ This file maps cross-product operational memory for the Entropy Protocol portfol
 
 Agents do not automatically discover the cognition vault. The operator or orchestrator must pass a repo-local manifest, vault project map, or generated context packet path into the agent task.
 
+This VPS uses the canonical local vault clone:
+
+```text
+/srv/codex-entropy/repos/product-3/engineering-cognition-vault
+```
+
+Entropy Protocol is available to vault sync scripts through the local
+compatibility symlink:
+
+```text
+/srv/codex-entropy/repos/product-3/projects/Entropy_Protocol
+  -> ../entropy_protocol
+```
+
+Operational details live in `docs/VPS_COGNITION_VAULT.md`.
+
 Expected sibling layout on any machine that runs agents:
 
 ```text
@@ -113,4 +129,3 @@ Do not write canonical decisions, eval results, or findings directly into the va
 |----------|------|--------|
 | Root cognition index | `generated/cognition/index.json` | Optional generated manifest |
 | Product context packets | product-local `docs/context-packets/` | Commit only for major reviews or regressions |
-

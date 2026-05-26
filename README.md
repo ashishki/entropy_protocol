@@ -20,3 +20,4 @@ Start here:
 1. `docs/README.md`
 2. `docs/PRODUCT_PORTFOLIO.md`
 3. `docs/AI_DEVELOPMENT_OPERATING_MODEL.md`
+4. `docs/VPS_COGNITION_VAULT.md` for the VPS-local Obsidian vault pointer.
