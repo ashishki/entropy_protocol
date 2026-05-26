@@ -45,6 +45,10 @@ Read first: `docs/tasks.md` Phase 38,
 `docs/pilot/preclient_MODEL_REVIEW_PACKET.md`,
 `docs/pilot/preclient_ARTIFACT_SAFETY_GATE.md`.
 
+Supporting cross-product cognition vault on this VPS:
+`/srv/codex-entropy/repos/product-3/engineering-cognition-vault/10-projects/entropy-protocol.md`.
+Product-local docs remain authoritative.
+
 ## Canonical Artifacts
 
 - Phase 37 review: `docs/archive/PHASE37_PRECLIENT_REVIEW.md`
