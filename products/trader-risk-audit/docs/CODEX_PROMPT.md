@@ -74,6 +74,9 @@ Other useful links:
 - `docs/archive/PHASE31_REVIEW.md`
 - `docs/DUNE_PUBLIC_WALLET_REHEARSAL.md`
 - `docs/archive/PHASE32_REVIEW.md`
+- Supporting cross-product cognition vault on this VPS:
+  `/srv/codex-entropy/repos/product-3/engineering-cognition-vault/10-projects/entropy-protocol.md`.
+  Product-local docs remain authoritative.
 
 ## Next Task
 

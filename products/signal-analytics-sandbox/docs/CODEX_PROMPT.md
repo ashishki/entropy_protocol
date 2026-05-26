@@ -63,6 +63,10 @@ Immediate intent:
 - define anti-cherry-pick selection rules;
 - keep external delivery blocked until a later ready gate passes.
 
+Supporting cross-product cognition vault on this VPS:
+`/srv/codex-entropy/repos/product-3/engineering-cognition-vault/10-projects/entropy-protocol.md`.
+Product-local docs remain authoritative.
+
 ## Active Guardrails
 
 - Public/operator-authorized sources only.
