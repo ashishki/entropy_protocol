@@ -63,6 +63,10 @@ Immediate intent:
 - if no source/channel is selected, record the operator-input blocker and stop;
 - do not add generic extraction features before scope is locked.
 
+Supporting cross-product cognition vault on this VPS:
+`/srv/codex-entropy/repos/product-3/engineering-cognition-vault/10-projects/entropy-protocol.md`.
+Product-local docs remain authoritative.
+
 ## Active Guardrails
 
 - Public/operator-authorized sources only.

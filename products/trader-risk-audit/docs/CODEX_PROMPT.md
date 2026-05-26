@@ -40,6 +40,9 @@ Other useful links:
 - `docs/IMPLEMENTATION_CONTRACT.md`
 - `docs/STARTER_POLICY_PROFILES_RU.md` for `soft`, `medium`, and `hard`
   starter audit presets
+- Supporting cross-product cognition vault on this VPS:
+  `/srv/codex-entropy/repos/product-3/engineering-cognition-vault/10-projects/entropy-protocol.md`.
+  Product-local docs remain authoritative.
 
 ## Next Task
 
