@@ -458,3 +458,59 @@ Tasks:
 | SAS-CLIENTREADY-002 | Accepted candidate RR/outcome recompute | `clientready_ACCEPTED_OUTCOMES.md/json` | Only operator-accepted sufficient rows are recomputed through approved public providers. |
 | SAS-CLIENTREADY-003 | Redacted buyer demo subset | `clientready_REDACTED_BUYER_DEMO.md/json` | A compact showable candidate excludes full appendix/raw media and forbidden language. |
 | SAS-CLIENTREADY-004 | Discovery gate and success criteria | `clientready_DISCOVERY_GATE.md/json` | Decide ready_for_discovery, continue_internal_hardening, or pivot_scope before outreach. |
+
+Definition of done:
+
+- operator ledger states are explicit;
+- recompute happens only for accepted rows;
+- redacted demo is showable only if accepted/recomputed rows exist;
+- discovery gate controls any outreach.
+
+### Phase 40 - Auto-Validation Evidence Contract
+
+Goal: убрать bottleneck ручного approval там, где система может сама собрать
+доказательства. Это не "модель решила", а "evidence bundle + validators +
+audit log доказали".
+
+Tasks:
+
+| Task ID | Task | Output | Acceptance Criteria |
+|---|---|---|---|
+| SAS-AUTOVAL-001 | Auto-validation ADR and contract | `ADR-005`, `AUTO_VALIDATION_EVIDENCE.md` | Contract defines proof checks, final states, and uncertainty -> needs_human. |
+| SAS-AUTOVAL-002 | Evidence bundle schema | `src/signal_sandbox/auto_validation/evidence.py` | Bundle preserves URL, timestamp, media/text hashes, OCR refs, setup fields, provenance. |
+| SAS-AUTOVAL-003 | Validation result and audit log schema | `results.py` | Every validator output has version, confidence, evidence refs, blockers, input hash. |
+
+### Phase 41 - Auto-Validation Validator Stack
+
+Goal: автоматизировать проверки, которые сейчас блокируют accepted rows.
+
+Tasks:
+
+| Task ID | Task | Output | Acceptance Criteria |
+|---|---|---|---|
+| SAS-AUTOVAL-004 | Pre-outcome timing validator | `timing.py` | Post timestamp must precede target/stop/relevant market move. |
+| SAS-AUTOVAL-005 | OCR level and setup consistency validator | `setup_consistency.py` | Entry/stop/target evidence and long/short math must be coherent. |
+| SAS-AUTOVAL-006 | Asset/proxy/provider eligibility validator | `provider_eligibility.py` | Asset maps to approved provider/proxy or explicit exclusion. |
+| SAS-AUTOVAL-007 | Post-factum/closed-position detector | `post_factum.py` | PnL/closed-position/retrospective cues block predictive metrics. |
+
+### Phase 42 - Auto-Accept Decision Engine And Evaluation
+
+Goal: combine validators into strict auto_accepted / auto_rejected /
+excluded_provider_gap / needs_human / blocked_customer_facing decisions.
+
+Tasks:
+
+| Task ID | Task | Output | Acceptance Criteria |
+|---|---|---|---|
+| SAS-AUTOVAL-008 | Decision engine | `decision.py` | auto_accepted only if all required validators and policy gate pass. |
+| SAS-AUTOVAL-009 | Customer-facing policy gate | `customer_policy.py` | Public refs, audit refs, recompute provenance, caveats, and wording safety required. |
+| SAS-AUTOVAL-010 | Evaluation on current media candidates | `clientready_AUTO_VALIDATION_EVAL.md/json` | All 9 Phase 38 candidates get auto decision + audit refs + blockers. |
+| SAS-AUTOVAL-011 | Deep review | `PHASE42_AUTO_VALIDATION_REVIEW.md` | Review false-accept risk, audit completeness, and remaining human boundary. |
+
+Definition of done:
+
+- no model-only acceptance;
+- every auto decision cites validator audit refs;
+- false accepts are treated as worse than false rejects;
+- customer-facing promotion remains blocked unless policy gate passes;
+- current 9 candidates are evaluated before any buyer demo route reopens.
