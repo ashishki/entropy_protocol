@@ -1,42 +1,44 @@
 # Orchestrator Checkpoint
 
-Date: 2026-05-15
+Date: 2026-05-23
 
 ## Current State
 
-- Phase 21 is complete and archived.
-- Latest completed item: deep retrospective roadmap/task update.
-- Next task: SAS-DR-001 Deep Retrospective Scope Lock.
-- Baseline: 166 passing tests, 0 skipped.
+- Phase 38 is active: Client-Readiness Evidence Acceptance.
+- Latest completed item: `SAS-PRECLIENT-010 Phase 37 Deep Review And Client-Readiness Decision`.
+- Next task: `SAS-CLIENTREADY-001 Operator Media Acceptance Ledger`.
+- Baseline: 362 passing tests, 0 skipped.
 - Ruff: pass.
 - Pyright: pass.
+- External gate: `approve_internal_only`.
+- External delivery: not approved.
 
-## Decision
+## Current Blocker
 
-The `bablos79` media-backed report route is rejected for external delivery for
-the current narrow source/window. The active route now expands the public
-corpus and adds image/OCR, claim-ledger, market-outcome, and author capability
-report work.
+Phase 37 deep review chose `continue_internal_hardening`. The internal
+diligence package is coherent, but buyer conversations are still blocked by
+0 operator-accepted media claims, 0 dashboard-safe RR rows, and
+0 market-outcome recomputed candidates.
 
-## Blockers
+## Canonical Artifacts
 
-- Two public voice files were acquired.
-- Managed Whisper provider wiring exists and produced two draft transcript
-  artifacts.
-- Two transcript refs are LLM-reviewed usable for internal source join.
-- Three media-backed broad-market claims exist.
-- Zero deterministic outcome-ready rows exist.
-- External delivery needs a later deep retrospective ready gate.
-- Core is paused.
+- `docs/AI_DEVELOPMENT_PLAN_RU.md`
+- `docs/tasks.md` Phase 38
+- `docs/archive/PHASE37_PRECLIENT_REVIEW.md`
+- `docs/specs/PRECLIENT_ARTIFACT_CONTRACT.md`
+- `docs/pilot/preclient_MODEL_REVIEW_PACKET.md`
+- `docs/pilot/preclient_EVIDENCE_APPENDIX.md`
+- `docs/pilot/preclient_FREE_DASHBOARD_CARDS.md`
+- `docs/pilot/preclient_CANDIDATE_OUTCOMES.md`
+- `docs/pilot/preclient_dashboard/index.html`
+- `docs/pilot/preclient_ARTIFACT_SAFETY_GATE.md`
+- `docs/pilot/reports/preclient/`
 
-## Canonical Files
+## Guardrails
 
-- `docs/archive/PHASE21_REVIEW.md`
-- `docs/audit/PHASE_REPORT_LATEST.md`
-- `docs/audit/PHASE21_ERROR_REGISTER.md`
-- `docs/pilot/bablos79_EXTERNAL_PILOT_READY_GATE.md`
-- `docs/pilot/bablos79_TRANSCRIPT_LLM_REVIEW.md`
-- `docs/pilot/reports/bablos79_MEDIA_BACKED_REPORT_V2_LLM_REVIEWED.md`
-- `docs/CODEX_PROMPT.md`
-- `docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md`
-- `docs/tasks.md` Phase 22, SAS-DR-001..005
+- Public/operator-authorized sources only.
+- No advice, future-profit claims, unsupported ranking, marketplace framing,
+  payment flow, private-source promise, or private scraping.
+- Unsupported providers/proxies are exclusions.
+- Unreviewed media stays out of customer-facing metrics.
+- Do not start buyer outreach before Phase 38 discovery gate approval.

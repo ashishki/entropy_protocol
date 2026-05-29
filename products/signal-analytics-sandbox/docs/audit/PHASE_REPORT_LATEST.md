@@ -1,89 +1,83 @@
-# Phase 21 Report - Artifact-First Real Public-Source Report Validation
+# Phase 27 Report - Three-Channel V1 Metric Report
 
-Date: 2026-05-14
+Date: 2026-05-19
 
 ## What Was Built
 
-Phase 21 ran the artifact-first validation path on the approved public
-`bablos79` source/window:
+Phase 27 produced the internal V1 channel utility package:
 
-- public-source scope lock and capture pack for 60 text captures;
-- human review queue closure with zero report-eligible rows;
-- outcome prep with zero market-data fetches and zero outcome metrics;
-- text-only report draft that rejects unsupported signal claims;
-- real public media intake and acquisition attempt;
-- media manifest for two public Telegram voice files;
-- managed Whisper transcript artifacts for both public voice files;
-- OpenAI `gpt-4.1` LLM transcript review with 2 usable internal transcript refs;
-- LLM-reviewed source join and 3 media-backed broad-market claims;
-- media-backed internal report artifact that rejects external delivery but
-  preserves a real internal result;
-- manual validity review, internal demo pack, and external pilot ready gate.
+- V1 approval matrix;
+- false-positive/false-negative review and extractor calibration;
+- deterministic structured claim extractor;
+- level-aware outcome engine;
+- reviewed-media claim path and media inventory;
+- provider/proxy config and fetch planning;
+- V1 metric recompute and scorecard;
+- customer-readable internal report;
+- external-ready gate;
+- Phase 27 deep review and archive.
 
 ## Why It Matters
 
-The product now has an end-to-end real-source validation example that proves the
-evidence boundary under pressure. The system can acquire public media, transcribe
-it with a managed provider, run an LLM evidence-review prompt, and produce an
-internal media-backed report while refusing deterministic outcome or external
-delivery claims that the evidence cannot support.
+The product now demonstrates an end-to-end internal V1 workflow for measuring
+public channel utility while preserving evidence, provider, media, and
+no-overclaim boundaries.
 
 ## Validation
 
-- `.venv/bin/python -m pytest tests/ -q --tb=short`: 166 passed
-- `.venv/bin/ruff check src/ tests/`: pass
+- `.venv/bin/python -m pytest tests/ -q`: 215 passed
+- `.venv/bin/ruff check src/ tests/ scripts/`: pass
+- `.venv/bin/ruff format --check src/ tests/ scripts/`: pass
 - `.venv/bin/pyright`: pass
-- Targeted media/source tests passed:
-  - `tests/unit/test_multimodal_source_join.py`: 3 passed
-  - `tests/unit/test_whisper_transcript_adapter.py`: 4 passed
-  - `tests/unit/test_ocr_draft_adapter.py`: 3 passed
-- Phase 21 deep review archived at `docs/archive/PHASE21_REVIEW.md`.
-- LLM review artifact: `docs/pilot/bablos79_TRANSCRIPT_LLM_REVIEW.md`.
+- Phase 27 review archived at `docs/archive/PHASE27_REVIEW.md`
 
 ## Review Results
 
 - P0: 0
 - P1: 0
 - P2: 0
-- Stop-Ship: No
+- Stop-Ship for internal closure: No
+- External delivery: not approved
+- Gate decision: `approve_internal_only`
+
+## Final Product State
+
+- Planned phases 0-27 are complete.
+- Internal V1 product validation package is complete.
+- External/customer-facing delivery remains blocked.
+- V1 metrics are internal research/product-validation artifacts.
 
 ## Open Product Gate Findings
 
-External delivery is still rejected for the current `bablos79` source/window:
+The Phase 27 close carries these limitations:
 
-- P21-E02: transcript refs are LLM-reviewed usable internally, but not
-  human/operator accepted for external delivery.
-- P21-E03: the internal media-backed report has 3 broad-market claims, but zero
-  deterministic outcome-ready rows.
-- P21-E04: the exact follow-up video promised by `bablos79-10465` was not
-  identified in the public window.
-
-Canonical details: `docs/audit/PHASE21_ERROR_REGISTER.md`.
+- full-corpus human/operator extraction review is not complete;
+- false negatives remain pending extraction and outcome handling;
+- futures, FX, broad indices, US ETFs/funds, commodities, and benchmarks need
+  provider/proxy expansion;
+- no media-backed claim is customer-facing eligible;
+- RR/setup coverage is too sparse for paid external delivery.
 
 ## Health Verdict
 
-OK for archive and internal LLM-reviewed demo. Not ready for external pilot
-delivery.
+OK for internal V1 validation. Not ready for external delivery.
 
 The implementation preserved Hybrid / Lean / T0, RAG ON, Agentic ON, Tool-Use
 OFF, Planning OFF, Compliance OFF, public-source-only handling,
-draft-evidence/human-review media posture, and non-advice boundaries.
+draft-evidence/human-review media posture, deterministic outcome ownership,
+source-truth preservation, and non-advice boundaries.
 
-## Next Phase
+## Next Action
 
-No active implementation task is defined. Next operator decision should choose
-one of:
-
-- accept the LLM-reviewed internal report as the demo artifact;
-- add operator/human acceptance before external delivery;
-- provide a different operator-authorized public media source/window;
-- stop the current product validation route.
+No further planned implementation task is defined. Next decision is operator
+strategy: full human review, provider/media expansion, or internal buyer-demo
+packaging.
 
 ## Notification Summary
 
-Ph21 Artifact-First Real Public-Source Validation DONE
-Built: capture/review/outcome/report route, public media acquisition, managed Whisper transcripts, LLM transcript review, internal source join/report, reject external ready gate
-Tests: 166 pass / 0 skip
-Issues: implementation P1:0 P2:0; external delivery blockers open
-Health: OK for archive and internal LLM-reviewed demo, rejected for external pilot delivery
-Next: decide internal demo vs external acceptance policy
+Ph27 V1 Channel Utility DONE
+Built: approval matrix, calibration, extractor, outcomes, media gate, provider config, V1 metrics, report, external gate, deep review
+Tests: 215 pass / 0 skip
+Issues: P1:0 P2:0 implementation; external delivery not approved
+Health: internal V1 validation OK, not external-ready
+Next: operator strategy decision

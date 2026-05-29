@@ -1,71 +1,68 @@
 # Agent Notes - Signal Analytics Sandbox
 
-Date: 2026-05-15
+Date: 2026-05-23
 
-This file keeps only restart-relevant notes. Detailed phase history lives in
+Restart-relevant state only. Historical detail lives in
 `docs/IMPLEMENTATION_JOURNAL.md`, `docs/archive/`, and `docs/tasks.md`.
 
 ## Active State
 
-- Phase: 22 Expanded Public Corpus
-- Active task: SAS-DR-001 Deep Retrospective Scope Lock
-- Baseline: 166 pass / 0 skip
-- Primary roadmap: `docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md`
+- Phase: 38 Client-Readiness Evidence Acceptance
+- Active task: `SAS-CLIENTREADY-001`
+- Baseline: 362 pass / 0 skip
+- External gate: `approve_internal_only`
+- External delivery: not approved
+- Core: paused
 
 ## Current Decision
 
-Warm demand/pre-order interest exists. Phase 21 produced a real internal
-LLM-reviewed media-backed result, but the source/window was too narrow for
-external delivery. The next route expands the public corpus, adds image/OCR,
-builds a reviewed claim ledger, and compares measurable claims to public market
-data.
+Phase 37 is complete. Deep review decision is `continue_internal_hardening`.
+The project has a valid internal diligence baseline, not a client-valid
+buyer-facing product.
 
-## Locked Scope
+## Next Action
 
-- Source/channel: `https://t.me/bablos79`
-- Period: existing public text capture window from 2026-04-27 through 2026-05-06.
-- Capture method: public/operator unauthenticated Telegram `/s/` HTML captures.
-- Report type: bounded public-source author/source research report.
-- Language: Russian-first pilot report.
-- Media scope: now required for the next loop because the text-only report has
-  0 customer-report-eligible metric rows.
+Run `SAS-CLIENTREADY-001`: convert the 9 model-reviewed media candidates from
+`preclient_MODEL_REVIEW_PACKET` into an operator decision ledger. No row may
+become dashboard-safe or paid-report-safe from model review alone.
 
-Capture pack: `docs/pilot/bablos79_CAPTURE_PACK.md` and
-`docs/pilot/bablos79_CAPTURE_PACK.json`.
+Current blocking facts: 0 operator-accepted media claims, 0 dashboard-safe RR
+rows, 0 market-outcome recomputed candidates, and 0 customer-facing rows in the
+model packet or candidate outcomes.
 
-Review queue closure: `docs/pilot/bablos79_REVIEW_QUEUE_CLOSED.md` and
-`docs/pilot/bablos79_REVIEW_QUEUE_CLOSED.json`.
+Read first:
 
-Outcome prep: `docs/pilot/bablos79_OUTCOME_PREP.md` and
-`docs/pilot/bablos79_OUTCOME_PREP.json`.
+1. `docs/CODEX_PROMPT.md`
+2. `docs/tasks.md` Phase 38
+3. `docs/archive/PHASE37_PRECLIENT_REVIEW.md`
+4. `docs/pilot/preclient_MODEL_REVIEW_PACKET.md`
+5. `docs/pilot/preclient_ARTIFACT_SAFETY_GATE.md`
+6. `docs/pilot/preclient_CANDIDATE_OUTCOMES.md`
 
-Report draft: `docs/pilot/reports/bablos79_SIGNAL_REPORT_V1.md`.
+## Canonical Links
 
-Multimodal plan: `docs/MULTIMODAL_REPORT_DEVELOPMENT_PLAN.md`.
-
-Real media intake: `docs/pilot/bablos79_REAL_MEDIA_INTAKE.md`.
-
-Current result: `SAS-LIVE-002..SAS-AF-008` completed and Phase 21 is archived.
-Two public voice files were acquired, but no transcript provider was configured,
-zero reviewed usable media refs exist, and the ready gate rejects this
-source/window for external delivery.
-
-Next task: run `SAS-DR-001` and create `docs/pilot/bablos79_DEEP_SCOPE.md`.
+- Phase 37 review: `docs/archive/PHASE37_PRECLIENT_REVIEW.md`
+- Follow-on plan: `docs/AI_DEVELOPMENT_PLAN_RU.md`
+- Pre-client artifacts:
+  `docs/specs/PRECLIENT_ARTIFACT_CONTRACT.md`,
+  `docs/pilot/preclient_MODEL_REVIEW_PACKET.md`,
+  `docs/pilot/preclient_EVIDENCE_APPENDIX.md`,
+  `docs/pilot/preclient_FREE_DASHBOARD_CARDS.md`,
+  `docs/pilot/preclient_CANDIDATE_OUTCOMES.md`,
+  `docs/pilot/preclient_ARTIFACT_SAFETY_GATE.md`,
+  `docs/pilot/preclient_dashboard/index.html`,
+  `docs/pilot/reports/preclient/`
+- Media reviewer pass: `docs/pilot/three_channel_MEDIA_REVIEW_REPORT.md`
+- Two-month multimodal research:
+  `docs/pilot/three_channel_MULTIMODAL_RESEARCH_REPORT.md`
+- State compaction archive:
+  `docs/archive/POST_V1_STATE_COMPACTION_2026-05-19.md`
 
 ## Guardrails
 
 - Public/operator-authorized sources only.
-- Media evidence remains draft/internal until human-reviewed.
-- No marketplace, leaderboard, advice, future-profit claims, private scraping,
-  or paid X/Twitter dependency.
-- Core is paused.
-- Keep weak/counterexamples and non-measurable claims; do not produce a
-  promotional channel-ranking report.
-
-## Key Links
-
-- `docs/CODEX_PROMPT.md`
-- `docs/tasks.md`
-- `docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md`
-- `docs/pilot/MEDIA_MODALITY_DECISION.md`
-- `docs/archive/PHASE21_REVIEW.md`
+- No private scraping, access-control bypass, advice, future-profit claims,
+  leaderboard/marketplace framing, payment flow, or private-source promise.
+- Unsupported providers/proxies are exclusions, not wins/losses.
+- Unreviewed transcript/OCR/chart claims stay out of customer-facing metrics.
+- Do not start buyer outreach before the Phase 38 discovery gate allows it.

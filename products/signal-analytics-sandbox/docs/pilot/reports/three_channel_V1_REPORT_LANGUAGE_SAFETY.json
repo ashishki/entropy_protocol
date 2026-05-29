@@ -1,0 +1,25 @@
+{
+  "artifact_id": "three_channel_v1_report_language_safety",
+  "generated_at_utc": "2026-05-19T00:00:00Z",
+  "status": "pass",
+  "source_report": "docs/pilot/reports/three_channel_V1_CHANNEL_UTILITY_REPORT.md",
+  "external_delivery_approved": false,
+  "result": {
+    "passed": true,
+    "findings": [],
+    "required_context_present": {
+      "limitations": true,
+      "evidence_links": true,
+      "gate_status": true,
+      "external_blocked": true,
+      "media_exclusion": true
+    }
+  },
+  "blocked_categories": [
+    "advice",
+    "future_profit",
+    "unsupported_ranking",
+    "marketplace",
+    "unreviewed_media"
+  ]
+}

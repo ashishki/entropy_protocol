@@ -1,0 +1,165 @@
+{
+  "artifact_id": "three_channel_false_negative_pass",
+  "generated_at_utc": "2026-05-19T00:00:00Z",
+  "status": "internal_false_negative_pass_external_blocked",
+  "source_artifacts": [
+    "docs/pilot/three_channel_FULL_REVIEW_QUEUE.json",
+    "docs/pilot/three_channel_V1_EXTRACTION_REVIEW.md",
+    "docs/pilot/three_channel_V1_EXTRACTOR_CALIBRATION.md"
+  ],
+  "summary": {
+    "false_negative_rows_reviewed": 5,
+    "extracted_rows": 3,
+    "needs_context_rows": 2,
+    "needs_provider_rows": 0,
+    "rejected_rows": 0,
+    "scoreable_now_rows": 0,
+    "external_delivery_approved": false,
+    "external_delivery_blocked_until": "false-negative closures are applied, provider/media/setup blockers are resolved, and external-ready gate reruns"
+  },
+  "decisions": [
+    {
+      "pass_id": "fn-001",
+      "queue_id": "frq-source-nemphiscrypts-3344",
+      "result_status": "extracted",
+      "structured_claim_type": "directional_thesis",
+      "assets": [
+        "BTC"
+      ],
+      "direction": "long",
+      "provider": "binance",
+      "provider_symbol": "BTCUSDT",
+      "score_policy": "link_to_existing_v1_included_claim_not_new_duplicate",
+      "decision_reason": "Direct author-side wording says the BTC 90k-95k zone is a long opportunity, not a short; BTC alias comes from Russian битк wording.",
+      "required_next_action": "Close false-negative row by linking it to the existing V1 included BTC claim for this source post.",
+      "blockers": [],
+      "calibration_rules": [
+        "cal-004"
+      ],
+      "channel": "nemphiscrypts",
+      "source_url": "https://t.me/nemphiscrypts/3344",
+      "source_post_id": 3344,
+      "source_timestamp_utc": "2025-05-08T02:37:03+00:00",
+      "evidence_snippet": "зона битка 90к-95к - это возможность для лонга, а не шорта. слушайте, дети, дядю муарыча. деп будет целее. а то опять эксперты видел побежали шортить биток. в этот раз на фоне чего там? «пауэлл ставку снижать не будет», «война пакистана с ...",
+      "review_reason": "Text contains direct BTC long-zone wording and should be included through alias detection."
+    },
+    {
+      "pass_id": "fn-002",
+      "queue_id": "frq-source-nemphiscrypts-3352",
+      "result_status": "needs_context",
+      "structured_claim_type": "market_context",
+      "assets": [
+        "BTC",
+        "ETH"
+      ],
+      "direction": "mixed_or_quoted_sentiment",
+      "provider": null,
+      "provider_symbol": null,
+      "score_policy": "do_not_score_until_author_side_and_asset_scope_are_separated",
+      "decision_reason": "The row contains BTC/ETH market sentiment and bull-run wording, but it is framed as influencer narratives at different BTC levels rather than a clean author-side call.",
+      "required_next_action": "Keep out of win/loss metrics until a reviewer separates quoted sentiment from the author thesis and chooses a single asset/direction.",
+      "blockers": [
+        "quoted_or_contrasted_sentiment",
+        "multiple_assets",
+        "no_single_author_side_direction"
+      ],
+      "calibration_rules": [
+        "cal-004",
+        "cal-006"
+      ],
+      "channel": "nemphiscrypts",
+      "source_url": "https://t.me/nemphiscrypts/3352",
+      "source_post_id": 3352,
+      "source_timestamp_utc": "2025-05-08T15:27:35+00:00",
+      "evidence_snippet": "инфлы при битке 75к: -лучше в стейблах быть -будем еще падать -биток по 60к будет, эфир ниже 1к -до осени нет смысла ждать роста -трамп тарифами сейчас обрушит фонду инфлы при битке 95к: -это была ловушка -повторяется 2017/2021 годы -начин...",
+      "review_reason": "\"BTC at 75k\" panic/long context should be reviewed by BTC alias rules."
+    },
+    {
+      "pass_id": "fn-003",
+      "queue_id": "frq-source-pifagortrade-2298",
+      "result_status": "needs_context",
+      "structured_claim_type": "trade_setup",
+      "assets": [],
+      "direction": "long",
+      "provider": null,
+      "provider_symbol": null,
+      "score_policy": "do_not_score_without_asset_proxy_and_numeric_or_chart-linked_level",
+      "decision_reason": "The row says the author will buy more alts when safety/trap lines are touched, but it gives no specific asset/proxy, exact level, or linked prior post evidence.",
+      "required_next_action": "Resolve the referenced prior posts and map the alt basket/proxy before extracting a scoreable setup.",
+      "blockers": [
+        "missing_asset_proxy",
+        "missing_trap_line_level",
+        "missing_prior_context_link"
+      ],
+      "calibration_rules": [
+        "cal-003",
+        "cal-006",
+        "cal-007"
+      ],
+      "channel": "pifagortrade",
+      "source_url": "https://t.me/pifagortrade/2298",
+      "source_post_id": 2298,
+      "source_timestamp_utc": "2024-01-23T10:03:14+00:00",
+      "evidence_snippet": "Почти пришли! Говорил тут, тут Как коснемся линии safety trade и trap line докуплю альты как говорил тут",
+      "review_reason": "Repeated safety/trap-line condition should become level-aware setup evidence."
+    },
+    {
+      "pass_id": "fn-004",
+      "queue_id": "frq-source-pifagortrade-2510",
+      "result_status": "extracted",
+      "structured_claim_type": "trade_setup",
+      "assets": [
+        "BTC"
+      ],
+      "direction": "conditional_long_above_short_below",
+      "provider": "binance",
+      "provider_symbol": "BTCUSDT",
+      "score_policy": "structured_but_not_fixed_horizon_scoreable_until_trap_line_level_is_machine_readable",
+      "decision_reason": "BTCUSD maps to BTC, and the text explicitly defines above Trap line as long and below Trap line as short.",
+      "required_next_action": "Store as conditional BTC setup; keep out of fixed-horizon win/loss until chart/OCR or numeric trap-line level is accepted.",
+      "blockers": [
+        "missing_numeric_trap_line_level",
+        "conditional_mixed_direction"
+      ],
+      "calibration_rules": [
+        "cal-003",
+        "cal-004"
+      ],
+      "channel": "pifagortrade",
+      "source_url": "https://t.me/pifagortrade/2510",
+      "source_post_id": 2510,
+      "source_timestamp_utc": "2024-05-15T08:47:11+00:00",
+      "evidence_snippet": "Ритейл инвесторы и трейдеры откупают от зоны своей средней цены. Для упрощения восприятия : закрытие ниже Trap line это шорт Выше это лонг https://www.tradingview.com/x/Oj58bdWX/ Индикатор - https://ru.tradingview.com/script/erIwNY5q-trap-...",
+      "review_reason": "Above/below trap-line condition should become a structured BTC setup."
+    },
+    {
+      "pass_id": "fn-005",
+      "queue_id": "frq-source-pifagortrade-2578",
+      "result_status": "extracted",
+      "structured_claim_type": "trade_management",
+      "assets": [
+        "BTC"
+      ],
+      "direction": "long",
+      "provider": "binance",
+      "provider_symbol": "BTCUSDT",
+      "score_policy": "management_context_only_until_original_setup_link_exists",
+      "decision_reason": "The title asks when the author will close a BTC long, which is position-management evidence; SIGN-UP is noise and must stay blocked as an asset.",
+      "required_next_action": "Store as BTC long management context, block SIGN-UP, and link to the original entry setup before any performance scoring.",
+      "blockers": [
+        "requires_original_setup_link",
+        "blocked_asset_token:SIGN-UP"
+      ],
+      "calibration_rules": [
+        "cal-002",
+        "cal-005"
+      ],
+      "channel": "pifagortrade",
+      "source_url": "https://t.me/pifagortrade/2578",
+      "source_post_id": 2578,
+      "source_timestamp_utc": "2024-07-14T15:30:14+00:00",
+      "evidence_snippet": "🎞 КОГДА ЗАКРОЮ ЛОНГ ПО BTC? Жду Новые Возможности! Всем привет! Рынок достиг зоны \"экстремального страха (25)\" по индексу Fear and Greed. Пока участники испытывают медвежьи настроения, крупные игроки откупили более 100,000 BTC на прошлой н...",
+      "review_reason": "BTC position/closure wording should be extracted; `SIGN-UP` must be blocked as an asset."
+    }
+  ]
+}

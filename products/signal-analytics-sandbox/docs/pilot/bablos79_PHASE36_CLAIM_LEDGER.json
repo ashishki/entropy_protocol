@@ -1,0 +1,65 @@
+{
+  "ledger_id": "bablos79_phase36_claim_ledger",
+  "generated_at_utc": "2026-05-22T00:00:00Z",
+  "source_id": "bablos79",
+  "status": "recomputed_no_new_accepted_media_claims",
+  "input_artifacts": [
+    "docs/pilot/bablos79_CLAIM_LEDGER.json",
+    "docs/pilot/bablos79_PHASE36_TRANSCRIPT_ACCEPTANCE.json",
+    "docs/pilot/bablos79_PHASE36_OCR_DRAFTS.json",
+    "docs/pilot/bablos79_PHASE36_MEDIA_LINKAGE_QUEUE.json"
+  ],
+  "summary": {
+    "prior_total_rows": 67,
+    "text_capture_rows": 60,
+    "prior_reviewable_non_blocker_claim_rows": 14,
+    "phase36_text_reviewable_rows": 11,
+    "accepted_transcript_claims_added": 0,
+    "accepted_ocr_claims_added": 0,
+    "excluded_transcript_claims": 3,
+    "rejected_or_blocked_media_rows": 6,
+    "deterministic_outcome_ready_rows": 0,
+    "customer_report_eligible_rows": 0
+  },
+  "claim_groups": [
+    {
+      "group_id": "text_prior_reviewable",
+      "source_modality": "text",
+      "row_count": 11,
+      "phase36_status": "retained_internal_reviewable",
+      "deterministic_outcome_ready": false,
+      "blocker": "Existing text rows still lack complete deterministic fields such as direction, horizon, entry, stop, target, or approved proxy."
+    },
+    {
+      "group_id": "accepted_transcript",
+      "source_modality": "voice_transcript",
+      "row_count": 0,
+      "phase36_status": "none_accepted",
+      "deterministic_outcome_ready": false,
+      "blocker": "Both linked transcript refs are needs_context, not human/operator accepted."
+    },
+    {
+      "group_id": "accepted_ocr",
+      "source_modality": "image_or_chart_ocr",
+      "row_count": 0,
+      "phase36_status": "none_available",
+      "deterministic_outcome_ready": false,
+      "blocker": "No source-linked image/chart artifacts exist."
+    },
+    {
+      "group_id": "blocked_media",
+      "source_modality": "audio_image_chart_gap",
+      "row_count": 6,
+      "phase36_status": "excluded_from_customer_metrics",
+      "deterministic_outcome_ready": false,
+      "blocker": "Rows are missing acceptance, source linkage, checksumable artifact, or capture rows."
+    }
+  ],
+  "deterministic_candidates": [],
+  "gate_result": {
+    "recompute_allowed": true,
+    "market_outcome_recompute_allowed": false,
+    "external_claims_allowed": false,
+    "reason": "Recompute confirms zero accepted transcript/OCR additions and zero deterministic outcome-ready rows."
+  }
+}

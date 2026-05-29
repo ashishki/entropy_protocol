@@ -23,6 +23,21 @@ This artifact is internal LLM review output. It is not human review and does not
 | `public_voice_bablos79_10476` | `transcript_57b6461001b54e10` | `usable_internal` | `broad_market_thesis` | 2 | `source_join_internal` |
 | `public_voice_bablos79_10478` | `transcript_92ad5bf2e9088056` | `usable_internal` | `broad_market_thesis` | 1 | `source_join_internal` |
 
+## Policy Classification
+
+Policy artifact:
+`docs/pilot/bablos79_TRANSCRIPT_ACCEPTANCE_POLICY.md`
+
+| media_id | transcript_id | provider_status | policy_status | internal_source_join | external_delivery | required_next_action |
+|---|---|---|---|---|---|---|
+| `public_voice_bablos79_10476` | `transcript_57b6461001b54e10` | `draft_pending_review` | `llm_reviewed_internal` | yes | no | Human/operator acceptance or explicit waiver before external use. |
+| `public_voice_bablos79_10478` | `transcript_92ad5bf2e9088056` | `draft_pending_review` | `llm_reviewed_internal` | yes | no | Human/operator acceptance or explicit waiver before external use. |
+
+The policy classification does not alter transcript text, extracted claims,
+source media checksums, or the LLM review decision. It only records that these
+refs may support internal source joins and remain blocked from external
+delivery.
+
 ## Market Claims
 
 ### bablos79_10476_claim1

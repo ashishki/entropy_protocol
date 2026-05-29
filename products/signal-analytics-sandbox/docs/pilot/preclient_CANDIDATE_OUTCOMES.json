@@ -1,0 +1,608 @@
+{
+  "summary": {
+    "artifact_id": "preclient-candidate-outcomes",
+    "generated_at_utc": "2026-05-23T15:30:00Z",
+    "status": "internal_candidate_outcome_rr_recompute",
+    "candidate_count": 9,
+    "by_candidate_status": {
+      "insufficient_fields": 4,
+      "post_factum_only": 4,
+      "provider_gap": 1
+    },
+    "rr_recomputed_internal_count": 1,
+    "market_outcome_recomputed_count": 0,
+    "bulk_market_history_storage_used": false,
+    "customer_facing_rows": 0
+  },
+  "rows": [
+    {
+      "candidate_id": "candidate_bablos79_10450_media_e9e8f323bcc1fc05",
+      "source_id": "bablos79",
+      "post_id": 10450,
+      "source_url": "https://t.me/bablos79/10450",
+      "source_timestamp_utc": "2026-04-27T11:16:37+00:00",
+      "media_ref_id": "media_e9e8f323bcc1fc05",
+      "modality": "image",
+      "candidate_status": "provider_gap",
+      "reason": "RR math is internally computable, but the extracted MAGN-6.26/MMK notation needs an approved exact public provider/proxy before market outcome recompute.",
+      "selected_evidence_types": [
+        "directional_thesis",
+        "explicit_trade_setup"
+      ],
+      "required_operator_action": "operator_review_for_setup_acceptance_and_market_recompute",
+      "provider_refs": [
+        "moex_iss_candidate_symbol=MAGN",
+        "provider_gap=unapproved_contract_or_quote_scale"
+      ],
+      "source_refs": [
+        "https://t.me/bablos79/10450",
+        "docs/pilot/preclient_MODEL_REVIEW_PACKET.json#preclient_review_c63bba8122eaa5be",
+        "docs/pilot/preclient_EVIDENCE_APPENDIX.json#media_e9e8f323bcc1fc05"
+      ],
+      "bulk_market_history_storage_used": false,
+      "market_data_storage": "none_open_api_refs_only",
+      "setup_fields": {
+        "entry": "28400.00",
+        "stop": "28600.00",
+        "targets": [
+          "26364.00"
+        ],
+        "position_size": null,
+        "explicit_rr": null,
+        "deterministic_computed_rr": "10.180000",
+        "deterministic_rr_status": "rr_ready_internal_draft"
+      },
+      "rr_recompute": {
+        "status": "rr_recomputed_internal",
+        "direction": "short",
+        "entry": "28400.00",
+        "stop": "28600.00",
+        "target": "26364.00",
+        "computed_rr": "10.180000",
+        "formula": "(entry - target) / (stop - entry)",
+        "blockers": [
+          "provider_proxy_not_approved_for_exact_instrument",
+          "position_size_missing"
+        ]
+      },
+      "market_outcome": {
+        "status": "market_outcome_not_recomputed",
+        "horizon": "7d_candidate",
+        "reason": "RR math is internally computable, but the extracted MAGN-6.26/MMK notation needs an approved exact public provider/proxy before market outcome recompute."
+      },
+      "predictive_call_policy": "requires_operator_acceptance_before_predictive_use",
+      "customer_facing_status": "blocked_from_customer_metrics",
+      "blockers": [
+        "human_operator_review_required",
+        "media_review_required_before_customer_metrics",
+        "position_size_missing",
+        "provider_proxy_not_approved_for_exact_instrument"
+      ]
+    },
+    {
+      "candidate_id": "candidate_nemphiscrypts_3958_media_e9f1f06450c91ac8",
+      "source_id": "nemphiscrypts",
+      "post_id": 3958,
+      "source_url": "https://t.me/nemphiscrypts/3958",
+      "source_timestamp_utc": "2026-04-05T09:21:35+00:00",
+      "media_ref_id": "media_e9f1f06450c91ac8",
+      "modality": "image",
+      "candidate_status": "insufficient_fields",
+      "reason": "Missing target field prevents deterministic RR/outcome recompute.",
+      "selected_evidence_types": [
+        "directional_thesis",
+        "explicit_trade_setup"
+      ],
+      "required_operator_action": "operator_review_missing_setup_fields",
+      "provider_refs": [
+        "binance_public_klines_candidate",
+        "provider_not_called_due_candidate_status"
+      ],
+      "source_refs": [
+        "https://t.me/nemphiscrypts/3958",
+        "docs/pilot/preclient_MODEL_REVIEW_PACKET.json#preclient_review_255bdeb565b7232f",
+        "docs/pilot/preclient_EVIDENCE_APPENDIX.json#media_e9f1f06450c91ac8"
+      ],
+      "bulk_market_history_storage_used": false,
+      "market_data_storage": "none_open_api_refs_only",
+      "setup_fields": {
+        "entry": "0.301501",
+        "stop": "0.294100",
+        "targets": [],
+        "position_size": null,
+        "explicit_rr": "119.62%",
+        "deterministic_computed_rr": null,
+        "deterministic_rr_status": "rr_blocked"
+      },
+      "rr_recompute": {
+        "status": "rr_not_recomputed",
+        "direction": null,
+        "entry": "0.301501",
+        "stop": "0.294100",
+        "target": null,
+        "computed_rr": null,
+        "formula": null,
+        "blockers": [
+          "insufficient_fields"
+        ]
+      },
+      "market_outcome": {
+        "status": "market_outcome_not_recomputed",
+        "horizon": "7d_candidate",
+        "reason": "Missing target field prevents deterministic RR/outcome recompute."
+      },
+      "predictive_call_policy": "requires_operator_acceptance_before_predictive_use",
+      "customer_facing_status": "blocked_from_customer_metrics",
+      "blockers": [
+        "human_operator_review_required",
+        "media_review_required_before_customer_metrics",
+        "missing_single_direction",
+        "missing_supported_asset",
+        "missing_target",
+        "position_size_missing"
+      ]
+    },
+    {
+      "candidate_id": "candidate_pifagortrade_3214_media_7da0e6e8258fbe51",
+      "source_id": "pifagortrade",
+      "post_id": 3214,
+      "source_url": "https://t.me/pifagortrade/3214",
+      "source_timestamp_utc": "2026-03-28T06:32:09+00:00",
+      "media_ref_id": "media_7da0e6e8258fbe51",
+      "modality": "image",
+      "candidate_status": "insufficient_fields",
+      "reason": "Missing target field prevents deterministic RR/outcome recompute.",
+      "selected_evidence_types": [
+        "explicit_trade_setup",
+        "risk_management",
+        "position_management"
+      ],
+      "required_operator_action": "operator_review_missing_setup_fields",
+      "provider_refs": [
+        "binance_public_klines_candidate",
+        "provider_not_called_due_candidate_status"
+      ],
+      "source_refs": [
+        "https://t.me/pifagortrade/3214",
+        "docs/pilot/preclient_MODEL_REVIEW_PACKET.json#preclient_review_ae2cb2e5a5764148",
+        "docs/pilot/preclient_EVIDENCE_APPENDIX.json#media_7da0e6e8258fbe51"
+      ],
+      "bulk_market_history_storage_used": false,
+      "market_data_storage": "none_open_api_refs_only",
+      "setup_fields": {
+        "entry": "74266.15",
+        "stop": "72000",
+        "targets": [],
+        "position_size": "4.1",
+        "explicit_rr": "30.51",
+        "deterministic_computed_rr": null,
+        "deterministic_rr_status": "rr_blocked"
+      },
+      "rr_recompute": {
+        "status": "rr_not_recomputed",
+        "direction": null,
+        "entry": "74266.15",
+        "stop": "72000",
+        "target": null,
+        "computed_rr": null,
+        "formula": null,
+        "blockers": [
+          "insufficient_fields"
+        ]
+      },
+      "market_outcome": {
+        "status": "market_outcome_not_recomputed",
+        "horizon": "7d_candidate",
+        "reason": "Missing target field prevents deterministic RR/outcome recompute."
+      },
+      "predictive_call_policy": "requires_operator_acceptance_before_predictive_use",
+      "customer_facing_status": "blocked_from_customer_metrics",
+      "blockers": [
+        "human_operator_review_required",
+        "media_review_required_before_customer_metrics",
+        "missing_target",
+        "position_size_missing"
+      ]
+    },
+    {
+      "candidate_id": "candidate_pifagortrade_3218_media_02da8ff67638711a",
+      "source_id": "pifagortrade",
+      "post_id": 3218,
+      "source_url": "https://t.me/pifagortrade/3218",
+      "source_timestamp_utc": "2026-04-01T16:44:53+00:00",
+      "media_ref_id": "media_02da8ff67638711a",
+      "modality": "image",
+      "candidate_status": "insufficient_fields",
+      "reason": "Extracted entry/stop values look like Fibonacci ratios rather than market prices.",
+      "selected_evidence_types": [
+        "directional_thesis",
+        "explicit_trade_setup"
+      ],
+      "required_operator_action": "operator_review_for_setup_acceptance_and_market_recompute",
+      "provider_refs": [
+        "binance_public_klines_candidate",
+        "provider_not_called_due_candidate_status"
+      ],
+      "source_refs": [
+        "https://t.me/pifagortrade/3218",
+        "docs/pilot/preclient_MODEL_REVIEW_PACKET.json#preclient_review_a455e83ca963c546",
+        "docs/pilot/preclient_EVIDENCE_APPENDIX.json#media_02da8ff67638711a"
+      ],
+      "bulk_market_history_storage_used": false,
+      "market_data_storage": "none_open_api_refs_only",
+      "setup_fields": {
+        "entry": "0.5",
+        "stop": "0.618",
+        "targets": [
+          "76.581",
+          "80.465",
+          "84.173"
+        ],
+        "position_size": null,
+        "explicit_rr": null,
+        "deterministic_computed_rr": null,
+        "deterministic_rr_status": "rr_blocked"
+      },
+      "rr_recompute": {
+        "status": "rr_not_recomputed",
+        "direction": null,
+        "entry": "0.5",
+        "stop": "0.618",
+        "target": "76.581",
+        "computed_rr": null,
+        "formula": null,
+        "blockers": [
+          "insufficient_fields"
+        ]
+      },
+      "market_outcome": {
+        "status": "market_outcome_not_recomputed",
+        "horizon": "7d_candidate",
+        "reason": "Extracted entry/stop values look like Fibonacci ratios rather than market prices."
+      },
+      "predictive_call_policy": "requires_operator_acceptance_before_predictive_use",
+      "customer_facing_status": "blocked_from_customer_metrics",
+      "blockers": [
+        "ambiguous_fibonacci_levels",
+        "human_operator_review_required",
+        "media_review_required_before_customer_metrics",
+        "missing_supported_asset",
+        "position_size_missing",
+        "rr_not_computable"
+      ]
+    },
+    {
+      "candidate_id": "candidate_pifagortrade_3225_media_fd918bae3d526228",
+      "source_id": "pifagortrade",
+      "post_id": 3225,
+      "source_url": "https://t.me/pifagortrade/3225",
+      "source_timestamp_utc": "2026-04-08T05:56:12+00:00",
+      "media_ref_id": "media_fd918bae3d526228",
+      "modality": "image",
+      "candidate_status": "post_factum_only",
+      "reason": "Screenshot appears to describe managed or closed position state, not a clear source-time predictive call.",
+      "selected_evidence_types": [
+        "post_factum",
+        "position_management",
+        "risk_management"
+      ],
+      "required_operator_action": "operator_mark_post_factum_or_reject_as_predictive_signal",
+      "provider_refs": [
+        "binance_public_klines_candidate",
+        "provider_not_called_due_candidate_status"
+      ],
+      "source_refs": [
+        "https://t.me/pifagortrade/3225",
+        "docs/pilot/preclient_MODEL_REVIEW_PACKET.json#preclient_review_d4b4859bb5a9d826",
+        "docs/pilot/preclient_EVIDENCE_APPENDIX.json#media_fd918bae3d526228"
+      ],
+      "bulk_market_history_storage_used": false,
+      "market_data_storage": "none_open_api_refs_only",
+      "setup_fields": {
+        "entry": "66930.24",
+        "stop": "67724.000000",
+        "targets": [
+          "67.724000"
+        ],
+        "position_size": "1.0",
+        "explicit_rr": null,
+        "deterministic_computed_rr": null,
+        "deterministic_rr_status": "rr_blocked"
+      },
+      "rr_recompute": {
+        "status": "rr_not_recomputed",
+        "direction": null,
+        "entry": "66930.24",
+        "stop": "67724.000000",
+        "target": "67.724000",
+        "computed_rr": null,
+        "formula": null,
+        "blockers": [
+          "post_factum_only"
+        ]
+      },
+      "market_outcome": {
+        "status": "market_outcome_not_recomputed",
+        "horizon": "7d_candidate",
+        "reason": "Screenshot appears to describe managed or closed position state, not a clear source-time predictive call."
+      },
+      "predictive_call_policy": "post_factum_not_predictive_call",
+      "customer_facing_status": "blocked_from_customer_metrics",
+      "blockers": [
+        "human_operator_review_required",
+        "media_review_required_before_customer_metrics",
+        "missing_entry",
+        "missing_single_direction",
+        "missing_supported_asset",
+        "position_size_missing",
+        "post_factum_not_predictive_call",
+        "rr_not_computable"
+      ]
+    },
+    {
+      "candidate_id": "candidate_pifagortrade_3234_media_0789aec157c1fe81",
+      "source_id": "pifagortrade",
+      "post_id": 3234,
+      "source_url": "https://t.me/pifagortrade/3234",
+      "source_timestamp_utc": "2026-04-14T05:38:21+00:00",
+      "media_ref_id": "media_0789aec157c1fe81",
+      "modality": "image",
+      "candidate_status": "insufficient_fields",
+      "reason": "Targets conflict with the inferred long direction and need operator classification.",
+      "selected_evidence_types": [
+        "directional_thesis",
+        "explicit_trade_setup",
+        "risk_management"
+      ],
+      "required_operator_action": "operator_review_for_setup_acceptance_and_market_recompute",
+      "provider_refs": [
+        "binance_public_klines_candidate",
+        "provider_not_called_due_candidate_status"
+      ],
+      "source_refs": [
+        "https://t.me/pifagortrade/3234",
+        "docs/pilot/preclient_MODEL_REVIEW_PACKET.json#preclient_review_71ddaf6e3e7f8e6c",
+        "docs/pilot/preclient_EVIDENCE_APPENDIX.json#media_0789aec157c1fe81"
+      ],
+      "bulk_market_history_storage_used": false,
+      "market_data_storage": "none_open_api_refs_only",
+      "setup_fields": {
+        "entry": "74371",
+        "stop": "66 200",
+        "targets": [
+          "69 000",
+          "78 000"
+        ],
+        "position_size": null,
+        "explicit_rr": null,
+        "deterministic_computed_rr": null,
+        "deterministic_rr_status": "rr_blocked"
+      },
+      "rr_recompute": {
+        "status": "rr_not_recomputed",
+        "direction": null,
+        "entry": "74371",
+        "stop": "66200",
+        "target": "69000",
+        "computed_rr": null,
+        "formula": null,
+        "blockers": [
+          "insufficient_fields"
+        ]
+      },
+      "market_outcome": {
+        "status": "market_outcome_not_recomputed",
+        "horizon": "7d_candidate",
+        "reason": "Targets conflict with the inferred long direction and need operator classification."
+      },
+      "predictive_call_policy": "requires_operator_acceptance_before_predictive_use",
+      "customer_facing_status": "blocked_from_customer_metrics",
+      "blockers": [
+        "human_operator_review_required",
+        "media_review_required_before_customer_metrics",
+        "position_size_missing",
+        "rr_not_computable",
+        "target_direction_conflict"
+      ]
+    },
+    {
+      "candidate_id": "candidate_pifagortrade_3264_media_0dfbaaf12df17450",
+      "source_id": "pifagortrade",
+      "post_id": 3264,
+      "source_url": "https://t.me/pifagortrade/3264",
+      "source_timestamp_utc": "2026-05-07T16:10:47+00:00",
+      "media_ref_id": "media_0dfbaaf12df17450",
+      "modality": "image",
+      "candidate_status": "post_factum_only",
+      "reason": "Screenshot appears to describe managed or closed position state, not a clear source-time predictive call.",
+      "selected_evidence_types": [
+        "post_factum",
+        "explicit_trade_setup"
+      ],
+      "required_operator_action": "operator_mark_post_factum_or_reject_as_predictive_signal",
+      "provider_refs": [
+        "binance_public_klines_candidate",
+        "provider_not_called_due_candidate_status"
+      ],
+      "source_refs": [
+        "https://t.me/pifagortrade/3264",
+        "docs/pilot/preclient_MODEL_REVIEW_PACKET.json#preclient_review_a11fba0b94b7e154",
+        "docs/pilot/preclient_EVIDENCE_APPENDIX.json#media_0dfbaaf12df17450"
+      ],
+      "bulk_market_history_storage_used": false,
+      "market_data_storage": "none_open_api_refs_only",
+      "setup_fields": {
+        "entry": "81,096.30",
+        "stop": "82500.000000",
+        "targets": [],
+        "position_size": "10.0X",
+        "explicit_rr": null,
+        "deterministic_computed_rr": null,
+        "deterministic_rr_status": "rr_blocked"
+      },
+      "rr_recompute": {
+        "status": "rr_not_recomputed",
+        "direction": null,
+        "entry": "81096.30",
+        "stop": "82500.000000",
+        "target": null,
+        "computed_rr": null,
+        "formula": null,
+        "blockers": [
+          "post_factum_only"
+        ]
+      },
+      "market_outcome": {
+        "status": "market_outcome_not_recomputed",
+        "horizon": "7d_candidate",
+        "reason": "Screenshot appears to describe managed or closed position state, not a clear source-time predictive call."
+      },
+      "predictive_call_policy": "post_factum_not_predictive_call",
+      "customer_facing_status": "blocked_from_customer_metrics",
+      "blockers": [
+        "human_operator_review_required",
+        "media_review_required_before_customer_metrics",
+        "missing_entry",
+        "missing_supported_asset",
+        "missing_target",
+        "position_size_missing",
+        "post_factum_not_predictive_call",
+        "rr_not_computable"
+      ]
+    },
+    {
+      "candidate_id": "candidate_pifagortrade_3274_media_ba859d2bfc0f9403",
+      "source_id": "pifagortrade",
+      "post_id": 3274,
+      "source_url": "https://t.me/pifagortrade/3274",
+      "source_timestamp_utc": "2026-05-16T09:20:57+00:00",
+      "media_ref_id": "media_ba859d2bfc0f9403",
+      "modality": "image",
+      "candidate_status": "post_factum_only",
+      "reason": "Screenshot appears to describe managed or closed position state, not a clear source-time predictive call.",
+      "selected_evidence_types": [
+        "explicit_trade_setup",
+        "post_factum"
+      ],
+      "required_operator_action": "operator_mark_post_factum_or_reject_as_predictive_signal",
+      "provider_refs": [
+        "binance_public_klines_candidate",
+        "provider_not_called_due_candidate_status"
+      ],
+      "source_refs": [
+        "https://t.me/pifagortrade/3274",
+        "docs/pilot/preclient_MODEL_REVIEW_PACKET.json#preclient_review_1d2e2fd9288c3483",
+        "docs/pilot/preclient_EVIDENCE_APPENDIX.json#media_ba859d2bfc0f9403"
+      ],
+      "bulk_market_history_storage_used": false,
+      "market_data_storage": "none_open_api_refs_only",
+      "setup_fields": {
+        "entry": "81,096.30",
+        "stop": "82.000000",
+        "targets": [
+          "77,888.10"
+        ],
+        "position_size": "10.0X",
+        "explicit_rr": null,
+        "deterministic_computed_rr": null,
+        "deterministic_rr_status": "rr_blocked"
+      },
+      "rr_recompute": {
+        "status": "rr_not_recomputed",
+        "direction": null,
+        "entry": "81096.30",
+        "stop": "82.000000",
+        "target": "77888.10",
+        "computed_rr": null,
+        "formula": null,
+        "blockers": [
+          "post_factum_only"
+        ]
+      },
+      "market_outcome": {
+        "status": "market_outcome_not_recomputed",
+        "horizon": "7d_candidate",
+        "reason": "Screenshot appears to describe managed or closed position state, not a clear source-time predictive call."
+      },
+      "predictive_call_policy": "post_factum_not_predictive_call",
+      "customer_facing_status": "blocked_from_customer_metrics",
+      "blockers": [
+        "human_operator_review_required",
+        "media_review_required_before_customer_metrics",
+        "missing_entry",
+        "missing_supported_asset",
+        "missing_target",
+        "position_size_missing",
+        "post_factum_not_predictive_call",
+        "rr_not_computable"
+      ]
+    },
+    {
+      "candidate_id": "candidate_pifagortrade_3276_media_0cb05b5181e07b58",
+      "source_id": "pifagortrade",
+      "post_id": 3276,
+      "source_url": "https://t.me/pifagortrade/3276",
+      "source_timestamp_utc": "2026-05-18T15:08:06+00:00",
+      "media_ref_id": "media_0cb05b5181e07b58",
+      "modality": "image",
+      "candidate_status": "post_factum_only",
+      "reason": "Screenshot appears to describe managed or closed position state, not a clear source-time predictive call.",
+      "selected_evidence_types": [
+        "post_factum",
+        "explicit_trade_setup"
+      ],
+      "required_operator_action": "operator_mark_post_factum_or_reject_as_predictive_signal",
+      "provider_refs": [
+        "binance_public_klines_candidate",
+        "provider_not_called_due_candidate_status"
+      ],
+      "source_refs": [
+        "https://t.me/pifagortrade/3276",
+        "docs/pilot/preclient_MODEL_REVIEW_PACKET.json#preclient_review_8327b40cdadd1343",
+        "docs/pilot/preclient_EVIDENCE_APPENDIX.json#media_0cb05b5181e07b58"
+      ],
+      "bulk_market_history_storage_used": false,
+      "market_data_storage": "none_open_api_refs_only",
+      "setup_fields": {
+        "entry": "81,096.30",
+        "stop": "82.000000",
+        "targets": [
+          "76,150.10"
+        ],
+        "position_size": "10.0X",
+        "explicit_rr": null,
+        "deterministic_computed_rr": null,
+        "deterministic_rr_status": "rr_blocked"
+      },
+      "rr_recompute": {
+        "status": "rr_not_recomputed",
+        "direction": null,
+        "entry": "81096.30",
+        "stop": "82.000000",
+        "target": "76150.10",
+        "computed_rr": null,
+        "formula": null,
+        "blockers": [
+          "post_factum_only"
+        ]
+      },
+      "market_outcome": {
+        "status": "market_outcome_not_recomputed",
+        "horizon": "7d_candidate",
+        "reason": "Screenshot appears to describe managed or closed position state, not a clear source-time predictive call."
+      },
+      "predictive_call_policy": "post_factum_not_predictive_call",
+      "customer_facing_status": "blocked_from_customer_metrics",
+      "blockers": [
+        "human_operator_review_required",
+        "media_review_required_before_customer_metrics",
+        "missing_entry",
+        "missing_single_direction",
+        "missing_supported_asset",
+        "position_size_missing",
+        "post_factum_not_predictive_call",
+        "rr_not_computable"
+      ]
+    }
+  ]
+}

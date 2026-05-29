@@ -53,6 +53,25 @@ records, or outcome metrics.
 | `risk_warning` | Warning, invalidation, uncertainty, cancellation, or no-trade language. | no win/loss; may track avoided-risk context |
 | `non_market` | Promotion, stream notice, joke, education, unrelated content, or insufficient market content. | no |
 
+### bablos79 Phase 24 claim category mapping
+
+`docs/pilot/bablos79_CLAIM_TAXONOMY.md` defines the Phase 24 claim-ledger
+categories for the deep retrospective. They map onto this schema as follows:
+
+| Claim category | MarketIdea mapping | Outcome posture |
+|---|---|---|
+| `macro_context` | `market_regime` | non-deterministic until benchmark/proxy, direction/condition, timestamp, horizon, review state, and outcome method are explicit |
+| `event_risk` | `catalyst_reaction` or `risk_warning` | conditional on event window, affected asset/proxy, direction, and review state |
+| `directional_bias` | `directional_thesis` | conditional on asset/proxy, direction, timestamp, horizon, and review state |
+| `explicit_trade_setup` | `trade_setup` | strict outcome only when entry, invalidation/stop, target/timeout, asset, direction, timestamp, and review state are present |
+| `level_timing_call` | `directional_thesis` or `trade_setup` | conditional on preserving the stated level/timing condition and mapping it to a deterministic method |
+| `watchlist` | `watchlist` | no strict win/loss by default; may support later context links |
+| `non_market_commentary` | `non_market` | visible in coverage counts; excluded from performance metrics |
+| `unsupported_media_claim` | excluded or `queued_for_review` | not outcome-ready until source-linked media is reviewed and accepted for the intended use |
+
+Broad categories such as `macro_context` and `event_risk` may be useful author
+insights even when they are not deterministic performance evidence.
+
 ### direction
 
 | Value | Meaning |

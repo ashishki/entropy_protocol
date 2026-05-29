@@ -1,5 +1,6 @@
 import json
 import os
+import re
 import stat
 import subprocess
 import tempfile
@@ -80,12 +81,18 @@ class WorkspaceValidationTests(unittest.TestCase):
         self.assertIn("direct tool edits to application code", result.stderr)
 
     def test_phase_boundary_guard_blocks_phase_increment(self) -> None:
+        prompt = (PRODUCT_ROOT / "docs/CODEX_PROMPT.md").read_text()
+        phase_match = re.search(r"^Phase:\s*(\d+)", prompt, re.MULTILINE)
+        self.assertIsNotNone(phase_match)
+        assert phase_match is not None
+        current_phase = int(phase_match.group(1))
+
         payload = {
             "tool_name": "Edit",
             "tool_input": {
                 "file_path": "docs/CODEX_PROMPT.md",
-                "old_string": "Phase: 21",
-                "new_string": "Phase: 22",
+                "old_string": f"Phase: {current_phase}",
+                "new_string": f"Phase: {current_phase + 1}",
             },
         }
 
