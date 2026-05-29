@@ -44,6 +44,9 @@ Phases:
   paid-report, review, evidence, and gate artifacts before outreach.
 - **Phase 38** — Client-readiness evidence acceptance: operator decisions,
   accepted-row recompute, redacted buyer-demo subset, and discovery criteria.
+- **Phase 39** — Telegram Trader Intelligence productization: product frame,
+  receipts, referee verdicts, diverse analytical lenses, and buyer-demo report
+  structure.
 
 Current active focus:
 
@@ -68,6 +71,9 @@ Current active focus:
 - Phase 37 produced the internal artifact stack and deep review decision
   `continue_internal_hardening`. The next active route is Phase 38: operator
   acceptance, recompute, and redacted buyer-demo readiness before outreach.
+- Phase 39 is the planned productization route after Phase 38: it turns the
+  sandbox into Telegram Trader Intelligence without approving prediction,
+  leaderboard, advice, private scraping, or autonomous trading.
 
 ---
 
@@ -3386,6 +3392,147 @@ Context-Refs:
 
 Notes: |
   This is a phase gate. Do not skip deep review.
+
+---
+
+## Phase 39 — Telegram Trader Intelligence Productization
+
+### SAS-TTI-001: Product Frame And Buyer Promise
+
+Owner:      codex
+Phase:      39
+Type:       docs
+Depends-On: SAS-DR-022
+
+Objective: |
+  Reframe the sandbox as a buyer-readable Telegram Trader Intelligence product:
+  source hygiene, claim quality, narrative drift, risk-signal behavior, and
+  evidence-backed examples.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Product docs define the buyer promise without prediction, leaderboard, investment advice, or best-channel claims."
+    test: "manual/docs-review"
+  - id: AC-2
+    description: "The report surface separates evidence, interpretation, limitations, and operator verdict."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "Boundaries prohibit private Telegram scraping, paid API dependency before demand, and automated trading decisions."
+    test: "manual/docs-review"
+
+Files:
+  - docs/TELEGRAM_TRADER_INTELLIGENCE.md
+  - README.md
+  - docs/CODEX_PROMPT.md
+
+### SAS-TTI-002: Signal Analysis Receipt Schema
+
+Owner:      codex
+Phase:      39
+Type:       implementation
+Depends-On: SAS-TTI-001
+
+Objective: |
+  Define a machine-readable `signal_analysis_receipt` that records source
+  hashes, extracted claims, reviewer status, market-data references,
+  limitations, and report verdict.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Receipt schema records source ids, capture hashes, claim ids, extraction method, reviewer status, outcome references, and limitations."
+    test: "unit/schema"
+  - id: AC-2
+    description: "A fixture receipt can be validated and rejected when required evidence fields are missing."
+    test: "unit/schema"
+  - id: AC-3
+    description: "Receipt language avoids future-performance and advice claims."
+    test: "unit/schema"
+
+Files:
+  - src/signal_sandbox/receipts.py
+  - tests/unit/test_signal_analysis_receipt.py
+  - docs/TELEGRAM_TRADER_INTELLIGENCE.md
+
+### SAS-TTI-003: Referee Verdict Pack
+
+Owner:      codex
+Phase:      39
+Type:       implementation
+Depends-On: SAS-TTI-002
+
+Objective: |
+  Add a deterministic or human-reviewed referee verdict artifact that accepts,
+  rejects, or marks as insufficient each report claim and lens output.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Referee verdict schema supports accepted, rejected, insufficient, and needs-human-review states."
+    test: "unit/schema"
+  - id: AC-2
+    description: "Verdicts link to receipt ids and source evidence instead of trusting generated prose."
+    test: "unit/schema"
+  - id: AC-3
+    description: "Report generation can include referee verdict summaries."
+    test: "integration/report"
+
+Files:
+  - src/signal_sandbox/referee.py
+  - tests/unit/test_referee_verdict.py
+  - tests/integration/test_referee_report_summary.py
+
+### SAS-TTI-004: Diverse Analytical Lens Report Pack
+
+Owner:      codex
+Phase:      39
+Type:       product
+Depends-On: SAS-TTI-003
+
+Objective: |
+  Adapt the useful Gensyn-inspired pattern: generate several bounded analytical
+  lenses, preserve their evidence, and let the referee verdict decide what is
+  reportable.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "At least three lens types are defined, for example claim precision, narrative drift, risk posture, or source reliability."
+    test: "manual/docs-review"
+  - id: AC-2
+    description: "Each lens output must cite receipt evidence and cannot become report text unless accepted or human-approved."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "The pack states that distributed training, token incentives, and autonomous swarms are explicitly out of scope."
+    test: "manual/docs-review"
+
+Files:
+  - docs/TELEGRAM_TRADER_INTELLIGENCE.md
+  - docs/pilot/reports/
+
+### SAS-TTI-005: Productization Readiness Review
+
+Owner:      codex + operator
+Phase:      39
+Type:       review
+Depends-On: SAS-TTI-004
+
+Objective: |
+  Decide whether Telegram Trader Intelligence is ready for a buyer demo,
+  concierge pilot, or another evidence-hardening loop.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Review records buyer-demo readiness, evidence gaps, legal boundaries, product promise, and resume/stop criteria."
+    test: "manual/review"
+  - id: AC-2
+    description: "State docs point to the next task and do not open marketplace, leaderboard, advice, or private scraping scope."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "The review includes cost/friction notes for manual, semi-automated, and automated report production."
+    test: "manual/review"
+
+Files:
+  - docs/audit/TELEGRAM_TRADER_INTELLIGENCE_READINESS_REVIEW.md
+  - docs/CODEX_PROMPT.md
+  - README.md
 
 ---
 

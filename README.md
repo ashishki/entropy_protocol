@@ -1,7 +1,17 @@
 # Entropy Protocol
 
-Entropy Protocol is a product portfolio for governed trading research and trader
-discipline workflows.
+Entropy Protocol is now organized around two related lines:
+
+1. **Entropy Core** - a verification and responsibility kernel for AI actions,
+   decisions, evidence chains, and referee verdicts.
+2. **Telegram Trader Intelligence** - an applied product line for analyzing
+   Telegram trader channels, claims, narratives, source behavior, and risk
+   signals.
+
+See `docs/PROJECT_PLAN.md` for the current roadmap.
+
+The repository still contains product workspaces for governed trading research
+and trader discipline workflows.
 
 Current structure:
 
