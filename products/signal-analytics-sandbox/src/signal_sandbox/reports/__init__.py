@@ -14,7 +14,12 @@ from signal_sandbox.reports.author_market import (
 from signal_sandbox.reports.evidence_appendix import (
     EvidenceAppendix,
     EvidenceAppendixMetricRow,
+    PreclientEvidenceAppendix,
+    PreclientEvidenceAppendixRow,
+    PreclientEvidenceAppendixSummary,
+    build_preclient_evidence_appendix,
     render_evidence_appendix_markdown,
+    render_preclient_evidence_appendix_markdown,
 )
 from signal_sandbox.reports.safety import (
     ReportSafetyCategory,
@@ -50,6 +55,9 @@ __all__ = [
     "MissingReportProvenance",
     "OutcomeCategory",
     "OutcomeMetricRow",
+    "PreclientEvidenceAppendix",
+    "PreclientEvidenceAppendixRow",
+    "PreclientEvidenceAppendixSummary",
     "ReportSafetyCategory",
     "ReportSafetyFinding",
     "ReportSafetyResult",
@@ -59,11 +67,13 @@ __all__ = [
     "WordingCategory",
     "WordingFinding",
     "WordingRule",
+    "build_preclient_evidence_appendix",
     "check_report_language_safety",
     "find_forbidden_wording",
     "is_customer_safe_wording",
     "render_author_market_report",
     "render_evidence_appendix_markdown",
+    "render_preclient_evidence_appendix_markdown",
     "render_report_html_ready",
     "render_report_markdown",
 ]

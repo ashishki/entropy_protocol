@@ -240,19 +240,63 @@ Tasks:
 | SAS-NEXT-031 | Regression suite for known channels | golden tests | Known claims and metrics do not drift unexpectedly. |
 | SAS-NEXT-032 | Cost/time instrumentation | run metrics | Capture, review, market data, and report generation time/cost are measured. |
 
+### Phase 36 - Channel Impact Framework And Cross-Channel Completion
+
+Goal: перейти от "прибыль/убыток по сигналам" к широкой оценке импакта канала
+и применить одинаковый evidence loop к `bablos79`, `nemphiscrypts` и
+`pifagortrade`.
+
+Core idea:
+
+- dashboard должен показывать компактные базовые метрики и confidence;
+- paid deep report объясняет, почему канал так оценен, с evidence appendix;
+- PnL - только один слой, а не вся ценность канала;
+- trend sense, insight depth, methodology, risk management, practical
+  usefulness и creativity должны быть first-class criteria;
+- source of truth всегда разделяется на author statement, interpretation,
+  market outcome, and product conclusion.
+
+Tasks:
+
+| Task ID | Task | Output | Acceptance Criteria |
+|---|---|---|---|
+| SAS-IMPACT-001 | Impact rubric and truth model | `docs/specs/CHANNEL_IMPACT_FRAMEWORK.md` | PnL and non-PnL dimensions plus source-of-truth layers are explicit. |
+| SAS-IMPACT-002 | Cross-channel development loop | loop artifact | Same loop applies to `bablos79`, `nemphiscrypts`, `pifagortrade`. |
+| SAS-BABLOS-001..008 | `bablos79` completion path | per-channel artifacts | Text/audio/image gaps are closed or carried as blockers. |
+| SAS-IMPACT-003 | `nemphiscrypts` completion scope | scope artifact | Same corpus/media/truth loop is defined. |
+| SAS-IMPACT-004 | `pifagortrade` completion scope | scope artifact | Same corpus/media/truth loop is defined. |
+| SAS-IMPACT-005 | Impact claim taxonomy expansion | taxonomy spec | Trend/insight/methodology/risk/creativity are reviewed evidence types. |
+| SAS-IMPACT-006 | Dashboard score schema | score schema | Compact metrics, confidence, sample size, and gate are defined. |
+| SAS-IMPACT-007 | Paid deep report boundary | boundary spec | Dashboard vs paid evidence/report content is separated. |
+| SAS-IMPACT-008 | Cross-channel impact recompute and gate | scorecard + gate | Three-channel comparison is confidence-aware and no-advice. |
+
+Stop condition:
+
+- If source rows or media cannot be linked to public/operator-authorized
+  evidence, keep them as blockers; do not infer claims.
+- If a channel has useful qualitative evidence but few deterministic trade
+  signals, score it as confidence-limited instead of forcing PnL conclusions.
+
 ## 5. Recommended Execution Order
 
 Do not start with a big dashboard. The highest-signal order is:
 
-1. `SAS-NEXT-001..004` - external-ready review sprint.
-2. `SAS-NEXT-005..008` - review UI/workflow.
-3. `SAS-NEXT-013..016` - quant metrics V2.
-4. `SAS-NEXT-009..012` - provider/proxy expansion.
-5. `SAS-NEXT-021..024` - report productization.
-6. `SAS-NEXT-025..028` - buyer discovery and paid pilot.
-7. `SAS-NEXT-017..020` - multimodal expansion, unless buyer feedback proves
+1. `SAS-IMPACT-001..002` - lock impact criteria, truth model, and dev loop.
+2. `SAS-BABLOS-001..008` - finish the `bablos79` evidence gap before using it
+   as a long-period multimodal example.
+3. `SAS-IMPACT-003..004` - apply the same completion scope to the other two
+   channels.
+4. `SAS-IMPACT-005..008` - taxonomy, dashboard schema, paid boundary, and
+   cross-channel recompute/gate.
+5. `SAS-NEXT-001..004` - external-ready review sprint.
+6. `SAS-NEXT-005..008` - review UI/workflow.
+7. `SAS-NEXT-013..016` - quant metrics V2.
+8. `SAS-NEXT-009..012` - provider/proxy expansion.
+9. `SAS-NEXT-021..024` - report productization.
+10. `SAS-NEXT-025..028` - buyer discovery and paid pilot.
+11. `SAS-NEXT-017..020` - multimodal expansion, unless buyer feedback proves
    media is urgent earlier.
-8. `SAS-NEXT-029..032` - reliability/scaling.
+12. `SAS-NEXT-029..032` - reliability/scaling.
 
 Reasoning:
 
@@ -346,15 +390,71 @@ Product success:
 
 ## 9. Current Recommendation
 
-Start with Phase 28, not with dashboard or marketplace.
+Phase 37 pre-client artifact hardening is complete. The review decision is
+`continue_internal_hardening`, so start Phase 38 client-readiness evidence
+acceptance before any buyer outreach, paid delivery, private-channel analysis,
+or marketplace scope.
 
-The next best task is:
+Current next task is:
 
-`SAS-NEXT-001 Full-corpus human review queue`
+Phase 38 - Client-Readiness Evidence Acceptance.
 
 Why:
 
-- current gate is blocked mostly by review coverage;
-- review coverage improves trust faster than new UI polish;
-- full review gives the data needed for better extractor precision/recall;
-- it directly supports a paid pilot report.
+- `SAS-IMPACT-001..002` already define the framework and cross-channel loop;
+- `SAS-BABLOS-003..008` completed the `bablos79` Phase 36 pass as
+  internal-only: 0 human/operator accepted transcripts, 0 OCR drafts,
+  0 accepted media claims, 0 computed outcomes;
+- `SAS-IMPACT-003..004` applied the same corpus/media/truth completion scope to
+  `nemphiscrypts` and `pifagortrade`;
+- `SAS-IMPACT-005..008` added taxonomy, dashboard score schema, paid boundary,
+  three-channel scorecard, external gate, and deep review;
+- two-month multimodal and media-reviewer runs now provide enough internal
+  evidence to build reliable artifacts before customer outreach;
+- Phase 37 produced internal artifacts and a safety gate, but still has
+  0 operator-accepted media claims, 0 dashboard-safe RR rows, and
+  0 market-outcome recomputed candidates.
+
+### Phase 37 - Pre-Client Artifact Hardening
+
+Goal: produce reliable internal artifacts for a free dashboard and paid deep
+report workflow before talking to clients. This phase includes only work the AI
+development loop can do itself with public/operator-authorized evidence and
+existing model-review outputs.
+
+Tasks:
+
+| Task ID | Task | Output | Acceptance Criteria |
+|---|---|---|---|
+| SAS-PRECLIENT-001 | Product artifact contract and reliability bar | `docs/specs/PRECLIENT_ARTIFACT_CONTRACT.md` | Artifact list, reliability states, audience boundary, and review gates are explicit. |
+| SAS-PRECLIENT-002 | Model-reviewed candidate review packet | `docs/pilot/preclient_MODEL_REVIEW_PACKET.md/json` | 9 arbiter-accepted rows and mass-accepted rows are source-linked and queued for operator action. |
+| SAS-PRECLIENT-003 | Evidence appendix builder | `preclient_EVIDENCE_APPENDIX.md/json` | Text/media/review/outcome refs are traceable by channel without raw media bytes. |
+| SAS-PRECLIENT-004 | Free dashboard card dataset | `preclient_FREE_DASHBOARD_CARDS.md/json` | One safe summary card per channel with strengths, weaknesses, confidence, and gate status. |
+| SAS-PRECLIENT-005 | Per-channel internal deep reports | `reports/preclient/*_DEEP_REPORT_V0.md` | Three channel reports cite evidence, strengths, weaknesses, examples, blockers, and internal gate. |
+| SAS-PRECLIENT-006 | Paid-style demo report | `PAID_STYLE_DEMO_REPORT.md` | One polished internal demo report shows the product promise without external approval. |
+| SAS-PRECLIENT-007 | Candidate outcome/RR recompute | `preclient_CANDIDATE_OUTCOMES.md/json` | Review candidates are evaluated or explicitly blocked by fields/provider/post-factum/media status. |
+| SAS-PRECLIENT-008 | Static free dashboard prototype | `preclient_dashboard/index.html` | Internal static dashboard renders the free cards, no ranking or advice. |
+| SAS-PRECLIENT-009 | Artifact safety gate | `preclient_ARTIFACT_SAFETY_GATE.md/json` | Dashboard-safe, paid-report-only, internal-only, and blocked fields are decided. |
+| SAS-PRECLIENT-010 | Phase 37 deep review | `docs/archive/PHASE37_PRECLIENT_REVIEW.md` | Decide proceed to client discovery, continue hardening, or pivot scope. |
+
+Definition of done:
+
+- every claim in a report/card traces to evidence or an explicit blocker;
+- model-reviewed media is not customer-facing until human/operator accepted;
+- no dashboard/report text implies investment advice, future returns, ranking,
+  or private-source access;
+- the safety gate says exactly what can be shown in first buyer conversations.
+
+### Phase 38 - Client-Readiness Evidence Acceptance
+
+Goal: turn the Phase 37 internal artifact stack into a defensible buyer-demo
+candidate without starting outreach yet.
+
+Tasks:
+
+| Task ID | Task | Output | Acceptance Criteria |
+|---|---|---|---|
+| SAS-CLIENTREADY-001 | Operator media acceptance ledger | `clientready_OPERATOR_MEDIA_LEDGER.md/json` | 9 model-reviewed candidates receive operator accepted/rejected/needs-context/post-factum decisions. |
+| SAS-CLIENTREADY-002 | Accepted candidate RR/outcome recompute | `clientready_ACCEPTED_OUTCOMES.md/json` | Only operator-accepted sufficient rows are recomputed through approved public providers. |
+| SAS-CLIENTREADY-003 | Redacted buyer demo subset | `clientready_REDACTED_BUYER_DEMO.md/json` | A compact showable candidate excludes full appendix/raw media and forbidden language. |
+| SAS-CLIENTREADY-004 | Discovery gate and success criteria | `clientready_DISCOVERY_GATE.md/json` | Decide ready_for_discovery, continue_internal_hardening, or pivot_scope before outreach. |

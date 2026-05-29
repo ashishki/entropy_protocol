@@ -1,102 +1,84 @@
 # CODEX_PROMPT.md - Signal Analytics Sandbox
 
-Version: 3.01
-Date: 2026-05-19
-Phase: 35
-
+Version: 3.05
+Date: 2026-05-23
+Phase: 38
 Compact restart state only. Detailed history lives in
 `docs/IMPLEMENTATION_JOURNAL.md`, `docs/archive/`, and `docs/tasks.md`.
 
 ## Current State
 
-- Phase: 35 (Reliability And Scaling)
-- Baseline: 295 passing tests, 0 skipped
+- Phase: 38 (Client-Readiness Evidence Acceptance)
+- Baseline: 362 pass / 0 skip
 - Ruff: `ruff check src/ tests/ scripts/` passes
 - Format: `ruff format --check src/ tests/ scripts/` passes
-- Pyright: `pyright` passes
-- Latest completed: `SAS-NEXT-032 Cost And Time Instrumentation`
+- Pyright: `.venv/bin/pyright` passes
+- Latest completed: `SAS-PRECLIENT-010 Phase 37 Deep Review And Client-Readiness Decision`
+- Phase 37 decision: `continue_internal_hardening`
+- Engineering Phase 1 (T01+) may begin.
+- | SAS-001: Paid Pilot Demand Validation | acknowledged |
+- | SAS-002: Public-Source Legal/Terms Memo | acknowledged |
 - External gate: `approve_internal_only`
 - External delivery: not approved
-- Current priority: await operator review or next roadmap expansion
-
-## Phase 0 Gate Status
-
-- SAS-001/SAS-002 are complete and acknowledged.
-- Engineering Phase 1 (T01+) may begin.
-
-| Gate | Status |
-| --- | --- |
-| SAS-001: Paid Pilot Demand Validation | acknowledged |
-| SAS-002: Public-Source Legal/Terms Memo | acknowledged |
+- Current priority: operator acceptance, accepted-row recompute, and redacted
+  demo readiness before buyer outreach.
 
 ## Next Task
 
-No active `SAS-NEXT` task remains in the current roadmap.
+Active route: Phase 38 client-readiness evidence acceptance.
 
-- `SAS-NEXT-001..032` are complete.
-- Next work requires operator/product decision on external gate, pilots, or new
-  roadmap scope.
+- Two-month source window `2026-03-22..2026-05-22`: 526 text rows,
+  37 normalized claims, 28 7d evaluable, 19 confirmed, 9 contradicted.
+- Multimodal pass: 570 public posts, 295 media refs, 70 voice transcripts,
+  185 image/OCR drafts, 40 video/manual blockers, 1 internal RR-ready draft.
+- Media reviewer pass: `gpt-4.1-mini` reviewed 255 drafts; `gpt-4.1`
+  arbitrated 35 high-signal rows and accepted 9 internal candidates.
+- Phase 37 produced contract, model packet, 301-row appendix, dashboard cards,
+  internal reports, paid-style demo, candidate outcomes, static dashboard,
+  safety gate, and deep review.
+- Phase 37 review says the package is a valid internal diligence baseline, not
+  a client-valid product. Buyer conversations remain blocked.
+- Next task: `SAS-CLIENTREADY-001` operator media acceptance ledger.
 
-1. `docs/AI_DEVELOPMENT_PLAN_RU.md`
-2. `docs/tasks.md` Phase 35
-3. `docs/pilot/three_channel_V1_METRIC_RESULTS.json`
-4. `docs/pilot/reports/three_channel_V1_REPORT_LANGUAGE_SAFETY.json`
-5. `docs/pilot/three_channel_V1_EXTERNAL_READY_GATE.md`
-6. `docs/archive/PHASE27_REVIEW.md`
+Read first: `docs/tasks.md` Phase 38,
+`docs/archive/PHASE37_PRECLIENT_REVIEW.md`,
+`docs/pilot/preclient_MODEL_REVIEW_PACKET.md`,
+`docs/pilot/preclient_ARTIFACT_SAFETY_GATE.md`.
 
 Supporting cross-product cognition vault on this VPS:
 `/srv/codex-entropy/repos/product-3/engineering-cognition-vault/10-projects/entropy-protocol.md`.
 Product-local docs remain authoritative.
 
-## Canonical V1 Artifacts
+## Canonical Artifacts
 
-- V1 approval matrix: `docs/pilot/three_channel_V1_APPROVAL_MATRIX.md`
-- V1 extraction review: `docs/pilot/three_channel_V1_EXTRACTION_REVIEW.md`
-- V1 extractor calibration: `docs/pilot/three_channel_V1_EXTRACTOR_CALIBRATION.md`
-- V1 metrics:
-  `docs/pilot/three_channel_V1_METRIC_RESULTS.json`
-- V1 scorecard:
-  `docs/pilot/three_channel_V1_SCORECARD.md`
-- V1 report:
-  `docs/pilot/reports/three_channel_V1_CHANNEL_UTILITY_REPORT.md`
-- V1 external gate:
-  `docs/pilot/three_channel_V1_EXTERNAL_READY_GATE.md`
-- Full review queue:
-  `docs/pilot/three_channel_FULL_REVIEW_QUEUE.json`
-- False-negative pass:
-  `docs/pilot/three_channel_FALSE_NEGATIVE_PASS.json`
-- Report language safety:
-  `docs/pilot/reports/three_channel_V1_REPORT_LANGUAGE_SAFETY.json`
+- Phase 37 review: `docs/archive/PHASE37_PRECLIENT_REVIEW.md`
+- Pre-client contract: `docs/specs/PRECLIENT_ARTIFACT_CONTRACT.md`
+- Pre-client model packet: `docs/pilot/preclient_MODEL_REVIEW_PACKET.md`
+- Pre-client evidence appendix: `docs/pilot/preclient_EVIDENCE_APPENDIX.md`
+- Pre-client dashboard cards: `docs/pilot/preclient_FREE_DASHBOARD_CARDS.md`
+- Pre-client candidate outcomes: `docs/pilot/preclient_CANDIDATE_OUTCOMES.md`
+- Pre-client dashboard: `docs/pilot/preclient_dashboard/index.html`
+- Pre-client safety gate: `docs/pilot/preclient_ARTIFACT_SAFETY_GATE.md`
+- Pre-client reports: `docs/pilot/reports/preclient/`
+- Two-month multimodal run: `docs/pilot/three_channel_MULTIMODAL_RESEARCH_REPORT.md`
+- Media reviewer run: `docs/pilot/three_channel_MEDIA_REVIEW_REPORT.md`
+
 ## Key Product Facts
 
-- Internal V1 validation is complete.
 - V1 evaluable claims: `bablos79` 14, `nemphiscrypts` 49, `pifagortrade` 107.
-- Current gate decision is `approve_internal_only`.
-- Full queue rows: 1710 total; 172 included claim rows, 1534 source text rows,
-  5 pending false negatives, 233 provider-gap tagged rows, 4 media blockers.
-- False-negative pass: 5 reviewed, 3 extracted drafts, 2 needs_context,
-  0 scoreable now.
-- Report language safety: pass, 0 findings.
-- Benchmark-relative outcomes: implemented with missing-benchmark exclusion.
-- Run metrics record step durations, provider calls, cache hits, estimated
-  cost, deterministic totals, and metrics hash.
-- Main blockers: missing durable operator decisions, provider/media gaps,
-  sparse setup/RR.
+- Safety gate covers 14 artifacts, 0 forbidden phrase findings, 0 showable now.
+- Model packet has 9 internal candidates and 0 customer-facing rows.
+- Candidate outcomes: 4 insufficient fields, 4 post-factum-only, 1 provider gap,
+  1 internal RR recompute, 0 market outcomes recomputed.
+- Main blockers: 0 operator-accepted media claims, 0 dashboard-safe RR rows,
+  0 market-outcome recomputed candidates.
 
 ## Active Guardrails
 
 - Public/operator-authorized sources only.
-- No private Telegram scraping, login bypass, paywalled bypass, advice,
-  future-profit claims, unsupported ranking, marketplace framing, or Core work.
+- No private scraping, access-control bypass, advice, future-profit claims,
+  unsupported ranking, marketplace framing, payment flow, or private-source
+  promise.
 - Unsupported providers/proxies are exclusions, not wins/losses.
 - Unreviewed transcript/OCR/chart claims stay out of customer-facing metrics.
-- Every customer-facing report requires an explicit external-ready gate.
-
-## Validation Commands
-
-```bash
-.venv/bin/python -m pytest tests/ -q
-.venv/bin/ruff check src/ tests/ scripts/
-.venv/bin/ruff format --check src/ tests/ scripts/
-.venv/bin/pyright
-```
+- Every buyer-facing artifact requires an explicit gate.

@@ -35,6 +35,7 @@ _Append-only. One row per review cycle._
 | 25 | Phase 25 | 2026-05-15 | SAS-DR-018-SAS-DR-022 | No | 0 | 0 | 0 |
 | 26 | Phase 26 | 2026-05-19 | SAS-ER-000-SAS-ER-006 | No | 0 | 0 | 0 |
 | 27 | Phase 27 | 2026-05-19 | SAS-V1-001-SAS-V1-009 | No | 0 | 0 | 0 |
+| 28 | Phase 37 | 2026-05-23 | SAS-PRECLIENT-001-SAS-PRECLIENT-010 | No | 0 | 0 | 0 |
 
 ---
 
@@ -69,6 +70,7 @@ _Append-only. One row per review cycle._
 | 25 | `docs/archive/PHASE25_RETROSPECTIVE_REVIEW.md` | Phase 25 | OK |
 | 26 | `docs/archive/PHASE26_REVIEW.md` | Phase 26 | OK |
 | 27 | `docs/archive/PHASE27_REVIEW.md` | Phase 27 | OK |
+| 28 | `docs/archive/PHASE37_PRECLIENT_REVIEW.md` | Phase 37 | OK |
 
 ---
 

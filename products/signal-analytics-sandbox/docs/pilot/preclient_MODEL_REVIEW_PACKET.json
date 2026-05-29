@@ -1,0 +1,686 @@
+{
+  "summary": {
+    "artifact_id": "preclient-model-review-packet",
+    "generated_at_utc": "2026-05-23T13:24:09Z",
+    "status": "internal_operator_review_packet",
+    "input_artifacts": {
+      "media_review_results": "docs/pilot/three_channel_MEDIA_REVIEW_RESULTS.json",
+      "rr_drafts": "docs/pilot/three_channel_MULTIMODAL_RR_DRAFTS.json",
+      "processing_queue": "docs/pilot/three_channel_MULTIMODAL_PROCESSING_QUEUE.json"
+    },
+    "totals": {
+      "unique_packet_rows": 9,
+      "arbiter_accepted_rows": 9,
+      "mass_accepted_rows": 1,
+      "customer_facing_rows": 0
+    },
+    "by_channel": {
+      "bablos79": 1,
+      "nemphiscrypts": 1,
+      "pifagortrade": 7
+    },
+    "required_operator_actions": {
+      "operator_review_for_setup_acceptance_and_market_recompute": 3,
+      "operator_review_missing_setup_fields": 2,
+      "operator_mark_post_factum_or_reject_as_predictive_signal": 4
+    }
+  },
+  "review_packet": [
+    {
+      "packet_id": "preclient_review_c63bba8122eaa5be",
+      "source_id": "bablos79",
+      "post_id": 10450,
+      "source_document_id": "bablos79:bablos79-10450",
+      "source_url": "https://t.me/bablos79/10450",
+      "media_ref_id": "media_e9e8f323bcc1fc05",
+      "modality": "image",
+      "artifact_path": "docs/pilot/multimodal/ocr/media_e9e8f323bcc1fc05.json",
+      "mass_review": {
+        "present": true,
+        "model": "gpt-4.1-mini",
+        "decision": "needs_human_review",
+        "evidence_types": [
+          "directional_thesis",
+          "explicit_trade_setup"
+        ],
+        "confidence": 0.6,
+        "usefulness_score": 3,
+        "summary": "Представлен короткий торговый сигнал по MAGN с уровнями входа, стопа и цели, но отсутствует размер позиции и контекст."
+      },
+      "arbiter_review": {
+        "present": true,
+        "model": "gpt-4.1",
+        "decision": "accept_internal_claim_candidate",
+        "evidence_types": [
+          "directional_thesis",
+          "explicit_trade_setup"
+        ],
+        "confidence": 0.6,
+        "usefulness_score": 3,
+        "summary": "Короткий сигнал по MAGN с уровнями входа, стопа и цели, но без размера позиции и дополнительного контекста."
+      },
+      "selected_evidence_types": [
+        "directional_thesis",
+        "explicit_trade_setup"
+      ],
+      "selected_assets": [
+        "MAGN-6.26 MMK"
+      ],
+      "selected_direction": "short",
+      "setup_fields": {
+        "entry": "28400.00",
+        "stop": "28600.00",
+        "targets": [
+          "26364.00"
+        ],
+        "position_size": null,
+        "explicit_rr": null,
+        "deterministic_computed_rr": "10.180000",
+        "deterministic_rr_status": "rr_ready_internal_draft"
+      },
+      "deterministic_rr_blockers": [
+        "position_size_missing",
+        "media_review_required_before_customer_metrics"
+      ],
+      "media_extracted_text_excerpt": "```json { \"visible_text\": \"MAGN-6.26 MMK\\n26 364 п.\\n-32 пт. 0,12%\", \"assets\": \"MAGN-6.26 MMK\", \"directions\": \"Sell\", \"entry\": \"28400.00\", \"stop\": \"28600.00\", \"targets\": \"26364.00\", \"position_size\": null, \"explicit_rr\": null, \"timeframe\": null, \"risk_notes\": null, \"uncertainty\": \"Levels and additional context are not specified.\" } ```",
+      "required_operator_action": "operator_review_for_setup_acceptance_and_market_recompute",
+      "customer_facing_status": "blocked_pending_human_operator_review",
+      "reliability_status": "model_reviewed",
+      "blocked_from_customer_metrics": true,
+      "blockers": [
+        "human_operator_review_required",
+        "media_review_required_before_customer_metrics",
+        "position_size_missing"
+      ]
+    },
+    {
+      "packet_id": "preclient_review_255bdeb565b7232f",
+      "source_id": "nemphiscrypts",
+      "post_id": 3958,
+      "source_document_id": "nemphiscrypts:nemphiscrypts-3958",
+      "source_url": "https://t.me/nemphiscrypts/3958",
+      "media_ref_id": "media_e9f1f06450c91ac8",
+      "modality": "image",
+      "artifact_path": "docs/pilot/multimodal/ocr/media_e9f1f06450c91ac8.json",
+      "mass_review": {
+        "present": true,
+        "model": "gpt-4.1-mini",
+        "decision": "needs_human_review",
+        "evidence_types": [
+          "explicit_trade_setup",
+          "directional_thesis"
+        ],
+        "confidence": 0.6,
+        "usefulness_score": 3,
+        "summary": "Пост содержит торговую идею по CHZ-PERP с указанием направления лонг, уровней входа и стопа, но отсутствуют цели и размер позиции, что требует дополнительной проверки."
+      },
+      "arbiter_review": {
+        "present": true,
+        "model": "gpt-4.1",
+        "decision": "accept_internal_claim_candidate",
+        "evidence_types": [
+          "directional_thesis",
+          "explicit_trade_setup"
+        ],
+        "confidence": 0.6,
+        "usefulness_score": 3,
+        "summary": "Пост содержит идею свинг-лонга по CHZ-PERP с явными уровнями входа и стопа, но без целей и размера позиции."
+      },
+      "selected_evidence_types": [
+        "directional_thesis",
+        "explicit_trade_setup"
+      ],
+      "selected_assets": [
+        "CHZ-PERP"
+      ],
+      "selected_direction": "long",
+      "setup_fields": {
+        "entry": "0.301501",
+        "stop": "0.294100",
+        "targets": [],
+        "position_size": null,
+        "explicit_rr": "119.62%",
+        "deterministic_computed_rr": null,
+        "deterministic_rr_status": "rr_blocked"
+      },
+      "deterministic_rr_blockers": [
+        "missing_supported_asset",
+        "missing_single_direction",
+        "missing_target",
+        "position_size_missing",
+        "media_review_required_before_customer_metrics"
+      ],
+      "media_extracted_text_excerpt": "```json { \"visible_text\": \"свингер лонг по chz думаю норм вых...\", \"assets\": [\"CHZ-PERP\"], \"directions\": [\"long\"], \"entry\": \"0.301501\", \"stop\": \"0.294100\", \"targets\": [], \"position_size\": null, \"explicit_rr\": \"119.62%\", \"timeframe\": null, \"risk_notes\": null, \"uncertainty\": [\"29 марта\", \"другие уровни на графике\"] } ```",
+      "required_operator_action": "operator_review_missing_setup_fields",
+      "customer_facing_status": "blocked_pending_human_operator_review",
+      "reliability_status": "model_reviewed",
+      "blocked_from_customer_metrics": true,
+      "blockers": [
+        "human_operator_review_required",
+        "media_review_required_before_customer_metrics",
+        "missing_single_direction",
+        "missing_supported_asset",
+        "missing_target",
+        "position_size_missing"
+      ]
+    },
+    {
+      "packet_id": "preclient_review_ae2cb2e5a5764148",
+      "source_id": "pifagortrade",
+      "post_id": 3214,
+      "source_document_id": "pifagortrade:pifagortrade-3214",
+      "source_url": "https://t.me/pifagortrade/3214",
+      "media_ref_id": "media_7da0e6e8258fbe51",
+      "modality": "image",
+      "artifact_path": "docs/pilot/multimodal/ocr/media_7da0e6e8258fbe51.json",
+      "mass_review": {
+        "present": true,
+        "model": "gpt-4.1-mini",
+        "decision": "needs_human_review",
+        "evidence_types": [
+          "explicit_trade_setup",
+          "risk_management",
+          "position_management"
+        ],
+        "confidence": 0.7,
+        "usefulness_score": 3,
+        "summary": "Представлена короткая позиция по BTC с входом, стопом и позицией, но отсутствуют явные цели тейк-профита, что требует дополнительной проверки."
+      },
+      "arbiter_review": {
+        "present": true,
+        "model": "gpt-4.1",
+        "decision": "accept_internal_claim_candidate",
+        "evidence_types": [
+          "explicit_trade_setup",
+          "risk_management",
+          "position_management"
+        ],
+        "confidence": 0.8,
+        "usefulness_score": 3,
+        "summary": "Короткая позиция по BTC: вход 74266.15, стоп 72000, размер 4.1, ROI 30.51%. Явных целей тейк-профита нет."
+      },
+      "selected_evidence_types": [
+        "explicit_trade_setup",
+        "risk_management",
+        "position_management"
+      ],
+      "selected_assets": [
+        "BTC",
+        "USDT"
+      ],
+      "selected_direction": "short",
+      "setup_fields": {
+        "entry": "74266.15",
+        "stop": "72000",
+        "targets": [],
+        "position_size": "4.1",
+        "explicit_rr": "30.51",
+        "deterministic_computed_rr": null,
+        "deterministic_rr_status": "rr_blocked"
+      },
+      "deterministic_rr_blockers": [
+        "missing_target",
+        "position_size_missing",
+        "media_review_required_before_customer_metrics"
+      ],
+      "media_extracted_text_excerpt": "```json { \"visible_text\": \"TP/SL Закрытие по MMR\\nЦена входа 74,266.15\\nРын. Цена 66,441.5\\nЦена ликвидации 98,210.7\\nSL (no ROI)\\nтриггер. Цена 72,000\\nROI 30.51%\\nПо достижению Рын. Цена 72,000 USDT,\\nРынок ордер\\n9,921.215 USDT (ROI 30.51%)\", \"assets\": [\"BTC\", \"USDT\"], \"directions\": \"Short\", \"entry\": 74266.15, \"stop\": 72000, \"targets\": [], \"position_size\": 4.1, \"explicit_rr\": 30.51, \"timeframe\": \"\", \"risk_notes\": \"\", \"uncertainty\": \"Цена ликвидации 98,210.7\" } ```",
+      "required_operator_action": "operator_review_missing_setup_fields",
+      "customer_facing_status": "blocked_pending_human_operator_review",
+      "reliability_status": "model_reviewed",
+      "blocked_from_customer_metrics": true,
+      "blockers": [
+        "human_operator_review_required",
+        "media_review_required_before_customer_metrics",
+        "missing_target",
+        "position_size_missing"
+      ]
+    },
+    {
+      "packet_id": "preclient_review_a455e83ca963c546",
+      "source_id": "pifagortrade",
+      "post_id": 3218,
+      "source_document_id": "pifagortrade:pifagortrade-3218",
+      "source_url": "https://t.me/pifagortrade/3218",
+      "media_ref_id": "media_02da8ff67638711a",
+      "modality": "image",
+      "artifact_path": "docs/pilot/multimodal/ocr/media_02da8ff67638711a.json",
+      "mass_review": {
+        "present": true,
+        "model": "gpt-4.1-mini",
+        "decision": "needs_human_review",
+        "evidence_types": [
+          "directional_thesis",
+          "explicit_trade_setup"
+        ],
+        "confidence": 0.4,
+        "usefulness_score": 3,
+        "summary": "Представлен бычий торговый сетап по Bitcoin с уровнями входа, стопа и целями, но отсутствуют данные по размеру позиции и расчету риска/прибыли."
+      },
+      "arbiter_review": {
+        "present": true,
+        "model": "gpt-4.1",
+        "decision": "accept_internal_claim_candidate",
+        "evidence_types": [
+          "directional_thesis",
+          "explicit_trade_setup"
+        ],
+        "confidence": 0.4,
+        "usefulness_score": 3,
+        "summary": "Бычий сетап по Bitcoin с уровнями входа, стопа и целями, но нет размера позиции и расчёта риска/прибыли."
+      },
+      "selected_evidence_types": [
+        "directional_thesis",
+        "explicit_trade_setup"
+      ],
+      "selected_assets": [
+        "Bitcoin"
+      ],
+      "selected_direction": "long",
+      "setup_fields": {
+        "entry": "0.5",
+        "stop": "0.618",
+        "targets": [
+          "76.581",
+          "80.465",
+          "84.173"
+        ],
+        "position_size": null,
+        "explicit_rr": null,
+        "deterministic_computed_rr": null,
+        "deterministic_rr_status": "rr_blocked"
+      },
+      "deterministic_rr_blockers": [
+        "missing_supported_asset",
+        "position_size_missing",
+        "rr_not_computable",
+        "media_review_required_before_customer_metrics"
+      ],
+      "media_extracted_text_excerpt": "```json { \"visible_text\": \"0.618, 0.5, 0.382, 0.236, 0.618, 76.581, 80.465, 84.173\", \"assets\": \"Bitcoin\", \"directions\": \"Bullish\", \"entry\": \"0.5\", \"stop\": \"0.618\", \"targets\": [\"76.581\", \"80.465\", \"84.173\"], \"position_size\": \"Not specified\", \"explicit_rr\": \"Not specified\", \"timeframe\": \"1H\", \"risk_notes\": \"Not specified\", \"uncertainty\": \"Levels are visual-only\" } ```",
+      "required_operator_action": "operator_review_for_setup_acceptance_and_market_recompute",
+      "customer_facing_status": "blocked_pending_human_operator_review",
+      "reliability_status": "model_reviewed",
+      "blocked_from_customer_metrics": true,
+      "blockers": [
+        "human_operator_review_required",
+        "media_review_required_before_customer_metrics",
+        "missing_supported_asset",
+        "position_size_missing",
+        "rr_not_computable"
+      ]
+    },
+    {
+      "packet_id": "preclient_review_d4b4859bb5a9d826",
+      "source_id": "pifagortrade",
+      "post_id": 3225,
+      "source_document_id": "pifagortrade:pifagortrade-3225",
+      "source_url": "https://t.me/pifagortrade/3225",
+      "media_ref_id": "media_fd918bae3d526228",
+      "modality": "image",
+      "artifact_path": "docs/pilot/multimodal/ocr/media_fd918bae3d526228.json",
+      "mass_review": {
+        "present": true,
+        "model": "gpt-4.1-mini",
+        "decision": "accept_internal_claim_candidate",
+        "evidence_types": [
+          "post_factum",
+          "position_management",
+          "risk_management"
+        ],
+        "confidence": 0.8,
+        "usefulness_score": 4,
+        "summary": "Закрытие лонг позиции по BTCUSDT с прибылью и указанием комиссий."
+      },
+      "arbiter_review": {
+        "present": true,
+        "model": "gpt-4.1",
+        "decision": "accept_internal_claim_candidate",
+        "evidence_types": [
+          "post_factum",
+          "position_management",
+          "risk_management"
+        ],
+        "confidence": 0.9,
+        "usefulness_score": 4,
+        "summary": "Закрытие лонг позиции по BTCUSDT с прибылью, указаны комиссии и параметры сделки."
+      },
+      "selected_evidence_types": [
+        "post_factum",
+        "position_management",
+        "risk_management"
+      ],
+      "selected_assets": [
+        "BTCUSDT"
+      ],
+      "selected_direction": "long",
+      "setup_fields": {
+        "entry": "66930.24",
+        "stop": "67724.000000",
+        "targets": [
+          "67.724000"
+        ],
+        "position_size": "1.0",
+        "explicit_rr": null,
+        "deterministic_computed_rr": null,
+        "deterministic_rr_status": "rr_blocked"
+      },
+      "deterministic_rr_blockers": [
+        "missing_supported_asset",
+        "missing_single_direction",
+        "missing_entry",
+        "position_size_missing",
+        "rr_not_computable",
+        "media_review_required_before_customer_metrics"
+      ],
+      "media_extracted_text_excerpt": "```json { \"visible_text\": \"BTCUSDT Закрыть Лонг 2026-04-08 08:49:35 Закрытый P&L(USDT) 4,675.9009\", \"assets\": \"BTCUSDT\", \"directions\": \"Long\", \"entry\": 66930.24, \"stop\": null, \"targets\": null, \"position_size\": 1.0, \"explicit_rr\": null, \"timeframe\": \"2026-04-08 08:49:35\", \"risk_notes\": { \"open_commission\": 23.42558659, \"close_commission\": 25.0838572, \"financing_commission\": 13.5868436 }, \"uncertainty\": \"Тип исполнения\" } ```",
+      "required_operator_action": "operator_mark_post_factum_or_reject_as_predictive_signal",
+      "customer_facing_status": "blocked_pending_human_operator_review",
+      "reliability_status": "model_reviewed",
+      "blocked_from_customer_metrics": true,
+      "blockers": [
+        "human_operator_review_required",
+        "media_review_required_before_customer_metrics",
+        "missing_entry",
+        "missing_single_direction",
+        "missing_supported_asset",
+        "position_size_missing",
+        "rr_not_computable"
+      ]
+    },
+    {
+      "packet_id": "preclient_review_71ddaf6e3e7f8e6c",
+      "source_id": "pifagortrade",
+      "post_id": 3234,
+      "source_document_id": "pifagortrade:pifagortrade-3234",
+      "source_url": "https://t.me/pifagortrade/3234",
+      "media_ref_id": "media_0789aec157c1fe81",
+      "modality": "image",
+      "artifact_path": "docs/pilot/multimodal/ocr/media_0789aec157c1fe81.json",
+      "mass_review": {
+        "present": true,
+        "model": "gpt-4.1-mini",
+        "decision": "needs_human_review",
+        "evidence_types": [
+          "directional_thesis",
+          "explicit_trade_setup",
+          "risk_management"
+        ],
+        "confidence": 0.5,
+        "usefulness_score": 3,
+        "summary": "Прогноз по BTC/USD с рекомендацией на покупку выше 74371, стоп на 66200, цели 69000 и 78000. Отсутствует размер позиции и расчет отношения риск/прибыль, требуется проверка человеком."
+      },
+      "arbiter_review": {
+        "present": true,
+        "model": "gpt-4.1",
+        "decision": "accept_internal_claim_candidate",
+        "evidence_types": [
+          "directional_thesis",
+          "explicit_trade_setup",
+          "risk_management"
+        ],
+        "confidence": 0.5,
+        "usefulness_score": 3,
+        "summary": "Прогноз по BTC/USD: покупка выше 74371, стоп 66200, цели 69000 и 78000. Нет размера позиции и явного отношения риск/прибыль."
+      },
+      "selected_evidence_types": [
+        "directional_thesis",
+        "explicit_trade_setup",
+        "risk_management"
+      ],
+      "selected_assets": [
+        "BTC/USD"
+      ],
+      "selected_direction": "long",
+      "setup_fields": {
+        "entry": "74371",
+        "stop": "66 200",
+        "targets": [
+          "69 000",
+          "78 000"
+        ],
+        "position_size": null,
+        "explicit_rr": null,
+        "deterministic_computed_rr": null,
+        "deterministic_rr_status": "rr_blocked"
+      },
+      "deterministic_rr_blockers": [
+        "position_size_missing",
+        "rr_not_computable",
+        "media_review_required_before_customer_metrics"
+      ],
+      "media_extracted_text_excerpt": "```json { \"visible_text\": \"Биткойн / Доллар США\\n74371\\nBUY MORE\\nTrap line\\nTrader 01\\nPifagor Mfi 3.2\\nPifagor histogramm R/S/M\", \"assets\": [\"BTC/USD\"], \"directions\": [\"BUY MORE\"], \"entry\": \"74371\", \"stop\": \"66 200\", \"targets\": [\"69 000\", \"78 000\"], \"position_size\": null, \"explicit_rr\": null, \"timeframe\": \"1D\", \"risk_notes\": null, \"uncertainty\": [\"Trap line\", \"Global mini\", \"Pifagor_ALTS 3.5 strat\", \"div\"] } ```",
+      "required_operator_action": "operator_review_for_setup_acceptance_and_market_recompute",
+      "customer_facing_status": "blocked_pending_human_operator_review",
+      "reliability_status": "model_reviewed",
+      "blocked_from_customer_metrics": true,
+      "blockers": [
+        "human_operator_review_required",
+        "media_review_required_before_customer_metrics",
+        "position_size_missing",
+        "rr_not_computable"
+      ]
+    },
+    {
+      "packet_id": "preclient_review_a11fba0b94b7e154",
+      "source_id": "pifagortrade",
+      "post_id": 3264,
+      "source_document_id": "pifagortrade:pifagortrade-3264",
+      "source_url": "https://t.me/pifagortrade/3264",
+      "media_ref_id": "media_0dfbaaf12df17450",
+      "modality": "image",
+      "artifact_path": "docs/pilot/multimodal/ocr/media_0dfbaaf12df17450.json",
+      "mass_review": {
+        "present": true,
+        "model": "gpt-4.1-mini",
+        "decision": "needs_human_review",
+        "evidence_types": [
+          "post_factum",
+          "explicit_trade_setup"
+        ],
+        "confidence": 0.6,
+        "usefulness_score": 3,
+        "summary": "Постфактумный отчет по шорт-позиции BTCUSDT с указанием входа и ROI, но отсутствуют уровни стопа и целей."
+      },
+      "arbiter_review": {
+        "present": true,
+        "model": "gpt-4.1",
+        "decision": "accept_internal_claim_candidate",
+        "evidence_types": [
+          "post_factum",
+          "explicit_trade_setup"
+        ],
+        "confidence": 0.6,
+        "usefulness_score": 3,
+        "summary": "Постфактумный отчет по шорт-позиции BTCUSDT с входом и ROI, отсутствуют стоп и цели."
+      },
+      "selected_evidence_types": [
+        "post_factum",
+        "explicit_trade_setup"
+      ],
+      "selected_assets": [
+        "BTCUSDT"
+      ],
+      "selected_direction": "short",
+      "setup_fields": {
+        "entry": "81,096.30",
+        "stop": "82500.000000",
+        "targets": [],
+        "position_size": "10.0X",
+        "explicit_rr": null,
+        "deterministic_computed_rr": null,
+        "deterministic_rr_status": "rr_blocked"
+      },
+      "deterministic_rr_blockers": [
+        "missing_supported_asset",
+        "missing_entry",
+        "missing_target",
+        "position_size_missing",
+        "rr_not_computable",
+        "media_review_required_before_customer_metrics"
+      ],
+      "media_extracted_text_excerpt": "```json { \"visible_text\": \"BTCUSDT\\nШорт 10.0X\\nROI\\n+17.15%\\nЦена входа\\n81,096.30\\nТекущая цена\\n79,693.70\", \"assets\": \"BTCUSDT\", \"directions\": \"Short\", \"entry\": \"81,096.30\", \"stop\": null, \"targets\": null, \"position_size\": \"10.0X\", \"explicit_rr\": null, \"timeframe\": null, \"risk_notes\": null, \"uncertainty\": \"Levels not specified\" } ```",
+      "required_operator_action": "operator_mark_post_factum_or_reject_as_predictive_signal",
+      "customer_facing_status": "blocked_pending_human_operator_review",
+      "reliability_status": "model_reviewed",
+      "blocked_from_customer_metrics": true,
+      "blockers": [
+        "human_operator_review_required",
+        "media_review_required_before_customer_metrics",
+        "missing_entry",
+        "missing_supported_asset",
+        "missing_target",
+        "position_size_missing",
+        "rr_not_computable"
+      ]
+    },
+    {
+      "packet_id": "preclient_review_1d2e2fd9288c3483",
+      "source_id": "pifagortrade",
+      "post_id": 3274,
+      "source_document_id": "pifagortrade:pifagortrade-3274",
+      "source_url": "https://t.me/pifagortrade/3274",
+      "media_ref_id": "media_ba859d2bfc0f9403",
+      "modality": "image",
+      "artifact_path": "docs/pilot/multimodal/ocr/media_ba859d2bfc0f9403.json",
+      "mass_review": {
+        "present": true,
+        "model": "gpt-4.1-mini",
+        "decision": "needs_human_review",
+        "evidence_types": [
+          "explicit_trade_setup",
+          "post_factum"
+        ],
+        "confidence": 0.6,
+        "usefulness_score": 3,
+        "summary": "Показан результат шорт-позиции по BTCUSDT с указанием входа, выхода и плеча, но отсутствуют стоп-лосс и временные рамки, требуется проверка."
+      },
+      "arbiter_review": {
+        "present": true,
+        "model": "gpt-4.1",
+        "decision": "accept_internal_claim_candidate",
+        "evidence_types": [
+          "explicit_trade_setup",
+          "post_factum"
+        ],
+        "confidence": 0.7,
+        "usefulness_score": 3,
+        "summary": "Показан результат шорт-позиции по BTCUSDT с входом, выходом и плечом, но отсутствует стоп и временной интервал."
+      },
+      "selected_evidence_types": [
+        "explicit_trade_setup",
+        "post_factum"
+      ],
+      "selected_assets": [
+        "BTCUSDT"
+      ],
+      "selected_direction": "short",
+      "setup_fields": {
+        "entry": "81,096.30",
+        "stop": "82.000000",
+        "targets": [
+          "77,888.10"
+        ],
+        "position_size": "10.0X",
+        "explicit_rr": null,
+        "deterministic_computed_rr": null,
+        "deterministic_rr_status": "rr_blocked"
+      },
+      "deterministic_rr_blockers": [
+        "missing_supported_asset",
+        "missing_entry",
+        "missing_target",
+        "position_size_missing",
+        "rr_not_computable",
+        "media_review_required_before_customer_metrics"
+      ],
+      "media_extracted_text_excerpt": "```json { \"visible_text\": { \"ROI\": \"+39.56%\", \"Цена входа\": \"81,096.30\", \"Цена выхода\": \"77,888.10\" }, \"assets\": \"BTCUSDT\", \"directions\": \"Шорт\", \"entry\": \"81,096.30\", \"stop\": null, \"targets\": \"77,888.10\", \"position_size\": \"10.0X\", \"explicit_rr\": null, \"timeframe\": null, \"risk_notes\": null, \"uncertainty\": null } ```",
+      "required_operator_action": "operator_mark_post_factum_or_reject_as_predictive_signal",
+      "customer_facing_status": "blocked_pending_human_operator_review",
+      "reliability_status": "model_reviewed",
+      "blocked_from_customer_metrics": true,
+      "blockers": [
+        "human_operator_review_required",
+        "media_review_required_before_customer_metrics",
+        "missing_entry",
+        "missing_supported_asset",
+        "missing_target",
+        "position_size_missing",
+        "rr_not_computable"
+      ]
+    },
+    {
+      "packet_id": "preclient_review_8327b40cdadd1343",
+      "source_id": "pifagortrade",
+      "post_id": 3276,
+      "source_document_id": "pifagortrade:pifagortrade-3276",
+      "source_url": "https://t.me/pifagortrade/3276",
+      "media_ref_id": "media_0cb05b5181e07b58",
+      "modality": "image",
+      "artifact_path": "docs/pilot/multimodal/ocr/media_0cb05b5181e07b58.json",
+      "mass_review": {
+        "present": true,
+        "model": "gpt-4.1-mini",
+        "decision": "needs_human_review",
+        "evidence_types": [
+          "post_factum",
+          "explicit_trade_setup"
+        ],
+        "confidence": 0.6,
+        "usefulness_score": 3,
+        "summary": "Постфактум отчет по шорт-позиции BTCUSDT с указанием входа, выхода и ROI, но отсутствуют стоп-лосс и временные рамки."
+      },
+      "arbiter_review": {
+        "present": true,
+        "model": "gpt-4.1",
+        "decision": "accept_internal_claim_candidate",
+        "evidence_types": [
+          "post_factum",
+          "explicit_trade_setup"
+        ],
+        "confidence": 0.6,
+        "usefulness_score": 3,
+        "summary": "Постфактум отчет по шорт-позиции BTCUSDT с входом, выходом и ROI, но без стоп-лосса и временного интервала."
+      },
+      "selected_evidence_types": [
+        "post_factum",
+        "explicit_trade_setup"
+      ],
+      "selected_assets": [
+        "BTCUSDT"
+      ],
+      "selected_direction": "short",
+      "setup_fields": {
+        "entry": "81,096.30",
+        "stop": "82.000000",
+        "targets": [
+          "76,150.10"
+        ],
+        "position_size": "10.0X",
+        "explicit_rr": null,
+        "deterministic_computed_rr": null,
+        "deterministic_rr_status": "rr_blocked"
+      },
+      "deterministic_rr_blockers": [
+        "missing_supported_asset",
+        "missing_single_direction",
+        "missing_entry",
+        "position_size_missing",
+        "rr_not_computable",
+        "media_review_required_before_customer_metrics"
+      ],
+      "media_extracted_text_excerpt": "```json { \"visible_text\": { \"ROI\": \"+60.99%\", \"Цена входа\": \"81,096.30\", \"Цена выхода\": \"76,150.10\" }, \"assets\": \"BTCUSDT\", \"directions\": \"Шорт\", \"entry\": \"81,096.30\", \"stop\": null, \"targets\": \"76,150.10\", \"position_size\": \"10.0X\", \"explicit_rr\": null, \"timeframe\": null, \"risk_notes\": null, \"uncertainty\": [] } ```",
+      "required_operator_action": "operator_mark_post_factum_or_reject_as_predictive_signal",
+      "customer_facing_status": "blocked_pending_human_operator_review",
+      "reliability_status": "model_reviewed",
+      "blocked_from_customer_metrics": true,
+      "blockers": [
+        "human_operator_review_required",
+        "media_review_required_before_customer_metrics",
+        "missing_entry",
+        "missing_single_direction",
+        "missing_supported_asset",
+        "position_size_missing",
+        "rr_not_computable"
+      ]
+    }
+  ]
+}

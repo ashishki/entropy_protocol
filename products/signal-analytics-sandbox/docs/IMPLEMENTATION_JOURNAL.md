@@ -1822,3 +1822,107 @@ This file is durable handoff context across agents and sessions. It records what
 - Decisions applied: ADR-002 bounded Agentic profile; fixed operations, max iterations, cost cap, audit log, explicit stop reason, and no mutation/publication authority.
 - Evidence collected: added `BatchAnalystJob`, `BatchAnalystRunner`, stop reasons, allowed operation enum, and audit log models. Tests cover schema fields, stop reasons, and checksums for retrieval, metric reads, prompt input, and generated memo. Validation after task: 132 passed, 0 skipped; `ruff check src/ tests/` and `.venv/bin/pyright` pass. Strict agent-trigger review found no shell, network collector, broker, report publisher, ledger mutation, or package/runtime mutation surface.
 - Follow-ups: run `SAS-MI-015: Internal Analyst Memo Export` next.
+
+### 2026-05-22 — Two-Month Multimodal Research Run
+
+- Scope: `scripts/three_channel_multimodal_research.py`, `docs/pilot/three_channel_MULTIMODAL_*`, `tests/unit/test_three_channel_multimodal_research.py`, `docs/ANALYST_HANDOFF_RU.md`, `docs/CODEX_PROMPT.md`, `AGENT_NOTES.md`, `PHASE_HANDOFF.md`.
+- Why this work happened: the operator clarified that the two-month text-only run was insufficient; the research must extract from public Telegram images, voice/audio, and text, then account for entry, stop, target, RR, and position-size evidence where present.
+- Decisions applied: public `/s/` Telegram only; raw media stays in ignored `workspace/`; per-media transcript/OCR cache stays ignored; compact manifest/queue/RR/report artifacts are committed; draft transcript/OCR rows remain internal until human/operator accepted.
+- Evidence collected: 570 public posts in `2026-03-22..2026-05-22`, 295 media refs, 255 draft transcript/OCR rows (70 voice, 185 image), 40 video/manual blockers, 549 RR draft rows, and 1 internal RR-ready setup draft (`bablos79` post `10450`, `MAGN` short, entry `28400`, stop `28600`, target `26364`, computed RR `10.18`, customer-facing blocked by media review).
+- Follow-ups: review/accept or reject draft transcript/OCR rows before customer-facing use; add video processing only if product/legal gate accepts it; improve asset aliasing for Russian names and exchange-specific symbols; run outcome simulation for accepted RR setups.
+
+### 2026-05-22 — Media Reviewer Model Pass
+
+- Scope: `scripts/three_channel_media_reviewer.py`, `docs/pilot/three_channel_MEDIA_REVIEW_RESULTS.json`, `docs/pilot/three_channel_MEDIA_REVIEW_REPORT.md`, `tests/unit/test_three_channel_media_reviewer.py`, active-state handoff docs.
+- Why this work happened: the operator asked to add proportionate models that can act as media reviewers and show what they find in image/audio-derived evidence.
+- Decisions applied: `gpt-4.1-mini` performs mass review over all 255 transcript/OCR draft rows; `gpt-4.1` performs arbiter review over 35 high-signal rows; model review remains internal-only and does not replace human/operator acceptance.
+- Evidence collected: mass reviewer accepted 1 internal candidate, marked 177 rows needs-human-review, 66 reject-noise, 4 context-only, and 7 unable-to-review. Arbiter accepted 9 internal candidates: `pifagortrade` posts `3214`, `3218`, `3225`, `3234`, `3264`, `3274`, `3276`; `bablos79` post `10450`; and `nemphiscrypts` post `3958`.
+- Follow-ups: route the 9 arbiter-accepted rows to human/operator review, then recompute setup/RR/outcomes only for accepted rows.
+
+### 2026-05-23 — Phase 37 Pre-Client Artifact Task Graph
+
+- Scope: `docs/tasks.md`, `docs/AI_DEVELOPMENT_PLAN_RU.md`, `docs/CODEX_PROMPT.md`, `AGENT_NOTES.md`, `PHASE_HANDOFF.md`, `tests/unit/test_preclient_task_graph.py`, active-state task-graph tests.
+- Why this work happened: the operator asked to convert the dashboard/paid-report strategy into AI-loop tasks covering everything that can be done internally before client outreach, with reliable artifacts as the priority.
+- Decisions applied: no client outreach, private-channel analysis, partnership discussions, public dashboard launch, or paid report promise before Phase 37 produces traceable artifacts and passes the safety/deep-review gate.
+- Evidence planned: Phase 37 now defines 10 tasks covering artifact contract, model-reviewed candidate packet, evidence appendix, free dashboard cards, per-channel reports, paid-style demo report, candidate outcome/RR recompute, static dashboard prototype, artifact safety gate, and Phase 37 deep review.
+- Follow-ups: start `SAS-PRECLIENT-001` by writing `docs/specs/PRECLIENT_ARTIFACT_CONTRACT.md` and its tests.
+
+### 2026-05-23 — SAS-PRECLIENT-001 — Product Artifact Contract
+
+- Scope: `docs/specs/PRECLIENT_ARTIFACT_CONTRACT.md`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `AGENT_NOTES.md`, `PHASE_HANDOFF.md`, `tests/unit/test_preclient_task_graph.py`.
+- Why this work happened: Phase 37 needed a reliability contract before generating any dashboard cards, paid-style reports, evidence appendices, or client-facing demo material.
+- Decisions applied: pre-client only; no outreach, no public dashboard, no paid promise, no private-channel analysis, no ranking, no advice; model-reviewed media cannot become dashboard-safe or paid-report-safe without human/operator gates.
+- Evidence collected: the contract defines required artifacts, reliability statuses (`draft`, `model_reviewed`, `operator_reviewed`, `market_validated`, `dashboard_safe`, `paid_report_safe`, `blocked`), audience classes, six artifact gates, free dashboard card fields, paid report boundaries, done criteria, and explicit non-goals.
+- Follow-ups: run `SAS-PRECLIENT-002` to build the model-reviewed candidate review packet from `three_channel_MEDIA_REVIEW_RESULTS.json` and `three_channel_MULTIMODAL_RR_DRAFTS.json`.
+
+### 2026-05-23 — SAS-PRECLIENT-002 — Model-Reviewed Candidate Review Packet
+
+- Scope: `docs/pilot/preclient_MODEL_REVIEW_PACKET.md`, `docs/pilot/preclient_MODEL_REVIEW_PACKET.json`, `tests/unit/test_preclient_model_review_packet.py`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `AGENT_NOTES.md`, `PHASE_HANDOFF.md`.
+- Why this work happened: Phase 37 needed a compact operator packet that joins model reviewer decisions with media/RR evidence before any dashboard card, report, or paid-style claim can use those rows.
+- Decisions applied: model review is triage only; every packet row remains `model_reviewed`, `blocked_pending_human_operator_review`, and excluded from customer-facing metrics until a human/operator accepts or rejects it.
+- Evidence collected: the packet contains 9 unique arbiter-accepted internal candidates: `bablos79` 1, `nemphiscrypts` 1, and `pifagortrade` 7. It preserves source links, `media_ref_id`, modality, mass/arbiter decisions, evidence types, extracted text excerpts, setup/RR fields where present, and required operator action. The packet also records 1 overlapping mass-review accepted row and 0 customer-facing rows.
+- Follow-ups: run `SAS-PRECLIENT-003` to build the evidence appendix over this packet, keeping all rows internal until operator review and market recompute are complete.
+
+### 2026-05-23 — SAS-PRECLIENT-003 — Evidence Appendix Builder
+
+- Scope: `src/signal_sandbox/reports/evidence_appendix.py`, `src/signal_sandbox/reports/__init__.py`, `docs/pilot/preclient_EVIDENCE_APPENDIX.md`, `docs/pilot/preclient_EVIDENCE_APPENDIX.json`, `tests/unit/test_preclient_evidence_appendix.py`, active-state docs.
+- Why this work happened: reliable dashboard cards and paid-style reports need one deterministic place where source posts, media refs, transcript/OCR artifacts, review decisions, market-provider state, and blockers can be traced.
+- Decisions applied: the appendix is internal-only, includes no raw media bytes or `workspace/media` paths, treats provider gaps as exclusions rather than author losses, and keeps model-reviewed media out of customer-facing metrics.
+- Evidence collected: the generated appendix has 301 rows: 255 media-review rows, 40 video/manual blockers, 3 text-only V1 metric summaries, and 3 provider-gap summaries. It distinguishes text-only claims, media-backed candidates, post-factum rows, context-only rows, rejected noise, provider gaps, and media-processing blockers.
+- Follow-ups: run `SAS-PRECLIENT-004` to derive compact free-dashboard card data from the appendix without promoting blocked media rows.
+
+### 2026-05-23 — SAS-PRECLIENT-004 — Per-Channel Free Dashboard Card Dataset
+
+- Scope: `docs/pilot/preclient_FREE_DASHBOARD_CARDS.md`, `docs/pilot/preclient_FREE_DASHBOARD_CARDS.json`, `tests/unit/test_preclient_dashboard_cards.py`, active-state docs.
+- Why this work happened: the pre-client product needs a compact acquisition-layer card shape before deeper internal reports and demos are generated.
+- Decisions applied: cards are internal dashboard prototypes only; no public display is approved, no ranking language is used, and media/RR rows remain blocked until review gates accept them.
+- Evidence collected: one card exists for each channel with compact V1 text metrics, media coverage counts, model-reviewed candidate counts, RR/setup status, strengths, weaknesses, evidence confidence, blocked claims, and `internal_only_not_dashboard_safe` gate status.
+- Follow-ups: run `SAS-PRECLIENT-005` to build per-channel internal deep reports using the cards and evidence appendix.
+
+### 2026-05-23 — SAS-PRECLIENT-005 — Per-Channel Internal Deep Report V0
+
+- Scope: `docs/pilot/reports/preclient/*_DEEP_REPORT_V0.md`, `tests/unit/test_preclient_channel_reports.py`, active-state docs.
+- Why this work happened: Phase 37 needs a repeatable deep-report shape for each channel before generating a paid-style demo report.
+- Decisions applied: reports are internal-only, cite the evidence appendix, keep media/RR rows blocked pending human/operator review and external gate approval, and avoid treating provider gaps as source failures.
+- Evidence collected: `bablos79`, `nemphiscrypts`, and `pifagortrade` each have the same outline: executive summary, source/period, style, measurable claims, media findings, setup/RR findings, model-reviewed candidates, confirmed and contradicted examples, strengths, weaknesses, limitations, and report decision.
+- Follow-ups: run `SAS-PRECLIENT-006` to produce a paid-style internal demo report for the strongest current candidate without claiming external approval.
+
+### 2026-05-23 — SAS-PRECLIENT-006 — Paid-Style Demo Report
+
+- Scope: `docs/pilot/reports/preclient/PAID_STYLE_DEMO_REPORT.md`, `tests/unit/test_preclient_paid_demo_report.py`, active-state docs.
+- Why this work happened: Phase 37 needed one polished internal demo artifact that shows the paid-report product shape before any buyer conversation.
+- Decisions applied: `pifagortrade` was selected from evidence density, not endorsement; the report remains `internal_demo_only`, includes counterexamples and limitations, and makes no external approval, pricing, private-source, or future-outcome promise.
+- Evidence collected: the demo cites 107 V1 evaluable text claims, 7 model-reviewed packet candidates, 36 public media refs, 0 dashboard-safe RR rows, pifagortrade appendix slices, setup/RR blockers, post-factum rows, and a contradicted ETH example.
+- Follow-ups: run `SAS-PRECLIENT-007` to recompute outcome/RR status for review candidates where enough public fields exist.
+
+### 2026-05-23 — SAS-PRECLIENT-007 — Outcome And RR Recompute For Review Candidates
+
+- Scope: `docs/pilot/preclient_CANDIDATE_OUTCOMES.md`, `docs/pilot/preclient_CANDIDATE_OUTCOMES.json`, `tests/unit/test_preclient_candidate_outcomes.py`, active-state docs.
+- Why this work happened: before any buyer sees a report, setup/RR gaps and post-factum/predictive boundaries must be explicit for the 9 model-reviewed candidates.
+- Decisions applied: post-factum screenshots are not predictive calls, missing target/ambiguous chart levels block recompute, provider gaps are exclusions, and no bulk market-history storage is used.
+- Evidence collected: all 9 candidates are classified: `bablos79` post 10450 has internal RR math (`10.180000`) but an unapproved exact-instrument provider gap; 4 rows are insufficient fields; 4 pifagortrade rows are post-factum-only; 0 market outcomes are recomputed.
+- Follow-ups: run `SAS-PRECLIENT-008` to render the internal static dashboard prototype from the card dataset and links.
+
+### 2026-05-23 — SAS-PRECLIENT-008 — Static Free Dashboard Prototype
+
+- Scope: `docs/pilot/preclient_dashboard/index.html`, `tests/unit/test_preclient_dashboard_static.py`, active-state docs.
+- Why this work happened: Phase 37 needed a scannable internal prototype for the free dashboard layer before safety/gate review.
+- Decisions applied: static HTML only, no app server, internal-only status, no payment flow, no public ranking, no private-source promise, and no future-profit claim.
+- Evidence collected: the dashboard renders all three channel cards from `preclient_FREE_DASHBOARD_CARDS.json`, shows gate status, evidence confidence, sample size, media status, setup/RR status, no-advice labels, and links to internal reports, candidate outcomes, and evidence appendix.
+- Follow-ups: run `SAS-PRECLIENT-009` to check language/gate safety across cards, dashboard, reports, demo, and appendix.
+
+### 2026-05-23 — SAS-PRECLIENT-009 — Report Safety, Language, And Gate Pass
+
+- Scope: `docs/pilot/preclient_ARTIFACT_SAFETY_GATE.md`, `docs/pilot/preclient_ARTIFACT_SAFETY_GATE.json`, `tests/unit/test_preclient_artifact_safety_gate.py`, active-state docs.
+- Why this work happened: Phase 37 needed a deterministic safety gate that decides which pre-client artifacts are internal-only, candidate demo material after deep review, or blocked before any buyer conversation.
+- Decisions applied: buyer conversations remain on hold until `SAS-PRECLIENT-010`; no artifact is showable now; dashboard/free-card/demo artifacts are only candidates after Phase 37 deep review; evidence appendices, model packet, candidate outcomes, and deep reports remain internal-only.
+- Evidence collected: the gate covers 14 artifacts, records 0 forbidden phrase findings, blocks advice/future-profit/ranking/private-source/payment language categories, and carries blockers for missing operator-accepted media claims, dashboard-safe RR rows, and market outcome recomputation.
+- Follow-ups: run `SAS-PRECLIENT-010` Phase 37 deep review and record the client-readiness decision in `docs/archive/PHASE37_PRECLIENT_REVIEW.md`.
+
+### 2026-05-23 — SAS-PRECLIENT-010 — Phase 37 Deep Review
+
+- Scope: `docs/archive/PHASE37_PRECLIENT_REVIEW.md`, `docs/audit/AUDIT_INDEX.md`, `docs/tasks.md`, `docs/AI_DEVELOPMENT_PLAN_RU.md`, active-state docs, pre-client report wording.
+- Why this work happened: Phase 37 needed a phase-boundary decision on whether the internal artifact stack is ready for client discovery, needs more hardening, or should pivot.
+- Decisions applied: final decision is `continue_internal_hardening`; buyer conversations, public dashboard launch, paid delivery, pricing tests, and private-channel partnerships remain blocked.
+- Evidence collected: the review found 0 P0/P1/P2 implementation findings, repaired stale next-step wording in internal reports, and recorded the decisive blockers: 0 operator-accepted media claims, 0 dashboard-safe RR rows, 0 market-outcome recomputed candidates, and 0 customer-facing rows.
+- Follow-ups: start Phase 38 with `SAS-CLIENTREADY-001` operator media acceptance ledger, then recompute accepted rows, produce a redacted buyer demo subset, and run a discovery gate.

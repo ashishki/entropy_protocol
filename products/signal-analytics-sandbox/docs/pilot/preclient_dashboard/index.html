@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Signal Analytics Pre-Client Dashboard</title>
+  <style>
+    :root {
+      --bg: #f6f7f9;
+      --surface: #ffffff;
+      --surface-muted: #eef2f4;
+      --ink: #17202a;
+      --muted: #586474;
+      --line: #d8dee6;
+      --blue: #244f86;
+      --green: #2d6a4f;
+      --amber: #946200;
+      --red: #9b2c2c;
+      --radius: 8px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.45;
+    }
+    a { color: var(--blue); text-decoration: none; font-weight: 650; }
+    a:hover { text-decoration: underline; }
+    .shell { max-width: 1440px; margin: 0 auto; padding: 24px; }
+    .topbar {
+      display: flex;
+      gap: 16px;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 18px 0 22px;
+      border-bottom: 1px solid var(--line);
+    }
+    h1 { margin: 0; font-size: 28px; line-height: 1.15; letter-spacing: 0; }
+    h2 { margin: 0; font-size: 22px; line-height: 1.2; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 14px; line-height: 1.2; letter-spacing: 0; }
+    .subhead { margin: 8px 0 0; color: var(--muted); max-width: 760px; }
+    .status-board { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
+    .status-pill, .gate-chip {
+      display: inline-flex;
+      align-items: center;
+      min-height: 32px;
+      padding: 6px 10px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .status-pill.warn { border-color: #d9b55c; color: var(--amber); background: #fff8e6; }
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin: 18px 0;
+    }
+    .summary-cell, .channel-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+    }
+    .summary-cell { padding: 14px; }
+    .summary-cell span, .metric-label, .eyebrow {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      font-weight: 750;
+    }
+    .summary-cell strong { display: block; margin-top: 6px; font-size: 22px; }
+    .cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+    .channel-card { padding: 16px; display: flex; flex-direction: column; gap: 14px; }
+    .card-header { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .gate-chip { color: var(--red); background: #fff1f1; border-color: #e0b4b4; }
+    .description { margin: 0; min-height: 48px; color: #2b3542; }
+    .metric-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+    .metric-block { padding: 10px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface-muted); min-height: 94px; }
+    .metric-block strong { display: block; margin: 5px 0; font-size: 17px; line-height: 1.25; }
+    .metric-block span:last-child { color: var(--muted); font-size: 13px; }
+    .panel-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    ul { margin: 0; padding-left: 18px; }
+    li { margin: 0 0 6px; }
+    .status-strip { display: flex; flex-wrap: wrap; gap: 8px; }
+    .status-strip span { padding: 6px 8px; border-radius: var(--radius); background: #eef6f1; color: var(--green); font-size: 13px; }
+    .rr-note { margin: 0; padding: 10px; border-left: 3px solid var(--amber); background: #fff8e6; color: #3b3321; }
+    .link-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: auto; padding-top: 6px; }
+    .link-row a { min-height: 32px; padding: 6px 9px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+    .footer-links { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 14px; }
+    @media (max-width: 1100px) { .cards, .summary-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 720px) {
+      .shell { padding: 16px; }
+      .topbar { flex-direction: column; }
+      .status-board { justify-content: flex-start; }
+      .cards, .summary-grid, .panel-row, .metric-grid { grid-template-columns: 1fr; }
+      h1 { font-size: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div>
+        <h1>Signal Analytics Pre-Client Dashboard</h1>
+        <p class="subhead">Internal prototype for comparing public channel evidence before outreach. No channel card is approved for public display.</p>
+      </div>
+      <div class="status-board" aria-label="Dashboard gate status">
+        <span class="status-pill warn">internal-only</span>
+        <span class="status-pill warn">no-advice</span>
+        <span class="status-pill warn">external gate blocked</span>
+      </div>
+    </header>
+
+    <section class="summary-grid" aria-label="Dataset summary">
+      <div class="summary-cell"><span>channels</span><strong>3</strong></div>
+      <div class="summary-cell"><span>window</span><strong>2026-03-22..2026-05-22</strong></div>
+      <div class="summary-cell"><span>card status</span><strong>internal_dashboard_card_dataset_draft</strong></div>
+      <div class="summary-cell"><span>audience</span><strong>internal_dashboard_prototype</strong></div>
+    </section>
+
+    <section class="cards" aria-label="Channel cards">
+      
+      <article class="channel-card" data-source-id="bablos79">
+        <header class="card-header">
+          <div>
+            <p class="eyebrow">public_telegram_channel</p>
+            <h2>bablos79</h2>
+          </div>
+          <span class="gate-chip">internal_only_not_dashboard_safe</span>
+        </header>
+        <p class="description">Public Telegram market commentary with MOEX equity coverage plus some crypto references.</p>
+        <div class="metric-grid" aria-label="bablos79 metrics">
+          <div class="metric-block">
+            <span class="metric-label">sample</span>
+            <strong>14</strong>
+            <span>low</span>
+          </div>
+          <div class="metric-block">
+            <span class="metric-label">text outcome</span>
+            <strong>64.285714% hit / 0.742848% avg 7d</strong>
+            <span>9 / 5</span>
+          </div>
+          <div class="metric-block">
+            <span class="metric-label">media</span>
+            <strong>196</strong>
+            <span>image 94, video 34, voice 68</span>
+          </div>
+          <div class="metric-block">
+            <span class="metric-label">RR/setup</span>
+            <strong>1 candidates</strong>
+            <span>0 dashboard-safe</span>
+          </div>
+        </div>
+        <section class="panel-row">
+          <div>
+            <h3>Strengths</h3>
+            <ul><li>Largest public text corpus in the current V1 metric artifact.</li><li>Measurable text claims cover both MOEX equities and one crypto proxy.</li><li>One model-reviewed media setup has entry, stop, target, and internal draft RR fields.</li></ul>
+          </div>
+          <div>
+            <h3>Weaknesses</h3>
+            <ul><li>Media evidence is model-reviewed only and remains blocked pending operator review.</li><li>Many media rows are context, non-market, rejected noise, or video/manual blockers.</li><li>The measurable text edge is modest and not approved for external display.</li></ul>
+          </div>
+        </section>
+        <div class="status-strip">
+          <span><b>evidence confidence</b> low</span>
+          <span><b>audience</b> internal_dashboard_prototype</span>
+          <span><b>no-advice</b> internal research only</span>
+        </div>
+        <p class="rr-note">One internal RR-ready draft exists, but it still needs operator acceptance and market recompute.</p>
+        <div class="link-row">
+          <a href="../reports/preclient/bablos79_DEEP_REPORT_V0.md">Internal report</a>
+          <a href="../preclient_CANDIDATE_OUTCOMES.md">Candidate outcomes</a>
+          <a href="../preclient_EVIDENCE_APPENDIX.md">Evidence appendix</a>
+        </div>
+      </article>
+    
+      <article class="channel-card" data-source-id="nemphiscrypts">
+        <header class="card-header">
+          <div>
+            <p class="eyebrow">public_telegram_channel</p>
+            <h2>nemphiscrypts</h2>
+          </div>
+          <span class="gate-chip">internal_only_not_dashboard_safe</span>
+        </header>
+        <p class="description">Public Telegram crypto commentary with chart-driven directional ideas.</p>
+        <div class="metric-grid" aria-label="nemphiscrypts metrics">
+          <div class="metric-block">
+            <span class="metric-label">sample</span>
+            <strong>49</strong>
+            <span>low</span>
+          </div>
+          <div class="metric-block">
+            <span class="metric-label">text outcome</span>
+            <strong>57.142857% hit / 0.434858% avg 7d</strong>
+            <span>28 / 21</span>
+          </div>
+          <div class="metric-block">
+            <span class="metric-label">media</span>
+            <strong>63</strong>
+            <span>image 63</span>
+          </div>
+          <div class="metric-block">
+            <span class="metric-label">RR/setup</span>
+            <strong>1 candidates</strong>
+            <span>0 dashboard-safe</span>
+          </div>
+        </div>
+        <section class="panel-row">
+          <div>
+            <h3>Strengths</h3>
+            <ul><li>V1 text metrics have a larger crypto sample than bablos79.</li><li>Media review found one model-reviewed setup candidate with entry and stop fields.</li><li>Coverage is mostly crypto, which simplifies provider routing through Binance proxies.</li></ul>
+          </div>
+          <div>
+            <h3>Weaknesses</h3>
+            <ul><li>The model-reviewed setup lacks targets and position sizing.</li><li>All media-derived claims are blocked pending operator review.</li><li>Provider gaps and unsupported assets remain material exclusions.</li></ul>
+          </div>
+        </section>
+        <div class="status-strip">
+          <span><b>evidence confidence</b> low</span>
+          <span><b>audience</b> internal_dashboard_prototype</span>
+          <span><b>no-advice</b> internal research only</span>
+        </div>
+        <p class="rr-note">RR is blocked for the accepted media candidate because target and position fields are missing.</p>
+        <div class="link-row">
+          <a href="../reports/preclient/nemphiscrypts_DEEP_REPORT_V0.md">Internal report</a>
+          <a href="../preclient_CANDIDATE_OUTCOMES.md">Candidate outcomes</a>
+          <a href="../preclient_EVIDENCE_APPENDIX.md">Evidence appendix</a>
+        </div>
+      </article>
+    
+      <article class="channel-card" data-source-id="pifagortrade">
+        <header class="card-header">
+          <div>
+            <p class="eyebrow">public_telegram_channel</p>
+            <h2>pifagortrade</h2>
+          </div>
+          <span class="gate-chip">internal_only_not_dashboard_safe</span>
+        </header>
+        <p class="description">Public Telegram trading channel with crypto charts, setup language, and post-trade screenshots.</p>
+        <div class="metric-grid" aria-label="pifagortrade metrics">
+          <div class="metric-block">
+            <span class="metric-label">sample</span>
+            <strong>107</strong>
+            <span>medium</span>
+          </div>
+          <div class="metric-block">
+            <span class="metric-label">text outcome</span>
+            <strong>52.336449% hit / -0.153127% avg 7d</strong>
+            <span>56 / 51</span>
+          </div>
+          <div class="metric-block">
+            <span class="metric-label">media</span>
+            <strong>36</strong>
+            <span>image 28, video 6, voice 2</span>
+          </div>
+          <div class="metric-block">
+            <span class="metric-label">RR/setup</span>
+            <strong>7 candidates</strong>
+            <span>0 dashboard-safe</span>
+          </div>
+        </div>
+        <section class="panel-row">
+          <div>
+            <h3>Strengths</h3>
+            <ul><li>Largest V1 evaluable claim count in the current metric artifact.</li><li>Media review found the highest count of arbiter-accepted internal candidates.</li><li>Several media rows contain explicit setup, risk, position, or post-factum evidence.</li></ul>
+          </div>
+          <div>
+            <h3>Weaknesses</h3>
+            <ul><li>Several accepted media candidates are post-factum and cannot be treated as forward-looking calls.</li><li>RR is mostly blocked by missing or ambiguous stop, target, direction, or asset fields.</li><li>Average directional return in V1 is slightly negative despite a near-even hit split.</li></ul>
+          </div>
+        </section>
+        <div class="status-strip">
+          <span><b>evidence confidence</b> low</span>
+          <span><b>audience</b> internal_dashboard_prototype</span>
+          <span><b>no-advice</b> internal research only</span>
+        </div>
+        <p class="rr-note">No dashboard-safe RR yet; candidates need operator classification and recompute.</p>
+        <div class="link-row">
+          <a href="../reports/preclient/pifagortrade_DEEP_REPORT_V0.md">Internal report</a>
+          <a href="../preclient_CANDIDATE_OUTCOMES.md">Candidate outcomes</a>
+          <a href="../preclient_EVIDENCE_APPENDIX.md">Evidence appendix</a>
+        </div>
+      </article>
+    
+    </section>
+
+    <nav class="footer-links" aria-label="Supporting artifacts">
+      <a href="../preclient_FREE_DASHBOARD_CARDS.json">Card dataset</a>
+      <a href="../preclient_EVIDENCE_APPENDIX.md">Evidence appendix</a>
+      <a href="../preclient_CANDIDATE_OUTCOMES.md">Candidate outcomes</a>
+      <a href="../reports/preclient/PAID_STYLE_DEMO_REPORT.md">Internal demo report</a>
+    </nav>
+  </main>
+</body>
+</html>

@@ -19,17 +19,30 @@ Entropy Protocol remains a governed research and audit framework. The next
 commercial direction is not a full quant backtesting SaaS, not a trading bot,
 and not live broker/exchange control.
 
-The near-term commercial wedge is:
+The original near-term commercial wedge was:
 
 > Trade upload plus deterministic risk-rule violation audit for active traders.
 
-The product portfolio is split into three separated workspaces:
+After the 2026-05-29 portfolio review, the product portfolio is better read as
+four separated tracks:
 
 1. `products/entropy-core/` - governed protocol engine and reusable audit
-   primitives.
+   primitives. Its future role is a verification and responsibility kernel for
+   AI actions, decisions, evidence chains, and referee verdicts.
 2. `products/trader-risk-audit/` - primary commercial MVP.
-3. `products/signal-analytics-sandbox/` - separate validation sandbox for
-   public signal-source analytics.
+3. `products/signal-analytics-sandbox/` - validation sandbox that can become
+   Telegram Trader Intelligence: public trader-channel claim, narrative,
+   source-behavior, and risk-signal analysis.
+4. Cross-project verification receipts - portable schema/protocol work that can
+   inform AI Workflow Playbook and other projects without making Entropy Core a
+   mandatory runtime.
+
+Gensyn-style research is inspiration for one narrow pattern only: diverse
+candidate analyses plus a referee verdict with preserved evidence. Do not copy
+distributed training, token economics, or autonomous agent swarms into this
+portfolio.
+
+Detailed reference policy: `docs/ENTROPY_CORE_AND_GENSYN_REFERENCES.md`.
 
 ## Artifact-First Validation Overlay
 
@@ -66,15 +79,17 @@ gate is artifact validity.
 
 | Segment | Role | Status | Primary user | Relationship to core |
 |---|---|---|---|---|
-| Entropy Core | Governed evaluation and audit engine | Paused internal foundation | Researcher/operator and future engineering team | Source of protocol discipline |
+| Entropy Core | Governed evaluation and audit engine; future verification kernel | Core V1 complete; Core V2 candidate planning | Researcher/operator and future engineering team | Source of protocol discipline and portable evidence receipts |
 | Trader Risk Audit | Trade upload, rule evaluation, violation reports | Primary MVP wedge; active open-source validation route | Active prop-style and small-team traders | Uses deterministic rule registry, audit logs, report generation |
-| Signal Analytics Sandbox | Public Telegram/X author/source retrospective reports | Active deep-channel retrospective route | Signal subscribers and market researchers | Must not contaminate core evidence or claims |
+| Signal Analytics Sandbox / Telegram Trader Intelligence | Public Telegram/X author/source retrospective reports; trader-channel intelligence product candidate | Active deep-channel retrospective route; productization planned | Signal subscribers, market researchers, and trading teams buying source hygiene | Must not contaminate core evidence or claims; may emit receipts Core can validate |
 
 Current active route:
 
 - Trader: `products/trader-risk-audit/docs/OPEN_SOURCE_AUDIT_VALIDATION_ROADMAP.md`
 - Signal: `products/signal-analytics-sandbox/docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md`
-- Core: paused after Core V1 checkpoint.
+- Portfolio task graph: `docs/tasks.md`
+- Core: Core V1 checkpoint complete; V2 verification-kernel candidate requires
+  explicit task selection before implementation.
 
 ## Non-Negotiable Product Boundaries
 
@@ -173,6 +188,8 @@ retention evidence.
 | F | Telegram-first delivery | Deliver audit reports where users already work | Delivery only, not signal scraping |
 | G | Live risk guard | Explore read-only monitoring and later blocking | Explicit evidence and legal gate |
 | H | Expansion or split decision | Choose whether to merge, expand, or split products | Portfolio decision |
+| I | Telegram Trader Intelligence | Productize public-channel analysis as source hygiene, narrative, claim, and risk-signal reports | Evidence-first reports, no prediction/advice |
+| J | Verification Kernel V2 | Define portable receipts, validator verdicts, and responsibility records | Schema/protocol first, optional adapters later |
 
 ## Parallel Team Segmentation
 
