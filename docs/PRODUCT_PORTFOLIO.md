@@ -42,6 +42,8 @@ candidate analyses plus a referee verdict with preserved evidence. Do not copy
 distributed training, token economics, or autonomous agent swarms into this
 portfolio.
 
+Detailed reference policy: `docs/ENTROPY_CORE_AND_GENSYN_REFERENCES.md`.
+
 ## Artifact-First Validation Overlay
 
 Date: 2026-05-11
