@@ -1,0 +1,46 @@
+{
+  "endpoint_family": "account_trade_history",
+  "exchange": "binance",
+  "fields_removed": [
+    "api_key",
+    "api_secret",
+    "signature",
+    "account_id",
+    "account_balance",
+    "customer_identifiers",
+    "private_notes"
+  ],
+  "fixture_label": "synthetic_exchange_fixture",
+  "intended_use": "regression_test_only",
+  "privacy_review_date": "2026-05-09",
+  "privacy_reviewed_by": "operator",
+  "records": [
+    {
+      "commission": "2.75",
+      "commission_asset": "USDT",
+      "is_buyer": false,
+      "is_maker": true,
+      "order_id": "synthetic_order_binance_002",
+      "price": "3200.50",
+      "quantity": "0.500",
+      "source_row_id": "synthetic_binance_row_002",
+      "symbol": "ETHUSDT",
+      "time": "2026-04-01T12:07:00Z",
+      "trade_id": "synthetic_trade_binance_002"
+    },
+    {
+      "commission": "0.00002",
+      "commission_asset": "BTC",
+      "is_buyer": true,
+      "is_maker": false,
+      "order_id": "synthetic_order_binance_001",
+      "price": "64010.00",
+      "quantity": "0.020",
+      "source_row_id": "synthetic_binance_row_001",
+      "symbol": "BTCUSDT",
+      "time": "2026-04-01T12:05:00Z",
+      "trade_id": "synthetic_trade_binance_001"
+    }
+  ],
+  "source_type": "synthetic"
+}

@@ -2,7 +2,10 @@
 
 Version: 1.2
 Last updated: 2026-05-12
-Status: Core V1 checkpoint complete through T122. Automatic roadmap expansion is stopped until a human approves a Core V2 roadmap. Phase 14 replay tasks T66-T68 remain deferred unless explicitly reactivated by a human decision.
+Status: Core V1 checkpoint complete through T122. Core V2 verification-kernel
+candidate planning is approved at the portfolio level, but implementation still
+requires selecting the next task explicitly. Phase 14 replay tasks T66-T68
+remain deferred unless explicitly reactivated by a human decision.
 
 ---
 
@@ -37,6 +40,7 @@ Status: Core V1 checkpoint complete through T122. Automatic roadmap expansion is
 | 25 | CAF Decision Primitives | T111-T114 | Add Capital Allocation Framework decision, risk, and rationale artifact schemas. | Core can represent allocation decisions as governed evidence without executing capital. |
 | 26 | Enterprise Audit Readiness | T115-T118 | Add exportable lineage, audit bundles, data classification, and review-role models. | Core can produce serious audit packages without claiming external certification. |
 | 27 | Core V1 Productization | T119-T122 | Stabilize CLI, schemas, docs, examples, runbooks, and migration notes. | Core is a documented, tested internal product kernel ready for v2 planning. |
+| 28 | Verification Kernel V2 Candidate | T123-T126 | Define portable action receipts, validator verdicts, responsibility records, and product bridge profiles. | Core can support AI-agent verification workflows without becoming a required runtime for other projects. |
 
 ## Roadmap Governance
 
@@ -81,8 +85,10 @@ artifact -> validation -> registry -> reproducibility -> evidence -> governance
 The 12 month roadmap lives in `docs/CORE_12_MONTH_EXECUTION_ROADMAP.md`. The AI
 development loop rules live in `docs/AI_LOOP_OPERATING_MODEL.md`.
 
-The current active Core task is none. T75-T122 are complete. Automatic roadmap
-expansion is stopped until a human approves a Core V2 roadmap.
+The current active Core task is none. T75-T122 are complete. The 2026-05-29
+portfolio review approves Core V2 candidate planning around verification
+receipts and responsibility records, but not public SaaS, public SDK,
+distributed execution, live capital, or mandatory adoption by other projects.
 
 ## T01: Existing Project Baseline Skeleton
 
@@ -4320,3 +4326,115 @@ Context-Refs:
 Notes: |
   Core V1 completion is an internal product-kernel milestone, not public SaaS
   launch or enterprise compliance certification.
+
+## T123: Core V2 Verification Kernel Scope
+
+Owner:      codex
+Phase:      28
+Type:       docs
+Depends-On: T122
+Status:     planned
+
+Objective: |
+  Define Core V2 as a portable verification kernel for AI-agent actions,
+  decisions, evidence chains, report claims, and responsibility records.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Scope doc names supported artifact types and explicitly excludes public SaaS, public SDK, distributed training, live trading, and mandatory runtime adoption."
+    test: "manual/docs-review"
+  - id: AC-2
+    description: "Scope doc maps Core V2 to AI Workflow Playbook, Workflow-To-Agent Studio, Telegram Research Agent, and Signal Analytics use cases."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "Scope doc distinguishes protocol/schema work from product-specific business logic."
+    test: "manual/docs-review"
+
+Files:
+  - docs/core/CORE_V2_VERIFICATION_KERNEL_SCOPE.md
+  - docs/CODEX_PROMPT.md
+
+## T124: Action Receipt And Responsibility Record Schema
+
+Owner:      codex
+Phase:      28
+Type:       implementation
+Depends-On: T123
+Status:     planned
+
+Objective: |
+  Add schema candidates for `action_receipt` and `responsibility_record` that
+  capture proposed action, observed state, evidence links, actor role, verifier
+  role, and final status.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Schemas validate required fields for actor, action, source state, observed state, evidence links, verifier, and status."
+    test: "unit/schema"
+  - id: AC-2
+    description: "Invalid records fail when they claim evidence without an artifact reference."
+    test: "unit/schema"
+  - id: AC-3
+    description: "Examples cover file edit, report claim, model decision, and Telegram signal analysis receipt."
+    test: "unit/schema"
+
+Files:
+  - src/entropy/verification/
+  - tests/unit/test_action_receipt_schema.py
+  - docs/core/CORE_V2_VERIFICATION_KERNEL_SCOPE.md
+
+## T125: Validator And Referee Verdict Model
+
+Owner:      codex
+Phase:      28
+Type:       implementation
+Depends-On: T124
+Status:     planned
+
+Objective: |
+  Define a verdict model for deterministic checks, human review, and optional
+  multi-model review without over-trusting generated claims.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Verdict model supports passed, failed, insufficient, needs-human-review, and superseded states."
+    test: "unit/schema"
+  - id: AC-2
+    description: "Verdicts must cite receipt ids and evidence references."
+    test: "unit/schema"
+  - id: AC-3
+    description: "Docs describe Gensyn-inspired diversity only as candidate generation plus referee verdict, not as required distributed runtime."
+    test: "manual/docs-review"
+
+Files:
+  - src/entropy/verification/
+  - tests/unit/test_validator_verdict_schema.py
+  - docs/core/CORE_V2_VERIFICATION_KERNEL_SCOPE.md
+
+## T126: Product Bridge Profile Review
+
+Owner:      codex
+Phase:      28
+Type:       review
+Depends-On: T125
+Status:     planned
+
+Objective: |
+  Review whether Core V2 receipts are useful to current products without
+  forcing Core into their runtime path.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Review evaluates AI Workflow Playbook, Workflow-To-Agent Studio, Telegram Research Agent, and Signal Analytics integration value."
+    test: "manual/review"
+  - id: AC-2
+    description: "Review identifies which integrations remain docs/CI-only and which deserve optional adapters."
+    test: "manual/review"
+  - id: AC-3
+    description: "Review blocks mandatory Core dependency unless measurable benefit is shown."
+    test: "manual/review"
+
+Files:
+  - docs/audit/CORE_V2_PRODUCT_BRIDGE_REVIEW.md
+  - docs/EVIDENCE_INDEX.md
+  - docs/CODEX_PROMPT.md

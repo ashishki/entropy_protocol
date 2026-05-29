@@ -1,7 +1,7 @@
 # Tasks — Signal Analytics Sandbox
 
-Version: 1.1
-Last updated: 2026-05-11
+Version: 1.3
+Last updated: 2026-05-15
 
 This task graph is the implementation contract. Acceptance criteria are testable; vague phrases are forbidden (see `templates/tasks_schema.md` §Acceptance Criteria Rules).
 
@@ -29,7 +29,51 @@ Phases:
 - **Phase 18** — Author Market Report V0.
 - **Phase 19** — Channel-specific modalities and tools.
 - **Phase 20** — Telegram media evidence: voice and image/OCR drafts.
-- **Phase 21** — Artifact-first real public-source report validation.
+- **Phase 21** — Artifact-first real public-source report validation, including
+  real public media acquisition when text-only evidence is insufficient.
+- **Phase 22** — Expanded public corpus for deep channel retrospective.
+- **Phase 23** — Image/OCR and reviewed multimodal evidence.
+- **Phase 24** — Claim ledger and retrospective market outcomes.
+- **Phase 25** — Author capability report and external-ready gate.
+- **Phase 26** — Operator-gated evidence repair for `bablos79`.
+- **Phase 27** — Three-channel V1 metric report: reviewed extraction,
+  level-aware outcomes, multimodal claims, and external-ready gate.
+- **Phase 36** — Channel impact framework and cross-channel evidence
+  completion before dashboard/deep-report comparison.
+- **Phase 37** — Pre-client artifact hardening: reliable free-dashboard,
+  paid-report, review, evidence, and gate artifacts before outreach.
+- **Phase 38** — Client-readiness evidence acceptance: operator decisions,
+  accepted-row recompute, redacted buyer-demo subset, and discovery criteria.
+- **Phase 39** — Telegram Trader Intelligence productization: product frame,
+  receipts, referee verdicts, diverse analytical lenses, and buyer-demo report
+  structure.
+
+Current active focus:
+
+- Core is paused.
+- The current `bablos79` Phase 21 source/window is rejected for external
+  delivery but is not enough evidence to judge the channel.
+- The next active route follows `docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md`:
+  expand the public corpus, add image/OCR analysis, build a reviewed claim
+  ledger, compare measurable claims to public market data, and produce a
+  balanced author capability report.
+- After Phase 25, the `bablos79` retrospective is internal-only/rejected for
+  external delivery. Phase 26 is a new evidence repair loop focused on public
+  corpus expansion, operator candidate review, explicit proxy/horizon approval,
+  and recomputing outcomes only after prerequisites exist.
+- After `SAS-ER-004`, the three-channel V0 metric report proves the end-to-end
+  path but remains internal research. Phase 27 turns it into a reviewed V1
+  channel comparison with extraction calibration, level-aware outcomes,
+  multimodal evidence, provider/proxy expansion, and an external-ready gate.
+- After Phase 35, the new active route is Phase 36: define a broader channel
+  impact framework and run the same evidence-completion loop for `bablos79`,
+  `nemphiscrypts`, and `pifagortrade` before dashboard/deep-report comparison.
+- Phase 37 produced the internal artifact stack and deep review decision
+  `continue_internal_hardening`. The next active route is Phase 38: operator
+  acceptance, recompute, and redacted buyer-demo readiness before outreach.
+- Phase 39 is the planned productization route after Phase 38: it turns the
+  sandbox into Telegram Trader Intelligence without approving prediction,
+  leaderboard, advice, private scraping, or autonomous trading.
 
 ---
 
@@ -2499,13 +2543,13 @@ Phase boundary:
 - If no source/channel is selected, stop at SAS-AF-001 with a clear
   operator-input blocker.
 
-### SAS-AF-001: Channel And Report Scope Lock
+### SAS-AF-001: Channel And Report Scope Lock ✅
 
 Owner:      operator + codex
 Phase:      21
 Type:       validation
 Depends-On: SAS-MEDIA-008
-Status:     pending
+Status:     complete
 
 Objective: |
   Define the first real Signal report before adding more automation: source,
@@ -2537,13 +2581,13 @@ Notes: |
   This task may be blocked on operator source selection. Do not substitute a new
   source without human approval.
 
-### SAS-AF-002: Public Capture Pack
+### SAS-AF-002: Public Capture Pack ✅
 
 Owner:      codex
 Phase:      21
 Type:       validation
 Depends-On: SAS-AF-001
-Status:     pending
+Status:     complete
 
 Objective: |
   Build or register a traceable public-source capture pack for the selected
@@ -2576,13 +2620,13 @@ Notes: |
   Public-only posture is mandatory. If legal/terms coverage is unclear, block
   and update the legal/risk memo before capture expansion.
 
-### SAS-AF-003: Human Review Queue Closure
+### SAS-AF-003: Human Review Queue Closure ✅
 
 Owner:      operator + codex
 Phase:      21
 Type:       validation
 Depends-On: SAS-AF-002
-Status:     pending
+Status:     complete
 
 Objective: |
   Convert draft extraction into reviewed evidence by closing the review queue
@@ -2614,13 +2658,13 @@ Notes: |
   Do not let an LLM silently decide truth. Human review remains part of the
   product promise for this phase.
 
-### SAS-AF-004: Market Data Snapshot And Outcome Prep
+### SAS-AF-004: Market Data Snapshot And Outcome Prep ✅
 
 Owner:      codex
 Phase:      21
 Type:       validation
 Depends-On: SAS-AF-003
-Status:     pending
+Status:     complete
 
 Objective: |
   Prepare outcome analysis only for reviewed rows with enough evidence:
@@ -2650,13 +2694,13 @@ Context-Refs:
 Notes: |
   Missing market data is a limitation, not a reason to invent metrics.
 
-### SAS-AF-005: First Real Source Report V1
+### SAS-AF-005: First Real Source Report V1 ✅
 
 Owner:      codex
 Phase:      21
 Type:       validation
 Depends-On: SAS-AF-004
-Status:     pending
+Status:     complete
 
 Objective: |
   Generate the first complete real public-source report artifact from reviewed
@@ -2686,17 +2730,390 @@ Notes: |
   If the selected source cannot support a meaningful report, produce a reject
   decision rather than a weak report.
 
-### SAS-AF-006: Manual Validity Review
+### SAS-LIVE-001: Real Media Scope And Evidence Intake ✅
 
 Owner:      operator + codex
 Phase:      21
 Type:       validation
 Depends-On: SAS-AF-005
-Status:     pending
+Status:     complete
 
 Objective: |
-  Manually verify sampled included, ambiguous, excluded, and strongest-finding
-  rows before external delivery.
+  Convert the text-only report result into a real multimodal evidence intake
+  plan. Select exact public/operator-authorized media items, link each item to
+  source/capture/source-document IDs, and define the report question each media
+  item is supposed to answer.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "A media intake plan lists every target voice/audio/image/screenshot item with source URL/ref, source/capture/source-document linkage, modality, public/operator authorization state, and expected report value."
+    test: "manual-evidence: docs/pilot/bablos79_REAL_MEDIA_INTAKE.md exists with required columns."
+  - id: AC-2
+    description: "The plan explicitly excludes private, paywalled, login-walled, unlinked, or access-bypass media and records blockers for missing items."
+    test: "manual-evidence: exclusion/blocker section exists."
+  - id: AC-3
+    description: "The plan maps media items to current report gaps: ambiguous rows, insufficient evidence rows, missing context, screenshot-only text, or voice-context gaps."
+    test: "manual-evidence: every selected item has a report-gap field."
+
+Files:
+  - docs/pilot/bablos79_REAL_MEDIA_INTAKE.md
+  - docs/ARTIFACT_VALIDATION_ROADMAP.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Context-Refs:
+  - docs/MULTIMODAL_REPORT_DEVELOPMENT_PLAN.md#phase-0---real-media-scope-and-evidence-intake
+  - docs/pilot/bablos79_MEDIA_INVENTORY.md
+  - docs/pilot/bablos79_OUTCOME_PREP.md
+  - docs/legal_risk_memo.md#media-evidence
+
+Notes: |
+  Do not proceed to media acquisition until this plan names concrete public or
+  operator-authorized media evidence. Channel-level "there is audio/images" is
+  not enough.
+  Completed intake result: no acquisition-ready media item exists yet. The
+  plan records source-linked candidate blockers for `bablos79-10486` and
+  `bablos79-10465`, excludes unlinked channel-level media, and blocks
+  `SAS-LIVE-002` until the operator supplies exact public/operator-authorized
+  media URL/file ID/local file rows with source/capture/source-document linkage.
+
+### SAS-LIVE-002: Public Media Artifact Acquisition ✅
+
+Owner:      codex
+Phase:      21
+Type:       validation
+Depends-On: SAS-LIVE-001
+Status:     complete
+
+Objective: |
+  Materialize approved media intake rows as local MediaArtifact metadata and
+  local operator-controlled files where applicable. The task records what was
+  successfully acquired, skipped, or blocked.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Every acquired media item has a MediaArtifact row with media_id, source_id, capture_id, source_document_id, source timestamp, modality, original URL/file ID, local path, SHA-256, MIME type, retention state, and created_at_utc."
+    test: "manual-evidence plus existing media artifact tests."
+  - id: AC-2
+    description: "Acquisition uses only public/operator-authorized inputs and records no private/authenticated collection path."
+    test: "manual-evidence: acquisition log states authorization per item."
+  - id: AC-3
+    description: "Failed, missing, unlinked, or unauthorized media items are recorded with blocker reason and are not silently dropped."
+    test: "manual-evidence: acquisition log has failed/blocked rows where applicable."
+
+Files:
+  - src/signal_sandbox/media/
+  - docs/pilot/bablos79_REAL_MEDIA_ACQUISITION.md
+  - docs/pilot/bablos79_MEDIA_MANIFEST.json
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Context-Refs:
+  - docs/MULTIMODAL_REPORT_DEVELOPMENT_PLAN.md#phase-1---public-media-artifact-acquisition
+  - docs/specs/MEDIA_ARTIFACTS.md
+  - docs/adr/ADR-004-media-evidence-pipeline.md
+
+Notes: |
+  CI must use fake clients or local fixtures. Real network/provider use is an
+  operator run, not a unit test. No transcription/OCR is performed in this task.
+  Completed acquisition result: public `/s/` HTML yielded two concrete voice
+  posts, `bablos79-10476` and `bablos79-10478`, acquired to
+  `workspace/media/bablos79/` and registered in
+  `docs/pilot/bablos79_MEDIA_MANIFEST.json`. `bablos79-10465` remains blocked
+  because the promised follow-up video is not identified.
+
+### SAS-LIVE-003: Voice Transcript Draft Run ✅
+
+Owner:      codex
+Phase:      21
+Type:       validation
+Depends-On: SAS-LIVE-002
+Status:     complete
+
+Objective: |
+  Run the gated transcription path on acquired voice/audio artifacts and record
+  draft transcript artifacts with provenance, provider/model metadata, checksum,
+  review-required status, and retention action.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Every attempted voice/audio item records transcript_id or skipped/provider_failed status, media_id, provider/model, transcript_sha256 when present, source media checksum, reviewer_id=pending, and review_required=true."
+    test: "manual-evidence: transcript run log exists; unit tests for transcription adapter pass."
+  - id: AC-2
+    description: "Transcripts remain draft_pending_review and are not routed to approved MarketIdea rows, ledgers, outcomes, reports, or customer-facing claims."
+    test: "manual-evidence: boundary section plus no approved output paths."
+  - id: AC-3
+    description: "Raw media retention/deletion action is recorded per ADR-004."
+    test: "manual-evidence: retention action column populated."
+
+Files:
+  - src/signal_sandbox/media/transcription.py
+  - docs/pilot/bablos79_TRANSCRIPT_RUN.md
+  - docs/audit/MEDIA_EVAL.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Context-Refs:
+  - docs/MULTIMODAL_REPORT_DEVELOPMENT_PLAN.md#phase-2---voice-transcript-draft-run
+  - docs/specs/MEDIA_ARTIFACTS.md#whisper-transcript-drafts
+
+Notes: |
+  Managed transcription requires explicit enablement and per-run approval.
+  Completed run result: two acquired public voice rows were attempted and both
+  were recorded as `skipped_provider_not_configured`; no transcript text was
+  invented, no draft transcript artifact was created, and raw media remained
+  `retained_by_policy`.
+
+### SAS-LIVE-004: Image OCR Draft Run ✅
+
+Owner:      codex
+Phase:      21
+Type:       validation
+Depends-On: SAS-LIVE-002
+Status:     complete
+
+Objective: |
+  Run review-required OCR on acquired image/screenshot artifacts. Capture text
+  and bounding metadata where available, while keeping chart interpretation and
+  trading claims out of automated output.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Every attempted image/screenshot item records OCR id or skipped/provider_failed status, media_id, provider/model, text_sha256 when present, source media checksum, reviewer_id=pending, and review_required=true."
+    test: "manual-evidence: OCR run log exists; unit tests for OCR adapter pass."
+  - id: AC-2
+    description: "OCR output stores text only; chart labels/levels/trade interpretation remain review_required_notes and are not approved truth."
+    test: "manual-evidence: chart-claim boundary section exists."
+  - id: AC-3
+    description: "OCR artifacts are linked back to source/capture/source-document IDs through MediaArtifact refs."
+    test: "manual-evidence: every OCR row has linkage fields."
+
+Files:
+  - src/signal_sandbox/media/ocr.py
+  - docs/pilot/bablos79_OCR_RUN.md
+  - docs/audit/MEDIA_EVAL.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Context-Refs:
+  - docs/MULTIMODAL_REPORT_DEVELOPMENT_PLAN.md#phase-3---image-ocr-draft-run
+  - docs/specs/MEDIA_ARTIFACTS.md#ocr-drafts
+
+Notes: |
+  Do not implement autonomous chart interpretation in this task.
+  Completed run result: no image/screenshot media artifacts were acquired, so
+  the OCR run recorded two voice rows as `skipped_non_image_media`, created no
+  OCR artifacts, and preserved the chart-claim boundary.
+
+### SAS-LIVE-005: Human Media Evidence Review ✅
+
+Owner:      operator + codex
+Phase:      21
+Type:       validation
+Depends-On: SAS-LIVE-003, SAS-LIVE-004
+Status:     complete
+
+Objective: |
+  Review transcript/OCR outputs against the original public media and mark each
+  artifact usable, unusable, needs rework, or outside report scope before it can
+  influence extraction, outcomes, or report wording.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Review notes sample every transcript/OCR artifact and record usable/unusable/needs_rework/out_of_scope, reviewer_id, reviewed_at_utc, and issue notes."
+    test: "manual-evidence: docs/pilot/bablos79_MEDIA_REVIEW.md exists."
+  - id: AC-2
+    description: "Artifacts with transcription/OCR errors, unclear speaker/image context, missing linkage, or chart interpretation risk are blocked from report claims."
+    test: "manual-evidence: blocked artifact section exists."
+  - id: AC-3
+    description: "Only human-reviewed usable transcript/OCR refs are allowed into source-document joins for report context."
+    test: "manual-evidence: usable refs list exists."
+
+Files:
+  - docs/pilot/bablos79_MEDIA_REVIEW.md
+  - docs/ARTIFACT_VALIDATION_ROADMAP.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Context-Refs:
+  - docs/MULTIMODAL_REPORT_DEVELOPMENT_PLAN.md#phase-4---human-media-evidence-review
+  - docs/legal_risk_memo.md#media-evidence
+
+Notes: |
+  This is the mandatory human gate before media can affect customer-visible
+  report claims.
+  Completed gate result: no transcript/OCR artifacts existed to review, so
+  usable transcript refs and OCR refs are both zero. Raw voice media is blocked
+  from report claims until a future transcript run and human review produce
+  usable refs.
+
+### SAS-LIVE-006: Reviewed Multimodal Source Join ✅
+
+Owner:      codex
+Phase:      21
+Type:       rag:ingestion
+Depends-On: SAS-LIVE-005
+Status:     complete
+
+Objective: |
+  Join only reviewed-usable transcript/OCR refs into SourceDocument copies and
+  produce a multimodal corpus preview that preserves original text, evidence
+  URL, and text hash byte-identically.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Multimodal SourceDocument preview includes only reviewed-usable media refs and preserves original capture text, evidence_url, and text_sha256."
+    test: "tests/unit/test_multimodal_source_join.py plus manual preview."
+  - id: AC-2
+    description: "Mismatched media checksum, source ID, capture ID, source-document ID, transcript ref, or OCR ref is rejected."
+    test: "existing join tests or added coverage."
+  - id: AC-3
+    description: "Preview records text-only, transcript, and OCR coverage counts and explicitly labels draft/reviewed evidence status."
+    test: "manual-evidence: multimodal corpus preview exists."
+
+Files:
+  - src/signal_sandbox/media/source_join.py
+  - docs/pilot/bablos79_MULTIMODAL_SOURCE_PREVIEW.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Context-Refs:
+  - docs/MULTIMODAL_REPORT_DEVELOPMENT_PLAN.md#phase-5---reviewed-multimodal-source-join
+  - docs/specs/SOURCE_CORPUS.md#multimodal-joins
+
+Notes: |
+  This task carries a RAG ingestion tag because it changes source-corpus context
+  available to retrieval/report workflows. It does not approve truth artifacts.
+  Completed join result: no reviewed-usable transcript/OCR refs existed, so the
+  preview preserves all 60 text-only source documents and joins zero
+  media-derived refs. Retrieval/source context semantics remain text-only.
+
+### SAS-LIVE-007: Multimodal Extraction And Review Queue ✅
+
+Owner:      operator + codex
+Phase:      21
+Type:       validation
+Depends-On: SAS-LIVE-006
+Status:     complete
+
+Objective: |
+  Re-run extraction/review over text plus reviewed transcript/OCR context,
+  separating approved report candidates from ambiguous, insufficient, duplicate,
+  not-market-related, media-needed, and media-blocked rows.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Multimodal review export includes source refs, media refs where used, evidence spans, reviewed status, missing fields, and reviewer action for every row."
+    test: "manual-evidence: multimodal review queue exists."
+  - id: AC-2
+    description: "Rows that depend on transcript/OCR cite only reviewed-usable media artifacts."
+    test: "manual-evidence: media-backed rows cite reviewed artifact IDs."
+  - id: AC-3
+    description: "Draft LLM/parser output is never treated as final truth without operator final evaluation."
+    test: "manual-evidence: final review status separated from draft status."
+
+Files:
+  - src/signal_sandbox/extraction/
+  - src/signal_sandbox/market_ideas/
+  - docs/pilot/bablos79_MULTIMODAL_REVIEW_QUEUE.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Context-Refs:
+  - docs/MULTIMODAL_REPORT_DEVELOPMENT_PLAN.md#phase-6---multimodal-extraction-and-review-queue
+  - docs/pilot/bablos79_REVIEW_QUEUE_CLOSED.md
+
+Notes: |
+  If no media-backed row becomes report-eligible, preserve that as the result
+  instead of forcing a metric.
+  Completed queue result: no reviewed usable transcript/OCR refs exist, so the
+  multimodal review queue has 0 media-backed report-eligible rows and carries
+  forward the text-only queue counts.
+
+### SAS-LIVE-008: Multimodal Outcome Prep ✅
+
+Owner:      codex
+Phase:      21
+Type:       validation
+Depends-On: SAS-LIVE-007
+Status:     complete
+
+Objective: |
+  Prepare deterministic outcomes only for final reviewed multimodal rows with
+  complete asset, timestamp, direction/thesis, horizon, and evidence support.
+  Record every unresolved row before report generation.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Every measurable row has asset mapping, source timestamp, direction/thesis where applicable, horizon, evidence refs, and market-data snapshot requirement."
+    test: "manual-evidence or existing outcome tests."
+  - id: AC-2
+    description: "Rows lacking complete measurable fields are moved to an unresolved register with reason."
+    test: "manual-evidence: multimodal unresolved outcome register exists."
+  - id: AC-3
+    description: "Market-data fetches happen only for measurable rows; unresolved rows do not trigger price snapshots."
+    test: "manual-evidence: snapshot/fetch count matches measurable rows."
+
+Files:
+  - src/signal_sandbox/prices/
+  - src/signal_sandbox/outcomes/
+  - docs/pilot/bablos79_MULTIMODAL_OUTCOME_PREP.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Context-Refs:
+  - docs/MULTIMODAL_REPORT_DEVELOPMENT_PLAN.md#phase-7---multimodal-outcome-prep
+  - docs/pilot/bablos79_OUTCOME_PREP.md
+
+Notes: |
+  Missing media/market data is a limitation. Do not infer outcomes from media
+  context alone.
+  Completed prep result: 0 media-backed measurable rows, 0 market-data fetches,
+  and 0 outcome metrics.
+
+### SAS-LIVE-009: Media-Backed Report V1 ✅
+
+Owner:      codex
+Phase:      21
+Type:       validation
+Depends-On: SAS-LIVE-008
+Status:     complete
+
+Objective: |
+  Generate a revised report artifact that includes text, reviewed media
+  evidence, outcome summaries where supported, limitations, and clear
+  no-advice/no-future-performance boundaries.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Report includes source/period, text/media coverage, reviewed row counts, media-backed evidence summary, outcome metrics only where supported, unresolved register summary, limitations, and evidence appendix."
+    test: "manual-evidence: media-backed report exists."
+  - id: AC-2
+    description: "Every media-backed claim cites reviewed transcript/OCR/media artifact refs and source refs."
+    test: "manual-evidence: evidence trace review."
+  - id: AC-3
+    description: "Report contains no unreviewed media claims, chart-derived automated claims, advice, future-profit claims, marketplace ranking, or leaderboard language."
+    test: "manual-evidence: claim-safety review."
+
+Files:
+  - src/signal_sandbox/reports/
+  - docs/pilot/reports/bablos79_MEDIA_BACKED_REPORT_V1.md
+  - docs/ARTIFACT_VALIDATION_ROADMAP.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Context-Refs:
+  - docs/MULTIMODAL_REPORT_DEVELOPMENT_PLAN.md#phase-8---media-backed-report-v1
+  - docs/pilot/reports/bablos79_SIGNAL_REPORT_V1.md
+
+Notes: |
+  If real media still does not create a useful report, produce a reject or
+  limitation report instead of decorating weak evidence.
+  Completed report result: reject/limitation report, not external-delivery
+  ready, with no media-backed claims.
+
+### SAS-AF-006: Manual Validity Review ✅
+
+Owner:      operator + codex
+Phase:      21
+Type:       validation
+Depends-On: SAS-LIVE-009
+Status:     complete
+
+Objective: |
+  Manually verify sampled included, ambiguous, excluded, media-backed, and
+  strongest-finding rows before external delivery.
 
 Acceptance-Criteria:
   - id: AC-1
@@ -2716,18 +3133,21 @@ Files:
 
 Context-Refs:
   - docs/ARTIFACT_VALIDATION_ROADMAP.md#8-phase-sas-af-5---manual-validity-review
+  - docs/MULTIMODAL_REPORT_DEVELOPMENT_PLAN.md#phase-9---manual-validity-review-and-delivery-gate
 
 Notes: |
   Ambiguous content should stay ambiguous. Do not force a confident finding for
   presentation quality.
+  Completed validity result: external delivery blocked by open Phase 21 error
+  register items.
 
-### SAS-AF-007: Report Polish And Internal Demo Pack
+### SAS-AF-007: Report Polish And Internal Demo Pack ✅
 
 Owner:      codex
 Phase:      21
 Type:       docs
 Depends-On: SAS-AF-006
-Status:     pending
+Status:     complete
 
 Objective: |
   Package the validated source report as an internal demo/research product pack
@@ -2754,14 +3174,15 @@ Context-Refs:
 
 Notes: |
   This task packages a report product, not a source leaderboard or SaaS.
+  Completed pack result: internal-only reject-case demo pack; not buyer-ready.
 
-### SAS-AF-008: External Pilot Ready Gate
+### SAS-AF-008: External Pilot Ready Gate ✅
 
 Owner:      operator + codex
 Phase:      21
 Type:       review
 Depends-On: SAS-AF-007
-Status:     pending
+Status:     complete
 
 Objective: |
   Decide whether the Signal report artifact is ready for controlled external
@@ -2792,3 +3213,3376 @@ Context-Refs:
 Notes: |
   This is the gate for showing a bounded source research artifact to warm
   prospects. It does not approve marketplace, leaderboard, or automated advice.
+
+## Phase 22 — Expanded Public Corpus
+
+### SAS-DR-001: Deep Retrospective Scope Lock ✅
+
+Owner:      operator + codex
+Phase:      22
+Type:       docs
+Depends-On: SAS-AF-008
+
+Objective: |
+  Lock the expanded `bablos79` source/window scope and anti-cherry-pick rules
+  before any new capture, media review, or market-outcome analysis starts.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/bablos79_DEEP_SCOPE.md` records source URL, source ID, window length, inclusion/exclusion rules, capture method, media posture, report language, and claim boundary."
+    test: "manual/docs-review"
+  - id: AC-2
+    description: "Scope explicitly fixes the window before market-outcome analysis to avoid selecting only good-looking posts."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "Scope states that Phase 21 rejected external delivery for the narrow window but did not reject the channel as a whole."
+    test: "manual/docs-review"
+
+Files:
+  - docs/pilot/bablos79_DEEP_SCOPE.md
+  - docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md
+  - docs/DECISION_LOG.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Context-Refs:
+  - docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md#phase-22---expanded-public-corpus
+  - docs/pilot/bablos79_EXTERNAL_PILOT_READY_GATE.md
+  - docs/audit/PHASE21_ERROR_REGISTER.md
+
+Notes: |
+  Public/operator-authorized sources only. Do not use private Telegram groups.
+
+### SAS-DR-002: Expanded Public Capture Manifest ✅
+
+Owner:      codex
+Phase:      22
+Type:       validation
+Depends-On: SAS-DR-001
+
+Objective: |
+  Capture or register the expanded public corpus and produce a stable manifest
+  that preserves source ids, timestamps, source URLs, hashes, and media refs.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Expanded manifest records every included public text capture with stable capture/document ids, timestamps, source URL, text hash, and source language."
+    test: "manual-evidence plus existing capture validation tests where applicable"
+  - id: AC-2
+    description: "Manifest records excluded rows or capture gaps with reason instead of silently dropping them."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "`docs/pilot/bablos79_EXPANDED_CAPTURE_PACK.md` summarizes corpus size, window, capture method, and coverage limitations."
+    test: "manual/docs-review"
+
+Files:
+  - docs/pilot/bablos79_EXPANDED_CAPTURE_MANIFEST.json
+  - docs/pilot/bablos79_EXPANDED_CAPTURE_PACK.md
+  - workspace/captures/bablos79/
+  - src/signal_sandbox/capture/
+
+Context-Refs:
+  - docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md#phase-22---expanded-public-corpus
+
+Notes: |
+  If fresh network capture is not available in the environment, create the
+  manifest from operator-supplied public captures and record the gap.
+
+### SAS-DR-003: Expanded Media Inventory ✅
+
+Owner:      codex
+Phase:      22
+Type:       validation
+Depends-On: SAS-DR-002
+
+Objective: |
+  Build the media inventory for the expanded corpus, separating public,
+  acquisition-ready, missing, excluded, and unsupported media items.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/bablos79_MEDIA_INVENTORY_EXPANDED.md` lists image/screenshot/chart/voice/video references by source document id and acquisition status."
+    test: "manual/docs-review"
+  - id: AC-2
+    description: "Every media item has public/operator-authorization status or is excluded before OCR/transcription work."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "Inventory flags likely chart/screenshot/image rows for Phase 23 OCR and manual review."
+    test: "manual/docs-review"
+
+Files:
+  - docs/pilot/bablos79_MEDIA_INVENTORY_EXPANDED.md
+  - docs/pilot/bablos79_EXPANDED_CAPTURE_MANIFEST.json
+  - docs/legal_risk_memo.md
+
+Context-Refs:
+  - docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md#phase-22---expanded-public-corpus
+
+Notes: |
+  Do not claim image analysis yet. This task only inventories media.
+
+### SAS-DR-004: Corpus Gap Register ✅
+
+Owner:      codex
+Phase:      22
+Type:       docs
+Depends-On: SAS-DR-003
+
+Objective: |
+  Record corpus completeness gaps before extraction so later report conclusions
+  can explain missing evidence instead of hiding it.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/bablos79_CORPUS_GAP_REGISTER.md` lists missing periods, inaccessible media, unsupported media types, timestamp ambiguities, and legal/source limitations."
+    test: "manual/docs-review"
+  - id: AC-2
+    description: "Gap register marks each gap as blocking, acceptable limitation, or needs operator input."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "No extraction or outcome task treats a known gap as evidence of author quality."
+    test: "manual/docs-review"
+
+Files:
+  - docs/pilot/bablos79_CORPUS_GAP_REGISTER.md
+  - docs/pilot/bablos79_EXPANDED_CAPTURE_PACK.md
+  - docs/pilot/bablos79_MEDIA_INVENTORY_EXPANDED.md
+
+Context-Refs:
+  - docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md#phase-22---expanded-public-corpus
+
+Notes: |
+  A gap can be acceptable if it is disclosed.
+
+### SAS-DR-005: Expanded Corpus Deep Review ✅
+
+Owner:      codex
+Phase:      22
+Type:       review
+Depends-On: SAS-DR-001, SAS-DR-002, SAS-DR-003, SAS-DR-004
+
+Objective: |
+  Run the Phase 22 boundary review and decide whether the expanded corpus is
+  safe and complete enough for multimodal evidence work.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Review checks anti-cherry-pick scope, public-source legality, capture integrity, media inventory, gap register, and no private scraping."
+    test: "manual/review"
+  - id: AC-2
+    description: "Audit index, CODEX prompt, README, handoff docs, and phase report are updated with final Phase 22 state."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "Any P0/P1 source legality, private scraping, or manifest integrity issue blocks Phase 23."
+    test: "manual/review"
+
+Files:
+  - docs/archive/PHASE22_REVIEW.md
+  - docs/audit/REVIEW_REPORT.md
+  - docs/audit/ARCH_REPORT.md
+  - docs/audit/PHASE_REPORT_LATEST.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/CODEX_PROMPT.md
+  - README.md
+  - PHASE_HANDOFF.md
+  - AGENT_NOTES.md
+  - ORCHESTRATOR_CHECKPOINT.md
+
+Context-Refs:
+  - docs/prompts/ORCHESTRATOR.md
+
+Notes: |
+  This is a phase gate. Do not skip deep review.
+
+---
+
+## Phase 39 — Telegram Trader Intelligence Productization
+
+### SAS-TTI-001: Product Frame And Buyer Promise
+
+Owner:      codex
+Phase:      39
+Type:       docs
+Depends-On: SAS-DR-022
+
+Objective: |
+  Reframe the sandbox as a buyer-readable Telegram Trader Intelligence product:
+  source hygiene, claim quality, narrative drift, risk-signal behavior, and
+  evidence-backed examples.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Product docs define the buyer promise without prediction, leaderboard, investment advice, or best-channel claims."
+    test: "manual/docs-review"
+  - id: AC-2
+    description: "The report surface separates evidence, interpretation, limitations, and operator verdict."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "Boundaries prohibit private Telegram scraping, paid API dependency before demand, and automated trading decisions."
+    test: "manual/docs-review"
+
+Files:
+  - docs/TELEGRAM_TRADER_INTELLIGENCE.md
+  - README.md
+  - docs/CODEX_PROMPT.md
+
+### SAS-TTI-002: Signal Analysis Receipt Schema
+
+Owner:      codex
+Phase:      39
+Type:       implementation
+Depends-On: SAS-TTI-001
+
+Objective: |
+  Define a machine-readable `signal_analysis_receipt` that records source
+  hashes, extracted claims, reviewer status, market-data references,
+  limitations, and report verdict.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Receipt schema records source ids, capture hashes, claim ids, extraction method, reviewer status, outcome references, and limitations."
+    test: "unit/schema"
+  - id: AC-2
+    description: "A fixture receipt can be validated and rejected when required evidence fields are missing."
+    test: "unit/schema"
+  - id: AC-3
+    description: "Receipt language avoids future-performance and advice claims."
+    test: "unit/schema"
+
+Files:
+  - src/signal_sandbox/receipts.py
+  - tests/unit/test_signal_analysis_receipt.py
+  - docs/TELEGRAM_TRADER_INTELLIGENCE.md
+
+### SAS-TTI-003: Referee Verdict Pack
+
+Owner:      codex
+Phase:      39
+Type:       implementation
+Depends-On: SAS-TTI-002
+
+Objective: |
+  Add a deterministic or human-reviewed referee verdict artifact that accepts,
+  rejects, or marks as insufficient each report claim and lens output.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Referee verdict schema supports accepted, rejected, insufficient, and needs-human-review states."
+    test: "unit/schema"
+  - id: AC-2
+    description: "Verdicts link to receipt ids and source evidence instead of trusting generated prose."
+    test: "unit/schema"
+  - id: AC-3
+    description: "Report generation can include referee verdict summaries."
+    test: "integration/report"
+
+Files:
+  - src/signal_sandbox/referee.py
+  - tests/unit/test_referee_verdict.py
+  - tests/integration/test_referee_report_summary.py
+
+### SAS-TTI-004: Diverse Analytical Lens Report Pack
+
+Owner:      codex
+Phase:      39
+Type:       product
+Depends-On: SAS-TTI-003
+
+Objective: |
+  Adapt the useful Gensyn-inspired pattern: generate several bounded analytical
+  lenses, preserve their evidence, and let the referee verdict decide what is
+  reportable.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "At least three lens types are defined, for example claim precision, narrative drift, risk posture, or source reliability."
+    test: "manual/docs-review"
+  - id: AC-2
+    description: "Each lens output must cite receipt evidence and cannot become report text unless accepted or human-approved."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "The pack states that distributed training, token incentives, and autonomous swarms are explicitly out of scope."
+    test: "manual/docs-review"
+
+Files:
+  - docs/TELEGRAM_TRADER_INTELLIGENCE.md
+  - docs/pilot/reports/
+
+### SAS-TTI-005: Productization Readiness Review
+
+Owner:      codex + operator
+Phase:      39
+Type:       review
+Depends-On: SAS-TTI-004
+
+Objective: |
+  Decide whether Telegram Trader Intelligence is ready for a buyer demo,
+  concierge pilot, or another evidence-hardening loop.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Review records buyer-demo readiness, evidence gaps, legal boundaries, product promise, and resume/stop criteria."
+    test: "manual/review"
+  - id: AC-2
+    description: "State docs point to the next task and do not open marketplace, leaderboard, advice, or private scraping scope."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "The review includes cost/friction notes for manual, semi-automated, and automated report production."
+    test: "manual/review"
+
+Files:
+  - docs/audit/TELEGRAM_TRADER_INTELLIGENCE_READINESS_REVIEW.md
+  - docs/CODEX_PROMPT.md
+  - README.md
+
+---
+
+## Phase 36 — Channel Impact Framework And Cross-Channel Completion
+
+### SAS-IMPACT-001: Impact Rubric And Truth Model ✅
+
+Owner:      codex + operator
+Phase:      36
+Type:       docs
+Depends-On: SAS-NEXT-032
+
+Objective: |
+  Define the source-of-truth model and broad channel impact rubric used by the
+  future dashboard and paid deep report. The rubric must include PnL-like
+  signal performance, trend sense, insight depth, trading methodology, risk
+  management, practical usefulness, creativity/differentiation, and evidence
+  confidence.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/specs/CHANNEL_IMPACT_FRAMEWORK.md` defines author-statement truth, interpretation truth, market-outcome truth, and product-conclusion truth."
+    test: "tests/unit/test_channel_impact_framework.py::test_impact_framework_defines_truth_layers"
+  - id: AC-2
+    description: "The framework lists non-PnL dimensions: trend sense, insight depth, methodology, risk management, practical usefulness, creativity, and evidence confidence."
+    test: "tests/unit/test_channel_impact_framework.py::test_impact_framework_lists_non_pnl_dimensions"
+  - id: AC-3
+    description: "The framework separates dashboard fields from paid deep report content and blocks leaderboard/advice/future-profit framing."
+    test: "tests/unit/test_channel_impact_framework.py::test_impact_framework_defines_dashboard_and_paid_report_boundary"
+
+Files:
+  - docs/specs/CHANNEL_IMPACT_FRAMEWORK.md
+  - docs/tasks.md
+  - docs/AI_DEVELOPMENT_PLAN_RU.md
+  - docs/CODEX_PROMPT.md
+  - PHASE_HANDOFF.md
+  - AGENT_NOTES.md
+  - ORCHESTRATOR_CHECKPOINT.md
+  - MEMORY.md
+  - tests/unit/test_channel_impact_framework.py
+
+Context-Refs:
+  - docs/specs/CHANNEL_UTILITY_EVALUATION.md
+  - docs/specs/CHANNEL_QUANT_METRICS_V2.md
+  - docs/pilot/reports/three_channel_V1_CHANNEL_UTILITY_REPORT.md
+
+Notes: |
+  This task expands evaluation criteria. It does not change existing V1 metrics
+  or approve external delivery.
+
+### SAS-IMPACT-002: Cross-Channel Development Loop ✅
+
+Owner:      codex + operator
+Phase:      36
+Type:       docs
+Depends-On: SAS-IMPACT-001
+
+Objective: |
+  Turn the impact framework into a repeated development loop for `bablos79`,
+  `nemphiscrypts`, and `pifagortrade`: source coverage, multimodal intake,
+  claim normalization, truth mapping, impact scoring, and cross-channel
+  comparison.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/three_channel_PHASE36_IMPACT_DEVELOPMENT_LOOP.md` lists the same loop steps for all three channels."
+    test: "tests/unit/test_channel_impact_framework.py::test_cross_channel_loop_covers_three_channels"
+  - id: AC-2
+    description: "The loop states dashboard output and paid deep report output separately."
+    test: "tests/unit/test_channel_impact_framework.py::test_cross_channel_loop_separates_dashboard_and_paid_report"
+
+Files:
+  - docs/pilot/three_channel_PHASE36_IMPACT_DEVELOPMENT_LOOP.md
+
+### SAS-BABLOS-001: bablos79 Corpus Completion Scope And Gap Plan ✅
+
+Owner:      codex + operator
+Phase:      36
+Type:       docs
+Depends-On: SAS-IMPACT-002
+
+Objective: |
+  Apply the Phase 36 cross-channel loop to `bablos79` first. The task must make
+  clear that the existing 90-day window is not fully captured, images/OCR did
+  not run, audio is internal-only, and the small number of strict signals is an
+  evidence-quality result rather than a product bug.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/bablos79_PHASE36_CORPUS_COMPLETION_SCOPE.md` records the current text/audio/image coverage counts and explains why the current corpus cannot support a long-period multimodal author conclusion."
+    test: "tests/unit/test_bablos79_phase36_scope.py::test_phase36_scope_records_current_bablos_limitations"
+  - id: AC-2
+    description: "The phase defines tasks for text recapture, media linkage, transcript acceptance, OCR/vision draft pass, claim recompute, proxy/outcome recompute, and external gate rerun."
+    test: "tests/unit/test_bablos79_phase36_scope.py::test_phase36_scope_lists_recovery_tasks"
+  - id: AC-3
+    description: "The phase states that OCR/vision and transcript output are draft/internal until human/operator accepted."
+    test: "tests/unit/test_bablos79_phase36_scope.py::test_phase36_scope_preserves_media_guardrails"
+
+Files:
+  - docs/pilot/bablos79_PHASE36_CORPUS_COMPLETION_SCOPE.md
+  - docs/tasks.md
+  - docs/AI_DEVELOPMENT_PLAN_RU.md
+  - docs/CODEX_PROMPT.md
+  - PHASE_HANDOFF.md
+  - AGENT_NOTES.md
+  - ORCHESTRATOR_CHECKPOINT.md
+  - MEMORY.md
+  - tests/unit/test_bablos79_phase36_scope.py
+
+Context-Refs:
+  - docs/pilot/bablos79_EXPANDED_CAPTURE_PACK.md
+  - docs/pilot/bablos79_CORPUS_GAP_REGISTER.md
+  - docs/pilot/bablos79_MEDIA_INVENTORY_EXPANDED.md
+  - docs/pilot/bablos79_OCR_RUN_EXPANDED.md
+  - docs/pilot/bablos79_TRANSCRIPT_LLM_REVIEW.md
+
+Notes: |
+  This task starts the per-channel `bablos79` recovery path but does not run public recapture, OCR,
+  transcription, market-data fetch, or outcome recompute.
+
+### SAS-BABLOS-002: Public Text Recapture Plan ✅
+
+Owner:      codex + operator
+Phase:      36
+Type:       docs
+Depends-On: SAS-BABLOS-001
+
+Objective: |
+  Plan the public Telegram `/s/` recapture for missing `bablos79` periods and
+  missing message IDs without private scraping or guessing unavailable rows.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "The plan enumerates pre-seed and post-seed windows, missing IDs, capture method, and unavailable/deleted/media-only classification rules."
+    test: "manual/docs-review"
+  - id: AC-2
+    description: "The plan states that absent rows are neither positive nor negative author evidence."
+    test: "manual/docs-review"
+
+Files:
+  - docs/pilot/bablos79_PHASE36_TEXT_RECAPTURE_PLAN.md
+
+Notes: |
+  This task creates the plan only. It does not run public network recapture.
+
+### SAS-BABLOS-003: Media Linkage Queue ✅
+
+Owner:      codex + operator
+Phase:      36
+Type:       docs
+Depends-On: SAS-BABLOS-002
+
+Objective: |
+  Build a queue for image/chart/audio candidates that records exact source
+  URL, capture ID, source document ID, media file/checksum, and blocker status.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Every image/chart/audio candidate has a source-linked artifact or explicit blocker."
+    test: "tests/unit/test_bablos79_phase36_media_linkage_queue.py::test_phase36_media_linkage_queue_counts_and_gate"
+  - id: AC-2
+    description: "Chart rows require manual interpretation review before claim use."
+    test: "tests/unit/test_bablos79_phase36_media_linkage_queue.py::test_phase36_media_linkage_queue_preserves_review_policy"
+
+Files:
+  - docs/pilot/bablos79_PHASE36_MEDIA_LINKAGE_QUEUE.md
+  - docs/pilot/bablos79_PHASE36_MEDIA_LINKAGE_QUEUE.json
+  - tests/unit/test_bablos79_phase36_media_linkage_queue.py
+
+Notes: |
+  Completed queue result: 8 candidates, 2 source-linked audio rows ready for
+  transcript acceptance, 0 OCR-ready image/chart rows, and 0 customer-facing
+  media claims allowed until review gates pass.
+
+### SAS-BABLOS-004: Transcript Acceptance Pass ✅
+
+Owner:      operator
+Phase:      36
+Type:       review
+Depends-On: SAS-BABLOS-003
+
+Objective: |
+  Accept/reject/needs_context each transcript before it can create
+  customer-facing claims.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Each transcript ref has human/operator status and reason."
+    test: "tests/unit/test_bablos79_phase36_completion.py::test_phase36_transcript_acceptance_excludes_unaccepted_media"
+  - id: AC-2
+    description: "Rejected or needs_context transcript claims remain excluded from customer-facing metrics."
+    test: "tests/unit/test_bablos79_phase36_completion.py::test_phase36_transcript_acceptance_excludes_unaccepted_media"
+
+Files:
+  - docs/pilot/bablos79_PHASE36_TRANSCRIPT_ACCEPTANCE.md
+  - docs/pilot/bablos79_PHASE36_TRANSCRIPT_ACCEPTANCE.json
+
+Notes: |
+  Completed with both transcript refs marked `needs_context`, not
+  human/operator accepted. No transcript-backed customer-facing claims are
+  allowed.
+
+### SAS-BABLOS-005: OCR/Vision Draft Pass ✅
+
+Owner:      codex + operator
+Phase:      36
+Type:       validation
+Depends-On: SAS-BABLOS-003
+
+Objective: |
+  Run OCR/vision only on source-linked image/chart artifacts and keep output as
+  draft evidence pending human/operator review.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "OCR artifacts record source linkage, checksum, provider/model, confidence/limitations, and draft status."
+    test: "tests/unit/test_bablos79_phase36_completion.py::test_phase36_ocr_drafts_are_blocked_without_source_linkage"
+  - id: AC-2
+    description: "No chart interpretation claim is approved without manual review."
+    test: "tests/unit/test_bablos79_phase36_completion.py::test_phase36_ocr_drafts_are_blocked_without_source_linkage"
+
+Files:
+  - docs/pilot/bablos79_PHASE36_OCR_DRAFTS.md
+  - docs/pilot/bablos79_PHASE36_OCR_DRAFTS.json
+
+Notes: |
+  Completed as a blocked OCR pass: 0 source-linked image/chart artifacts,
+  0 OCR drafts, 0 chart interpretations approved.
+
+### SAS-BABLOS-006: Multimodal Claim Recompute ✅
+
+Owner:      codex
+Phase:      36
+Type:       validation
+Depends-On: SAS-BABLOS-004, SAS-BABLOS-005
+
+Objective: |
+  Recompute the `bablos79` claim ledger using text plus accepted transcript and
+  accepted OCR evidence.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "The recomputed ledger separates text, accepted transcript, accepted OCR, rejected media, and blockers."
+    test: "tests/unit/test_bablos79_phase36_completion.py::test_phase36_claim_ledger_has_no_new_accepted_media_claims"
+  - id: AC-2
+    description: "Every deterministic candidate has asset, direction, horizon, and review state or explicit blocker."
+    test: "tests/unit/test_bablos79_phase36_completion.py::test_phase36_claim_ledger_has_no_new_accepted_media_claims"
+
+Files:
+  - docs/pilot/bablos79_PHASE36_CLAIM_LEDGER.md
+  - docs/pilot/bablos79_PHASE36_CLAIM_LEDGER.json
+
+Notes: |
+  Completed with 0 accepted transcript claims, 0 accepted OCR claims, and
+  0 deterministic outcome-ready rows.
+
+### SAS-BABLOS-007: Proxy And Outcome Recompute ✅
+
+Owner:      codex + operator
+Phase:      36
+Type:       validation
+Depends-On: SAS-BABLOS-006
+
+Objective: |
+  Recompute market outcomes only for deterministic rows with approved
+  provider/proxy mapping.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Provider gaps are exclusions, not losses."
+    test: "tests/unit/test_bablos79_phase36_completion.py::test_phase36_outcomes_and_gate_reject_external_delivery"
+  - id: AC-2
+    description: "Outcome artifacts include source refs, provider refs, horizon, metric, and unsupported-row counts."
+    test: "tests/unit/test_bablos79_phase36_completion.py::test_phase36_outcomes_and_gate_reject_external_delivery"
+
+Files:
+  - docs/pilot/bablos79_PHASE36_OUTCOMES.md
+  - docs/pilot/bablos79_PHASE36_OUTCOMES.json
+
+Notes: |
+  Completed with no market fetch and 0 computed outcomes. Unsupported rows and
+  provider/proxy gaps remain exclusions, not losses.
+
+### SAS-BABLOS-008: Phase 36 External Gate ✅
+
+Owner:      operator + codex
+Phase:      36
+Type:       review
+Depends-On: SAS-BABLOS-007
+
+Objective: |
+  Decide whether the completed `bablos79` retrospective is external-ready,
+  internal-only, or still rejected.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Gate records external-ready / internal-only / rejected with blockers, evidence coverage, media status, and no-advice boundary."
+    test: "tests/unit/test_bablos79_phase36_completion.py::test_phase36_outcomes_and_gate_reject_external_delivery"
+  - id: AC-2
+    description: "Gate does not approve external delivery if media review, provider coverage, or deterministic outcome quality remains insufficient."
+    test: "tests/unit/test_bablos79_phase36_completion.py::test_phase36_outcomes_and_gate_reject_external_delivery"
+
+Files:
+  - docs/pilot/bablos79_PHASE36_EXTERNAL_READY_GATE.md
+  - docs/archive/PHASE36_BABLOS79_DEEP_REVIEW.md
+
+Notes: |
+  Deep review completed for the `bablos79` Phase 36 pass. External delivery
+  remains rejected/internal-only.
+
+### SAS-IMPACT-003: nemphiscrypts Corpus Completion Scope ✅
+
+Owner:      codex + operator
+Phase:      36
+Type:       docs
+Depends-On: SAS-IMPACT-002
+
+Objective: |
+  Create the same corpus/media completion scope for `nemphiscrypts` that exists
+  for `bablos79`, including text coverage, audio/image/chart status, claim
+  count, provider gaps, and stop conditions.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "The scope records source coverage, media status, missing periods/IDs, and next capture/review steps."
+    test: "tests/unit/test_phase36_other_channel_scopes.py::test_nemphiscrypts_phase36_scope_records_coverage_media_and_next_steps"
+  - id: AC-2
+    description: "The scope uses the same truth and impact dimensions defined in `CHANNEL_IMPACT_FRAMEWORK.md`."
+    test: "tests/unit/test_phase36_other_channel_scopes.py::test_other_channel_scopes_use_same_impact_and_truth_model"
+
+Files:
+  - docs/pilot/nemphiscrypts_PHASE36_CORPUS_COMPLETION_SCOPE.md
+
+### SAS-IMPACT-004: pifagortrade Corpus Completion Scope ✅
+
+Owner:      codex + operator
+Phase:      36
+Type:       docs
+Depends-On: SAS-IMPACT-002
+
+Objective: |
+  Create the same corpus/media completion scope for `pifagortrade`, including
+  text coverage, audio/image/chart status, claim count, provider gaps, and stop
+  conditions.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "The scope records source coverage, media status, missing periods/IDs, and next capture/review steps."
+    test: "tests/unit/test_phase36_other_channel_scopes.py::test_pifagortrade_phase36_scope_records_coverage_media_and_next_steps"
+  - id: AC-2
+    description: "The scope uses the same truth and impact dimensions defined in `CHANNEL_IMPACT_FRAMEWORK.md`."
+    test: "tests/unit/test_phase36_other_channel_scopes.py::test_other_channel_scopes_use_same_impact_and_truth_model"
+
+Files:
+  - docs/pilot/pifagortrade_PHASE36_CORPUS_COMPLETION_SCOPE.md
+
+### SAS-IMPACT-005: Impact Claim Taxonomy Expansion ✅
+
+Owner:      codex
+Phase:      36
+Type:       validation
+Depends-On: SAS-IMPACT-001, SAS-BABLOS-006, SAS-IMPACT-003, SAS-IMPACT-004
+
+Objective: |
+  Expand normalized claim/idea taxonomy so trend sense, insight depth,
+  methodology, risk management, practical usefulness, and creativity can be
+  reviewed as first-class evidence, not forced into PnL-only signal rows.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Taxonomy distinguishes explicit trade setup, trend/regime view, macro thesis, risk/process statement, watchlist, and non-market commentary."
+    test: "tests/unit/test_phase36_final_impact_artifacts.py::test_impact_claim_taxonomy_distinguishes_pnl_and_non_pnl_claims"
+  - id: AC-2
+    description: "Non-PnL claims have review/evidence/confidence fields and cannot become win/loss rows without deterministic market mapping."
+    test: "tests/unit/test_phase36_final_impact_artifacts.py::test_impact_claim_taxonomy_distinguishes_pnl_and_non_pnl_claims"
+
+Files:
+  - docs/specs/CHANNEL_IMPACT_CLAIM_TAXONOMY.md
+
+### SAS-IMPACT-006: Dashboard Score Schema ✅
+
+Owner:      codex + operator
+Phase:      36
+Type:       validation
+Depends-On: SAS-IMPACT-005
+
+Objective: |
+  Define the dashboard-ready dataset and score schema for compact channel
+  comparison with confidence labels and no universal leaderboard.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Schema includes signal performance, trend sense, insight depth, methodology clarity, risk discipline, practical usefulness, creativity, evidence confidence, sample size, and external gate."
+    test: "tests/unit/test_phase36_final_impact_artifacts.py::test_dashboard_schema_and_paid_boundary_preserve_product_guardrails"
+  - id: AC-2
+    description: "Schema forbids best-channel, future-profit, and investment-advice language."
+    test: "tests/unit/test_phase36_final_impact_artifacts.py::test_dashboard_schema_and_paid_boundary_preserve_product_guardrails"
+
+Files:
+  - docs/specs/CHANNEL_DASHBOARD_SCORE_SCHEMA.md
+
+### SAS-IMPACT-007: Paid Deep Report Boundary ✅
+
+Owner:      codex + operator
+Phase:      36
+Type:       docs
+Depends-On: SAS-IMPACT-006
+
+Objective: |
+  Define what stays in the paid deep report versus what can safely appear in a
+  public/free dashboard.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Boundary separates compact public metrics from paid evidence appendix, examples, counterexamples, methodology/risk notes, and source limitations."
+    test: "tests/unit/test_phase36_final_impact_artifacts.py::test_dashboard_schema_and_paid_boundary_preserve_product_guardrails"
+  - id: AC-2
+    description: "Boundary preserves no-advice, no-future-profit, no-private-source, and external-gate rules."
+    test: "tests/unit/test_phase36_final_impact_artifacts.py::test_dashboard_schema_and_paid_boundary_preserve_product_guardrails"
+
+Files:
+  - docs/specs/PAID_CHANNEL_REPORT_BOUNDARY.md
+
+### SAS-IMPACT-008: Cross-Channel Impact Recompute And Gate ✅
+
+Owner:      codex + operator
+Phase:      36
+Type:       review
+Depends-On: SAS-BABLOS-008, SAS-IMPACT-003, SAS-IMPACT-004, SAS-IMPACT-006, SAS-IMPACT-007
+
+Objective: |
+  Recompute cross-channel comparison using the impact framework and decide what
+  is dashboard-safe, paid-report-only, internal-only, or blocked.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Comparison includes all three channels and uses confidence/sample-size caveats."
+    test: "tests/unit/test_phase36_final_impact_artifacts.py::test_phase36_scorecard_and_gate_are_internal_only_and_three_channel"
+  - id: AC-2
+    description: "Gate explicitly decides dashboard-safe fields, paid-report-only fields, internal-only fields, and blocked claims."
+    test: "tests/unit/test_phase36_final_impact_artifacts.py::test_phase36_scorecard_and_gate_are_internal_only_and_three_channel"
+
+Files:
+  - docs/pilot/three_channel_PHASE36_IMPACT_SCORECARD.md
+  - docs/pilot/three_channel_PHASE36_EXTERNAL_READY_GATE.md
+  - docs/archive/PHASE36_DEEP_REVIEW.md
+
+## Phase 37 — Pre-Client Artifact Hardening
+
+Goal: produce reliable internal artifacts for a future free dashboard and paid
+deep reports before any client outreach, paid report sale, private-channel
+analysis, partnership discussion, or public ranking. This phase is explicitly
+pre-client: it can use public/operator-authorized sources, existing model
+reviewer outputs, deterministic market APIs, and internal review gates, but it
+must not claim customer validation or external approval.
+
+### SAS-PRECLIENT-001: Product Artifact Contract And Reliability Bar ✅
+
+Owner:      codex + operator
+Phase:      37
+Type:       docs
+Depends-On: SAS-IMPACT-008
+
+Objective: |
+  Define the exact artifacts needed before client outreach: free source card,
+  paid deep report, evidence appendix, human/model review ledger, outcome
+  snapshot, safety gate, and demo pack. The contract must separate internal,
+  dashboard-safe, paid-report-only, and blocked content.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/specs/PRECLIENT_ARTIFACT_CONTRACT.md` lists every required artifact, owner, input dependencies, allowed audience, and reliability status enum."
+    test: "tests/unit/test_preclient_task_graph.py::test_preclient_phase_lists_reliable_artifact_contract"
+  - id: AC-2
+    description: "Contract defines reliability levels `draft`, `model_reviewed`, `operator_reviewed`, `market_validated`, `dashboard_safe`, `paid_report_safe`, and `blocked`."
+    test: "tests/unit/test_preclient_task_graph.py::test_preclient_phase_lists_reliable_artifact_contract"
+  - id: AC-3
+    description: "Contract states that model reviewers do not replace human/operator acceptance for customer-facing media claims."
+    test: "tests/unit/test_preclient_task_graph.py::test_preclient_phase_preserves_customer_safety_gates"
+
+Files:
+  - docs/specs/PRECLIENT_ARTIFACT_CONTRACT.md
+  - docs/tasks.md
+  - docs/AI_DEVELOPMENT_PLAN_RU.md
+  - docs/CODEX_PROMPT.md
+  - AGENT_NOTES.md
+  - PHASE_HANDOFF.md
+  - tests/unit/test_preclient_task_graph.py
+
+Context-Refs:
+  - docs/pilot/three_channel_MULTIMODAL_RESEARCH_REPORT.md
+  - docs/pilot/three_channel_MEDIA_REVIEW_REPORT.md
+  - docs/specs/CHANNEL_DASHBOARD_SCORE_SCHEMA.md
+  - docs/specs/PAID_CHANNEL_REPORT_BOUNDARY.md
+
+Notes: |
+  Completed on 2026-05-23. The contract defines artifact inventory,
+  reliability statuses, audience classes, artifact gates, dashboard/free card
+  fields, paid report boundaries, done criteria, and explicit non-goals. It
+  does not create customer-facing claims, sales copy, client promises,
+  private-source workflows, or rankings.
+
+### SAS-PRECLIENT-002: Model-Reviewed Candidate Review Packet ✅
+
+Owner:      codex
+Phase:      37
+Type:       validation
+Depends-On: SAS-PRECLIENT-001
+
+Objective: |
+  Convert media reviewer outputs into a compact operator review packet for all
+  model-accepted and high-signal rows. The packet must include source URL,
+  media ref, transcript/OCR text, model reviewer decision, arbiter decision,
+  extracted setup fields, blocker reason, and recommended human action.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/preclient_MODEL_REVIEW_PACKET.md` and `.json` include all 9 arbiter-accepted internal candidates plus any mass-review accepted rows."
+    test: "tests/unit/test_preclient_model_review_packet.py"
+  - id: AC-2
+    description: "Every packet row has source link, media_ref_id, modality, model decisions, evidence types, setup/RR fields when present, and `required_operator_action`."
+    test: "tests/unit/test_preclient_model_review_packet.py"
+  - id: AC-3
+    description: "No packet row is marked customer-facing; all rows remain pending human/operator review or blocked."
+    test: "tests/unit/test_preclient_model_review_packet.py"
+
+Files:
+  - docs/pilot/preclient_MODEL_REVIEW_PACKET.md
+  - docs/pilot/preclient_MODEL_REVIEW_PACKET.json
+  - docs/pilot/three_channel_MEDIA_REVIEW_RESULTS.json
+  - docs/pilot/three_channel_MULTIMODAL_RR_DRAFTS.json
+  - tests/unit/test_preclient_model_review_packet.py
+
+Context-Refs:
+  - docs/pilot/three_channel_MEDIA_REVIEW_REPORT.md
+
+Notes: |
+  Completed on 2026-05-23. The packet includes 9 unique rows: all 9
+  arbiter-accepted candidates and the overlapping mass-review accepted row.
+  Channel split is `bablos79` 1, `nemphiscrypts` 1, `pifagortrade` 7. All rows
+  are `model_reviewed`, blocked from customer-facing metrics, and assigned a
+  required operator action.
+
+### SAS-PRECLIENT-003: Evidence Appendix Builder ✅
+
+Owner:      codex
+Phase:      37
+Type:       code
+Depends-On: SAS-PRECLIENT-002
+
+Objective: |
+  Build a deterministic evidence appendix artifact that joins source posts,
+  media manifest rows, transcript/OCR drafts, model-review decisions,
+  structured RR fields, market outcome references, and blockers into one
+  reproducible appendix per channel.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Appendix JSON and Markdown exist for all three channels and each row has source URL, evidence kind, artifact refs, checksum or text hash, review status, market-provider status, and blocker list."
+    test: "tests/unit/test_preclient_evidence_appendix.py"
+  - id: AC-2
+    description: "Appendix distinguishes text-only claims, media-backed claims, post-factum rows, context-only rows, rejected noise, and provider gaps."
+    test: "tests/unit/test_preclient_evidence_appendix.py"
+  - id: AC-3
+    description: "Appendix does not include raw media bytes and does not require private/authenticated source access."
+    test: "tests/unit/test_preclient_evidence_appendix.py"
+
+Files:
+  - src/signal_sandbox/reports/evidence_appendix.py
+  - docs/pilot/preclient_EVIDENCE_APPENDIX.json
+  - docs/pilot/preclient_EVIDENCE_APPENDIX.md
+  - tests/unit/test_preclient_evidence_appendix.py
+
+Context-Refs:
+  - docs/pilot/three_channel_MULTIMODAL_MEDIA_MANIFEST.json
+  - docs/pilot/three_channel_MULTIMODAL_PROCESSING_QUEUE.json
+  - docs/pilot/three_channel_MEDIA_REVIEW_RESULTS.json
+  - docs/pilot/three_channel_V1_METRIC_RESULTS.json
+
+Notes: |
+  Completed on 2026-05-23. `preclient_EVIDENCE_APPENDIX` contains 301
+  internal traceability rows across all three channels: 255 media-review rows,
+  40 video/manual blockers, 3 text-only V1 metric summaries, and 3 provider-gap
+  summaries. It distinguishes text-only claims, media-backed candidates,
+  post-factum rows, context-only rows, rejected noise, provider gaps, and
+  media-processing blockers. No raw media bytes or private/authenticated source
+  access are included.
+
+### SAS-PRECLIENT-004: Per-Channel Free Dashboard Card Dataset ✅
+
+Owner:      codex + operator
+Phase:      37
+Type:       validation
+Depends-On: SAS-PRECLIENT-003
+
+Objective: |
+  Create a compact free-dashboard dataset for `bablos79`, `nemphiscrypts`, and
+  `pifagortrade`: what the source is about, primary markets, strengths,
+  weaknesses, measurable history, setup/RR availability, media coverage,
+  evidence confidence, and external gate state.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/preclient_FREE_DASHBOARD_CARDS.json` contains exactly one card per channel with stable fields from the dashboard score schema."
+    test: "tests/unit/test_preclient_dashboard_cards.py"
+  - id: AC-2
+    description: "Each card includes `what_it_is`, `strengths`, `weaknesses`, `measurable_claims`, `media_coverage`, `rr_setup_status`, `evidence_confidence`, and `gate_status`."
+    test: "tests/unit/test_preclient_dashboard_cards.py"
+  - id: AC-3
+    description: "Cards avoid leaderboard, best-channel, future-profit, and investment-advice wording."
+    test: "tests/unit/test_preclient_dashboard_cards.py"
+
+Files:
+  - docs/pilot/preclient_FREE_DASHBOARD_CARDS.json
+  - docs/pilot/preclient_FREE_DASHBOARD_CARDS.md
+  - tests/unit/test_preclient_dashboard_cards.py
+
+Context-Refs:
+  - docs/specs/CHANNEL_DASHBOARD_SCORE_SCHEMA.md
+  - docs/pilot/three_channel_PHASE36_IMPACT_SCORECARD.md
+  - docs/pilot/three_channel_MEDIA_REVIEW_REPORT.md
+
+Notes: |
+  Completed on 2026-05-23. `preclient_FREE_DASHBOARD_CARDS` contains exactly
+  one internal draft card for each channel. Cards include compact V1 text
+  metrics, media coverage, RR/setup status, strengths, weaknesses, evidence
+  confidence, blockers, and gate status. All cards remain
+  `internal_only_not_dashboard_safe`; media/RR fields are blocked pending
+  review gates and no full evidence appendix is exposed.
+
+### SAS-PRECLIENT-005: Per-Channel Internal Deep Report V0 ✅
+
+Owner:      codex
+Phase:      37
+Type:       report
+Depends-On: SAS-PRECLIENT-003, SAS-PRECLIENT-004
+
+Objective: |
+  Generate one internal deep report per channel using the same report outline:
+  executive summary, source/period, source style, measurable claims, media
+  findings, setup/RR findings, model-reviewed candidates, confirmed examples,
+  contradicted examples, limitations, and gate status.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Reports exist for `bablos79`, `nemphiscrypts`, and `pifagortrade` under `docs/pilot/reports/preclient/`."
+    test: "tests/unit/test_preclient_channel_reports.py"
+  - id: AC-2
+    description: "Every report cites the evidence appendix and states `internal_only` until human/operator review and external gate pass."
+    test: "tests/unit/test_preclient_channel_reports.py"
+  - id: AC-3
+    description: "Reports include strengths and weaknesses with at least one supporting source/evidence reference each when available."
+    test: "tests/unit/test_preclient_channel_reports.py"
+
+Files:
+  - docs/pilot/reports/preclient/bablos79_DEEP_REPORT_V0.md
+  - docs/pilot/reports/preclient/nemphiscrypts_DEEP_REPORT_V0.md
+  - docs/pilot/reports/preclient/pifagortrade_DEEP_REPORT_V0.md
+  - tests/unit/test_preclient_channel_reports.py
+
+Context-Refs:
+  - docs/specs/PAID_CHANNEL_REPORT_BOUNDARY.md
+  - docs/pilot/preclient_EVIDENCE_APPENDIX.md
+
+Notes: |
+  Completed on 2026-05-23. Three internal-only deep reports now exist under
+  `docs/pilot/reports/preclient/`. Each uses the same outline, cites the
+  evidence appendix, records `internal_only` gate status, includes confirmed
+  and contradicted examples from the V1 utility report, and supports strengths
+  and weaknesses with evidence references. They are not customer-ready sales
+  deliverables.
+
+### SAS-PRECLIENT-006: Paid-Style Demo Report For Strongest Candidate ✅
+
+Owner:      codex + operator
+Phase:      37
+Type:       report
+Depends-On: SAS-PRECLIENT-005
+
+Objective: |
+  Produce one polished paid-style demo report for the strongest current
+  candidate, expected to be `pifagortrade` unless the evidence appendix
+  disproves that choice. The report must show the product promise without
+  claiming external approval.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/reports/preclient/PAID_STYLE_DEMO_REPORT.md` names the selected channel and explains why it was selected from evidence, not taste."
+    test: "tests/unit/test_preclient_paid_demo_report.py"
+  - id: AC-2
+    description: "Demo report includes locked/paid sections: evidence appendix preview, post-factum vs real-time distinction, setup/RR review, counterexamples, and limitations."
+    test: "tests/unit/test_preclient_paid_demo_report.py"
+  - id: AC-3
+    description: "Demo report remains `internal_demo_only` and contains no pricing promise, future-profit claim, or private-source promise."
+    test: "tests/unit/test_preclient_paid_demo_report.py"
+
+Files:
+  - docs/pilot/reports/preclient/PAID_STYLE_DEMO_REPORT.md
+  - tests/unit/test_preclient_paid_demo_report.py
+
+Context-Refs:
+  - docs/pilot/three_channel_MEDIA_REVIEW_REPORT.md
+  - docs/pilot/preclient_FREE_DASHBOARD_CARDS.md
+
+Notes: |
+  Completed on 2026-05-23. The demo selects `pifagortrade` from evidence
+  density, not taste: 107 V1 evaluable text claims, 7 model-reviewed packet
+  candidates, setup/risk/post-factum material, and clear counterexamples. It
+  includes locked paid-style sections for evidence preview, post-factum vs
+  real-time distinction, setup/RR review, counterexamples, and limitations. It
+  remains `internal_demo_only` with no external approval claim.
+
+### SAS-PRECLIENT-007: Outcome And RR Recompute For Review Candidates ✅
+
+Owner:      codex
+Phase:      37
+Type:       validation
+Depends-On: SAS-PRECLIENT-002, SAS-PRECLIENT-003
+
+Objective: |
+  Recompute deterministic market outcomes and RR/setup status for model
+  reviewer candidates where public timestamps, asset/proxy mapping, direction,
+  entry, stop, target, and horizon are sufficient. Rows with missing fields
+  remain blockers, not failures.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/preclient_CANDIDATE_OUTCOMES.json` records every reviewed candidate as evaluated, insufficient_fields, provider_gap, post_factum_only, or media_review_blocked."
+    test: "tests/unit/test_preclient_candidate_outcomes.py"
+  - id: AC-2
+    description: "Outcome rows include provider/source refs and do not use bulk market-history storage."
+    test: "tests/unit/test_preclient_candidate_outcomes.py"
+  - id: AC-3
+    description: "Post-factum screenshots are not treated as predictive calls unless source timing and forward-looking language are clear."
+    test: "tests/unit/test_preclient_candidate_outcomes.py"
+
+Files:
+  - docs/pilot/preclient_CANDIDATE_OUTCOMES.json
+  - docs/pilot/preclient_CANDIDATE_OUTCOMES.md
+  - scripts/three_channel_media_reviewer.py
+  - scripts/three_channel_multimodal_research.py
+  - tests/unit/test_preclient_candidate_outcomes.py
+
+Context-Refs:
+  - docs/pilot/preclient_MODEL_REVIEW_PACKET.json
+  - docs/specs/CHANNEL_QUANT_METRICS_V2.md
+
+Notes: |
+  Completed on 2026-05-23. `preclient_CANDIDATE_OUTCOMES` records all 9
+  model-reviewed candidates: 1 provider gap with internal RR recompute, 4
+  insufficient-field rows, and 4 post-factum-only rows. Market outcomes were
+  not recomputed because no candidate has the full approved source-time,
+  instrument/proxy, direction, entry, stop, target, and horizon set. No bulk
+  market-history storage was used.
+
+### SAS-PRECLIENT-008: Static Free Dashboard Prototype ✅
+
+Owner:      codex
+Phase:      37
+Type:       frontend
+Depends-On: SAS-PRECLIENT-004, SAS-PRECLIENT-005
+
+Objective: |
+  Build a static internal dashboard prototype that renders the free channel
+  cards and links to internal reports. The dashboard must be utilitarian,
+  scannable, and clearly marked internal-only.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/preclient_dashboard/index.html` renders all three channel cards from the dashboard dataset."
+    test: "tests/unit/test_preclient_dashboard_static.py"
+  - id: AC-2
+    description: "Dashboard shows gate status, evidence confidence, measurable sample size, setup/RR status, media status, and no-advice disclaimer per channel."
+    test: "tests/unit/test_preclient_dashboard_static.py"
+  - id: AC-3
+    description: "Dashboard contains no payment flow, public ranking, private-source promise, or future-profit claim."
+    test: "tests/unit/test_preclient_dashboard_static.py"
+
+Files:
+  - docs/pilot/preclient_dashboard/index.html
+  - docs/pilot/preclient_FREE_DASHBOARD_CARDS.json
+  - tests/unit/test_preclient_dashboard_static.py
+
+Context-Refs:
+  - docs/specs/CHANNEL_DASHBOARD_SCORE_SCHEMA.md
+
+Notes: |
+  Completed on 2026-05-23. `docs/pilot/preclient_dashboard/index.html`
+  renders all three free dashboard cards with gate status, evidence
+  confidence, measurable sample, setup/RR status, media status, no-advice
+  labels, internal report links, evidence appendix link, and candidate outcome
+  link. It is static/internal-only and has no payment flow, public ranking,
+  private-source promise, or future-profit claim.
+
+### SAS-PRECLIENT-009: Report Safety, Language, And Gate Pass ✅
+
+Owner:      codex + operator
+Phase:      37
+Type:       validation
+Depends-On: SAS-PRECLIENT-005, SAS-PRECLIENT-006, SAS-PRECLIENT-008
+
+Objective: |
+  Run deterministic language and artifact safety checks across free dashboard
+  cards, internal deep reports, and paid-style demo report. Decide which fields
+  are dashboard-safe, paid-report-only, internal-only, or blocked.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/preclient_ARTIFACT_SAFETY_GATE.md` records the decision for every pre-client artifact and cites blockers."
+    test: "tests/unit/test_preclient_artifact_safety_gate.py"
+  - id: AC-2
+    description: "Safety scan blocks advice, future-profit claims, best-channel/ranking language, unsupported private-source claims, and unreviewed media claims."
+    test: "tests/unit/test_preclient_artifact_safety_gate.py"
+  - id: AC-3
+    description: "Gate states whether the team may proceed to buyer conversations, and if yes, which artifacts can be shown and under what wording."
+    test: "tests/unit/test_preclient_artifact_safety_gate.py"
+
+Files:
+  - docs/pilot/preclient_ARTIFACT_SAFETY_GATE.md
+  - docs/pilot/preclient_ARTIFACT_SAFETY_GATE.json
+  - tests/unit/test_preclient_artifact_safety_gate.py
+
+Context-Refs:
+  - docs/specs/PRECLIENT_ARTIFACT_CONTRACT.md
+  - docs/specs/PAID_CHANNEL_REPORT_BOUNDARY.md
+
+Notes: |
+  Completed on 2026-05-23. `preclient_ARTIFACT_SAFETY_GATE` covers 14
+  artifacts, records 0 forbidden phrase findings, and still holds buyer
+  conversations until `SAS-PRECLIENT-010` deep review. No artifact is showable
+  now. The static dashboard, free cards, and paid-style demo are only
+  candidates after Phase 37 deep review; evidence appendices, model packet,
+  candidate outcomes, and deep reports remain internal-only.
+
+### SAS-PRECLIENT-010: Phase 37 Deep Review And Client-Readiness Decision ✅
+
+Owner:      codex + operator
+Phase:      37
+Type:       review
+Depends-On: SAS-PRECLIENT-001, SAS-PRECLIENT-002, SAS-PRECLIENT-003, SAS-PRECLIENT-004, SAS-PRECLIENT-005, SAS-PRECLIENT-006, SAS-PRECLIENT-007, SAS-PRECLIENT-008, SAS-PRECLIENT-009
+
+Objective: |
+  Run a phase-boundary deep review and decide whether the project is ready for
+  first client conversations, requires more internal artifact hardening, or
+  should pivot the buyer promise.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Deep review checks artifact traceability, report fairness, dashboard safety, model/human review boundary, outcome correctness, and buyer-promise clarity."
+    test: "manual/review"
+  - id: AC-2
+    description: "`docs/archive/PHASE37_PRECLIENT_REVIEW.md` records findings, open blockers, and final decision: proceed_to_client_discovery, continue_internal_hardening, or pivot_scope."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "State files are updated with the next route only after the decision is recorded."
+    test: "manual/docs-review"
+
+Files:
+  - docs/archive/PHASE37_PRECLIENT_REVIEW.md
+  - docs/pilot/preclient_ARTIFACT_SAFETY_GATE.md
+  - docs/CODEX_PROMPT.md
+  - AGENT_NOTES.md
+  - PHASE_HANDOFF.md
+
+Context-Refs:
+  - prompts/ORCHESTRATOR.md
+  - docs/pilot/preclient_ARTIFACT_SAFETY_GATE.md
+
+Notes: |
+  Completed on 2026-05-23. The archived review decision is
+  `continue_internal_hardening`, not client-ready. Phase 37 produced a valid
+  internal diligence baseline, but buyer conversations, public dashboard use,
+  and paid delivery remain blocked until operator acceptance, accepted-row
+  market recompute, and redacted demo readiness are complete.
+
+## Phase 38 — Client-Readiness Evidence Acceptance
+
+Goal: turn the Phase 37 internal artifact stack into a defensible buyer-demo
+candidate without outreach yet. This phase must produce human/operator media
+decisions, recompute only accepted rows with approved public providers, redact a
+small showable demo subset, and define discovery success criteria. It must not
+start outreach, pricing, paid report delivery, private-channel analysis,
+private-channel partnership, or public ranking.
+
+### SAS-CLIENTREADY-001: Operator Media Acceptance Ledger
+
+Owner:      codex + operator
+Phase:      38
+Type:       validation
+Depends-On: SAS-PRECLIENT-010
+
+Objective: |
+  Convert the 9 model-reviewed media candidates into an operator decision
+  ledger with accepted, rejected, needs-context, or post-factum-only status.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "A ledger artifact records one row per `preclient_MODEL_REVIEW_PACKET` candidate with source URL, media ref, model decision, operator decision, and reason."
+    test: "tests/unit/test_clientready_operator_ledger.py"
+  - id: AC-2
+    description: "No row can become dashboard-safe or paid-report-safe from model review alone."
+    test: "tests/unit/test_clientready_operator_ledger.py"
+  - id: AC-3
+    description: "Post-factum-only rows remain blocked from predictive-call metrics."
+    test: "tests/unit/test_clientready_operator_ledger.py"
+
+Files:
+  - docs/pilot/clientready_OPERATOR_MEDIA_LEDGER.md
+  - docs/pilot/clientready_OPERATOR_MEDIA_LEDGER.json
+  - tests/unit/test_clientready_operator_ledger.py
+
+### SAS-CLIENTREADY-002: Accepted Candidate RR And Outcome Recompute
+
+Owner:      codex
+Phase:      38
+Type:       validation
+Depends-On: SAS-CLIENTREADY-001
+
+Objective: |
+  Recompute RR and market outcomes only for operator-accepted rows that have
+  sufficient public timestamp, asset/proxy, direction, entry, stop, target, and
+  horizon fields.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Every recomputed row cites public provider/proxy provenance and uses no bulk market-history storage."
+    test: "tests/unit/test_clientready_accepted_outcomes.py"
+  - id: AC-2
+    description: "Rows with missing fields, provider gaps, or post-factum status remain exclusions, not wins/losses."
+    test: "tests/unit/test_clientready_accepted_outcomes.py"
+  - id: AC-3
+    description: "The artifact reports counts for accepted, recomputed, excluded, and buyer-demo-safe rows."
+    test: "tests/unit/test_clientready_accepted_outcomes.py"
+
+Files:
+  - docs/pilot/clientready_ACCEPTED_OUTCOMES.md
+  - docs/pilot/clientready_ACCEPTED_OUTCOMES.json
+  - tests/unit/test_clientready_accepted_outcomes.py
+
+### SAS-CLIENTREADY-003: Redacted Buyer Demo Subset
+
+Owner:      codex + operator
+Phase:      38
+Type:       report
+Depends-On: SAS-CLIENTREADY-002
+
+Objective: |
+  Build a minimal buyer-demo subset from the dashboard and paid-style demo that
+  is safe to show in discovery if the gate approves it.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "The subset includes only approved compact fields, visible caveats, and source-linked examples; it does not expose the full evidence appendix."
+    test: "tests/unit/test_clientready_redacted_demo.py"
+  - id: AC-2
+    description: "The subset contains no advice, future-profit, ranking, marketplace, payment, or private-source language."
+    test: "tests/unit/test_clientready_redacted_demo.py"
+  - id: AC-3
+    description: "The subset declares whether it is showable now or still blocked."
+    test: "tests/unit/test_clientready_redacted_demo.py"
+
+Files:
+  - docs/pilot/clientready_REDACTED_BUYER_DEMO.md
+  - docs/pilot/clientready_REDACTED_BUYER_DEMO.json
+  - tests/unit/test_clientready_redacted_demo.py
+
+### SAS-CLIENTREADY-004: Discovery Gate And Success Criteria
+
+Owner:      codex + operator
+Phase:      38
+Type:       validation
+Depends-On: SAS-CLIENTREADY-003
+
+Objective: |
+  Decide whether the redacted demo is ready for narrow discovery conversations
+  and define what evidence is needed before charging for a report.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "A gate artifact records `ready_for_discovery`, `continue_internal_hardening`, or `pivot_scope` with explicit blockers."
+    test: "tests/unit/test_clientready_discovery_gate.py"
+  - id: AC-2
+    description: "Success criteria are discovery-only and do not include pricing, paid delivery, private partnerships, or public launch."
+    test: "tests/unit/test_clientready_discovery_gate.py"
+  - id: AC-3
+    description: "State files move to client discovery only if the gate says `ready_for_discovery`."
+    test: "tests/unit/test_clientready_discovery_gate.py"
+
+Files:
+  - docs/pilot/clientready_DISCOVERY_GATE.md
+  - docs/pilot/clientready_DISCOVERY_GATE.json
+  - tests/unit/test_clientready_discovery_gate.py
+
+## Phase 28 — External-Ready Review Sprint
+
+### SAS-NEXT-001: Full-Corpus Human Review Queue
+
+Owner:      codex + operator
+Phase:      28
+Type:       validation
+Depends-On: SAS-V1-009
+Status:     complete
+
+Objective: |
+  Turn the internal V1 corpus into a full human/operator review queue so every
+  included and excluded candidate has a defensible review state before any
+  external-ready attempt.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/three_channel_FULL_REVIEW_QUEUE.md` and `.json` list all V1 included claims, V1 exclusions, pending false negatives, provider gaps, and media-blocked rows."
+    test: "tests/unit/test_full_review_queue_artifact.py"
+  - id: AC-2
+    description: "Every row has stable id, channel, source URL, evidence snippet, suggested claim type, current decision, required reviewer action, and blocker reason where applicable."
+    test: "tests/unit/test_full_review_queue_artifact.py"
+  - id: AC-3
+    description: "Queue states external delivery remains blocked until full review is closed and gate reruns."
+    test: "tests/unit/test_full_review_queue_artifact.py"
+
+Files:
+  - docs/pilot/three_channel_FULL_REVIEW_QUEUE.md
+  - docs/pilot/three_channel_FULL_REVIEW_QUEUE.json
+  - docs/pilot/three_channel_V1_METRIC_RESULTS.json
+  - docs/pilot/three_channel_V1_EXTRACTION_REVIEW.md
+  - docs/AI_DEVELOPMENT_PLAN_RU.md
+
+Notes: |
+  Completed on 2026-05-19. The full-corpus queue is internal-only and keeps
+  external delivery blocked until operator review closure and gate rerun.
+
+### SAS-NEXT-002: False-Negative Extraction Pass
+
+Owner:      codex + operator
+Phase:      28
+Type:       validation
+Depends-On: SAS-NEXT-001
+Status:     complete
+Status:     complete
+
+Objective: |
+  Resolve V1 false negatives by extracting them into structured claims or
+  documenting why they remain unsupported.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "All false negatives from V1 review have status extracted, needs_provider, needs_context, or rejected with reason."
+    test: "tests/unit/test_false_negative_extraction_pass.py"
+  - id: AC-2
+    description: "Extractor calibration is updated for accepted false-negative patterns."
+    test: "tests/unit/test_false_negative_extraction_pass.py"
+  - id: AC-3
+    description: "Unsupported false negatives are exclusions, not wins/losses."
+    test: "tests/unit/test_false_negative_extraction_pass.py"
+
+Files:
+  - docs/pilot/three_channel_FALSE_NEGATIVE_PASS.md
+  - docs/pilot/three_channel_FALSE_NEGATIVE_PASS.json
+  - docs/pilot/three_channel_V1_EXTRACTOR_CALIBRATION.md
+  - src/signal_sandbox/claims/
+  - tests/unit/test_false_negative_extraction_pass.py
+
+Notes: |
+  Completed on 2026-05-19. Five pending false negatives were reviewed:
+  three extracted as structured drafts, two kept as `needs_context`, zero
+  added to customer-facing win/loss metrics.
+
+### SAS-NEXT-003: Report Language Safety Pass
+
+Owner:      codex
+Phase:      28
+Type:       report
+Depends-On: SAS-NEXT-002
+Status:     complete
+
+Objective: |
+  Add deterministic report wording checks for advice, future-profit,
+  unsupported ranking, marketplace, and overclaim language.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Safety checks scan V1 report text for forbidden advice/future-profit/ranking wording."
+    test: "tests/unit/test_report_language_safety_v2.py"
+  - id: AC-2
+    description: "Report includes limitations, evidence links, and gate status."
+    test: "tests/unit/test_report_language_safety_v2.py"
+  - id: AC-3
+    description: "No unreviewed media/OCR/chart claim appears in customer-facing wording."
+    test: "tests/unit/test_report_language_safety_v2.py"
+
+Files:
+  - src/signal_sandbox/reports/
+  - docs/pilot/reports/three_channel_V1_CHANNEL_UTILITY_REPORT.md
+  - docs/pilot/reports/three_channel_V1_REPORT_LANGUAGE_SAFETY.md
+  - docs/pilot/reports/three_channel_V1_REPORT_LANGUAGE_SAFETY.json
+  - tests/unit/test_report_language_safety_v2.py
+
+Notes: |
+  Completed on 2026-05-19. Deterministic report safety scanner passes for the
+  V1 report and records no advice, future-profit, ranking, marketplace, or
+  unreviewed-media wording findings.
+
+### SAS-NEXT-004: External Gate Rerun
+
+Owner:      operator + codex
+Phase:      28
+Type:       review
+Depends-On: SAS-NEXT-003
+Status:     complete
+
+Objective: |
+  Rerun the external-ready gate after full review and language safety updates.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Gate records approve_external_delivery, approve_internal_only, or reject_external_delivery with blockers."
+    test: "manual/operator-review"
+  - id: AC-2
+    description: "Gate cites review coverage, provider coverage, media posture, RR/setup coverage, and wording safety."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "External delivery remains blocked unless all required gate checks pass."
+    test: "manual/docs-review"
+
+Files:
+  - docs/pilot/three_channel_V1_EXTERNAL_READY_GATE.md
+  - docs/pilot/three_channel_FULL_REVIEW_QUEUE.md
+  - tests/unit/test_external_gate_rerun_v2.py
+
+Notes: |
+  Completed on 2026-05-19. Gate rerun remains `approve_internal_only` because
+  review closure, provider/media coverage, and RR/setup quality remain
+  incomplete.
+
+## Phase 29 — Review UI And Operator Workflow
+
+### SAS-NEXT-005: Review Decision Data Model
+
+Owner:      codex
+Phase:      29
+Type:       code
+Depends-On: SAS-NEXT-001
+
+Objective: |
+  Add durable review decision models for claim approval workflows.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Review decision schema records reviewer, timestamp, status, reason, source URL, evidence span, and claim id."
+    test: "tests/unit/test_review_decision_model.py"
+  - id: AC-2
+    description: "Allowed statuses include accepted, false_positive, false_negative, needs_context, unsupported_provider, and media_blocked."
+    test: "tests/unit/test_review_decision_model.py"
+  - id: AC-3
+    description: "Decision objects are deterministic and JSON-serializable."
+    test: "tests/unit/test_review_decision_model.py"
+
+Files:
+  - src/signal_sandbox/review/
+  - tests/unit/test_review_decision_model.py
+
+Notes: |
+  Completed on 2026-05-19. `ReviewDecision`, `ReviewEvidenceSpan`, and
+  `ReviewDecisionStatus` provide deterministic JSON-serializable operator
+  closure decisions.
+
+### SAS-NEXT-006: Review Queue API And Export
+
+Owner:      codex
+Phase:      29
+Type:       code
+Depends-On: SAS-NEXT-005
+Status:     complete
+
+Objective: |
+  Provide deterministic import/export for review queues and decisions.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Review queue loader reads JSON artifacts and validates required fields."
+    test: "tests/unit/test_review_queue_export.py"
+  - id: AC-2
+    description: "Reviewed decisions export to stable JSON and Markdown."
+    test: "tests/unit/test_review_queue_export.py"
+  - id: AC-3
+    description: "Exports preserve source links and evidence spans."
+    test: "tests/unit/test_review_queue_export.py"
+
+Files:
+  - src/signal_sandbox/review/
+  - tests/unit/test_review_queue_export.py
+
+Notes: |
+  Completed on 2026-05-19. Review queue loader validates required fields, and
+  review decision exports preserve source links and evidence spans in stable
+  JSON/Markdown.
+
+### SAS-NEXT-007: Minimal Review UI
+
+Owner:      codex
+Phase:      29
+Type:       app
+Depends-On: SAS-NEXT-006
+Status:     complete
+
+Objective: |
+  Build a local review UI or static HTML review surface for fast operator
+  decisions.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "UI supports filters by channel, claim type, asset, provider status, and review status."
+    test: "manual/ui-review"
+  - id: AC-2
+    description: "UI shows source text next to normalized claim fields."
+    test: "manual/ui-review"
+  - id: AC-3
+    description: "UI can save accepted/rejected/needs-context decisions to deterministic artifact."
+    test: "manual/ui-review"
+
+Files:
+  - src/signal_sandbox/review/
+  - docs/pilot/review_ui/
+
+Notes: |
+  Completed on 2026-05-19. Static HTML review surface supports channel, claim
+  type, asset, provider-status, and review-status filters, shows source text
+  with normalized fields, and generates local deterministic decision artifacts.
+
+### SAS-NEXT-008: Review Audit Trail
+
+Owner:      codex
+Phase:      29
+Type:       validation
+Depends-On: SAS-NEXT-007
+Status:     complete
+
+Objective: |
+  Ensure every review decision has an auditable source and reason.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Audit artifact lists all decisions and missing-review blockers."
+    test: "tests/unit/test_review_audit_trail.py"
+  - id: AC-2
+    description: "No accepted customer-facing claim lacks reviewer, source URL, and evidence span."
+    test: "tests/unit/test_review_audit_trail.py"
+  - id: AC-3
+    description: "Audit result blocks external gate when review coverage is incomplete."
+    test: "tests/unit/test_review_audit_trail.py"
+
+Files:
+  - docs/pilot/three_channel_REVIEW_AUDIT.md
+  - tests/unit/test_review_audit_trail.py
+
+Notes: |
+  Completed on 2026-05-19. Audit trail lists 1710 missing review decisions,
+  verifies accepted-decision evidence requirements, and keeps the external
+  gate blocked while review coverage is incomplete.
+
+## Phase 30 — Provider And Proxy Expansion
+
+### SAS-NEXT-009: US Equity And Fund Provider Path
+
+Owner:      codex
+Phase:      30
+Type:       code
+Depends-On: SAS-V1-006
+Status:     complete
+
+Objective: |
+  Add approved or explicitly unsupported provider routes for US equities/funds.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`SPY` and liquid US equity/fund symbols resolve to approved provider route or explicit unsupported status."
+    test: "tests/unit/test_us_provider_proxy_path.py"
+  - id: AC-2
+    description: "Fetch planning stays on-demand and window-scoped."
+    test: "tests/unit/test_us_provider_proxy_path.py"
+  - id: AC-3
+    description: "Provider gaps remain exclusions."
+    test: "tests/unit/test_us_provider_proxy_path.py"
+
+Files:
+  - src/signal_sandbox/claims/provider_config.py
+  - tests/unit/test_us_provider_proxy_path.py
+
+Notes: |
+  Completed on 2026-05-19. `SPY`, `QQQ`, `AAPL`, `MSFT`, `NVDA`, `TSLA`, and
+  `AMD` route to gated `yfinance_dev`; ambiguous/unsupported US symbols remain
+  exclusions.
+
+### SAS-NEXT-010: FX Proxy Policy
+
+Owner:      codex + operator
+Phase:      30
+Type:       docs
+Depends-On: SAS-NEXT-009
+Status:     complete
+
+Objective: |
+  Define FX proxy semantics for currency claims.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "FX policy defines pair, direction semantics, provider, horizon, and exclusions."
+    test: "manual/docs-review"
+  - id: AC-2
+    description: "`CNY`/similar shorthand is not silently mapped without operator-approved pair."
+    test: "manual/docs-review"
+
+Files:
+  - docs/specs/FX_PROXY_POLICY.md
+  - src/signal_sandbox/claims/provider_config.py
+
+Notes: |
+  Completed on 2026-05-19. FX shorthand remains unscoreable without explicit
+  pair, direction semantics, provider, horizon, and operator approval.
+
+### SAS-NEXT-011: Futures And Commodity Proxy Policy
+
+Owner:      codex + operator
+Phase:      30
+Type:       docs
+Depends-On: SAS-NEXT-010
+Status:     complete
+
+Objective: |
+  Define futures/commodity proxy, rollover, and provider rules.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`BR`, `NG`, `GOLD`, `SI`, and index futures are approved with explicit contract/proxy rules or excluded."
+    test: "manual/docs-review"
+  - id: AC-2
+    description: "No continuous futures proxy is used without rollover rule."
+    test: "manual/docs-review"
+
+Files:
+  - docs/specs/FUTURES_COMMODITY_PROXY_POLICY.md
+  - src/signal_sandbox/claims/provider_config.py
+
+Notes: |
+  Completed on 2026-05-19. Futures, commodity, and index shorthand remain
+  unscoreable without explicit instrument, direction, rollover, provider, and
+  horizon approval.
+
+### SAS-NEXT-012: Benchmark-Relative Outcomes
+
+Owner:      codex
+Phase:      30
+Type:       code
+Depends-On: SAS-NEXT-011
+Status:     complete
+
+Objective: |
+  Add deterministic benchmark-relative returns for approved benchmark mappings.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Outcome engine computes claim return minus benchmark return when both snapshots exist."
+    test: "tests/unit/test_benchmark_relative_outcomes.py"
+  - id: AC-2
+    description: "Missing benchmark data produces explicit exclusion."
+    test: "tests/unit/test_benchmark_relative_outcomes.py"
+
+Files:
+  - src/signal_sandbox/claims/outcomes.py
+  - tests/unit/test_benchmark_relative_outcomes.py
+
+Notes: |
+  Completed on 2026-05-19. Claim outcomes can compute benchmark-relative
+  return when benchmark data exists and emit `missing_benchmark_data` when it
+  does not.
+
+## Phase 31 — Quant Metrics V2
+
+### SAS-NEXT-013: Quant Metric Schema V2
+
+Owner:      codex
+Phase:      31
+Type:       docs
+Depends-On: SAS-V1-007
+Status:     complete
+
+Objective: |
+  Define quant-grade channel utility metrics and formulas.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Spec defines precision/recall, hit rate by type, MFE/MAE, RR, R multiple, benchmark-relative return, and drawdown."
+    test: "tests/unit/test_quant_metrics_v2_spec.py"
+  - id: AC-2
+    description: "Spec defines sample-size and confidence warnings."
+    test: "tests/unit/test_quant_metrics_v2_spec.py"
+
+Files:
+  - docs/specs/CHANNEL_QUANT_METRICS_V2.md
+  - tests/unit/test_quant_metrics_v2_spec.py
+
+Notes: |
+  Completed on 2026-05-19. Quant Metrics V2 defines precision/recall,
+  hit-rate by type, MFE/MAE, RR, R multiple, benchmark-relative return,
+  drawdown, and required sample-size/confidence warnings.
+
+### SAS-NEXT-014: Setup Outcome Expansion
+
+Owner:      codex
+Phase:      31
+Type:       code
+Depends-On: SAS-NEXT-013
+Status:     complete
+
+Objective: |
+  Expand setup outcomes with entry fill, stop, target, timeout, and R multiple.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Setup outcomes compute R multiple using entry/stop/target."
+    test: "tests/unit/test_setup_outcome_expansion.py"
+  - id: AC-2
+    description: "Missing levels remain blockers, not inferred values."
+    test: "tests/unit/test_setup_outcome_expansion.py"
+
+Files:
+  - src/signal_sandbox/claims/outcomes.py
+  - tests/unit/test_setup_outcome_expansion.py
+
+Notes: |
+  Completed on 2026-05-19. Setup outcomes compute R multiple for target,
+  stopped, and timeout exits while missing or invalid setup levels remain
+  explicit blockers.
+
+### SAS-NEXT-015: Channel Utility Score V2
+
+Owner:      codex
+Phase:      31
+Type:       validation
+Depends-On: SAS-NEXT-014
+Status:     complete
+
+Objective: |
+  Build a scorecard that separates coverage, clarity, extraction quality,
+  outcome quality, risk quality, and limitations.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Scorecard separates all metric dimensions and does not produce leaderboard language."
+    test: "tests/unit/test_channel_utility_score_v2.py"
+  - id: AC-2
+    description: "Scorecard includes confidence/sample-size warnings."
+    test: "tests/unit/test_channel_utility_score_v2.py"
+
+Files:
+  - docs/pilot/three_channel_V2_SCORECARD.md
+  - tests/unit/test_channel_utility_score_v2.py
+
+Notes: |
+  Completed on 2026-05-19. V2 scorecard separates coverage, clarity,
+  extraction quality, outcome quality, risk quality, limitations, and
+  confidence/sample-size warnings without composite score language.
+
+### SAS-NEXT-016: Robustness Checks
+
+Owner:      codex
+Phase:      31
+Type:       validation
+Depends-On: SAS-NEXT-015
+Status:     complete
+
+Objective: |
+  Add sensitivity checks for horizon, provider, and sample size.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Report appendix shows sensitivity to horizon/provider assumptions."
+    test: "tests/unit/test_metric_robustness_appendix.py"
+  - id: AC-2
+    description: "Small samples are flagged and not overclaimed."
+    test: "tests/unit/test_metric_robustness_appendix.py"
+
+Files:
+  - docs/pilot/three_channel_V2_ROBUSTNESS_APPENDIX.md
+  - tests/unit/test_metric_robustness_appendix.py
+
+Notes: |
+  Completed on 2026-05-19. Robustness appendix records horizon, provider, and
+  sample-size sensitivity checks and keeps current V2 artifacts internal-only.
+
+## Phase 32 — Multimodal Expansion
+
+### SAS-NEXT-017: Media Acquisition Inventory Per Channel
+
+Owner:      codex
+Phase:      32
+Type:       validation
+Depends-On: SAS-V1-005
+Status:     complete
+
+Objective: |
+  Inventory public audio/image/chart candidates for each pilot channel.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Inventory records public media refs, blockers, checksums, and review status."
+    test: "tests/unit/test_media_acquisition_inventory_v2.py"
+
+Files:
+  - docs/pilot/three_channel_V2_MEDIA_INVENTORY.md
+  - tests/unit/test_media_acquisition_inventory_v2.py
+
+Notes: |
+  Completed on 2026-05-19. V2 media inventory records public refs, checksums,
+  blockers, review status, and keeps all media-backed claims out of customer
+  metrics until human/operator acceptance and gate approval.
+
+### SAS-NEXT-018: Transcript Human Review Workflow
+
+Owner:      codex + operator
+Phase:      32
+Type:       validation
+Depends-On: SAS-NEXT-017
+Status:     complete
+
+Objective: |
+  Add transcript acceptance workflow for customer-facing claim use.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Transcript refs can be accepted/rejected with reviewer and reason."
+    test: "tests/unit/test_transcript_human_review_workflow.py"
+
+Files:
+  - docs/pilot/three_channel_TRANSCRIPT_REVIEW.md
+  - tests/unit/test_transcript_human_review_workflow.py
+
+Notes: |
+  Completed on 2026-05-19. Transcript workflow supports accepted, rejected,
+  needs-context, and pending decisions with reviewer, reason, checksums,
+  accepted scope, and external gate separation.
+
+### SAS-NEXT-019: OCR And Chart Source-Link Policy
+
+Owner:      codex + operator
+Phase:      32
+Type:       docs
+Depends-On: SAS-NEXT-018
+Status:     complete
+
+Objective: |
+  Define how OCR/chart claims become source-linked and reviewable.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Policy blocks machine-only chart interpretation from customer-facing metrics."
+    test: "manual/docs-review"
+
+Files:
+  - docs/specs/OCR_CHART_SOURCE_LINK_POLICY.md
+  - tests/unit/test_ocr_chart_source_link_policy.py
+
+Notes: |
+  Completed on 2026-05-19. OCR/chart policy requires source links, checksums,
+  reviewer decisions, accepted boundaries, and blocks machine-only chart
+  interpretation from customer-facing metrics.
+
+### SAS-NEXT-020: Multimodal Claim Recompute
+
+Owner:      codex
+Phase:      32
+Type:       validation
+Depends-On: SAS-NEXT-019
+Status:     complete
+
+Objective: |
+  Recompute metrics with reviewed media claims included and unreviewed media
+  excluded.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Reviewed media claims enter V2 metrics with media provenance."
+    test: "tests/unit/test_multimodal_claim_recompute_v2.py"
+  - id: AC-2
+    description: "Unreviewed media remains excluded."
+    test: "tests/unit/test_multimodal_claim_recompute_v2.py"
+
+Files:
+  - docs/pilot/three_channel_V2_METRIC_RESULTS.json
+  - tests/unit/test_multimodal_claim_recompute_v2.py
+
+Notes: |
+  Completed on 2026-05-19. V2 multimodal recompute defines media provenance
+  inclusion schema, includes zero reviewed media claims because none are human
+  accepted, and excludes all unreviewed/unlinked media rows.
+
+## Phase 33 — Report Productization
+
+### SAS-NEXT-021: Report Template System
+
+Owner:      codex
+Phase:      33
+Type:       code
+Depends-On: SAS-V1-008
+Status:     complete
+
+Objective: |
+  Render the same report data to Markdown and HTML/PDF-ready output.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Renderer produces stable Markdown and HTML-ready output from one data model."
+    test: "tests/unit/test_report_template_system.py"
+
+Files:
+  - src/signal_sandbox/reports/
+  - tests/unit/test_report_template_system.py
+
+Notes: |
+  Completed on 2026-05-19. Report template system renders Markdown and
+  HTML-ready output from one strict data model and escapes HTML-visible values.
+
+### SAS-NEXT-022: Evidence Appendix Generator
+
+Owner:      codex
+Phase:      33
+Type:       code
+Depends-On: SAS-NEXT-021
+Status:     complete
+
+Objective: |
+  Generate source/provider/review appendix for every report metric.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Every metric row links to source, provider, snapshot, and review decision."
+    test: "tests/unit/test_evidence_appendix_generator.py"
+
+Files:
+  - src/signal_sandbox/reports/
+  - tests/unit/test_evidence_appendix_generator.py
+
+Notes: |
+  Completed on 2026-05-19. Evidence appendix renderer links each metric row to
+  source ref, provider, snapshot, review decision, and evidence URL.
+
+### SAS-NEXT-023: Buyer Demo Pack
+
+Owner:      codex
+Phase:      33
+Type:       docs
+Depends-On: SAS-NEXT-022
+Status:     complete
+
+Objective: |
+  Package report, methodology, limitations, talk track, and gate status for
+  buyer discovery.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Demo pack is internal-only unless gate approves external delivery."
+    test: "tests/unit/test_buyer_demo_pack.py"
+
+Files:
+  - docs/pilot/three_channel_BUYER_DEMO_PACK.md
+  - tests/unit/test_buyer_demo_pack.py
+
+Notes: |
+  Completed on 2026-05-19. Buyer demo pack packages artifacts, methodology,
+  limitations, talk track, and gate status while staying internal-only until
+  explicit external gate approval.
+
+### SAS-NEXT-024: Customer-Safe Wording Library
+
+Owner:      codex
+Phase:      33
+Type:       code
+Depends-On: SAS-NEXT-023
+Status:     complete
+
+Objective: |
+  Centralize allowed and forbidden report wording.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Forbidden advice, future-profit, leaderboard, and overclaim phrases are blocked."
+    test: "tests/unit/test_customer_safe_wording.py"
+
+Files:
+  - src/signal_sandbox/reports/wording.py
+  - tests/unit/test_customer_safe_wording.py
+
+Notes: |
+  Completed on 2026-05-19. Customer-safe wording library centralizes allowed
+  context phrases and blocks advice, future-profit, leaderboard, marketplace,
+  and overclaim wording.
+
+## Phase 34 — Pilot Operations
+
+### SAS-NEXT-025: Pilot Buyer List
+
+Owner:      operator + codex
+Phase:      34
+Type:       docs
+Depends-On: SAS-NEXT-023
+Status:     complete
+
+Objective: |
+  Define buyer profiles, pains, and likely pilot use cases.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/BUYER_DISCOVERY.md` lists 10-20 buyer profiles and use cases."
+    test: "manual/operator-review"
+
+Files:
+  - docs/pilot/BUYER_DISCOVERY.md
+  - tests/unit/test_buyer_discovery.py
+
+Notes: |
+  Completed on 2026-05-19. Buyer discovery plan lists 15 buyer profiles,
+  pains, current behavior, likely pilot use cases, validation signals,
+  disqualifiers, and pilot success criteria.
+
+### SAS-NEXT-026: Demo Script
+
+Owner:      codex
+Phase:      34
+Type:       docs
+Depends-On: SAS-NEXT-025
+Status:     complete
+
+Objective: |
+  Write a 15-minute demo script with clear limitations.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Demo script explains value without claiming advice or future profit."
+    test: "manual/docs-review"
+
+Files:
+  - docs/pilot/DEMO_SCRIPT.md
+  - tests/unit/test_demo_script.py
+
+Notes: |
+  Completed on 2026-05-19. Demo script covers a 15-minute call, method,
+  limitations, pilot shape, and guardrails without advice, future-profit, or
+  external-ready claims.
+
+### SAS-NEXT-027: Paid Pilot Offer
+
+Owner:      operator + codex
+Phase:      34
+Type:       docs
+Depends-On: SAS-NEXT-026
+Status:     complete
+
+Objective: |
+  Define a bounded paid pilot offer.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Offer includes scope, price hypothesis, turnaround, deliverables, and exclusions."
+    test: "manual/operator-review"
+
+Files:
+  - docs/pilot/PAID_PILOT_OFFER.md
+  - tests/unit/test_paid_pilot_offer.py
+
+Notes: |
+  Completed on 2026-05-19. Paid pilot offer defines bounded scope,
+  deliverables, price hypothesis, turnaround, buyer commitments, exclusions,
+  success gate, kill criteria, and external boundary.
+
+### SAS-NEXT-028: Feedback Loop
+
+Owner:      operator + codex
+Phase:      34
+Type:       validation
+Depends-On: SAS-NEXT-027
+Status:     complete
+
+Objective: |
+  Track buyer feedback, objections, willingness to pay, and next steps.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Each demo records buyer role, objection, requested output, willingness to pay, and next action."
+    test: "manual/operator-review"
+
+Files:
+  - docs/pilot/BUYER_FEEDBACK_LOG.md
+  - tests/unit/test_buyer_feedback_log.py
+
+Notes: |
+  Completed on 2026-05-19. Feedback log template records buyer role,
+  objection, requested output, willingness to pay, next action, owner, and
+  follow-up rules without inventing demo records.
+
+## Phase 35 — Reliability And Scaling
+
+### SAS-NEXT-029: Run Manifest And Caching
+
+Owner:      codex
+Phase:      35
+Type:       code
+Depends-On: SAS-NEXT-024
+Status:     complete
+
+Objective: |
+  Record report inputs, versions, hashes, providers, and outputs.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Every report run has deterministic manifest and compact cache refs."
+    test: "tests/unit/test_run_manifest_and_caching.py"
+
+Files:
+  - src/signal_sandbox/runs/
+  - tests/unit/test_run_manifest_and_caching.py
+
+Notes: |
+  Completed on 2026-05-19. Run manifest package records input refs, provider
+  refs, output refs, deterministic manifest hashes, and compact cache refs.
+
+### SAS-NEXT-030: Retry And Provider Failure Handling
+
+Owner:      codex
+Phase:      35
+Type:       code
+Depends-On: SAS-NEXT-029
+Status:     complete
+
+Objective: |
+  Model provider failures without corrupting outcomes.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Provider errors produce retry/exclusion states, not wins/losses."
+    test: "tests/unit/test_provider_failure_handling.py"
+
+Files:
+  - src/signal_sandbox/claims/provider_config.py
+  - tests/unit/test_provider_failure_handling.py
+
+Notes: |
+  Completed on 2026-05-19. Provider fetch failures now produce retry or
+  provider-failure exclusion states with error metadata instead of outcomes.
+
+### SAS-NEXT-031: Regression Suite For Known Channels
+
+Owner:      codex
+Phase:      35
+Type:       validation
+Depends-On: SAS-NEXT-030
+Status:     complete
+
+Objective: |
+  Add golden tests for known channel metrics and claim examples.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Known claims and aggregate metrics do not drift unexpectedly."
+    test: "tests/unit/test_known_channel_regressions.py"
+
+Files:
+  - tests/unit/test_known_channel_regressions.py
+
+Notes: |
+  Completed on 2026-05-19. Regression tests lock current V2 aggregate metrics
+  and selected V1 kept claim examples against unexpected drift.
+
+### SAS-NEXT-032: Cost And Time Instrumentation
+
+Owner:      codex
+Phase:      35
+Type:       code
+Depends-On: SAS-NEXT-031
+Status:     complete
+
+Objective: |
+  Measure capture, review, market data, and report generation time/cost.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Run metrics record step durations, provider calls, cache hits, and estimated cost where available."
+    test: "tests/unit/test_run_cost_time_instrumentation.py"
+
+Files:
+  - src/signal_sandbox/runs/
+  - tests/unit/test_run_cost_time_instrumentation.py
+
+Notes: |
+  Completed on 2026-05-19. Run operational metrics record step durations,
+  provider calls, cache hits, estimated costs, deterministic totals, and a
+  metrics hash.
+
+## Phase 26 — Operator-Gated Evidence Repair
+
+### SAS-ER-000: Public Corpus Repair Capture ✅
+
+Owner:      codex
+Phase:      26
+Type:       validation
+Depends-On: SAS-DR-022
+
+Objective: |
+  Expand the public `bablos79` corpus through the approved public Telegram
+  `/s/` route and create an operator review queue without computing outcomes
+  or creating external claims.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/bablos79_EVIDENCE_REPAIR_CAPTURE_MANIFEST.json` records public pages fetched, text rows in window, fresh workspace captures, source boundary, and no private/login/paywalled source use."
+    test: "tests/unit/test_evidence_repair_artifacts.py::test_evidence_repair_capture_manifest_expands_public_corpus"
+  - id: AC-2
+    description: "`docs/pilot/bablos79_EVIDENCE_REPAIR_REVIEW_QUEUE.json` records candidate rows and blocks market-data fetch/external eligibility until operator approval."
+    test: "tests/unit/test_evidence_repair_artifacts.py::test_evidence_repair_review_queue_blocks_market_fetch_until_approval"
+  - id: AC-3
+    description: "`docs/pilot/bablos79_EVIDENCE_REPAIR_OPERATOR_ACTIONS.md` lists the operator decisions required before proxy mapping, market snapshots, outcomes, or external delivery can resume."
+    test: "manual/docs-review"
+
+Files:
+  - docs/pilot/bablos79_EVIDENCE_REPAIR_CAPTURE_MANIFEST.json
+  - docs/pilot/bablos79_EVIDENCE_REPAIR_CAPTURE_PACK.md
+  - docs/pilot/bablos79_EVIDENCE_REPAIR_REVIEW_QUEUE.json
+  - docs/pilot/bablos79_EVIDENCE_REPAIR_REVIEW_QUEUE.md
+  - docs/pilot/bablos79_EVIDENCE_REPAIR_OPERATOR_ACTIONS.md
+  - tests/unit/test_evidence_repair_artifacts.py
+
+Notes: |
+  This task may write local workspace capture JSON files from public `/s/`
+  pages. It must not approve proxies, fetch market data, compute outcomes,
+  accept transcripts, or create external claims.
+
+### SAS-ER-002: Three-Channel Public Corpus Probe ✅
+
+Owner:      codex
+Phase:      26
+Type:       validation
+Depends-On: SAS-ER-000
+
+Objective: |
+  Run the same public Telegram `/s/` corpus probe for the three initial pilot
+  sources (`bablos79`, `nemphiscrypts`, and `pifagortrade`) and produce a
+  comparable readiness surface before operator-approved proxy/horizon work.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/three_channel_PUBLIC_CORPUS_PROBE.json` records public-source boundary flags and confirms no private/login/paywalled source use, market-data fetches, outcomes, or external claims."
+    test: "tests/unit/test_three_channel_probe_artifacts.py::test_three_channel_probe_records_public_boundary"
+  - id: AC-2
+    description: "The probe records comparable text-row and candidate-count summaries for all three pilot channels."
+    test: "tests/unit/test_three_channel_probe_artifacts.py::test_three_channel_probe_has_comparable_candidate_counts"
+  - id: AC-3
+    description: "Review samples remain operator-gated with market-data fetch and external eligibility blocked."
+    test: "tests/unit/test_three_channel_probe_artifacts.py::test_three_channel_review_samples_remain_operator_gated"
+
+Files:
+  - scripts/three_channel_public_probe.py
+  - docs/pilot/three_channel_PUBLIC_CORPUS_PROBE.json
+  - docs/pilot/three_channel_PUBLIC_CORPUS_PROBE.md
+  - tests/unit/test_three_channel_probe_artifacts.py
+
+Notes: |
+  This task is a readiness probe, not a performance ranking. Candidate labels
+  are draft review surfaces only. The next outcome-producing step still
+  requires operator approval of evaluator type, proxy mapping, timestamp basis,
+  horizons, and outcome method.
+
+### SAS-ER-003: Channel Utility Evaluation Contract ✅
+
+Owner:      codex
+Phase:      26
+Type:       validation
+Depends-On: SAS-ER-002
+
+Objective: |
+  Codify the product rule that channel usefulness is measured from normalized,
+  evidence-backed market claims extracted from text, audio transcripts, and
+  image/OCR evidence, then validated through open/public market-data windows
+  without maintaining a huge local market database.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/specs/CHANNEL_UTILITY_EVALUATION.md` requires text/audio/image evidence to converge into a normalized claim surface."
+    test: "tests/unit/test_channel_utility_evaluation_spec.py::test_channel_utility_spec_requires_multimodal_normalization"
+  - id: AC-2
+    description: "The spec requires on-demand open/public API or operator-public-export validation windows instead of bulk market-history storage."
+    test: "tests/unit/test_channel_utility_evaluation_spec.py::test_channel_utility_spec_uses_open_api_window_validation"
+  - id: AC-3
+    description: "The spec preserves operator gating, counterexamples, no-overclaim boundaries, and no future-profit claims."
+    test: "tests/unit/test_channel_utility_evaluation_spec.py::test_channel_utility_spec_keeps_claims_operator_gated"
+
+Files:
+  - docs/specs/CHANNEL_UTILITY_EVALUATION.md
+  - tests/unit/test_channel_utility_evaluation_spec.py
+
+Notes: |
+  This is a product-methodology contract. It does not compute outcomes or fetch
+  market data. It defines the next implementation target: a three-channel
+  approval matrix for evaluator type, claim types, proxy mapping, provider,
+  horizons, strict trade rules, and exclusion statuses.
+
+### SAS-ER-004: Three-Channel Metric Results V0 ✅
+
+Owner:      codex
+Phase:      26
+Type:       validation
+Depends-On: SAS-ER-003
+
+Objective: |
+  Produce the first end-to-end historical metric result for the three initial
+  pilot channels by extracting normalized public market claims, validating
+  supported assets through open/public OHLCV windows, and writing a comparison
+  report with confirmed/contradicted examples and numeric channel metrics.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/three_channel_METRIC_RESULTS.json` records public Telegram source method, open/public market-data providers, 7d primary horizon, and no bulk market-history database or investment-advice posture."
+    test: "tests/unit/test_three_channel_metric_results.py::test_three_channel_metric_results_use_open_public_windows"
+  - id: AC-2
+    description: "Metric results compare `bablos79`, `nemphiscrypts`, and `pifagortrade` with evaluable claims, confirmed hits, contradicted misses, and provider counts."
+    test: "tests/unit/test_three_channel_metric_results.py::test_three_channel_metric_results_compare_all_channels"
+  - id: AC-3
+    description: "`docs/pilot/three_channel_METRIC_REPORT.md` includes channel comparison, confirmed/contradicted evidence examples, and explicit report limits."
+    test: "tests/unit/test_three_channel_metric_results.py::test_three_channel_metric_report_contains_evidence_and_limits"
+
+Files:
+  - scripts/three_channel_metric_report.py
+  - docs/pilot/three_channel_METRIC_RESULTS.json
+  - docs/pilot/three_channel_METRIC_REPORT.md
+  - tests/unit/test_three_channel_metric_results.py
+
+Notes: |
+  This is a V0 historical research run. It uses conservative rule extraction
+  and daily OHLCV proxies. Results are useful for first comparison but still
+  require operator/human review before customer-facing claims or paid delivery.
+
+### SAS-ER-005: Three-Channel V1 Roadmap Task Graph ✅
+
+Owner:      codex
+Phase:      26
+Type:       docs
+Depends-On: SAS-ER-004
+
+Objective: |
+  Convert the post-V0 next steps into a concrete Phase 27 task graph and V1
+  roadmap so the project can move from internal V0 research to reviewed V1
+  channel utility reporting.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/tasks.md` contains Phase 27 tasks `SAS-V1-001..009` covering approval matrix, extraction review, structured extractor, level-aware outcomes, multimodal claims, provider expansion, V1 recompute, external gate, and deep review."
+    test: "tests/unit/test_three_channel_v1_roadmap.py::test_phase_27_task_graph_lists_full_v1_flow"
+  - id: AC-2
+    description: "`docs/pilot/THREE_CHANNEL_V1_ROADMAP.md` records required V1 improvements over V0."
+    test: "tests/unit/test_three_channel_v1_roadmap.py::test_phase_27_roadmap_covers_v1_required_improvements"
+  - id: AC-3
+    description: "The roadmap preserves no-private-scraping, no-bulk-market-history, no-future-profit, no-investment-advice, and no-unreviewed-media-claim boundaries."
+    test: "tests/unit/test_three_channel_v1_roadmap.py::test_phase_27_roadmap_preserves_no_overclaim_boundaries"
+
+Files:
+  - docs/tasks.md
+  - docs/pilot/THREE_CHANNEL_V1_ROADMAP.md
+  - tests/unit/test_three_channel_v1_roadmap.py
+
+Notes: |
+  This task adds planning structure only. It does not implement V1 extraction
+  or recompute metrics.
+
+### ✅ SAS-ER-001: Candidate Review And Proxy/Horizon Approval
+
+Owner:      operator + codex
+Phase:      26
+Type:       review
+Depends-On: SAS-ER-000, SAS-ER-002, SAS-ER-003, SAS-ER-004, SAS-ER-005
+
+Objective: |
+  Review the evidence repair candidate queue and explicitly approve or reject
+  candidate rows, proxy mappings, and horizon/outcome methods.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Each `position_disclosure_candidate` is marked approved_for_proxy_mapping or rejected_as_context with reason."
+    test: "tests/unit/test_evidence_repair_proxy_approvals.py::test_bablos79_proxy_approvals_cover_position_candidates"
+  - id: AC-2
+    description: "Approved rows have explicit asset/proxy, data source, timestamp basis, horizon, and outcome method."
+    test: "tests/unit/test_evidence_repair_proxy_approvals.py::test_bablos79_proxy_approvals_define_provider_horizon_and_method"
+  - id: AC-3
+    description: "No market data fetch is allowed for rows lacking explicit operator approval."
+    test: "tests/unit/test_evidence_repair_proxy_approvals.py::test_bablos79_proxy_approvals_block_unapproved_fetches_and_external_use"
+
+Files:
+  - docs/pilot/bablos79_EVIDENCE_REPAIR_REVIEW_QUEUE.md
+  - docs/pilot/bablos79_EVIDENCE_REPAIR_OPERATOR_ACTIONS.md
+  - docs/pilot/bablos79_EVIDENCE_REPAIR_PROXY_APPROVALS.md
+  - tests/unit/test_evidence_repair_proxy_approvals.py
+
+Notes: |
+  Completed on 2026-05-19. The approval record is internal V1 research only:
+  nine position rows have partial asset-level MOEX ISS proxy approvals, one row
+  is rejected as context, unsupported assets remain do_not_fetch, primary
+  horizon is 7d, and external/customer-facing use remains blocked.
+
+### ✅ SAS-ER-006: Phase 26 Deep Review
+
+Owner:      codex
+Phase:      26
+Type:       review
+Depends-On: SAS-ER-000, SAS-ER-001, SAS-ER-002, SAS-ER-003, SAS-ER-004, SAS-ER-005
+
+Objective: |
+  Run the mandatory Phase 26 boundary review and archive the evidence-repair
+  loop before Phase 27 V1 report work starts.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Review checks public-source boundary, approval matrix, V0 metrics, no-bulk-market-history posture, and customer-facing blockers."
+    test: "manual-review: docs/archive/PHASE26_REVIEW.md exists and records findings."
+  - id: AC-2
+    description: "Any P0/P1/P2 findings are reflected in `docs/tasks.md` before Phase 27 begins."
+    test: "manual-review: review findings mapped to task graph or explicitly marked none."
+  - id: AC-3
+    description: "State files are updated for Phase 27 only after the review/archive is complete."
+    test: "manual-review: CODEX prompt, README, handoff, checkpoint, and journal match Phase 26 closure state."
+
+Files:
+  - docs/archive/PHASE26_REVIEW.md
+  - docs/tasks.md
+  - docs/CODEX_PROMPT.md
+  - README.md
+  - MEMORY.md
+  - AGENT_NOTES.md
+  - PHASE_HANDOFF.md
+  - ORCHESTRATOR_CHECKPOINT.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Notes: |
+  Completed on 2026-05-19. Phase 26 review is archived at
+  `docs/archive/PHASE26_REVIEW.md`; no P0/P1/P2 implementation findings were
+  found. Phase 27 may start, but external delivery remains blocked until the V1
+  gate.
+
+## Phase 27 — Three-Channel V1 Metric Report
+
+### ✅ SAS-V1-001: Three-Channel Approval Matrix
+
+Owner:      operator + codex
+Phase:      27
+Type:       review
+Depends-On: SAS-ER-001, SAS-ER-004
+
+Objective: |
+  Convert the V0 metric run into an explicit approval matrix for all three
+  pilot channels before any V1 recomputation or customer-facing wording.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/three_channel_V1_APPROVAL_MATRIX.md` lists approved evaluator types, allowed claim types, default horizons, exclusion statuses, and provider/proxy rules for `bablos79`, `nemphiscrypts`, and `pifagortrade`."
+    test: "tests/unit/test_three_channel_v1_approval_matrix.py::test_three_channel_v1_approval_matrix_covers_all_channels"
+  - id: AC-2
+    description: "Every V0 provider/proxy class used in `three_channel_METRIC_RESULTS.json` is marked approved, rejected, or needs_operator_input with rationale."
+    test: "tests/unit/test_three_channel_v1_approval_matrix.py::test_three_channel_v1_approval_matrix_marks_v0_provider_classes"
+  - id: AC-3
+    description: "The matrix states that V0 numbers remain internal until false-positive review and V1 report gate complete."
+    test: "tests/unit/test_three_channel_v1_approval_matrix.py::test_three_channel_v1_approval_matrix_blocks_external_v0_use"
+
+Files:
+  - docs/pilot/three_channel_V1_APPROVAL_MATRIX.md
+  - docs/pilot/three_channel_METRIC_RESULTS.json
+  - docs/specs/CHANNEL_UTILITY_EVALUATION.md
+
+Notes: |
+  Completed on 2026-05-19. The approval matrix is internal V1 research only.
+  It approves V0 Binance crypto and MOEX ISS share provider classes for V1
+  calibration, carries unsupported futures/FX/ETF/commodity/ambiguous aliases
+  as needs_operator_input or rejected_until_mapped, and blocks external use
+  until V1 review and gate complete.
+
+### ✅ SAS-V1-002: False-Positive Review And Extractor Calibration Pack
+
+Owner:      codex + operator
+Phase:      27
+Type:       validation
+Depends-On: SAS-V1-001
+
+Objective: |
+  Review a stratified sample of V0 normalized claims and exclusions to measure
+  extraction false positives/false negatives, then produce concrete extractor
+  calibration rules for V1.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/three_channel_V1_EXTRACTION_REVIEW.md` reviews at least 20 V0 included claims and 20 excluded rows across all three channels."
+    test: "tests/unit/test_three_channel_v1_extraction_review.py::test_v1_extraction_review_has_required_sample_sizes"
+  - id: AC-2
+    description: "Each reviewed row has status `accepted`, `false_positive`, `false_negative`, or `needs_context`, with reason and source link."
+    test: "tests/unit/test_three_channel_v1_extraction_review.py::test_v1_extraction_review_uses_allowed_statuses_and_channels"
+  - id: AC-3
+    description: "`docs/pilot/three_channel_V1_EXTRACTOR_CALIBRATION.md` lists deterministic rule changes required before V1 recomputation."
+    test: "tests/unit/test_three_channel_v1_extraction_review.py::test_v1_extractor_calibration_lists_required_rule_changes"
+
+Files:
+  - docs/pilot/three_channel_V1_EXTRACTION_REVIEW.md
+  - docs/pilot/three_channel_V1_EXTRACTOR_CALIBRATION.md
+  - docs/pilot/three_channel_METRIC_RESULTS.json
+  - scripts/three_channel_metric_report.py
+
+Notes: |
+  Completed on 2026-05-19. The review covers 20 included V0 claims and 21
+  excluded public-probe rows across all three channels. Calibration rules now
+  require negation-aware direction parsing, trade-management linkage,
+  conditional setup handling, alias expansion, non-asset token blocking, and
+  provider/media boundaries before V1 recomputation.
+
+### ✅ SAS-V1-003: Structured Claim Extractor V1
+
+Owner:      codex
+Phase:      27
+Type:       code
+Depends-On: SAS-V1-002
+
+Objective: |
+  Promote V0 rule extraction into a reusable structured claim extractor that
+  emits claim type, asset/proxy, direction, entry, stop/invalidation, target,
+  horizon, risk/reward fields, evidence spans, and ambiguity flags.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "A reusable extractor module emits structured claim rows for text `SourceDocument` inputs without network access."
+    test: "tests/unit/test_structured_claim_extractor_v1.py"
+  - id: AC-2
+    description: "Extractor distinguishes `trade_setup`, `directional_thesis`, `position_disclosure`, `trade_management`, `risk_warning`, and `context_only` rows."
+    test: "tests/unit/test_structured_claim_extractor_v1.py"
+  - id: AC-3
+    description: "Entry/stop/target/RR fields are populated only from evidence spans or deterministic rules; missing fields remain explicit nulls with blockers."
+    test: "tests/unit/test_structured_claim_extractor_v1.py"
+
+Files:
+  - src/signal_sandbox/claims/
+  - tests/unit/test_structured_claim_extractor_v1.py
+  - docs/specs/CHANNEL_UTILITY_EVALUATION.md
+
+Notes: |
+  Completed on 2026-05-19. `src/signal_sandbox/claims/` adds a deterministic
+  structured extractor for text `SourceDocument` inputs. It emits claim type,
+  assets, direction, entry/stop/target/RR, horizons, evidence spans, ambiguity
+  flags, and blockers without LLM or market API calls.
+
+### ✅ SAS-V1-004: Level-Aware Outcome Engine V1
+
+Owner:      codex
+Phase:      27
+Type:       code
+Depends-On: SAS-V1-003
+
+Objective: |
+  Add deterministic V1 outcomes for strict setups and trade-management rows:
+  entry-fill, stop/target/timeout, return %, MFE/MAE, RR, benchmark-relative
+  return, and exclusion statuses.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Outcome code evaluates entry/stop/target/timeout rows over immutable OHLCV snapshots and records deterministic provenance."
+    test: "tests/unit/test_claim_outcomes_v1.py"
+  - id: AC-2
+    description: "Directional thesis rows continue to support fixed-horizon returns without requiring entry/stop/target."
+    test: "tests/unit/test_claim_outcomes_v1.py"
+  - id: AC-3
+    description: "Trade-management fragments are excluded unless linked to an approved original setup."
+    test: "tests/unit/test_claim_outcomes_v1.py"
+
+Files:
+  - src/signal_sandbox/claims/outcomes.py
+  - tests/unit/test_claim_outcomes_v1.py
+  - docs/specs/CHANNEL_UTILITY_EVALUATION.md
+
+Notes: |
+  Completed on 2026-05-19. `src/signal_sandbox/claims/outcomes.py` evaluates
+  strict setup entry/stop/target/timeout rows, directional-thesis fixed-horizon
+  rows, and trade-management exclusions over immutable OHLCV snapshots with
+  deterministic provenance.
+
+### ✅ SAS-V1-005: Multimodal Claim Extraction V1
+
+Owner:      codex + operator
+Phase:      27
+Type:       validation
+Depends-On: SAS-V1-003
+
+Objective: |
+  Include reviewed public audio transcript and image/OCR evidence in the same
+  normalized claim surface used for text, while keeping unreviewed media
+  internal-only.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "A three-channel media inventory identifies public audio/image/chart candidates and their authorization/review status."
+    test: "manual/docs-review"
+  - id: AC-2
+    description: "Reviewed transcript/OCR artifacts can produce structured claim drafts with media provenance and source-document links."
+    test: "tests/unit/test_multimodal_claim_extraction_v1.py"
+  - id: AC-3
+    description: "Unreviewed transcript/OCR/chart interpretations remain excluded from customer-facing metrics."
+    test: "tests/unit/test_multimodal_claim_extraction_v1.py"
+
+Files:
+  - docs/pilot/three_channel_V1_MEDIA_INVENTORY.md
+  - src/signal_sandbox/claims/
+  - tests/unit/test_multimodal_claim_extraction_v1.py
+
+Notes: |
+  Completed on 2026-05-19. `three_channel_V1_MEDIA_INVENTORY.md` records the
+  three-channel media posture. Reviewed transcript/OCR refs can produce
+  structured claim drafts with media provenance, while unreviewed transcript,
+  OCR, and chart claims remain excluded from customer-facing metrics.
+
+### ✅ SAS-V1-006: Provider And Proxy Expansion V1
+
+Owner:      codex
+Phase:      27
+Type:       code
+Depends-On: SAS-V1-001
+
+Objective: |
+  Expand approved provider/proxy coverage for V1 while preserving on-demand
+  fetching and compact immutable snapshot caching.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Provider/proxy config maps approved crypto, MOEX, US equity/fund, futures/proxy, and benchmark symbols to deterministic provider paths or explicit unsupported statuses."
+    test: "tests/unit/test_provider_proxy_config_v1.py"
+  - id: AC-2
+    description: "Market-data fetch planning requests only the approved asset/time windows needed for accepted claims."
+    test: "tests/unit/test_provider_proxy_config_v1.py"
+  - id: AC-3
+    description: "Provider gaps are recorded as exclusions, not wins/losses."
+    test: "tests/unit/test_provider_proxy_config_v1.py"
+
+Files:
+  - src/signal_sandbox/claims/provider_config.py
+  - docs/pilot/three_channel_V1_APPROVAL_MATRIX.md
+  - tests/unit/test_provider_proxy_config_v1.py
+
+Notes: |
+  Completed on 2026-05-19. `provider_config.py` maps approved Binance crypto
+  and MOEX ISS share paths plus explicit unsupported/needs-operator provider
+  classes. Fetch planning emits only approved on-demand windows and records
+  provider gaps as exclusions, not wins/losses.
+
+### ✅ SAS-V1-007: Three-Channel Metrics V1 Recompute
+
+Owner:      codex
+Phase:      27
+Type:       validation
+Depends-On: SAS-V1-004, SAS-V1-005, SAS-V1-006
+
+Objective: |
+  Recompute three-channel metrics using reviewed V1 extraction, level-aware
+  outcomes, multimodal claims, approved providers, and explicit exclusions.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/three_channel_V1_METRIC_RESULTS.json` records coverage, clarity, hit rate, returns, MFE/MAE, RR where available, provider coverage, and exclusion counts by channel."
+    test: "tests/unit/test_three_channel_metric_results_v1.py"
+  - id: AC-2
+    description: "`docs/pilot/three_channel_V1_SCORECARD.md` separates coverage, extraction quality, outcome quality, risk quality, and evidence limitations."
+    test: "tests/unit/test_three_channel_metric_results_v1.py"
+  - id: AC-3
+    description: "V1 report includes deltas from V0 and explains changed counts due to false-positive review or provider expansion."
+    test: "manual/docs-review"
+
+Files:
+  - docs/pilot/three_channel_V1_METRIC_RESULTS.json
+  - docs/pilot/three_channel_V1_SCORECARD.md
+  - scripts/three_channel_metric_report.py
+  - tests/unit/test_three_channel_metric_results_v1.py
+
+Notes: |
+  Completed on 2026-05-19. V1 metrics apply `SAS-V1-002` calibration decisions
+  to V0 evaluated claims, separate reviewed false positives/context rows from
+  kept claims, count false negatives as pending extraction, exclude unreviewed
+  media, and keep the scorecard internal until the external-ready gate passes.
+
+### ✅ SAS-V1-008: Customer-Facing V1 Report And External Gate
+
+Owner:      codex + operator
+Phase:      27
+Type:       report
+Depends-On: SAS-V1-007
+
+Objective: |
+  Produce the first customer-facing candidate report and decide whether it is
+  safe to use externally, with evidence links, limitations, and no future-profit
+  claims.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/reports/three_channel_V1_CHANNEL_UTILITY_REPORT.md` presents metrics, confirmed examples, contradicted examples, exclusions, and methodology in customer-readable language."
+    test: "manual/operator-review"
+  - id: AC-2
+    description: "`docs/pilot/three_channel_V1_EXTERNAL_READY_GATE.md` records `approve_external_delivery`, `approve_internal_only`, or `reject_external_delivery` with blockers."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "Report contains no investment advice, no future-profit claims, no unreviewed transcript/OCR claims, and no unsupported ranking."
+    test: "manual/docs-review"
+
+Files:
+  - docs/pilot/reports/three_channel_V1_CHANNEL_UTILITY_REPORT.md
+  - docs/pilot/three_channel_V1_EXTERNAL_READY_GATE.md
+  - docs/pilot/three_channel_V1_METRIC_RESULTS.json
+
+Notes: |
+  Completed on 2026-05-19. The V1 report is customer-readable but internal-only.
+  The external-ready gate decision is `approve_internal_only`: useful for
+  internal product validation, not approved for paid external delivery.
+
+### ✅ SAS-V1-009: Phase 27 Deep Review
+
+Owner:      codex
+Phase:      27
+Type:       review
+Depends-On: SAS-V1-008
+
+Objective: |
+  Run the mandatory Phase 27 boundary review and archive the V1 report work.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Review checks source legality, extraction calibration, provider/proxy approval, multimodal evidence posture, metric reproducibility, and report overclaim risk."
+    test: "manual/review"
+  - id: AC-2
+    description: "Audit index, CODEX prompt, README, handoff docs, and phase report are updated with final Phase 27 state."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "Any P0/P1 finding blocks external delivery until fixed."
+    test: "manual/review"
+
+Files:
+  - docs/archive/PHASE27_REVIEW.md
+  - docs/audit/REVIEW_REPORT.md
+  - docs/audit/ARCH_REPORT.md
+  - docs/audit/PHASE_REPORT_LATEST.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/CODEX_PROMPT.md
+  - README.md
+  - PHASE_HANDOFF.md
+  - AGENT_NOTES.md
+  - ORCHESTRATOR_CHECKPOINT.md
+
+Notes: |
+  Completed on 2026-05-19. Phase 27 review is archived at
+  `docs/archive/PHASE27_REVIEW.md`; no P0/P1/P2 implementation findings were
+  found. V1 is approved for internal product validation only; external delivery
+  remains blocked by the V1 gate.
+
+## Phase 23 — Image/OCR And Multimodal Evidence
+
+### SAS-DR-006: Public Image Acquisition And Manifest ✅
+
+Owner:      codex
+Phase:      23
+Type:       validation
+Depends-On: SAS-DR-005
+
+Objective: |
+  Acquire or register public image/screenshot/chart artifacts from the expanded
+  corpus with stable source linkage and checksums.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/bablos79_IMAGE_MANIFEST.json` records image artifact id, source document id, media URL/ref, local path or external ref, checksum, acquisition status, and retention status."
+    test: "manual-evidence plus unit tests where applicable"
+  - id: AC-2
+    description: "Image acquisition rejects media without public/operator authorization or source-document linkage."
+    test: "tests/unit/test_media_manifest.py or manual evidence if no code path exists"
+  - id: AC-3
+    description: "Raw media storage policy is stated for local artifacts and no private media is committed."
+    test: "manual/git-review"
+
+Files:
+  - docs/pilot/bablos79_IMAGE_MANIFEST.json
+  - workspace/media/bablos79/
+  - src/signal_sandbox/media/
+
+Context-Refs:
+  - docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md#phase-23---imageocr-and-multimodal-evidence
+  - docs/adr/ADR-004-media-evidence-pipeline.md
+
+Notes: |
+  Use Git LFS or external/local artifact storage later if raw media grows.
+
+### SAS-DR-007: OCR Draft Run ✅
+
+Owner:      codex
+Phase:      23
+Type:       validation
+Depends-On: SAS-DR-006
+
+Objective: |
+  Run OCR over approved public images/screenshots/charts and record draft text
+  with source refs and confidence/limitation notes.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/bablos79_OCR_RUN_EXPANDED.md` records OCR provider/config, inputs, outputs, skipped items, failures, and draft-only status."
+    test: "manual-evidence"
+  - id: AC-2
+    description: "OCR outputs are stored as draft artifacts and cannot approve claims, ledgers, outcomes, or report text without review."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "Every OCR output cites image artifact id, source document id, and checksum."
+    test: "manual/docs-review"
+
+Files:
+  - docs/pilot/bablos79_OCR_RUN_EXPANDED.md
+  - docs/pilot/ocr/
+  - src/signal_sandbox/media/
+
+Context-Refs:
+  - docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md#phase-23---imageocr-and-multimodal-evidence
+
+Notes: |
+  If OCR provider is unavailable, record skipped status and exact blocker.
+
+### SAS-DR-008: Image And Chart Review Queue ✅
+
+Owner:      operator + codex
+Phase:      23
+Type:       validation
+Depends-On: SAS-DR-007
+
+Objective: |
+  Review OCR/image/chart outputs and decide which media refs are usable for
+  internal source joins and which require human/operator acceptance for external
+  report claims.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/bablos79_IMAGE_REVIEW_QUEUE.md` lists each OCR/image artifact with draft text, visible ticker/level/date evidence, review status, and reviewer action."
+    test: "manual/docs-review"
+  - id: AC-2
+    description: "Chart interpretation is labeled as reviewed, ambiguous, unsupported, or excluded; uncertain chart claims are not outcome-ready."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "Reviewed media refs are exported to `docs/pilot/bablos79_REVIEWED_MEDIA_EVIDENCE.md`."
+    test: "manual/docs-review"
+
+Files:
+  - docs/pilot/bablos79_IMAGE_REVIEW_QUEUE.md
+  - docs/pilot/bablos79_REVIEWED_MEDIA_EVIDENCE.md
+  - docs/pilot/ocr/
+
+Context-Refs:
+  - docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md#phase-23---imageocr-and-multimodal-evidence
+
+Notes: |
+  LLM/OCR output is not final truth.
+
+### SAS-DR-009: Voice/Transcript Review Policy Update ✅
+
+Owner:      operator + codex
+Phase:      23
+Type:       docs
+Depends-On: SAS-DR-008
+
+Objective: |
+  Decide how managed Whisper and LLM-reviewed transcript refs can be used in
+  internal vs external reports.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/bablos79_TRANSCRIPT_ACCEPTANCE_POLICY.md` defines draft, LLM-reviewed internal, human/operator accepted, and external-claim statuses."
+    test: "manual/docs-review"
+  - id: AC-2
+    description: "Policy states that LLM-reviewed transcript refs can support internal source joins but external delivery requires human/operator acceptance unless explicitly waived."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "Existing Phase 21 transcript artifacts are reclassified under the policy without changing their evidence content."
+    test: "manual/docs-review"
+
+Files:
+  - docs/pilot/bablos79_TRANSCRIPT_ACCEPTANCE_POLICY.md
+  - docs/pilot/bablos79_TRANSCRIPT_LLM_REVIEW.md
+  - docs/audit/PHASE21_ERROR_REGISTER.md
+
+Context-Refs:
+  - docs/pilot/bablos79_TRANSCRIPT_LLM_REVIEW.md
+  - docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md#phase-23---imageocr-and-multimodal-evidence
+
+Notes: |
+  This is a policy gate before external media-backed claims.
+
+### SAS-DR-010: Multimodal Source Join V2 ✅
+
+Owner:      codex
+Phase:      23
+Type:       validation
+Depends-On: SAS-DR-009
+
+Objective: |
+  Build a second multimodal source preview joining expanded text, reviewed
+  image/OCR evidence, and transcript evidence under the new acceptance policy.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/bablos79_MULTIMODAL_SOURCE_PREVIEW_V2.md` summarizes text, voice, image/OCR, reviewed, draft, and excluded evidence counts."
+    test: "manual/docs-review"
+  - id: AC-2
+    description: "Preview preserves original source document text/hash/url and cites joined media refs without changing source truth."
+    test: "tests/unit/test_multimodal_source_join.py or equivalent"
+  - id: AC-3
+    description: "Preview separates internal-only refs from external-eligible refs."
+    test: "manual/docs-review"
+
+Files:
+  - docs/pilot/bablos79_MULTIMODAL_SOURCE_PREVIEW_V2.md
+  - src/signal_sandbox/media/
+  - src/signal_sandbox/corpus/
+  - tests/unit/test_multimodal_source_join.py
+
+Context-Refs:
+  - docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md#phase-23---imageocr-and-multimodal-evidence
+
+Notes: |
+  This task changes modality scope; deep review is required at phase boundary.
+
+### SAS-DR-011: Multimodal Evidence Deep Review ✅
+
+Owner:      codex
+Phase:      23
+Type:       review
+Depends-On: SAS-DR-006, SAS-DR-007, SAS-DR-008, SAS-DR-009, SAS-DR-010
+
+Objective: |
+  Run the Phase 23 boundary review and decide whether multimodal evidence is
+  ready for claim-ledger extraction.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Review checks public media authorization, OCR/transcript draft boundaries, image/chart review quality, source joins, and external-claim policy."
+    test: "manual/review"
+  - id: AC-2
+    description: "Audit index, CODEX prompt, README, handoff docs, and phase report are updated with final Phase 23 state."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "Any P0/P1 media-source, transcript/OCR, or external-claim issue blocks Phase 24."
+    test: "manual/review"
+
+Files:
+  - docs/archive/PHASE23_REVIEW.md
+  - docs/audit/REVIEW_REPORT.md
+  - docs/audit/ARCH_REPORT.md
+  - docs/audit/PHASE_REPORT_LATEST.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/CODEX_PROMPT.md
+  - README.md
+  - PHASE_HANDOFF.md
+  - AGENT_NOTES.md
+  - ORCHESTRATOR_CHECKPOINT.md
+
+Context-Refs:
+  - docs/prompts/ORCHESTRATOR.md
+
+Notes: |
+  This is a phase gate. Do not skip deep review.
+
+## Phase 24 — Claim Ledger And Market Outcomes
+
+### SAS-DR-012: Author Claim Taxonomy ✅
+
+Owner:      codex
+Phase:      24
+Type:       docs
+Depends-On: SAS-DR-011
+
+Objective: |
+  Define the taxonomy for author claims so extraction can distinguish
+  measurable claims from broad market commentary and non-market content.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/bablos79_CLAIM_TAXONOMY.md` defines macro context, event risk, directional bias, explicit trade setup, level/timing call, watchlist, non-market commentary, and unsupported media claim categories."
+    test: "manual/docs-review"
+  - id: AC-2
+    description: "Taxonomy defines required fields for a claim to be deterministic-outcome-ready."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "Taxonomy states that broad claims may be useful author insights even when they are not deterministic performance evidence."
+    test: "manual/docs-review"
+
+Files:
+  - docs/pilot/bablos79_CLAIM_TAXONOMY.md
+  - docs/specs/MARKET_IDEA_SCHEMA.md
+
+Context-Refs:
+  - docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md#phase-24---claim-ledger-and-market-outcomes
+
+Notes: |
+  Do not force every post into a trade-signal frame.
+
+### SAS-DR-013: Expanded Claim Ledger Draft ✅
+
+Owner:      codex
+Phase:      24
+Type:       validation
+Depends-On: SAS-DR-012
+
+Objective: |
+  Extract a reviewed draft claim ledger from the expanded multimodal corpus.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/bablos79_CLAIM_LEDGER.json` and `.md` include claim id, source refs, media refs when used, timestamp, category, asset/proxy candidates, direction, horizon, review state, and measurability status."
+    test: "manual/docs-review plus schema tests if implemented"
+  - id: AC-2
+    description: "Ledger includes non-market, ambiguous, unsupported, and weak claims instead of filtering them out."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "If fewer than 30-50 reviewable claims exist, the ledger records an insufficient-corpus decision with reasons."
+    test: "manual/docs-review"
+
+Files:
+  - docs/pilot/bablos79_CLAIM_LEDGER.json
+  - docs/pilot/bablos79_CLAIM_LEDGER.md
+  - src/signal_sandbox/market_ideas/
+  - tests/unit/
+
+Context-Refs:
+  - docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md#phase-24---claim-ledger-and-market-outcomes
+  - docs/pilot/bablos79_CLAIM_TAXONOMY.md
+
+Notes: |
+  Draft extraction cannot create final truth without review status.
+
+### SAS-DR-014: Market Proxy Map ✅
+
+Owner:      operator + codex
+Phase:      24
+Type:       validation
+Depends-On: SAS-DR-013
+
+Objective: |
+  Map measurable and broad-market claims to explicit public market proxies or
+  mark them as non-measurable.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/bablos79_MARKET_PROXY_MAP.md` records each measurable claim's asset/proxy, data source, timestamp basis, horizon, and unresolved reason when no proxy is safe."
+    test: "manual/docs-review"
+  - id: AC-2
+    description: "Broad claims use approved proxy logic or remain non-measurable; no hidden proxy guessing is allowed."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "Market-data fetch plan covers only measurable/proxy-approved claims."
+    test: "manual/docs-review"
+
+Files:
+  - docs/pilot/bablos79_MARKET_PROXY_MAP.md
+  - docs/pilot/bablos79_CLAIM_LEDGER.json
+  - src/signal_sandbox/assets/
+  - src/signal_sandbox/market_data/
+
+Context-Refs:
+  - docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md#phase-24---claim-ledger-and-market-outcomes
+
+Notes: |
+  If the author says "market" broadly, do not invent a ticker unless the proxy
+  is explicitly approved and disclosed.
+
+### SAS-DR-015: Retrospective Outcome Evaluation ✅
+
+Owner:      codex
+Phase:      24
+Type:       validation
+Depends-On: SAS-DR-014
+
+Objective: |
+  Compute deterministic retrospective outcomes for measurable reviewed claims
+  using approved public/local market data snapshots.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/bablos79_RETROSPECTIVE_OUTCOMES.json` and `.md` record outcome status, market data snapshot refs, horizons, returns, MFE/MAE where applicable, and unresolved reasons."
+    test: "manual/docs-review plus outcome tests if implemented"
+  - id: AC-2
+    description: "Outcome evaluation separates confirmed, contradicted, unresolved, insufficient data, and non-measurable claims."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "No outcome metric is computed for claims lacking reviewed evidence, source timestamp, approved proxy, or sufficient market data."
+    test: "manual/docs-review"
+
+Files:
+  - docs/pilot/bablos79_RETROSPECTIVE_OUTCOMES.json
+  - docs/pilot/bablos79_RETROSPECTIVE_OUTCOMES.md
+  - src/signal_sandbox/market_ideas/
+  - src/signal_sandbox/market_data/
+  - tests/unit/
+
+Context-Refs:
+  - docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md#phase-24---claim-ledger-and-market-outcomes
+  - docs/pilot/bablos79_MARKET_PROXY_MAP.md
+
+Notes: |
+  Retrospective outcomes are evidence, not future-performance claims.
+
+### SAS-DR-016: Counterexample And Weak Evidence Register ✅
+
+Owner:      codex
+Phase:      24
+Type:       docs
+Depends-On: SAS-DR-015
+
+Objective: |
+  Preserve weak, contradicted, blocked, and non-measurable examples so the
+  final author report is balanced.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/bablos79_COUNTEREXAMPLES.md` includes contradicted, unresolved, ambiguous, non-measurable, and unsupported-media examples with source refs."
+    test: "manual/docs-review"
+  - id: AC-2
+    description: "Register includes at least 5 weak/blocked/counter examples when available, or an explicit reason if fewer exist."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "The report gate requires counterexamples to be considered before any positive author-strength conclusion."
+    test: "manual/docs-review"
+
+Files:
+  - docs/pilot/bablos79_COUNTEREXAMPLES.md
+  - docs/pilot/bablos79_RETROSPECTIVE_OUTCOMES.md
+  - docs/pilot/bablos79_CLAIM_LEDGER.md
+
+Context-Refs:
+  - docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md#anti-cherry-pick-rule
+
+Notes: |
+  Good product evidence includes disconfirming evidence.
+
+### SAS-DR-017: Claim Ledger Deep Review ✅
+
+Owner:      codex
+Phase:      24
+Type:       review
+Depends-On: SAS-DR-012, SAS-DR-013, SAS-DR-014, SAS-DR-015, SAS-DR-016
+
+Objective: |
+  Run the Phase 24 boundary review and decide whether the claim ledger and
+  retrospective outcomes are strong enough for an author capability report.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Review checks taxonomy, ledger evidence refs, media status, proxy mapping, outcome correctness, counterexamples, and no future-profit/advice claims."
+    test: "manual/review"
+  - id: AC-2
+    description: "Audit index, CODEX prompt, README, handoff docs, and phase report are updated with final Phase 24 state."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "If fewer than 30-50 claims or too few measurable outcomes exist, review decides whether to expand corpus again or produce an insufficient-evidence report."
+    test: "manual/review"
+
+Files:
+  - docs/archive/PHASE24_REVIEW.md
+  - docs/audit/REVIEW_REPORT.md
+  - docs/audit/ARCH_REPORT.md
+  - docs/audit/PHASE_REPORT_LATEST.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/CODEX_PROMPT.md
+  - README.md
+  - PHASE_HANDOFF.md
+  - AGENT_NOTES.md
+  - ORCHESTRATOR_CHECKPOINT.md
+
+Context-Refs:
+  - docs/prompts/ORCHESTRATOR.md
+
+Notes: |
+  This is a phase gate. Do not skip deep review.
+
+## Phase 25 — Author Capability Report
+
+### SAS-DR-018: Author Capability Scorecard ✅
+
+Owner:      codex
+Phase:      25
+Type:       docs
+Depends-On: SAS-DR-017
+
+Objective: |
+  Build the author capability scorecard from reviewed claims, outcomes,
+  examples, counterexamples, and limitations.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/bablos79_AUTHOR_CAPABILITY_SCORECARD.md` scores or labels categories such as macro context, event risk, directional bias, explicit setup quality, timing/levels, media usefulness, and evidence measurability."
+    test: "manual/docs-review"
+  - id: AC-2
+    description: "Every strength claim cites at least one supporting reviewed example and at least one limitation/counterexample when available."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "Scorecard avoids leaderboard, marketplace, future-profit, advice, or best-channel language."
+    test: "manual/docs-review"
+
+Files:
+  - docs/pilot/bablos79_AUTHOR_CAPABILITY_SCORECARD.md
+  - docs/pilot/bablos79_RETROSPECTIVE_OUTCOMES.md
+  - docs/pilot/bablos79_COUNTEREXAMPLES.md
+
+Context-Refs:
+  - docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md#phase-25---author-capability-report
+
+Notes: |
+  This scorecard is retrospective evidence, not a ranking product.
+
+### SAS-DR-019: Author Capability Report V1 ✅
+
+Owner:      codex
+Phase:      25
+Type:       validation
+Depends-On: SAS-DR-018
+
+Objective: |
+  Generate the buyer-readable author capability report from the validated
+  ledger, outcomes, media evidence, scorecard, and limitations.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/reports/bablos79_AUTHOR_CAPABILITY_REPORT_V1.md` explains what the author appears good at, what is weak/non-measurable, and what happened later in public market data for measurable claims."
+    test: "manual/docs-review"
+  - id: AC-2
+    description: "Report includes evidence appendix, source/media/market refs, examples, counterexamples, limitations, and no-advice boundary."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "Report contains no buy/sell/hold recommendation, future-profit claim, marketplace ranking, leaderboard language, or unreviewed media claim."
+    test: "manual/docs-review"
+
+Files:
+  - docs/pilot/reports/bablos79_AUTHOR_CAPABILITY_REPORT_V1.md
+  - docs/pilot/bablos79_AUTHOR_CAPABILITY_SCORECARD.md
+  - docs/pilot/bablos79_CLAIM_LEDGER.md
+  - docs/pilot/bablos79_RETROSPECTIVE_OUTCOMES.md
+
+Context-Refs:
+  - docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md#phase-25---author-capability-report
+
+Notes: |
+  If evidence remains weak, produce an insufficient-evidence report instead of
+  forcing a positive narrative.
+
+### SAS-DR-020: Deep Retrospective Demo Pack ✅
+
+Owner:      codex
+Phase:      25
+Type:       docs
+Depends-On: SAS-DR-019
+
+Objective: |
+  Package the author capability report into an internal demo pack suitable for
+  warm conversations.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/bablos79_DEEP_RETROSPECTIVE_DEMO_PACK.md` contains report summary, strongest examples, counterexamples, media evidence summary, market outcome summary, limitations, talk track, and buyer use case."
+    test: "manual/docs-review"
+  - id: AC-2
+    description: "Demo pack makes clear whether it is external-ready, internal-only, or rejected."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "Demo pack does not expose raw media beyond public/legal boundary and does not overstate transcript/OCR certainty."
+    test: "manual/docs-review"
+
+Files:
+  - docs/pilot/bablos79_DEEP_RETROSPECTIVE_DEMO_PACK.md
+  - docs/pilot/reports/bablos79_AUTHOR_CAPABILITY_REPORT_V1.md
+
+Context-Refs:
+  - docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md#phase-25---author-capability-report
+
+Notes: |
+  Keep this pack concise enough for sales/user conversations.
+
+### SAS-DR-021: Deep External Ready Gate ✅
+
+Owner:      operator + codex
+Phase:      25
+Type:       review
+Depends-On: SAS-DR-020
+
+Objective: |
+  Decide whether the deep `bablos79` retrospective can be shown externally or
+  should remain internal-only/rejected.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "`docs/pilot/bablos79_DEEP_EXTERNAL_READY_GATE.md` records ready / needs fixes / reject and cites evidence coverage, market outcomes, media review status, legal boundary, and claim safety."
+    test: "manual/docs-review"
+  - id: AC-2
+    description: "Gate defines the paid report package scope, buyer promise, exclusions, and first feedback questions if ready."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "Gate does not approve marketplace, leaderboard, automated advice, private scraping, or future-performance claims."
+    test: "manual/docs-review"
+
+Files:
+  - docs/pilot/bablos79_DEEP_EXTERNAL_READY_GATE.md
+  - docs/pilot/bablos79_DEEP_RETROSPECTIVE_DEMO_PACK.md
+  - docs/pilot/reports/bablos79_AUTHOR_CAPABILITY_REPORT_V1.md
+
+Context-Refs:
+  - docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md#phase-25---author-capability-report
+
+Notes: |
+  Human/operator decision is required before external delivery.
+
+### SAS-DR-022: Author Capability Report Deep Review ✅
+
+Owner:      codex
+Phase:      25
+Type:       review
+Depends-On: SAS-DR-018, SAS-DR-019, SAS-DR-020, SAS-DR-021
+
+Objective: |
+  Run the Phase 25 boundary review and close the deep channel retrospective
+  loop.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Review checks report evidence, scorecard fairness, examples/counterexamples, media claims, legal boundary, and external-ready gate."
+    test: "manual/review"
+  - id: AC-2
+    description: "Audit index, CODEX prompt, README, handoff docs, and phase report are updated with final Phase 25 state."
+    test: "manual/docs-review"
+  - id: AC-3
+    description: "If ready, next task is controlled external pilot feedback; if not ready, next task is the specific blocking fix or corpus expansion, not marketplace scope."
+    test: "manual/review"
+
+Files:
+  - docs/archive/PHASE25_RETROSPECTIVE_REVIEW.md
+  - docs/audit/REVIEW_REPORT.md
+  - docs/audit/ARCH_REPORT.md
+  - docs/audit/PHASE_REPORT_LATEST.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/CODEX_PROMPT.md
+  - README.md
+  - PHASE_HANDOFF.md
+  - AGENT_NOTES.md
+  - ORCHESTRATOR_CHECKPOINT.md
+
+Context-Refs:
+  - docs/prompts/ORCHESTRATOR.md
+
+Notes: |
+  This is a phase gate. Do not skip deep review.

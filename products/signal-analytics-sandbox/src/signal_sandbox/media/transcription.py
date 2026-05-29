@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import hashlib
+import importlib
 import os
 from collections.abc import Mapping
 from datetime import UTC, datetime
@@ -15,6 +16,7 @@ from pydantic import BaseModel, ConfigDict, Field
 from signal_sandbox.media.artifact import MediaArtifact
 
 TRANSCRIPTION_ENABLE_ENV = "SIGNAL_SANDBOX_ENABLE_MEDIA_TRANSCRIPTION"
+OPENAI_API_KEY_ENV = "OPENAI_API_KEY"
 DEFAULT_WHISPER_MODEL = "whisper-1"
 
 
@@ -36,6 +38,47 @@ class WhisperTranscriptionClient(Protocol):
     def transcribe(self, media_path: Path, *, model: str) -> str:
         """Return transcript text for a local media file."""
         ...
+
+
+class OpenAIWhisperTranscriptionClient:
+    """Managed OpenAI Whisper client with a small synchronous boundary."""
+
+    def __init__(self, *, api_key: str | None = None) -> None:
+        self.api_key = api_key
+
+    def transcribe(self, media_path: Path, *, model: str) -> str:
+        api_key = (self.api_key or os.environ.get(OPENAI_API_KEY_ENV, "")).strip()
+        if not api_key:
+            raise WhisperTranscriptionClientError(
+                f"{OPENAI_API_KEY_ENV} is required for managed Whisper transcription"
+            )
+
+        try:
+            openai_module = importlib.import_module("openai")
+            openai_client = openai_module.OpenAI
+        except (ImportError, AttributeError) as exc:
+            raise WhisperTranscriptionClientError(
+                "openai package is required for managed Whisper transcription"
+            ) from exc
+
+        try:
+            client = openai_client(api_key=api_key)
+            with media_path.open("rb") as audio_file:
+                response = client.audio.transcriptions.create(
+                    model=model,
+                    file=audio_file,
+                )
+        except Exception as exc:
+            raise WhisperTranscriptionClientError(
+                "managed Whisper transcription failed"
+            ) from exc
+
+        text = getattr(response, "text", "").strip()
+        if not text:
+            raise WhisperTranscriptionClientError(
+                "managed Whisper returned empty transcript"
+            )
+        return text
 
 
 class DraftTranscriptArtifact(BaseModel):

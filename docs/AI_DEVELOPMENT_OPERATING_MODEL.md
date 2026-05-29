@@ -1,7 +1,7 @@
 # Product AI Development Operating Model
 
 Status: Active
-Date: 2026-05-07
+Date: 2026-05-15
 
 This document defines the repo-local AI development model for the product
 portfolio. The repository root no longer stores a shared playbook, shared prompt
@@ -31,6 +31,12 @@ There is one repository and three product workspaces:
 | Entropy Core | `products/entropy-core/` | Governed core primitives and protocol-safe bridges |
 | Trader Risk Audit | `products/trader-risk-audit/` | Primary commercial MVP |
 | Signal Analytics Sandbox | `products/signal-analytics-sandbox/` | Separate public-source signal analytics validation |
+
+Current focus:
+
+- Active: Trader Risk Audit and Signal Analytics Sandbox.
+- Paused: Entropy Core, unless a concrete Trader/Signal dependency or
+  human-approved Core V2 roadmap appears.
 
 Each workspace has local:
 
@@ -128,6 +134,8 @@ Before an AI development session for a product workspace:
 4. Read the target workspace `README.md`.
 5. Read the target workspace `docs/CODEX_PROMPT.md`.
 6. Read the target workspace artifact roadmap when present:
+   - `products/trader-risk-audit/docs/OPEN_SOURCE_AUDIT_VALIDATION_ROADMAP.md`
+   - `products/signal-analytics-sandbox/docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md`
    - `products/trader-risk-audit/docs/ARTIFACT_VALIDATION_ROADMAP.md`
    - `products/signal-analytics-sandbox/docs/ARTIFACT_VALIDATION_ROADMAP.md`
    - `products/entropy-core/docs/ARTIFACT_SUPPORT_ROADMAP.md`
@@ -190,16 +198,17 @@ next real incomplete task.
   autonomous AI strategy generation, or new runtime services is blocked unless
   a new approved gate exists.
 
-## First AI-Development Sequence
+## Current AI-Development Sequence
 
-Recommended order:
+Recommended order as of 2026-05-15:
 
-1. `TRA-001` - paid validation evidence.
-2. `TRA-002` - manual audit report template.
-3. `TRA-003` - trade import contract from real exports.
-4. `TRA-004` - risk policy spec.
-5. `TRA-005` - deterministic violation record contract.
-6. `TRA-006` - minimal report generator design.
-7. `EC-001` - core bridge design only after Trader Risk Audit validation.
-8. `SAS-001` - public-source signal sandbox feasibility only if separately
-   staffed.
+1. Trader `T98-T103` - open-source audit case bank and manual validation.
+2. Trader `T104-T109` - multi-case report quality loop and demo pack.
+3. Trader `T110-T115` - private/operator-approved pilot readiness.
+4. Signal `SAS-DR-001..005` - expanded public corpus and media inventory.
+5. Signal `SAS-DR-006..011` - image/OCR and reviewed multimodal evidence.
+6. Signal `SAS-DR-012..017` - claim ledger, market proxy map, retrospective
+   outcomes, and counterexamples.
+7. Signal `SAS-DR-018..022` - author capability report and external-ready gate.
+8. Core - stay paused unless a concrete Trader/Signal dependency appears or a
+   human approves Core V2.

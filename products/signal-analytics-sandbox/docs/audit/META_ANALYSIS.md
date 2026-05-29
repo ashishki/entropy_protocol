@@ -1,43 +1,50 @@
-# META_ANALYSIS — Cycle 19
-_Date: 2026-05-09 · Type: full_
+# META_ANALYSIS - Cycle 25
+_Date: 2026-05-15 · Type: full_
 
 ## Project State
 
-Phase 19 (`SAS-MI-018`-`SAS-MI-019`) is complete pending this review cycle.
-Next: none — no further task is defined in `docs/tasks.md`.
-Baseline: 141 pass, 0 skip.
+Phase 25 (`SAS-DR-018` through `SAS-DR-022`) is at final boundary review. The
+current planned task graph is complete after this review.
+
+Baseline: 171 pass, 0 skip.
 
 ## Open Findings
 
 | ID | Sev | Description | Files | Status |
 |----|-----|-------------|-------|--------|
-| none | - | No open findings in `CODEX_PROMPT.md` or prior `REVIEW_REPORT.md`. | - | - |
+| P21-E02 | P1 | Two transcript refs are `llm_reviewed_internal`; zero refs are human/operator accepted for external delivery. | `docs/audit/PHASE21_ERROR_REGISTER.md` | final external-delivery blocker |
+| P21-E03 | P1 | Internal media-backed report has broad-market transcript claims but zero deterministic outcome-ready rows. | `docs/audit/PHASE21_ERROR_REGISTER.md` | final external-delivery blocker |
+| P21-E04 | P2 | The exact follow-up video promised by `bablos79-10465` remains unidentified. | `docs/audit/PHASE21_ERROR_REGISTER.md` | source-linkage gap |
+| P22-G01 | P1 | Locked 90-day public window is only partially represented by local seed captures. | `docs/pilot/bablos79_CORPUS_GAP_REGISTER.md` | corpus limitation |
+| P22-G02 | P1 | Image/chart candidates are not acquisition-ready without exact public source-document linkage. | `docs/pilot/bablos79_MEDIA_INVENTORY_EXPANDED.md` | media limitation |
 
 ## PROMPT_1 Scope (architecture)
 
-- ADR-003 channel-specific tools scope: chose deterministic reviewer/export
-  improvements and deferred provider/modal expansion.
-- Reviewer coverage export: internal-only coverage rows over source documents,
-  MarketIdea drafts, and deterministic outcomes.
-- Task graph state: no next implementation task is currently defined.
+- Phase 25 report posture: internal-only insufficient-evidence retrospective.
+- External ready gate: reject external delivery, do not expand into
+  marketplace/leaderboard/advice scope.
+- Next work, if any, must repair evidence: corpus coverage, accepted media,
+  explicit proxies, market snapshots, and computed outcomes.
 
-## PROMPT_2 Scope (code, priority order)
+## PROMPT_2 Scope (docs, priority order)
 
-1. `src/signal_sandbox/market_ideas/review_coverage.py`
-2. `tests/unit/test_review_coverage_export.py`
-3. `src/signal_sandbox/market_ideas/__init__.py`
-4. `docs/adr/ADR-003-channel-specific-tools.md`
-5. `docs/pilot/bablos79_REVIEW_COVERAGE_PACK.md`
-6. `docs/CODEX_PROMPT.md`
-7. `docs/tasks.md`
+1. `docs/pilot/bablos79_AUTHOR_CAPABILITY_SCORECARD.md`
+2. `docs/pilot/reports/bablos79_AUTHOR_CAPABILITY_REPORT_V1.md`
+3. `docs/pilot/bablos79_DEEP_RETROSPECTIVE_DEMO_PACK.md`
+4. `docs/pilot/bablos79_DEEP_EXTERNAL_READY_GATE.md`
+5. `docs/archive/PHASE25_RETROSPECTIVE_REVIEW.md`
+6. `docs/audit/REVIEW_REPORT.md`
+7. `docs/audit/ARCH_REPORT.md`
+8. `docs/audit/PHASE_REPORT_LATEST.md`
+9. `docs/audit/AUDIT_INDEX.md`
 
 ## Cycle Type
 
-Full — Phase 19 is complete and must receive deep review/archive/doc update
-before the implementation loop can stop at the no-next-task condition.
+Full - Phase 25 is complete and closes the current deep channel retrospective
+task graph.
 
 ## Notes for PROMPT_3
 
-Verify that the exporter is deterministic, internal-only, non-mutating, and
-does not add providers, source collection, report publication, approved ledger
-writes, market-data writes, or customer-facing claims.
+Focus consolidation on final closure: planned phases are complete, external
+delivery is rejected, internal demo scope is allowed, and the next valid route
+is evidence repair/corpus expansion rather than marketplace scope.

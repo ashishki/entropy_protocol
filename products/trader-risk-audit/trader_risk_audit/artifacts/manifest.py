@@ -8,7 +8,6 @@ from pathlib import Path
 
 from trader_risk_audit import __version__
 
-
 REQUIRED_ARTIFACT_NAMES = (
     "source_export",
     "policy_file",

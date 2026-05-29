@@ -1,7 +1,7 @@
 # CODEX_PROMPT.md
 
-Version: 2.6
-Date: 2026-05-14
+Version: 2.7
+Date: 2026-05-15
 Phase: 27
 
 This file is compact session state for Entropy Core. Historical detail belongs
@@ -29,10 +29,13 @@ and `docs/tasks.md`.
 - Live capital: not approved
 - Broker/exchange integration: not approved
 - OOS/performance claims: not approved
-- Last updated: 2026-05-14
+- Last updated: 2026-05-15
 - Product hypothesis status: `local_evidence_strengthened_not_confirmed`
 - Artifact support status: Phase 15 complete through T74; Core remains hidden/internal.
 - Core execution roadmap status: Core V1 complete through T122; automatic roadmap expansion stopped pending human-approved V2 roadmap.
+- Portfolio pause: Trader Risk Audit and Signal Analytics Sandbox are the
+  active validation tracks; Core remains paused unless they create a concrete
+  dependency or a human approves Core V2.
 
 ## Read First
 
@@ -61,6 +64,8 @@ Human gate: approve or reject a Core V2 roadmap.
 
 The T75-T122 execution roadmap is complete. Do not continue into new roadmap
 tasks until a human approves a Core V2 roadmap.
+Do not open Core work from portfolio/product validation discussions unless the
+operator explicitly changes this pause.
 
 ## Active Guardrails
 

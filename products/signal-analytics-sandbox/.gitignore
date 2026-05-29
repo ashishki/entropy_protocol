@@ -1,0 +1,16 @@
+# Python/local tool caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.pyrightcache/
+.venv/
+
+# Local raw capture workspace. Persist curated manifests/reports under docs/.
+workspace/captures/
+workspace/media/three_channel_multimodal/
+
+# Large generated review dumps; keep summaries and metric outputs in docs/pilot.
+docs/pilot/*FULL_REVIEW_QUEUE.*
+docs/pilot/multimodal/

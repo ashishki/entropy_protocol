@@ -1,0 +1,151 @@
+{
+  "artifact_id": "three_channel_v2_metric_results",
+  "status": "internal_v2_multimodal_recompute",
+  "created_at": "2026-05-19",
+  "source_metrics_ref": "docs/pilot/three_channel_V1_METRIC_RESULTS.json",
+  "media_inventory_ref": "docs/pilot/three_channel_V2_MEDIA_INVENTORY.md",
+  "transcript_review_ref": "docs/pilot/three_channel_TRANSCRIPT_REVIEW.md",
+  "ocr_chart_policy_ref": "docs/specs/OCR_CHART_SOURCE_LINK_POLICY.md",
+  "method": {
+    "text_metrics_source": "V1 reviewed text metrics",
+    "reviewed_media_claims_included": true,
+    "unreviewed_media_excluded": true,
+    "external_delivery_approved": false,
+    "note": "No human/operator accepted transcript, OCR, or chart claim exists yet, so current V2 market totals match V1."
+  },
+  "media_claim_inclusion_schema": {
+    "required_fields": [
+      "claim_id",
+      "channel",
+      "source_ref",
+      "source_document_id",
+      "media_id",
+      "media_modality",
+      "media_artifact_ref",
+      "source_media_sha256",
+      "transcript_ref_or_ocr_ref",
+      "transcript_sha256_or_ocr_text_sha256",
+      "review_status",
+      "reviewer_id",
+      "reviewed_at_utc",
+      "accepted_claim_boundary",
+      "external_claim_ready"
+    ],
+    "required_review_status": "human_claim_accepted",
+    "external_claim_ready_required_for_customer_use": true
+  },
+  "totals": {
+    "public_text_rows": 1534,
+    "v2_evaluable_claims": 170,
+    "confirmed_hits": 93,
+    "contradicted_misses": 77,
+    "primary_hit_rate": "54.705882",
+    "reviewed_media_claims_included": 0,
+    "unreviewed_media_claims_excluded": 2,
+    "blocked_or_unacquired_media_rows": 6,
+    "delta_from_v1_evaluable_claims": 0,
+    "delta_from_v1_confirmed_hits": 0,
+    "delta_from_v1_contradicted_misses": 0
+  },
+  "channel_summaries": [
+    {
+      "source_id": "bablos79",
+      "v2_evaluable_claims": 14,
+      "confirmed_hits": 9,
+      "contradicted_misses": 5,
+      "primary_hit_rate": "64.285714",
+      "avg_directional_return_pct": "0.742848",
+      "reviewed_media_claims_included": 0,
+      "unreviewed_media_claims_excluded": 2,
+      "blocked_or_unacquired_media_rows": 4,
+      "media_status": "excluded_pending_human_review_or_linkage",
+      "media_provenance_refs": []
+    },
+    {
+      "source_id": "nemphiscrypts",
+      "v2_evaluable_claims": 49,
+      "confirmed_hits": 28,
+      "contradicted_misses": 21,
+      "primary_hit_rate": "57.142857",
+      "avg_directional_return_pct": "0.434858",
+      "reviewed_media_claims_included": 0,
+      "unreviewed_media_claims_excluded": 0,
+      "blocked_or_unacquired_media_rows": 1,
+      "media_status": "not_acquired",
+      "media_provenance_refs": []
+    },
+    {
+      "source_id": "pifagortrade",
+      "v2_evaluable_claims": 107,
+      "confirmed_hits": 56,
+      "contradicted_misses": 51,
+      "primary_hit_rate": "52.336449",
+      "avg_directional_return_pct": "-0.153127",
+      "reviewed_media_claims_included": 0,
+      "unreviewed_media_claims_excluded": 0,
+      "blocked_or_unacquired_media_rows": 1,
+      "media_status": "not_acquired",
+      "media_provenance_refs": []
+    }
+  ],
+  "reviewed_media_claims": [],
+  "excluded_media": [
+    {
+      "media_id": "public_voice_bablos79_10476",
+      "channel": "bablos79",
+      "media_modality": "voice/audio",
+      "review_status": "pending_human_review",
+      "exclusion_reason": "human_operator_acceptance_missing"
+    },
+    {
+      "media_id": "public_voice_bablos79_10478",
+      "channel": "bablos79",
+      "media_modality": "voice/audio",
+      "review_status": "pending_human_review",
+      "exclusion_reason": "human_operator_acceptance_missing"
+    },
+    {
+      "media_id": "media-v2-003",
+      "channel": "bablos79",
+      "media_modality": "voice/audio reference",
+      "review_status": "pending_operator_linkage",
+      "exclusion_reason": "exact_referenced_voice_not_linked"
+    },
+    {
+      "media_id": "media-v2-004",
+      "channel": "bablos79",
+      "media_modality": "video/audio reference",
+      "review_status": "pending_operator_linkage",
+      "exclusion_reason": "followup_media_not_identified"
+    },
+    {
+      "media_id": "media-v2-005",
+      "channel": "bablos79",
+      "media_modality": "image/screenshot",
+      "review_status": "pending_operator_linkage",
+      "exclusion_reason": "source_document_linkage_missing"
+    },
+    {
+      "media_id": "media-v2-006",
+      "channel": "bablos79",
+      "media_modality": "chart screenshot",
+      "review_status": "pending_operator_linkage",
+      "exclusion_reason": "source_document_linkage_missing_chart_claims_forbidden"
+    },
+    {
+      "media_id": "media-v2-007",
+      "channel": "nemphiscrypts",
+      "media_modality": "audio/image/chart",
+      "review_status": "not_acquired",
+      "exclusion_reason": "no_source_linked_public_media_acquired"
+    },
+    {
+      "media_id": "media-v2-008",
+      "channel": "pifagortrade",
+      "media_modality": "audio/image/chart",
+      "review_status": "not_acquired",
+      "exclusion_reason": "no_source_linked_public_media_acquired"
+    }
+  ],
+  "decision": "media_claim_recompute_complete_internal_only"
+}

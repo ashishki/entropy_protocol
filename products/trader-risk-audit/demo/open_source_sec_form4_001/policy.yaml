@@ -1,0 +1,31 @@
+schema_version: "1"
+account_scope:
+  - acct_open_sec_form4_msk_001
+timezone: Europe/Moscow
+session:
+  start: "00:00"
+  end: "23:59"
+rules:
+  - rule_id: sec_form4_max_transaction_notional_proxy
+    type: max_position_size
+    threshold: "1000000"
+    unit: USD
+    params:
+      source_scope: open_source_sec_form4
+      rationale: "Uses existing max_position_size evaluator as a transaction-notional proxy for artifact validation."
+  - rule_id: sec_form4_watchlist_symbol_svre
+    type: forbidden_assets
+    threshold: null
+    unit: symbol
+    params:
+      source_scope: open_source_sec_form4
+      symbols:
+        - SVRE
+      rationale: "Open-source validation watchlist symbol used only to test source-row traceability."
+  - rule_id: sec_form4_leverage_unsupported_register
+    type: max_leverage
+    threshold: "1"
+    unit: ratio
+    params:
+      source_scope: open_source_sec_form4
+      rationale: "SEC Form 4 rows do not contain leverage; this rule should remain an unsupported-data limitation."

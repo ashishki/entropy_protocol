@@ -1,0 +1,27 @@
+{
+  "artifact_id": "bablos79_phase36_outcomes",
+  "generated_at_utc": "2026-05-22T00:00:00Z",
+  "source_id": "bablos79",
+  "status": "complete_no_market_fetch_allowed",
+  "input_artifacts": [
+    "docs/pilot/bablos79_PHASE36_CLAIM_LEDGER.json",
+    "docs/pilot/bablos79_MARKET_PROXY_MAP.md"
+  ],
+  "summary": {
+    "deterministic_candidates": 0,
+    "proxy_approved_rows": 0,
+    "market_data_fetch_rows": 0,
+    "computed_outcomes": 0,
+    "confirmed_rows": 0,
+    "contradicted_rows": 0,
+    "unsupported_or_excluded_rows": 14,
+    "provider_gaps_counted_as_losses": 0
+  },
+  "fetch_plan": [],
+  "exclusion_policy": {
+    "provider_gaps_are_losses": false,
+    "unsupported_proxies_are_losses": false,
+    "missing_media_is_author_evidence": false,
+    "reason": "No deterministic row has accepted source evidence, approved proxy, source timestamp, horizon, metric, and market-data method."
+  }
+}

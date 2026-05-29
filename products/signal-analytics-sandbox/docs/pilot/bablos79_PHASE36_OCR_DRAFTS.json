@@ -1,0 +1,46 @@
+{
+  "artifact_id": "bablos79_phase36_ocr_drafts",
+  "generated_at_utc": "2026-05-22T00:00:00Z",
+  "source_id": "bablos79",
+  "status": "complete_blocked_no_source_linked_image_artifacts",
+  "summary": {
+    "source_linked_image_artifacts": 0,
+    "source_linked_chart_artifacts": 0,
+    "ocr_drafts_created": 0,
+    "vision_drafts_created": 0,
+    "chart_interpretations_approved": 0,
+    "customer_facing_ocr_claims_allowed": 0,
+    "blocked_candidate_rows": 4
+  },
+  "blocked_rows": [
+    {
+      "blocked_id": "blocked_image_channel_level_screenshot",
+      "modality": "image/screenshot",
+      "reason": "No exact public post URL, capture ID, source-document ID, local file, media ID, or checksum.",
+      "required_next_action": "Provide source-linked checksumable image artifact before OCR."
+    },
+    {
+      "blocked_id": "blocked_chart_channel_level_screenshot",
+      "modality": "chart screenshot",
+      "reason": "No exact public post URL, capture ID, source-document ID, local file, media ID, or checksum.",
+      "required_next_action": "Provide source-linked checksumable chart artifact; chart interpretation remains manual-review-only."
+    },
+    {
+      "blocked_id": "blocked_gap_pre_seed_window_images",
+      "modality": "unknown media gap",
+      "reason": "No source rows for 2026-02-15 through 2026-04-27.",
+      "required_next_action": "Run public recapture before media linkage."
+    },
+    {
+      "blocked_id": "blocked_gap_post_seed_window_images",
+      "modality": "unknown media gap",
+      "reason": "No source rows for 2026-05-06 through 2026-05-15.",
+      "required_next_action": "Run public recapture before media linkage."
+    }
+  ],
+  "policy_result": {
+    "ocr_allowed_now": false,
+    "chart_interpretation_allowed_now": false,
+    "reason": "OCR/vision may only run on public/operator-authorized, source-linked, checksumable media artifacts."
+  }
+}

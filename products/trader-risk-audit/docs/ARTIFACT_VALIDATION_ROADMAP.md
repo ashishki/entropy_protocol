@@ -1,21 +1,25 @@
 # Trader Risk Audit Artifact Validation Roadmap
 
-Status: Active
-Date: 2026-05-11
+Status: Complete
+Date: 2026-05-14
 
-This file gives strategic routing only. Detailed acceptance criteria and file
-scope live in `docs/tasks.md` Phase 16, T63-T69.
+This file gives strategic routing for the completed Phase 16 artifact
+validation work. Detailed acceptance criteria and file scope live in
+`docs/tasks.md` Phase 16, T63-T69.
+
+For the active post-T93 validation loop, use
+`docs/OPEN_SOURCE_AUDIT_VALIDATION_ROADMAP.md`.
 
 ## Goal
 
-Produce one real-data trader audit report pack that the operator personally
-trusts before showing it to warm prospects.
+Produce one real-data or verified open-source trader audit report pack that the
+operator personally trusts before showing it to warm prospects.
 
-## Active Phase
+## Completed Phase
 
 | Task | Purpose | Output |
 |---|---|---|
-| T63 | Lock real audit scope. | Source/rules/privacy/delivery scope note. |
+| T63 | Lock real audit scope. | Source/rules/privacy/delivery scope note; current scope is `docs/REAL_AUDIT_SCOPE_OPEN_SOURCE_EN.md`. |
 | T64 | Intake real data and map policy. | Normalized preview, unsupported-field register, policy review. |
 | T65 | Generate first real audit artifacts. | Trades, violations, attribution, report, packet, manifest. |
 | T66 | Manually validate calculations. | Validation notes and error register. |
@@ -25,7 +29,7 @@ trusts before showing it to warm prospects.
 
 ## Required Artifacts
 
-- real audit scope note;
+- real audit scope note or verified open-source validation scope note;
 - intake/schema summary;
 - policy mapping review;
 - generated report pack;
@@ -36,6 +40,22 @@ trusts before showing it to warm prospects.
 
 Raw private/customer trade exports must stay outside git. Commit only sanitized
 summaries, fixtures, or redacted derivatives.
+
+If private operator data is unavailable, do not block Phase 16. Use a valid
+public/open-source transaction dataset with source metadata, privacy review,
+and clear limitation wording. Public/open-source validation proves artifact
+quality only; it is not market validation or paid-pilot evidence.
+
+## Completion And Next Routing
+
+Phase 16 completed on 2026-05-12 with the SEC EDGAR Form 4 open-source
+validation pack and Cycle 21 deep review. The ready gate allows controlled
+warm-prospect conversations using the demo pack, but does not count as
+customer, paid-pilot, or PMF evidence.
+
+The current development loop has moved to `docs/AUTOMATED_PILOT_ROADMAP.md`.
+Start with T70 Automated Intake Session Contract and keep the automation
+local-first until evidence justifies hosted product work.
 
 ## Allowed Engineering
 
@@ -59,7 +79,8 @@ summaries, fixtures, or redacted derivatives.
 ## Read Order
 
 1. `docs/CODEX_PROMPT.md`
-2. this file
-3. repo-root `docs/ARTIFACT_FIRST_VALIDATION_ROADMAP.md`
-4. `docs/tasks.md` T63-T69
-5. task-specific `Context-Refs`
+2. `docs/AUTOMATED_PILOT_ROADMAP.md`
+3. this file for Phase 16 historical context
+4. repo-root `docs/ARTIFACT_FIRST_VALIDATION_ROADMAP.md`
+5. `docs/tasks.md` T63-T69 and T70-T97
+6. task-specific `Context-Refs`

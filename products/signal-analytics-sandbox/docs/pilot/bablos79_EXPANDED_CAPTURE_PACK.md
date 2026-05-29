@@ -1,0 +1,107 @@
+# Expanded Capture Pack - bablos79
+
+Generated: `2026-05-15T13:25:00+00:00`
+Status: seed capture registered with locked-window gaps
+
+## Summary
+
+- Source ID: `bablos79`
+- Source URL: `https://t.me/bablos79`
+- Locked window: `2026-02-15T00:00:00+00:00` through `2026-05-15T23:59:59+00:00`
+- Window length: 90 calendar days
+- Scope artifact: `docs/pilot/bablos79_DEEP_SCOPE.md`
+- Included public text captures: 60
+- Fresh records captured in this task: 0
+- Records with linked media refs: 2
+- Coverage range from registered seed captures: `2026-04-27T07:12:22+00:00` through `2026-05-06T06:57:32+00:00`
+- Capture method: `public_telegram_s_html_existing_workspace`
+- Source language: Russian (`ru`)
+- Outcome analysis: not run; blocked until claim ledger and market proxy phases
+
+## Coverage Limitations
+
+- The locked 90-day window is larger than the current local seed capture.
+- No fresh public network capture was run in this task.
+- Missing pre-seed and post-seed portions must be captured or recorded as unavailable in `SAS-DR-004`.
+- Non-contiguous message ids inside the seed capture must be classified during the expanded pass.
+- Existing media refs are draft/internal only and do not create customer-facing media claims.
+
+## Gap Register Seed
+
+| gap_id | type | scope | reason | required action |
+|---|---|---|---|---|
+| `gap-pre-seed-window` | `locked_window_not_captured` | 2026-02-15T00:00:00+00:00 -> 2026-04-27T07:12:22+00:00 | No operator-supplied/public capture files are present for this portion of the locked 90-day window. | Attempt public /s/ capture or record unavailable/deleted rows in the corpus gap register. |
+| `gap-post-seed-window` | `locked_window_not_captured` | 2026-05-06T06:57:32+00:00 -> 2026-05-15T23:59:59+00:00 | No operator-supplied/public capture files are present for this portion of the locked 90-day window. | Attempt public /s/ capture or record unavailable/deleted rows in the corpus gap register. |
+| `gap-seed-message-id-sequence` | `source_id_sequence_gap_inside_seed_capture` | bablos79-10462, bablos79-10473, bablos79-10474, bablos79-10480, bablos79-10481, bablos79-10484, bablos79-10494 | The existing seed capture has non-contiguous Telegram message ids; no local capture row exists for these ids. | Classify each missing id during the expanded capture pass as unavailable, non-text/media-only, deleted, or newly captured. |
+
+## Included Records
+
+| capture_id | source_timestamp_utc | source_url | text_sha256 | media_refs | language |
+|---|---|---|---|---:|---|
+| `bablos79-10442` | `2026-04-27T07:12:22+00:00` | [source](https://t.me/bablos79/10442) | `b3efd9207df62a8bc98381986770a9856d6a895fd6eba5d1d845a235ec50bb39` | 0 | `ru` |
+| `bablos79-10443` | `2026-04-27T07:37:49+00:00` | [source](https://t.me/bablos79/10443) | `e8cc076d6964b735e01793ea6306204aa895ffa5817f3656d8547d9ec7bc54c0` | 0 | `ru` |
+| `bablos79-10444` | `2026-04-27T08:12:53+00:00` | [source](https://t.me/bablos79/10444) | `c785dddfdda0d6930af3bbfadddf809c8be0d5b408571a850bb086b8ca94e420` | 0 | `ru` |
+| `bablos79-10445` | `2026-04-27T08:22:42+00:00` | [source](https://t.me/bablos79/10445) | `7240bc06c96033184438ba48ba40c034c36d48d1a7b58b48350014b510b52e24` | 0 | `ru` |
+| `bablos79-10446` | `2026-04-27T09:35:58+00:00` | [source](https://t.me/bablos79/10446) | `cf0691306ee1a12f6c7afb6bf6fbefd21b9fe4375c707d4b8a73d9d8bb7981a6` | 0 | `ru` |
+| `bablos79-10447` | `2026-04-27T10:03:37+00:00` | [source](https://t.me/bablos79/10447) | `4c1b16c3073103c7fa2112eb38cfdfc2fac847bb74223db72855b12f6c0a07a1` | 0 | `ru` |
+| `bablos79-10448` | `2026-04-27T11:06:10+00:00` | [source](https://t.me/bablos79/10448) | `0149b7b2ee6d9efb9ca18961423c3f2dd0cd4370b1c695734d0863417d93575b` | 0 | `ru` |
+| `bablos79-10449` | `2026-04-27T11:09:24+00:00` | [source](https://t.me/bablos79/10449) | `72e56d34e32a4e31b0b02ea09c6457df57d825190b53483ecbe10f0557ac91a8` | 0 | `ru` |
+| `bablos79-10450` | `2026-04-27T11:16:37+00:00` | [source](https://t.me/bablos79/10450) | `f0de04a2127086f91c07862f86b26fe3568a1410c5ede6c824992f27d7f447d4` | 0 | `ru` |
+| `bablos79-10451` | `2026-04-27T11:23:25+00:00` | [source](https://t.me/bablos79/10451) | `6cae57c6496b8c2551106790e961ebc8854ee996b6683a048420dabd191b7f3d` | 0 | `ru` |
+| `bablos79-10452` | `2026-04-27T12:58:04+00:00` | [source](https://t.me/bablos79/10452) | `3a843c2ba81a9d72443a6c792b6b04741b02857052952b259a009c51d19e8754` | 0 | `ru` |
+| `bablos79-10453` | `2026-04-27T15:08:57+00:00` | [source](https://t.me/bablos79/10453) | `be89906be98d4bc265d665e31dfc6523a957f2d417925c14d195b5128831feae` | 0 | `ru` |
+| `bablos79-10454` | `2026-04-27T15:26:58+00:00` | [source](https://t.me/bablos79/10454) | `6a62902462312b50342e131ddfce6a815df27f781ca51b6e97e32aaf54239cbd` | 0 | `ru` |
+| `bablos79-10455` | `2026-04-27T15:40:05+00:00` | [source](https://t.me/bablos79/10455) | `29a9f48d84913fa017f621e4e00216d3629426f24ac10388387ede56f2d75291` | 0 | `ru` |
+| `bablos79-10456` | `2026-04-27T16:15:32+00:00` | [source](https://t.me/bablos79/10456) | `4f57ce3fde201a68de82ce2b258f8a963b988f08b4bdeec0169de3b3a32aaae7` | 0 | `ru` |
+| `bablos79-10457` | `2026-04-28T06:05:11+00:00` | [source](https://t.me/bablos79/10457) | `981135b1151f5e7ade7a45b77974d91953e6df0a743783f576d0d66bdec68650` | 0 | `ru` |
+| `bablos79-10458` | `2026-04-28T06:35:35+00:00` | [source](https://t.me/bablos79/10458) | `314619c54cb8df0aad973401084b0a32c0ba2b8282c2be4c5f9f04a2e3014330` | 0 | `ru` |
+| `bablos79-10459` | `2026-04-28T06:44:46+00:00` | [source](https://t.me/bablos79/10459) | `5e4d38246fc612f4537539c758291acbd91d2c0763e6d0c9b9ca8414be95b471` | 0 | `ru` |
+| `bablos79-10460` | `2026-04-28T06:54:17+00:00` | [source](https://t.me/bablos79/10460) | `2994d72d218ae1ae294241527ae0c863c958b4e292dd68dfbd86ad9cd0d5c360` | 0 | `ru` |
+| `bablos79-10461` | `2026-04-28T07:18:30+00:00` | [source](https://t.me/bablos79/10461) | `bcd28f0ae86c9e4e82c2c26e1886c87ae367f0c0862f4126fe4d36cb98d6eb16` | 0 | `ru` |
+| `bablos79-10463` | `2026-04-28T14:16:30+00:00` | [source](https://t.me/bablos79/10463) | `587105d1433275166f7d649a4d16bbbaaa90c2639760f42c012d6ff19348a8e6` | 0 | `ru` |
+| `bablos79-10464` | `2026-04-28T16:04:15+00:00` | [source](https://t.me/bablos79/10464) | `375b7806d8438cd0f640e31038bb0a6e8366ace2d11d51d60f9b9c527201ff4e` | 0 | `ru` |
+| `bablos79-10465` | `2026-04-29T07:30:41+00:00` | [source](https://t.me/bablos79/10465) | `b26087182a1d71069e57e2dd5e739c9427414e5f96934fd3a037b07e1dc966c2` | 0 | `ru` |
+| `bablos79-10466` | `2026-04-29T09:31:05+00:00` | [source](https://t.me/bablos79/10466) | `22a52915b201add32224fe70b2d4bd20f51b5b25d0a1443d0d17e3066e5bda0b` | 0 | `ru` |
+| `bablos79-10467` | `2026-04-29T09:44:27+00:00` | [source](https://t.me/bablos79/10467) | `81cc2fcf0ddacc3511b991e6e3953235fbc452dc4001a893a94fd91c73e25410` | 0 | `ru` |
+| `bablos79-10468` | `2026-04-29T10:10:07+00:00` | [source](https://t.me/bablos79/10468) | `c89e9cd6a04c988cdd6ed2efb30505cb64536a894fbc4c559932431cec027298` | 0 | `ru` |
+| `bablos79-10469` | `2026-04-29T10:34:29+00:00` | [source](https://t.me/bablos79/10469) | `0b5aa688f63697610fe62dc5c368856762d9541ed17e475691785255add216ee` | 0 | `ru` |
+| `bablos79-10470` | `2026-04-29T10:49:41+00:00` | [source](https://t.me/bablos79/10470) | `54790a51f20dc62a35d9c1c5d267ac627302015633850a412b362e860a12960d` | 0 | `ru` |
+| `bablos79-10471` | `2026-04-29T12:13:40+00:00` | [source](https://t.me/bablos79/10471) | `e5d93244a7998d1c34889d863e3c164f95c22e29b828021962cfd1a1f6030c84` | 0 | `ru` |
+| `bablos79-10472` | `2026-04-29T13:40:03+00:00` | [source](https://t.me/bablos79/10472) | `1ee4fcb3aa2f8026adb30e4fc0f9b7af506f1dc17e63e267be4bba931be17ea0` | 0 | `ru` |
+| `bablos79-10475` | `2026-04-29T18:36:49+00:00` | [source](https://t.me/bablos79/10475) | `dce8cdd67a81f02d5173f19b90cb8f9298afc16180edd64be985a10629fb27ae` | 0 | `ru` |
+| `bablos79-10476` | `2026-04-30T07:34:30+00:00` | [source](https://t.me/bablos79/10476) | `fced0cd89e597531ae3082941397f7c9f0804a1b41779edfea295cb55c95b4fe` | 1 | `ru` |
+| `bablos79-10477` | `2026-04-30T07:57:35+00:00` | [source](https://t.me/bablos79/10477) | `4029171bf7202547ef279d8a62e02cd80abc139fd2c93a6dac24b7770315b563` | 0 | `ru` |
+| `bablos79-10478` | `2026-04-30T09:46:50+00:00` | [source](https://t.me/bablos79/10478) | `bcccb754e9c8fec7d32e8c2ea9852c2b24667fd490edd8863c232ee302c96718` | 1 | `ru` |
+| `bablos79-10479` | `2026-04-30T10:42:21+00:00` | [source](https://t.me/bablos79/10479) | `da772f0d9e752d072dddf0f41915513405e67cc67202c3ec35019d381e655b8c` | 0 | `ru` |
+| `bablos79-10482` | `2026-05-02T06:42:00+00:00` | [source](https://t.me/bablos79/10482) | `a4b8fd5c114751814fcfe35e3a5fc6e15b9e9d92996a7216a10887d3a669c24f` | 0 | `ru` |
+| `bablos79-10483` | `2026-05-02T13:00:12+00:00` | [source](https://t.me/bablos79/10483) | `5667c87486143ec8e10631c52de30e2ba5219d6f6550de9829e60bb917287a32` | 0 | `ru` |
+| `bablos79-10485` | `2026-05-04T08:13:14+00:00` | [source](https://t.me/bablos79/10485) | `30cd37eac992847668be9edd79d432a78aad9e7e7819312a3d1cd1a168629645` | 0 | `ru` |
+| `bablos79-10486` | `2026-05-04T09:20:20+00:00` | [source](https://t.me/bablos79/10486) | `664beec95f743f383930f568f677d93b233b54d06ef24d16d2b19547df789fd0` | 0 | `ru` |
+| `bablos79-10487` | `2026-05-04T11:05:13+00:00` | [source](https://t.me/bablos79/10487) | `cfaad0156d0f44ee79710ad5d08ca07546672797fbe59fe8032998cb94ffe9a0` | 0 | `ru` |
+| `bablos79-10488` | `2026-05-04T11:13:39+00:00` | [source](https://t.me/bablos79/10488) | `23ca9bd011c477dd2be12f72f5402757e81bb2c7bda84cfade4c305e5736362d` | 0 | `ru` |
+| `bablos79-10489` | `2026-05-04T12:45:53+00:00` | [source](https://t.me/bablos79/10489) | `d49d71e85992e6da607784cc21fd15c1fa999d194e26fa2ac187bd3aaf066fbf` | 0 | `ru` |
+| `bablos79-10490` | `2026-05-04T13:56:36+00:00` | [source](https://t.me/bablos79/10490) | `683f1e126ea775817f58016fe45d22ef07d1cce3ee2a4b9bec64bbea2e17b008` | 0 | `ru` |
+| `bablos79-10491` | `2026-05-04T14:33:46+00:00` | [source](https://t.me/bablos79/10491) | `24f1b54621d697fb0de9461c36f599d1604645fe7610caa79989da3c237b066e` | 0 | `ru` |
+| `bablos79-10492` | `2026-05-04T15:20:20+00:00` | [source](https://t.me/bablos79/10492) | `83b4068532e725a76133aa315f663dcfdb82effc7d62725a52215e550c15ec46` | 0 | `ru` |
+| `bablos79-10493` | `2026-05-04T16:11:44+00:00` | [source](https://t.me/bablos79/10493) | `34e43305e8f08d4a1e3551e4855ca41ca86d39dbecd1f88f773648862b16bca6` | 0 | `ru` |
+| `bablos79-10495` | `2026-05-05T05:06:35+00:00` | [source](https://t.me/bablos79/10495) | `7544545bea2fccbf781da94d9c908d757013464cd17bf9c2c68f8d287fea82ba` | 0 | `ru` |
+| `bablos79-10496` | `2026-05-05T07:11:04+00:00` | [source](https://t.me/bablos79/10496) | `8a182b4496f304dc9675a3181be7052000305da5419ec11e53ac3c70cf91f31d` | 0 | `ru` |
+| `bablos79-10497` | `2026-05-05T08:06:18+00:00` | [source](https://t.me/bablos79/10497) | `0167db24e8bf4e9e016c5cbf4da9f00342263525bda1fa8980f1ef216eaa8ed5` | 0 | `ru` |
+| `bablos79-10498` | `2026-05-05T08:25:36+00:00` | [source](https://t.me/bablos79/10498) | `627ad313c6a7a1a67498b5f096741bc767c3c6023e21a07627531a4bf9ee9415` | 0 | `ru` |
+| `bablos79-10499` | `2026-05-05T08:31:27+00:00` | [source](https://t.me/bablos79/10499) | `884b974dda969c24208324a6ca27a3e6274e44485a389ab5dd107816c6f0cb51` | 0 | `ru` |
+| `bablos79-10500` | `2026-05-05T12:43:44+00:00` | [source](https://t.me/bablos79/10500) | `d83aa742b3b62cc11c256c20b1e48388d4a3f2cddfcef217d0339fce9d339dbb` | 0 | `ru` |
+| `bablos79-10501` | `2026-05-05T12:55:18+00:00` | [source](https://t.me/bablos79/10501) | `ab0d4d95c21c133f8fa8faa77e3be944d0dc1bd153bed5c069182d645dd341fd` | 0 | `ru` |
+| `bablos79-10502` | `2026-05-05T13:15:14+00:00` | [source](https://t.me/bablos79/10502) | `53150f5b948c504706a6341bf2bc83c4f5fb05ae3b79f362d65909f187dbd1fa` | 0 | `ru` |
+| `bablos79-10503` | `2026-05-05T13:16:37+00:00` | [source](https://t.me/bablos79/10503) | `19b3a107864a752f4f13395a96ae49e47a32d9c7a71a54f78fa25649dac453e7` | 0 | `ru` |
+| `bablos79-10504` | `2026-05-05T15:29:49+00:00` | [source](https://t.me/bablos79/10504) | `fb3f5b4c48c0909d6d869a5349ec07e1733d07a94f35e9722e036438c406c299` | 0 | `ru` |
+| `bablos79-10505` | `2026-05-05T18:21:20+00:00` | [source](https://t.me/bablos79/10505) | `072ba1c45b4f5a50ee655c6e3d86484ca1238e3237105bbf17259568463ae545` | 0 | `ru` |
+| `bablos79-10506` | `2026-05-06T06:15:03+00:00` | [source](https://t.me/bablos79/10506) | `d6878e9eb042da2aa11fe3e13d5827482da014176a6e8d6a27820a5cff3d5d2e` | 0 | `ru` |
+| `bablos79-10507` | `2026-05-06T06:27:27+00:00` | [source](https://t.me/bablos79/10507) | `6e8bdea5257f67dfdc94a2fd5210b75bcc929eb45197513c5ef5f71c6b746617` | 0 | `ru` |
+| `bablos79-10508` | `2026-05-06T06:57:32+00:00` | [source](https://t.me/bablos79/10508) | `64110f41bea0d2341261991d60d733023f5f67a415f68fe33bc11de8076f7ede` | 0 | `ru` |
+
+## Boundary
+
+This pack registers capture coverage only. It does not approve extraction rows,
+compute outcomes, fetch market data, publish media claims, or judge the channel.
+Later tasks must keep weak, ambiguous, contradicted, unresolved, and
+non-measurable rows visible instead of selecting only strong examples.

@@ -1,52 +1,47 @@
-# ARCH_REPORT - Cycle 18
-_Date: 2026-05-09_
+# ARCH_REPORT - Cycle 35
+_Date: 2026-05-19_
 
 ## Component Verdicts
+
 | Component | Verdict | Note |
 |-----------|---------|------|
-| Binance signed request helper | PASS | Deterministic HMAC query construction for Spot `myTrades` only. |
-| Redaction behavior | PASS | Signer/request repr and safe metadata redact API key and signature; tests assert raw key/secret/signature absence. |
-| Endpoint allowlist | PASS | Only `binance.spot.my_trades` and `/api/v3/myTrades` are exposed. |
+| Dune source discovery | PASS | Real public `dex.trades` rows were queried without committing the supplied key. |
+| Dune case pack | PASS | Canonical CSV, policy, report, manifest, reviewed report, and reproducibility status exist. |
+| Case validator | PASS | New pack passes the existing open-source case-pack contract. |
+| Docs | PASS | Dune usage, review caveats, and gate limits are documented. |
+| Paid-pilot ready gate | PASS | Gate remains `needs_fixes`; Phase 32 does not close T116. |
 
 ## Contract Compliance
+
 | Rule | Verdict | Note |
 |------|---------|------|
-| SQL safety | PASS | No SQL in scoped files. |
-| Multi-tenant systems | PASS | Not applicable; no database path added. |
-| Async Redis | PASS | No Redis or async IO added. |
-| Authorization | PASS | No route handlers added. |
-| PII policy | PASS | No logging, tracing, or metrics added. |
-| Credentials | PASS | Raw API key, secret, and signature are absent from repr/safe metadata/error text tested in T55. |
-| Tracing | PASS | No external calls requiring spans were added. |
-| CI | PASS | Local suite passes: 176 tests. |
-| Deterministic violation truth | PASS | No evaluator/report behavior changed. |
-| Human approval for ambiguous inputs | PASS | Real credential use remains outside CI and later operator-gated work. |
-| Source-row traceability | PASS | Not touched by T55. |
-| Reproducibility | PASS | Query parameter ordering is deterministic regardless input mapping order. |
-| Confidential data handling | PASS | Tests use fixture credentials only. |
-| Report claim boundaries | PASS | No report text behavior changed. |
-| Runtime boundary | PASS | No Binance network call, HTTP dependency, write/control endpoint, service, or worker added. |
-
-## ADR Compliance
-| ADR | Verdict | Note |
-|-----|---------|------|
-| ADR-001 Telegram Intake and Delivery Boundary | PASS | T55 did not touch Telegram behavior. |
-| ADR-002 Read-Only Exchange Import Boundary | PASS | T55 adds only local signed account-data request construction for Spot trade history. |
+| Deterministic violation truth | PASS | Existing evaluator/reporting logic was reused; 76 max-position findings are source-row traceable. |
+| Human approval boundaries | PASS | T116 still requires operator-approved private/anonymized input outside git. |
+| Evidence boundary | PASS | Dune public data is development/report-review evidence only. |
+| Confidential data handling | PASS | No key, private rows, private paths, customer identifiers, or wallet-owner claims are committed. |
+| Report claim boundaries | PASS | Reviewed report and docs preserve unsupported fee/leverage/P&L limitations. |
+| Runtime boundary | PASS | No hosted service, checkout, live exchange control, or background import was added. |
 
 ## Architecture Findings
 
-None.
+| ID | Severity | Finding | Status |
+|----|----------|---------|--------|
+| PH32-P2-001 | P2 | Public Dune submitter scope is not a verified private trader ledger. | Accepted limitation |
+| PH32-P2-002 | P2 | Dune transform lacks execution costs, leverage, balances, and verified realized P&L. | Accepted limitation |
 
 ## Right-Sizing / Runtime Checks
+
 | Check | Verdict | Note |
 |-------|---------|------|
-| Solution shape still appropriate | PASS | Helper is small and local; no client/runtime expansion. |
-| Deterministic-owned areas remain deterministic | PASS | HMAC input order and output are stable. |
-| Runtime tier unchanged / justified | PASS | Still T0; no network client added. |
-| Human approval boundaries still valid | PASS | No real credentials or live exchange calls in tests. |
-| Minimum viable control surface still proportionate | PASS | One read-only account-data endpoint label only. |
+| Solution shape still appropriate | PASS | Phase 32 stays in local CLI/docs/artifact workflow. |
+| Runtime tier unchanged | PASS | Runtime remains T0 local CLI/file workflow plus one manual Dune API extraction. |
+| Scope boundary preserved | PASS | No SaaS/checkout/live-control expansion; T116 remains blocked. |
 
-## Doc Patches Needed
+## Doc Patches Applied
+
 | File | Section | Change |
 |------|---------|--------|
-| none | - | No architecture doc patch required for this targeted helper. |
+| `docs/tasks.md` | Phase 32 / T137-T140 | Added completed Dune rehearsal tasks. |
+| `docs/DUNE_PUBLIC_WALLET_REHEARSAL.md` | New | Documented source, transform, evidence, and conversation use. |
+| `docs/PAID_PILOT_READY_GATE.md` | Evidence review | Added Dune row while preserving `needs_fixes`. |
+| State docs | Active State | Recorded T140 completion and T116 blocker. |

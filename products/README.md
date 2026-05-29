@@ -9,6 +9,12 @@ portfolio documents.
 | Trader Risk Audit | `products/trader-risk-audit/` | Primary commercial MVP |
 | Signal Analytics Sandbox | `products/signal-analytics-sandbox/` | Separate validation sandbox |
 
+Current active focus as of 2026-05-15:
+
+- Trader Risk Audit: `docs/OPEN_SOURCE_AUDIT_VALIDATION_ROADMAP.md`
+- Signal Analytics Sandbox: `docs/DEEP_CHANNEL_RETROSPECTIVE_ROADMAP.md`
+- Entropy Core: paused after Core V1 checkpoint pending human-approved Core V2
+
 Read first:
 
 1. `docs/PRODUCT_PORTFOLIO.md`

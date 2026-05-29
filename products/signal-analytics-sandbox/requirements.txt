@@ -5,3 +5,4 @@ duckdb
 ccxt
 yfinance
 click
+openai>=1

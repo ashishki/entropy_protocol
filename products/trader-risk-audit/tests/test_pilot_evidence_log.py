@@ -11,10 +11,12 @@ REQUIRED_FIELDS = (
     "prospect_source",
     "icp",
     "call_date",
+    "intake_method",
     "export_provided",
     "rules_provided",
     "paid_amount",
     "objections",
+    "api_setup_objections",
     "report_delivered",
     "repeat_requested",
     "referral",
@@ -57,4 +59,20 @@ def test_evidence_log_records_advancement_gate() -> None:
         "within 30 days",
     )
     for phrase in required_gate_phrases:
+        assert phrase in text
+
+
+def test_pilot_evidence_log_covers_exchange_import_fields() -> None:
+    text = " ".join(EVIDENCE_LOG.read_text(encoding="utf-8").casefold().split())
+
+    required_phrases = (
+        "csv_export",
+        "bybit_read_only_api",
+        "binance_read_only_api",
+        "api key setup objections",
+        "non-sensitive safety concerns",
+        "successful api connection is not pmf",
+        "payment and repeat-use evidence still matter",
+    )
+    for phrase in required_phrases:
         assert phrase in text

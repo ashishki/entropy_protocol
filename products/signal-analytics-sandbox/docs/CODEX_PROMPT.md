@@ -1,67 +1,77 @@
 # CODEX_PROMPT.md - Signal Analytics Sandbox
 
-Version: 2.59
-Date: 2026-05-11
-Phase: 21
-
-This file is compact session state. Detailed history belongs in
+Version: 3.05
+Date: 2026-05-23
+Phase: 38
+Compact restart state only. Detailed history lives in
 `docs/IMPLEMENTATION_JOURNAL.md`, `docs/archive/`, and `docs/tasks.md`.
-
-## Phase 0 Gate Status
-
-Engineering Phase 1 (T01+) may begin because both rows below are marked
-`acknowledged` by the operator.
-
-| Gate | Status | Evidence | Acknowledged date |
-|------|--------|----------|-------------------|
-| SAS-001: Paid Pilot Demand Validation | acknowledged | `docs/PILOT_LOG.md` | 2026-05-07 |
-| SAS-002: Public-Source Legal/Terms Memo | acknowledged | `docs/legal_risk_memo.md` | 2026-05-07 |
-
-Initial pilot sources acknowledged on 2026-05-07:
-`https://t.me/bablos79`, `https://t.me/nemphiscrypts`,
-`https://t.me/pifagortrade`.
 
 ## Current State
 
-- Phase: 21 (Artifact-First Real Public-Source Report Validation)
-- Baseline: 157 passing tests, 0 skipped
-- Ruff: `ruff check src/ tests/` passes
-- Pyright: `pyright` passes
-- Last CI run: local CI-equivalent commands pass; GitHub run not yet observed
-- Last updated: 2026-05-11
-- Current priority: one real public-source report artifact, manually validated
-
-## Read First
-
-1. `docs/ARTIFACT_VALIDATION_ROADMAP.md`
-2. `../../docs/ARTIFACT_FIRST_VALIDATION_ROADMAP.md`
-3. `docs/tasks.md` Phase 21, SAS-AF-001..008
-4. task-specific `Context-Refs` in `docs/tasks.md`
-
-Other useful links:
-
-- `docs/DECISION_LOG.md`
-- `docs/IMPLEMENTATION_JOURNAL.md`
-- `docs/legal_risk_memo.md`
-- `docs/PILOT_LOG.md`
-- `docs/pilot/AUTHOR_MARKET_INTELLIGENCE_ROADMAP.md`
-- `docs/pilot/MEDIA_MODALITY_DEVELOPMENT_PLAN.md`
-- `docs/archive/PHASE20_REVIEW.md`
+- Phase: 38 (Client-Readiness Evidence Acceptance)
+- Baseline: 362 pass / 0 skip
+- Ruff: `ruff check src/ tests/ scripts/` passes
+- Format: `ruff format --check src/ tests/ scripts/` passes
+- Pyright: `.venv/bin/pyright` passes
+- Latest completed: `SAS-PRECLIENT-010 Phase 37 Deep Review And Client-Readiness Decision`
+- Phase 37 decision: `continue_internal_hardening`
+- Engineering Phase 1 (T01+) may begin.
+- | SAS-001: Paid Pilot Demand Validation | acknowledged |
+- | SAS-002: Public-Source Legal/Terms Memo | acknowledged |
+- External gate: `approve_internal_only`
+- External delivery: not approved
+- Current priority: operator acceptance, accepted-row recompute, and redacted
+  demo readiness before buyer outreach.
 
 ## Next Task
 
-SAS-AF-001 - Channel And Report Scope Lock
+Active route: Phase 38 client-readiness evidence acceptance.
 
-Use `docs/tasks.md#sas-af-001-channel-and-report-scope-lock` as the source of
-truth for acceptance criteria and file scope.
+- Two-month source window `2026-03-22..2026-05-22`: 526 text rows,
+  37 normalized claims, 28 7d evaluable, 19 confirmed, 9 contradicted.
+- Multimodal pass: 570 public posts, 295 media refs, 70 voice transcripts,
+  185 image/OCR drafts, 40 video/manual blockers, 1 internal RR-ready draft.
+- Media reviewer pass: `gpt-4.1-mini` reviewed 255 drafts; `gpt-4.1`
+  arbitrated 35 high-signal rows and accepted 9 internal candidates.
+- Phase 37 produced contract, model packet, 301-row appendix, dashboard cards,
+  internal reports, paid-style demo, candidate outcomes, static dashboard,
+  safety gate, and deep review.
+- Phase 37 review says the package is a valid internal diligence baseline, not
+  a client-valid product. Buyer conversations remain blocked.
+- Next task: `SAS-CLIENTREADY-001` operator media acceptance ledger.
 
-Immediate intent:
+Read first: `docs/tasks.md` Phase 38,
+`docs/archive/PHASE37_PRECLIENT_REVIEW.md`,
+`docs/pilot/preclient_MODEL_REVIEW_PACKET.md`,
+`docs/pilot/preclient_ARTIFACT_SAFETY_GATE.md`.
 
-- select or confirm the first real public channel/source;
-- define report type, period, capture method, language, media scope, and claim
-  boundary;
-- if no source/channel is selected, record the operator-input blocker and stop;
-- do not add generic extraction features before scope is locked.
+Supporting cross-product cognition vault on this VPS:
+`/srv/codex-entropy/repos/product-3/engineering-cognition-vault/10-projects/entropy-protocol.md`.
+Product-local docs remain authoritative.
+
+## Canonical Artifacts
+
+- Phase 37 review: `docs/archive/PHASE37_PRECLIENT_REVIEW.md`
+- Pre-client contract: `docs/specs/PRECLIENT_ARTIFACT_CONTRACT.md`
+- Pre-client model packet: `docs/pilot/preclient_MODEL_REVIEW_PACKET.md`
+- Pre-client evidence appendix: `docs/pilot/preclient_EVIDENCE_APPENDIX.md`
+- Pre-client dashboard cards: `docs/pilot/preclient_FREE_DASHBOARD_CARDS.md`
+- Pre-client candidate outcomes: `docs/pilot/preclient_CANDIDATE_OUTCOMES.md`
+- Pre-client dashboard: `docs/pilot/preclient_dashboard/index.html`
+- Pre-client safety gate: `docs/pilot/preclient_ARTIFACT_SAFETY_GATE.md`
+- Pre-client reports: `docs/pilot/reports/preclient/`
+- Two-month multimodal run: `docs/pilot/three_channel_MULTIMODAL_RESEARCH_REPORT.md`
+- Media reviewer run: `docs/pilot/three_channel_MEDIA_REVIEW_REPORT.md`
+
+## Key Product Facts
+
+- V1 evaluable claims: `bablos79` 14, `nemphiscrypts` 49, `pifagortrade` 107.
+- Safety gate covers 14 artifacts, 0 forbidden phrase findings, 0 showable now.
+- Model packet has 9 internal candidates and 0 customer-facing rows.
+- Candidate outcomes: 4 insufficient fields, 4 post-factum-only, 1 provider gap,
+  1 internal RR recompute, 0 market outcomes recomputed.
+- Main blockers: 0 operator-accepted media claims, 0 dashboard-safe RR rows,
+  0 market-outcome recomputed candidates.
 
 Supporting cross-product cognition vault on this VPS:
 `/srv/codex-entropy/repos/product-3/engineering-cognition-vault/10-projects/entropy-protocol.md`.
@@ -70,30 +80,9 @@ Product-local docs remain authoritative.
 ## Active Guardrails
 
 - Public/operator-authorized sources only.
-- No private Telegram groups or access-control bypass.
-- No paid X/Twitter dependency before Telegram/public-source artifact
-  validation.
-- Media evidence remains internal-only until transcript/OCR is human-reviewed.
-- No marketplace, leaderboard, investment advice, or future-profit claims.
-
-## Historical Pointers
-
-- Phase 20 completed through SAS-MEDIA-008; details are in
-  `docs/archive/PHASE20_REVIEW.md`, `docs/pilot/MEDIA_MODALITY_DECISION.md`,
-  and `docs/pilot/bablos79_MULTIMODAL_COVERAGE_PACK.md`.
-- Phase 19 review coverage details are in
-  `docs/pilot/bablos79_REVIEW_COVERAGE_PACK.md`.
-- Earlier phase history is in `docs/IMPLEMENTATION_JOURNAL.md`,
-  `AGENT_NOTES.md`, and `docs/archive/`.
-
-## Maintenance Rule
-
-At every phase boundary update only:
-
-- current phase;
-- baseline and validation status;
-- next task;
-- open findings;
-- links if canonical docs move.
-
-Do not append long closeout digests here.
+- No private scraping, access-control bypass, advice, future-profit claims,
+  unsupported ranking, marketplace framing, payment flow, or private-source
+  promise.
+- Unsupported providers/proxies are exclusions, not wins/losses.
+- Unreviewed transcript/OCR/chart claims stay out of customer-facing metrics.
+- Every buyer-facing artifact requires an explicit gate.

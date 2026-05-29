@@ -1,47 +1,41 @@
-# ARCH_REPORT — Cycle 19
-_Date: 2026-05-09_
+# ARCH_REPORT - Cycle 25
+_Date: 2026-05-15_
 
 ## Component Verdicts
 
 | Component | Verdict | Note |
 |-----------|---------|------|
-| ADR-003 channel tools scope | PASS | Selects reviewer/export improvements and defers provider/modal expansion. |
-| Reviewer coverage exporter | PASS | Deterministic from supplied documents, drafts, and outcomes. |
-| Coverage Markdown artifact | PASS | Internal review support only; records 60 captures and no customer-facing claims. |
-| Task graph closeout | PASS | No further task is defined; implementation loop should stop pending operator decision. |
+| Author capability scorecard | PASS | Uses limitations-first labels and makes no positive strength claims. |
+| Author capability report V1 | PASS | Buyer-readable internal draft explains insufficient evidence and limitations. |
+| Deep retrospective demo pack | PASS | Internal-only pack; no raw media; no transcript/OCR overclaim. |
+| Deep external ready gate | PASS | Rejects external delivery and records reconsideration conditions. |
+| Final Phase 25 review | PASS | Closes planned retrospective work as internal-only/rejected externally. |
 
 ## Contract Compliance
 
 | Rule | Verdict | Note |
 |------|---------|------|
-| SQL Safety | PASS | No SQL added in scoped files. |
-| Async Redis | PASS | No Redis surface. |
-| Authorization | PASS | No API/route surface. |
-| PII Policy | PASS | No logging/span attrs added; docs cite public-source artifacts only. |
-| Credentials and Secrets | PASS | No secrets or credential fixtures. |
-| Shared Tracing Module | PASS | No new tracing code. |
-| CI Gate | PASS | Local CI-equivalent validation passes. |
-| Observability | PASS | No new external adapter call boundary. |
-| PSR-1 Public-Source-Only | PASS | No source collection, authenticated scraping, or URL-fetching path added. |
-| PSR-2 Reproducibility Contract | PASS | Export rows are deterministically sorted by timestamp/document/capture ID. |
-| PSR-3 LLM Output Is Never Truth | PASS | Coverage rows do not approve records or produce truth artifacts. |
-| PSR-4 Cost-Cap Enforcement | PASS | No paid adapter path added. |
-| PSR-5 Snapshot Immutability | PASS | No snapshot mutation path. |
-| PSR-6 Disclaimer Integrity | PASS | Report disclaimer module not touched. |
-| PSR-7 Outcome Rule Citation | PASS | Outcome rule registry not touched. |
-| PSR-8 Evidence Field Preservation | PASS | Extraction adapters not touched. |
-| PSR-9 Append-Only Rule and Template Versioning | PASS | Registries/templates not touched. |
-| PSR-10 Phase 0 Gate | PASS | Gate remains acknowledged. |
-| PSR-11 No Forward-Looking Claims | PASS | Export artifact is internal and avoids prediction language. |
-| Runtime Tier Guardrails | PASS | No shell, package mutation, daemon, privilege, provider, or persistent worker added. |
+| PSR-1 Public-source-only | PASS | No private, paywalled, login-walled, or bypassed source was added. |
+| PSR-2 Reproducibility | PASS | Artifacts are deterministic docs over existing captured evidence. |
+| PSR-3 LLM output is never truth | PASS | Transcript claims remain internal-only and do not approve outcomes or external claims. |
+| PSR-4 Cost-cap enforcement | PASS | No new paid provider, market fetch, OCR run, or LLM run was added. |
+| PSR-5 Snapshot immutability | PASS | No market snapshots were created or mutated. |
+| PSR-6 Disclaimer integrity | PASS | New report includes no-advice boundary. |
+| PSR-7 Outcome rule citation | PASS | No outcome claim is made without outcome artifact support. |
+| PSR-8 Evidence preservation | PASS | Weak, unresolved, non-measurable, and unsupported rows remain visible. |
+| PSR-9 Append-only registries | PASS | No registry is rewritten to create unsupported truth. |
+| PSR-10 Phase 0 gate | PASS | Phase 0 remains acknowledged. |
+| PSR-11 No forward-looking claims | PASS | External gate rejects future-performance framing. |
+| Runtime tier T0 | PASS | Local docs/tests only; no service, daemon, privilege, or runtime mutation expansion. |
 
 ## ADR Compliance
 
 | ADR | Verdict | Note |
 |-----|---------|------|
-| ADR-001 Snapshot Serialization | PASS | Snapshot serialization not touched. |
-| ADR-002 Author Market Intelligence | PASS | Deterministic truth boundary and bounded/internal Agentic boundary remain intact. |
-| ADR-003 Channel-Specific Tools Scope | PASS | Implemented only the chosen deterministic reviewer/export follow-up. |
+| ADR-001 snapshot serialization | PASS | Snapshot code unchanged. |
+| ADR-002 author market intelligence | PASS | Author intelligence remains cited/retrospective and deterministic-truth-bound. |
+| ADR-003 channel-specific tools | PASS | Work remains scoped to `bablos79` artifacts. |
+| ADR-004 media evidence pipeline | PASS | Media claims remain review-gated and external-blocked. |
 
 ## Architecture Findings
 
@@ -51,12 +45,17 @@ None.
 
 | Check | Verdict | Note |
 |-------|---------|------|
-| Solution shape still Hybrid | PASS | Deterministic export supports the review workflow without changing architecture. |
-| Deterministic-owned areas remain deterministic | PASS | No LLM or agent owns metrics, outcomes, reports, or approved records. |
-| Runtime tier still T0 | PASS | Local library code and docs only. |
-| Tool-Use remains OFF | PASS | No LLM-directed tool calls or provider tools. |
-| Public-source-only boundary intact | PASS | No new collection path. |
+| Solution shape still Hybrid | PASS | Deterministic artifacts plus review gates; no autonomous publication or metric generation. |
+| Deterministic-owned areas remain deterministic | PASS | Proxies, outcomes, metrics, and eligibility remain rule-bound. |
+| Runtime tier still T0 | PASS | Local docs/tests only. |
+| RAG/Agentic boundaries respected | PASS | No retrieval or analyst output is treated as final truth. |
+| Public-source-only boundary intact | PASS | Gate rejects external use rather than broadening source collection. |
 
 ## Doc Patches Needed
 
-None.
+| File | Section | Change |
+|------|---------|--------|
+| docs/CODEX_PROMPT.md | Current State / Next Task | Mark planned phases complete and set next action to operator-gated evidence repair. |
+| README.md | Current Status | Mark planned phase work complete and external delivery rejected. |
+| PHASE_HANDOFF.md | Current State | Record final closure state. |
+| AGENT_NOTES.md | Active State | Record final closure state. |

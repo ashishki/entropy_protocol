@@ -1,6 +1,6 @@
 # Agent Notes - Entropy Core
 
-Date: 2026-05-14
+Date: 2026-05-15
 
 This file keeps only restart-relevant notes. Detailed history lives in
 `docs/IMPLEMENTATION_JOURNAL.md`, `docs/EVIDENCE_INDEX.md`, `docs/audit/`, and
@@ -26,6 +26,8 @@ This file keeps only restart-relevant notes. Detailed history lives in
 - Phase 25 status: complete through T114
 - Phase 26 status: complete through T118
 - Phase 27 status: complete through T122
+- Portfolio pause: Product 1 and Product 2 are active; Core remains paused
+  unless a concrete product dependency or human-approved Core V2 roadmap appears.
 
 ## Current Decision
 
@@ -44,6 +46,7 @@ CAF fixtures, audit bundle schemas, lineage graph builder, data classification,
 reviewer-role metadata, Phase 26 review, Core V1 surface freeze, runbook,
 examples, docs alignment, and Core V1 productization review. Stop automatic
 roadmap expansion until a human-approved Core V2 roadmap exists.
+The current portfolio route does not require Core work yet.
 
 ## Deferred
 

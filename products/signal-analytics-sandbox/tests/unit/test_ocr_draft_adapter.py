@@ -112,7 +112,7 @@ def _image_artifact(tmp_path: Path) -> MediaArtifact:
         source_document_id="bablos79:bablos79-10442",
         source_timestamp_utc=datetime(2026, 5, 9, 10, 0, tzinfo=UTC),
         modality=MediaModality.SCREENSHOT,
-        original_url_or_file_id="telegram-photo-id-1",
+        original_url_or_file_id="fixture_image_ref",
         local_path=str(media_path),
         media_sha256=hashlib.sha256(media_bytes).hexdigest(),
         mime_type="image/png",

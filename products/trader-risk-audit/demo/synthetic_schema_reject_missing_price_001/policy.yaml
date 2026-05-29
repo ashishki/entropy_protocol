@@ -1,0 +1,13 @@
+schema_version: "1"
+account_scope:
+  - synthetic_schema_reject_missing_price_001
+timezone: UTC
+session:
+  start: "00:00"
+  end: "23:59"
+rules:
+  - rule_id: synthetic_reject_max_position_size
+    type: max_position_size
+    threshold: "1000"
+    unit: USD
+    params: {}

@@ -1,0 +1,52 @@
+{
+  "artifacts": [
+    {
+      "name": "source_export",
+      "path": "demo/dune_public_wallet_dex_001/trades.csv",
+      "sha256": "a7fb27015b6626010170a8ccaae43cbfb15f72ba40085ee80d5ad4cfef6575bf"
+    },
+    {
+      "name": "policy_file",
+      "path": "demo/dune_public_wallet_dex_001/policy.yaml",
+      "sha256": "f8c5e5aa3791b1cbf46eb79f6d29286154f4add792e390b2f37df6c476e2aed3"
+    },
+    {
+      "name": "normalized_trades",
+      "path": "demo/dune_public_wallet_dex_001/output/normalized_trades.json",
+      "sha256": "c9ef5e10833322346ff425b596a2cfaa08403025309e7ff8a5738148f9f839e5"
+    },
+    {
+      "name": "violations",
+      "path": "demo/dune_public_wallet_dex_001/output/violations.json",
+      "sha256": "bca73fb34dabbbe4a82dccbee4bb63cd65f0fb5eaeba584ce94f454f83d76d95"
+    },
+    {
+      "name": "attribution_summary",
+      "path": "demo/dune_public_wallet_dex_001/output/attribution_summary.json",
+      "sha256": "bbb205f50d1539916c5bf752b4fbf93c115c9976a81e8178ca399dca4a4562c6"
+    },
+    {
+      "name": "report_markdown",
+      "path": "demo/dune_public_wallet_dex_001/output/report.md",
+      "sha256": "613b625141699f73725dc6f17cadd7ce06da373822c8dedb7fea7206cd4c813f"
+    },
+    {
+      "name": "delivery_packet",
+      "path": "demo/dune_public_wallet_dex_001/output/telegram_packet.txt",
+      "sha256": "d0dfcc002dca793b866af4539f4066fe09c8f777f01f7b013da5ee1a9f5f4a28"
+    }
+  ],
+  "command": "trader-risk-audit audit",
+  "command_arguments": [
+    "--trades",
+    "demo/dune_public_wallet_dex_001/trades.csv",
+    "--policy",
+    "demo/dune_public_wallet_dex_001/policy.yaml",
+    "--output-dir",
+    "demo/dune_public_wallet_dex_001/output"
+  ],
+  "content_hash": "709ac4b6494bb44aa04df954fd64074a4d69fb9e902fbfb992b09c413f4aee51",
+  "generated_at": "2026-05-19T12:32:58.410997+00:00",
+  "manifest_id": "709ac4b6494bb44a",
+  "package_version": "0.1.0"
+}

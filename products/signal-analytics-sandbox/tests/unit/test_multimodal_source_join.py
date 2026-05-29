@@ -85,6 +85,36 @@ def test_join_has_no_truth_artifact_side_effects(tmp_path: Path) -> None:
     assert not (tmp_path / "ledgers").exists()
 
 
+def test_join_preserves_existing_refs_and_dedupes_additive_refs() -> None:
+    document = _document().model_copy(
+        update={
+            "media_refs": ["workspace/media/existing.png"],
+            "transcript_refs": ["workspace/transcripts/existing.json"],
+        }
+    )
+    media = _media("media-1", document)
+    transcript = _transcript(media)
+
+    enriched = join_multimodal_source_document(
+        document,
+        media_artifacts=[media, media],
+        transcript_artifacts=[transcript, transcript],
+        ocr_artifacts=[],
+    )
+
+    assert enriched.text == document.text
+    assert enriched.evidence_url == document.evidence_url
+    assert enriched.text_sha256 == document.text_sha256
+    assert enriched.media_refs == [
+        "workspace/media/existing.png",
+        "workspace/media/media-1.png",
+    ]
+    assert enriched.transcript_refs == [
+        "workspace/transcripts/existing.json",
+        "workspace/transcripts/transcript-1.json",
+    ]
+
+
 def _document() -> SourceDocument:
     text = "public source text"
     return SourceDocument(
@@ -108,7 +138,7 @@ def _media(media_id: str, document: SourceDocument) -> MediaArtifact:
         source_document_id=document.document_id,
         source_timestamp_utc=document.timestamp_utc,
         modality=MediaModality.SCREENSHOT,
-        original_url_or_file_id="telegram-photo-id",
+        original_url_or_file_id="fixture_image_ref",
         local_path=f"workspace/media/{media_id}.png",
         media_sha256=hashlib.sha256(media_bytes).hexdigest(),
         mime_type="image/png",

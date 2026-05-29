@@ -32,12 +32,12 @@ def test_downloads_voice_with_injected_client(tmp_path: Path) -> None:
     )
 
     expected_sha = hashlib.sha256(media_bytes).hexdigest()
-    assert client.requested_file_id == "telegram-file-id-1"
+    assert client.requested_file_id == "fixture_voice_ref"
     assert artifact.modality == MediaModality.VOICE
     assert artifact.retention_state == RetentionState.TEMPORARY
     assert artifact.capture_id == "bablos79-10442"
     assert artifact.source_document_id == "bablos79:bablos79-10442"
-    assert artifact.original_url_or_file_id == "telegram-file-id-1"
+    assert artifact.original_url_or_file_id == "fixture_voice_ref"
     assert artifact.media_sha256 == expected_sha
     assert artifact.duration_seconds == 47
     assert artifact.mime_type == "audio/ogg"
@@ -115,7 +115,7 @@ def _request(
     capture_id: str = "bablos79-10442",
 ) -> TelegramVoiceAcquisitionRequest:
     return TelegramVoiceAcquisitionRequest(
-        file_id="telegram-file-id-1",
+        file_id="fixture_voice_ref",
         source_id="bablos79",
         capture_id=capture_id,
         source_document_id="bablos79:bablos79-10442",

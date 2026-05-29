@@ -30,6 +30,7 @@ from signal_sandbox.media.telegram_voice import (
 from signal_sandbox.media.transcription import (
     DraftTranscriptArtifact,
     DraftTranscriptStatus,
+    OpenAIWhisperTranscriptionClient,
     TranscriptionRunResult,
     TranscriptionRunStatus,
     WhisperTranscriptionClientError,
@@ -56,6 +57,7 @@ __all__ = [
     "acquire_telegram_voice_artifact",
     "DraftTranscriptArtifact",
     "DraftTranscriptStatus",
+    "OpenAIWhisperTranscriptionClient",
     "TranscriptionRunResult",
     "TranscriptionRunStatus",
     "WhisperTranscriptionClientError",
