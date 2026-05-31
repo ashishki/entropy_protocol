@@ -10,8 +10,8 @@ from typing import Literal
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
 from signal_sandbox.auto_validation.evidence import (
-    AutoValidationEvidenceBundle,
     SHA256_HEX_LENGTH,
+    AutoValidationEvidenceBundle,
 )
 from signal_sandbox.auto_validation.results import ValidationAuditLog, ValidationStatus
 
@@ -41,7 +41,9 @@ class SignalAutoValidationProofReceipt(BaseModel):
     model_config = ConfigDict(strict=True, frozen=True, extra="forbid")
 
     type: Literal["signal_auto_validation_receipt"] = "signal_auto_validation_receipt"
-    schema_version: Literal["entropy_core.product_receipt.v1"] = PROOF_RECEIPT_SCHEMA_VERSION
+    schema_version: Literal["entropy_core.product_receipt.v1"] = (
+        PROOF_RECEIPT_SCHEMA_VERSION
+    )
     product_id: Literal["signal-analytics-sandbox"] = PRODUCT_ID
     candidate_id: str = Field(min_length=1)
     source_id: str = Field(min_length=1)
@@ -49,13 +51,17 @@ class SignalAutoValidationProofReceipt(BaseModel):
     evidence_bundle_sha256: str = Field(
         min_length=SHA256_HEX_LENGTH, max_length=SHA256_HEX_LENGTH
     )
-    audit_sha256: str = Field(min_length=SHA256_HEX_LENGTH, max_length=SHA256_HEX_LENGTH)
+    audit_sha256: str = Field(
+        min_length=SHA256_HEX_LENGTH, max_length=SHA256_HEX_LENGTH
+    )
     evidence_refs: list[SignalProofEvidenceRef] = Field(min_length=1)
     validator_ids: list[str] = Field(min_length=1)
     verifier_status: Literal["passed", "needs_review", "failed"]
     verifier_notes: list[str] = Field(default_factory=list)
     generated_at_utc: datetime
-    entropy_core_level: Literal["evidence_lookup_compatible"] = "evidence_lookup_compatible"
+    entropy_core_level: Literal["evidence_lookup_compatible"] = (
+        "evidence_lookup_compatible"
+    )
 
     @field_validator("evidence_bundle_sha256", "audit_sha256")
     @classmethod
@@ -63,6 +69,15 @@ class SignalAutoValidationProofReceipt(BaseModel):
         if any(char not in "0123456789abcdef" for char in value):
             raise ValueError("hash fields must be lowercase hexadecimal")
         return value
+
+    @field_validator("generated_at_utc", mode="before")
+    @classmethod
+    def coerce_generated_at_utc(cls, value: object) -> datetime:
+        if isinstance(value, datetime):
+            return value
+        if isinstance(value, str):
+            return datetime.fromisoformat(value.replace("Z", "+00:00"))
+        raise ValueError("generated_at_utc must be datetime or ISO-8601 string")
 
     @model_validator(mode="after")
     def non_passed_status_requires_notes(self) -> SignalAutoValidationProofReceipt:
@@ -72,7 +87,9 @@ class SignalAutoValidationProofReceipt(BaseModel):
 
     def canonical_json(self) -> str:
         payload = self.model_dump(mode="json", exclude_none=True)
-        return json.dumps(payload, ensure_ascii=False, separators=(",", ":"), sort_keys=True)
+        return json.dumps(
+            payload, ensure_ascii=False, separators=(",", ":"), sort_keys=True
+        )
 
     def receipt_sha256(self) -> str:
         return hashlib.sha256(self.canonical_json().encode("utf-8")).hexdigest()
@@ -147,6 +164,9 @@ def _audit_status(
         for result in audit.results
         for reason in result.blocker_reasons
     ]
-    if ValidationStatus.FAILED in statuses or ValidationStatus.BLOCKED_CUSTOMER_FACING in statuses:
+    if (
+        ValidationStatus.FAILED in statuses
+        or ValidationStatus.BLOCKED_CUSTOMER_FACING in statuses
+    ):
         return "failed", blockers
     return "needs_review", blockers or ["one or more validators did not pass"]

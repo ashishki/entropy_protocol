@@ -1,0 +1,24 @@
+{
+  "schema_version": "entropy_core.product_receipt.v1",
+  "product_id": "signal-analytics-sandbox",
+  "receipt_type": "signal_auto_validation_receipt",
+  "artifact_ref": "products/signal-analytics-sandbox/docs/pilot/clientready_AUTO_VALIDATION_EVAL.json",
+  "artifact_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "generated_at": "2026-05-31T09:00:00Z",
+  "evidence_refs": [
+    {
+      "ref_id": "signal-auto-validation:asset-ref",
+      "ref_type": "text_span",
+      "supports": "asset",
+      "checksum_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    },
+    {
+      "ref_id": "signal-auto-validation:market-1",
+      "ref_type": "market_window",
+      "supports": "binance:BTCUSDT",
+      "checksum_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+    }
+  ],
+  "verifier_status": "passed",
+  "entropy_core_level": "evidence_lookup_compatible"
+}
