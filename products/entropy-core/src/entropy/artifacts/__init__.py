@@ -108,6 +108,15 @@ from entropy.artifacts.product_bridge_adoption import (
     ProductBridgeAdoptionReadiness,
     validate_product_bridge_adoption_readiness,
 )
+from entropy.artifacts.product_receipt import (
+    PRODUCT_PROOF_RECEIPT_LEVELS,
+    PRODUCT_PROOF_RECEIPT_SCHEMA_VERSION,
+    PRODUCT_PROOF_RECEIPT_STATUSES,
+    ProductProofEvidenceRef,
+    ProductProofReceipt,
+    ProductProofReceiptViolation,
+    validate_product_proof_receipt,
+)
 from entropy.artifacts.registry import (
     ARTIFACT_REGISTRY_SCHEMA_VERSION,
     ARTIFACT_REGISTRY_STATUSES,
@@ -206,6 +215,9 @@ __all__ = [
     "KNOWN_PRODUCT_BRIDGE_PROFILE_IDS",
     "PRODUCT_BRIDGE_PROFILES",
     "PRODUCT_BRIDGE_ADOPTION_BLOCKED_SURFACES",
+    "PRODUCT_PROOF_RECEIPT_LEVELS",
+    "PRODUCT_PROOF_RECEIPT_SCHEMA_VERSION",
+    "PRODUCT_PROOF_RECEIPT_STATUSES",
     "REQUIRED_APPROVAL_BLOCKED_SURFACES",
     "REQUIRED_RESEARCH_NO_CLAIM_LABELS",
     "RESEARCH_ARTIFACT_SCHEMA_VERSION",
@@ -272,6 +284,9 @@ __all__ = [
     "ProductBridgeProfile",
     "ProductBridgeAdoptionMetadata",
     "ProductBridgeAdoptionReadiness",
+    "ProductProofEvidenceRef",
+    "ProductProofReceipt",
+    "ProductProofReceiptViolation",
     "ProductBridgeProfileId",
     "ProductBridgeProfileViolation",
     "ReproductionCompareResult",
@@ -306,6 +321,7 @@ __all__ = [
     "validate_artifact_file",
     "validate_artifact_payload",
     "validate_product_bridge_adoption_readiness",
+    "validate_product_proof_receipt",
     "register_artifact_file",
     "safe_registry_record_metadata",
     "show_artifact_record",
