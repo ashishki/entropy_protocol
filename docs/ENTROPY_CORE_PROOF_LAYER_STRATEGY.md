@@ -90,12 +90,12 @@ validators exist.
 
 | Product | Current proof surface | Recommended Core level | Next step |
 |---|---|---:|---|
-| Signal Analytics Sandbox | `auto_validation` evidence bundles, validator results, audit logs, decisions, MVP value run | 3 -> 4 | Map `auto_validation_result.v1` and `auto_validation_audit_log.v1` to Core schema/evidence lookup and product bridge adoption readiness. |
-| Telegram Research Agent | `research_brief_receipt`, delivery refs, verification, operator review | 2 -> 3 | Add Core-compatible schema id and evidence lookup refs for research brief receipts and future channel intelligence receipts. |
-| Demand-to-MVP Radar | opportunity/source trust/weekly report evidence | 1 -> 3 | Define weekly report proof receipt and evidence lookup rows before customer-facing recommendations. |
-| Workflow-to-Agent Studio | workflow blueprint and permission boundary receipts planned | 1 -> 2 | Define blueprint receipt schema and schema compatibility before export automation. |
-| AI Rollout Training OS | permission judgment and learner feedback planned | 1 -> 2 | Define scenario decision receipt and scoring verifier status. |
-| Dream Motif Interpreter | privacy-sensitive memory action receipts optional | 0 -> 1 later | Keep Core optional; use only for export/deletion/memory receipts if needed. |
+| Signal Analytics Sandbox | `auto_validation` evidence bundles, validator results, audit logs, Core-compatible receipt adapter | 3 -> 4 | Add product bridge adoption metadata for Signal receipts and blocked surfaces. |
+| Telegram Research Agent | `research_brief_receipt`, delivery refs, verification, operator review, Core-compatible adapter | 3 | Add CLI inspection and receipt hash indexing for delivered briefs. |
+| Demand-to-MVP Radar | implemented weekly report proof receipt over cited evidence packets | 3 | Wire receipt persistence into scheduled weekly report runs and add source-trust receipts. |
+| Workflow-to-Agent Studio | implemented blueprint proof receipt over blueprint evidence refs and assumptions | 2 -> 3 | Wire receipt creation into approved export paths and add evidence lookup refs for review findings. |
+| AI Rollout Training OS | implemented permission decision receipt over scenario score outcomes | 1 -> 2 | Wire receipts into simulator/game result persistence. |
+| Dream Motif Interpreter | implemented private-local memory action receipt helpers | 1 | Wire receipts only after mini-app memory workflow stabilizes; keep dream evidence private-local. |
 
 ## Signal Sandbox Implication
 
@@ -124,12 +124,11 @@ status.
 Do not expand Core beyond the current human gate automatically. The next
 human-approved Core slice should be narrow:
 
-1. Define a generic `product_proof_receipt` vocabulary aligned with current
-   Signal and Telegram receipt fields.
-2. Add schema compatibility examples for Signal auto-validation artifacts.
-3. Add evidence lookup examples for product-local evidence rows.
-4. Add product bridge adoption metadata fixtures for Signal and Telegram.
-5. Keep runtime adapters deferred.
+1. Wire product receipt persistence where the product already writes durable
+   report/export/game artifacts.
+2. Add evidence lookup examples for product-local evidence rows.
+3. Add product bridge adoption metadata fixtures for Signal and Telegram.
+4. Keep runtime adapters deferred.
 
 Success means products can prove what their artifacts claim without Core
 becoming their runtime or report owner.
