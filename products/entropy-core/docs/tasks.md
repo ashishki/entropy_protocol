@@ -1,8 +1,8 @@
 # Task Graph - Entropy Core
 
-Version: 1.4
+Version: 1.5
 Last updated: 2026-05-31
-Status: Core V2 start approved by human decision D-CORE-V2-001. Phase 28 is complete through T126, Phase 29 is complete through T130, Phase 30 is complete through T134, and Phase 31 is complete through T138. No active next task is approved until a human opens a new bounded Core V2 phase. Phase 14 replay tasks T66-T68 remain deferred unless explicitly reactivated by a human decision.
+Status: Core V2 start approved by human decision D-CORE-V2-001. Phase 28 is complete through T126, Phase 29 is complete through T130, Phase 30 is complete through T134, Phase 31 is complete through T138, and the human-approved Core-base proof-layer slice in Phase 32 is complete through T139. No active next task is approved until a human opens a new bounded Core phase. Phase 14 replay tasks T66-T68 remain deferred unless explicitly reactivated by a human decision.
 
 ---
 
@@ -41,6 +41,7 @@ Status: Core V2 start approved by human decision D-CORE-V2-001. Phase 28 is comp
 | 29 | Evidence Query Hardening | T127-T130 | Define and implement local deterministic evidence lookup and packet inspection improvements. | Operators can inspect local evidence deterministically without runtime RAG, hosted search, public API, or service scope. |
 | 30 | Product Bridge Adoption Readiness | T131-T134 | Strengthen product-profile adoption checks and synthetic bridge fixtures without editing product workspaces. | Core improves product-shaped validation while keeping product runtime and report ownership outside Core. |
 | 31 | V2 Internal Kernel Review | T135-T138 | Inventory Core V2 foundations, run restricted-surface regression checks, review evidence completeness, and decide whether further work requires a human gate. | Core V2 foundations remain internally bounded with no P0/P1 findings and no restricted-surface expansion. |
+| 32 | Core Proof Layer Base | T139 | Add Core-local product receipt evidence lookup examples and adoption metadata fixtures for existing product receipt shapes. | Core validates receipt contracts, evidence refs, and blocked surfaces only; product runtime/report logic remains outside Core. |
 
 ## Roadmap Governance
 
@@ -85,11 +86,16 @@ artifact -> validation -> registry -> reproducibility -> evidence -> governance
 The 12 month roadmap lives in `docs/CORE_12_MONTH_EXECUTION_ROADMAP.md`. The AI
 development loop rules live in `docs/AI_LOOP_OPERATING_MODEL.md`.
 
-There is no active Core task after T138. T75-T122 are complete. Core V2 started
-under D-CORE-V2-001; Phase 28 completed schema evolution foundations, Phase 29
-completed local evidence query hardening, Phase 30 completed product bridge
-adoption readiness, and Phase 31 completed internal kernel review. A new human
-decision is required before opening another bounded Core V2 phase.
+T75-T122 are complete. Core V2 started under D-CORE-V2-001; Phase 28 completed
+schema evolution foundations, Phase 29 completed local evidence query
+hardening, Phase 30 completed product bridge adoption readiness, and Phase 31
+completed internal kernel review. On 2026-05-31 the operator approved the next
+narrow Core-base proof-layer slice: evidence lookup examples and/or product
+bridge adoption fixtures for existing product receipts. T139 completes that
+slice without opening runtime adapters, product workspace edits, product report
+ownership, public SDK, hosted service, live, holdout, production credential,
+external compliance, or capital scope. No active next task is approved until a
+human opens another bounded Core phase.
 
 ## T01: Existing Project Baseline Skeleton
 
@@ -4960,3 +4966,46 @@ Notes: |
   Review must stop for a human gate if the next desired work needs public SDK,
   hosted service, product runtime ownership, external compliance, holdout,
   live, production credential, or capital scope.
+
+## T139: Product Receipt Evidence Lookup Examples
+
+Owner:      codex
+Phase:      32
+Type:       test
+Depends-On: T138
+Status:     done 2026-05-31
+
+Objective: |
+  Add Core-local evidence lookup examples and product bridge adoption metadata
+  fixtures for existing product receipt shapes without changing the
+  ProductProofReceipt contract or importing product runtime logic.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "A Core-local product receipt fixture validates against the existing ProductProofReceipt contract."
+    test: "tests/unit/test_product_receipt_evidence_lookup_examples.py::test_product_receipt_fixture_validates_without_product_runtime_logic"
+  - id: AC-2
+    description: "Product receipt evidence refs resolve through deterministic local evidence lookup metadata and missing refs remain insufficient evidence."
+    test: "tests/unit/test_product_receipt_evidence_lookup_examples.py::test_product_receipt_evidence_refs_resolve_to_local_metadata_only"
+  - id: AC-3
+    description: "Product bridge adoption metadata for the receipt fixture stays non-approving and keeps product runtime/report ownership, hosted, live, holdout, credential, compliance, and capital surfaces blocked."
+    test: "tests/unit/test_product_receipt_evidence_lookup_examples.py::test_product_receipt_bridge_adoption_fixture_stays_core_side_only"
+
+Files:
+  - tests/fixtures/artifacts/product_receipts/
+  - tests/fixtures/artifacts/adoption/signal_receipt_valid.json
+  - tests/unit/test_product_receipt_evidence_lookup_examples.py
+  - docs/EVIDENCE_INDEX.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+  - docs/tasks.md
+
+Context-Refs:
+  - ../../docs/ENTROPY_CORE_PROOF_LAYER_STRATEGY.md
+  - src/entropy/artifacts/product_receipt.py
+  - src/entropy/artifacts/evidence_lookup.py
+  - src/entropy/artifacts/product_bridge_adoption.py
+
+Notes: |
+  T139 adds examples and fixtures only. It does not reimplement
+  ProductProofReceipt, edit product workspaces, persist product receipts, own
+  product validators, approve external delivery, or add runtime adapters.

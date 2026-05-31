@@ -1,7 +1,7 @@
 # Implementation Journal - Entropy Core
 
 Version: 1.0
-Last updated: 2026-05-29
+Last updated: 2026-05-31
 Status: append-only
 
 This file records handoff context. It is not authority.
@@ -164,6 +164,15 @@ This file records handoff context. It is not authority.
 - Evidence collected: Phase 31 review PASS; `.venv/bin/python -m pytest -q tests/reset/test_v2_evidence_completeness_matrix.py tests/reset/test_v2_restricted_surface_sweep.py tests/reset/test_v2_kernel_review_inventory.py tests/reset/test_no_claim_roadmap_sweep.py tests/reset/test_live_feed_boundary_contract.py tests/reset/test_broker_sandbox_boundary_contract.py tests/reset/test_reset_smoke.py` reported `23 passed`
 - Follow-ups: wait for a human decision opening the next bounded Core V2 phase
 - Notes for next agent: No active next task is approved. Do not continue beyond T138 until a human opens a new bounded Core V2 phase. Public SDK, hosted service, runtime RAG, embeddings, product runtime/report ownership, external delivery approval, live, holdout, compliance, production credential, and capital scope remain blocked.
+
+### 2026-05-31 - T139 - Product Receipt Evidence Lookup Examples
+
+- Scope: `tests/fixtures/artifacts/product_receipts/`, `tests/fixtures/artifacts/adoption/signal_receipt_valid.json`, `tests/unit/test_product_receipt_evidence_lookup_examples.py`, `docs/EVIDENCE_INDEX.md`, `docs/tasks.md`
+- Why this work happened: operator approved the next narrow Core-base proof-layer slice for evidence lookup examples and/or product bridge adoption fixtures for existing product receipts
+- Decisions applied: `../../docs/ENTROPY_CORE_PROOF_LAYER_STRATEGY.md`; `src/entropy/artifacts/product_receipt.py`; `src/entropy/artifacts/evidence_lookup.py`; `src/entropy/artifacts/product_bridge_adoption.py`
+- Evidence collected: `.venv/bin/python -m pytest -q tests/unit/test_product_receipt_evidence_lookup_examples.py tests/unit/test_product_proof_receipt.py tests/unit/test_evidence_lookup.py tests/unit/test_product_bridge_adoption.py` reported `19 passed`
+- Follow-ups: wait for a human decision opening another bounded Core phase
+- Notes for next agent: T139 adds Core-local examples and fixtures only. Do not reimplement ProductProofReceipt, import product runtime logic, edit product workspaces, approve external delivery, or add runtime adapters.
 
 ### 2026-05-14 - T122 - Core V1 Productization Review
 
