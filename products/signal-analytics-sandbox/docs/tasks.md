@@ -4851,6 +4851,35 @@ Files:
   - docs/CODEX_PROMPT.md
   - README.md
 
+### SAS-AUTOVAL-012: Core Receipt Audit Export ✅
+
+Owner:      codex
+Phase:      43
+Type:       implementation
+Depends-On: SAS-AUTOVAL-003
+
+Objective: |
+  Wire the existing Signal auto-validation Core-compatible receipt builder
+  into the product-local validation workflow by exporting a receipt next to
+  each durable validation audit log.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "The audit export writes sibling `<audit-id>.audit.json` and `<audit-id>.receipt.json` artifacts using deterministic JSON."
+    test: "tests/unit/test_auto_validation_core_receipt.py::test_export_writes_receipt_next_to_validation_audit_log"
+  - id: AC-2
+    description: "The receipt export reuses the existing `build_signal_auto_validation_receipt` adapter and records the audit hash, bundle hash, validator ids, and evidence refs."
+    test: "tests/unit/test_auto_validation_core_receipt.py"
+  - id: AC-3
+    description: "Receipt wiring stays product-local and rejects path-like artifact stems; Core does not own market/provider/customer-policy logic."
+    test: "tests/unit/test_auto_validation_core_receipt.py::test_export_rejects_pathlike_artifact_stem"
+
+Files:
+  - src/signal_sandbox/auto_validation/audit_export.py
+  - src/signal_sandbox/auto_validation/core_receipt.py
+  - tests/unit/test_auto_validation_core_receipt.py
+  - docs/specs/AUTO_VALIDATION_EVIDENCE.md
+
 ## Phase 28 — External-Ready Review Sprint
 
 ### SAS-NEXT-001: Full-Corpus Human Review Queue
