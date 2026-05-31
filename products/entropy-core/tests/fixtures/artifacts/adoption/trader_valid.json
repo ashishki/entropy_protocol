@@ -1,0 +1,47 @@
+{
+  "profile_id": "trader-risk-audit",
+  "artifact_contract_version": "entropy-core-artifact/v1",
+  "synthetic_fixture_refs": [
+    "tests/fixtures/artifacts/profiles/trader_valid.json",
+    "synthetic://adoption/trader-risk-audit/readiness-valid"
+  ],
+  "evidence_refs": [
+    "docs/EVIDENCE_INDEX.md#T91-T94 Product Bridge Profiles",
+    "docs/EVIDENCE_INDEX.md#T131 Product Bridge Adoption Policy"
+  ],
+  "allowed_core_primitives": [
+    "artifact_validation",
+    "profile_overlay",
+    "readiness_metadata_validation"
+  ],
+  "forbidden_product_calls": [
+    "product_runtime_ownership",
+    "product_report_authorship",
+    "product_workspace_edit",
+    "external_delivery_approval"
+  ],
+  "no_claim_boundaries": [
+    "not_order_blocking",
+    "not_live_trading",
+    "not_broker_exchange_execution",
+    "not_production",
+    "not_capital_ready",
+    "not_investment_advice",
+    "not_core_phase_gate_approval"
+  ],
+  "blocked_surfaces": [
+    "product_workspace_edits",
+    "product_runtime_ownership",
+    "product_report_authorship",
+    "external_delivery_approval",
+    "public_sdk",
+    "hosted_service",
+    "live_execution",
+    "holdout_access",
+    "production_credentials",
+    "capital",
+    "external_compliance"
+  ],
+  "owner": "entropy-core",
+  "reviewer": "internal-review"
+}

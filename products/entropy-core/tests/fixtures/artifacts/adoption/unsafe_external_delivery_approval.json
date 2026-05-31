@@ -1,0 +1,45 @@
+{
+  "profile_id": "signal-analytics-sandbox",
+  "artifact_contract_version": "entropy-core-artifact/v1",
+  "synthetic_fixture_refs": [
+    "tests/fixtures/artifacts/profiles/signal_valid.json",
+    "synthetic://adoption/signal-analytics-sandbox/missing-external-delivery-forbid"
+  ],
+  "evidence_refs": [
+    "docs/EVIDENCE_INDEX.md#T131 Product Bridge Adoption Policy"
+  ],
+  "allowed_core_primitives": [
+    "artifact_validation",
+    "profile_overlay",
+    "readiness_metadata_validation"
+  ],
+  "forbidden_product_calls": [
+    "product_runtime_ownership",
+    "product_report_authorship",
+    "product_workspace_edit"
+  ],
+  "no_claim_boundaries": [
+    "not_trading_advice",
+    "not_investment_recommendation",
+    "not_future_performance_prediction",
+    "not_automated_signal_execution",
+    "not_production",
+    "not_capital_ready",
+    "not_core_phase_gate_approval"
+  ],
+  "blocked_surfaces": [
+    "product_workspace_edits",
+    "product_runtime_ownership",
+    "product_report_authorship",
+    "external_delivery_approval",
+    "public_sdk",
+    "hosted_service",
+    "live_execution",
+    "holdout_access",
+    "production_credentials",
+    "capital",
+    "external_compliance"
+  ],
+  "owner": "entropy-core",
+  "reviewer": "internal-review"
+}

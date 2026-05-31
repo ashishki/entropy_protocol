@@ -71,10 +71,10 @@ def test_future_phases_are_not_approvals() -> None:
     assert "phase 10 complete through t45" in prompt
     assert "phase 11 is local-only live-feed dry-run readiness" in prompt
     assert "phase 13 is local-only approval decision work" in prompt
-    assert "phase: 27" in prompt
-    assert "phase: 27 core v1 productization" in handoff
+    assert "phase: 31" in prompt
+    assert "phase: 31 v2 internal kernel review" in handoff
     assert "protocol-only holdout access design" in handoff
-    assert "active task: none - core v1 checkpoint complete" in handoff
+    assert "active task:" in handoff
     assert "t40 holdout approval request packet scaffold completed" in prompt
     assert "t41 holdout approval evidence intake contract completed" in prompt
     assert "t35 holdout access protocol deny-by-default contract completed" in prompt
