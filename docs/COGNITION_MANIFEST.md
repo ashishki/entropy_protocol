@@ -22,6 +22,7 @@ This file maps cross-product operational memory for the Entropy Protocol portfol
 - Product repos/directories remain source of truth.
 - Obsidian, generated indexes, and context packets are optional navigation layers.
 - Cross-product pattern notes must cite product-local artifacts before influencing implementation.
+- The cognition vault is for navigation, context packets, and cross-project recall only; this repo remains authoritative.
 
 ## Project Identity
 
@@ -112,6 +113,10 @@ If an agent runs on the VPS, clone the vault next to `projects/` and pass packet
 ```
 
 Do not write canonical decisions, eval results, or findings directly into the vault. Write them into this repo first, then regenerate the vault.
+
+Use the vault when starting an agent cold, preparing a reviewer packet, comparing
+projects, or checking cross-project dependencies. Do not use it to close tasks,
+change project status, replace ADRs/evals/findings, or drive runtime behavior.
 
 ---
 
