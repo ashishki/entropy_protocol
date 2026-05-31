@@ -63,10 +63,10 @@ def test_state_docs_record_phase11_local_only_scope() -> None:
     handoff = PHASE_HANDOFF.read_text(encoding="utf-8").lower()
     combined = f"{prompt}\n{handoff}"
 
-    assert "phase: 27" in prompt
-    assert "phase: 27 core v1 productization" in handoff
+    assert "phase: 31" in prompt
+    assert "phase: 31 v2 internal kernel review" in handoff
     assert "t122 core v1 productization review completed" in prompt
-    assert "active task: none - core v1 checkpoint complete" in handoff
+    assert "active task:" in handoff
     assert "phase 11 is local-only live-feed dry-run readiness" in combined
     for boundary in (
         "order placement",

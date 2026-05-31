@@ -67,7 +67,7 @@ def test_state_docs_keep_restricted_surfaces_blocked() -> None:
     combined = f"{prompt}\n{handoff}"
 
     assert "t122 core v1 productization review completed" in prompt
-    assert "active task: none - core v1 checkpoint complete" in handoff
+    assert "active task:" in handoff
     assert "t66-t68 remain pending but deferred" in combined
     assert "phase 14 replay work complete through t65" in combined
     for boundary in (

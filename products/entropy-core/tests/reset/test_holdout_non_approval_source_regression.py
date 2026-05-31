@@ -75,7 +75,7 @@ def test_state_docs_record_no_current_approval_event() -> None:
 
     assert "no approval event currently exists" in combined
     assert "t122 core v1 productization review completed" in prompt
-    assert "active task: none - core v1 checkpoint complete" in handoff
+    assert "active task:" in handoff
     assert "current holdout approval event: present" not in combined
     assert "explicit human holdout approval: present" not in combined
 

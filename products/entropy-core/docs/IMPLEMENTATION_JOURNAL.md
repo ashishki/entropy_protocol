@@ -1,7 +1,7 @@
 # Implementation Journal - Entropy Core
 
 Version: 1.0
-Last updated: 2026-05-14
+Last updated: 2026-05-29
 Status: append-only
 
 This file records handoff context. It is not authority.
@@ -20,6 +20,150 @@ This file records handoff context. It is not authority.
 ```
 
 ## Entries
+
+### 2026-05-29 - T123 Selected - Core V2 Roadmap Activation
+
+- Scope: `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `docs/DECISION_LOG.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`, `README.md`
+- Why this work happened: operator approved starting Core V2 and requested that T123 be explicitly selected as the next task before the loop continues
+- Decisions applied: `docs/DECISION_LOG.md#D-CORE-V2-001`; `docs/audit/CORE_V1_PRODUCTIZATION_REVIEW.md`
+- Evidence collected: manual state-doc update; validation pending T123 execution
+- Follow-ups: execute T123 Core V2 Roadmap Activation
+- Notes for next agent: T123 is active but not complete. Do not open T124+ implementation tasks until T123 defines the bounded Core V2 roadmap contract. Core V2 approval does not approve public SaaS, public SDK, hosted service, external compliance certification, holdout access, live feeds by default, broker/exchange execution, production credentials, live capital, or unsupported OOS/performance claims.
+
+### 2026-05-29 - T123 - Core V2 Roadmap Activation
+
+- Scope: `docs/CORE_V2_ROADMAP.md`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `docs/EVIDENCE_INDEX.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`, `README.md`
+- Why this work happened: complete the selected Core V2 activation task by defining the bounded roadmap contract and first implementable task
+- Decisions applied: `docs/DECISION_LOG.md#D-CORE-V2-001`; `docs/audit/CORE_V1_PRODUCTIZATION_REVIEW.md`; `docs/core/CORE_V1_SURFACE_FREEZE.md`
+- Evidence collected: manual docs review pending final validation; `git diff --check` pending final validation
+- Follow-ups: execute T124 Schema Evolution Policy Contract
+- Notes for next agent: Phase 28 is limited to schema evolution foundations. T124 must define policy before T125 adds compatibility primitives. Public SDK, hosted service, external compliance, holdout, live, broker/exchange, production credential, capital, and unsupported OOS/performance surfaces remain blocked.
+
+### 2026-05-29 - T124 - Schema Evolution Policy Contract
+
+- Scope: `docs/core/SCHEMA_EVOLUTION_POLICY.md`, `tests/reset/test_core_v2_schema_evolution_policy.py`, `docs/EVIDENCE_INDEX.md`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`, `README.md`
+- Why this work happened: define Core V2 schema evolution policy before compatibility code or migration behavior changes
+- Decisions applied: `docs/DECISION_LOG.md#D-CORE-V2-001`; `docs/CORE_V2_ROADMAP.md`; `docs/core/CORE_V1_SURFACE_FREEZE.md`; `docs/IMPLEMENTATION_CONTRACT.md#registry-append-only`; `docs/IMPLEMENTATION_CONTRACT.md#hash-and-run-reproducibility`
+- Evidence collected: `.venv/bin/python -m pytest -q tests/reset/test_core_v2_schema_evolution_policy.py` reported `3 passed`
+- Follow-ups: execute T125 Schema Compatibility Primitives
+- Notes for next agent: T125 may add deterministic library-only compatibility primitives. Do not add CLI, migration execution, service behavior, or registry mutation in T125.
+
+### 2026-05-29 - T125 - Schema Compatibility Primitives
+
+- Scope: `src/entropy/artifacts/schema_compatibility.py`, `src/entropy/artifacts/__init__.py`, `tests/unit/test_schema_compatibility.py`, `docs/EVIDENCE_INDEX.md`, `docs/IMPLEMENTATION_JOURNAL.md`
+- Why this work happened: add deterministic library-only schema compatibility classification primitives according to the Core V2 schema evolution policy
+- Decisions applied: `docs/core/SCHEMA_EVOLUTION_POLICY.md`; `docs/CORE_V2_ROADMAP.md`
+- Evidence collected: `.venv/bin/python -m pytest -q tests/unit/test_schema_compatibility.py tests/reset/test_core_v2_schema_evolution_policy.py` reported `6 passed`
+- Follow-ups: execute T126 Schema Evolution Foundations Review
+- Notes for next agent: T125 added no CLI, migration execution, service behavior, or registry mutation. Compatibility results remain `not_approved` for restricted surfaces.
+
+### 2026-05-29 - T126 - Schema Evolution Foundations Review
+
+- Scope: `docs/audit/SCHEMA_EVOLUTION_FOUNDATIONS_REVIEW.md`, `docs/audit/AUDIT_INDEX.md`, `docs/EVIDENCE_INDEX.md`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`, `README.md`
+- Why this work happened: close Phase 28 and open the next bounded Core V2 phase without triggering a human gate
+- Decisions applied: `docs/DECISION_LOG.md#D-CORE-V2-001`; `docs/CORE_V2_ROADMAP.md`; `docs/core/SCHEMA_EVOLUTION_POLICY.md`
+- Evidence collected: Phase 28 review PASS; prior T124/T125 tests `6 passed`; no P0/P1 findings
+- Follow-ups: execute T127 Evidence Lookup Policy Contract
+- Notes for next agent: Phase 29 is local deterministic evidence lookup hardening only. Do not add runtime RAG, embeddings, hosted search, public API, service behavior, public SDK, live, holdout, external compliance, production credential, or capital scope.
+
+### 2026-05-29 - T127 - Evidence Lookup Policy Contract
+
+- Scope: `docs/core/EVIDENCE_LOOKUP_POLICY.md`, `tests/reset/test_evidence_lookup_policy.py`, `docs/EVIDENCE_INDEX.md`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`, `README.md`
+- Why this work happened: define local deterministic evidence lookup policy before lookup primitive implementation
+- Decisions applied: `docs/audit/SCHEMA_EVOLUTION_FOUNDATIONS_REVIEW.md`; `docs/CORE_V2_ROADMAP.md`
+- Evidence collected: `.venv/bin/python -m pytest -q tests/reset/test_evidence_lookup_policy.py tests/reset/test_core_v2_schema_evolution_policy.py tests/unit/test_schema_compatibility.py` reported `9 passed`
+- Follow-ups: execute T128 Local Evidence Lookup Primitives
+- Notes for next agent: T128 may parse local `docs/EVIDENCE_INDEX.md` rows only. Do not add runtime RAG, embeddings, hosted search, public API, CLI, external dependencies, or service behavior.
+
+### 2026-05-29 - T128 - Local Evidence Lookup Primitives
+
+- Scope: `src/entropy/artifacts/evidence_lookup.py`, `src/entropy/artifacts/__init__.py`, `tests/unit/test_evidence_lookup.py`, `docs/EVIDENCE_INDEX.md`, `docs/IMPLEMENTATION_JOURNAL.md`
+- Why this work happened: add deterministic file-local evidence-index lookup primitives according to the evidence lookup policy
+- Decisions applied: `docs/core/EVIDENCE_LOOKUP_POLICY.md`; `docs/audit/SCHEMA_EVOLUTION_FOUNDATIONS_REVIEW.md`
+- Evidence collected: `.venv/bin/python -m pytest -q tests/unit/test_evidence_lookup.py tests/reset/test_evidence_lookup_policy.py tests/unit/test_schema_compatibility.py tests/reset/test_core_v2_schema_evolution_policy.py` reported `12 passed`
+- Follow-ups: execute T129 Evidence Inspect Alignment
+- Notes for next agent: T128 added no runtime RAG, embeddings, hosted search, public API, CLI, external dependencies, or service behavior. Results remain `not_approved` for restricted surfaces.
+
+### 2026-05-29 - T129-T130 - Evidence Inspect Alignment And Review
+
+- Scope: `src/entropy/artifacts/evidence_lookup.py`, `src/entropy/artifacts/__init__.py`, `tests/unit/test_evidence_lookup.py`, `docs/audit/EVIDENCE_QUERY_HARDENING_REVIEW.md`, `docs/audit/AUDIT_INDEX.md`, `docs/EVIDENCE_INDEX.md`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`, `README.md`
+- Why this work happened: align packet evidence refs with local lookup metadata, close Phase 29, and open the next bounded Core V2 phase
+- Decisions applied: `docs/core/EVIDENCE_LOOKUP_POLICY.md`; `docs/audit/SCHEMA_EVOLUTION_FOUNDATIONS_REVIEW.md`; `docs/CORE_V2_ROADMAP.md`
+- Evidence collected: `.venv/bin/python -m pytest -q tests/unit/test_evidence_lookup.py tests/reset/test_evidence_lookup_policy.py tests/unit/test_schema_compatibility.py tests/reset/test_core_v2_schema_evolution_policy.py` reported `15 passed`; Phase 29 review PASS
+- Follow-ups: execute T131 Product Bridge Adoption Policy
+- Notes for next agent: Phase 30 must stay inside Core-owned product-profile validation and synthetic fixtures. Do not edit product workspaces, own product report logic, approve external delivery, or open public SDK, hosted service, live, holdout, compliance, production credential, or capital scope.
+
+### 2026-05-29 - T131 - Product Bridge Adoption Policy
+
+- Scope: `docs/core/PRODUCT_BRIDGE_ADOPTION_POLICY.md`, `tests/reset/test_product_bridge_adoption_policy.py`, `docs/EVIDENCE_INDEX.md`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`, `README.md`
+- Why this work happened: define Core-owned product bridge adoption policy before adding readiness checks or synthetic adoption fixtures
+- Decisions applied: `docs/audit/EVIDENCE_QUERY_HARDENING_REVIEW.md`; `docs/core/PRODUCT_ARTIFACT_BRIDGES.md`; `docs/CORE_V2_ROADMAP.md`
+- Evidence collected: `.venv/bin/python -m pytest -q tests/reset/test_product_bridge_adoption_policy.py tests/unit/test_evidence_lookup.py tests/reset/test_evidence_lookup_policy.py tests/unit/test_schema_compatibility.py tests/reset/test_core_v2_schema_evolution_policy.py` reported `18 passed`
+- Follow-ups: execute T132 Product Bridge Readiness Checks
+- Notes for next agent: T132 may add Core-side readiness checks only. Do not edit product workspaces, own product report logic, approve external delivery, or open public SDK, hosted service, live, holdout, compliance, production credential, or capital scope.
+
+### 2026-05-29 - T132 - Product Bridge Readiness Checks
+
+- Scope: `src/entropy/artifacts/product_bridge_adoption.py`, `src/entropy/artifacts/__init__.py`, `tests/unit/test_product_bridge_adoption.py`, `docs/EVIDENCE_INDEX.md`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`, `README.md`
+- Why this work happened: add deterministic Core-side readiness checks for product bridge adoption metadata before adding synthetic adoption fixtures
+- Decisions applied: `docs/core/PRODUCT_BRIDGE_ADOPTION_POLICY.md`; `docs/core/PRODUCT_ARTIFACT_BRIDGES.md`
+- Evidence collected: `.venv/bin/python -m pytest -q tests/unit/test_product_bridge_adoption.py tests/reset/test_product_bridge_adoption_policy.py tests/unit/test_evidence_lookup.py tests/reset/test_evidence_lookup_policy.py tests/unit/test_schema_compatibility.py tests/reset/test_core_v2_schema_evolution_policy.py` reported `21 passed`; changed Python ruff slice clean
+- Follow-ups: execute T133 Product Bridge Adoption Fixtures
+- Notes for next agent: T133 may add synthetic/redacted fixtures only. Do not use real customer, product, private research, holdout, credential, or live data; do not edit product workspaces, own product report logic, approve external delivery, or open public SDK, hosted service, live, holdout, compliance, production credential, or capital scope.
+
+### 2026-05-29 - T133 - Product Bridge Adoption Fixtures
+
+- Scope: `tests/fixtures/artifacts/adoption/`, `tests/unit/test_product_bridge_adoption.py`, `docs/EVIDENCE_INDEX.md`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`, `README.md`
+- Why this work happened: add synthetic adoption fixtures that exercise the Core-side readiness checks for valid and unsafe product bridge adoption metadata
+- Decisions applied: `docs/core/PRODUCT_BRIDGE_ADOPTION_POLICY.md`; `docs/core/PRODUCT_ARTIFACT_BRIDGES.md`
+- Evidence collected: `.venv/bin/python -m pytest -q tests/unit/test_product_bridge_adoption.py tests/reset/test_product_bridge_adoption_policy.py tests/unit/test_evidence_lookup.py tests/reset/test_evidence_lookup_policy.py tests/unit/test_schema_compatibility.py tests/reset/test_core_v2_schema_evolution_policy.py` reported `24 passed`
+- Follow-ups: execute T134 Product Bridge Adoption Readiness Review
+- Notes for next agent: T134 should review Phase 30 evidence and either open the next bounded V2 phase or stop for a human gate if scope expansion would be required. Product workspace edits, product report ownership, external delivery approval, public SDK, hosted service, live, holdout, compliance, production credential, and capital scope remain blocked.
+
+### 2026-05-29 - T134 - Product Bridge Adoption Readiness Review
+
+- Scope: `docs/audit/PRODUCT_BRIDGE_ADOPTION_READINESS_REVIEW.md`, `docs/audit/AUDIT_INDEX.md`, `docs/EVIDENCE_INDEX.md`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`, `README.md`
+- Why this work happened: close Phase 30 and open the next bounded Core V2 internal review phase without triggering a human gate
+- Decisions applied: `docs/core/PRODUCT_BRIDGE_ADOPTION_POLICY.md`; `docs/CORE_V2_ROADMAP.md`; `docs/audit/EVIDENCE_QUERY_HARDENING_REVIEW.md`
+- Evidence collected: Phase 30 review PASS; prior T133 test slice `24 passed`; no Stop-Ship/P0/P1 findings
+- Follow-ups: execute T135 V2 Kernel Foundation Inventory
+- Notes for next agent: Phase 31 is internal kernel review only. Do not add public SDK, hosted service, runtime RAG, embeddings, product runtime ownership, product report authorship, external delivery approval, live, holdout, compliance, production credential, or capital scope.
+
+### 2026-05-29 - T135 - V2 Kernel Foundation Inventory
+
+- Scope: `docs/core/V2_KERNEL_FOUNDATION_INVENTORY.md`, `tests/reset/test_v2_kernel_review_inventory.py`, `docs/EVIDENCE_INDEX.md`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`, `README.md`
+- Why this work happened: inventory Core V2 foundations and preserve the internal kernel boundary before adding restricted-surface regression checks
+- Decisions applied: `docs/audit/PRODUCT_BRIDGE_ADOPTION_READINESS_REVIEW.md`; `docs/audit/EVIDENCE_QUERY_HARDENING_REVIEW.md`; `docs/audit/SCHEMA_EVOLUTION_FOUNDATIONS_REVIEW.md`
+- Evidence collected: `.venv/bin/python -m pytest -q tests/reset/test_v2_kernel_review_inventory.py tests/unit/test_product_bridge_adoption.py tests/reset/test_product_bridge_adoption_policy.py tests/reset/test_reset_smoke.py tests/reset/test_no_claim_roadmap_sweep.py tests/reset/test_live_feed_boundary_contract.py tests/reset/test_broker_sandbox_boundary_contract.py` reported `26 passed`
+- Follow-ups: execute T136 Restricted Surface Regression Sweep V2
+- Notes for next agent: T136 may add regression tests only. It must not implement public SDK, hosted service, runtime RAG, live, holdout, compliance, production credential, product runtime ownership, product report authorship, external delivery approval, or capital scope.
+
+### 2026-05-31 - T136 - Restricted Surface Regression Sweep V2
+
+- Scope: `tests/reset/test_v2_restricted_surface_sweep.py`, `docs/EVIDENCE_INDEX.md`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`, `README.md`
+- Why this work happened: add V2 regression checks proving the current Core V2 docs and reviews keep restricted surfaces blocked
+- Decisions applied: `docs/core/V2_KERNEL_FOUNDATION_INVENTORY.md`; `docs/AI_LOOP_OPERATING_MODEL.md`
+- Evidence collected: `.venv/bin/python -m pytest -q tests/reset/test_v2_restricted_surface_sweep.py tests/reset/test_v2_kernel_review_inventory.py tests/reset/test_no_claim_roadmap_sweep.py tests/reset/test_live_feed_boundary_contract.py tests/reset/test_broker_sandbox_boundary_contract.py` reported `15 passed`
+- Follow-ups: execute T137 V2 Evidence Completeness Matrix
+- Notes for next agent: T137 should summarize evidence coverage and gaps only. It must not convert gaps into product, hosted, live, holdout, compliance, production credential, or capital readiness claims.
+
+### 2026-05-31 - T137 - V2 Evidence Completeness Matrix
+
+- Scope: `docs/core/V2_EVIDENCE_COMPLETENESS_MATRIX.md`, `tests/reset/test_v2_evidence_completeness_matrix.py`, `docs/EVIDENCE_INDEX.md`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`, `README.md`
+- Why this work happened: summarize V2 evidence coverage and remaining internal gaps before the Phase 31 review
+- Decisions applied: `docs/core/V2_KERNEL_FOUNDATION_INVENTORY.md`; `docs/audit/PRODUCT_BRIDGE_ADOPTION_READINESS_REVIEW.md`; `docs/AI_LOOP_OPERATING_MODEL.md`
+- Evidence collected: `.venv/bin/python -m pytest -q tests/reset/test_v2_evidence_completeness_matrix.py tests/reset/test_v2_restricted_surface_sweep.py tests/reset/test_v2_kernel_review_inventory.py tests/reset/test_no_claim_roadmap_sweep.py tests/reset/test_live_feed_boundary_contract.py tests/reset/test_broker_sandbox_boundary_contract.py` reported `18 passed`
+- Follow-ups: execute T138 V2 Internal Kernel Review
+- Notes for next agent: T138 should review V2 foundations, regression coverage, evidence completeness, limitations, and open findings. It must stop for a human gate if the next desired work needs public SDK, hosted service, product runtime ownership, external compliance, holdout, live, production credential, or capital scope.
+
+### 2026-05-31 - T138 - V2 Internal Kernel Review
+
+- Scope: `docs/audit/V2_INTERNAL_KERNEL_REVIEW.md`, `docs/audit/AUDIT_INDEX.md`, `docs/EVIDENCE_INDEX.md`, `docs/tasks.md`, `docs/CODEX_PROMPT.md`, `PHASE_HANDOFF.md`, `AGENT_NOTES.md`, `README.md`
+- Why this work happened: close Phase 31 and decide whether Core V2 can continue without a new human gate
+- Decisions applied: `docs/core/V2_EVIDENCE_COMPLETENESS_MATRIX.md`; `docs/core/V2_KERNEL_FOUNDATION_INVENTORY.md`; `docs/CORE_V2_ROADMAP.md`
+- Evidence collected: Phase 31 review PASS; `.venv/bin/python -m pytest -q tests/reset/test_v2_evidence_completeness_matrix.py tests/reset/test_v2_restricted_surface_sweep.py tests/reset/test_v2_kernel_review_inventory.py tests/reset/test_no_claim_roadmap_sweep.py tests/reset/test_live_feed_boundary_contract.py tests/reset/test_broker_sandbox_boundary_contract.py tests/reset/test_reset_smoke.py` reported `23 passed`
+- Follow-ups: wait for a human decision opening the next bounded Core V2 phase
+- Notes for next agent: No active next task is approved. Do not continue beyond T138 until a human opens a new bounded Core V2 phase. Public SDK, hosted service, runtime RAG, embeddings, product runtime/report ownership, external delivery approval, live, holdout, compliance, production credential, and capital scope remain blocked.
 
 ### 2026-05-14 - T122 - Core V1 Productization Review
 

@@ -1,6 +1,6 @@
 # Agent Notes - Entropy Core
 
-Date: 2026-05-15
+Date: 2026-05-31
 
 This file keeps only restart-relevant notes. Detailed history lives in
 `docs/IMPLEMENTATION_JOURNAL.md`, `docs/EVIDENCE_INDEX.md`, `docs/audit/`, and
@@ -8,8 +8,8 @@ This file keeps only restart-relevant notes. Detailed history lives in
 
 ## Active State
 
-- Phase: 27 Core V1 Productization
-- Active task: none - Core V1 checkpoint complete
+- Phase: 31 V2 Internal Kernel Review
+- Active task: none - human gate required for next bounded Core V2 phase
 - Baseline: `625 passed, 20 skipped`
 - Primary roadmap: `docs/CORE_12_MONTH_EXECUTION_ROADMAP.md`
 - AI loop rules: `docs/AI_LOOP_OPERATING_MODEL.md`
@@ -26,8 +26,10 @@ This file keeps only restart-relevant notes. Detailed history lives in
 - Phase 25 status: complete through T114
 - Phase 26 status: complete through T118
 - Phase 27 status: complete through T122
-- Portfolio pause: Product 1 and Product 2 are active; Core remains paused
-  unless a concrete product dependency or human-approved Core V2 roadmap appears.
+- Phase 28 status: complete through T126
+- Phase 29 status: complete through T130
+- Phase 30 status: complete through T134
+- Phase 31 status: complete through T138
 
 ## Current Decision
 
@@ -44,9 +46,17 @@ schemas/adapters/fixtures, storage/audit backend foundations, internal API/job
 boundary, CAF artifact vocabulary, allocation decision primitives, synthetic
 CAF fixtures, audit bundle schemas, lineage graph builder, data classification,
 reviewer-role metadata, Phase 26 review, Core V1 surface freeze, runbook,
-examples, docs alignment, and Core V1 productization review. Stop automatic
-roadmap expansion until a human-approved Core V2 roadmap exists.
-The current portfolio route does not require Core work yet.
+examples, docs alignment, and Core V1 productization review. On 2026-05-29 the
+operator approved starting Core V2 and instructed the loop to select T123 as
+the next task before continuing. T123 defined `docs/CORE_V2_ROADMAP.md`; T124
+defined `docs/core/SCHEMA_EVOLUTION_POLICY.md`; T125 added library-only schema
+compatibility primitives; T126 reviewed Phase 28; T127-T130 completed local
+evidence query hardening; T131 defined product bridge adoption policy; T132
+added Core-side product bridge readiness checks; T133 added synthetic adoption
+fixtures; T134 reviewed Phase 30 and opened bounded Phase 31; T135 inventoried
+Core V2 foundations; T136 added restricted-surface regression checks; T137
+summarized V2 evidence coverage and gaps; T138 reviewed Phase 31 and stopped
+automatic Core V2 expansion at a human gate.
 
 ## Deferred
 
@@ -57,8 +67,9 @@ The current portfolio route does not require Core work yet.
 - any human-gated item listed in `docs/AI_LOOP_OPERATING_MODEL.md`.
 - external compliance certification, enterprise SLA, auth/RBAC, SSO, hosted
   service, or tenant isolation.
-- automatic roadmap expansion after T122 without a human-approved Core V2
-  roadmap.
+- Product workspace edits, product report ownership, external delivery approval,
+  public SDK, hosted service, runtime RAG, live, holdout, compliance, production
+  credential, or capital scope in Phase 31.
 
 ## Guardrails
 

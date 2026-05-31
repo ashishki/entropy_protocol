@@ -1,11 +1,8 @@
 # Task Graph - Entropy Core
 
-Version: 1.2
-Last updated: 2026-05-12
-Status: Core V1 checkpoint complete through T122. Core V2 verification-kernel
-candidate planning is approved at the portfolio level, but implementation still
-requires selecting the next task explicitly. Phase 14 replay tasks T66-T68
-remain deferred unless explicitly reactivated by a human decision.
+Version: 1.4
+Last updated: 2026-05-31
+Status: Core V2 start approved by human decision D-CORE-V2-001. Phase 28 is complete through T126, Phase 29 is complete through T130, Phase 30 is complete through T134, and Phase 31 is complete through T138. No active next task is approved until a human opens a new bounded Core V2 phase. Phase 14 replay tasks T66-T68 remain deferred unless explicitly reactivated by a human decision.
 
 ---
 
@@ -40,11 +37,14 @@ remain deferred unless explicitly reactivated by a human decision.
 | 25 | CAF Decision Primitives | T111-T114 | Add Capital Allocation Framework decision, risk, and rationale artifact schemas. | Core can represent allocation decisions as governed evidence without executing capital. |
 | 26 | Enterprise Audit Readiness | T115-T118 | Add exportable lineage, audit bundles, data classification, and review-role models. | Core can produce serious audit packages without claiming external certification. |
 | 27 | Core V1 Productization | T119-T122 | Stabilize CLI, schemas, docs, examples, runbooks, and migration notes. | Core is a documented, tested internal product kernel ready for v2 planning. |
-| 28 | Verification Kernel V2 Candidate | T123-T126 | Define portable action receipts, validator verdicts, responsibility records, and product bridge profiles. | Core can support AI-agent verification workflows without becoming a required runtime for other projects. |
+| 28 | Schema Evolution Foundations | T123-T126 | Activate the bounded Core V2 roadmap, define schema evolution policy, add compatibility primitives, and review the phase. | Core can evolve artifact schemas through deterministic policy and checks without opening public, hosted, live, holdout, capital, or compliance surfaces. |
+| 29 | Evidence Query Hardening | T127-T130 | Define and implement local deterministic evidence lookup and packet inspection improvements. | Operators can inspect local evidence deterministically without runtime RAG, hosted search, public API, or service scope. |
+| 30 | Product Bridge Adoption Readiness | T131-T134 | Strengthen product-profile adoption checks and synthetic bridge fixtures without editing product workspaces. | Core improves product-shaped validation while keeping product runtime and report ownership outside Core. |
+| 31 | V2 Internal Kernel Review | T135-T138 | Inventory Core V2 foundations, run restricted-surface regression checks, review evidence completeness, and decide whether further work requires a human gate. | Core V2 foundations remain internally bounded with no P0/P1 findings and no restricted-surface expansion. |
 
 ## Roadmap Governance
 
-The roadmap sets direction for autonomous AI development. The current active task is open for execution, and future phases are planned until roadmap evaluation promotes or rewrites them.
+The roadmap sets direction for autonomous AI development. The future phases are planned until roadmap evaluation promotes or rewrites them. When an active task is approved, it is open for execution; after T138, a human gate is required before opening the next bounded Core V2 phase.
 
 Phase boundaries are autonomous rollover points, not stop points. After every active phase closes, run deep review, fix actionable findings, validate, evaluate the roadmap, rewrite future phases/tasks when useful, open the next logical active phase, and continue automatically. The evaluation must:
 
@@ -85,10 +85,11 @@ artifact -> validation -> registry -> reproducibility -> evidence -> governance
 The 12 month roadmap lives in `docs/CORE_12_MONTH_EXECUTION_ROADMAP.md`. The AI
 development loop rules live in `docs/AI_LOOP_OPERATING_MODEL.md`.
 
-The current active Core task is none. T75-T122 are complete. The 2026-05-29
-portfolio review approves Core V2 candidate planning around verification
-receipts and responsibility records, but not public SaaS, public SDK,
-distributed execution, live capital, or mandatory adoption by other projects.
+There is no active Core task after T138. T75-T122 are complete. Core V2 started
+under D-CORE-V2-001; Phase 28 completed schema evolution foundations, Phase 29
+completed local evidence query hardening, Phase 30 completed product bridge
+adoption readiness, and Phase 31 completed internal kernel review. A new human
+decision is required before opening another bounded Core V2 phase.
 
 ## T01: Existing Project Baseline Skeleton
 
@@ -4327,114 +4328,635 @@ Notes: |
   Core V1 completion is an internal product-kernel milestone, not public SaaS
   launch or enterprise compliance certification.
 
-## T123: Core V2 Verification Kernel Scope
+## T123: Core V2 Roadmap Activation
 
 Owner:      codex
 Phase:      28
 Type:       docs
 Depends-On: T122
-Status:     planned
+Status:     done 2026-05-29
 
 Objective: |
-  Define Core V2 as a portable verification kernel for AI-agent actions,
-  decisions, evidence chains, report claims, and responsibility records.
+  Convert the 2026-05-29 human approval to start Core V2 into an explicit
+  roadmap contract and active next-task state before any Core V2 implementation
+  work begins.
 
 Acceptance-Criteria:
   - id: AC-1
-    description: "Scope doc names supported artifact types and explicitly excludes public SaaS, public SDK, distributed training, live trading, and mandatory runtime adoption."
-    test: "manual/docs-review"
+    description: "State docs identify Phase 28 and T123 as the active next task under human decision D-CORE-V2-001."
+    test: "manual/docs-review."
   - id: AC-2
-    description: "Scope doc maps Core V2 to AI Workflow Playbook, Workflow-To-Agent Studio, Telegram Research Agent, and Signal Analytics use cases."
-    test: "manual/docs-review"
+    description: "The V2 roadmap activation text preserves blocked holdout, live, broker/exchange, public SDK, hosted service, external compliance, production credential, and capital surfaces."
+    test: "manual/docs-review."
   - id: AC-3
-    description: "Scope doc distinguishes protocol/schema work from product-specific business logic."
-    test: "manual/docs-review"
+    description: "The next implementable Core V2 task contract is not opened until T123 defines bounded scope, files, acceptance criteria, and validation expectations."
+    test: "manual/docs-review."
 
 Files:
-  - docs/core/CORE_V2_VERIFICATION_KERNEL_SCOPE.md
+  - docs/CORE_V2_ROADMAP.md
+  - docs/tasks.md
   - docs/CODEX_PROMPT.md
+  - docs/DECISION_LOG.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+  - PHASE_HANDOFF.md
+  - AGENT_NOTES.md
+  - README.md
 
-## T124: Action Receipt And Responsibility Record Schema
+Context-Refs:
+  - docs/audit/CORE_V1_PRODUCTIZATION_REVIEW.md
+  - docs/core/CORE_V1_SURFACE_FREEZE.md
+  - docs/CORE_12_MONTH_EXECUTION_ROADMAP.md
+  - docs/AI_LOOP_OPERATING_MODEL.md
+  - docs/DECISION_LOG.md#D-CORE-V2-001
+
+Notes: |
+  T123 is a roadmap activation task only. It does not approve public SaaS,
+  public SDK, hosted service, auth/RBAC/SSO, tenant isolation, external
+  compliance certification, holdout access, live feeds by default,
+  broker/exchange execution, order placement, production credentials,
+  live capital, production labels, capital-ready labels, or unsupported
+  OOS/performance claims.
+
+## T124: Schema Evolution Policy Contract
 
 Owner:      codex
 Phase:      28
-Type:       implementation
+Type:       docs
 Depends-On: T123
-Status:     planned
+Status:     done 2026-05-29
 
 Objective: |
-  Add schema candidates for `action_receipt` and `responsibility_record` that
-  capture proposed action, observed state, evidence links, actor role, verifier
-  role, and final status.
+  Define the Core V2 schema evolution policy before any artifact compatibility
+  code or migration behavior changes.
 
 Acceptance-Criteria:
   - id: AC-1
-    description: "Schemas validate required fields for actor, action, source state, observed state, evidence links, verifier, and status."
-    test: "unit/schema"
+    description: "Policy document defines schema version taxonomy, compatibility categories, and when major/minor/patch changes are allowed."
+    test: "tests/reset/test_core_v2_schema_evolution_policy.py::test_policy_defines_version_taxonomy_and_compatibility"
   - id: AC-2
-    description: "Invalid records fail when they claim evidence without an artifact reference."
-    test: "unit/schema"
+    description: "Policy document defines required future migration record fields, evidence binding, and append-only correction expectations."
+    test: "tests/reset/test_core_v2_schema_evolution_policy.py::test_policy_defines_migration_records_and_append_only_evidence"
   - id: AC-3
-    description: "Examples cover file edit, report claim, model decision, and Telegram signal analysis receipt."
-    test: "unit/schema"
+    description: "Policy document preserves blocked holdout, live, broker/exchange, public SDK, hosted service, external compliance, production credential, and capital surfaces."
+    test: "tests/reset/test_core_v2_schema_evolution_policy.py::test_policy_preserves_blocked_surfaces"
 
 Files:
-  - src/entropy/verification/
-  - tests/unit/test_action_receipt_schema.py
-  - docs/core/CORE_V2_VERIFICATION_KERNEL_SCOPE.md
+  - docs/core/SCHEMA_EVOLUTION_POLICY.md
+  - tests/reset/test_core_v2_schema_evolution_policy.py
+  - docs/EVIDENCE_INDEX.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+  - docs/CODEX_PROMPT.md
+  - PHASE_HANDOFF.md
+  - AGENT_NOTES.md
 
-## T125: Validator And Referee Verdict Model
+Context-Refs:
+  - docs/CORE_V2_ROADMAP.md
+  - docs/core/CORE_V1_SURFACE_FREEZE.md
+  - docs/IMPLEMENTATION_CONTRACT.md#hash-and-run-reproducibility
+  - docs/IMPLEMENTATION_CONTRACT.md#registry-append-only
+
+Notes: |
+  This task is policy plus regression tests only. It does not implement schema
+  compatibility code yet.
+
+## T125: Schema Compatibility Primitives
 
 Owner:      codex
 Phase:      28
-Type:       implementation
+Type:       none
 Depends-On: T124
-Status:     planned
+Status:     done 2026-05-29
 
 Objective: |
-  Define a verdict model for deterministic checks, human review, and optional
-  multi-model review without over-trusting generated claims.
+  Add deterministic Python primitives for classifying artifact schema
+  compatibility according to the Core V2 schema evolution policy.
 
 Acceptance-Criteria:
   - id: AC-1
-    description: "Verdict model supports passed, failed, insufficient, needs-human-review, and superseded states."
-    test: "unit/schema"
+    description: "Compatibility helper classifies same-version, backward-compatible, migration-required, unsupported-major, and malformed version inputs deterministically."
+    test: "tests/unit/test_schema_compatibility.py::test_schema_compatibility_classification"
   - id: AC-2
-    description: "Verdicts must cite receipt ids and evidence references."
-    test: "unit/schema"
+    description: "Compatibility result includes safe operator-facing reason codes without exposing confidential payload content."
+    test: "tests/unit/test_schema_compatibility.py::test_schema_compatibility_result_is_redacted"
   - id: AC-3
-    description: "Docs describe Gensyn-inspired diversity only as candidate generation plus referee verdict, not as required distributed runtime."
-    test: "manual/docs-review"
+    description: "Compatibility helper rejects any compatibility classification that implies public, hosted, live, holdout, production, capital, or compliance approval."
+    test: "tests/unit/test_schema_compatibility.py::test_schema_compatibility_does_not_approve_restricted_surfaces"
 
 Files:
-  - src/entropy/verification/
-  - tests/unit/test_validator_verdict_schema.py
-  - docs/core/CORE_V2_VERIFICATION_KERNEL_SCOPE.md
+  - src/entropy/artifacts/schema_compatibility.py
+  - src/entropy/artifacts/__init__.py
+  - tests/unit/test_schema_compatibility.py
+  - docs/EVIDENCE_INDEX.md
+  - docs/IMPLEMENTATION_JOURNAL.md
 
-## T126: Product Bridge Profile Review
+Context-Refs:
+  - docs/core/SCHEMA_EVOLUTION_POLICY.md
+  - docs/CORE_V2_ROADMAP.md
+
+Notes: |
+  Keep this library-only. Do not add CLI, service, migration execution, or
+  registry mutation behavior in T125.
+
+## T126: Schema Evolution Foundations Review
 
 Owner:      codex
 Phase:      28
 Type:       review
 Depends-On: T125
-Status:     planned
+Status:     done 2026-05-29
 
 Objective: |
-  Review whether Core V2 receipts are useful to current products without
-  forcing Core into their runtime path.
+  Review Phase 28 schema evolution foundations and decide whether the next V2
+  phase can open without triggering a human gate.
 
 Acceptance-Criteria:
   - id: AC-1
-    description: "Review evaluates AI Workflow Playbook, Workflow-To-Agent Studio, Telegram Research Agent, and Signal Analytics integration value."
-    test: "manual/review"
+    description: "Review summarizes roadmap activation, schema policy, compatibility primitives, validation evidence, limitations, and open findings."
+    test: "manual-evidence: Phase 28 review exists."
   - id: AC-2
-    description: "Review identifies which integrations remain docs/CI-only and which deserve optional adapters."
-    test: "manual/review"
+    description: "Review confirms public SDK, hosted service, external compliance, live, holdout, broker/exchange, production credential, and capital surfaces remain blocked."
+    test: "manual-evidence: blocked-surface section exists."
   - id: AC-3
-    description: "Review blocks mandatory Core dependency unless measurable benefit is shown."
-    test: "manual/review"
+    description: "State docs either open the next bounded V2 phase or stop for a human gate if scope expansion is required."
+    test: "manual/docs-review."
 
 Files:
-  - docs/audit/CORE_V2_PRODUCT_BRIDGE_REVIEW.md
+  - docs/audit/SCHEMA_EVOLUTION_FOUNDATIONS_REVIEW.md
+  - docs/audit/AUDIT_INDEX.md
   - docs/EVIDENCE_INDEX.md
+  - docs/IMPLEMENTATION_JOURNAL.md
   - docs/CODEX_PROMPT.md
+  - PHASE_HANDOFF.md
+  - AGENT_NOTES.md
+
+Context-Refs:
+  - docs/CORE_V2_ROADMAP.md
+  - docs/core/SCHEMA_EVOLUTION_POLICY.md
+
+Notes: |
+  Phase 28 review may not open service, public SDK, live, holdout, compliance,
+  production credential, or capital scope.
+
+## T127: Evidence Lookup Policy Contract
+
+Owner:      codex
+Phase:      29
+Type:       docs
+Depends-On: T126
+Status:     done 2026-05-29
+
+Objective: |
+  Define local deterministic evidence lookup policy before adding evidence
+  query helpers or inspection behavior.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Policy distinguishes local deterministic evidence lookup from runtime RAG, hosted search, public API, and service scope."
+    test: "tests/reset/test_evidence_lookup_policy.py::test_policy_distinguishes_local_lookup_from_rag_and_service_scope"
+  - id: AC-2
+    description: "Policy defines allowed query inputs, result metadata, missing-evidence behavior, and redaction expectations."
+    test: "tests/reset/test_evidence_lookup_policy.py::test_policy_defines_inputs_results_missing_evidence_and_redaction"
+  - id: AC-3
+    description: "Policy preserves blocked holdout, live, broker/exchange, public SDK, hosted service, external compliance, production credential, and capital surfaces."
+    test: "tests/reset/test_evidence_lookup_policy.py::test_policy_preserves_blocked_surfaces"
+
+Files:
+  - docs/core/EVIDENCE_LOOKUP_POLICY.md
+  - tests/reset/test_evidence_lookup_policy.py
+  - docs/EVIDENCE_INDEX.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+  - docs/CODEX_PROMPT.md
+  - PHASE_HANDOFF.md
+  - AGENT_NOTES.md
+
+Context-Refs:
+  - docs/audit/SCHEMA_EVOLUTION_FOUNDATIONS_REVIEW.md
+  - docs/EVIDENCE_INDEX.md
+  - docs/CORE_V2_ROADMAP.md
+
+Notes: |
+  This task is policy plus regression tests only. It does not implement runtime
+  RAG, embeddings, hosted search, public API, or service behavior.
+
+## T128: Local Evidence Lookup Primitives
+
+Owner:      codex
+Phase:      29
+Type:       none
+Depends-On: T127
+Status:     done 2026-05-29
+
+Objective: |
+  Add deterministic local evidence lookup primitives over `docs/EVIDENCE_INDEX.md`
+  according to the evidence lookup policy.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Lookup helper returns exact topic/path matches with artifact type, location, scope, verification date, and canonical flag."
+    test: "tests/unit/test_evidence_lookup.py::test_lookup_returns_exact_evidence_metadata"
+  - id: AC-2
+    description: "Lookup helper returns explicit insufficient-evidence status for missing topics without fabricating citations."
+    test: "tests/unit/test_evidence_lookup.py::test_lookup_returns_insufficient_evidence_for_missing_topic"
+  - id: AC-3
+    description: "Lookup result does not expose raw confidential payloads or imply public, hosted, live, holdout, production, capital, or compliance approval."
+    test: "tests/unit/test_evidence_lookup.py::test_lookup_result_is_redacted_and_non_approving"
+
+Files:
+  - src/entropy/artifacts/evidence_lookup.py
+  - src/entropy/artifacts/__init__.py
+  - tests/unit/test_evidence_lookup.py
+  - docs/EVIDENCE_INDEX.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Context-Refs:
+  - docs/core/EVIDENCE_LOOKUP_POLICY.md
+  - docs/EVIDENCE_INDEX.md
+
+Notes: |
+  Keep this file-local and deterministic. Do not add runtime RAG, embeddings,
+  hosted search, HTTP API, CLI, or external dependencies.
+
+## T129: Evidence Inspect Alignment
+
+Owner:      codex
+Phase:      29
+Type:       none
+Depends-On: T128
+Status:     done 2026-05-29
+
+Objective: |
+  Align local evidence packet inspection outputs with the evidence lookup
+  metadata vocabulary without changing service scope.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Evidence inspect helper can include lookup metadata for local packet references."
+    test: "tests/unit/test_evidence_lookup.py::test_packet_lookup_metadata_alignment"
+  - id: AC-2
+    description: "Missing packet references remain explicit insufficient-evidence results."
+    test: "tests/unit/test_evidence_lookup.py::test_missing_packet_refs_remain_insufficient_evidence"
+  - id: AC-3
+    description: "Inspect alignment preserves no public, hosted, live, holdout, production, capital, or compliance approval semantics."
+    test: "tests/unit/test_evidence_lookup.py::test_packet_lookup_alignment_is_non_approving"
+
+Files:
+  - src/entropy/artifacts/evidence_lookup.py
+  - tests/unit/test_evidence_lookup.py
+  - docs/EVIDENCE_INDEX.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Context-Refs:
+  - docs/core/EVIDENCE_LOOKUP_POLICY.md
+  - docs/audit/SCHEMA_EVOLUTION_FOUNDATIONS_REVIEW.md
+
+Notes: |
+  Do not add hosted service, public API, or runtime retrieval.
+
+## T130: Evidence Query Hardening Review
+
+Owner:      codex
+Phase:      29
+Type:       review
+Depends-On: T129
+Status:     done 2026-05-29
+
+Objective: |
+  Review Phase 29 evidence query hardening and decide whether the next bounded
+  V2 phase can open without a human gate.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Review summarizes evidence lookup policy, primitives, inspect alignment, validation evidence, limitations, and open findings."
+    test: "manual-evidence: Phase 29 review exists."
+  - id: AC-2
+    description: "Review confirms runtime RAG, embeddings, hosted search, public API, public SDK, live, holdout, broker/exchange, production credential, external compliance, and capital surfaces remain blocked."
+    test: "manual-evidence: blocked-surface section exists."
+  - id: AC-3
+    description: "State docs either open the next bounded V2 phase or stop for a human gate if scope expansion is required."
+    test: "manual/docs-review."
+
+Files:
+  - docs/audit/EVIDENCE_QUERY_HARDENING_REVIEW.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/EVIDENCE_INDEX.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+  - docs/CODEX_PROMPT.md
+  - PHASE_HANDOFF.md
+  - AGENT_NOTES.md
+
+Context-Refs:
+  - docs/core/EVIDENCE_LOOKUP_POLICY.md
+  - docs/audit/SCHEMA_EVOLUTION_FOUNDATIONS_REVIEW.md
+
+Notes: |
+  Phase 29 review may not open runtime RAG, embeddings, hosted search, public
+  API, service, public SDK, live, holdout, compliance, production credential,
+  or capital scope.
+
+## T131: Product Bridge Adoption Policy
+
+Owner:      codex
+Phase:      30
+Type:       docs
+Depends-On: T130
+Status:     done 2026-05-29
+
+Objective: |
+  Define Core V2 product bridge adoption policy before adding stronger
+  product-profile checks or fixtures.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Policy distinguishes Core-owned product-profile validation from product runtime logic, report authorship, and workspace edits."
+    test: "tests/reset/test_product_bridge_adoption_policy.py::test_policy_distinguishes_core_validation_from_product_runtime"
+  - id: AC-2
+    description: "Policy defines adoption readiness inputs, synthetic fixture requirements, failure handling, and evidence expectations."
+    test: "tests/reset/test_product_bridge_adoption_policy.py::test_policy_defines_readiness_inputs_fixtures_failures_and_evidence"
+  - id: AC-3
+    description: "Policy preserves blocked public SDK, hosted service, live, holdout, broker/exchange, production credential, external compliance, and capital surfaces."
+    test: "tests/reset/test_product_bridge_adoption_policy.py::test_policy_preserves_blocked_surfaces"
+
+Files:
+  - docs/core/PRODUCT_BRIDGE_ADOPTION_POLICY.md
+  - tests/reset/test_product_bridge_adoption_policy.py
+  - docs/EVIDENCE_INDEX.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+  - docs/CODEX_PROMPT.md
+  - PHASE_HANDOFF.md
+  - AGENT_NOTES.md
+
+Context-Refs:
+  - docs/audit/EVIDENCE_QUERY_HARDENING_REVIEW.md
+  - docs/core/PRODUCT_ARTIFACT_BRIDGES.md
+  - docs/CORE_V2_ROADMAP.md
+
+Notes: |
+  This task is policy plus regression tests only. It does not edit Trader Risk
+  Audit or Signal Analytics Sandbox workspaces.
+
+## T132: Product Bridge Readiness Checks
+
+Owner:      codex
+Phase:      30
+Type:       none
+Depends-On: T131
+Status:     done 2026-05-29
+
+Objective: |
+  Add deterministic Core-side readiness checks for product bridge profiles.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Readiness helper validates required adoption metadata for known product bridge profiles."
+    test: "tests/unit/test_product_bridge_adoption.py::test_readiness_helper_validates_required_metadata"
+  - id: AC-2
+    description: "Readiness helper rejects missing synthetic fixture refs, missing evidence refs, and unsupported claim surfaces."
+    test: "tests/unit/test_product_bridge_adoption.py::test_readiness_helper_rejects_missing_refs_and_unsafe_claims"
+  - id: AC-3
+    description: "Readiness result stays Core-local and does not imply product runtime ownership or external delivery approval."
+    test: "tests/unit/test_product_bridge_adoption.py::test_readiness_result_is_core_local_and_non_approving"
+
+Files:
+  - src/entropy/artifacts/product_bridge_adoption.py
+  - src/entropy/artifacts/__init__.py
+  - tests/unit/test_product_bridge_adoption.py
+  - docs/EVIDENCE_INDEX.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Context-Refs:
+  - docs/core/PRODUCT_BRIDGE_ADOPTION_POLICY.md
+  - docs/core/PRODUCT_ARTIFACT_BRIDGES.md
+
+Notes: |
+  Do not edit product workspaces or product report logic.
+
+## T133: Product Bridge Adoption Fixtures
+
+Owner:      codex
+Phase:      30
+Type:       none
+Depends-On: T132
+Status:     done 2026-05-29
+
+Objective: |
+  Add synthetic product bridge adoption fixtures that exercise readiness checks
+  without using real customer, product, or private research payloads.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Synthetic valid adoption fixtures exist for Trader and Signal product bridge profiles."
+    test: "tests/unit/test_product_bridge_adoption.py::test_synthetic_adoption_fixtures_are_valid"
+  - id: AC-2
+    description: "Unsafe fixtures cover product runtime ownership, report authorship, hosted service, and external delivery approval violations."
+    test: "tests/unit/test_product_bridge_adoption.py::test_unsafe_adoption_fixtures_are_rejected"
+  - id: AC-3
+    description: "Fixtures use synthetic/redacted references only."
+    test: "tests/unit/test_product_bridge_adoption.py::test_adoption_fixtures_are_synthetic"
+
+Files:
+  - tests/fixtures/artifacts/adoption/
+  - tests/unit/test_product_bridge_adoption.py
+  - docs/EVIDENCE_INDEX.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Context-Refs:
+  - docs/core/PRODUCT_BRIDGE_ADOPTION_POLICY.md
+
+Notes: |
+  Fixtures must not include real customer, product, private research, holdout,
+  credential, or live data.
+
+## T134: Product Bridge Adoption Readiness Review
+
+Owner:      codex
+Phase:      30
+Type:       review
+Depends-On: T133
+Status:     done 2026-05-29
+
+Objective: |
+  Review Phase 30 product bridge adoption readiness and decide whether the next
+  bounded V2 phase can open without a human gate.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Review summarizes adoption policy, readiness checks, synthetic fixtures, validation evidence, limitations, and open findings."
+    test: "manual-evidence: Phase 30 review exists."
+  - id: AC-2
+    description: "Review confirms product runtime ownership, product report authorship, product workspace edits, public SDK, hosted service, live, holdout, broker/exchange, production credential, external compliance, and capital surfaces remain blocked."
+    test: "manual-evidence: blocked-surface section exists."
+  - id: AC-3
+    description: "State docs either open the next bounded V2 phase or stop for a human gate if scope expansion is required."
+    test: "manual/docs-review."
+
+Files:
+  - docs/audit/PRODUCT_BRIDGE_ADOPTION_READINESS_REVIEW.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/EVIDENCE_INDEX.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+  - docs/CODEX_PROMPT.md
+  - PHASE_HANDOFF.md
+  - AGENT_NOTES.md
+
+Context-Refs:
+  - docs/core/PRODUCT_BRIDGE_ADOPTION_POLICY.md
+  - docs/audit/EVIDENCE_QUERY_HARDENING_REVIEW.md
+
+Notes: |
+  Phase 30 review may not open product workspace edits, public SDK, hosted
+  service, live, holdout, compliance, production credential, or capital scope.
+
+## T135: V2 Kernel Foundation Inventory
+
+Owner:      codex
+Phase:      31
+Type:       docs
+Depends-On: T134
+Status:     done 2026-05-29
+
+Objective: |
+  Inventory Core V2 foundations completed so far and identify what is inside
+  the internal kernel boundary.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Inventory lists Phase 28 schema evolution, Phase 29 evidence query, and Phase 30 product bridge adoption foundations."
+    test: "tests/reset/test_v2_kernel_review_inventory.py::test_inventory_lists_v2_foundations"
+  - id: AC-2
+    description: "Inventory distinguishes internal kernel primitives from public SDK, hosted service, product runtime, and external compliance scope."
+    test: "tests/reset/test_v2_kernel_review_inventory.py::test_inventory_preserves_internal_kernel_boundary"
+  - id: AC-3
+    description: "Inventory records follow-up evidence gaps without claiming product, hosted, live, holdout, or capital readiness."
+    test: "tests/reset/test_v2_kernel_review_inventory.py::test_inventory_records_evidence_gaps_without_readiness_claims"
+
+Files:
+  - docs/core/V2_KERNEL_FOUNDATION_INVENTORY.md
+  - tests/reset/test_v2_kernel_review_inventory.py
+  - docs/EVIDENCE_INDEX.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+  - docs/CODEX_PROMPT.md
+  - PHASE_HANDOFF.md
+  - AGENT_NOTES.md
+
+Context-Refs:
+  - docs/audit/PRODUCT_BRIDGE_ADOPTION_READINESS_REVIEW.md
+  - docs/audit/EVIDENCE_QUERY_HARDENING_REVIEW.md
+  - docs/audit/SCHEMA_EVOLUTION_FOUNDATIONS_REVIEW.md
+
+Notes: |
+  This task is documentation and reset tests only. It may not add product
+  workspace edits, public SDK, hosted service, runtime RAG, live, holdout,
+  production credential, external compliance, or capital scope.
+
+## T136: Restricted Surface Regression Sweep V2
+
+Owner:      codex
+Phase:      31
+Type:       none
+Depends-On: T135
+Status:     done 2026-05-31
+
+Objective: |
+  Add or update regression checks proving Core V2 artifacts still do not open
+  restricted surfaces.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Regression checks cover public SDK, hosted service, product runtime ownership, product report authorship, external delivery approval, and runtime RAG."
+    test: "tests/reset/test_v2_restricted_surface_sweep.py::test_v2_public_and_product_surfaces_stay_blocked"
+  - id: AC-2
+    description: "Regression checks cover live, holdout, broker/exchange, production credential, external compliance, and capital surfaces."
+    test: "tests/reset/test_v2_restricted_surface_sweep.py::test_v2_live_holdout_compliance_and_capital_surfaces_stay_blocked"
+  - id: AC-3
+    description: "Regression checks verify V2 review docs do not claim production, capital-ready, investment-advice, or unsupported OOS/performance readiness."
+    test: "tests/reset/test_v2_restricted_surface_sweep.py::test_v2_review_docs_do_not_claim_unsupported_readiness"
+
+Files:
+  - tests/reset/test_v2_restricted_surface_sweep.py
+  - docs/EVIDENCE_INDEX.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Context-Refs:
+  - docs/core/V2_KERNEL_FOUNDATION_INVENTORY.md
+  - docs/AI_LOOP_OPERATING_MODEL.md
+
+Notes: |
+  This task may add tests only. It may not implement blocked surfaces.
+
+## T137: V2 Evidence Completeness Matrix
+
+Owner:      codex
+Phase:      31
+Type:       docs
+Depends-On: T136
+Status:     done 2026-05-31
+
+Objective: |
+  Summarize V2 evidence coverage and gaps across schema evolution, evidence
+  lookup, product bridge adoption, and restricted-surface regressions.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Matrix maps V2 tasks T123-T136 to evidence artifacts and validation commands."
+    test: "tests/reset/test_v2_evidence_completeness_matrix.py::test_matrix_maps_v2_tasks_to_evidence"
+  - id: AC-2
+    description: "Matrix labels gaps as internal follow-ups rather than product, hosted, live, holdout, or capital readiness blockers."
+    test: "tests/reset/test_v2_evidence_completeness_matrix.py::test_matrix_labels_gaps_without_scope_expansion"
+  - id: AC-3
+    description: "Matrix references audit reviews and evidence index rows for Phases 28-31."
+    test: "tests/reset/test_v2_evidence_completeness_matrix.py::test_matrix_references_reviews_and_evidence_index"
+
+Files:
+  - docs/core/V2_EVIDENCE_COMPLETENESS_MATRIX.md
+  - tests/reset/test_v2_evidence_completeness_matrix.py
+  - docs/EVIDENCE_INDEX.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+
+Context-Refs:
+  - docs/core/V2_KERNEL_FOUNDATION_INVENTORY.md
+  - docs/EVIDENCE_INDEX.md
+
+Notes: |
+  Matrix gaps are internal evidence gaps only and do not authorize new product
+  or external scope.
+
+## T138: V2 Internal Kernel Review
+
+Owner:      codex
+Phase:      31
+Type:       review
+Depends-On: T137
+Status:     done 2026-05-31
+
+Objective: |
+  Review Core V2 internal kernel foundations and decide whether the roadmap can
+  continue autonomously or must stop for a human gate.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Review summarizes V2 foundations, restricted-surface sweep results, evidence completeness, limitations, and open findings."
+    test: "manual-evidence: V2 internal kernel review exists."
+  - id: AC-2
+    description: "Review confirms public SDK, hosted service, runtime RAG, product runtime/report ownership, live, holdout, compliance, credential, and capital surfaces remain blocked."
+    test: "manual-evidence: blocked-surface section exists."
+  - id: AC-3
+    description: "State docs either open a bounded next V2 phase or stop for a human gate if future work would require scope expansion."
+    test: "manual/docs-review."
+
+Files:
+  - docs/audit/V2_INTERNAL_KERNEL_REVIEW.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/EVIDENCE_INDEX.md
+  - docs/IMPLEMENTATION_JOURNAL.md
+  - docs/CODEX_PROMPT.md
+  - PHASE_HANDOFF.md
+  - AGENT_NOTES.md
+
+Context-Refs:
+  - docs/core/V2_EVIDENCE_COMPLETENESS_MATRIX.md
+  - docs/audit/PRODUCT_BRIDGE_ADOPTION_READINESS_REVIEW.md
+
+Notes: |
+  Review must stop for a human gate if the next desired work needs public SDK,
+  hosted service, product runtime ownership, external compliance, holdout,
+  live, production credential, or capital scope.

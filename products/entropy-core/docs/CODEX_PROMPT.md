@@ -1,8 +1,8 @@
 # CODEX_PROMPT.md
 
-Version: 2.7
-Date: 2026-05-15
-Phase: 27
+Version: 2.6
+Date: 2026-05-31
+Phase: 31
 
 This file is compact session state for Entropy Core. Historical detail belongs
 in `docs/IMPLEMENTATION_JOURNAL.md`, `docs/EVIDENCE_INDEX.md`, `docs/audit/`,
@@ -10,16 +10,16 @@ and `docs/tasks.md`.
 
 ## Current Phase
 
-- Phase: 27
-- Name: Core V1 Productization
-- Business goal: freeze and document the Core V1 internal product kernel,
-  runbooks, examples, and final review without public SaaS/compliance claims.
-- Phase gate: Core is a documented, tested internal product kernel ready for
-  V2 planning, with automatic roadmap expansion stopped after T122.
+- Phase: 31
+- Name: V2 Internal Kernel Review
+- Business goal: inventory Core V2 foundations, verify restricted surfaces stay
+  blocked, and decide whether further work needs a human gate.
+- Phase gate: Core V2 foundations remain internally bounded with no P0/P1
+  findings and no restricted-surface expansion.
 
 ## Current State
 
-- Phase: 27
+- Phase: 31
 - Baseline: 625 passing tests, 20 skipped
 - Last local baseline detail: `.venv/bin/python -m pytest -q tests/` reported `625 passed, 20 skipped`
 - Phase 16 baseline detail: `.venv/bin/python -m pytest -q tests/` reported `23 failed, 487 passed, 20 skipped` before T75; after reset/state-doc sync reported `525 passed, 20 skipped`
@@ -29,19 +29,16 @@ and `docs/tasks.md`.
 - Live capital: not approved
 - Broker/exchange integration: not approved
 - OOS/performance claims: not approved
-- Last updated: 2026-05-15
+- Last updated: 2026-05-31
 - Product hypothesis status: `local_evidence_strengthened_not_confirmed`
 - Artifact support status: Phase 15 complete through T74; Core remains hidden/internal.
-- Core execution roadmap status: Core V1 complete through T122; automatic roadmap expansion stopped pending human-approved V2 roadmap.
-- Portfolio pause: Trader Risk Audit and Signal Analytics Sandbox are the
-  active validation tracks; Core remains paused unless they create a concrete
-  dependency or a human approves Core V2.
+- Core execution roadmap status: Core V1 complete through T122; Core V2 start approved by D-CORE-V2-001; Phase 28 complete through T126; Phase 29 complete through T130; Phase 30 complete through T134; Phase 31 complete through T138; no active next task until a human opens a new bounded Core V2 phase.
 
 ## Read First
 
 1. `docs/AI_LOOP_OPERATING_MODEL.md`
 2. `docs/CORE_12_MONTH_EXECUTION_ROADMAP.md`
-3. `docs/tasks.md` Phase 27, T119-T122
+3. `docs/tasks.md` Phase 31, T135-T138
 4. `docs/IMPLEMENTATION_CONTRACT.md`
 5. task-specific `Context-Refs` in `docs/tasks.md`
 
@@ -60,12 +57,17 @@ Other useful links:
 
 ## Next Step
 
-Human gate: approve or reject a Core V2 roadmap.
+Next Task: none - human gate required for the next bounded Core V2 phase.
 
-The T75-T122 execution roadmap is complete. Do not continue into new roadmap
-tasks until a human approves a Core V2 roadmap.
-Do not open Core work from portfolio/product validation discussions unless the
-operator explicitly changes this pause.
+The T75-T122 execution roadmap is complete. Human decision D-CORE-V2-001
+approves starting Core V2. T123 defined the bounded V2 roadmap contract and
+Phase 28 completed schema evolution foundations through T126. Phase 29
+completed evidence query hardening through T130. T131 defined product bridge
+adoption policy, T132 added deterministic Core-side readiness checks, T133
+added synthetic adoption fixtures, T134 reviewed Phase 30, T135 inventoried
+Core V2 foundations, T136 added restricted-surface regression checks, and T137
+summarized V2 evidence coverage and gaps, and T138 reviewed Phase 31. Automatic
+Core V2 expansion stops here until a human opens the next bounded phase.
 
 ## Active Guardrails
 
@@ -74,8 +76,24 @@ operator explicitly changes this pause.
 - T69-T74 artifact-support docs are complete; this does not approve product
   workspace edits from Core, public SDK work, hosted service work, or
   product-specific report ownership.
-- T75-T122 define the completed Core execution roadmap. Agents must not
-  auto-open new roadmap tasks until a human approves a Core V2 roadmap.
+- T75-T122 define the completed Core V1 execution roadmap.
+- T123 completed the Core V2 roadmap activation task under D-CORE-V2-001.
+- T124 completed the schema evolution policy task.
+- T126 completed the Phase 28 schema evolution foundations review.
+- T127 completed the evidence lookup policy task.
+- T130 completed the Phase 29 evidence query hardening review.
+- T131 completed the product bridge adoption policy task.
+- T132 completed the Core-side product bridge readiness check task.
+- T133 completed the synthetic product bridge adoption fixture task.
+- T134 completed the product bridge adoption readiness review task and opened
+  bounded Phase 31 without a human gate.
+- T135 completed the V2 kernel foundation inventory task.
+- T136 completed the restricted-surface regression sweep task.
+- T137 completed the V2 evidence completeness matrix task.
+- T138 completed the V2 internal kernel review task and stopped automatic Core
+  V2 expansion at a human gate.
+- No active next task is approved. Do not continue beyond T138 until a human
+  opens a new bounded Core V2 phase.
 - The only current approval is `local_broker_sandbox_no_capital_replay` with
   maximum effect `local_no_effect_only`.
 - Real external side effects, holdout reads, holdout unlocks, live order
@@ -83,12 +101,18 @@ operator explicitly changes this pause.
   credential loading, credentialed production deployment, and external sandbox
   order emission from code remain blocked.
 - No public SDK, hosted service, holdout/OOS expansion, live execution path, or
-  generic platform work without a new explicit human decision.
+  generic platform work without a new explicit human decision and bounded task
+  contract.
 - Phase 26 audit readiness work must not claim SOC 2, regulatory
   certification, investment-advice compliance, enterprise SLA, hosted service,
   auth/RBAC, SSO, or tenant isolation by default.
-- Phase 27 must stop automatic roadmap expansion after T122 until a human
-  approves a Core V2 roadmap.
+- Phase 31 remains limited to internal Core V2 kernel review.
+  Core V2 approval does not by itself approve product workspace edits, product
+  report ownership, runtime RAG, embeddings, public SaaS, public SDK, hosted
+  service, auth/RBAC/SSO, tenant isolation, external compliance certification,
+  holdout access, live feeds by default, broker/exchange execution, production
+  credentials, live capital, production labels, capital-ready labels, or
+  unsupported OOS/performance claims.
 
 ## Historical Anchors
 
