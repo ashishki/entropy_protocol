@@ -47,6 +47,14 @@ Phases:
 - **Phase 39** — Telegram Trader Intelligence productization: product frame,
   receipts, referee verdicts, diverse analytical lenses, and buyer-demo report
   structure.
+- **Phase 40** — Auto-validation evidence contract: define the proof bundle,
+  validator result schema, audit log, and allowed auto-decision states.
+- **Phase 41** — Auto-validation validator stack: deterministic and
+  evidence-backed checks for pre-outcome timing, OCR/level confidence,
+  setup consistency, asset/proxy/provider eligibility, and post-factum cues.
+- **Phase 42** — Auto-accept decision engine and evaluation: combine validator
+  evidence into strict auto-accepted / auto-rejected / needs-human decisions,
+  then evaluate against the current 9 media candidates before any customer use.
 
 Current active focus:
 
@@ -74,6 +82,10 @@ Current active focus:
 - Phase 39 is the planned productization route after Phase 38: it turns the
   sandbox into Telegram Trader Intelligence without approving prediction,
   leaderboard, advice, private scraping, or autonomous trading.
+- After Phase 38, the active internal-hardening route is Phases 40-42:
+  automate validation only through auditable evidence bundles and deterministic
+  validators. Model review may propose candidates, but auto-accept requires
+  independent proof checks and conservative thresholds.
 
 ---
 
@@ -4417,7 +4429,7 @@ small showable demo subset, and define discovery success criteria. It must not
 start outreach, pricing, paid report delivery, private-channel analysis,
 private-channel partnership, or public ranking.
 
-### SAS-CLIENTREADY-001: Operator Media Acceptance Ledger
+### SAS-CLIENTREADY-001: Operator Media Acceptance Ledger ✅
 
 Owner:      codex + operator
 Phase:      38
@@ -4444,7 +4456,7 @@ Files:
   - docs/pilot/clientready_OPERATOR_MEDIA_LEDGER.json
   - tests/unit/test_clientready_operator_ledger.py
 
-### SAS-CLIENTREADY-002: Accepted Candidate RR And Outcome Recompute
+### SAS-CLIENTREADY-002: Accepted Candidate RR And Outcome Recompute ✅
 
 Owner:      codex
 Phase:      38
@@ -4472,7 +4484,7 @@ Files:
   - docs/pilot/clientready_ACCEPTED_OUTCOMES.json
   - tests/unit/test_clientready_accepted_outcomes.py
 
-### SAS-CLIENTREADY-003: Redacted Buyer Demo Subset
+### SAS-CLIENTREADY-003: Redacted Buyer Demo Subset ✅
 
 Owner:      codex + operator
 Phase:      38
@@ -4499,7 +4511,7 @@ Files:
   - docs/pilot/clientready_REDACTED_BUYER_DEMO.json
   - tests/unit/test_clientready_redacted_demo.py
 
-### SAS-CLIENTREADY-004: Discovery Gate And Success Criteria
+### SAS-CLIENTREADY-004: Discovery Gate And Success Criteria ✅
 
 Owner:      codex + operator
 Phase:      38
@@ -4525,6 +4537,319 @@ Files:
   - docs/pilot/clientready_DISCOVERY_GATE.md
   - docs/pilot/clientready_DISCOVERY_GATE.json
   - tests/unit/test_clientready_discovery_gate.py
+
+## Phase 40 — Auto-Validation Evidence Contract
+
+Goal: replace the current human-only media acceptance bottleneck with an
+auditable auto-validation contract. The system may auto-accept only when
+evidence bundles, deterministic validators, and policy gates all pass. Anything
+ambiguous remains `needs_human`. This phase defines the proof surface; it does
+not yet promote any current candidate to customer-facing use.
+
+### SAS-AUTOVAL-001: Auto-Validation Architecture ADR And Contract ✅
+
+Owner:      codex
+Phase:      40
+Type:       docs
+Depends-On: SAS-CLIENTREADY-004
+
+Objective: |
+  Define the automation contract for validating media/chart candidates without
+  treating model review as truth.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "An ADR or spec states that auto-accept requires independent proof checks for timing, OCR/levels, setup consistency, asset/proxy/provider eligibility, post-factum cues, and customer-facing policy."
+    test: "tests/unit/test_auto_validation_task_graph.py"
+  - id: AC-2
+    description: "The contract defines auto_accepted, auto_rejected, excluded_provider_gap, needs_human, and blocked_customer_facing states."
+    test: "tests/unit/test_auto_validation_task_graph.py"
+  - id: AC-3
+    description: "The contract states that any validator uncertainty routes to needs_human, not customer-facing metrics."
+    test: "tests/unit/test_auto_validation_task_graph.py"
+
+Files:
+  - docs/adr/ADR-005-auto-validation-evidence-engine.md
+  - docs/specs/AUTO_VALIDATION_EVIDENCE.md
+  - tests/unit/test_auto_validation_task_graph.py
+
+### SAS-AUTOVAL-002: Evidence Bundle Schema ✅
+
+Owner:      codex
+Phase:      40
+Type:       implementation
+Depends-On: SAS-AUTOVAL-001
+
+Objective: |
+  Create a machine-readable evidence bundle for each candidate that preserves
+  source URL, source timestamp, media refs, media hashes, OCR/transcript refs,
+  model extraction spans, proposed setup fields, and market-window refs.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Evidence bundle schema requires source URL, timestamp, media ref/hash or text ref/hash, extracted fields, extraction evidence refs, and provenance version."
+    test: "tests/unit/test_auto_validation_evidence_bundle.py"
+  - id: AC-2
+    description: "Bundle validation rejects missing source timestamp, missing evidence ref, missing media/text checksum, or unsupported source class."
+    test: "tests/unit/test_auto_validation_evidence_bundle.py"
+  - id: AC-3
+    description: "Bundle JSON serialization is deterministic and suitable for audit logs."
+    test: "tests/unit/test_auto_validation_evidence_bundle.py"
+
+Files:
+  - src/signal_sandbox/auto_validation/evidence.py
+  - tests/unit/test_auto_validation_evidence_bundle.py
+
+### SAS-AUTOVAL-003: Validation Result And Audit Log Schema ✅
+
+Owner:      codex
+Phase:      40
+Type:       implementation
+Depends-On: SAS-AUTOVAL-002
+
+Objective: |
+  Define validator outputs so every pass/fail/uncertain decision has evidence,
+  confidence, blocker reasons, validator version, and reproducible inputs.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Validation result schema records validator id/version, status, confidence, evidence refs, blocker reasons, and deterministic input hashes."
+    test: "tests/unit/test_auto_validation_result_schema.py"
+  - id: AC-2
+    description: "Audit log can combine multiple validator results without losing individual evidence refs."
+    test: "tests/unit/test_auto_validation_result_schema.py"
+  - id: AC-3
+    description: "A result with missing evidence refs or blank validator version is invalid."
+    test: "tests/unit/test_auto_validation_result_schema.py"
+
+Files:
+  - src/signal_sandbox/auto_validation/results.py
+  - tests/unit/test_auto_validation_result_schema.py
+
+## Phase 41 — Auto-Validation Validator Stack
+
+Goal: implement independent validators that can prove or block the exact
+failure modes that currently require operator review: post-factum screenshots,
+bad OCR/level reads, wrong asset/proxy mapping, inconsistent setup math, and
+unsafe customer-facing promotion.
+
+### SAS-AUTOVAL-004: Pre-Outcome Timing Validator ✅
+
+Owner:      codex
+Phase:      41
+Type:       implementation
+Depends-On: SAS-AUTOVAL-003
+
+Objective: |
+  Verify that a candidate was published before the relevant market move, target
+  touch, stop touch, or post-factum evidence window.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Validator compares source timestamp to approved public market-window refs and returns pass only when the setup precedes outcome evidence."
+    test: "tests/unit/test_auto_validation_timing.py"
+  - id: AC-2
+    description: "If target/stop was already reached before source timestamp, validator returns failed_post_factum_or_late."
+    test: "tests/unit/test_auto_validation_timing.py"
+  - id: AC-3
+    description: "Missing market data, missing timestamp, or unsupported provider returns uncertain_needs_human, not pass."
+    test: "tests/unit/test_auto_validation_timing.py"
+
+Files:
+  - src/signal_sandbox/auto_validation/timing.py
+  - tests/unit/test_auto_validation_timing.py
+
+### SAS-AUTOVAL-005: OCR Level And Setup Consistency Validator ✅
+
+Owner:      codex
+Phase:      41
+Type:       implementation
+Depends-On: SAS-AUTOVAL-003
+
+Objective: |
+  Validate that entry, stop, target, direction, and RR fields are read with
+  sufficient evidence and form one coherent trade setup.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Validator requires OCR/model evidence refs or bounding-box refs for every accepted level."
+    test: "tests/unit/test_auto_validation_setup_consistency.py"
+  - id: AC-2
+    description: "Long setups require stop < entry < target; short setups require target < entry < stop; violations fail validation."
+    test: "tests/unit/test_auto_validation_setup_consistency.py"
+  - id: AC-3
+    description: "Ambiguous levels, mixed trades, low confidence, or conflicting targets return uncertain_needs_human."
+    test: "tests/unit/test_auto_validation_setup_consistency.py"
+
+Files:
+  - src/signal_sandbox/auto_validation/setup_consistency.py
+  - tests/unit/test_auto_validation_setup_consistency.py
+
+### SAS-AUTOVAL-006: Asset Proxy And Provider Eligibility Validator ✅
+
+Owner:      codex
+Phase:      41
+Type:       implementation
+Depends-On: SAS-AUTOVAL-003
+
+Objective: |
+  Prove that a candidate's asset maps to an approved instrument/proxy/provider
+  path before any recompute can run.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Validator maps asset aliases to approved provider/proxy refs or explicit exclusion states."
+    test: "tests/unit/test_auto_validation_provider_eligibility.py"
+  - id: AC-2
+    description: "Ambiguous aliases, unsupported markets, and unapproved quote scales return excluded_provider_gap or uncertain_needs_human."
+    test: "tests/unit/test_auto_validation_provider_eligibility.py"
+  - id: AC-3
+    description: "No provider lookup stores bulk market history; output records only compact provenance refs."
+    test: "tests/unit/test_auto_validation_provider_eligibility.py"
+
+Files:
+  - src/signal_sandbox/auto_validation/provider_eligibility.py
+  - tests/unit/test_auto_validation_provider_eligibility.py
+
+### SAS-AUTOVAL-007: Post-Factum And Closed-Position Cue Detector ✅
+
+Owner:      codex
+Phase:      41
+Type:       implementation
+Depends-On: SAS-AUTOVAL-003
+
+Objective: |
+  Detect screenshots or text that describe already-managed or already-closed
+  positions instead of pre-outcome calls.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Detector flags PnL, closed-position, take-profit-hit, already-managed, and retrospective language cues as post_factum_risk."
+    test: "tests/unit/test_auto_validation_post_factum.py"
+  - id: AC-2
+    description: "High-confidence post-factum rows become auto_rejected_for_predictive_metrics, not wins/losses."
+    test: "tests/unit/test_auto_validation_post_factum.py"
+  - id: AC-3
+    description: "Mixed or low-confidence cues return uncertain_needs_human with cited evidence spans."
+    test: "tests/unit/test_auto_validation_post_factum.py"
+
+Files:
+  - src/signal_sandbox/auto_validation/post_factum.py
+  - tests/unit/test_auto_validation_post_factum.py
+
+## Phase 42 — Auto-Accept Decision Engine And Evaluation
+
+Goal: combine validator outputs into a strict decision engine. Full automation
+is allowed only when all required validators pass. The engine must produce an
+audit trail and an evaluation report on the current 9 client-ready candidates
+before any customer-facing metric can use auto-accepted rows.
+
+### SAS-AUTOVAL-008: Auto-Validation Decision Engine ✅
+
+Owner:      codex
+Phase:      42
+Type:       implementation
+Depends-On: SAS-AUTOVAL-004, SAS-AUTOVAL-005, SAS-AUTOVAL-006, SAS-AUTOVAL-007
+
+Objective: |
+  Combine validator results into auto_accepted, auto_rejected,
+  excluded_provider_gap, needs_human, or blocked_customer_facing decisions.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Decision engine returns auto_accepted only when timing, setup consistency, provider eligibility, post-factum detector, and policy gate all pass."
+    test: "tests/unit/test_auto_validation_decision_engine.py"
+  - id: AC-2
+    description: "Any uncertain validator result routes to needs_human with blocker reasons."
+    test: "tests/unit/test_auto_validation_decision_engine.py"
+  - id: AC-3
+    description: "Auto-accepted decisions include validator result ids and audit-log refs."
+    test: "tests/unit/test_auto_validation_decision_engine.py"
+
+Files:
+  - src/signal_sandbox/auto_validation/decision.py
+  - tests/unit/test_auto_validation_decision_engine.py
+
+### SAS-AUTOVAL-009: Customer-Facing Policy Gate ✅
+
+Owner:      codex
+Phase:      42
+Type:       implementation
+Depends-On: SAS-AUTOVAL-008
+
+Objective: |
+  Decide whether an auto-validated row can be used in dashboard or paid-report
+  metrics without legal/reputation overclaim risk.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Gate requires public source refs, accepted validation audit refs, recompute provenance, visible caveats, and no forbidden wording."
+    test: "tests/unit/test_auto_validation_customer_policy_gate.py"
+  - id: AC-2
+    description: "Rows with private-source risk, missing audit refs, post-factum status, or provider gaps remain blocked_customer_facing."
+    test: "tests/unit/test_auto_validation_customer_policy_gate.py"
+  - id: AC-3
+    description: "Gate output is separate from model review and cannot be bypassed by model confidence."
+    test: "tests/unit/test_auto_validation_customer_policy_gate.py"
+
+Files:
+  - src/signal_sandbox/auto_validation/customer_policy.py
+  - tests/unit/test_auto_validation_customer_policy_gate.py
+
+### SAS-AUTOVAL-010: Evaluation On Current Media Candidates ✅
+
+Owner:      codex
+Phase:      42
+Type:       validation
+Depends-On: SAS-AUTOVAL-009
+
+Objective: |
+  Run the auto-validation stack against the 9 Phase 38 media candidates and
+  compare auto decisions with current conservative operator-ledger states.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Evaluation artifact records auto_accepted, auto_rejected, needs_human, and excluded counts for all 9 candidates."
+    test: "tests/unit/test_auto_validation_eval_current_candidates.py"
+  - id: AC-2
+    description: "Every auto decision cites validator audit refs and blocker reasons."
+    test: "tests/unit/test_auto_validation_eval_current_candidates.py"
+  - id: AC-3
+    description: "Customer-facing promotion remains blocked unless the customer-facing policy gate passes."
+    test: "tests/unit/test_auto_validation_eval_current_candidates.py"
+
+Files:
+  - docs/pilot/clientready_AUTO_VALIDATION_EVAL.md
+  - docs/pilot/clientready_AUTO_VALIDATION_EVAL.json
+  - tests/unit/test_auto_validation_eval_current_candidates.py
+
+### SAS-AUTOVAL-011: Auto-Validation Deep Review ✅
+
+Owner:      codex
+Phase:      42
+Type:       review
+Depends-On: SAS-AUTOVAL-010
+
+Objective: |
+  Review whether the auto-validation stack is trustworthy enough to reduce
+  human review load and define the remaining manual-review boundary.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Deep review checks false accept risk, validator coverage, audit log completeness, customer-facing policy, and legal/product boundaries."
+    test: "manual/review"
+  - id: AC-2
+    description: "Review records whether auto-accepted rows may enter internal recompute, customer-facing demo, or remain internal-only."
+    test: "manual/review"
+  - id: AC-3
+    description: "Audit index, state docs, and phase report are updated; buyer outreach remains blocked unless a later discovery gate explicitly approves it."
+    test: "manual/docs-review"
+
+Files:
+  - docs/archive/PHASE42_AUTO_VALIDATION_REVIEW.md
+  - docs/audit/AUDIT_INDEX.md
+  - docs/CODEX_PROMPT.md
+  - README.md
 
 ## Phase 28 — External-Ready Review Sprint
 

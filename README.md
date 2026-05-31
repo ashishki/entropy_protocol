@@ -31,4 +31,5 @@ Start here:
 2. `docs/PRODUCT_PORTFOLIO.md`
 3. `docs/AI_DEVELOPMENT_OPERATING_MODEL.md`
 4. `docs/ENTROPY_CORE_AND_GENSYN_REFERENCES.md`
-5. `docs/VPS_COGNITION_VAULT.md` for the VPS-local Obsidian vault pointer.
+5. `docs/ENTROPY_CORE_PROOF_LAYER_STRATEGY.md`
+6. `docs/VPS_COGNITION_VAULT.md` for the VPS-local Obsidian vault pointer.

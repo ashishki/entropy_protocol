@@ -8,13 +8,13 @@ Priority: P0/P1
 
 Entropy Protocol should split into two related lines:
 
-1. **Entropy Core** - reusable verification and responsibility layer for AI
-   decisions/actions.
+1. **Entropy Core** - reusable proof layer for AI/product decisions, evidence
+   receipts, schema evolution, and blocked-surface verification.
 2. **Telegram Trader Intelligence** - applied product for analyzing Telegram
    trader channels, narratives, claims, source behavior, and risk signals.
 
-Core gives the evidence model. Trader Intelligence gives a concrete market-facing
-use case.
+Core gives the proof contract. Trader Intelligence and the other active
+products give concrete application points.
 
 ## Product Lines
 
@@ -27,6 +27,9 @@ Purpose:
 - referee verdicts
 - risk acceptance records
 - responsibility trace
+- schema compatibility checks
+- deterministic evidence lookup
+- product bridge adoption readiness
 
 Gensyn influence to adapt:
 - REE-style receipts: model/config/input/output/evidence linkage.
@@ -79,6 +82,9 @@ and what changed this week.
 - Add `referee_verdict`.
 - Add deterministic citation checks.
 - Link each weekly memo to its evidence window.
+- Map product-local receipts to Entropy Core proof-layer levels:
+  receipt-compatible, schema-compatible, evidence-lookup compatible, or product
+  bridge readiness.
 
 ### P1 - Diverse Analytical Lenses
 
@@ -96,6 +102,8 @@ and what changed this week.
 - Feed useful patterns into AI Workflow Playbook.
 - Reuse Telegram Research Agent ingestion if practical.
 - Reuse Demand Radar report quality/evidence patterns.
+- Keep product validators product-local while Core validates proof contracts,
+  evidence refs, schema drift, and blocked surfaces.
 
 ## AI-Development Tasks
 

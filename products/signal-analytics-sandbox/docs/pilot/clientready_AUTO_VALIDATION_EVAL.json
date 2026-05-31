@@ -1,0 +1,257 @@
+{
+  "summary": {
+    "status": "clientready_auto_validation_eval",
+    "date": "2026-05-31",
+    "source_ledger": "docs/pilot/clientready_OPERATOR_MEDIA_LEDGER.json",
+    "source_outcomes": "docs/pilot/clientready_ACCEPTED_OUTCOMES.json",
+    "candidate_count": 9,
+    "decision_counts": {
+      "auto_accepted": 0,
+      "auto_rejected": 4,
+      "excluded_provider_gap": 0,
+      "needs_human": 5,
+      "blocked_customer_facing": 0
+    },
+    "customer_facing_policy_passed_rows": 0,
+    "customer_facing_rows": 0,
+    "promotion_blocked": true,
+    "bulk_market_history_storage_used": false
+  },
+  "policy": {
+    "model_review_boundary": "model_review_is_triage_only",
+    "auto_accept_rule": "requires_timing_setup_provider_post_factum_and_customer_policy_pass",
+    "uncertainty_rule": "any_uncertain_validator_routes_to_needs_human",
+    "post_factum_rule": "post_factum_rows_are_auto_rejected_for_predictive_metrics_not_wins_losses",
+    "customer_facing_rule": "no_customer_facing_promotion_without_policy_gate_pass"
+  },
+  "rows": [
+    {
+      "ledger_id": "clientready-bablos79-10450",
+      "source_id": "bablos79",
+      "post_id": 10450,
+      "source_url": "https://t.me/bablos79/10450",
+      "operator_decision": "needs_context",
+      "auto_decision": "needs_human",
+      "policy_gate_status": "blocked_customer_facing",
+      "customer_facing_allowed": false,
+      "validator_audit_ref": "auto-val-audit:clientready-bablos79-10450",
+      "policy_audit_ref": "customer-policy:clientready-bablos79-10450",
+      "validator_result_refs": [
+        "pre_outcome_timing:uncertain_needs_human",
+        "setup_consistency:uncertain_needs_human",
+        "provider_eligibility:excluded_provider_gap",
+        "post_factum:passed",
+        "customer_policy:blocked_customer_facing"
+      ],
+      "blocker_reasons": [
+        "operator_acceptance_required",
+        "market_outcome_recompute_required",
+        "provider_or_proxy_approval_required",
+        "decision_not_auto_accepted:needs_human",
+        "missing_recompute_provenance"
+      ]
+    },
+    {
+      "ledger_id": "clientready-nemphiscrypts-3958",
+      "source_id": "nemphiscrypts",
+      "post_id": 3958,
+      "source_url": "https://t.me/nemphiscrypts/3958",
+      "operator_decision": "needs_context",
+      "auto_decision": "needs_human",
+      "policy_gate_status": "blocked_customer_facing",
+      "customer_facing_allowed": false,
+      "validator_audit_ref": "auto-val-audit:clientready-nemphiscrypts-3958",
+      "policy_audit_ref": "customer-policy:clientready-nemphiscrypts-3958",
+      "validator_result_refs": [
+        "pre_outcome_timing:uncertain_needs_human",
+        "setup_consistency:uncertain_needs_human",
+        "provider_eligibility:uncertain_needs_human",
+        "post_factum:passed",
+        "customer_policy:blocked_customer_facing"
+      ],
+      "blocker_reasons": [
+        "operator_context_required",
+        "missing_supported_asset",
+        "missing_target",
+        "market_outcome_recompute_required",
+        "decision_not_auto_accepted:needs_human"
+      ]
+    },
+    {
+      "ledger_id": "clientready-pifagortrade-3214",
+      "source_id": "pifagortrade",
+      "post_id": 3214,
+      "source_url": "https://t.me/pifagortrade/3214",
+      "operator_decision": "needs_context",
+      "auto_decision": "needs_human",
+      "policy_gate_status": "blocked_customer_facing",
+      "customer_facing_allowed": false,
+      "validator_audit_ref": "auto-val-audit:clientready-pifagortrade-3214",
+      "policy_audit_ref": "customer-policy:clientready-pifagortrade-3214",
+      "validator_result_refs": [
+        "pre_outcome_timing:uncertain_needs_human",
+        "setup_consistency:uncertain_needs_human",
+        "provider_eligibility:uncertain_needs_human",
+        "post_factum:passed",
+        "customer_policy:blocked_customer_facing"
+      ],
+      "blocker_reasons": [
+        "operator_context_required",
+        "missing_target",
+        "market_outcome_recompute_required",
+        "decision_not_auto_accepted:needs_human"
+      ]
+    },
+    {
+      "ledger_id": "clientready-pifagortrade-3218",
+      "source_id": "pifagortrade",
+      "post_id": 3218,
+      "source_url": "https://t.me/pifagortrade/3218",
+      "operator_decision": "needs_context",
+      "auto_decision": "needs_human",
+      "policy_gate_status": "blocked_customer_facing",
+      "customer_facing_allowed": false,
+      "validator_audit_ref": "auto-val-audit:clientready-pifagortrade-3218",
+      "policy_audit_ref": "customer-policy:clientready-pifagortrade-3218",
+      "validator_result_refs": [
+        "pre_outcome_timing:uncertain_needs_human",
+        "setup_consistency:uncertain_needs_human",
+        "provider_eligibility:uncertain_needs_human",
+        "post_factum:passed",
+        "customer_policy:blocked_customer_facing"
+      ],
+      "blocker_reasons": [
+        "operator_acceptance_required",
+        "ambiguous_fibonacci_levels",
+        "missing_supported_asset",
+        "market_outcome_recompute_required",
+        "decision_not_auto_accepted:needs_human"
+      ]
+    },
+    {
+      "ledger_id": "clientready-pifagortrade-3225",
+      "source_id": "pifagortrade",
+      "post_id": 3225,
+      "source_url": "https://t.me/pifagortrade/3225",
+      "operator_decision": "post_factum_only",
+      "auto_decision": "auto_rejected",
+      "policy_gate_status": "blocked_customer_facing",
+      "customer_facing_allowed": false,
+      "validator_audit_ref": "auto-val-audit:clientready-pifagortrade-3225",
+      "policy_audit_ref": "customer-policy:clientready-pifagortrade-3225",
+      "validator_result_refs": [
+        "pre_outcome_timing:uncertain_needs_human",
+        "setup_consistency:uncertain_needs_human",
+        "provider_eligibility:uncertain_needs_human",
+        "post_factum:failed",
+        "customer_policy:blocked_customer_facing"
+      ],
+      "blocker_reasons": [
+        "post_factum_risk",
+        "auto_rejected_for_predictive_metrics",
+        "excluded_from_predictive_metrics",
+        "decision_not_auto_accepted:auto_rejected"
+      ]
+    },
+    {
+      "ledger_id": "clientready-pifagortrade-3234",
+      "source_id": "pifagortrade",
+      "post_id": 3234,
+      "source_url": "https://t.me/pifagortrade/3234",
+      "operator_decision": "needs_context",
+      "auto_decision": "needs_human",
+      "policy_gate_status": "blocked_customer_facing",
+      "customer_facing_allowed": false,
+      "validator_audit_ref": "auto-val-audit:clientready-pifagortrade-3234",
+      "policy_audit_ref": "customer-policy:clientready-pifagortrade-3234",
+      "validator_result_refs": [
+        "pre_outcome_timing:uncertain_needs_human",
+        "setup_consistency:uncertain_needs_human",
+        "provider_eligibility:uncertain_needs_human",
+        "post_factum:passed",
+        "customer_policy:blocked_customer_facing"
+      ],
+      "blocker_reasons": [
+        "operator_acceptance_required",
+        "target_direction_conflict",
+        "market_outcome_recompute_required",
+        "decision_not_auto_accepted:needs_human"
+      ]
+    },
+    {
+      "ledger_id": "clientready-pifagortrade-3264",
+      "source_id": "pifagortrade",
+      "post_id": 3264,
+      "source_url": "https://t.me/pifagortrade/3264",
+      "operator_decision": "post_factum_only",
+      "auto_decision": "auto_rejected",
+      "policy_gate_status": "blocked_customer_facing",
+      "customer_facing_allowed": false,
+      "validator_audit_ref": "auto-val-audit:clientready-pifagortrade-3264",
+      "policy_audit_ref": "customer-policy:clientready-pifagortrade-3264",
+      "validator_result_refs": [
+        "pre_outcome_timing:uncertain_needs_human",
+        "setup_consistency:uncertain_needs_human",
+        "provider_eligibility:uncertain_needs_human",
+        "post_factum:failed",
+        "customer_policy:blocked_customer_facing"
+      ],
+      "blocker_reasons": [
+        "post_factum_risk",
+        "auto_rejected_for_predictive_metrics",
+        "excluded_from_predictive_metrics",
+        "decision_not_auto_accepted:auto_rejected"
+      ]
+    },
+    {
+      "ledger_id": "clientready-pifagortrade-3274",
+      "source_id": "pifagortrade",
+      "post_id": 3274,
+      "source_url": "https://t.me/pifagortrade/3274",
+      "operator_decision": "post_factum_only",
+      "auto_decision": "auto_rejected",
+      "policy_gate_status": "blocked_customer_facing",
+      "customer_facing_allowed": false,
+      "validator_audit_ref": "auto-val-audit:clientready-pifagortrade-3274",
+      "policy_audit_ref": "customer-policy:clientready-pifagortrade-3274",
+      "validator_result_refs": [
+        "pre_outcome_timing:uncertain_needs_human",
+        "setup_consistency:uncertain_needs_human",
+        "provider_eligibility:uncertain_needs_human",
+        "post_factum:failed",
+        "customer_policy:blocked_customer_facing"
+      ],
+      "blocker_reasons": [
+        "post_factum_risk",
+        "auto_rejected_for_predictive_metrics",
+        "excluded_from_predictive_metrics",
+        "decision_not_auto_accepted:auto_rejected"
+      ]
+    },
+    {
+      "ledger_id": "clientready-pifagortrade-3276",
+      "source_id": "pifagortrade",
+      "post_id": 3276,
+      "source_url": "https://t.me/pifagortrade/3276",
+      "operator_decision": "post_factum_only",
+      "auto_decision": "auto_rejected",
+      "policy_gate_status": "blocked_customer_facing",
+      "customer_facing_allowed": false,
+      "validator_audit_ref": "auto-val-audit:clientready-pifagortrade-3276",
+      "policy_audit_ref": "customer-policy:clientready-pifagortrade-3276",
+      "validator_result_refs": [
+        "pre_outcome_timing:uncertain_needs_human",
+        "setup_consistency:uncertain_needs_human",
+        "provider_eligibility:uncertain_needs_human",
+        "post_factum:failed",
+        "customer_policy:blocked_customer_facing"
+      ],
+      "blocker_reasons": [
+        "post_factum_risk",
+        "auto_rejected_for_predictive_metrics",
+        "excluded_from_predictive_metrics",
+        "decision_not_auto_accepted:auto_rejected"
+      ]
+    }
+  ]
+}

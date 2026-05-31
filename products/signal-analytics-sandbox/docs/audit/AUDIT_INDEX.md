@@ -36,6 +36,10 @@ _Append-only. One row per review cycle._
 | 26 | Phase 26 | 2026-05-19 | SAS-ER-000-SAS-ER-006 | No | 0 | 0 | 0 |
 | 27 | Phase 27 | 2026-05-19 | SAS-V1-001-SAS-V1-009 | No | 0 | 0 | 0 |
 | 28 | Phase 37 | 2026-05-23 | SAS-PRECLIENT-001-SAS-PRECLIENT-010 | No | 0 | 0 | 0 |
+| 29 | Phase 38 | 2026-05-29 | SAS-CLIENTREADY-001-SAS-CLIENTREADY-004 | No | 0 | 0 | 0 |
+| 30 | Phase 40 | 2026-05-31 | SAS-AUTOVAL-001-SAS-AUTOVAL-003 | No | 0 | 0 | 0 |
+| 31 | Phase 41 | 2026-05-31 | SAS-AUTOVAL-004-SAS-AUTOVAL-007 | No | 0 | 0 | 0 |
+| 32 | Phase 42 | 2026-05-31 | SAS-AUTOVAL-008-SAS-AUTOVAL-011 | No | 0 | 0 | 0 |
 
 ---
 
@@ -71,6 +75,10 @@ _Append-only. One row per review cycle._
 | 26 | `docs/archive/PHASE26_REVIEW.md` | Phase 26 | OK |
 | 27 | `docs/archive/PHASE27_REVIEW.md` | Phase 27 | OK |
 | 28 | `docs/archive/PHASE37_PRECLIENT_REVIEW.md` | Phase 37 | OK |
+| 29 | `docs/archive/PHASE38_REVIEW.md` | Phase 38 | OK |
+| 30 | `docs/archive/PHASE40_AUTO_VALIDATION_REVIEW.md` | Phase 40 | OK |
+| 31 | `docs/archive/PHASE41_AUTO_VALIDATION_VALIDATORS_REVIEW.md` | Phase 41 | OK |
+| 32 | `docs/archive/PHASE42_AUTO_VALIDATION_REVIEW.md` | Phase 42 | OK |
 
 ---
 

@@ -1,12 +1,12 @@
 # PHASE_HANDOFF - Signal Analytics Sandbox
 
-Date: 2026-05-23
+Date: 2026-05-31
 
 ## Current State
 
-- Phase: 38 Client-Readiness Evidence Acceptance
-- Active task: `SAS-CLIENTREADY-001`
-- Baseline: 362 pass / 0 skip
+- Phase: 42 complete Auto-Accept Decision Engine And Evaluation
+- Active task: none approved
+- Baseline: 432 pass / 0 skip
 - Ruff: clean
 - Pyright: clean
 - External gate: `approve_internal_only`
@@ -16,7 +16,8 @@ Date: 2026-05-23
 
 Phase 37 is complete. `SAS-PRECLIENT-001..010` produced the pre-client
 internal artifact stack and archived deep review at
-`docs/archive/PHASE37_PRECLIENT_REVIEW.md`.
+`docs/archive/PHASE37_PRECLIENT_REVIEW.md`. `SAS-CLIENTREADY-001` and
+`SAS-CLIENTREADY-002`, `SAS-CLIENTREADY-003`, and `SAS-CLIENTREADY-004` are complete.
 
 Decision: `continue_internal_hardening`. The package is valid as an internal
 diligence baseline, but it is not valid yet for buyer conversations, public
@@ -30,24 +31,34 @@ Key facts:
 - Evidence appendix: 301 internal rows, 0 raw media rows, 0 private-source rows.
 - Candidate outcomes: 4 insufficient fields, 4 post-factum-only, 1 provider
   gap, 0 market outcomes recomputed.
+- Operator media ledger: 9 rows, 0 accepted, 5 needs-context,
+  4 post-factum-only, 0 dashboard-safe rows, 0 paid-report-safe rows.
+- Accepted outcomes: 0 accepted, 0 recomputed, 9 excluded,
+  0 buyer-demo-safe rows.
+- Redacted demo: showable_now=false, blocked_internal_only, compact fields only.
+- Discovery gate: continue_internal_hardening, ready_for_discovery=false.
 - Blockers: 0 operator-accepted media claims, 0 dashboard-safe RR rows,
   0 market-outcome recomputed candidates.
 
 ## Next Task
 
-Run `SAS-CLIENTREADY-001` operator media acceptance ledger. The goal is one row
-per model-reviewed candidate with operator accepted/rejected/needs-context or
-post-factum-only decision. Model review alone must not promote any row to
-dashboard-safe or paid-report-safe.
+Phase 38 deep review is archived at `docs/archive/PHASE38_REVIEW.md`. Continue
+with Phases 40-42 to automate candidate validation through evidence bundles,
+independent validators, strict decision thresholds, and a customer-facing
+policy gate. Keep external delivery blocked.
+
+`SAS-AUTOVAL-001..011` plus Phase 40/41/42 deep reviews are complete. No next
+task is approved; buyer outreach remains blocked.
 
 ## Read First
 
 1. `docs/CODEX_PROMPT.md`
-2. `docs/tasks.md` Phase 38
-3. `docs/archive/PHASE37_PRECLIENT_REVIEW.md`
-4. `docs/pilot/preclient_MODEL_REVIEW_PACKET.md`
-5. `docs/pilot/preclient_ARTIFACT_SAFETY_GATE.md`
-6. `docs/pilot/preclient_CANDIDATE_OUTCOMES.md`
+2. `docs/tasks.md` Phases 40-42
+3. `docs/specs/AUTO_VALIDATION_EVIDENCE.md`
+4. `docs/adr/ADR-005-auto-validation-evidence-engine.md`
+5. `docs/archive/PHASE38_REVIEW.md`
+6. `docs/pilot/clientready_OPERATOR_MEDIA_LEDGER.md`
+7. `docs/pilot/clientready_DISCOVERY_GATE.md`
 
 ## Do Not Do
 

@@ -18,6 +18,13 @@ schemas and validators for:
 It must not own product-specific business logic for Trader Risk Audit, Signal
 Analytics Sandbox, Telegram Research Agent, Workflow Studio, or Training OS.
 
+The current product-facing framing is stronger than reference-only: Core is the
+portfolio proof layer. Products emit local receipts, evidence bundles, validator
+results, audit logs, decisions, and reviewer verdicts; Core provides shared
+contract checks for schema compatibility, evidence lookup, blocked surfaces,
+and product bridge adoption readiness. See
+`docs/ENTROPY_CORE_PROOF_LAYER_STRATEGY.md`.
+
 ## Cross-Project Use Levels
 
 | Level | Description | Default |

@@ -1,35 +1,46 @@
 # Orchestrator Checkpoint
 
-Date: 2026-05-23
+Date: 2026-05-31
 
 ## Current State
 
-- Phase 38 is active: Client-Readiness Evidence Acceptance.
-- Latest completed item: `SAS-PRECLIENT-010 Phase 37 Deep Review And Client-Readiness Decision`.
-- Next task: `SAS-CLIENTREADY-001 Operator Media Acceptance Ledger`.
-- Baseline: 362 passing tests, 0 skipped.
+- Phase 42 is complete: Auto-Accept Decision Engine And Evaluation.
+- Latest completed item: `Phase 42 Deep Review`.
+- Next task: none approved; await operator input or new task graph.
+- Baseline: 432 passing tests, 0 skipped.
 - Ruff: pass.
 - Pyright: pass.
 - External gate: `approve_internal_only`.
 - External delivery: not approved.
 
-## Current Blocker
+## Current Blocker / Route
 
-Phase 37 deep review chose `continue_internal_hardening`. The internal
-diligence package is coherent, but buyer conversations are still blocked by
-0 operator-accepted media claims, 0 dashboard-safe RR rows, and
-0 market-outcome recomputed candidates.
+Phase 37 deep review chose `continue_internal_hardening`. Phase 38 has recorded
+9 operator-ledger rows and accepted outcomes with 0 accepted, 0 recomputed,
+9 excluded, 0 buyer-demo-safe rows, a redacted demo with showable_now=false,
+and a discovery gate decision `continue_internal_hardening`. Phase 38 review is
+archived at `docs/archive/PHASE38_REVIEW.md` with P0/P1/P2 = 0/0/0.
+Buyer conversations are still blocked by 0 operator-accepted media claims,
+0 dashboard-safe RR rows, and 0 market-outcome recomputed candidates. The new
+route is Phases 40-42: automate validation through evidence bundles,
+independent validators, and strict customer-facing gates.
 
 ## Canonical Artifacts
 
 - `docs/AI_DEVELOPMENT_PLAN_RU.md`
-- `docs/tasks.md` Phase 38
+- `docs/tasks.md` Phases 40-42
+- `docs/specs/AUTO_VALIDATION_EVIDENCE.md`
+- `docs/adr/ADR-005-auto-validation-evidence-engine.md`
 - `docs/archive/PHASE37_PRECLIENT_REVIEW.md`
 - `docs/specs/PRECLIENT_ARTIFACT_CONTRACT.md`
 - `docs/pilot/preclient_MODEL_REVIEW_PACKET.md`
 - `docs/pilot/preclient_EVIDENCE_APPENDIX.md`
 - `docs/pilot/preclient_FREE_DASHBOARD_CARDS.md`
 - `docs/pilot/preclient_CANDIDATE_OUTCOMES.md`
+- `docs/pilot/clientready_OPERATOR_MEDIA_LEDGER.md`
+- `docs/pilot/clientready_ACCEPTED_OUTCOMES.md`
+- `docs/pilot/clientready_REDACTED_BUYER_DEMO.md`
+- `docs/pilot/clientready_DISCOVERY_GATE.md`
 - `docs/pilot/preclient_dashboard/index.html`
 - `docs/pilot/preclient_ARTIFACT_SAFETY_GATE.md`
 - `docs/pilot/reports/preclient/`

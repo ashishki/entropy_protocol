@@ -5,10 +5,11 @@ separate from Entropy Core and Trader Risk Audit.
 
 ## Current Status
 
-- Phase: 35 Reliability And Scaling
-- Next task: none in current SAS-NEXT roadmap
-- Baseline: 295 passing tests, 0 skipped
-- Current priority: await operator review or next roadmap expansion
+- Phase: 42 complete - Auto-Accept Decision Engine And Evaluation
+- Next task: none approved; buyer outreach remains blocked
+- Baseline: 432 passing tests, 0 skipped
+- Current priority: automate candidate validation with evidence bundles,
+  independent validators, strict thresholds, and customer-facing policy gates
 
 ## Promise
 
