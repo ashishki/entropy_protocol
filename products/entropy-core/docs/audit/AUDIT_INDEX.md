@@ -33,6 +33,10 @@ Append-only. One row per reset-era review cycle.
 | CAF-DECISION-PRIMITIVES | 25 | 2026-05-14 | T111-T114 CAF Decision Primitives | 0 | 0 | 0 | 1 |
 | ENTERPRISE-AUDIT-READINESS | 26 | 2026-05-14 | T115-T118 Enterprise Audit Readiness | 0 | 0 | 0 | 1 |
 | CORE-V1-PRODUCTIZATION | 27 | 2026-05-14 | T119-T122 Core V1 Productization | 0 | 0 | 0 | 1 |
+| SCHEMA-EVOLUTION-FOUNDATIONS | 28 | 2026-05-29 | T123-T126 Schema Evolution Foundations | 0 | 0 | 0 | 1 |
+| EVIDENCE-QUERY-HARDENING | 29 | 2026-05-29 | T127-T130 Evidence Query Hardening | 0 | 0 | 0 | 1 |
+| PRODUCT-BRIDGE-ADOPTION-READINESS | 30 | 2026-05-29 | T131-T134 Product Bridge Adoption Readiness | 0 | 0 | 0 | 1 |
+| V2-INTERNAL-KERNEL-REVIEW | 31 | 2026-05-31 | T135-T138 V2 Internal Kernel Review | 0 | 0 | 0 | 2 |
 
 ## Archive
 
@@ -65,6 +69,10 @@ Append-only. One row per reset-era review cycle.
 | CAF-DECISION-PRIMITIVES | `docs/audit/CAF_DECISION_PRIMITIVES_REVIEW.md` | 25 | PASS |
 | ENTERPRISE-AUDIT-READINESS | `docs/audit/ENTERPRISE_AUDIT_READINESS_REVIEW.md` | 26 | PASS |
 | CORE-V1-PRODUCTIZATION | `docs/audit/CORE_V1_PRODUCTIZATION_REVIEW.md` | 27 | PASS |
+| SCHEMA-EVOLUTION-FOUNDATIONS | `docs/audit/SCHEMA_EVOLUTION_FOUNDATIONS_REVIEW.md` | 28 | PASS |
+| EVIDENCE-QUERY-HARDENING | `docs/audit/EVIDENCE_QUERY_HARDENING_REVIEW.md` | 29 | PASS |
+| PRODUCT-BRIDGE-ADOPTION-READINESS | `docs/audit/PRODUCT_BRIDGE_ADOPTION_READINESS_REVIEW.md` | 30 | PASS |
+| V2-INTERNAL-KERNEL-REVIEW | `docs/audit/V2_INTERNAL_KERNEL_REVIEW.md` | 31 | PASS |
 
 ## Notes
 

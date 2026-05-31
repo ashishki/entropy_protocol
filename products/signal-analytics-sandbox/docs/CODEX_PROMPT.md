@@ -73,6 +73,10 @@ Product-local docs remain authoritative.
 - Main blockers: 0 operator-accepted media claims, 0 dashboard-safe RR rows,
   0 market-outcome recomputed candidates.
 
+Supporting cross-product cognition vault on this VPS:
+`/srv/codex-entropy/repos/product-3/engineering-cognition-vault/10-projects/entropy-protocol.md`.
+Product-local docs remain authoritative.
+
 ## Active Guardrails
 
 - Public/operator-authorized sources only.

@@ -5,13 +5,10 @@ kernel. Core is not the market-facing product, public SDK, or hosted service.
 
 ## Current Status
 
-- Phase: 27 Core V1 Productization
-- Next task: none - Core V1 checkpoint complete
+- Phase: 31 V2 Internal Kernel Review
+- Next task: none - human gate required for next bounded Core V2 phase
 - Baseline: 625 passing tests, 20 skipped
-- Current priority: wait for a human-approved Core V2 roadmap before starting
-  new roadmap tasks
-- Portfolio focus: Core is paused while Trader Risk Audit and Signal Analytics
-  Sandbox run their next validation loops
+- Current priority: wait for the next bounded Core V2 human decision
 
 ## Role
 
@@ -26,18 +23,16 @@ Core should provide:
 - narrow product bridge notes;
 - shared review templates where useful.
 
-Core should not become a public SDK, hosted service, live execution layer, or
-generic platform during Core V1 productization.
-
-Portfolio note as of 2026-05-15: do not reopen Core implementation work unless
-Trader/Signal creates a concrete Core dependency or a human approves Core V2.
+Core should not become a public SDK, hosted service, live execution layer,
+runtime RAG system, product report owner, or generic platform during Core V2
+internal kernel review.
 
 ## Read First
 
 1. `docs/CODEX_PROMPT.md`
 2. `docs/AI_LOOP_OPERATING_MODEL.md`
 3. `docs/CORE_12_MONTH_EXECUTION_ROADMAP.md`
-4. `docs/tasks.md` Phase 27, T119-T122
+4. `docs/tasks.md` Phase 31, T135-T138
 5. `docs/IMPLEMENTATION_CONTRACT.md`
 
 ## Active Guardrails
