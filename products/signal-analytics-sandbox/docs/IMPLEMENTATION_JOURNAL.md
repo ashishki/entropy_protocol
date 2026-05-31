@@ -2039,3 +2039,11 @@ This file is durable handoff context across agents and sessions. It records what
 - Decisions applied: evaluation records 0 auto-accepted rows, 4 auto-rejected post-factum rows, 5 needs-human rows, 0 policy-passed rows, and 0 customer-facing rows. Every row cites validator/policy audit refs and blockers.
 - Phase review: Stop-Ship No; P0/P1/P2 = 0/0/0. False-accept risk is low because no row can pass without validator and policy agreement, but human-review load remains for 5 rows.
 - Follow-ups: no approved next task. Buyer outreach remains blocked until operator input or a later discovery gate explicitly approves it.
+
+### 2026-05-31 — MVP-VALUE-RUN-001 — Broad MVP Value Assessment
+
+- Scope: `docs/pilot/MVP_VALUE_RUN_2026-05-31.md`, `docs/pilot/MVP_VALUE_RUN_2026-05-31.json`, `tests/unit/test_mvp_value_run.py`, active-state docs.
+- Why this work happened: the operator asked for a clear broad run to extract insights and decide whether the MVP is already valuable.
+- Decisions applied: the current MVP is valuable as an internal diligence and evidence-quality workflow, but not ready as a customer-facing paid metrics product. The recommended next route is concierge source-diligence validation, not public dashboard launch, paid rankings, or performance claims.
+- Evidence collected: combined current card, safety, operator ledger, accepted outcome, discovery gate, and auto-validation eval artifacts. The run records 170 V1 text-evaluable claims, 93 confirmed and 77 contradicted internal text outcomes, 9 media candidates, 0 auto-accepted media rows, 4 auto-rejected post-factum rows, 5 needs-human rows, 0 buyer-demo-safe rows, and 0 customer-facing rows.
+- Follow-ups: run five buyer discovery calls around source-diligence pain, obtain one operator-accepted media row and recompute it end to end, or produce one concierge internal diligence report for a single source under internal-only caveats.

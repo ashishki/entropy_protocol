@@ -48,11 +48,9 @@ def test_auto_validation_contract_keeps_model_review_as_triage() -> None:
     assert "routes to `needs_human`" in contract
 
 
-def test_active_state_points_to_auto_validation_route() -> None:
+def test_active_state_points_to_current_value_route_after_auto_validation() -> None:
     prompt = PROMPT.read_text(encoding="utf-8")
 
-    assert (
-        "Active route: Phase 42 auto-accept decision engine and evaluation." in prompt
-    )
-    assert "Next task: none approved" in prompt
-    assert "buyer outreach remains blocked" in prompt
+    assert "Active route: post-Phase-42 MVP value assessment." in prompt
+    assert "MVP value run: `docs/pilot/MVP_VALUE_RUN_2026-05-31.md`" in prompt
+    assert "not ready as a customer-facing paid metrics MVP" in prompt

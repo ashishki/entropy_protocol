@@ -49,9 +49,9 @@ def test_post_v1_task_graph_lists_next_phases_and_active_task() -> None:
     )
     assert "## Phase 37 — Pre-Client Artifact Hardening" in tasks
     assert "## Phase 38 — Client-Readiness Evidence Acceptance" in tasks
-    latest_completed = "Latest completed: `Phase 42 Deep Review`"
+    latest_completed = "Latest completed: `MVP Value Run - 2026-05-31`"
     assert latest_completed in prompt
-    assert "Active route: Phase 42 auto-accept decision engine" in prompt
+    assert "Active route: post-Phase-42 MVP value assessment." in prompt
 
 
 def test_active_state_files_are_compacted_to_current_links() -> None:
