@@ -1,10 +1,16 @@
 from __future__ import annotations
 
+import json
 from datetime import UTC, datetime
 from decimal import Decimal
+from pathlib import Path
 
 import pytest
 
+from signal_sandbox.auto_validation.audit_export import (
+    export_validation_audit_with_receipt,
+    load_signal_auto_validation_receipt,
+)
 from signal_sandbox.auto_validation.core_receipt import (
     build_signal_auto_validation_receipt,
 )
@@ -66,6 +72,41 @@ def test_core_receipt_rejects_audit_refs_missing_from_bundle() -> None:
         build_signal_auto_validation_receipt(bundle=bundle, audit=audit)
 
 
+def test_export_writes_receipt_next_to_validation_audit_log(tmp_path: Path) -> None:
+    bundle = _bundle()
+    audit = _audit(bundle)
+
+    export = export_validation_audit_with_receipt(
+        bundle=bundle,
+        audit=audit,
+        output_dir=tmp_path,
+        generated_at_utc=CREATED,
+    )
+    receipt = load_signal_auto_validation_receipt(export.receipt_path)
+    audit_payload = json.loads(export.audit_log_path.read_text(encoding="utf-8"))
+
+    assert export.audit_log_path == tmp_path / "audit-1.audit.json"
+    assert export.receipt_path == tmp_path / "audit-1.receipt.json"
+    assert audit_payload["audit_id"] == "audit-1"
+    assert audit_payload["evidence_bundle_sha256"] == bundle.bundle_sha256()
+    assert receipt.audit_sha256 == audit.audit_sha256()
+    assert receipt.receipt_sha256() == export.receipt_sha256
+    assert export.audit_sha256 == audit.audit_sha256()
+
+
+def test_export_rejects_pathlike_artifact_stem(tmp_path: Path) -> None:
+    bundle = _bundle()
+    audit = _audit(bundle)
+
+    with pytest.raises(ValueError, match="single file-name component"):
+        export_validation_audit_with_receipt(
+            bundle=bundle,
+            audit=audit,
+            output_dir=tmp_path,
+            stem="../audit-1",
+        )
+
+
 def _bundle() -> AutoValidationEvidenceBundle:
     return AutoValidationEvidenceBundle(
         candidate_id="candidate-1",
@@ -79,7 +120,9 @@ def _bundle() -> AutoValidationEvidenceBundle:
         text_sha256=SHA,
         evidence_refs=[
             EvidenceRef(ref_id="asset-ref", ref_type="text_span", supports="asset"),
-            EvidenceRef(ref_id="direction-ref", ref_type="text_span", supports="direction"),
+            EvidenceRef(
+                ref_id="direction-ref", ref_type="text_span", supports="direction"
+            ),
         ],
         extracted_fields=ExtractedSetupFields(
             asset="BTC",

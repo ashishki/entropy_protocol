@@ -139,6 +139,17 @@ Core-compatible proof surfaces:
 - `AutoValidationDecision` -> referee/decision output;
 - `clientready_AUTO_VALIDATION_EVAL` -> evaluation artifact.
 
+Receipt persistence/export:
+
+- `export_validation_audit_with_receipt(...)` writes
+  `<audit-id>.audit.json` and `<audit-id>.receipt.json` as sibling artifacts;
+- receipt generation uses the existing
+  `build_signal_auto_validation_receipt(...)` adapter;
+- the receipt links candidate/source ids, evidence bundle hash, audit hash,
+  validator ids, and evidence refs for downstream proof checks;
+- market/provider eligibility, source interpretation, customer-facing policy,
+  and report wording remain product-local Signal logic.
+
 Recommended Core integration level: Level 3 now, Level 4 after product bridge
 adoption metadata exists.
 
