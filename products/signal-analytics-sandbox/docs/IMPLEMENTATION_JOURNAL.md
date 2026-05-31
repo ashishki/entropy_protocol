@@ -1983,3 +1983,43 @@ This file is durable handoff context across agents and sessions. It records what
 - Decisions applied: every validator result records validator id/version, status, confidence, evidence refs, blocker reasons for non-passed results, deterministic input hash, rationale, and created timestamp. Audit logs preserve individual result evidence refs and expose canonical JSON plus audit SHA-256.
 - Evidence collected: Phase 40 deep review found Stop-Ship No and P0/P1/P2 = 0/0/0. No candidate was promoted to customer-facing use.
 - Follow-ups: start Phase 41 with `SAS-AUTOVAL-004` pre-outcome timing validator.
+
+### 2026-05-31 — SAS-AUTOVAL-004 — Pre-Outcome Timing Validator
+
+- Scope: `src/signal_sandbox/auto_validation/timing.py`, `tests/unit/test_auto_validation_timing.py`, active-state docs.
+- Why this work happened: auto-accepted predictive metrics require proof that source evidence existed before target/stop/relevant market-move evidence.
+- Decisions applied: timing validation only passes when outcome evidence uses an approved market-window provider and every observed outcome timestamp is after the source timestamp. Target/stop/move evidence at or before source time returns `failed` with `failed_post_factum_or_late`; missing bundle, missing timestamp evidence, missing market data, or unsupported provider returns `uncertain_needs_human`.
+- Light review: no P0/P1/P2 findings. The validator preserves the Phase 40 contract by using standard validation statuses plus blocker reasons rather than introducing a new final state.
+- Follow-ups: run `SAS-AUTOVAL-005` OCR level and setup consistency validator.
+
+### 2026-05-31 — SAS-AUTOVAL-005 — OCR Level And Setup Consistency Validator
+
+- Scope: `src/signal_sandbox/auto_validation/setup_consistency.py`, `tests/unit/test_auto_validation_setup_consistency.py`, active-state docs.
+- Why this work happened: auto-validation cannot rely on chart/OCR levels unless entry, stop, target, and direction are backed by accepted refs and form one coherent trade setup.
+- Decisions applied: level fields require OCR, chart-region, or model-span refs; long setups require `stop < entry < target`; short setups require `target < entry < stop`; mixed direction, missing/ambiguous levels, low-confidence model spans, and conflicting targets route to `uncertain_needs_human`.
+- Light review: no P0/P1/P2 findings. Math violations fail, but ambiguity does not become customer-facing proof.
+- Follow-ups: run `SAS-AUTOVAL-006` asset proxy and provider eligibility validator.
+
+### 2026-05-31 — SAS-AUTOVAL-006 — Asset Proxy And Provider Eligibility Validator
+
+- Scope: `src/signal_sandbox/auto_validation/provider_eligibility.py`, `tests/unit/test_auto_validation_provider_eligibility.py`, active-state docs.
+- Why this work happened: recompute must not run unless an extracted asset resolves to an approved compact provider/proxy path.
+- Decisions applied: approved aliases produce compact `provider_proxy:*` refs; ambiguous aliases route to `uncertain_needs_human`; unresolved aliases, unsupported rules, and operator-input proxy semantics produce `excluded_provider_gap`. The validator uses existing registry/config contracts and does not fetch or store market history.
+- Light review: no P0/P1/P2 findings. Provider gaps remain exclusions, not wins/losses.
+- Follow-ups: run `SAS-AUTOVAL-007` post-factum and closed-position cue detector.
+
+### 2026-05-31 — SAS-AUTOVAL-007 — Post-Factum And Closed-Position Cue Detector
+
+- Scope: `src/signal_sandbox/auto_validation/post_factum.py`, `tests/unit/test_auto_validation_post_factum.py`, active-state docs, `docs/archive/PHASE41_AUTO_VALIDATION_VALIDATORS_REVIEW.md`, audit reports.
+- Why this work happened: predictive metrics must exclude screenshots/text that document already-managed or already-closed positions.
+- Decisions applied: high-confidence PnL, closed-position, take-profit-hit, already-managed, and retrospective cues fail validation with `post_factum_risk` and `auto_rejected_for_predictive_metrics`; mixed predictive/post-factum or low-confidence cues route to `uncertain_needs_human` with cited evidence refs.
+- Phase review: Phase 41 deep review found Stop-Ship No and P0/P1/P2 = 0/0/0. No validator promotes customer-facing rows by itself.
+- Follow-ups: start Phase 42 with `SAS-AUTOVAL-008` auto-validation decision engine.
+
+### 2026-05-31 — SAS-AUTOVAL-008 — Auto-Validation Decision Engine
+
+- Scope: `src/signal_sandbox/auto_validation/decision.py`, `tests/unit/test_auto_validation_decision_engine.py`, active-state docs.
+- Why this work happened: validator outputs must be combined conservatively before any row can become auto-accepted or customer-facing.
+- Decisions applied: `auto_accepted` requires timing, setup, provider, post-factum, and policy results all to pass. Any uncertain result becomes `needs_human`; provider gaps become `excluded_provider_gap`; failed validators become `auto_rejected`; policy blocks become `blocked_customer_facing`. Decisions include validator result ids and audit log refs.
+- Light review: no P0/P1/P2 findings. The decision engine is conservative and does not bypass the still-upcoming customer-facing policy gate.
+- Follow-ups: run `SAS-AUTOVAL-009` customer-facing policy gate.

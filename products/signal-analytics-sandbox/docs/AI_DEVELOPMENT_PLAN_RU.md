@@ -488,10 +488,10 @@ Tasks:
 
 | Task ID | Task | Output | Acceptance Criteria |
 |---|---|---|---|
-| SAS-AUTOVAL-004 | Pre-outcome timing validator | `timing.py` | Post timestamp must precede target/stop/relevant market move. |
-| SAS-AUTOVAL-005 | OCR level and setup consistency validator | `setup_consistency.py` | Entry/stop/target evidence and long/short math must be coherent. |
-| SAS-AUTOVAL-006 | Asset/proxy/provider eligibility validator | `provider_eligibility.py` | Asset maps to approved provider/proxy or explicit exclusion. |
-| SAS-AUTOVAL-007 | Post-factum/closed-position detector | `post_factum.py` | PnL/closed-position/retrospective cues block predictive metrics. |
+| SAS-AUTOVAL-004 ✅ | Pre-outcome timing validator | `timing.py` | Post timestamp must precede target/stop/relevant market move. |
+| SAS-AUTOVAL-005 ✅ | OCR level and setup consistency validator | `setup_consistency.py` | Entry/stop/target evidence and long/short math must be coherent. |
+| SAS-AUTOVAL-006 ✅ | Asset/proxy/provider eligibility validator | `provider_eligibility.py` | Asset maps to approved provider/proxy or explicit exclusion. |
+| SAS-AUTOVAL-007 ✅ | Post-factum/closed-position detector | `post_factum.py` | PnL/closed-position/retrospective cues block predictive metrics. |
 
 ### Phase 42 - Auto-Accept Decision Engine And Evaluation
 
@@ -502,7 +502,7 @@ Tasks:
 
 | Task ID | Task | Output | Acceptance Criteria |
 |---|---|---|---|
-| SAS-AUTOVAL-008 | Decision engine | `decision.py` | auto_accepted only if all required validators and policy gate pass. |
+| SAS-AUTOVAL-008 ✅ | Decision engine | `decision.py` | auto_accepted only if all required validators and policy gate pass. |
 | SAS-AUTOVAL-009 | Customer-facing policy gate | `customer_policy.py` | Public refs, audit refs, recompute provenance, caveats, and wording safety required. |
 | SAS-AUTOVAL-010 | Evaluation on current media candidates | `clientready_AUTO_VALIDATION_EVAL.md/json` | All 9 Phase 38 candidates get auto decision + audit refs + blockers. |
 | SAS-AUTOVAL-011 | Deep review | `PHASE42_AUTO_VALIDATION_REVIEW.md` | Review false-accept risk, audit completeness, and remaining human boundary. |

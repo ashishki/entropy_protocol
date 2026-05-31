@@ -4633,7 +4633,7 @@ failure modes that currently require operator review: post-factum screenshots,
 bad OCR/level reads, wrong asset/proxy mapping, inconsistent setup math, and
 unsafe customer-facing promotion.
 
-### SAS-AUTOVAL-004: Pre-Outcome Timing Validator
+### SAS-AUTOVAL-004: Pre-Outcome Timing Validator ✅
 
 Owner:      codex
 Phase:      41
@@ -4659,7 +4659,7 @@ Files:
   - src/signal_sandbox/auto_validation/timing.py
   - tests/unit/test_auto_validation_timing.py
 
-### SAS-AUTOVAL-005: OCR Level And Setup Consistency Validator
+### SAS-AUTOVAL-005: OCR Level And Setup Consistency Validator ✅
 
 Owner:      codex
 Phase:      41
@@ -4685,7 +4685,7 @@ Files:
   - src/signal_sandbox/auto_validation/setup_consistency.py
   - tests/unit/test_auto_validation_setup_consistency.py
 
-### SAS-AUTOVAL-006: Asset Proxy And Provider Eligibility Validator
+### SAS-AUTOVAL-006: Asset Proxy And Provider Eligibility Validator ✅
 
 Owner:      codex
 Phase:      41
@@ -4711,7 +4711,7 @@ Files:
   - src/signal_sandbox/auto_validation/provider_eligibility.py
   - tests/unit/test_auto_validation_provider_eligibility.py
 
-### SAS-AUTOVAL-007: Post-Factum And Closed-Position Cue Detector
+### SAS-AUTOVAL-007: Post-Factum And Closed-Position Cue Detector ✅
 
 Owner:      codex
 Phase:      41
@@ -4744,7 +4744,7 @@ is allowed only when all required validators pass. The engine must produce an
 audit trail and an evaluation report on the current 9 client-ready candidates
 before any customer-facing metric can use auto-accepted rows.
 
-### SAS-AUTOVAL-008: Auto-Validation Decision Engine
+### SAS-AUTOVAL-008: Auto-Validation Decision Engine ✅
 
 Owner:      codex
 Phase:      42

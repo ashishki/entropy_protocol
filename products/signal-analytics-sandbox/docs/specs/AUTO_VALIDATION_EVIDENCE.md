@@ -29,8 +29,13 @@ Every candidate entering auto-validation must provide:
 Missing source timestamp, missing checksum, missing evidence ref, unsupported
 source class, or private-source risk invalidates the bundle.
 
-Implemented schemas: `src/signal_sandbox/auto_validation/evidence.py`,
-`src/signal_sandbox/auto_validation/results.py`.
+Implemented schemas/validators: `src/signal_sandbox/auto_validation/evidence.py`,
+`src/signal_sandbox/auto_validation/results.py`,
+`src/signal_sandbox/auto_validation/timing.py`,
+`src/signal_sandbox/auto_validation/setup_consistency.py`,
+`src/signal_sandbox/auto_validation/provider_eligibility.py`,
+`src/signal_sandbox/auto_validation/post_factum.py`,
+`src/signal_sandbox/auto_validation/decision.py`.
 
 ## Validator Result States
 

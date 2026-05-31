@@ -1,21 +1,21 @@
-# ARCH_REPORT — Cycle 30
+# ARCH_REPORT — Cycle 31
 _Date: 2026-05-31_
 
 ## Component Verdicts
 
 | Component | Verdict | Note |
 |-----------|---------|------|
-| Auto-validation evidence schemas | PASS | Evidence/result schemas are strict, deterministic, and audit-oriented. |
-| Active-state documents | PASS | State advances to Phase 41 while keeping external delivery blocked. |
-| Tests | PASS | Unit tests cover all Phase 40 acceptance criteria and compact-state updates. |
+| Auto-validation validators | PASS | Timing, setup, provider, and post-factum validators preserve conservative gates. |
+| Active-state documents | PASS | State advances to Phase 42 while keeping external delivery blocked. |
+| Tests | PASS | Unit tests cover all Phase 41 acceptance criteria and compact-state updates. |
 
 ## Contract Compliance
 
 | Rule | Verdict | Note |
 |------|---------|------|
 | PSR-1 public-source-only | PASS | Evidence bundles allow public/operator-public source class and reject private-source URL patterns. |
-| PSR-2 reproducibility | PASS | Bundle and audit schemas expose canonical JSON and SHA-256 hashes. |
-| PSR-3 LLM output is never truth | PASS | Model spans are evidence metadata only; validators own acceptance proof. |
+| PSR-2 reproducibility | PASS | Validator outputs use deterministic input hashes. |
+| PSR-3 LLM output is never truth | PASS | Validators consume evidence refs and never treat model review as final truth. |
 | PSR-4 cost cap | PASS | No paid adapter or model calls added. |
 | PSR-5 snapshot immutability | PASS | No market snapshot writes added. |
 | PSR-6 disclaimer integrity | PASS | Report renderer and canonical disclaimer untouched. |
@@ -33,7 +33,7 @@ _Date: 2026-05-31_
 | ADR-002 Author Market Intelligence | PASS | Deterministic truth boundaries preserved; RAG/agentic capabilities not expanded. |
 | ADR-003 channel-specific tools | PASS | Review/export posture preserved. |
 | ADR-004 media evidence pipeline | PASS | Media/OCR/transcript refs remain evidence refs; no provider expansion added. |
-| ADR-005 auto-validation evidence engine | PASS | Phase 40 implements the evidence/result/audit proof surface. |
+| ADR-005 auto-validation evidence engine | PASS | Phase 41 implements independent validators on the proof surface. |
 
 ## Architecture Findings
 
@@ -53,7 +53,7 @@ No architecture findings.
 
 | Check | Verdict | Note |
 |-------|---------|------|
-| No new non-determinism sources | PASS | Canonical JSON/hash functions are deterministic. |
+| No new non-determinism sources | PASS | Validators are pure deterministic functions. |
 | Decimal discipline preserved | PASS | Confidence and setup numeric fields use `Decimal`. |
 | Snapshots immutable on disk | PASS | Snapshot code untouched. |
 | Disclaimer canonical | PASS | Disclaimer code untouched. |

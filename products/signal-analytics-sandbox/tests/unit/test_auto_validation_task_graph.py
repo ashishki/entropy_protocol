@@ -51,6 +51,8 @@ def test_auto_validation_contract_keeps_model_review_as_triage() -> None:
 def test_active_state_points_to_auto_validation_route() -> None:
     prompt = PROMPT.read_text(encoding="utf-8")
 
-    assert "Active route: Phase 41 auto-validation validator stack." in prompt
-    assert "Next task: `SAS-AUTOVAL-004`" in prompt
+    assert (
+        "Active route: Phase 42 auto-accept decision engine and evaluation." in prompt
+    )
+    assert "Next task: `SAS-AUTOVAL-009`" in prompt
     assert "buyer outreach remains blocked" in prompt

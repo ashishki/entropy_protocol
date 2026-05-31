@@ -1,18 +1,16 @@
-# REVIEW_REPORT — Cycle 30
-_Date: 2026-05-31 · Scope: SAS-AUTOVAL-001-SAS-AUTOVAL-003_
+# REVIEW_REPORT — Cycle 31
+_Date: 2026-05-31 · Scope: SAS-AUTOVAL-004-SAS-AUTOVAL-007_
 
 ## Executive Summary
 
 - Stop-Ship: No.
-- Phase 40 is complete and internally consistent.
-- The auto-validation contract keeps model review as triage.
-- Evidence bundle schema requires public source refs, timestamps, checksums,
-  extracted-field evidence refs, provenance, canonical JSON, and bundle hash.
-- Validation result/audit schema preserves validator version, status,
-  confidence, evidence refs, blocker reasons, deterministic input hash, and
-  audit hash.
+- Phase 41 is complete and internally consistent.
+- Timing, setup consistency, provider eligibility, and post-factum validators
+  are implemented as deterministic proof checks.
+- Missing data, ambiguity, provider gaps, and post-factum cues do not become
+  customer-facing wins/losses.
 - External delivery and buyer outreach remain blocked.
-- Validation: 391 passed, 0 skipped; ruff format/check and pyright pass.
+- Validation: 416 passed, 0 skipped; ruff format/check and pyright pass.
 
 ## P0 Issues
 
@@ -36,7 +34,6 @@ None.
 
 ## Stop-Ship Decision
 
-No — Phase 40 created schemas only, not customer-facing accepted rows. It is
-safe to continue to `SAS-AUTOVAL-004` because validators will run against the
-strict proof envelope and uncertainty still routes away from customer-facing
-metrics.
+No — Phase 41 creates validators only, not customer-facing accepted rows. It is
+safe to continue to `SAS-AUTOVAL-008` because the decision engine must require
+all validators and policy gates before auto-accept.
