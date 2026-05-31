@@ -1926,3 +1926,116 @@ This file is durable handoff context across agents and sessions. It records what
 - Decisions applied: final decision is `continue_internal_hardening`; buyer conversations, public dashboard launch, paid delivery, pricing tests, and private-channel partnerships remain blocked.
 - Evidence collected: the review found 0 P0/P1/P2 implementation findings, repaired stale next-step wording in internal reports, and recorded the decisive blockers: 0 operator-accepted media claims, 0 dashboard-safe RR rows, 0 market-outcome recomputed candidates, and 0 customer-facing rows.
 - Follow-ups: start Phase 38 with `SAS-CLIENTREADY-001` operator media acceptance ledger, then recompute accepted rows, produce a redacted buyer demo subset, and run a discovery gate.
+
+### 2026-05-29 — SAS-CLIENTREADY-001 — Operator Media Acceptance Ledger
+
+- Scope: `docs/pilot/clientready_OPERATOR_MEDIA_LEDGER.md`, `docs/pilot/clientready_OPERATOR_MEDIA_LEDGER.json`, `tests/unit/test_clientready_operator_ledger.py`, active-state docs.
+- Why this work happened: Phase 38 needs an explicit operator-decision ledger over the 9 model-reviewed media candidates before any accepted-row recompute, redacted buyer demo subset, or discovery gate can proceed.
+- Decisions applied: model review remains triage only; rows do not become dashboard-safe, paid-report-safe, customer-facing, or predictive-call metric eligible without explicit operator acceptance and later market/RR recompute. Post-factum rows are kept out of predictive-call metrics.
+- Evidence collected: ledger records 9 candidates: 0 accepted, 0 rejected, 5 needs-context, 4 post-factum-only, 0 dashboard-safe rows, 0 paid-report-safe rows, and 0 predictive-call metric eligible rows. Validation after task: 365 passed, 0 skipped; `ruff format --check src/ tests/ scripts/`, `ruff check src/ tests/ scripts/`, and `.venv/bin/pyright` pass.
+- Follow-ups: run `SAS-CLIENTREADY-002` to recompute only explicitly operator-accepted rows with sufficient public timestamp, asset/proxy, direction, entry, stop, target, and horizon fields.
+
+### 2026-05-29 — SAS-CLIENTREADY-002 — Accepted Candidate RR And Outcome Recompute
+
+- Scope: `docs/pilot/clientready_ACCEPTED_OUTCOMES.md`, `docs/pilot/clientready_ACCEPTED_OUTCOMES.json`, `tests/unit/test_clientready_accepted_outcomes.py`, active-state docs.
+- Why this work happened: Phase 38 needs an explicit recompute artifact before the redacted buyer-demo subset can decide what, if anything, is safe to show.
+- Decisions applied: only rows with `operator_decision: accepted` can be recomputed; the current operator ledger has 0 accepted rows, so all rows remain exclusions. Post-factum rows stay out of predictive-call metrics, and provider gaps/missing fields are not wins or losses.
+- Evidence collected: accepted-outcomes artifact records 9 candidates, 0 operator-accepted rows, 0 recomputed rows, 9 exclusions, 0 buyer-demo-safe rows, 0 wins, and 0 losses. Validation after task: 369 passed, 0 skipped; `ruff format --check src/ tests/ scripts/`, `ruff check src/ tests/ scripts/`, and `.venv/bin/pyright` pass.
+- Follow-ups: run `SAS-CLIENTREADY-003` to build a redacted buyer-demo subset that exposes only compact safe fields and declares whether it is showable now or still blocked.
+
+### 2026-05-29 — SAS-CLIENTREADY-003 — Redacted Buyer Demo Subset
+
+- Scope: `docs/pilot/clientready_REDACTED_BUYER_DEMO.md`, `docs/pilot/clientready_REDACTED_BUYER_DEMO.json`, `tests/unit/test_clientready_redacted_demo.py`, active-state docs.
+- Why this work happened: Phase 38 needed a minimal redacted subset before the discovery gate can decide whether any artifact is showable.
+- Decisions applied: the subset uses compact fields, source-linked examples, and visible caveats only; it does not expose the full appendix, raw media, workspace paths, or unaccepted media metrics. Because accepted outcomes have 0 accepted/recomputed/demo-safe rows, the subset is explicitly `showable_now=false`.
+- Evidence collected: redacted demo includes 3 channels, 3 source-linked examples, 0 accepted rows, 0 recomputed rows, 0 buyer-demo-safe rows, and `blocked_internal_only` gate status. Validation after task: 372 passed, 0 skipped; `ruff format --check src/ tests/ scripts/`, `ruff check src/ tests/ scripts/`, and `.venv/bin/pyright` pass.
+- Follow-ups: run `SAS-CLIENTREADY-004` to record the discovery gate and success criteria.
+
+### 2026-05-29 — SAS-CLIENTREADY-004 — Discovery Gate And Success Criteria
+
+- Scope: `docs/pilot/clientready_DISCOVERY_GATE.md`, `docs/pilot/clientready_DISCOVERY_GATE.json`, `tests/unit/test_clientready_discovery_gate.py`, active-state docs.
+- Why this work happened: Phase 38 needed an explicit decision on whether the redacted demo can be used for narrow discovery and what must be true before any later customer-facing route.
+- Decisions applied: gate decision is `continue_internal_hardening`; `ready_for_discovery=false`; state does not move to client discovery because the gate is not ready.
+- Evidence collected: discovery gate records 5 blockers: redacted demo not showable, 0 operator-accepted media claims, 0 recomputed market outcomes, 0 buyer-demo-safe rows, and no dashboard-safe RR rows. Validation after task: 375 passed, 0 skipped; `ruff format --check src/ tests/ scripts/`, `ruff check src/ tests/ scripts/`, and `.venv/bin/pyright` pass.
+- Follow-ups: run Phase 38 deep review/archive before any next route.
+
+### 2026-05-29 — Auto-Validation Roadmap
+
+- Scope: `docs/adr/ADR-005-auto-validation-evidence-engine.md`, `docs/specs/AUTO_VALIDATION_EVIDENCE.md`, `docs/tasks.md`, `docs/AI_DEVELOPMENT_PLAN_RU.md`, `docs/ARCHITECTURE.md`, `docs/DECISION_LOG.md`, active-state docs, `tests/unit/test_auto_validation_task_graph.py`.
+- Why this work happened: the operator wants full automation for validating media/chart candidates, but with proof checks instead of model-only acceptance.
+- Decisions applied: D-027. Auto-validation may reduce human review only through evidence bundles, independent validators, strict thresholds, audit logs, and a customer-facing policy gate. Model review remains triage.
+- Evidence planned: Phases 40-42 define the evidence contract, validator schemas, timing/OCR/setup/provider/post-factum validators, decision engine, customer-facing policy gate, evaluation on the current 9 candidates, and deep review.
+- Validation after roadmap update: 378 passed, 0 skipped; `ruff format --check src/ tests/ scripts/`, `ruff check src/ tests/ scripts/`, and `.venv/bin/pyright` pass.
+- Follow-ups: run `SAS-AUTOVAL-001` next to start the auto-validation evidence contract implementation loop.
+
+### 2026-05-31 — SAS-AUTOVAL-001/002 — Evidence Contract And Bundle Schema
+
+- Scope: `src/signal_sandbox/auto_validation/evidence.py`, `src/signal_sandbox/auto_validation/__init__.py`, `tests/unit/test_auto_validation_evidence_bundle.py`, `tests/unit/test_auto_validation_task_graph.py`, active-state docs.
+- Why this work happened: Phase 40 needs a machine-readable proof envelope before validators can prove timing, OCR/setup consistency, provider eligibility, post-factum exclusions, or customer-facing safety.
+- Decisions applied: D-027 remains binding. Evidence bundles accept only public/operator-authorized public source classes, reject private-source URL patterns, require source timestamp, source URL, text/media checksum, extracted-field evidence refs, provenance version, and deterministic JSON suitable for audit logs.
+- Evidence collected: `SAS-AUTOVAL-001` contract is closed through ADR/spec/tests; `SAS-AUTOVAL-002` adds strict Pydantic bundle models, model extraction span refs, market-window refs, canonical JSON, and bundle SHA-256. Targeted validation passed for the new schema and task graph before full validation.
+- Follow-ups: run `SAS-AUTOVAL-003` to define validator result and audit-log schemas with validator version, confidence, evidence refs, blockers, and deterministic input hashes.
+
+### 2026-05-31 — SAS-AUTOVAL-003 — Validation Result And Audit Log Schema
+
+- Scope: `src/signal_sandbox/auto_validation/results.py`, `tests/unit/test_auto_validation_result_schema.py`, active-state docs, `docs/archive/PHASE40_AUTO_VALIDATION_REVIEW.md`, audit reports.
+- Why this work happened: validators need a reproducible output contract before timing/OCR/setup/provider/post-factum checks can be composed into decisions.
+- Decisions applied: every validator result records validator id/version, status, confidence, evidence refs, blocker reasons for non-passed results, deterministic input hash, rationale, and created timestamp. Audit logs preserve individual result evidence refs and expose canonical JSON plus audit SHA-256.
+- Evidence collected: Phase 40 deep review found Stop-Ship No and P0/P1/P2 = 0/0/0. No candidate was promoted to customer-facing use.
+- Follow-ups: start Phase 41 with `SAS-AUTOVAL-004` pre-outcome timing validator.
+
+### 2026-05-31 — SAS-AUTOVAL-004 — Pre-Outcome Timing Validator
+
+- Scope: `src/signal_sandbox/auto_validation/timing.py`, `tests/unit/test_auto_validation_timing.py`, active-state docs.
+- Why this work happened: auto-accepted predictive metrics require proof that source evidence existed before target/stop/relevant market-move evidence.
+- Decisions applied: timing validation only passes when outcome evidence uses an approved market-window provider and every observed outcome timestamp is after the source timestamp. Target/stop/move evidence at or before source time returns `failed` with `failed_post_factum_or_late`; missing bundle, missing timestamp evidence, missing market data, or unsupported provider returns `uncertain_needs_human`.
+- Light review: no P0/P1/P2 findings. The validator preserves the Phase 40 contract by using standard validation statuses plus blocker reasons rather than introducing a new final state.
+- Follow-ups: run `SAS-AUTOVAL-005` OCR level and setup consistency validator.
+
+### 2026-05-31 — SAS-AUTOVAL-005 — OCR Level And Setup Consistency Validator
+
+- Scope: `src/signal_sandbox/auto_validation/setup_consistency.py`, `tests/unit/test_auto_validation_setup_consistency.py`, active-state docs.
+- Why this work happened: auto-validation cannot rely on chart/OCR levels unless entry, stop, target, and direction are backed by accepted refs and form one coherent trade setup.
+- Decisions applied: level fields require OCR, chart-region, or model-span refs; long setups require `stop < entry < target`; short setups require `target < entry < stop`; mixed direction, missing/ambiguous levels, low-confidence model spans, and conflicting targets route to `uncertain_needs_human`.
+- Light review: no P0/P1/P2 findings. Math violations fail, but ambiguity does not become customer-facing proof.
+- Follow-ups: run `SAS-AUTOVAL-006` asset proxy and provider eligibility validator.
+
+### 2026-05-31 — SAS-AUTOVAL-006 — Asset Proxy And Provider Eligibility Validator
+
+- Scope: `src/signal_sandbox/auto_validation/provider_eligibility.py`, `tests/unit/test_auto_validation_provider_eligibility.py`, active-state docs.
+- Why this work happened: recompute must not run unless an extracted asset resolves to an approved compact provider/proxy path.
+- Decisions applied: approved aliases produce compact `provider_proxy:*` refs; ambiguous aliases route to `uncertain_needs_human`; unresolved aliases, unsupported rules, and operator-input proxy semantics produce `excluded_provider_gap`. The validator uses existing registry/config contracts and does not fetch or store market history.
+- Light review: no P0/P1/P2 findings. Provider gaps remain exclusions, not wins/losses.
+- Follow-ups: run `SAS-AUTOVAL-007` post-factum and closed-position cue detector.
+
+### 2026-05-31 — SAS-AUTOVAL-007 — Post-Factum And Closed-Position Cue Detector
+
+- Scope: `src/signal_sandbox/auto_validation/post_factum.py`, `tests/unit/test_auto_validation_post_factum.py`, active-state docs, `docs/archive/PHASE41_AUTO_VALIDATION_VALIDATORS_REVIEW.md`, audit reports.
+- Why this work happened: predictive metrics must exclude screenshots/text that document already-managed or already-closed positions.
+- Decisions applied: high-confidence PnL, closed-position, take-profit-hit, already-managed, and retrospective cues fail validation with `post_factum_risk` and `auto_rejected_for_predictive_metrics`; mixed predictive/post-factum or low-confidence cues route to `uncertain_needs_human` with cited evidence refs.
+- Phase review: Phase 41 deep review found Stop-Ship No and P0/P1/P2 = 0/0/0. No validator promotes customer-facing rows by itself.
+- Follow-ups: start Phase 42 with `SAS-AUTOVAL-008` auto-validation decision engine.
+
+### 2026-05-31 — SAS-AUTOVAL-008 — Auto-Validation Decision Engine
+
+- Scope: `src/signal_sandbox/auto_validation/decision.py`, `tests/unit/test_auto_validation_decision_engine.py`, active-state docs.
+- Why this work happened: validator outputs must be combined conservatively before any row can become auto-accepted or customer-facing.
+- Decisions applied: `auto_accepted` requires timing, setup, provider, post-factum, and policy results all to pass. Any uncertain result becomes `needs_human`; provider gaps become `excluded_provider_gap`; failed validators become `auto_rejected`; policy blocks become `blocked_customer_facing`. Decisions include validator result ids and audit log refs.
+- Light review: no P0/P1/P2 findings. The decision engine is conservative and does not bypass the still-upcoming customer-facing policy gate.
+- Follow-ups: run `SAS-AUTOVAL-009` customer-facing policy gate.
+
+### 2026-05-31 — SAS-AUTOVAL-009 — Customer-Facing Policy Gate
+
+- Scope: `src/signal_sandbox/auto_validation/customer_policy.py`, `tests/unit/test_auto_validation_customer_policy_gate.py`, active-state docs.
+- Why this work happened: even an internally auto-accepted row needs a separate legal/reputation gate before dashboard or paid-report metrics.
+- Decisions applied: customer-facing pass requires auto_accepted decision state, public source refs, validation audit ref, recompute provenance ref, visible caveats, and safe wording. Private-source risk, missing refs/provenance/caveats, non-auto-accepted states, provider gaps, post-factum rejects, or forbidden wording block customer-facing use. Model confidence cannot bypass the gate.
+- Light review: no P0/P1/P2 findings. The policy gate stays separate from model review and from validator confidence.
+- Follow-ups: run `SAS-AUTOVAL-010` evaluation on the current 9 media candidates.
+
+### 2026-05-31 — SAS-AUTOVAL-010/011 — Evaluation And Deep Review
+
+- Scope: `docs/pilot/clientready_AUTO_VALIDATION_EVAL.md`, `docs/pilot/clientready_AUTO_VALIDATION_EVAL.json`, `tests/unit/test_auto_validation_eval_current_candidates.py`, `docs/archive/PHASE42_AUTO_VALIDATION_REVIEW.md`, audit reports, active-state docs.
+- Why this work happened: Phase 42 needed an end-to-end conservative check over the current 9 media candidates before any customer-facing route could be reconsidered.
+- Decisions applied: evaluation records 0 auto-accepted rows, 4 auto-rejected post-factum rows, 5 needs-human rows, 0 policy-passed rows, and 0 customer-facing rows. Every row cites validator/policy audit refs and blockers.
+- Phase review: Stop-Ship No; P0/P1/P2 = 0/0/0. False-accept risk is low because no row can pass without validator and policy agreement, but human-review load remains for 5 rows.
+- Follow-ups: no approved next task. Buyer outreach remains blocked until operator input or a later discovery gate explicitly approves it.

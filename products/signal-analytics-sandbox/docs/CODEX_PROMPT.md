@@ -1,77 +1,84 @@
 # CODEX_PROMPT.md - Signal Analytics Sandbox
 
-Version: 3.05
-Date: 2026-05-23
-Phase: 38
+Version: 3.20
+Date: 2026-05-31
+Phase: 42
 Compact restart state only. Detailed history lives in
 `docs/IMPLEMENTATION_JOURNAL.md`, `docs/archive/`, and `docs/tasks.md`.
 
 ## Current State
 
-- Phase: 38 (Client-Readiness Evidence Acceptance)
-- Baseline: 362 pass / 0 skip
+- Phase: 42 (Auto-Accept Decision Engine And Evaluation)
+- Baseline: 432 pass / 0 skip
 - Ruff: `ruff check src/ tests/ scripts/` passes
 - Format: `ruff format --check src/ tests/ scripts/` passes
 - Pyright: `.venv/bin/pyright` passes
-- Latest completed: `SAS-PRECLIENT-010 Phase 37 Deep Review And Client-Readiness Decision`
+- Latest completed: `Phase 42 Deep Review`
 - Phase 37 decision: `continue_internal_hardening`
 - Engineering Phase 1 (T01+) may begin.
 - | SAS-001: Paid Pilot Demand Validation | acknowledged |
 - | SAS-002: Public-Source Legal/Terms Memo | acknowledged |
 - External gate: `approve_internal_only`
 - External delivery: not approved
-- Current priority: operator acceptance, accepted-row recompute, and redacted
-  demo readiness before buyer outreach.
+- Current priority: wait for operator input or new task graph.
 
 ## Next Task
 
-Active route: Phase 38 client-readiness evidence acceptance.
+Active route: Phase 42 auto-accept decision engine and evaluation.
 
-- Two-month source window `2026-03-22..2026-05-22`: 526 text rows,
-  37 normalized claims, 28 7d evaluable, 19 confirmed, 9 contradicted.
-- Multimodal pass: 570 public posts, 295 media refs, 70 voice transcripts,
-  185 image/OCR drafts, 40 video/manual blockers, 1 internal RR-ready draft.
-- Media reviewer pass: `gpt-4.1-mini` reviewed 255 drafts; `gpt-4.1`
-  arbitrated 35 high-signal rows and accepted 9 internal candidates.
-- Phase 37 produced contract, model packet, 301-row appendix, dashboard cards,
-  internal reports, paid-style demo, candidate outcomes, static dashboard,
-  safety gate, and deep review.
-- Phase 37 review says the package is a valid internal diligence baseline, not
-  a client-valid product. Buyer conversations remain blocked.
-- Next task: `SAS-CLIENTREADY-001` operator media acceptance ledger.
+- Phase 37 baseline: 9 model-reviewed internal candidates, 301-row appendix,
+  0 customer-facing rows, buyer conversations blocked.
+- Phase 38 outputs: ledger 0 accepted / 5 needs-context / 4 post-factum-only;
+  accepted outcomes 0 recomputed; demo showable_now=false; gate hardening.
+- Phase 38 deep review archived at `docs/archive/PHASE38_REVIEW.md`;
+  P0/P1/P2 findings: 0/0/0.
+- New route: Phases 40-42 build evidence bundles, independent validators,
+  strict auto-accept decisions, customer-facing policy gate, and evaluation on
+  the current 9 media candidates.
+- Completed: Phases 40-42 auto-validation contract, validators, decision
+  engine, policy gate, evaluation, and deep review.
+- Next task: none approved; buyer outreach remains blocked until a later gate.
 
-Read first: `docs/tasks.md` Phase 38,
-`docs/archive/PHASE37_PRECLIENT_REVIEW.md`,
-`docs/pilot/preclient_MODEL_REVIEW_PACKET.md`,
-`docs/pilot/preclient_ARTIFACT_SAFETY_GATE.md`.
-
-Supporting cross-product cognition vault on this VPS:
-`/srv/codex-entropy/repos/product-3/engineering-cognition-vault/10-projects/entropy-protocol.md`.
-Product-local docs remain authoritative.
+Read first: `docs/tasks.md` Phases 40-42, auto-validation spec/ADR,
+Phase 40 review, and Phase 38 clientready artifacts.
 
 ## Canonical Artifacts
 
 - Phase 37 review: `docs/archive/PHASE37_PRECLIENT_REVIEW.md`
-- Pre-client contract: `docs/specs/PRECLIENT_ARTIFACT_CONTRACT.md`
-- Pre-client model packet: `docs/pilot/preclient_MODEL_REVIEW_PACKET.md`
-- Pre-client evidence appendix: `docs/pilot/preclient_EVIDENCE_APPENDIX.md`
-- Pre-client dashboard cards: `docs/pilot/preclient_FREE_DASHBOARD_CARDS.md`
-- Pre-client candidate outcomes: `docs/pilot/preclient_CANDIDATE_OUTCOMES.md`
-- Pre-client dashboard: `docs/pilot/preclient_dashboard/index.html`
-- Pre-client safety gate: `docs/pilot/preclient_ARTIFACT_SAFETY_GATE.md`
-- Pre-client reports: `docs/pilot/reports/preclient/`
-- Two-month multimodal run: `docs/pilot/three_channel_MULTIMODAL_RESEARCH_REPORT.md`
-- Media reviewer run: `docs/pilot/three_channel_MEDIA_REVIEW_REPORT.md`
+- Phase 38 review: `docs/archive/PHASE38_REVIEW.md`
+- Pre-client packet/appendix/cards/outcomes/gate:
+  `docs/pilot/preclient_*`
+- Phase 38 artifacts: `docs/pilot/clientready_*`
+- Auto-validation contract/schema: `docs/specs/AUTO_VALIDATION_EVIDENCE.md`,
+  `src/signal_sandbox/auto_validation/`
+- Phase 40 review: `docs/archive/PHASE40_AUTO_VALIDATION_REVIEW.md`
+- Phase 41 review: `docs/archive/PHASE41_AUTO_VALIDATION_VALIDATORS_REVIEW.md`
+- Phase 42 review: `docs/archive/PHASE42_AUTO_VALIDATION_REVIEW.md`
+- Auto-validation eval: `docs/pilot/clientready_AUTO_VALIDATION_EVAL.md`
 
 ## Key Product Facts
 
 - V1 evaluable claims: `bablos79` 14, `nemphiscrypts` 49, `pifagortrade` 107.
 - Safety gate covers 14 artifacts, 0 forbidden phrase findings, 0 showable now.
 - Model packet has 9 internal candidates and 0 customer-facing rows.
-- Candidate outcomes: 4 insufficient fields, 4 post-factum-only, 1 provider gap,
-  1 internal RR recompute, 0 market outcomes recomputed.
+- Operator media ledger: 0 accepted, 5 needs-context, 4 post-factum-only,
+  0 dashboard-safe rows, 0 paid-report-safe rows.
+- Accepted outcomes: 0 accepted, 0 recomputed, 9 excluded,
+  0 buyer-demo-safe rows.
+- Redacted demo: showable_now=false, blocked_internal_only.
+- Discovery gate: continue_internal_hardening; ready_for_discovery=false.
+- Phase 38 review: Stop-Ship No; P0 0, P1 0, P2 0.
 - Main blockers: 0 operator-accepted media claims, 0 dashboard-safe RR rows,
   0 market-outcome recomputed candidates.
+- Automation rule: auto-accept requires independent validator proof; model
+  review alone remains triage.
+- Validators: timing, setup consistency, provider eligibility, and post-factum
+  detection are deterministic; ambiguity routes to human review.
+- Decision engine: auto_accepted only when required validators and policy pass.
+- Policy gate: customer-facing use requires public refs, audit refs, recompute
+  provenance, caveats, safe wording, and an auto_accepted decision.
+- Evaluation: 9 candidates, 0 auto_accepted, 4 auto_rejected, 5 needs_human,
+  0 customer-facing rows.
 
 Supporting cross-product cognition vault on this VPS:
 `/srv/codex-entropy/repos/product-3/engineering-cognition-vault/10-projects/entropy-protocol.md`.

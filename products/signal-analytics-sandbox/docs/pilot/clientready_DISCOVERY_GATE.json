@@ -1,0 +1,56 @@
+{
+  "summary": {
+    "status": "clientready_discovery_gate",
+    "date": "2026-05-29",
+    "gate_decision": "continue_internal_hardening",
+    "ready_for_discovery": false,
+    "source_redacted_demo": "docs/pilot/clientready_REDACTED_BUYER_DEMO.json",
+    "showable_demo_rows": 0,
+    "operator_accepted_rows": 0,
+    "recomputed_rows": 0,
+    "buyer_demo_safe_rows": 0,
+    "state_may_move_to_client_discovery": false
+  },
+  "explicit_blockers": [
+    "redacted_demo_showable_now_false",
+    "0_operator_accepted_media_claims",
+    "0_recomputed_market_outcomes",
+    "0_buyer_demo_safe_rows",
+    "dashboard_safe_rr_rows_absent"
+  ],
+  "discovery_only_success_criteria": [
+    {
+      "criterion_id": "DISC-1",
+      "description": "At least one operator-accepted media/setup row has source URL, timestamp, asset/proxy, direction, entry, stop, target, and horizon fields.",
+      "current_status": "not_met"
+    },
+    {
+      "criterion_id": "DISC-2",
+      "description": "At least one accepted row is recomputed through an approved public provider/proxy path with no bulk market-history storage.",
+      "current_status": "not_met"
+    },
+    {
+      "criterion_id": "DISC-3",
+      "description": "A redacted demo subset has showable_now=true and keeps caveats visible next to every source-linked example.",
+      "current_status": "not_met"
+    },
+    {
+      "criterion_id": "DISC-4",
+      "description": "Operator records that the demo can be used only for narrow research feedback on clarity, trust, and evidence sufficiency.",
+      "current_status": "not_met"
+    }
+  ],
+  "forbidden_next_steps": [
+    "pricing",
+    "paid_delivery",
+    "private_partnerships",
+    "public_launch"
+  ],
+  "state_update_policy": {
+    "if_gate_decision": "ready_for_discovery",
+    "then_state_route": "client_discovery",
+    "current_state_route": "continue_internal_hardening",
+    "state_updated_to_client_discovery": false
+  },
+  "next_action": "collect_operator_acceptance_or_more_public_context_before_recompute"
+}
