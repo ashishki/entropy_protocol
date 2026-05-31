@@ -1,12 +1,13 @@
-# META_ANALYSIS — Cycle 31
+# META_ANALYSIS — Cycle 32
 _Date: 2026-05-31 · Type: full_
 
 ## Project State
 
-Phase 41 (`SAS-AUTOVAL-004` through `SAS-AUTOVAL-007`) is complete.
-Next route: Phase 42 decision engine, starting with `SAS-AUTOVAL-008`.
+Phase 42 (`SAS-AUTOVAL-008` through `SAS-AUTOVAL-011`) is complete.
+Next route: none approved. Continue internal hardening only after operator
+input or a new task graph.
 
-Baseline: 416 pass, 0 skip.
+Baseline: 432 pass, 0 skip.
 
 ## Open Findings
 
@@ -16,27 +17,25 @@ Baseline: 416 pass, 0 skip.
 
 ## PROMPT_1 Scope (architecture)
 
-- Phase 41 auto-validation validators: timing, setup consistency,
-  provider eligibility, and post-factum detection.
+- Phase 42 decision engine, customer-facing policy gate, evaluation artifact,
+  and deep review.
 - Active-state documents: `docs/CODEX_PROMPT.md`, `AGENT_NOTES.md`,
   `PHASE_HANDOFF.md`, `ORCHESTRATOR_CHECKPOINT.md`, `MEMORY.md`.
-- Task graph and compact-state tests for Phase 42 progression.
+- Task graph and compact-state tests for post-Phase-42 state.
 
 ## PROMPT_2 Scope (code, priority order)
 
-1. `src/signal_sandbox/auto_validation/timing.py` (new)
-2. `src/signal_sandbox/auto_validation/setup_consistency.py` (new)
-3. `src/signal_sandbox/auto_validation/provider_eligibility.py` (new)
-4. `src/signal_sandbox/auto_validation/post_factum.py` (new)
-5. Phase 41 validator tests (new)
-6. active-state docs and compact-state tests (changed)
+1. `src/signal_sandbox/auto_validation/decision.py`
+2. `src/signal_sandbox/auto_validation/customer_policy.py`
+3. `docs/pilot/clientready_AUTO_VALIDATION_EVAL.md/json`
+4. Phase 42 tests
+5. active-state docs and compact-state tests
 
 ## Cycle Type
 
-Full — Phase 41 boundary.
+Full — Phase 42 boundary.
 
 ## Notes for PROMPT_3
 
-Consolidation should verify that Phase 41 validators do not create
-customer-facing accepted rows by themselves. Continue to Phase 42 decision
-engine with buyer outreach still blocked.
+Consolidation should verify that Phase 42 leaves buyer outreach blocked:
+0 auto-accepted rows, 0 customer-facing rows, and no later discovery gate.

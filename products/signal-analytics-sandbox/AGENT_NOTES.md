@@ -7,9 +7,9 @@ Restart-relevant state only. Historical detail lives in
 
 ## Active State
 
-- Phase: 42 Auto-Accept Decision Engine And Evaluation
-- Active task: `SAS-AUTOVAL-009`
-- Baseline: 422 pass / 0 skip
+- Phase: 42 complete Auto-Accept Decision Engine And Evaluation
+- Active task: none approved
+- Baseline: 432 pass / 0 skip
 - External gate: `approve_internal_only`
 - External delivery: not approved
 - Core: paused
@@ -17,9 +17,9 @@ Restart-relevant state only. Historical detail lives in
 ## Current Decision
 
 Phase 37 is complete. Deep review decision is `continue_internal_hardening`.
-`SAS-CLIENTREADY-001..004` and `SAS-AUTOVAL-001..008` are complete. Phase 40
-and Phase 41 deep reviews are archived. The project has a valid internal
-diligence baseline, not a client-valid buyer-facing product.
+`SAS-CLIENTREADY-001..004` and `SAS-AUTOVAL-001..011` are complete. Phase
+40-42 deep reviews are archived. The project has a valid internal diligence
+baseline, not a client-valid buyer-facing product.
 
 ## Next Action
 
@@ -29,7 +29,7 @@ discovery gate decision is `continue_internal_hardening`, not
 proof bundles, independent validators, strict decision thresholds, and a
 customer-facing policy gate.
 
-Next task: `SAS-AUTOVAL-009` customer-facing policy gate.
+Next task: none approved. Await operator input or a new task graph.
 
 Current ledger facts: 9 rows, 0 accepted, 5 needs-context, 4 post-factum-only,
 0 dashboard-safe rows, 0 paid-report-safe rows, and 0 predictive-call metric

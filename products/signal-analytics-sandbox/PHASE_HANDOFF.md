@@ -4,9 +4,9 @@ Date: 2026-05-31
 
 ## Current State
 
-- Phase: 42 Auto-Accept Decision Engine And Evaluation
-- Active task: `SAS-AUTOVAL-009`
-- Baseline: 422 pass / 0 skip
+- Phase: 42 complete Auto-Accept Decision Engine And Evaluation
+- Active task: none approved
+- Baseline: 432 pass / 0 skip
 - Ruff: clean
 - Pyright: clean
 - External gate: `approve_internal_only`
@@ -47,8 +47,8 @@ with Phases 40-42 to automate candidate validation through evidence bundles,
 independent validators, strict decision thresholds, and a customer-facing
 policy gate. Keep external delivery blocked.
 
-`SAS-AUTOVAL-001..008` plus Phase 40/41 deep reviews are complete. Next task:
-`SAS-AUTOVAL-009` customer-facing policy gate.
+`SAS-AUTOVAL-001..011` plus Phase 40/41/42 deep reviews are complete. No next
+task is approved; buyer outreach remains blocked.
 
 ## Read First
 

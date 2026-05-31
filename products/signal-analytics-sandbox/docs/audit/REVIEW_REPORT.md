@@ -1,16 +1,15 @@
-# REVIEW_REPORT — Cycle 31
-_Date: 2026-05-31 · Scope: SAS-AUTOVAL-004-SAS-AUTOVAL-007_
+# REVIEW_REPORT — Cycle 32
+_Date: 2026-05-31 · Scope: SAS-AUTOVAL-008-SAS-AUTOVAL-011_
 
 ## Executive Summary
 
 - Stop-Ship: No.
-- Phase 41 is complete and internally consistent.
-- Timing, setup consistency, provider eligibility, and post-factum validators
-  are implemented as deterministic proof checks.
-- Missing data, ambiguity, provider gaps, and post-factum cues do not become
-  customer-facing wins/losses.
+- Phase 42 is complete and internally consistent.
+- Decision engine and customer-facing policy gate are implemented.
+- Evaluation on 9 candidates reports 0 auto-accepted, 4 auto-rejected,
+  5 needs-human, and 0 customer-facing rows.
 - External delivery and buyer outreach remain blocked.
-- Validation: 416 passed, 0 skipped; ruff format/check and pyright pass.
+- Validation: 432 passed, 0 skipped; ruff format/check and pyright pass.
 
 ## P0 Issues
 
@@ -34,6 +33,5 @@ None.
 
 ## Stop-Ship Decision
 
-No — Phase 41 creates validators only, not customer-facing accepted rows. It is
-safe to continue to `SAS-AUTOVAL-008` because the decision engine must require
-all validators and policy gates before auto-accept.
+No — Phase 42 created a conservative decision stack and found no customer-facing
+rows. It is safe for internal hardening only; outreach remains blocked.

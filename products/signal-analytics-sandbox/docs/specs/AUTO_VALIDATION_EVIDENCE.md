@@ -35,7 +35,8 @@ Implemented schemas/validators: `src/signal_sandbox/auto_validation/evidence.py`
 `src/signal_sandbox/auto_validation/setup_consistency.py`,
 `src/signal_sandbox/auto_validation/provider_eligibility.py`,
 `src/signal_sandbox/auto_validation/post_factum.py`,
-`src/signal_sandbox/auto_validation/decision.py`.
+`src/signal_sandbox/auto_validation/decision.py`,
+`src/signal_sandbox/auto_validation/customer_policy.py`.
 
 ## Validator Result States
 

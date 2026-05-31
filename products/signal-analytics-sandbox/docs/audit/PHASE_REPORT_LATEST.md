@@ -1,19 +1,19 @@
-# Phase 41 Report — Auto-Validation Validator Stack
+# Phase 42 Report — Auto-Accept Decision Engine And Evaluation
 
-Phase 41 implemented the independent validator stack on top of the Phase 40
-proof envelope. It did not approve any candidate for customer-facing use.
+Phase 42 implemented the auto-validation decision engine, customer-facing
+policy gate, and evaluation over the 9 current media candidates.
 
 Built:
 
-- Pre-outcome timing validator.
-- OCR/setup consistency validator.
-- Asset proxy/provider eligibility validator.
-- Post-factum and closed-position cue detector.
-- Phase 41 deep review: Stop-Ship No; P0/P1/P2 = 0/0/0.
+- Auto-validation decision engine.
+- Customer-facing policy gate.
+- Current-candidate evaluation: 0 auto-accepted, 4 auto-rejected,
+  5 needs-human, 0 customer-facing rows.
+- Phase 42 deep review: Stop-Ship No; P0/P1/P2 = 0/0/0.
 
 Tests:
 
-- Baseline moved from 391 to 416 passing tests.
+- Baseline moved from 416 to 432 passing tests.
 - `ruff format --check src/ tests/ scripts/` passes.
 - `ruff check src/ tests/ scripts/` passes.
 - `.venv/bin/pyright` passes.
@@ -24,18 +24,18 @@ Open findings:
 - P1: 0
 - P2: 0
 
-Health verdict: OK for decision-engine implementation. Not ready for discovery.
+Health verdict: OK for internal hardening. Not ready for discovery.
 
 Next:
 
-Continue to `SAS-AUTOVAL-008` auto-validation decision engine. Buyer outreach
-remains blocked.
+No approved next customer-facing route. Buyer outreach remains blocked until a
+later discovery gate explicitly approves it.
 
 Notification summary:
 
-Ph41 Auto-Validation Validators DONE
-Built: timing/setup/provider/post-factum validators
-Tests: 391->416 pass
+Ph42 Auto-Validation Decision DONE
+Built: decision/policy/eval/review
+Tests: 416->432 pass
 Issues: P1:0 P2:0
-Health: OK decision path / blocked external
-Next: SAS-AUTOVAL-008 decision engine
+Health: OK internal / blocked external
+Next: await operator input or new task graph

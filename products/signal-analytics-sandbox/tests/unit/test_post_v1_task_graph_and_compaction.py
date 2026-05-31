@@ -37,6 +37,8 @@ def test_post_v1_task_graph_lists_next_phases_and_active_task() -> None:
         "SAS-AUTOVAL-007",
         "SAS-AUTOVAL-008",
         "SAS-AUTOVAL-009",
+        "SAS-AUTOVAL-010",
+        "SAS-AUTOVAL-011",
     ):
         assert task_id in tasks
 
@@ -47,7 +49,7 @@ def test_post_v1_task_graph_lists_next_phases_and_active_task() -> None:
     )
     assert "## Phase 37 — Pre-Client Artifact Hardening" in tasks
     assert "## Phase 38 — Client-Readiness Evidence Acceptance" in tasks
-    latest_completed = "Latest completed: `SAS-AUTOVAL-008`"
+    latest_completed = "Latest completed: `Phase 42 Deep Review`"
     assert latest_completed in prompt
     assert "Active route: Phase 42 auto-accept decision engine" in prompt
 

@@ -1,21 +1,21 @@
-# ARCH_REPORT — Cycle 31
+# ARCH_REPORT — Cycle 32
 _Date: 2026-05-31_
 
 ## Component Verdicts
 
 | Component | Verdict | Note |
 |-----------|---------|------|
-| Auto-validation validators | PASS | Timing, setup, provider, and post-factum validators preserve conservative gates. |
-| Active-state documents | PASS | State advances to Phase 42 while keeping external delivery blocked. |
-| Tests | PASS | Unit tests cover all Phase 41 acceptance criteria and compact-state updates. |
+| Auto-validation decision stack | PASS | Decision engine and policy gate preserve conservative acceptance. |
+| Active-state documents | PASS | State records Phase 42 complete and keeps external delivery blocked. |
+| Tests | PASS | Unit tests cover all Phase 42 acceptance criteria and compact-state updates. |
 
 ## Contract Compliance
 
 | Rule | Verdict | Note |
 |------|---------|------|
 | PSR-1 public-source-only | PASS | Evidence bundles allow public/operator-public source class and reject private-source URL patterns. |
-| PSR-2 reproducibility | PASS | Validator outputs use deterministic input hashes. |
-| PSR-3 LLM output is never truth | PASS | Validators consume evidence refs and never treat model review as final truth. |
+| PSR-2 reproducibility | PASS | Decisions, policy output, and eval artifacts cite deterministic refs. |
+| PSR-3 LLM output is never truth | PASS | Decision engine requires validators/policy; model confidence cannot bypass. |
 | PSR-4 cost cap | PASS | No paid adapter or model calls added. |
 | PSR-5 snapshot immutability | PASS | No market snapshot writes added. |
 | PSR-6 disclaimer integrity | PASS | Report renderer and canonical disclaimer untouched. |
@@ -33,7 +33,7 @@ _Date: 2026-05-31_
 | ADR-002 Author Market Intelligence | PASS | Deterministic truth boundaries preserved; RAG/agentic capabilities not expanded. |
 | ADR-003 channel-specific tools | PASS | Review/export posture preserved. |
 | ADR-004 media evidence pipeline | PASS | Media/OCR/transcript refs remain evidence refs; no provider expansion added. |
-| ADR-005 auto-validation evidence engine | PASS | Phase 41 implements independent validators on the proof surface. |
+| ADR-005 auto-validation evidence engine | PASS | Phase 42 implements decision/policy/evaluation on the proof surface. |
 
 ## Architecture Findings
 
@@ -53,7 +53,7 @@ No architecture findings.
 
 | Check | Verdict | Note |
 |-------|---------|------|
-| No new non-determinism sources | PASS | Validators are pure deterministic functions. |
+| No new non-determinism sources | PASS | Decision/policy functions are deterministic and artifact-only. |
 | Decimal discipline preserved | PASS | Confidence and setup numeric fields use `Decimal`. |
 | Snapshots immutable on disk | PASS | Snapshot code untouched. |
 | Disclaimer canonical | PASS | Disclaimer code untouched. |

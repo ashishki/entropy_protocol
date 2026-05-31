@@ -1,5 +1,9 @@
 """Auto-validation evidence and validator contracts."""
 
+from signal_sandbox.auto_validation.customer_policy import (
+    CustomerPolicyInput,
+    evaluate_customer_policy,
+)
 from signal_sandbox.auto_validation.decision import (
     AutoValidationDecision,
     AutoValidationDecisionState,
@@ -40,6 +44,7 @@ __all__ = [
     "AutoValidationEvidenceBundle",
     "AutoValidationDecision",
     "AutoValidationDecisionState",
+    "CustomerPolicyInput",
     "EvidenceRef",
     "ExtractedSetupFields",
     "MarketWindowRef",
@@ -59,5 +64,6 @@ __all__ = [
     "TimingOutcomeKind",
     "detect_post_factum_cues",
     "decide_auto_validation",
+    "evaluate_customer_policy",
     "validate_pre_outcome_timing",
 ]

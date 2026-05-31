@@ -503,9 +503,9 @@ Tasks:
 | Task ID | Task | Output | Acceptance Criteria |
 |---|---|---|---|
 | SAS-AUTOVAL-008 ✅ | Decision engine | `decision.py` | auto_accepted only if all required validators and policy gate pass. |
-| SAS-AUTOVAL-009 | Customer-facing policy gate | `customer_policy.py` | Public refs, audit refs, recompute provenance, caveats, and wording safety required. |
-| SAS-AUTOVAL-010 | Evaluation on current media candidates | `clientready_AUTO_VALIDATION_EVAL.md/json` | All 9 Phase 38 candidates get auto decision + audit refs + blockers. |
-| SAS-AUTOVAL-011 | Deep review | `PHASE42_AUTO_VALIDATION_REVIEW.md` | Review false-accept risk, audit completeness, and remaining human boundary. |
+| SAS-AUTOVAL-009 ✅ | Customer-facing policy gate | `customer_policy.py` | Public refs, audit refs, recompute provenance, caveats, and wording safety required. |
+| SAS-AUTOVAL-010 ✅ | Evaluation on current media candidates | `clientready_AUTO_VALIDATION_EVAL.md/json` | All 9 Phase 38 candidates get auto decision + audit refs + blockers. |
+| SAS-AUTOVAL-011 ✅ | Deep review | `PHASE42_AUTO_VALIDATION_REVIEW.md` | Review false-accept risk, audit completeness, and remaining human boundary. |
 
 Definition of done:
 

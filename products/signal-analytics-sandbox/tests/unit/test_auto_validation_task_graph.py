@@ -54,5 +54,5 @@ def test_active_state_points_to_auto_validation_route() -> None:
     assert (
         "Active route: Phase 42 auto-accept decision engine and evaluation." in prompt
     )
-    assert "Next task: `SAS-AUTOVAL-009`" in prompt
+    assert "Next task: none approved" in prompt
     assert "buyer outreach remains blocked" in prompt

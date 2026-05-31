@@ -1,6 +1,6 @@
 # CODEX_PROMPT.md - Signal Analytics Sandbox
 
-Version: 3.18
+Version: 3.20
 Date: 2026-05-31
 Phase: 42
 Compact restart state only. Detailed history lives in
@@ -9,18 +9,18 @@ Compact restart state only. Detailed history lives in
 ## Current State
 
 - Phase: 42 (Auto-Accept Decision Engine And Evaluation)
-- Baseline: 422 pass / 0 skip
+- Baseline: 432 pass / 0 skip
 - Ruff: `ruff check src/ tests/ scripts/` passes
 - Format: `ruff format --check src/ tests/ scripts/` passes
 - Pyright: `.venv/bin/pyright` passes
-- Latest completed: `SAS-AUTOVAL-008`
+- Latest completed: `Phase 42 Deep Review`
 - Phase 37 decision: `continue_internal_hardening`
 - Engineering Phase 1 (T01+) may begin.
 - | SAS-001: Paid Pilot Demand Validation | acknowledged |
 - | SAS-002: Public-Source Legal/Terms Memo | acknowledged |
 - External gate: `approve_internal_only`
 - External delivery: not approved
-- Current priority: implement customer-facing policy gate.
+- Current priority: wait for operator input or new task graph.
 
 ## Next Task
 
@@ -35,11 +35,9 @@ Active route: Phase 42 auto-accept decision engine and evaluation.
 - New route: Phases 40-42 build evidence bundles, independent validators,
   strict auto-accept decisions, customer-facing policy gate, and evaluation on
   the current 9 media candidates.
-- Completed: Phase 40 schemas, Phase 41 validators, and `SAS-AUTOVAL-008`
-  decision engine.
-- Next task: `SAS-AUTOVAL-009` customer-facing policy gate.
-- buyer outreach remains blocked until a later discovery gate explicitly
-  approves it.
+- Completed: Phases 40-42 auto-validation contract, validators, decision
+  engine, policy gate, evaluation, and deep review.
+- Next task: none approved; buyer outreach remains blocked until a later gate.
 
 Read first: `docs/tasks.md` Phases 40-42, auto-validation spec/ADR,
 Phase 40 review, and Phase 38 clientready artifacts.
@@ -50,20 +48,13 @@ Phase 40 review, and Phase 38 clientready artifacts.
 - Phase 38 review: `docs/archive/PHASE38_REVIEW.md`
 - Pre-client packet/appendix/cards/outcomes/gate:
   `docs/pilot/preclient_*`
-- Phase 38 artifacts: `docs/pilot/clientready_OPERATOR_MEDIA_LEDGER.md`,
-  `docs/pilot/clientready_ACCEPTED_OUTCOMES.md`,
-  `docs/pilot/clientready_REDACTED_BUYER_DEMO.md`,
-  `docs/pilot/clientready_DISCOVERY_GATE.md`
+- Phase 38 artifacts: `docs/pilot/clientready_*`
 - Auto-validation contract/schema: `docs/specs/AUTO_VALIDATION_EVIDENCE.md`,
-  `src/signal_sandbox/auto_validation/evidence.py`,
-  `src/signal_sandbox/auto_validation/results.py`,
-  `src/signal_sandbox/auto_validation/timing.py`,
-  `src/signal_sandbox/auto_validation/setup_consistency.py`,
-  `src/signal_sandbox/auto_validation/provider_eligibility.py`,
-  `src/signal_sandbox/auto_validation/post_factum.py`,
-  `src/signal_sandbox/auto_validation/decision.py`
+  `src/signal_sandbox/auto_validation/`
 - Phase 40 review: `docs/archive/PHASE40_AUTO_VALIDATION_REVIEW.md`
 - Phase 41 review: `docs/archive/PHASE41_AUTO_VALIDATION_VALIDATORS_REVIEW.md`
+- Phase 42 review: `docs/archive/PHASE42_AUTO_VALIDATION_REVIEW.md`
+- Auto-validation eval: `docs/pilot/clientready_AUTO_VALIDATION_EVAL.md`
 
 ## Key Product Facts
 
@@ -84,6 +75,10 @@ Phase 40 review, and Phase 38 clientready artifacts.
 - Validators: timing, setup consistency, provider eligibility, and post-factum
   detection are deterministic; ambiguity routes to human review.
 - Decision engine: auto_accepted only when required validators and policy pass.
+- Policy gate: customer-facing use requires public refs, audit refs, recompute
+  provenance, caveats, safe wording, and an auto_accepted decision.
+- Evaluation: 9 candidates, 0 auto_accepted, 4 auto_rejected, 5 needs_human,
+  0 customer-facing rows.
 
 ## Active Guardrails
 

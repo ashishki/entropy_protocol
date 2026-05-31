@@ -2023,3 +2023,19 @@ This file is durable handoff context across agents and sessions. It records what
 - Decisions applied: `auto_accepted` requires timing, setup, provider, post-factum, and policy results all to pass. Any uncertain result becomes `needs_human`; provider gaps become `excluded_provider_gap`; failed validators become `auto_rejected`; policy blocks become `blocked_customer_facing`. Decisions include validator result ids and audit log refs.
 - Light review: no P0/P1/P2 findings. The decision engine is conservative and does not bypass the still-upcoming customer-facing policy gate.
 - Follow-ups: run `SAS-AUTOVAL-009` customer-facing policy gate.
+
+### 2026-05-31 — SAS-AUTOVAL-009 — Customer-Facing Policy Gate
+
+- Scope: `src/signal_sandbox/auto_validation/customer_policy.py`, `tests/unit/test_auto_validation_customer_policy_gate.py`, active-state docs.
+- Why this work happened: even an internally auto-accepted row needs a separate legal/reputation gate before dashboard or paid-report metrics.
+- Decisions applied: customer-facing pass requires auto_accepted decision state, public source refs, validation audit ref, recompute provenance ref, visible caveats, and safe wording. Private-source risk, missing refs/provenance/caveats, non-auto-accepted states, provider gaps, post-factum rejects, or forbidden wording block customer-facing use. Model confidence cannot bypass the gate.
+- Light review: no P0/P1/P2 findings. The policy gate stays separate from model review and from validator confidence.
+- Follow-ups: run `SAS-AUTOVAL-010` evaluation on the current 9 media candidates.
+
+### 2026-05-31 — SAS-AUTOVAL-010/011 — Evaluation And Deep Review
+
+- Scope: `docs/pilot/clientready_AUTO_VALIDATION_EVAL.md`, `docs/pilot/clientready_AUTO_VALIDATION_EVAL.json`, `tests/unit/test_auto_validation_eval_current_candidates.py`, `docs/archive/PHASE42_AUTO_VALIDATION_REVIEW.md`, audit reports, active-state docs.
+- Why this work happened: Phase 42 needed an end-to-end conservative check over the current 9 media candidates before any customer-facing route could be reconsidered.
+- Decisions applied: evaluation records 0 auto-accepted rows, 4 auto-rejected post-factum rows, 5 needs-human rows, 0 policy-passed rows, and 0 customer-facing rows. Every row cites validator/policy audit refs and blockers.
+- Phase review: Stop-Ship No; P0/P1/P2 = 0/0/0. False-accept risk is low because no row can pass without validator and policy agreement, but human-review load remains for 5 rows.
+- Follow-ups: no approved next task. Buyer outreach remains blocked until operator input or a later discovery gate explicitly approves it.

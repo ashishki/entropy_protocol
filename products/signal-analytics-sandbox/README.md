@@ -5,9 +5,9 @@ separate from Entropy Core and Trader Risk Audit.
 
 ## Current Status
 
-- Phase: 42 Auto-Accept Decision Engine And Evaluation
-- Next task: `SAS-AUTOVAL-009`
-- Baseline: 422 passing tests, 0 skipped
+- Phase: 42 complete - Auto-Accept Decision Engine And Evaluation
+- Next task: none approved; buyer outreach remains blocked
+- Baseline: 432 passing tests, 0 skipped
 - Current priority: automate candidate validation with evidence bundles,
   independent validators, strict thresholds, and customer-facing policy gates
 
