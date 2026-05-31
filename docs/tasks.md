@@ -1,7 +1,7 @@
 # Entropy Protocol Portfolio Tasks
 
 Status: active portfolio task graph
-Last updated: 2026-05-29
+Last updated: 2026-05-31
 
 This file coordinates cross-product work only. Implementation tasks still live
 inside each product workspace.
@@ -21,7 +21,7 @@ commercial expression of the repository.
 
 ### EP-001: Portfolio Reframe Sync
 
-Status: planned
+Status: complete
 Owner: codex
 Type: docs
 
@@ -40,7 +40,7 @@ Acceptance-Criteria:
 
 ### EP-002: Telegram Trader Intelligence Productization Plan
 
-Status: planned
+Status: in_progress
 Owner: codex
 Type: product
 
@@ -58,7 +58,7 @@ Acceptance-Criteria:
 
 ### EP-003: Core Verification Kernel V2 Candidate
 
-Status: planned
+Status: in_progress
 Owner: codex
 Type: architecture
 
@@ -70,12 +70,14 @@ Objective: |
 Acceptance-Criteria:
   - Core workspace has a V2 candidate task block.
   - Candidate scope is schema/protocol first, not SaaS/runtime-first.
+  - `entropy.artifacts.product_receipt` validates portable product proof
+    receipts.
   - Product workspaces can consume receipts without Core owning their business
     logic.
 
 ### EP-004: Gensyn-Inspired Diversity And Referee Pattern
 
-Status: planned
+Status: in_progress
 Owner: codex
 Type: research
 
@@ -92,7 +94,7 @@ Acceptance-Criteria:
 
 ### EP-005: Cross-Project Verification Integration
 
-Status: planned
+Status: in_progress
 Owner: codex
 Type: integration
 
@@ -103,6 +105,8 @@ Objective: |
 Acceptance-Criteria:
   - Integration notes identify artifact types, source-of-truth files, and
     minimum fields.
+  - Active products have local proof receipt helpers and tests where the proof
+    layer is immediately useful.
   - No project is forced to adopt Entropy Core as a runtime dependency.
   - The integration remains artifact-first: docs, receipts, CI checks, and
     review gates before runtime adapters.

@@ -67,3 +67,14 @@ __all__ = [
     "evaluate_customer_policy",
     "validate_pre_outcome_timing",
 ]
+from signal_sandbox.auto_validation.core_receipt import (
+    SignalAutoValidationProofReceipt,
+    SignalProofEvidenceRef,
+    build_signal_auto_validation_receipt,
+)
+
+__all__ = [
+    "SignalAutoValidationProofReceipt",
+    "SignalProofEvidenceRef",
+    "build_signal_auto_validation_receipt",
+]
