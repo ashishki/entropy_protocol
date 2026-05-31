@@ -1,0 +1,150 @@
+{
+  "summary": {
+    "artifact_id": "mvp-value-run-2026-05-31",
+    "date": "2026-05-31",
+    "status": "internal_mvp_value_assessment",
+    "question": "Is the current MVP valuable enough to use beyond internal development?",
+    "verdict": "valuable_as_internal_diligence_mvp_not_customer_facing_mvp",
+    "internal_value_ready": true,
+    "customer_facing_value_ready": false,
+    "paid_mvp_ready": false,
+    "recommended_route": "concierge_source_diligence_validation_before_dashboard_or_paid_metrics"
+  },
+  "inputs": {
+    "text_metric_artifact": "docs/pilot/preclient_FREE_DASHBOARD_CARDS.json",
+    "artifact_safety_gate": "docs/pilot/preclient_ARTIFACT_SAFETY_GATE.json",
+    "operator_media_ledger": "docs/pilot/clientready_OPERATOR_MEDIA_LEDGER.json",
+    "accepted_outcomes": "docs/pilot/clientready_ACCEPTED_OUTCOMES.json",
+    "discovery_gate": "docs/pilot/clientready_DISCOVERY_GATE.json",
+    "auto_validation_eval": "docs/pilot/clientready_AUTO_VALIDATION_EVAL.json"
+  },
+  "observed_evidence": {
+    "v1_text_metrics": {
+      "channels": 3,
+      "evaluable_claims": 170,
+      "confirmed_hits": 93,
+      "contradicted_misses": 77,
+      "customer_facing_allowed": false,
+      "notes": [
+        "Text evidence is useful for internal channel diligence.",
+        "Text metrics remain direction-only and are not approved for external claims."
+      ]
+    },
+    "media_validation": {
+      "candidate_count": 9,
+      "operator_accepted_rows": 0,
+      "auto_accepted": 0,
+      "auto_rejected": 4,
+      "needs_human": 5,
+      "customer_facing_rows": 0
+    },
+    "gates": {
+      "artifact_showable_now": false,
+      "ready_for_discovery": false,
+      "buyer_demo_safe_rows": 0,
+      "dashboard_safe_rr_rows": 0,
+      "market_outcome_recomputed_candidates": 0
+    }
+  },
+  "channel_observations": [
+    {
+      "source_id": "bablos79",
+      "v1_evaluable_claims": 14,
+      "confirmed_hits": 9,
+      "contradicted_misses": 5,
+      "hit_rate_pct": "64.285714",
+      "avg_directional_return_pct": "0.742848",
+      "mvp_signal": "Has a modest positive internal text signal and one internally interesting RR draft, but sample size and provider/operator gates block customer use.",
+      "customer_facing_allowed": false
+    },
+    {
+      "source_id": "nemphiscrypts",
+      "v1_evaluable_claims": 49,
+      "confirmed_hits": 28,
+      "contradicted_misses": 21,
+      "hit_rate_pct": "57.142857",
+      "avg_directional_return_pct": "0.434858",
+      "mvp_signal": "Crypto-only routing is cleaner than mixed MOEX/crypto sources, but the media setup lacks target/position fields.",
+      "customer_facing_allowed": false
+    },
+    {
+      "source_id": "pifagortrade",
+      "v1_evaluable_claims": 107,
+      "confirmed_hits": 56,
+      "contradicted_misses": 51,
+      "hit_rate_pct": "52.336449",
+      "avg_directional_return_pct": "-0.153127",
+      "mvp_signal": "Largest sample and richest media candidates, but performance is near-even and several strong-looking media rows are post-factum.",
+      "customer_facing_allowed": false
+    }
+  ],
+  "insights": [
+    {
+      "id": "insight-001",
+      "title": "The current MVP already creates internal diligence value.",
+      "detail": "It can gather public evidence, normalize directional claims, separate confirmed and contradicted outcomes, and prevent unsafe promotion of media/chart claims."
+    },
+    {
+      "id": "insight-002",
+      "title": "The strongest near-term wedge is analyst-grade source diligence, not a public signal leaderboard.",
+      "detail": "The system is strongest when it explains evidence quality, exclusions, blockers, and review burden. It is not yet strong enough to sell customer-facing performance metrics."
+    },
+    {
+      "id": "insight-003",
+      "title": "Automation is working as a risk reducer.",
+      "detail": "The auto-validation stack rejected post-factum candidates and routed ambiguous rows to human review instead of creating false customer-facing wins."
+    },
+    {
+      "id": "insight-004",
+      "title": "The main bottleneck is accepted evidence, not another dashboard surface.",
+      "detail": "The project has 0 operator-accepted media claims, 0 recomputed accepted outcomes, 0 buyer-demo-safe rows, and 0 customer-facing rows."
+    },
+    {
+      "id": "insight-005",
+      "title": "Buyer value is still unproven.",
+      "detail": "The product has not yet validated whether target buyers will pay for diligence reports, trust public-source evidence, or change their workflow based on these artifacts."
+    }
+  ],
+  "startup_pressure_test": {
+    "pain_intensity_1_to_5": 3,
+    "buyer_clarity_1_to_5": 2,
+    "urgency_1_to_5": 2,
+    "differentiation_1_to_5": 4,
+    "speed_to_validate_1_to_5": 4,
+    "founder_advantage_1_to_5": 3,
+    "interpretation": "The product has a credible technical wedge and fast validation path, but buyer urgency and willingness to pay remain assumptions."
+  },
+  "go_no_go": {
+    "continue_building": true,
+    "start_paid_customer_facing_metrics": false,
+    "start_public_dashboard": false,
+    "allow_concierge_discovery_with_internal_only_caveats": true,
+    "next_validation_goal": "Prove whether a buyer wants an analyst-grade diligence report before investing in more customer-facing automation."
+  },
+  "next_experiments": [
+    {
+      "id": "exp-001",
+      "title": "Five buyer discovery calls around source diligence pain",
+      "success_signal": "At least 2 buyers describe a current manual or paid workflow for vetting signal sources and ask to see a bounded diligence report.",
+      "failure_signal": "Buyers treat this as curiosity, free content, or a dashboard feature with no budget."
+    },
+    {
+      "id": "exp-002",
+      "title": "One operator-accepted media row recomputed end to end",
+      "success_signal": "A single candidate has accepted timing, asset/proxy, direction, entry, stop, target, horizon, recompute provenance, and policy-gate status.",
+      "failure_signal": "The team cannot obtain enough evidence to validate even one row without speculative interpretation."
+    },
+    {
+      "id": "exp-003",
+      "title": "Concierge internal diligence report for one source",
+      "success_signal": "A target buyer says the report would affect source selection, risk review, or paid-vendor diligence.",
+      "failure_signal": "The buyer only wants raw hit rate, trading advice, or unsupported rankings."
+    }
+  ],
+  "kill_criteria": [
+    "No buyer confirms an existing painful workflow for source diligence.",
+    "Public-source evidence is considered insufficient for any purchasing or operational decision.",
+    "Operator-accepted media validation cannot produce at least one recomputed row.",
+    "Buyers only want forward-looking trade recommendations, which the project must not provide."
+  ]
+}

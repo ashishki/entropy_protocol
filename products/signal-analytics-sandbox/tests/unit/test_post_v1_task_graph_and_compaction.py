@@ -26,6 +26,19 @@ def test_post_v1_task_graph_lists_next_phases_and_active_task() -> None:
         "SAS-PRECLIENT-009",
         "SAS-PRECLIENT-010",
         "SAS-CLIENTREADY-001",
+        "SAS-CLIENTREADY-002",
+        "SAS-CLIENTREADY-003",
+        "SAS-CLIENTREADY-004",
+        "SAS-AUTOVAL-001",
+        "SAS-AUTOVAL-003",
+        "SAS-AUTOVAL-004",
+        "SAS-AUTOVAL-005",
+        "SAS-AUTOVAL-006",
+        "SAS-AUTOVAL-007",
+        "SAS-AUTOVAL-008",
+        "SAS-AUTOVAL-009",
+        "SAS-AUTOVAL-010",
+        "SAS-AUTOVAL-011",
     ):
         assert task_id in tasks
 
@@ -36,12 +49,9 @@ def test_post_v1_task_graph_lists_next_phases_and_active_task() -> None:
     )
     assert "## Phase 37 — Pre-Client Artifact Hardening" in tasks
     assert "## Phase 38 — Client-Readiness Evidence Acceptance" in tasks
-    latest_completed = (
-        "Latest completed: `SAS-PRECLIENT-010 Phase 37 Deep Review "
-        "And Client-Readiness Decision`"
-    )
+    latest_completed = "Latest completed: `MVP Value Run - 2026-05-31`"
     assert latest_completed in prompt
-    assert "Active route: Phase 38 client-readiness evidence acceptance" in prompt
+    assert "Active route: post-Phase-42 MVP value assessment." in prompt
 
 
 def test_active_state_files_are_compacted_to_current_links() -> None:

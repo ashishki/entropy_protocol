@@ -1,0 +1,122 @@
+{
+  "summary": {
+    "status": "clientready_redacted_buyer_demo_subset",
+    "date": "2026-05-29",
+    "showable_now": false,
+    "gate_decision": "blocked_internal_only",
+    "source_card_artifact": "docs/pilot/preclient_FREE_DASHBOARD_CARDS.json",
+    "source_outcome_artifact": "docs/pilot/clientready_ACCEPTED_OUTCOMES.json",
+    "channels_included": 3,
+    "source_linked_examples": 3,
+    "full_appendix_exposed": false,
+    "accepted_rows": 0,
+    "recomputed_rows": 0,
+    "buyer_demo_safe_rows": 0
+  },
+  "allowed_fields": [
+    "source_id",
+    "source_type",
+    "evaluated_window",
+    "compact_text_claim_counts",
+    "media_ref_count",
+    "candidate_count",
+    "gate_status",
+    "visible_caveats",
+    "source_linked_examples"
+  ],
+  "blocked_content": [
+    "full_evidence_appendix_rows",
+    "raw_media",
+    "workspace_paths",
+    "unaccepted_media_metrics",
+    "recomputed_outcome_claims",
+    "unsupported_provider_claims"
+  ],
+  "visible_caveats": [
+    "Internal diligence subset only.",
+    "No operator-accepted media rows exist yet.",
+    "No market outcomes were recomputed for client-ready use.",
+    "Post-factum rows are excluded from predictive-call metrics.",
+    "Provider gaps and missing fields remain exclusions."
+  ],
+  "channel_cards": [
+    {
+      "source_id": "bablos79",
+      "source_type": "public_telegram_channel",
+      "evaluated_window": "2026-03-22..2026-05-22",
+      "compact_text_claim_counts": {
+        "v1_evaluable_claims": 14,
+        "confirmed": 9,
+        "contradicted": 5
+      },
+      "media_ref_count": 196,
+      "model_reviewed_candidate_count": 1,
+      "accepted_rows": 0,
+      "recomputed_rows": 0,
+      "gate_status": "blocked_internal_only",
+      "visible_caveats": [
+        "Media evidence remains unaccepted.",
+        "One setup-like row still needs operator acceptance and provider/proxy approval."
+      ],
+      "source_linked_examples": [
+        {
+          "label": "setup-like media candidate",
+          "source_url": "https://t.me/bablos79/10450",
+          "redacted_note": "Shown only as a source-linked review example; not counted as an accepted outcome."
+        }
+      ]
+    },
+    {
+      "source_id": "nemphiscrypts",
+      "source_type": "public_telegram_channel",
+      "evaluated_window": "2026-03-22..2026-05-22",
+      "compact_text_claim_counts": {
+        "v1_evaluable_claims": 49,
+        "confirmed": 28,
+        "contradicted": 21
+      },
+      "media_ref_count": 63,
+      "model_reviewed_candidate_count": 1,
+      "accepted_rows": 0,
+      "recomputed_rows": 0,
+      "gate_status": "blocked_internal_only",
+      "visible_caveats": [
+        "The media candidate lacks enough fields for recompute.",
+        "No media row is accepted for a compact demo metric."
+      ],
+      "source_linked_examples": [
+        {
+          "label": "incomplete setup candidate",
+          "source_url": "https://t.me/nemphiscrypts/3958",
+          "redacted_note": "Shown only as a source-linked review example; missing fields remain unresolved."
+        }
+      ]
+    },
+    {
+      "source_id": "pifagortrade",
+      "source_type": "public_telegram_channel",
+      "evaluated_window": "2026-03-22..2026-05-22",
+      "compact_text_claim_counts": {
+        "v1_evaluable_claims": 107,
+        "confirmed": 56,
+        "contradicted": 51
+      },
+      "media_ref_count": 36,
+      "model_reviewed_candidate_count": 7,
+      "accepted_rows": 0,
+      "recomputed_rows": 0,
+      "gate_status": "blocked_internal_only",
+      "visible_caveats": [
+        "Several media rows are post-factum only.",
+        "Setup-like rows still need operator acceptance before recompute."
+      ],
+      "source_linked_examples": [
+        {
+          "label": "setup-like media candidate",
+          "source_url": "https://t.me/pifagortrade/3234",
+          "redacted_note": "Shown only as a source-linked review example; not counted as an accepted outcome."
+        }
+      ]
+    }
+  ]
+}

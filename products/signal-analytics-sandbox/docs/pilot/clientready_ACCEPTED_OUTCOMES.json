@@ -1,0 +1,280 @@
+{
+  "summary": {
+    "status": "clientready_accepted_outcome_recompute",
+    "date": "2026-05-29",
+    "source_ledger": "docs/pilot/clientready_OPERATOR_MEDIA_LEDGER.json",
+    "prior_outcome_artifact": "docs/pilot/preclient_CANDIDATE_OUTCOMES.json",
+    "candidate_count": 9,
+    "operator_accepted_rows": 0,
+    "recomputed_rows": 0,
+    "excluded_rows": 9,
+    "buyer_demo_safe_rows": 0,
+    "wins": 0,
+    "losses": 0,
+    "bulk_market_history_storage_used": false,
+    "counts_by_exclusion_status": {
+      "excluded_operator_not_accepted": 5,
+      "excluded_post_factum_only": 4
+    }
+  },
+  "policy": {
+    "accepted_row_gate": "operator_decision_must_equal_accepted_before_recompute",
+    "field_gate": "public_timestamp_asset_proxy_direction_entry_stop_target_and_horizon_required",
+    "provider_gate": "approved_public_provider_or_proxy_required",
+    "storage_gate": "no_bulk_market_history_storage",
+    "post_factum_gate": "post_factum_rows_are_exclusions_not_predictive_wins_or_losses",
+    "buyer_demo_gate": "buyer_demo_safe_requires_operator_acceptance_and_successful_recompute"
+  },
+  "rows": [
+    {
+      "source_id": "bablos79",
+      "post_id": 10450,
+      "source_url": "https://t.me/bablos79/10450",
+      "source_timestamp_utc": "2026-04-27T11:16:37+00:00",
+      "media_ref_id": "media_e9e8f323bcc1fc05",
+      "operator_decision": "needs_context",
+      "prior_candidate_status": "provider_gap",
+      "accepted_for_recompute": false,
+      "recompute_status": "excluded_operator_not_accepted",
+      "outcome_classification": "excluded_not_win_loss",
+      "rr_recomputed": false,
+      "market_outcome": {
+        "status": "market_outcome_not_recomputed",
+        "win_loss": null
+      },
+      "provider_proxy_provenance": [
+        "moex_iss_candidate_symbol=MAGN",
+        "provider_gap=unapproved_contract_or_quote_scale"
+      ],
+      "bulk_market_history_storage_used": false,
+      "buyer_demo_safe": false,
+      "exclusion_reasons": [
+        "operator_acceptance_required",
+        "provider_proxy_not_approved_for_exact_instrument",
+        "market_outcome_recompute_not_allowed"
+      ]
+    },
+    {
+      "source_id": "nemphiscrypts",
+      "post_id": 3958,
+      "source_url": "https://t.me/nemphiscrypts/3958",
+      "source_timestamp_utc": "2026-04-05T09:21:35+00:00",
+      "media_ref_id": "media_e9f1f06450c91ac8",
+      "operator_decision": "needs_context",
+      "prior_candidate_status": "insufficient_fields",
+      "accepted_for_recompute": false,
+      "recompute_status": "excluded_operator_not_accepted",
+      "outcome_classification": "excluded_not_win_loss",
+      "rr_recomputed": false,
+      "market_outcome": {
+        "status": "market_outcome_not_recomputed",
+        "win_loss": null
+      },
+      "provider_proxy_provenance": [
+        "binance_public_klines_candidate",
+        "provider_not_called_due_candidate_status"
+      ],
+      "bulk_market_history_storage_used": false,
+      "buyer_demo_safe": false,
+      "exclusion_reasons": [
+        "operator_context_required",
+        "missing_supported_asset",
+        "missing_target",
+        "market_outcome_recompute_not_allowed"
+      ]
+    },
+    {
+      "source_id": "pifagortrade",
+      "post_id": 3214,
+      "source_url": "https://t.me/pifagortrade/3214",
+      "source_timestamp_utc": "2026-03-28T06:32:09+00:00",
+      "media_ref_id": "media_7da0e6e8258fbe51",
+      "operator_decision": "needs_context",
+      "prior_candidate_status": "insufficient_fields",
+      "accepted_for_recompute": false,
+      "recompute_status": "excluded_operator_not_accepted",
+      "outcome_classification": "excluded_not_win_loss",
+      "rr_recomputed": false,
+      "market_outcome": {
+        "status": "market_outcome_not_recomputed",
+        "win_loss": null
+      },
+      "provider_proxy_provenance": [
+        "binance_public_klines_candidate",
+        "provider_not_called_due_candidate_status"
+      ],
+      "bulk_market_history_storage_used": false,
+      "buyer_demo_safe": false,
+      "exclusion_reasons": [
+        "operator_context_required",
+        "missing_target",
+        "market_outcome_recompute_not_allowed"
+      ]
+    },
+    {
+      "source_id": "pifagortrade",
+      "post_id": 3218,
+      "source_url": "https://t.me/pifagortrade/3218",
+      "source_timestamp_utc": "2026-04-01T16:44:53+00:00",
+      "media_ref_id": "media_02da8ff67638711a",
+      "operator_decision": "needs_context",
+      "prior_candidate_status": "insufficient_fields",
+      "accepted_for_recompute": false,
+      "recompute_status": "excluded_operator_not_accepted",
+      "outcome_classification": "excluded_not_win_loss",
+      "rr_recomputed": false,
+      "market_outcome": {
+        "status": "market_outcome_not_recomputed",
+        "win_loss": null
+      },
+      "provider_proxy_provenance": [
+        "binance_public_klines_candidate",
+        "provider_not_called_due_candidate_status"
+      ],
+      "bulk_market_history_storage_used": false,
+      "buyer_demo_safe": false,
+      "exclusion_reasons": [
+        "operator_acceptance_required",
+        "ambiguous_fibonacci_levels",
+        "missing_supported_asset",
+        "market_outcome_recompute_not_allowed"
+      ]
+    },
+    {
+      "source_id": "pifagortrade",
+      "post_id": 3225,
+      "source_url": "https://t.me/pifagortrade/3225",
+      "source_timestamp_utc": "2026-04-08T05:56:12+00:00",
+      "media_ref_id": "media_fd918bae3d526228",
+      "operator_decision": "post_factum_only",
+      "prior_candidate_status": "post_factum_only",
+      "accepted_for_recompute": false,
+      "recompute_status": "excluded_post_factum_only",
+      "outcome_classification": "excluded_not_win_loss",
+      "rr_recomputed": false,
+      "market_outcome": {
+        "status": "market_outcome_not_recomputed",
+        "win_loss": null
+      },
+      "provider_proxy_provenance": [
+        "binance_public_klines_candidate",
+        "provider_not_called_due_candidate_status"
+      ],
+      "bulk_market_history_storage_used": false,
+      "buyer_demo_safe": false,
+      "exclusion_reasons": [
+        "post_factum_not_predictive_call",
+        "excluded_from_predictive_metrics"
+      ]
+    },
+    {
+      "source_id": "pifagortrade",
+      "post_id": 3234,
+      "source_url": "https://t.me/pifagortrade/3234",
+      "source_timestamp_utc": "2026-04-14T05:38:21+00:00",
+      "media_ref_id": "media_0789aec157c1fe81",
+      "operator_decision": "needs_context",
+      "prior_candidate_status": "insufficient_fields",
+      "accepted_for_recompute": false,
+      "recompute_status": "excluded_operator_not_accepted",
+      "outcome_classification": "excluded_not_win_loss",
+      "rr_recomputed": false,
+      "market_outcome": {
+        "status": "market_outcome_not_recomputed",
+        "win_loss": null
+      },
+      "provider_proxy_provenance": [
+        "binance_public_klines_candidate",
+        "provider_not_called_due_candidate_status"
+      ],
+      "bulk_market_history_storage_used": false,
+      "buyer_demo_safe": false,
+      "exclusion_reasons": [
+        "operator_acceptance_required",
+        "target_direction_conflict",
+        "market_outcome_recompute_not_allowed"
+      ]
+    },
+    {
+      "source_id": "pifagortrade",
+      "post_id": 3264,
+      "source_url": "https://t.me/pifagortrade/3264",
+      "source_timestamp_utc": "2026-05-07T16:10:47+00:00",
+      "media_ref_id": "media_0dfbaaf12df17450",
+      "operator_decision": "post_factum_only",
+      "prior_candidate_status": "post_factum_only",
+      "accepted_for_recompute": false,
+      "recompute_status": "excluded_post_factum_only",
+      "outcome_classification": "excluded_not_win_loss",
+      "rr_recomputed": false,
+      "market_outcome": {
+        "status": "market_outcome_not_recomputed",
+        "win_loss": null
+      },
+      "provider_proxy_provenance": [
+        "binance_public_klines_candidate",
+        "provider_not_called_due_candidate_status"
+      ],
+      "bulk_market_history_storage_used": false,
+      "buyer_demo_safe": false,
+      "exclusion_reasons": [
+        "post_factum_not_predictive_call",
+        "excluded_from_predictive_metrics"
+      ]
+    },
+    {
+      "source_id": "pifagortrade",
+      "post_id": 3274,
+      "source_url": "https://t.me/pifagortrade/3274",
+      "source_timestamp_utc": "2026-05-16T09:20:57+00:00",
+      "media_ref_id": "media_ba859d2bfc0f9403",
+      "operator_decision": "post_factum_only",
+      "prior_candidate_status": "post_factum_only",
+      "accepted_for_recompute": false,
+      "recompute_status": "excluded_post_factum_only",
+      "outcome_classification": "excluded_not_win_loss",
+      "rr_recomputed": false,
+      "market_outcome": {
+        "status": "market_outcome_not_recomputed",
+        "win_loss": null
+      },
+      "provider_proxy_provenance": [
+        "binance_public_klines_candidate",
+        "provider_not_called_due_candidate_status"
+      ],
+      "bulk_market_history_storage_used": false,
+      "buyer_demo_safe": false,
+      "exclusion_reasons": [
+        "post_factum_not_predictive_call",
+        "excluded_from_predictive_metrics"
+      ]
+    },
+    {
+      "source_id": "pifagortrade",
+      "post_id": 3276,
+      "source_url": "https://t.me/pifagortrade/3276",
+      "source_timestamp_utc": "2026-05-18T15:08:06+00:00",
+      "media_ref_id": "media_0cb05b5181e07b58",
+      "operator_decision": "post_factum_only",
+      "prior_candidate_status": "post_factum_only",
+      "accepted_for_recompute": false,
+      "recompute_status": "excluded_post_factum_only",
+      "outcome_classification": "excluded_not_win_loss",
+      "rr_recomputed": false,
+      "market_outcome": {
+        "status": "market_outcome_not_recomputed",
+        "win_loss": null
+      },
+      "provider_proxy_provenance": [
+        "binance_public_klines_candidate",
+        "provider_not_called_due_candidate_status"
+      ],
+      "bulk_market_history_storage_used": false,
+      "buyer_demo_safe": false,
+      "exclusion_reasons": [
+        "post_factum_not_predictive_call",
+        "excluded_from_predictive_metrics"
+      ]
+    }
+  ]
+}

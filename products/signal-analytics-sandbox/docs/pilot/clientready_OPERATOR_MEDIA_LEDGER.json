@@ -1,0 +1,223 @@
+{
+  "summary": {
+    "status": "clientready_operator_media_acceptance_ledger",
+    "date": "2026-05-29",
+    "source_artifact": "docs/pilot/preclient_MODEL_REVIEW_PACKET.json",
+    "candidate_count": 9,
+    "operator_input_received": false,
+    "decision_counts": {
+      "accepted": 0,
+      "rejected": 0,
+      "needs_context": 5,
+      "post_factum_only": 4
+    },
+    "dashboard_safe_rows": 0,
+    "paid_report_safe_rows": 0,
+    "predictive_call_metric_eligible_rows": 0,
+    "customer_facing_rows": 0,
+    "next_required_gate": "SAS-CLIENTREADY-002 accepted-row recompute after operator acceptance"
+  },
+  "policy": {
+    "model_review_boundary": "model_review_is_triage_only",
+    "dashboard_safe_rule": "operator_decision_must_be_accepted_and_market_recomputed_before_dashboard_safe",
+    "paid_report_safe_rule": "operator_decision_must_be_accepted_and_market_recomputed_before_paid_report_safe",
+    "post_factum_rule": "post_factum_only_rows_are_excluded_from_predictive_call_metrics",
+    "customer_facing_rule": "no_row_is_customer_facing_from_model_review_alone"
+  },
+  "rows": [
+    {
+      "ledger_id": "clientready-bablos79-10450",
+      "source_id": "bablos79",
+      "post_id": 10450,
+      "source_url": "https://t.me/bablos79/10450",
+      "media_ref_id": "media_e9e8f323bcc1fc05",
+      "model_decision": "arbiter_accepted_internal_candidate",
+      "model_reliability_status": "model_reviewed",
+      "required_operator_action": "operator_review_for_setup_acceptance_and_market_recompute",
+      "operator_decision": "needs_context",
+      "operator_decision_reason": "No explicit operator acceptance has been recorded; keep the row blocked until source-time, instrument/proxy, and setup fields are accepted.",
+      "operator_decision_source": "codex_conservative_initial_ledger_pending_operator",
+      "dashboard_safe": false,
+      "paid_report_safe": false,
+      "predictive_call_metric_eligible": false,
+      "customer_facing_status": "blocked_pending_operator_acceptance",
+      "blockers": [
+        "operator_acceptance_required",
+        "market_outcome_recompute_required",
+        "provider_or_proxy_approval_required"
+      ]
+    },
+    {
+      "ledger_id": "clientready-nemphiscrypts-3958",
+      "source_id": "nemphiscrypts",
+      "post_id": 3958,
+      "source_url": "https://t.me/nemphiscrypts/3958",
+      "media_ref_id": "media_e9f1f06450c91ac8",
+      "model_decision": "arbiter_accepted_internal_candidate",
+      "model_reliability_status": "model_reviewed",
+      "required_operator_action": "operator_review_missing_setup_fields",
+      "operator_decision": "needs_context",
+      "operator_decision_reason": "Target and recompute fields are incomplete; operator context is required before the row can be accepted or rejected.",
+      "operator_decision_source": "codex_conservative_initial_ledger_pending_operator",
+      "dashboard_safe": false,
+      "paid_report_safe": false,
+      "predictive_call_metric_eligible": false,
+      "customer_facing_status": "blocked_pending_operator_context",
+      "blockers": [
+        "operator_context_required",
+        "missing_target",
+        "market_outcome_recompute_required"
+      ]
+    },
+    {
+      "ledger_id": "clientready-pifagortrade-3214",
+      "source_id": "pifagortrade",
+      "post_id": 3214,
+      "source_url": "https://t.me/pifagortrade/3214",
+      "media_ref_id": "media_7da0e6e8258fbe51",
+      "model_decision": "arbiter_accepted_internal_candidate",
+      "model_reliability_status": "model_reviewed",
+      "required_operator_action": "operator_review_missing_setup_fields",
+      "operator_decision": "needs_context",
+      "operator_decision_reason": "Target and recompute fields are incomplete; operator context is required before the row can be accepted or rejected.",
+      "operator_decision_source": "codex_conservative_initial_ledger_pending_operator",
+      "dashboard_safe": false,
+      "paid_report_safe": false,
+      "predictive_call_metric_eligible": false,
+      "customer_facing_status": "blocked_pending_operator_context",
+      "blockers": [
+        "operator_context_required",
+        "missing_target",
+        "market_outcome_recompute_required"
+      ]
+    },
+    {
+      "ledger_id": "clientready-pifagortrade-3218",
+      "source_id": "pifagortrade",
+      "post_id": 3218,
+      "source_url": "https://t.me/pifagortrade/3218",
+      "media_ref_id": "media_02da8ff67638711a",
+      "model_decision": "arbiter_accepted_internal_candidate",
+      "model_reliability_status": "model_reviewed",
+      "required_operator_action": "operator_review_for_setup_acceptance_and_market_recompute",
+      "operator_decision": "needs_context",
+      "operator_decision_reason": "No explicit operator acceptance has been recorded; keep the row blocked until direction, level interpretation, and recompute eligibility are accepted.",
+      "operator_decision_source": "codex_conservative_initial_ledger_pending_operator",
+      "dashboard_safe": false,
+      "paid_report_safe": false,
+      "predictive_call_metric_eligible": false,
+      "customer_facing_status": "blocked_pending_operator_acceptance",
+      "blockers": [
+        "operator_acceptance_required",
+        "market_outcome_recompute_required",
+        "level_interpretation_required"
+      ]
+    },
+    {
+      "ledger_id": "clientready-pifagortrade-3225",
+      "source_id": "pifagortrade",
+      "post_id": 3225,
+      "source_url": "https://t.me/pifagortrade/3225",
+      "media_ref_id": "media_fd918bae3d526228",
+      "model_decision": "arbiter_accepted_internal_candidate",
+      "model_reliability_status": "model_reviewed",
+      "required_operator_action": "operator_mark_post_factum_or_reject_as_predictive_signal",
+      "operator_decision": "post_factum_only",
+      "operator_decision_reason": "The model-reviewed evidence is post-factum; it can remain internal context but cannot count as a predictive call.",
+      "operator_decision_source": "codex_conservative_initial_ledger_from_post_factum_evidence_type",
+      "dashboard_safe": false,
+      "paid_report_safe": false,
+      "predictive_call_metric_eligible": false,
+      "customer_facing_status": "blocked_post_factum_only",
+      "blockers": [
+        "post_factum_not_predictive_call",
+        "excluded_from_predictive_metrics"
+      ]
+    },
+    {
+      "ledger_id": "clientready-pifagortrade-3234",
+      "source_id": "pifagortrade",
+      "post_id": 3234,
+      "source_url": "https://t.me/pifagortrade/3234",
+      "media_ref_id": "media_0789aec157c1fe81",
+      "model_decision": "arbiter_accepted_internal_candidate",
+      "model_reliability_status": "model_reviewed",
+      "required_operator_action": "operator_review_for_setup_acceptance_and_market_recompute",
+      "operator_decision": "needs_context",
+      "operator_decision_reason": "No explicit operator acceptance has been recorded; apparent target/stop direction conflict needs operator interpretation before recompute.",
+      "operator_decision_source": "codex_conservative_initial_ledger_pending_operator",
+      "dashboard_safe": false,
+      "paid_report_safe": false,
+      "predictive_call_metric_eligible": false,
+      "customer_facing_status": "blocked_pending_operator_acceptance",
+      "blockers": [
+        "operator_acceptance_required",
+        "target_direction_conflict",
+        "market_outcome_recompute_required"
+      ]
+    },
+    {
+      "ledger_id": "clientready-pifagortrade-3264",
+      "source_id": "pifagortrade",
+      "post_id": 3264,
+      "source_url": "https://t.me/pifagortrade/3264",
+      "media_ref_id": "media_0dfbaaf12df17450",
+      "model_decision": "arbiter_accepted_internal_candidate",
+      "model_reliability_status": "model_reviewed",
+      "required_operator_action": "operator_mark_post_factum_or_reject_as_predictive_signal",
+      "operator_decision": "post_factum_only",
+      "operator_decision_reason": "The model-reviewed evidence is post-factum; it can remain internal context but cannot count as a predictive call.",
+      "operator_decision_source": "codex_conservative_initial_ledger_from_post_factum_evidence_type",
+      "dashboard_safe": false,
+      "paid_report_safe": false,
+      "predictive_call_metric_eligible": false,
+      "customer_facing_status": "blocked_post_factum_only",
+      "blockers": [
+        "post_factum_not_predictive_call",
+        "excluded_from_predictive_metrics"
+      ]
+    },
+    {
+      "ledger_id": "clientready-pifagortrade-3274",
+      "source_id": "pifagortrade",
+      "post_id": 3274,
+      "source_url": "https://t.me/pifagortrade/3274",
+      "media_ref_id": "media_ba859d2bfc0f9403",
+      "model_decision": "arbiter_accepted_internal_candidate",
+      "model_reliability_status": "model_reviewed",
+      "required_operator_action": "operator_mark_post_factum_or_reject_as_predictive_signal",
+      "operator_decision": "post_factum_only",
+      "operator_decision_reason": "The model-reviewed evidence is post-factum; it can remain internal context but cannot count as a predictive call.",
+      "operator_decision_source": "codex_conservative_initial_ledger_from_post_factum_evidence_type",
+      "dashboard_safe": false,
+      "paid_report_safe": false,
+      "predictive_call_metric_eligible": false,
+      "customer_facing_status": "blocked_post_factum_only",
+      "blockers": [
+        "post_factum_not_predictive_call",
+        "excluded_from_predictive_metrics"
+      ]
+    },
+    {
+      "ledger_id": "clientready-pifagortrade-3276",
+      "source_id": "pifagortrade",
+      "post_id": 3276,
+      "source_url": "https://t.me/pifagortrade/3276",
+      "media_ref_id": "media_0cb05b5181e07b58",
+      "model_decision": "arbiter_accepted_internal_candidate",
+      "model_reliability_status": "model_reviewed",
+      "required_operator_action": "operator_mark_post_factum_or_reject_as_predictive_signal",
+      "operator_decision": "post_factum_only",
+      "operator_decision_reason": "The model-reviewed evidence is post-factum; it can remain internal context but cannot count as a predictive call.",
+      "operator_decision_source": "codex_conservative_initial_ledger_from_post_factum_evidence_type",
+      "dashboard_safe": false,
+      "paid_report_safe": false,
+      "predictive_call_metric_eligible": false,
+      "customer_facing_status": "blocked_post_factum_only",
+      "blockers": [
+        "post_factum_not_predictive_call",
+        "excluded_from_predictive_metrics"
+      ]
+    }
+  ]
+}
