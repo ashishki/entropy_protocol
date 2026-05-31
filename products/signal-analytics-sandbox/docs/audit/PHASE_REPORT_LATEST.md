@@ -1,21 +1,22 @@
-# Phase 38 Report — Client-Readiness Evidence Acceptance
+# Phase 40 Report — Auto-Validation Evidence Contract
 
-Phase 38 turned the Phase 37 pre-client artifact stack into explicit
-client-readiness gates. It did not approve discovery.
+Phase 40 defined and implemented the proof envelope for auto-validation. It did
+not approve any candidate for customer-facing use.
 
 Built:
 
-- Operator media ledger: 9 rows, 0 accepted, 5 needs-context,
-  4 post-factum-only.
-- Accepted outcomes: 0 accepted rows, 0 recomputed rows, 9 exclusions,
-  0 buyer-demo-safe rows.
-- Redacted demo subset: compact fields and 3 source-linked examples only,
-  `showable_now=false`.
-- Discovery gate: `continue_internal_hardening`, `ready_for_discovery=false`.
+- ADR/spec contract for model-review-as-triage and independent proof checks.
+- Evidence bundle schema with source URL, timestamp, media/text checksums,
+  extracted-field evidence refs, model span refs, market-window refs,
+  canonical JSON, and bundle SHA-256.
+- Validation result and audit-log schema with validator id/version, status,
+  confidence, evidence refs, blocker reasons, deterministic input hash,
+  canonical audit JSON, and audit SHA-256.
+- Phase 40 deep review: Stop-Ship No; P0/P1/P2 = 0/0/0.
 
 Tests:
 
-- Baseline moved from 362 to 375 passing tests.
+- Baseline moved from 378 to 391 passing tests.
 - `ruff format --check src/ tests/ scripts/` passes.
 - `ruff check src/ tests/ scripts/` passes.
 - `.venv/bin/pyright` passes.
@@ -26,19 +27,18 @@ Open findings:
 - P1: 0
 - P2: 0
 
-Health verdict: OK for internal hardening. Not ready for discovery.
+Health verdict: OK for validator implementation. Not ready for discovery.
 
 Next:
 
-Pause codex implementation until the operator provides accepted rows or more
-public context. The current blockers are 0 operator-accepted media claims,
-0 dashboard-safe RR rows, and 0 recomputed market outcomes.
+Continue to `SAS-AUTOVAL-004` pre-outcome timing validator. Buyer outreach
+remains blocked.
 
 Notification summary:
 
-Ph38 Client-Readiness DONE
-Built: ledger, accepted outcomes, redacted demo, discovery gate
-Tests: 362->375 pass
+Ph40 Auto-Validation Contract DONE
+Built: evidence/result/audit schemas
+Tests: 378->391 pass
 Issues: P1:0 P2:0
-Health: OK internal / blocked external
-Next: operator acceptance or more public context
+Health: OK validator path / blocked external
+Next: SAS-AUTOVAL-004 timing validator

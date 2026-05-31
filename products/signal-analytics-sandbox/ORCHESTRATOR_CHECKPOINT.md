@@ -1,13 +1,13 @@
 # Orchestrator Checkpoint
 
-Date: 2026-05-29
+Date: 2026-05-31
 
 ## Current State
 
-- Phase 40 is active: Auto-Validation Evidence Contract.
-- Latest completed item: `Phase 38 Deep Review`.
-- Next task: `SAS-AUTOVAL-001 Auto-Validation Architecture ADR And Contract`.
-- Baseline: 378 passing tests, 0 skipped.
+- Phase 41 is active: Auto-Validation Validator Stack.
+- Latest completed item: `Phase 40 Deep Review`.
+- Next task: `SAS-AUTOVAL-004 Pre-Outcome Timing Validator`.
+- Baseline: 391 passing tests, 0 skipped.
 - Ruff: pass.
 - Pyright: pass.
 - External gate: `approve_internal_only`.

@@ -1,30 +1,30 @@
 # CODEX_PROMPT.md - Signal Analytics Sandbox
 
-Version: 3.11
-Date: 2026-05-29
-Phase: 40
+Version: 3.13
+Date: 2026-05-31
+Phase: 41
 Compact restart state only. Detailed history lives in
 `docs/IMPLEMENTATION_JOURNAL.md`, `docs/archive/`, and `docs/tasks.md`.
 
 ## Current State
 
-- Phase: 40 (Auto-Validation Evidence Contract)
-- Baseline: 378 pass / 0 skip
+- Phase: 41 (Auto-Validation Validator Stack)
+- Baseline: 391 pass / 0 skip
 - Ruff: `ruff check src/ tests/ scripts/` passes
 - Format: `ruff format --check src/ tests/ scripts/` passes
 - Pyright: `.venv/bin/pyright` passes
-- Latest completed: `Phase 38 Deep Review`
+- Latest completed: `Phase 40 Deep Review`
 - Phase 37 decision: `continue_internal_hardening`
 - Engineering Phase 1 (T01+) may begin.
 - | SAS-001: Paid Pilot Demand Validation | acknowledged |
 - | SAS-002: Public-Source Legal/Terms Memo | acknowledged |
 - External gate: `approve_internal_only`
 - External delivery: not approved
-- Current priority: build auto-validation proof contract and validator roadmap.
+- Current priority: implement independent validator stack.
 
 ## Next Task
 
-Active route: Phase 40 auto-validation evidence contract.
+Active route: Phase 41 auto-validation validator stack.
 
 - Phase 37 baseline: 9 model-reviewed internal candidates, 301-row appendix,
   0 customer-facing rows, buyer conversations blocked.
@@ -36,19 +36,15 @@ Active route: Phase 40 auto-validation evidence contract.
 - New route: Phases 40-42 build evidence bundles, independent validators,
   strict auto-accept decisions, customer-facing policy gate, and evaluation on
   the current 9 media candidates.
-- Next task: `SAS-AUTOVAL-001` auto-validation architecture ADR and contract.
+- Completed: Phase 40 evidence contract, evidence bundle schema, validation
+  result schema, audit log schema, and deep review.
+- Next task: `SAS-AUTOVAL-004` pre-outcome timing validator.
 - buyer outreach remains blocked until a later discovery gate explicitly
   approves it.
 
 Read first: `docs/tasks.md` Phases 40-42,
-`docs/specs/AUTO_VALIDATION_EVIDENCE.md`,
-`docs/adr/ADR-005-auto-validation-evidence-engine.md`,
-`docs/pilot/clientready_OPERATOR_MEDIA_LEDGER.md`,
-`docs/pilot/clientready_OPERATOR_MEDIA_LEDGER.json`,
-`docs/pilot/clientready_ACCEPTED_OUTCOMES.md`,
-`docs/pilot/clientready_REDACTED_BUYER_DEMO.md`,
-`docs/pilot/clientready_DISCOVERY_GATE.md`,
-`docs/archive/PHASE38_REVIEW.md`.
+`docs/specs/AUTO_VALIDATION_EVIDENCE.md`, `docs/archive/PHASE40_AUTO_VALIDATION_REVIEW.md`,
+`docs/adr/ADR-005-auto-validation-evidence-engine.md`, and Phase 38 clientready artifacts.
 
 ## Canonical Artifacts
 
@@ -60,8 +56,10 @@ Read first: `docs/tasks.md` Phases 40-42,
   `docs/pilot/clientready_ACCEPTED_OUTCOMES.md`,
   `docs/pilot/clientready_REDACTED_BUYER_DEMO.md`,
   `docs/pilot/clientready_DISCOVERY_GATE.md`
-- Auto-validation contract:
-  `docs/specs/AUTO_VALIDATION_EVIDENCE.md`
+- Auto-validation contract/schema: `docs/specs/AUTO_VALIDATION_EVIDENCE.md`,
+  `src/signal_sandbox/auto_validation/evidence.py`,
+  `src/signal_sandbox/auto_validation/results.py`
+- Phase 40 review: `docs/archive/PHASE40_AUTO_VALIDATION_REVIEW.md`
 
 ## Key Product Facts
 
@@ -81,6 +79,9 @@ Read first: `docs/tasks.md` Phases 40-42,
   0 market-outcome recomputed candidates.
 - Automation rule: auto-accept requires independent validator proof; model
   review alone remains triage.
+- Evidence/result schemas: strict Pydantic contracts with public source class,
+  timestamps, checksums, evidence refs, validator versions, deterministic input
+  hashes, canonical JSON, and SHA-256 audit hashes.
 
 ## Active Guardrails
 

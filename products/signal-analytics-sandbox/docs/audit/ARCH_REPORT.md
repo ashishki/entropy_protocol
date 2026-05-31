@@ -1,26 +1,26 @@
-# ARCH_REPORT — Cycle 29
-_Date: 2026-05-29_
+# ARCH_REPORT — Cycle 30
+_Date: 2026-05-31_
 
 ## Component Verdicts
 
 | Component | Verdict | Note |
 |-----------|---------|------|
-| Phase 38 evidence artifacts | PASS | Artifact-only outputs preserve internal-only gate boundaries. |
-| Active-state documents | PASS | State reflects `continue_internal_hardening` and keeps external delivery blocked. |
-| Tests | PASS | Unit tests cover all Phase 38 acceptance criteria and compact-state updates. |
+| Auto-validation evidence schemas | PASS | Evidence/result schemas are strict, deterministic, and audit-oriented. |
+| Active-state documents | PASS | State advances to Phase 41 while keeping external delivery blocked. |
+| Tests | PASS | Unit tests cover all Phase 40 acceptance criteria and compact-state updates. |
 
 ## Contract Compliance
 
 | Rule | Verdict | Note |
 |------|---------|------|
-| PSR-1 public-source-only | PASS | Only public Telegram source URLs are referenced; no fetch/scrape code added. |
-| PSR-2 reproducibility | PASS | Static JSON/Markdown artifacts; no nondeterministic runtime behavior added. |
-| PSR-3 LLM output is never truth | PASS | Model-reviewed rows remain triage; no row becomes accepted from model review alone. |
+| PSR-1 public-source-only | PASS | Evidence bundles allow public/operator-public source class and reject private-source URL patterns. |
+| PSR-2 reproducibility | PASS | Bundle and audit schemas expose canonical JSON and SHA-256 hashes. |
+| PSR-3 LLM output is never truth | PASS | Model spans are evidence metadata only; validators own acceptance proof. |
 | PSR-4 cost cap | PASS | No paid adapter or model calls added. |
 | PSR-5 snapshot immutability | PASS | No market snapshot writes added. |
 | PSR-6 disclaimer integrity | PASS | Report renderer and canonical disclaimer untouched. |
 | PSR-7 outcome rule citation | PASS | No outcome engine changes; accepted outcomes report 0 recomputed rows. |
-| PSR-8 evidence preservation | PASS | Source URLs/media refs are carried forward; no extraction adapter changes. |
+| PSR-8 evidence preservation | PASS | Evidence refs are required for extracted fields and validator results. |
 | PSR-9 append-only registries | PASS | Registries untouched. |
 | PSR-10 Phase 0 gate | PASS | Gate acknowledgment remains in `docs/CODEX_PROMPT.md`. |
 | PSR-11 no forward-looking claims | PASS | New client-ready artifacts avoid advice, unsupported ranking, and future-profit wording. |
@@ -32,7 +32,8 @@ _Date: 2026-05-29_
 | ADR-001 snapshot serialization | PASS | No snapshot behavior changed. |
 | ADR-002 Author Market Intelligence | PASS | Deterministic truth boundaries preserved; RAG/agentic capabilities not expanded. |
 | ADR-003 channel-specific tools | PASS | Review/export posture preserved. |
-| ADR-004 media evidence pipeline | PASS | Media review remains draft/operator-gated; no raw media or provider expansion added. |
+| ADR-004 media evidence pipeline | PASS | Media/OCR/transcript refs remain evidence refs; no provider expansion added. |
+| ADR-005 auto-validation evidence engine | PASS | Phase 40 implements the evidence/result/audit proof surface. |
 
 ## Architecture Findings
 
@@ -52,8 +53,8 @@ No architecture findings.
 
 | Check | Verdict | Note |
 |-------|---------|------|
-| No new non-determinism sources | PASS | Static artifacts and deterministic tests only. |
-| Decimal discipline preserved | PASS | No numeric computation code added. |
+| No new non-determinism sources | PASS | Canonical JSON/hash functions are deterministic. |
+| Decimal discipline preserved | PASS | Confidence and setup numeric fields use `Decimal`. |
 | Snapshots immutable on disk | PASS | Snapshot code untouched. |
 | Disclaimer canonical | PASS | Disclaimer code untouched. |
 | Outcome rule registry append-only | PASS | Registry untouched. |
@@ -62,6 +63,4 @@ No architecture findings.
 
 ## Doc Patches Needed
 
-| File | Section | Change |
-|------|---------|--------|
-| `README.md` | Current Status | Refresh stale Phase 35 / 295-test status to Phase 38 / 375-test status. |
+None.

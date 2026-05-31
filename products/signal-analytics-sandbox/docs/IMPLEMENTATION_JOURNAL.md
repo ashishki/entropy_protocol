@@ -1967,3 +1967,19 @@ This file is durable handoff context across agents and sessions. It records what
 - Evidence planned: Phases 40-42 define the evidence contract, validator schemas, timing/OCR/setup/provider/post-factum validators, decision engine, customer-facing policy gate, evaluation on the current 9 candidates, and deep review.
 - Validation after roadmap update: 378 passed, 0 skipped; `ruff format --check src/ tests/ scripts/`, `ruff check src/ tests/ scripts/`, and `.venv/bin/pyright` pass.
 - Follow-ups: run `SAS-AUTOVAL-001` next to start the auto-validation evidence contract implementation loop.
+
+### 2026-05-31 — SAS-AUTOVAL-001/002 — Evidence Contract And Bundle Schema
+
+- Scope: `src/signal_sandbox/auto_validation/evidence.py`, `src/signal_sandbox/auto_validation/__init__.py`, `tests/unit/test_auto_validation_evidence_bundle.py`, `tests/unit/test_auto_validation_task_graph.py`, active-state docs.
+- Why this work happened: Phase 40 needs a machine-readable proof envelope before validators can prove timing, OCR/setup consistency, provider eligibility, post-factum exclusions, or customer-facing safety.
+- Decisions applied: D-027 remains binding. Evidence bundles accept only public/operator-authorized public source classes, reject private-source URL patterns, require source timestamp, source URL, text/media checksum, extracted-field evidence refs, provenance version, and deterministic JSON suitable for audit logs.
+- Evidence collected: `SAS-AUTOVAL-001` contract is closed through ADR/spec/tests; `SAS-AUTOVAL-002` adds strict Pydantic bundle models, model extraction span refs, market-window refs, canonical JSON, and bundle SHA-256. Targeted validation passed for the new schema and task graph before full validation.
+- Follow-ups: run `SAS-AUTOVAL-003` to define validator result and audit-log schemas with validator version, confidence, evidence refs, blockers, and deterministic input hashes.
+
+### 2026-05-31 — SAS-AUTOVAL-003 — Validation Result And Audit Log Schema
+
+- Scope: `src/signal_sandbox/auto_validation/results.py`, `tests/unit/test_auto_validation_result_schema.py`, active-state docs, `docs/archive/PHASE40_AUTO_VALIDATION_REVIEW.md`, audit reports.
+- Why this work happened: validators need a reproducible output contract before timing/OCR/setup/provider/post-factum checks can be composed into decisions.
+- Decisions applied: every validator result records validator id/version, status, confidence, evidence refs, blocker reasons for non-passed results, deterministic input hash, rationale, and created timestamp. Audit logs preserve individual result evidence refs and expose canonical JSON plus audit SHA-256.
+- Evidence collected: Phase 40 deep review found Stop-Ship No and P0/P1/P2 = 0/0/0. No candidate was promoted to customer-facing use.
+- Follow-ups: start Phase 41 with `SAS-AUTOVAL-004` pre-outcome timing validator.

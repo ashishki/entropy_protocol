@@ -476,9 +476,9 @@ Tasks:
 
 | Task ID | Task | Output | Acceptance Criteria |
 |---|---|---|---|
-| SAS-AUTOVAL-001 | Auto-validation ADR and contract | `ADR-005`, `AUTO_VALIDATION_EVIDENCE.md` | Contract defines proof checks, final states, and uncertainty -> needs_human. |
-| SAS-AUTOVAL-002 | Evidence bundle schema | `src/signal_sandbox/auto_validation/evidence.py` | Bundle preserves URL, timestamp, media/text hashes, OCR refs, setup fields, provenance. |
-| SAS-AUTOVAL-003 | Validation result and audit log schema | `results.py` | Every validator output has version, confidence, evidence refs, blockers, input hash. |
+| SAS-AUTOVAL-001 ✅ | Auto-validation ADR and contract | `ADR-005`, `AUTO_VALIDATION_EVIDENCE.md` | Contract defines proof checks, final states, and uncertainty -> needs_human. |
+| SAS-AUTOVAL-002 ✅ | Evidence bundle schema | `src/signal_sandbox/auto_validation/evidence.py` | Bundle preserves URL, timestamp, media/text hashes, OCR refs, setup fields, provenance. |
+| SAS-AUTOVAL-003 ✅ | Validation result and audit log schema | `results.py` | Every validator output has version, confidence, evidence refs, blockers, input hash. |
 
 ### Phase 41 - Auto-Validation Validator Stack
 

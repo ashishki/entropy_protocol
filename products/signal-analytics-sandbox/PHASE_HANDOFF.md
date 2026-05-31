@@ -1,12 +1,12 @@
 # PHASE_HANDOFF - Signal Analytics Sandbox
 
-Date: 2026-05-29
+Date: 2026-05-31
 
 ## Current State
 
-- Phase: 40 Auto-Validation Evidence Contract
-- Active task: `SAS-AUTOVAL-001`
-- Baseline: 378 pass / 0 skip
+- Phase: 41 Auto-Validation Validator Stack
+- Active task: `SAS-AUTOVAL-004`
+- Baseline: 391 pass / 0 skip
 - Ruff: clean
 - Pyright: clean
 - External gate: `approve_internal_only`
@@ -46,6 +46,9 @@ Phase 38 deep review is archived at `docs/archive/PHASE38_REVIEW.md`. Continue
 with Phases 40-42 to automate candidate validation through evidence bundles,
 independent validators, strict decision thresholds, and a customer-facing
 policy gate. Keep external delivery blocked.
+
+`SAS-AUTOVAL-001..003` and Phase 40 deep review are complete. Next task:
+`SAS-AUTOVAL-004` pre-outcome timing validator.
 
 ## Read First
 

@@ -30,6 +30,8 @@ def test_post_v1_task_graph_lists_next_phases_and_active_task() -> None:
         "SAS-CLIENTREADY-003",
         "SAS-CLIENTREADY-004",
         "SAS-AUTOVAL-001",
+        "SAS-AUTOVAL-003",
+        "SAS-AUTOVAL-004",
     ):
         assert task_id in tasks
 
@@ -40,9 +42,9 @@ def test_post_v1_task_graph_lists_next_phases_and_active_task() -> None:
     )
     assert "## Phase 37 — Pre-Client Artifact Hardening" in tasks
     assert "## Phase 38 — Client-Readiness Evidence Acceptance" in tasks
-    latest_completed = "Latest completed: `Phase 38 Deep Review`"
+    latest_completed = "Latest completed: `Phase 40 Deep Review`"
     assert latest_completed in prompt
-    assert "Active route: Phase 40 auto-validation evidence contract" in prompt
+    assert "Active route: Phase 41 auto-validation validator stack" in prompt
 
 
 def test_active_state_files_are_compacted_to_current_links() -> None:

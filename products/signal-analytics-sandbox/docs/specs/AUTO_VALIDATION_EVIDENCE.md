@@ -1,7 +1,7 @@
 # Auto-Validation Evidence Contract
 
-Date: 2026-05-29
-Status: planned
+Date: 2026-05-31
+Status: Phase 40 implementation in progress
 
 ## Purpose
 
@@ -28,6 +28,9 @@ Every candidate entering auto-validation must provide:
 
 Missing source timestamp, missing checksum, missing evidence ref, unsupported
 source class, or private-source risk invalidates the bundle.
+
+Implemented schemas: `src/signal_sandbox/auto_validation/evidence.py`,
+`src/signal_sandbox/auto_validation/results.py`.
 
 ## Validator Result States
 

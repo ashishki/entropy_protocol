@@ -4546,7 +4546,7 @@ evidence bundles, deterministic validators, and policy gates all pass. Anything
 ambiguous remains `needs_human`. This phase defines the proof surface; it does
 not yet promote any current candidate to customer-facing use.
 
-### SAS-AUTOVAL-001: Auto-Validation Architecture ADR And Contract
+### SAS-AUTOVAL-001: Auto-Validation Architecture ADR And Contract ✅
 
 Owner:      codex
 Phase:      40
@@ -4573,7 +4573,7 @@ Files:
   - docs/specs/AUTO_VALIDATION_EVIDENCE.md
   - tests/unit/test_auto_validation_task_graph.py
 
-### SAS-AUTOVAL-002: Evidence Bundle Schema
+### SAS-AUTOVAL-002: Evidence Bundle Schema ✅
 
 Owner:      codex
 Phase:      40
@@ -4600,7 +4600,7 @@ Files:
   - src/signal_sandbox/auto_validation/evidence.py
   - tests/unit/test_auto_validation_evidence_bundle.py
 
-### SAS-AUTOVAL-003: Validation Result And Audit Log Schema
+### SAS-AUTOVAL-003: Validation Result And Audit Log Schema ✅
 
 Owner:      codex
 Phase:      40

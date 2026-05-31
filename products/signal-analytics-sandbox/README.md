@@ -5,9 +5,9 @@ separate from Entropy Core and Trader Risk Audit.
 
 ## Current Status
 
-- Phase: 40 Auto-Validation Evidence Contract
-- Next task: `SAS-AUTOVAL-001`
-- Baseline: 378 passing tests, 0 skipped
+- Phase: 41 Auto-Validation Validator Stack
+- Next task: `SAS-AUTOVAL-004`
+- Baseline: 391 passing tests, 0 skipped
 - Current priority: automate candidate validation with evidence bundles,
   independent validators, strict thresholds, and customer-facing policy gates
 
