@@ -27,8 +27,9 @@ After the 2026-05-29 portfolio review, the product portfolio is better read as
 four separated tracks:
 
 1. `products/entropy-core/` - governed protocol engine and reusable audit
-   primitives. Its future role is a verification and responsibility kernel for
-   AI actions, decisions, evidence chains, and referee verdicts.
+   primitives. Its current role is the portfolio proof layer for product
+   receipts, evidence refs, schema compatibility, blocked surfaces, and referee
+   verdicts.
 2. `products/trader-risk-audit/` - primary commercial MVP.
 3. `products/signal-analytics-sandbox/` - validation sandbox that can become
    Telegram Trader Intelligence: public trader-channel claim, narrative,
@@ -36,6 +37,12 @@ four separated tracks:
 4. Cross-project verification receipts - portable schema/protocol work that can
    inform AI Workflow Playbook and other projects without making Entropy Core a
    mandatory runtime.
+
+The proof-layer strategy is defined in
+`docs/ENTROPY_CORE_PROOF_LAYER_STRATEGY.md`. Products remain the application
+points for the protocol; Core validates proof contracts and must not own product
+runtime behavior, report authorship, customer delivery, or product-specific
+business logic.
 
 Gensyn-style research is inspiration for one narrow pattern only: diverse
 candidate analyses plus a referee verdict with preserved evidence. Do not copy
@@ -79,7 +86,7 @@ gate is artifact validity.
 
 | Segment | Role | Status | Primary user | Relationship to core |
 |---|---|---|---|---|
-| Entropy Core | Governed evaluation and audit engine; future verification kernel | Core V1 complete; Core V2 candidate planning | Researcher/operator and future engineering team | Source of protocol discipline and portable evidence receipts |
+| Entropy Core | Governed evaluation and audit engine; proof layer for receipts, evidence refs, schema compatibility, and blocked surfaces | Core V2 internal kernel complete through Phase 31; human gate for next slice | Researcher/operator and future engineering team | Source of protocol discipline and portable proof checks |
 | Trader Risk Audit | Trade upload, rule evaluation, violation reports | Primary MVP wedge; active open-source validation route | Active prop-style and small-team traders | Uses deterministic rule registry, audit logs, report generation |
 | Signal Analytics Sandbox / Telegram Trader Intelligence | Public Telegram/X author/source retrospective reports; trader-channel intelligence product candidate | Active deep-channel retrospective route; productization planned | Signal subscribers, market researchers, and trading teams buying source hygiene | Must not contaminate core evidence or claims; may emit receipts Core can validate |
 

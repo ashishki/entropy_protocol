@@ -117,3 +117,32 @@ must run against the 9 Phase 38 candidates and produce
 The evaluation must report counts for `auto_accepted`, `auto_rejected`,
 `excluded_provider_gap`, `needs_human`, and `blocked_customer_facing`, with
 validator audit refs and blocker reasons for every row.
+
+## Entropy Core Proof-Layer Mapping
+
+This engine is the first strong product application point for Entropy Core as a
+proof layer.
+
+Product-local authority remains here:
+
+- candidate extraction;
+- timing, setup consistency, provider eligibility, post-factum, and customer
+  policy validators;
+- customer-facing gate;
+- buyer discovery and MVP value decisions.
+
+Core-compatible proof surfaces:
+
+- `AutoValidationEvidenceBundle` -> receipt/evidence bundle candidate;
+- `ValidationResult` -> validator verdict record;
+- `ValidationAuditLog` -> evidence-bound audit record;
+- `AutoValidationDecision` -> referee/decision output;
+- `clientready_AUTO_VALIDATION_EVAL` -> evaluation artifact.
+
+Recommended Core integration level: Level 3 now, Level 4 after product bridge
+adoption metadata exists.
+
+Core should validate schema ids, evidence refs, checksum presence, blocked
+surfaces, and product bridge readiness. Core must not own source-specific
+market logic, report wording, buyer outreach, customer-facing delivery, or
+runtime behavior.
