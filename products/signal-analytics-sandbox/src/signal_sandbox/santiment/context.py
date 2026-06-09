@@ -24,6 +24,9 @@ from signal_sandbox.auto_validation.evidence import (
 SANTIMENT_ENABLE_ENV = "SIGNAL_SANDBOX_ENABLE_SANTIMENT"
 SANTIMENT_API_KEY_ENV = "SIGNAL_SANDBOX_SANTIMENT_API_KEY"
 SANTIMENT_GRAPHQL_URL = "https://api.santiment.net/graphql"
+SANTIMENT_USER_AGENT = (
+    "signal-analytics-sandbox/0.1 (+https://github.com/ashishki/entropy_protocol)"
+)
 SANTIMENT_CONTEXT_SCHEMA_VERSION = "signal_santiment_context.v1"
 DEFAULT_SANTIMENT_CONTEXT_METRICS = (
     "price_usd",
@@ -230,7 +233,11 @@ class SantimentGraphQLClient:
                 "interval": interval,
             },
         }
-        headers = {"Content-Type": "application/json"}
+        headers = {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "User-Agent": SANTIMENT_USER_AGENT,
+        }
         if self.api_key:
             headers["Authorization"] = f"Apikey {self.api_key}"
         request = urllib.request.Request(
