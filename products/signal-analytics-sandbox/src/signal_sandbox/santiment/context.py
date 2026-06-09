@@ -431,13 +431,16 @@ def _fetch_series(
     end_utc: datetime,
     interval: str,
 ) -> SantimentMetricSeries:
-    rows = provider.fetch_metric_timeseries(
-        metric=metric,
-        slug=slug,
-        start_utc=start_utc,
-        end_utc=end_utc,
-        interval=interval,
-    )
+    try:
+        rows = provider.fetch_metric_timeseries(
+            metric=metric,
+            slug=slug,
+            start_utc=start_utc,
+            end_utc=end_utc,
+            interval=interval,
+        )
+    except SantimentProviderError:
+        rows = []
     return SantimentMetricSeries(
         metric=metric,
         slug=slug,

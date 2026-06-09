@@ -1,0 +1,628 @@
+{
+  "candidate_count": 41,
+  "rows": [
+    {
+      "candidate_id": "santiment-big-bablos79-10250",
+      "source_id": "bablos79",
+      "post_id": 10250,
+      "source_url": "https://t.me/bablos79/10250",
+      "timestamp_utc": "2026-03-23T21:14:05+00:00",
+      "primary_asset": "BTC",
+      "all_supported_assets": [
+        "BTC"
+      ],
+      "direction": "long",
+      "claim_type": "directional_thesis",
+      "customer_metric_status": "blocked_missing_setup_fields",
+      "bundle_path": "docs/pilot/santiment_big_run/bundles/santiment-big-bablos79-10250.bundle.json"
+    },
+    {
+      "candidate_id": "santiment-big-bablos79-10256",
+      "source_id": "bablos79",
+      "post_id": 10256,
+      "source_url": "https://t.me/bablos79/10256",
+      "timestamp_utc": "2026-03-25T07:10:43+00:00",
+      "primary_asset": "BTC",
+      "all_supported_assets": [
+        "BTC"
+      ],
+      "direction": "mixed",
+      "claim_type": "trade_setup_or_management",
+      "customer_metric_status": "blocked_media_review_required",
+      "bundle_path": "docs/pilot/santiment_big_run/bundles/santiment-big-bablos79-10256.bundle.json"
+    },
+    {
+      "candidate_id": "santiment-big-bablos79-10328",
+      "source_id": "bablos79",
+      "post_id": 10328,
+      "source_url": "https://t.me/bablos79/10328",
+      "timestamp_utc": "2026-04-09T15:36:56+00:00",
+      "primary_asset": "TON",
+      "all_supported_assets": [
+        "TON"
+      ],
+      "direction": "unknown",
+      "claim_type": "directional_thesis",
+      "customer_metric_status": "blocked_missing_setup_fields",
+      "bundle_path": "docs/pilot/santiment_big_run/bundles/santiment-big-bablos79-10328.bundle.json"
+    },
+    {
+      "candidate_id": "santiment-big-bablos79-10512",
+      "source_id": "bablos79",
+      "post_id": 10512,
+      "source_url": "https://t.me/bablos79/10512",
+      "timestamp_utc": "2026-05-06T11:00:51+00:00",
+      "primary_asset": "BTC",
+      "all_supported_assets": [
+        "BTC",
+        "ETH"
+      ],
+      "direction": "mixed",
+      "claim_type": "trade_setup_or_management",
+      "customer_metric_status": "blocked_media_review_required",
+      "bundle_path": "docs/pilot/santiment_big_run/bundles/santiment-big-bablos79-10512.bundle.json"
+    },
+    {
+      "candidate_id": "santiment-big-bablos79-10518",
+      "source_id": "bablos79",
+      "post_id": 10518,
+      "source_url": "https://t.me/bablos79/10518",
+      "timestamp_utc": "2026-05-07T05:30:30+00:00",
+      "primary_asset": "ETH",
+      "all_supported_assets": [
+        "ETH"
+      ],
+      "direction": "unknown",
+      "claim_type": "trade_setup_or_management",
+      "customer_metric_status": "blocked_media_review_required",
+      "bundle_path": "docs/pilot/santiment_big_run/bundles/santiment-big-bablos79-10518.bundle.json"
+    },
+    {
+      "candidate_id": "santiment-big-bablos79-10520",
+      "source_id": "bablos79",
+      "post_id": 10520,
+      "source_url": "https://t.me/bablos79/10520",
+      "timestamp_utc": "2026-05-07T07:58:39+00:00",
+      "primary_asset": "ETH",
+      "all_supported_assets": [
+        "ETH"
+      ],
+      "direction": "unknown",
+      "claim_type": "directional_thesis",
+      "customer_metric_status": "blocked_missing_setup_fields",
+      "bundle_path": "docs/pilot/santiment_big_run/bundles/santiment-big-bablos79-10520.bundle.json"
+    },
+    {
+      "candidate_id": "santiment-big-nemphiscrypts-3962",
+      "source_id": "nemphiscrypts",
+      "post_id": 3962,
+      "source_url": "https://t.me/nemphiscrypts/3962",
+      "timestamp_utc": "2026-04-07T06:40:03+00:00",
+      "primary_asset": "BTC",
+      "all_supported_assets": [
+        "BTC"
+      ],
+      "direction": "mixed",
+      "claim_type": "position_disclosure_or_management",
+      "customer_metric_status": "blocked_missing_setup_fields",
+      "bundle_path": "docs/pilot/santiment_big_run/bundles/santiment-big-nemphiscrypts-3962.bundle.json"
+    },
+    {
+      "candidate_id": "santiment-big-nemphiscrypts-3964",
+      "source_id": "nemphiscrypts",
+      "post_id": 3964,
+      "source_url": "https://t.me/nemphiscrypts/3964",
+      "timestamp_utc": "2026-04-07T07:24:20+00:00",
+      "primary_asset": "SUI",
+      "all_supported_assets": [
+        "SUI"
+      ],
+      "direction": "unknown",
+      "claim_type": "trade_setup_or_management",
+      "customer_metric_status": "blocked_media_review_required",
+      "bundle_path": "docs/pilot/santiment_big_run/bundles/santiment-big-nemphiscrypts-3964.bundle.json"
+    },
+    {
+      "candidate_id": "santiment-big-nemphiscrypts-3966",
+      "source_id": "nemphiscrypts",
+      "post_id": 3966,
+      "source_url": "https://t.me/nemphiscrypts/3966",
+      "timestamp_utc": "2026-04-08T09:03:24+00:00",
+      "primary_asset": "BTC",
+      "all_supported_assets": [
+        "BTC"
+      ],
+      "direction": "long",
+      "claim_type": "trade_setup_or_management",
+      "customer_metric_status": "blocked_media_review_required",
+      "bundle_path": "docs/pilot/santiment_big_run/bundles/santiment-big-nemphiscrypts-3966.bundle.json"
+    },
+    {
+      "candidate_id": "santiment-big-nemphiscrypts-3976",
+      "source_id": "nemphiscrypts",
+      "post_id": 3976,
+      "source_url": "https://t.me/nemphiscrypts/3976",
+      "timestamp_utc": "2026-04-16T16:51:28+00:00",
+      "primary_asset": "BTC",
+      "all_supported_assets": [
+        "BTC",
+        "ETH"
+      ],
+      "direction": "mixed",
+      "claim_type": "position_disclosure_or_management",
+      "customer_metric_status": "blocked_missing_setup_fields",
+      "bundle_path": "docs/pilot/santiment_big_run/bundles/santiment-big-nemphiscrypts-3976.bundle.json"
+    },
+    {
+      "candidate_id": "santiment-big-nemphiscrypts-3977",
+      "source_id": "nemphiscrypts",
+      "post_id": 3977,
+      "source_url": "https://t.me/nemphiscrypts/3977",
+      "timestamp_utc": "2026-04-16T17:01:29+00:00",
+      "primary_asset": "ETH",
+      "all_supported_assets": [
+        "ETH"
+      ],
+      "direction": "short",
+      "claim_type": "directional_thesis",
+      "customer_metric_status": "blocked_missing_setup_fields",
+      "bundle_path": "docs/pilot/santiment_big_run/bundles/santiment-big-nemphiscrypts-3977.bundle.json"
+    },
+    {
+      "candidate_id": "santiment-big-nemphiscrypts-3978",
+      "source_id": "nemphiscrypts",
+      "post_id": 3978,
+      "source_url": "https://t.me/nemphiscrypts/3978",
+      "timestamp_utc": "2026-04-17T13:01:58+00:00",
+      "primary_asset": "BTC",
+      "all_supported_assets": [
+        "BTC"
+      ],
+      "direction": "long",
+      "claim_type": "trade_setup_or_management",
+      "customer_metric_status": "blocked_media_review_required",
+      "bundle_path": "docs/pilot/santiment_big_run/bundles/santiment-big-nemphiscrypts-3978.bundle.json"
+    },
+    {
+      "candidate_id": "santiment-big-nemphiscrypts-3996",
+      "source_id": "nemphiscrypts",
+      "post_id": 3996,
+      "source_url": "https://t.me/nemphiscrypts/3996",
+      "timestamp_utc": "2026-04-23T17:03:09+00:00",
+      "primary_asset": "SUI",
+      "all_supported_assets": [
+        "SUI"
+      ],
+      "direction": "long",
+      "claim_type": "trade_setup_or_management",
+      "customer_metric_status": "blocked_missing_setup_fields",
+      "bundle_path": "docs/pilot/santiment_big_run/bundles/santiment-big-nemphiscrypts-3996.bundle.json"
+    },
+    {
+      "candidate_id": "santiment-big-nemphiscrypts-4018",
+      "source_id": "nemphiscrypts",
+      "post_id": 4018,
+      "source_url": "https://t.me/nemphiscrypts/4018",
+      "timestamp_utc": "2026-04-30T20:57:42+00:00",
+      "primary_asset": "ETH",
+      "all_supported_assets": [
+        "ETH"
+      ],
+      "direction": "long",
+      "claim_type": "trade_setup_or_management",
+      "customer_metric_status": "blocked_media_review_required",
+      "bundle_path": "docs/pilot/santiment_big_run/bundles/santiment-big-nemphiscrypts-4018.bundle.json"
+    },
+    {
+      "candidate_id": "santiment-big-nemphiscrypts-4023",
+      "source_id": "nemphiscrypts",
+      "post_id": 4023,
+      "source_url": "https://t.me/nemphiscrypts/4023",
+      "timestamp_utc": "2026-05-01T12:14:55+00:00",
+      "primary_asset": "ETH",
+      "all_supported_assets": [
+        "ETH"
+      ],
+      "direction": "unknown",
+      "claim_type": "directional_thesis",
+      "customer_metric_status": "blocked_missing_setup_fields",
+      "bundle_path": "docs/pilot/santiment_big_run/bundles/santiment-big-nemphiscrypts-4023.bundle.json"
+    },
+    {
+      "candidate_id": "santiment-big-nemphiscrypts-4024",
+      "source_id": "nemphiscrypts",
+      "post_id": 4024,
+      "source_url": "https://t.me/nemphiscrypts/4024",
+      "timestamp_utc": "2026-05-01T13:59:04+00:00",
+      "primary_asset": "ETH",
+      "all_supported_assets": [
+        "ETH",
+        "SOL"
+      ],
+      "direction": "long",
+      "claim_type": "trade_setup_or_management",
+      "customer_metric_status": "blocked_media_review_required",
+      "bundle_path": "docs/pilot/santiment_big_run/bundles/santiment-big-nemphiscrypts-4024.bundle.json"
+    },
+    {
+      "candidate_id": "santiment-big-nemphiscrypts-4043",
+      "source_id": "nemphiscrypts",
+      "post_id": 4043,
+      "source_url": "https://t.me/nemphiscrypts/4043",
+      "timestamp_utc": "2026-05-04T05:01:44+00:00",
+      "primary_asset": "BTC",
+      "all_supported_assets": [
+        "BTC"
+      ],
+      "direction": "long",
+      "claim_type": "trade_setup_or_management",
+      "customer_metric_status": "blocked_media_review_required",
+      "bundle_path": "docs/pilot/santiment_big_run/bundles/santiment-big-nemphiscrypts-4043.bundle.json"
+    },
+    {
+      "candidate_id": "santiment-big-nemphiscrypts-4044",
+      "source_id": "nemphiscrypts",
+      "post_id": 4044,
+      "source_url": "https://t.me/nemphiscrypts/4044",
+      "timestamp_utc": "2026-05-04T06:13:53+00:00",
+      "primary_asset": "BTC",
+      "all_supported_assets": [
+        "BTC"
+      ],
+      "direction": "unknown",
+      "claim_type": "directional_thesis",
+      "customer_metric_status": "blocked_missing_setup_fields",
+      "bundle_path": "docs/pilot/santiment_big_run/bundles/santiment-big-nemphiscrypts-4044.bundle.json"
+    },
+    {
+      "candidate_id": "santiment-big-nemphiscrypts-4061",
+      "source_id": "nemphiscrypts",
+      "post_id": 4061,
+      "source_url": "https://t.me/nemphiscrypts/4061",
+      "timestamp_utc": "2026-05-06T09:11:25+00:00",
+      "primary_asset": "BTC",
+      "all_supported_assets": [
+        "BTC"
+      ],
+      "direction": "long",
+      "claim_type": "trade_setup_or_management",
+      "customer_metric_status": "blocked_media_review_required",
+      "bundle_path": "docs/pilot/santiment_big_run/bundles/santiment-big-nemphiscrypts-4061.bundle.json"
+    },
+    {
+      "candidate_id": "santiment-big-nemphiscrypts-4091",
+      "source_id": "nemphiscrypts",
+      "post_id": 4091,
+      "source_url": "https://t.me/nemphiscrypts/4091",
+      "timestamp_utc": "2026-05-17T17:41:19+00:00",
+      "primary_asset": "BTC",
+      "all_supported_assets": [
+        "BTC",
+        "ETH"
+      ],
+      "direction": "long",
+      "claim_type": "directional_thesis",
+      "customer_metric_status": "blocked_missing_setup_fields",
+      "bundle_path": "docs/pilot/santiment_big_run/bundles/santiment-big-nemphiscrypts-4091.bundle.json"
+    },
+    {
+      "candidate_id": "santiment-big-nemphiscrypts-4094",
+      "source_id": "nemphiscrypts",
+      "post_id": 4094,
+      "source_url": "https://t.me/nemphiscrypts/4094",
+      "timestamp_utc": "2026-05-20T08:01:57+00:00",
+      "primary_asset": "ETH",
+      "all_supported_assets": [
+        "ETH"
+      ],
+      "direction": "unknown",
+      "claim_type": "trade_setup_or_management",
+      "customer_metric_status": "blocked_media_review_required",
+      "bundle_path": "docs/pilot/santiment_big_run/bundles/santiment-big-nemphiscrypts-4094.bundle.json"
+    },
+    {
+      "candidate_id": "santiment-big-nemphiscrypts-4096",
+      "source_id": "nemphiscrypts",
+      "post_id": 4096,
+      "source_url": "https://t.me/nemphiscrypts/4096",
+      "timestamp_utc": "2026-05-20T08:38:55+00:00",
+      "primary_asset": "ETH",
+      "all_supported_assets": [
+        "ETH"
+      ],
+      "direction": "short",
+      "claim_type": "directional_thesis",
+      "customer_metric_status": "blocked_missing_setup_fields",
+      "bundle_path": "docs/pilot/santiment_big_run/bundles/santiment-big-nemphiscrypts-4096.bundle.json"
+    },
+    {
+      "candidate_id": "santiment-big-nemphiscrypts-4114",
+      "source_id": "nemphiscrypts",
+      "post_id": 4114,
+      "source_url": "https://t.me/nemphiscrypts/4114",
+      "timestamp_utc": "2026-05-21T10:24:25+00:00",
+      "primary_asset": "SOL",
+      "all_supported_assets": [
+        "SOL"
+      ],
+      "direction": "unknown",
+      "claim_type": "trade_setup_or_management",
+      "customer_metric_status": "blocked_media_review_required",
+      "bundle_path": "docs/pilot/santiment_big_run/bundles/santiment-big-nemphiscrypts-4114.bundle.json"
+    },
+    {
+      "candidate_id": "santiment-big-nemphiscrypts-4117",
+      "source_id": "nemphiscrypts",
+      "post_id": 4117,
+      "source_url": "https://t.me/nemphiscrypts/4117",
+      "timestamp_utc": "2026-05-21T11:26:26+00:00",
+      "primary_asset": "BTC",
+      "all_supported_assets": [
+        "BTC"
+      ],
+      "direction": "mixed",
+      "claim_type": "trade_setup_or_management",
+      "customer_metric_status": "blocked_media_review_required",
+      "bundle_path": "docs/pilot/santiment_big_run/bundles/santiment-big-nemphiscrypts-4117.bundle.json"
+    },
+    {
+      "candidate_id": "santiment-big-pifagortrade-3213",
+      "source_id": "pifagortrade",
+      "post_id": 3213,
+      "source_url": "https://t.me/pifagortrade/3213",
+      "timestamp_utc": "2026-03-27T14:00:15+00:00",
+      "primary_asset": "BTC",
+      "all_supported_assets": [
+        "BTC"
+      ],
+      "direction": "mixed",
+      "claim_type": "position_disclosure_or_management",
+      "customer_metric_status": "blocked_missing_setup_fields",
+      "bundle_path": "docs/pilot/santiment_big_run/bundles/santiment-big-pifagortrade-3213.bundle.json"
+    },
+    {
+      "candidate_id": "santiment-big-pifagortrade-3214",
+      "source_id": "pifagortrade",
+      "post_id": 3214,
+      "source_url": "https://t.me/pifagortrade/3214",
+      "timestamp_utc": "2026-03-28T06:32:09+00:00",
+      "primary_asset": "BTC",
+      "all_supported_assets": [
+        "BTC"
+      ],
+      "direction": "short",
+      "claim_type": "trade_setup_or_management",
+      "customer_metric_status": "blocked_media_review_required",
+      "bundle_path": "docs/pilot/santiment_big_run/bundles/santiment-big-pifagortrade-3214.bundle.json"
+    },
+    {
+      "candidate_id": "santiment-big-pifagortrade-3222",
+      "source_id": "pifagortrade",
+      "post_id": 3222,
+      "source_url": "https://t.me/pifagortrade/3222",
+      "timestamp_utc": "2026-04-06T06:07:36+00:00",
+      "primary_asset": "BTC",
+      "all_supported_assets": [
+        "BTC"
+      ],
+      "direction": "mixed",
+      "claim_type": "trade_setup_or_management",
+      "customer_metric_status": "blocked_media_review_required",
+      "bundle_path": "docs/pilot/santiment_big_run/bundles/santiment-big-pifagortrade-3222.bundle.json"
+    },
+    {
+      "candidate_id": "santiment-big-pifagortrade-3224",
+      "source_id": "pifagortrade",
+      "post_id": 3224,
+      "source_url": "https://t.me/pifagortrade/3224",
+      "timestamp_utc": "2026-04-07T13:10:10+00:00",
+      "primary_asset": "BTC",
+      "all_supported_assets": [
+        "BTC"
+      ],
+      "direction": "mixed",
+      "claim_type": "trade_setup_or_management",
+      "customer_metric_status": "blocked_missing_setup_fields",
+      "bundle_path": "docs/pilot/santiment_big_run/bundles/santiment-big-pifagortrade-3224.bundle.json"
+    },
+    {
+      "candidate_id": "santiment-big-pifagortrade-3233",
+      "source_id": "pifagortrade",
+      "post_id": 3233,
+      "source_url": "https://t.me/pifagortrade/3233",
+      "timestamp_utc": "2026-04-12T14:16:52+00:00",
+      "primary_asset": "BTC",
+      "all_supported_assets": [
+        "BTC"
+      ],
+      "direction": "mixed",
+      "claim_type": "directional_thesis",
+      "customer_metric_status": "blocked_missing_setup_fields",
+      "bundle_path": "docs/pilot/santiment_big_run/bundles/santiment-big-pifagortrade-3233.bundle.json"
+    },
+    {
+      "candidate_id": "santiment-big-pifagortrade-3234",
+      "source_id": "pifagortrade",
+      "post_id": 3234,
+      "source_url": "https://t.me/pifagortrade/3234",
+      "timestamp_utc": "2026-04-14T05:38:21+00:00",
+      "primary_asset": "BTC",
+      "all_supported_assets": [
+        "BTC"
+      ],
+      "direction": "long",
+      "claim_type": "trade_setup_or_management",
+      "customer_metric_status": "blocked_media_review_required",
+      "bundle_path": "docs/pilot/santiment_big_run/bundles/santiment-big-pifagortrade-3234.bundle.json"
+    },
+    {
+      "candidate_id": "santiment-big-pifagortrade-3245",
+      "source_id": "pifagortrade",
+      "post_id": 3245,
+      "source_url": "https://t.me/pifagortrade/3245",
+      "timestamp_utc": "2026-04-18T17:48:36+00:00",
+      "primary_asset": "BTC",
+      "all_supported_assets": [
+        "BTC",
+        "ETH"
+      ],
+      "direction": "mixed",
+      "claim_type": "position_disclosure_or_management",
+      "customer_metric_status": "blocked_missing_setup_fields",
+      "bundle_path": "docs/pilot/santiment_big_run/bundles/santiment-big-pifagortrade-3245.bundle.json"
+    },
+    {
+      "candidate_id": "santiment-big-pifagortrade-3247",
+      "source_id": "pifagortrade",
+      "post_id": 3247,
+      "source_url": "https://t.me/pifagortrade/3247",
+      "timestamp_utc": "2026-04-23T08:04:00+00:00",
+      "primary_asset": "BTC",
+      "all_supported_assets": [
+        "BTC"
+      ],
+      "direction": "mixed",
+      "claim_type": "position_disclosure_or_management",
+      "customer_metric_status": "blocked_missing_setup_fields",
+      "bundle_path": "docs/pilot/santiment_big_run/bundles/santiment-big-pifagortrade-3247.bundle.json"
+    },
+    {
+      "candidate_id": "santiment-big-pifagortrade-3248",
+      "source_id": "pifagortrade",
+      "post_id": 3248,
+      "source_url": "https://t.me/pifagortrade/3248",
+      "timestamp_utc": "2026-04-26T05:22:22+00:00",
+      "primary_asset": "BTC",
+      "all_supported_assets": [
+        "BTC"
+      ],
+      "direction": "long",
+      "claim_type": "trade_setup_or_management",
+      "customer_metric_status": "blocked_media_review_required",
+      "bundle_path": "docs/pilot/santiment_big_run/bundles/santiment-big-pifagortrade-3248.bundle.json"
+    },
+    {
+      "candidate_id": "santiment-big-pifagortrade-3255",
+      "source_id": "pifagortrade",
+      "post_id": 3255,
+      "source_url": "https://t.me/pifagortrade/3255",
+      "timestamp_utc": "2026-05-02T12:09:53+00:00",
+      "primary_asset": "BTC",
+      "all_supported_assets": [
+        "BTC"
+      ],
+      "direction": "short",
+      "claim_type": "position_disclosure_or_management",
+      "customer_metric_status": "blocked_missing_setup_fields",
+      "bundle_path": "docs/pilot/santiment_big_run/bundles/santiment-big-pifagortrade-3255.bundle.json"
+    },
+    {
+      "candidate_id": "santiment-big-pifagortrade-3259",
+      "source_id": "pifagortrade",
+      "post_id": 3259,
+      "source_url": "https://t.me/pifagortrade/3259",
+      "timestamp_utc": "2026-05-05T15:31:05+00:00",
+      "primary_asset": "BTC",
+      "all_supported_assets": [
+        "BTC",
+        "ETH"
+      ],
+      "direction": "short",
+      "claim_type": "trade_setup_or_management",
+      "customer_metric_status": "blocked_missing_setup_fields",
+      "bundle_path": "docs/pilot/santiment_big_run/bundles/santiment-big-pifagortrade-3259.bundle.json"
+    },
+    {
+      "candidate_id": "santiment-big-pifagortrade-3263",
+      "source_id": "pifagortrade",
+      "post_id": 3263,
+      "source_url": "https://t.me/pifagortrade/3263",
+      "timestamp_utc": "2026-05-07T10:24:49+00:00",
+      "primary_asset": "ETH",
+      "all_supported_assets": [
+        "ETH",
+        "TON"
+      ],
+      "direction": "mixed",
+      "claim_type": "position_disclosure_or_management",
+      "customer_metric_status": "blocked_missing_setup_fields",
+      "bundle_path": "docs/pilot/santiment_big_run/bundles/santiment-big-pifagortrade-3263.bundle.json"
+    },
+    {
+      "candidate_id": "santiment-big-pifagortrade-3265",
+      "source_id": "pifagortrade",
+      "post_id": 3265,
+      "source_url": "https://t.me/pifagortrade/3265",
+      "timestamp_utc": "2026-05-10T10:48:20+00:00",
+      "primary_asset": "BTC",
+      "all_supported_assets": [
+        "BTC"
+      ],
+      "direction": "unknown",
+      "claim_type": "trade_setup_or_management",
+      "customer_metric_status": "blocked_media_review_required",
+      "bundle_path": "docs/pilot/santiment_big_run/bundles/santiment-big-pifagortrade-3265.bundle.json"
+    },
+    {
+      "candidate_id": "santiment-big-pifagortrade-3267",
+      "source_id": "pifagortrade",
+      "post_id": 3267,
+      "source_url": "https://t.me/pifagortrade/3267",
+      "timestamp_utc": "2026-05-10T12:00:41+00:00",
+      "primary_asset": "BTC",
+      "all_supported_assets": [
+        "BTC",
+        "TON"
+      ],
+      "direction": "short",
+      "claim_type": "position_disclosure_or_management",
+      "customer_metric_status": "blocked_missing_setup_fields",
+      "bundle_path": "docs/pilot/santiment_big_run/bundles/santiment-big-pifagortrade-3267.bundle.json"
+    },
+    {
+      "candidate_id": "santiment-big-pifagortrade-3273",
+      "source_id": "pifagortrade",
+      "post_id": 3273,
+      "source_url": "https://t.me/pifagortrade/3273",
+      "timestamp_utc": "2026-05-15T11:53:36+00:00",
+      "primary_asset": "BTC",
+      "all_supported_assets": [
+        "BTC"
+      ],
+      "direction": "short",
+      "claim_type": "directional_thesis",
+      "customer_metric_status": "blocked_missing_setup_fields",
+      "bundle_path": "docs/pilot/santiment_big_run/bundles/santiment-big-pifagortrade-3273.bundle.json"
+    },
+    {
+      "candidate_id": "santiment-big-pifagortrade-3277",
+      "source_id": "pifagortrade",
+      "post_id": 3277,
+      "source_url": "https://t.me/pifagortrade/3277",
+      "timestamp_utc": "2026-05-18T20:35:27+00:00",
+      "primary_asset": "BTC",
+      "all_supported_assets": [
+        "BTC"
+      ],
+      "direction": "mixed",
+      "claim_type": "trade_setup_or_management",
+      "customer_metric_status": "blocked_media_review_required",
+      "bundle_path": "docs/pilot/santiment_big_run/bundles/santiment-big-pifagortrade-3277.bundle.json"
+    },
+    {
+      "candidate_id": "santiment-big-pifagortrade-3280",
+      "source_id": "pifagortrade",
+      "post_id": 3280,
+      "source_url": "https://t.me/pifagortrade/3280",
+      "timestamp_utc": "2026-05-19T12:28:16+00:00",
+      "primary_asset": "BTC",
+      "all_supported_assets": [
+        "BTC"
+      ],
+      "direction": "long",
+      "claim_type": "trade_setup_or_management",
+      "customer_metric_status": "blocked_missing_setup_fields",
+      "bundle_path": "docs/pilot/santiment_big_run/bundles/santiment-big-pifagortrade-3280.bundle.json"
+    }
+  ]
+}
