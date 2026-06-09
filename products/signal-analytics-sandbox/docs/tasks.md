@@ -55,6 +55,9 @@ Phases:
 - **Phase 42** — Auto-accept decision engine and evaluation: combine validator
   evidence into strict auto-accepted / auto-rejected / needs-human decisions,
   then evaluate against the current 9 media candidates before any customer use.
+- **Phase 43** — Santiment retrospective context: add optional operator-gated
+  crypto social/on-chain/price context artifacts for Telegram candidate
+  retrospectives without moving product logic into Core.
 
 Current active focus:
 
@@ -4878,6 +4881,38 @@ Files:
   - src/signal_sandbox/auto_validation/audit_export.py
   - src/signal_sandbox/auto_validation/core_receipt.py
   - tests/unit/test_auto_validation_core_receipt.py
+  - docs/specs/AUTO_VALIDATION_EVIDENCE.md
+
+### SAS-AUTOVAL-013: Santiment Retrospective Context Export ✅
+
+Owner:      codex
+Phase:      43
+Type:       implementation
+Depends-On: SAS-AUTOVAL-003, SAS-AUTOVAL-012
+
+Objective: |
+  Add optional Santiment context enrichment for crypto Telegram candidates so
+  retrospective analysis can compare post timing with social, sentiment,
+  on-chain, exchange-flow, and price context.
+
+Acceptance-Criteria:
+  - id: AC-1
+    description: "Santiment context artifacts record candidate/source ids, asset slug, query window, metric refs, metric-series hashes, deterministic post-vs-pre features, and artifact SHA-256."
+    test: "tests/unit/test_santiment_context.py"
+  - id: AC-2
+    description: "Provider calls are operator-gated by `--approve`, `SIGNAL_SANDBOX_ENABLE_SANTIMENT=1`, and `SIGNAL_SANDBOX_SANTIMENT_API_KEY`; tests prove the CLI exits before parsing/calling provider when approval is absent."
+    test: "tests/integration/test_cli_smoke.py::test_santiment_context_honors_approval_gate_without_provider_call"
+  - id: AC-3
+    description: "Santiment context remains product-local enrichment and cannot auto-accept claims or bypass provider/customer-policy gates."
+    test: "docs/specs/AUTO_VALIDATION_EVIDENCE.md"
+
+Files:
+  - src/signal_sandbox/santiment/context.py
+  - src/signal_sandbox/santiment/__init__.py
+  - src/signal_sandbox/cli.py
+  - tests/unit/test_santiment_context.py
+  - tests/integration/test_cli_smoke.py
+  - docs/pilot/SANTIMENT_BATTLE_TEST_PLAN.md
   - docs/specs/AUTO_VALIDATION_EVIDENCE.md
 
 ## Phase 28 — External-Ready Review Sprint

@@ -159,11 +159,7 @@ def _audit_status(
     statuses = {result.status for result in audit.results}
     if statuses == {ValidationStatus.PASSED}:
         return "passed", []
-    blockers = [
-        reason
-        for result in audit.results
-        for reason in result.blocker_reasons
-    ]
+    blockers = [reason for result in audit.results for reason in result.blocker_reasons]
     if (
         ValidationStatus.FAILED in statuses
         or ValidationStatus.BLOCKED_CUSTOMER_FACING in statuses

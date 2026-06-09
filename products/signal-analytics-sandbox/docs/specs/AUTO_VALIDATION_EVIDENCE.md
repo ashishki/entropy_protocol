@@ -150,6 +150,19 @@ Receipt persistence/export:
 - market/provider eligibility, source interpretation, customer-facing policy,
   and report wording remain product-local Signal logic.
 
+Santiment retrospective context:
+
+- `signal_sandbox.santiment` is an optional product-local enrichment layer for
+  crypto candidates;
+- `santiment-context` requires explicit runtime approval, environment enablement,
+  and an operator-provided Santiment API key before any provider call;
+- context artifacts record Santiment slug, queried metrics, time window,
+  provider refs, metric-series hashes, deterministic post-vs-pre features, and
+  artifact SHA-256;
+- Santiment context may support retrospective channel analysis, narrative
+  timing, and buyer-demo explanations, but it must not auto-accept claims,
+  override provider/customer-policy gates, or become Core-owned logic.
+
 Recommended Core integration level: Level 3 now, Level 4 after product bridge
 adoption metadata exists.
 
