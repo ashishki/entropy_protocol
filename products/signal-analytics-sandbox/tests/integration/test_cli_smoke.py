@@ -43,6 +43,7 @@ def test_unimplemented_subcommands_exit_2() -> None:
         "extract",
         "report",
         "review",
+        "santiment-context",
         "snapshot",
         "status",
         "transcribe-media",
@@ -106,4 +107,22 @@ def test_transcribe_media_honors_gates_without_provider_call(tmp_path: Path) -> 
     assert "voice/audio rows: 1" in result.stdout
     assert "draft transcripts: 0" in result.stdout
     assert "voice_1: skipped:environment_disabled" in result.stdout
+    assert "approval: missing --approve" in result.stderr
+
+
+def test_santiment_context_honors_approval_gate_without_provider_call(
+    tmp_path: Path,
+) -> None:
+    bundle_path = tmp_path / "bundle.json"
+    bundle_path.write_text("{}", encoding="utf-8")
+
+    result = run_cli(
+        "santiment-context",
+        "--bundle",
+        str(bundle_path),
+        "--output-dir",
+        str(tmp_path / "santiment"),
+    )
+
+    assert result.returncode == 2
     assert "approval: missing --approve" in result.stderr

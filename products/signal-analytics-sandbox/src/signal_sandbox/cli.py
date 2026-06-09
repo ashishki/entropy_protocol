@@ -15,6 +15,7 @@ from signal_sandbox.artifact_pipeline import (
     load_outcome_prep_pack,
     load_review_closure_pack,
 )
+from signal_sandbox.auto_validation import AutoValidationEvidenceBundle
 from signal_sandbox.config import get_workspace
 from signal_sandbox.media import (
     MediaManifest,
@@ -23,6 +24,13 @@ from signal_sandbox.media import (
     run_whisper_transcription,
 )
 from signal_sandbox.media.transcription import TRANSCRIPTION_ENABLE_ENV
+from signal_sandbox.santiment import (
+    SANTIMENT_API_KEY_ENV,
+    SANTIMENT_ENABLE_ENV,
+    SantimentGraphQLClient,
+    build_santiment_context_artifact,
+    export_santiment_context_artifact,
+)
 
 PLANNED_SUBCOMMANDS = (
     "init-workspace",
@@ -32,6 +40,7 @@ PLANNED_SUBCOMMANDS = (
     "snapshot",
     "match",
     "report",
+    "santiment-context",
     "transcribe-media",
     "status",
 )
@@ -200,6 +209,85 @@ def report(
 
 
 @main.command(
+    "santiment-context",
+    help="Fetch Santiment context for an auto-validation evidence bundle.",
+)
+@click.option(
+    "--bundle",
+    type=click.Path(path_type=Path, dir_okay=False, exists=True),
+    required=True,
+    help="AutoValidationEvidenceBundle JSON artifact.",
+)
+@click.option(
+    "--output-dir",
+    type=click.Path(path_type=Path, file_okay=False, dir_okay=True),
+    default=Path("docs/pilot/santiment"),
+    show_default=True,
+    help="Directory for Santiment context JSON/Markdown artifacts.",
+)
+@click.option(
+    "--approve",
+    is_flag=True,
+    help="Required per-run approval gate for Santiment provider calls.",
+)
+@click.option(
+    "--interval",
+    default="1d",
+    show_default=True,
+    help="Santiment timeseries interval.",
+)
+@click.option(
+    "--lookback-days",
+    default=7,
+    show_default=True,
+    type=int,
+    help="Days before the Telegram post to include.",
+)
+@click.option(
+    "--forward-days",
+    default=7,
+    show_default=True,
+    type=int,
+    help="Days after the Telegram post to include.",
+)
+def santiment_context(
+    bundle: Path,
+    output_dir: Path,
+    approve: bool,
+    interval: str,
+    lookback_days: int,
+    forward_days: int,
+) -> None:
+    if not approve:
+        click.echo("approval: missing --approve", err=True)
+        raise click.exceptions.Exit(2)
+    if not _santiment_env_enabled():
+        click.echo(f"environment: set {SANTIMENT_ENABLE_ENV}=1", err=True)
+        raise click.exceptions.Exit(2)
+    if not _santiment_api_key_present():
+        click.echo(f"environment: set {SANTIMENT_API_KEY_ENV}", err=True)
+        raise click.exceptions.Exit(2)
+
+    evidence_bundle = AutoValidationEvidenceBundle.model_validate_json(
+        bundle.read_text(encoding="utf-8")
+    )
+    artifact = build_santiment_context_artifact(
+        bundle=evidence_bundle,
+        provider=SantimentGraphQLClient(),
+        interval=interval,
+        lookback_days=lookback_days,
+        forward_days=forward_days,
+    )
+    export = export_santiment_context_artifact(artifact, output_dir=output_dir)
+    click.echo(f"candidate: {artifact.candidate_id}")
+    click.echo(f"asset: {artifact.asset}")
+    click.echo(f"santiment_slug: {artifact.santiment_slug}")
+    click.echo(f"json: {export.json_path}")
+    click.echo(f"markdown: {export.markdown_path}")
+    click.echo(f"artifact_sha256: {export.artifact_sha256}")
+
+
+@main.command(
     "transcribe-media",
     help="Create draft Whisper transcripts for voice/audio media manifest rows.",
 )
@@ -289,6 +377,18 @@ def _transcription_env_enabled() -> bool:
     import os
 
     return os.environ.get(TRANSCRIPTION_ENABLE_ENV, "").strip() == "1"
+
+
+def _santiment_env_enabled() -> bool:
+    import os
+
+    return os.environ.get(SANTIMENT_ENABLE_ENV, "").strip() == "1"
+
+
+def _santiment_api_key_present() -> bool:
+    import os
+
+    return bool(os.environ.get(SANTIMENT_API_KEY_ENV, "").strip())
 
 
 if __name__ == "__main__":

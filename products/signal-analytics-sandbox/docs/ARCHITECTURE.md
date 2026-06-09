@@ -269,6 +269,7 @@ outcomes, or create customer-facing claims.
 | Paid price provider (gated) | `src/signal_sandbox/prices/paid.py` | Optional paid adapter; activation requires human approval flag. |
 | YFinance prototype provider | `src/signal_sandbox/prices/yfinance_dev.py` | Dev/prototype only — never canonical evidence without explicit approval. |
 | Price snapshot recorder | `src/signal_sandbox/prices/snapshot.py` | Records price snapshot SHA-256, provider, as-of, range. |
+| Santiment context enrichment | `src/signal_sandbox/santiment/` | Optional operator-gated SanAPI context layer for crypto candidates. Produces deterministic social/on-chain/price context artifacts for retrospective Telegram-channel analysis; it cannot approve claims, compute outcome truth, or bypass customer-facing policy. |
 | Outcome matcher | `src/signal_sandbox/outcomes/matcher.py` | Deterministic entry/stop/target evaluation per signal. |
 | Returns / MAE / MFE | `src/signal_sandbox/outcomes/metrics.py` | Pure-function calculations over snapshots. |
 | Aggregator | `src/signal_sandbox/outcomes/aggregate.py` | Win/loss/coverage/drawdown summaries. |
