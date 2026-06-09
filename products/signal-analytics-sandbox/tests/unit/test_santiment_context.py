@@ -22,6 +22,7 @@ from signal_sandbox.santiment import (
     export_santiment_context_artifact,
     load_santiment_context_artifact,
 )
+from signal_sandbox.santiment.context import SantimentProviderError
 
 SHA = "a" * 64
 POSTED = datetime(2026, 5, 31, 12, tzinfo=UTC)
@@ -49,6 +50,27 @@ class FakeSantimentProvider:
         ]
 
 
+class PartiallyFailingSantimentProvider(FakeSantimentProvider):
+    def fetch_metric_timeseries(
+        self,
+        *,
+        metric: str,
+        slug: str,
+        start_utc: datetime,
+        end_utc: datetime,
+        interval: str,
+    ) -> list[dict[str, Any]]:
+        if metric == "exchange_inflow_usd":
+            raise SantimentProviderError("test_metric_unavailable")
+        return super().fetch_metric_timeseries(
+            metric=metric,
+            slug=slug,
+            start_utc=start_utc,
+            end_utc=end_utc,
+            interval=interval,
+        )
+
+
 def test_build_santiment_context_artifact_computes_post_vs_pre_features() -> None:
     artifact = build_santiment_context_artifact(
         bundle=_bundle(),
@@ -73,6 +95,22 @@ def test_build_santiment_context_artifact_computes_post_vs_pre_features() -> Non
     assert price_feature.pct_change_post_vs_pre == Decimal("25.00")
     assert price_feature.interpretation == "up_price_context_after_post"
     assert len(artifact.artifact_sha256()) == 64
+
+
+def test_build_santiment_context_records_metric_failures_as_blockers() -> None:
+    artifact = build_santiment_context_artifact(
+        bundle=_bundle(),
+        provider=PartiallyFailingSantimentProvider(),
+        metrics=("price_usd", "exchange_inflow_usd"),
+        generated_at_utc=POSTED,
+    )
+
+    assert {series.metric: len(series.points) for series in artifact.metric_series} == {
+        "price_usd": 2,
+        "exchange_inflow_usd": 0,
+    }
+    assert artifact.blocker_reasons == ["missing_santiment_points:exchange_inflow_usd"]
+    assert [feature.metric for feature in artifact.features] == ["price_usd"]
 
 
 def test_export_santiment_context_writes_json_and_markdown(tmp_path: Path) -> None:
