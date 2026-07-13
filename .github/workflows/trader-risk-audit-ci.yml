@@ -1,0 +1,76 @@
+name: Trader Risk Audit CI
+
+on:
+  push:
+    branches: ["master", "main"]
+    paths:
+      - "products/trader-risk-audit/**"
+      - "README.md"
+      - "SECURITY.md"
+      - "docs/CONTRIBUTION_ROUTING.md"
+      - "tools/verify_repository_surface.py"
+      - ".github/ISSUE_TEMPLATE/**"
+      - ".github/workflows/**"
+  pull_request:
+    branches: ["master", "main"]
+    paths:
+      - "products/trader-risk-audit/**"
+      - "README.md"
+      - "SECURITY.md"
+      - "docs/CONTRIBUTION_ROUTING.md"
+      - "tools/verify_repository_surface.py"
+      - ".github/ISSUE_TEMPLATE/**"
+      - ".github/workflows/**"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: trader-risk-audit-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  trader-risk-audit:
+    name: Trader Risk Audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          persist-credentials: false
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: |
+            products/trader-risk-audit/requirements.txt
+            products/trader-risk-audit/requirements-dev.txt
+
+      - name: Install product dependencies
+        working-directory: products/trader-risk-audit
+        run: python -m pip install -r requirements-dev.txt -e .
+
+      - name: Verify installed dependencies
+        run: python -m pip check
+
+      - name: Verify repository maintainer surface
+        run: python tools/verify_repository_surface.py
+
+      - name: Ruff lint
+        run: ruff check products/trader-risk-audit/trader_risk_audit products/trader-risk-audit/tests tools/verify_repository_surface.py
+
+      - name: Ruff format
+        run: ruff format --check products/trader-risk-audit/trader_risk_audit products/trader-risk-audit/tests tools/verify_repository_surface.py
+
+      - name: Run Trader Risk Audit tests
+        working-directory: products/trader-risk-audit
+        env:
+          TRA_ENV: test
+          TRA_LIVE_BROKER_API_ENABLED: "false"
+          TRA_ORDER_BLOCKING_ENABLED: "false"
+          TRA_TELEGRAM_DELIVERY_ENABLED: "false"
+        run: python -m pytest tests -q --tb=short

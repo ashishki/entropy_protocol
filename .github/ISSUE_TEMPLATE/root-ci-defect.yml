@@ -1,0 +1,94 @@
+name: Root CI defect
+description: Report one reproducible failure in an active repository-root product workflow.
+title: "[root-ci] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Read `docs/CONTRIBUTION_ROUTING.md` first. This form covers root workflow discovery, triggers, dependencies, actions, and execution of an existing product gate. Do not include credentials, private trades, Telegram exports, customer data, vulnerability details, or generic feature requests.
+  - type: input
+    id: revision
+    attributes:
+      label: Exact repository revision
+      description: Full 40-character commit SHA for the failed run.
+    validations:
+      required: true
+  - type: dropdown
+    id: workflow
+    attributes:
+      label: Active root workflow
+      options:
+        - .github/workflows/ci.yml (Entropy Core)
+        - .github/workflows/signal-analytics-sandbox-ci.yml (Signal Analytics Sandbox)
+        - .github/workflows/trader-risk-audit-ci.yml (Trader Risk Audit)
+    validations:
+      required: true
+  - type: dropdown
+    id: owning_path
+    attributes:
+      label: Owning path
+      options:
+        - products/entropy-core/
+        - products/signal-analytics-sandbox/
+        - products/trader-risk-audit/
+        - root workflow/routing surface only
+    validations:
+      required: true
+  - type: dropdown
+    id: run_state
+    attributes:
+      label: Workflow-run state
+      options:
+        - A run exists and failed or behaved incorrectly
+        - No run was created for the expected event and paths
+    validations:
+      required: true
+  - type: textarea
+    id: run_evidence
+    attributes:
+      label: Run or missing-trigger evidence
+      description: If a run exists, give its public URL and exact job/step. If no run exists, give the event, ref, changed-path compare URL, expected workflow, and the Actions-page check showing no matching run.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Clean-checkout reproduction
+      description: Include local commands, dependency/runtime versions, exit codes, and the first relevant error. Use only synthetic/local inputs.
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: observed
+    attributes:
+      label: Observed CI behavior
+      description: State the trigger, paths, job/step, exit code, and sanitized failure.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected existing gate behavior
+      description: Point to the owning product's current local command or contract; do not propose a new feature here.
+    validations:
+      required: true
+  - type: textarea
+    id: minimal_fix
+    attributes:
+      label: Smallest orchestration fix
+      description: Explain how the workflow can match the existing product gate without changing product rules, thresholds, datasets, or claims.
+    validations:
+      required: true
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Scope and safety checks
+      options:
+        - label: I reproduced this at the exact revision and active root workflow above.
+          required: true
+        - label: The report uses only synthetic/local inputs and contains no credentials, private data, vulnerability details, or local absolute paths.
+          required: true
+        - label: This is a CI orchestration defect, not a product feature, shared-platform, live-trading, or monorepo-release request.
+          required: true
+        - label: I am not treating a test or fixture as user, adoption, commercial, production, performance, or regulatory evidence.
+          required: true
