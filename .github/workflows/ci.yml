@@ -9,7 +9,13 @@ on:
     branches:
       - main
       - master
+    paths:
+      - "products/entropy-core/**"
+      - ".github/workflows/ci.yml"
   pull_request:
+    paths:
+      - "products/entropy-core/**"
+      - ".github/workflows/ci.yml"
 
 # Environment variables required by the application.
 # DATABASE_URL points at the PostgreSQL service defined below.
@@ -50,11 +56,11 @@ jobs:
     steps:
       # Step 1: Check out the repository.
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       # Step 2: Set up Python 3.12.
       - name: Set up Python 3.12
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.12"
 
