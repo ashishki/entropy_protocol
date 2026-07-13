@@ -17,6 +17,9 @@ on:
       - "products/entropy-core/**"
       - ".github/workflows/ci.yml"
 
+permissions:
+  contents: read
+
 # Environment variables required by the application.
 # DATABASE_URL points at the PostgreSQL service defined below.
 # ENTROPY_DATA_DIR and ENTROPY_REGISTRY_DIR use ephemeral temp directories.
@@ -56,11 +59,13 @@ jobs:
     steps:
       # Step 1: Check out the repository.
       - name: Checkout repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          persist-credentials: false
 
       # Step 2: Set up Python 3.12.
       - name: Set up Python 3.12
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
         with:
           python-version: "3.12"
 

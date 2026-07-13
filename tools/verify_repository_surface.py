@@ -21,7 +21,15 @@ def main() -> int:
     routing_normalized = " ".join(routing.split())
     form_path = ROOT / ".github/ISSUE_TEMPLATE/root-ci-defect.yml"
     config_path = ROOT / ".github/ISSUE_TEMPLATE/config.yml"
-    workflow = _read(".github/workflows/trader-risk-audit-ci.yml")
+    workflows = {
+        path: _read(path)
+        for path in (
+            ".github/workflows/ci.yml",
+            ".github/workflows/signal-analytics-sandbox-ci.yml",
+            ".github/workflows/trader-risk-audit-ci.yml",
+        )
+    }
+    trader_workflow = workflows[".github/workflows/trader-risk-audit-ci.yml"]
     form = yaml.safe_load(form_path.read_text(encoding="utf-8"))
     config = yaml.safe_load(config_path.read_text(encoding="utf-8"))
 
@@ -34,13 +42,18 @@ def main() -> int:
         "owning_path",
         "reproduction",
         "revision",
-        "run",
+        "run_evidence",
+        "run_state",
         "workflow",
     }
     if set(field_ids) != expected_ids or len(field_ids) != len(set(field_ids)):
         raise SystemExit("root-CI issue form fields are incomplete or duplicated")
     if config.get("blank_issues_enabled") is not False:
         raise SystemExit("blank issues must remain disabled")
+    run_state = next(item for item in form["body"] if item.get("id") == "run_state")
+    run_options = run_state["attributes"]["options"]
+    if not any("No run was created" in option for option in run_options):
+        raise SystemExit("root-CI form must accept missing-trigger evidence")
 
     required_routes = {
         ".github/workflows/ci.yml": "products/entropy-core/",
@@ -70,18 +83,30 @@ def main() -> int:
         "not active GitHub Actions checks",
         "generic features",
         "no root open-source license",
+        "Product-behavior issue intake is not currently offered",
+        "absence of a run is valid evidence",
     ):
         if marker.casefold() not in routing_normalized.casefold():
             raise SystemExit(f"routing boundary missing: {marker}")
     if "cannot promise a response or remediation deadline" not in security:
         raise SystemExit("security response boundary is missing")
 
-    for action_sha in (
-        "actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0",
-        "actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
-    ):
-        if action_sha not in workflow:
-            raise SystemExit(f"workflow action pin missing: {action_sha}")
+    for workflow_path, workflow in workflows.items():
+        for action_sha in (
+            "actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0",
+            "actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+        ):
+            if action_sha not in workflow:
+                raise SystemExit(
+                    f"workflow action pin missing: {workflow_path}: {action_sha}"
+                )
+        for marker in ("permissions:\n  contents: read", "persist-credentials: false"):
+            if marker not in workflow:
+                raise SystemExit(
+                    f"workflow hardening missing: {workflow_path}: {marker}"
+                )
+    if trader_workflow.count('- ".github/workflows/**"') != 2:
+        raise SystemExit("maintainer verifier must run for every root workflow change")
     for command in (
         "python -m pip check",
         "python tools/verify_repository_surface.py",
@@ -89,7 +114,7 @@ def main() -> int:
         "ruff format --check products/trader-risk-audit/trader_risk_audit",
         "python -m pytest tests -q --tb=short",
     ):
-        if command not in workflow:
+        if command not in trader_workflow:
             raise SystemExit(f"workflow gate missing: {command}")
 
     print("repository-maintainer-surface: PASS")

@@ -5,4 +5,4 @@ contact_links:
     about: Use the private email path in the policy; do not disclose vulnerabilities publicly.
   - name: Product ownership and CI routing
     url: https://github.com/ashishki/entropy_protocol/blob/master/docs/CONTRIBUTION_ROUTING.md
-    about: Choose the owning product path and its active root workflow before reporting a defect.
+    about: Check ownership and local gates; product-behavior issue intake is not currently offered.

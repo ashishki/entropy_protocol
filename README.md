@@ -38,10 +38,11 @@ templates and are not claimed as GitHub checks.
 
 Use the [root-CI defect form](https://github.com/ashishki/entropy_protocol/issues/new?template=root-ci-defect.yml)
 only for a reproducible failure in one of those root workflows. Read
-[contribution routing](docs/CONTRIBUTION_ROUTING.md) before reporting a
-product-specific defect. Blank issues and generic feature/portfolio requests
-are disabled. Suspected vulnerabilities follow [SECURITY.md](SECURITY.md), not
-a public issue.
+[contribution routing](docs/CONTRIBUTION_ROUTING.md) before proposing a
+product-scoped pull request. Product-behavior issue intake is not currently
+offered; blank issues and generic feature/portfolio requests are disabled.
+Suspected vulnerabilities follow [SECURITY.md](SECURITY.md), not a public
+issue.
 
 This public repository currently has no root open-source license. An issue or
 pull request does not grant permission to reuse code across product boundaries.
