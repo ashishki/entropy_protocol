@@ -1,0 +1,115 @@
+{
+  "artifact_id": "synthetic_full_review_queue_contract_fixture",
+  "generated_at_utc": "2026-07-13T00:00:00Z",
+  "required_row_fields": [
+    "queue_id",
+    "channel",
+    "source_url",
+    "evidence_snippet",
+    "suggested_claim_type",
+    "current_decision",
+    "required_reviewer_action",
+    "blocker_reason"
+  ],
+  "rows": [
+    {
+      "assets": [
+        "SYNTH-A"
+      ],
+      "blocker_reason": "Synthetic contract row has no operator decision.",
+      "channel": "synthetic-alpha",
+      "claim_id": "synthetic-claim-001",
+      "current_decision": "excluded_pending_false_negative",
+      "evidence_snippet": "Synthetic evidence snippet for the review contract.",
+      "external_delivery_eligible": false,
+      "provider": null,
+      "provider_symbol": null,
+      "queue_id": "synthetic-source-001",
+      "queue_tags": [
+        "synthetic",
+        "ci-contract"
+      ],
+      "required_reviewer_action": "record a synthetic review decision",
+      "review_reference": null,
+      "row_kind": "source_text_row",
+      "source_artifact": "tests/fixtures/review/synthetic_full_review_queue.json",
+      "source_post_id": "synthetic-post-001",
+      "source_timestamp_utc": "2026-01-01T00:00:00Z",
+      "source_url": "https://example.invalid/synthetic/source-001",
+      "suggested_claim_type": "directional_thesis"
+    },
+    {
+      "assets": [
+        "SYNTH-B"
+      ],
+      "blocker_reason": "Synthetic media evidence is intentionally unavailable.",
+      "channel": "synthetic-beta",
+      "claim_id": null,
+      "current_decision": "media_blocked",
+      "evidence_snippet": "Synthetic media-blocked evidence snippet.",
+      "external_delivery_eligible": false,
+      "provider": null,
+      "provider_symbol": null,
+      "queue_id": "synthetic-media-001",
+      "queue_tags": [
+        "synthetic",
+        "ci-contract",
+        "media-blocked"
+      ],
+      "required_reviewer_action": "keep external delivery blocked",
+      "review_reference": null,
+      "row_kind": "media_blocker",
+      "source_artifact": "tests/fixtures/review/synthetic_full_review_queue.json",
+      "source_post_id": "synthetic-post-002",
+      "source_timestamp_utc": "2026-01-02T00:00:00Z",
+      "source_url": "https://example.invalid/synthetic/source-002",
+      "suggested_claim_type": "media_context"
+    },
+    {
+      "assets": [
+        "SYNTH-C"
+      ],
+      "blocker_reason": "Synthetic horizon label still requires review.",
+      "channel": "synthetic-gamma",
+      "claim_id": "synthetic-claim-003",
+      "current_decision": "included_primary_horizon_pending",
+      "evidence_snippet": "Synthetic normalized provider field example.",
+      "external_delivery_eligible": false,
+      "provider": "synthetic-provider",
+      "provider_symbol": "TEST-USD",
+      "queue_id": "synthetic-provider-001",
+      "queue_tags": [
+        "synthetic",
+        "ci-contract",
+        "provider-normalized"
+      ],
+      "required_reviewer_action": "review the synthetic horizon label",
+      "review_reference": {
+        "fixture": true
+      },
+      "row_kind": "normalized_claim_row",
+      "source_artifact": "tests/fixtures/review/synthetic_full_review_queue.json",
+      "source_post_id": "synthetic-post-003",
+      "source_timestamp_utc": "2026-01-03T00:00:00Z",
+      "source_url": "https://example.invalid/synthetic/source-003",
+      "suggested_claim_type": "provider_context"
+    }
+  ],
+  "source_artifacts": [
+    "tests/fixtures/review/synthetic_full_review_queue.json"
+  ],
+  "status": "synthetic_contract_fixture_external_blocked",
+  "summary": {
+    "current_decision_counts": {
+      "excluded_pending_false_negative": 1,
+      "included_primary_horizon_pending": 1,
+      "media_blocked": 1
+    },
+    "evidence_class": "synthetic_ci_contract",
+    "external_delivery_approved": false,
+    "pending_false_negative_rows": 1,
+    "pilot_or_user_evidence": false,
+    "provider_gap_rows": 2,
+    "queue_rows_total": 3
+  }
+}
