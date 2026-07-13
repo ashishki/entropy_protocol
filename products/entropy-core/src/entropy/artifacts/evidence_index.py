@@ -173,7 +173,9 @@ def _validate_references_exist(entry: ArtifactEvidenceIndexEntry, root: Path) ->
         if path.is_absolute() or ".." in path.parts:
             raise ArtifactEvidenceIndexViolation("Evidence index references must be repo-relative.")
         if not (root / path).exists():
-            raise ArtifactEvidenceIndexViolation("Evidence index reference does not exist: " + file_ref)
+            raise ArtifactEvidenceIndexViolation(
+                "Evidence index reference does not exist: " + file_ref
+            )
 
 
 def _format_row(entry: ArtifactEvidenceIndexEntry) -> str:

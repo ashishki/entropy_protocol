@@ -57,11 +57,14 @@ def test_job_idempotency_is_deterministic() -> None:
     assert first.job_id == duplicate.job_id
     assert completed.job_id == first.job_id
     assert completed.status == "succeeded"
-    assert registry.submit(
-        operation="validate_artifact",
-        artifact_ref="ignored",
-        idempotency_key="idem-001",
-    ) == completed
+    assert (
+        registry.submit(
+            operation="validate_artifact",
+            artifact_ref="ignored",
+            idempotency_key="idem-001",
+        )
+        == completed
+    )
 
 
 def test_job_model_has_no_worker_runtime_dependency() -> None:

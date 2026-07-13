@@ -24,7 +24,9 @@ def test_compare_prints_reproduction_status(tmp_path: Path, monkeypatch) -> None
     write_manifest(tmp_path, artifact_id, expected_path, expected)
     monkeypatch.setenv("ENTROPY_REPRODUCIBILITY_MANIFEST_DIR", str(tmp_path / "manifests"))
 
-    result = runner.invoke(cli.app, ["artifact", "compare", artifact_id, "--against", str(actual_path)])
+    result = runner.invoke(
+        cli.app, ["artifact", "compare", artifact_id, "--against", str(actual_path)]
+    )
 
     assert result.exit_code == 0
     payload = json.loads(result.stdout)
@@ -64,7 +66,9 @@ def test_cli_records_limitations(tmp_path: Path, monkeypatch) -> None:
     write_manifest(tmp_path, artifact_id, expected_path, expected)
     monkeypatch.setenv("ENTROPY_REPRODUCIBILITY_MANIFEST_DIR", str(tmp_path / "manifests"))
 
-    result = runner.invoke(cli.app, ["artifact", "compare", artifact_id, "--against", str(actual_path)])
+    result = runner.invoke(
+        cli.app, ["artifact", "compare", artifact_id, "--against", str(actual_path)]
+    )
     payload = json.loads(result.stdout)
 
     assert payload["limitations"] == {"direct_rerun_execution": "blocked"}

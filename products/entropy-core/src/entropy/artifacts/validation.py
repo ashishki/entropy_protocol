@@ -73,12 +73,16 @@ def load_artifact_payload(path: str | Path) -> dict[str, object]:
     artifact_path = Path(path)
     suffix = artifact_path.suffix.lower()
     if suffix not in SUPPORTED_ARTIFACT_SUFFIXES:
-        raise ArtifactPayloadError("artifact.unsupported_format", "Unsupported artifact file format.")
+        raise ArtifactPayloadError(
+            "artifact.unsupported_format", "Unsupported artifact file format."
+        )
 
     try:
         raw = artifact_path.read_text(encoding="utf-8")
     except OSError as exc:
-        raise ArtifactPayloadError("artifact.read_error", "Artifact file could not be read.") from exc
+        raise ArtifactPayloadError(
+            "artifact.read_error", "Artifact file could not be read."
+        ) from exc
 
     try:
         if suffix == ".json":
@@ -86,7 +90,9 @@ def load_artifact_payload(path: str | Path) -> dict[str, object]:
         else:
             loaded = _load_yaml(raw)
     except (ValueError, TypeError) as exc:
-        raise ArtifactPayloadError("artifact.parse_error", "Artifact file could not be parsed.") from exc
+        raise ArtifactPayloadError(
+            "artifact.parse_error", "Artifact file could not be parsed."
+        ) from exc
 
     if not isinstance(loaded, dict):
         raise ArtifactPayloadError("artifact.root_type", "Artifact file root must be an object.")

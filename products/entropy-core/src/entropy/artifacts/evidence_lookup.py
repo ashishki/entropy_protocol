@@ -101,9 +101,7 @@ def _iter_evidence_rows(index_text: str) -> list[dict[str, str]]:
 
 def _split_locations(location_cell: str) -> tuple[str, ...]:
     return tuple(
-        location.strip().strip("`")
-        for location in location_cell.split(";")
-        if location.strip()
+        location.strip().strip("`") for location in location_cell.split(";") if location.strip()
     )
 
 

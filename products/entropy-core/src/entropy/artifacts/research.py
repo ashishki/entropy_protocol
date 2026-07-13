@@ -81,15 +81,12 @@ class ResearchArtifact(BaseModel):
             or self.leakage_status != "PASS"
         ):
             unsupported = tuple(
-                label
-                for label in self.no_claim_labels
-                if _is_unsupported_unblocked_claim(label)
+                label for label in self.no_claim_labels if _is_unsupported_unblocked_claim(label)
             )
             if unsupported:
                 raise ResearchArtifactViolation(
                     "Research artifacts cannot claim OOS/performance or production surfaces "
-                    "without gates: "
-                    + ", ".join(unsupported)
+                    "without gates: " + ", ".join(unsupported)
                 )
         return self
 
@@ -134,7 +131,9 @@ def research_artifact_from_archive_packet(packet: FirstResearchEvidencePacket) -
 
 def archive_packet_to_artifact_payload(packet: FirstResearchEvidencePacket) -> dict[str, object]:
     """Convert an archive-only research packet into a base artifact payload."""
-    return research_artifact_from_archive_packet(packet).to_artifact_contract().model_dump(mode="json")
+    return (
+        research_artifact_from_archive_packet(packet).to_artifact_contract().model_dump(mode="json")
+    )
 
 
 def _require_bound_hash(name: str, value: str) -> None:

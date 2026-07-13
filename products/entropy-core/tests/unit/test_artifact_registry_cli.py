@@ -99,7 +99,9 @@ def test_duplicate_registration_is_deterministic(tmp_path: Path, monkeypatch) ->
         ],
         "ok": False,
     }
-    assert len((tmp_path / "registry" / "events.jsonl").read_text(encoding="utf-8").splitlines()) == 1
+    assert (
+        len((tmp_path / "registry" / "events.jsonl").read_text(encoding="utf-8").splitlines()) == 1
+    )
 
 
 def test_list_prints_safe_summary(tmp_path: Path, monkeypatch) -> None:
@@ -147,7 +149,9 @@ def test_list_prints_safe_summary(tmp_path: Path, monkeypatch) -> None:
 
 def test_history_prints_append_only_events(tmp_path: Path, monkeypatch) -> None:
     monkeypatch.setenv("ENTROPY_REGISTRY_DIR", str(tmp_path / "registry"))
-    register_result = runner.invoke(cli.app, ["artifact", "register", str(FIXTURES / "valid_artifact.json")])
+    register_result = runner.invoke(
+        cli.app, ["artifact", "register", str(FIXTURES / "valid_artifact.json")]
+    )
     artifact_id = json.loads(register_result.stdout)["artifact"]["artifact_id"]
     correction_event = ArtifactRegistryEvent(
         event_id="event-correction-001",

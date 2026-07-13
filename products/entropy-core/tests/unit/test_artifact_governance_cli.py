@@ -41,7 +41,13 @@ def test_invalid_transition_fails_before_write(tmp_path: Path, monkeypatch) -> N
 
     result = runner.invoke(
         cli.app,
-        ["governance", "transition", "artifact-001", "--to", "approved_for_controlled_external_pilot"],
+        [
+            "governance",
+            "transition",
+            "artifact-001",
+            "--to",
+            "approved_for_controlled_external_pilot",
+        ],
     )
 
     assert result.exit_code == 1

@@ -70,7 +70,9 @@ def test_migration_has_no_saas_assumptions() -> None:
 
 
 def _migration_text() -> str:
-    return "\n".join(path.read_text(encoding="utf-8") for path in sorted(MIGRATIONS_PATH.glob("*.py")))
+    return "\n".join(
+        path.read_text(encoding="utf-8") for path in sorted(MIGRATIONS_PATH.glob("*.py"))
+    )
 
 
 def _created_tables() -> set[str]:
@@ -97,6 +99,5 @@ def _created_tables() -> set[str]:
 def _foreign_key_targets(table_name: str) -> set[str]:
     table = Base.metadata.tables[table_name]
     return {
-        ".".join(foreign_key.target_fullname.split(".")[-2:])
-        for foreign_key in table.foreign_keys
+        ".".join(foreign_key.target_fullname.split(".")[-2:]) for foreign_key in table.foreign_keys
     }

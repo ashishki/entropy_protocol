@@ -37,8 +37,7 @@ APPROVAL_PATTERNS = (
 
 def v2_boundary_text() -> str:
     return " ".join(
-        " ".join(path.read_text(encoding="utf-8").lower().split())
-        for path in V2_BOUNDARY_DOCS
+        " ".join(path.read_text(encoding="utf-8").lower().split()) for path in V2_BOUNDARY_DOCS
     )
 
 

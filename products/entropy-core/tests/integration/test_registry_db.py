@@ -25,6 +25,14 @@ from entropy.registry.write import DuplicateTrialError, MissingHashError, regist
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 ALEMBIC_CONFIG = PROJECT_ROOT / "migrations" / "alembic.ini"
 CORE_TABLES = {"trial_registry", "runs", "market_datasets", "fill_logs", "governance_events"}
+ARTIFACT_TABLES = {
+    "artifact_records",
+    "artifact_validation_events",
+    "artifact_reproducibility_events",
+    "artifact_evidence_packets",
+    "artifact_governance_transition_events",
+}
+MIGRATION_TABLES = CORE_TABLES | ARTIFACT_TABLES
 
 
 def database_url_or_skip() -> str:
@@ -64,6 +72,11 @@ def run_alembic(database_url: str, *args: str) -> subprocess.CompletedProcess[st
 def reset_database(engine: Engine) -> None:
     """Drop migration-managed objects from the test database."""
     drop_statements = [
+        text("DROP TABLE IF EXISTS artifact_governance_transition_events CASCADE"),
+        text("DROP TABLE IF EXISTS artifact_evidence_packets CASCADE"),
+        text("DROP TABLE IF EXISTS artifact_reproducibility_events CASCADE"),
+        text("DROP TABLE IF EXISTS artifact_validation_events CASCADE"),
+        text("DROP TABLE IF EXISTS artifact_records CASCADE"),
         text("DROP TABLE IF EXISTS governance_events CASCADE"),
         text("DROP TABLE IF EXISTS fill_logs CASCADE"),
         text("DROP TABLE IF EXISTS market_datasets CASCADE"),
@@ -262,7 +275,7 @@ def test_fill_logs_schema(migrated_engine: Engine) -> None:
     assert any(fk["referred_table"] == "runs" for fk in foreign_keys)
 
 
-def test_alembic_downgrade_reverts_migration() -> None:
+def test_alembic_downgrade_reverts_all_migrations() -> None:
     database_url = database_url_or_skip()
     assert_test_database(database_url)
     engine = create_engine(database_url)
@@ -272,7 +285,7 @@ def test_alembic_downgrade_reverts_migration() -> None:
     if upgrade.returncode != 0:
         pytest.fail(f"alembic upgrade failed\nSTDOUT:\n{upgrade.stdout}\nSTDERR:\n{upgrade.stderr}")
 
-    downgrade = run_alembic(database_url, "downgrade", "-1")
+    downgrade = run_alembic(database_url, "downgrade", "base")
     if downgrade.returncode != 0:
         pytest.fail(
             f"alembic downgrade failed\nSTDOUT:\n{downgrade.stdout}\nSTDERR:\n{downgrade.stderr}"
@@ -280,7 +293,7 @@ def test_alembic_downgrade_reverts_migration() -> None:
 
     try:
         tables = set(inspect(engine).get_table_names())
-        assert CORE_TABLES.isdisjoint(tables)
+        assert MIGRATION_TABLES.isdisjoint(tables)
     finally:
         reset_database(engine)
         engine.dispose()

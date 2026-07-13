@@ -200,8 +200,7 @@ class AuditBundle(BaseModel):
         if unsafe:
             raise AuditBundleViolation(
                 "Audit bundles cannot claim external certification, investment-advice "
-                "compliance, enterprise readiness, or enterprise SLA: "
-                + ", ".join(unsafe)
+                "compliance, enterprise readiness, or enterprise SLA: " + ", ".join(unsafe)
             )
         return self
 

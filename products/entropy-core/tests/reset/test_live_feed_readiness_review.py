@@ -50,7 +50,7 @@ def test_live_feed_readiness_review_updates_state() -> None:
     tasks = TASKS.read_text(encoding="utf-8")
     audit_index = AUDIT_INDEX.read_text(encoding="utf-8")
 
-    assert "Phase: 27" in prompt
+    assert "Phase: 31" in prompt
     assert "T50 Live-Feed Dry Run Readiness Review completed" in prompt
     assert "T51 Broker Sandbox Boundary Contract" in prompt
     assert "Phase 12 Broker Sandbox and Execution Risk Audit" in prompt

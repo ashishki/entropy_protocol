@@ -144,10 +144,7 @@ class ReproducibilityManifest(BaseModel):
             raise ReproducibilityManifestViolation(
                 "Fully reproducible manifests cannot list non-reproducible fields."
             )
-        if (
-            self.reproducibility_status != "fully_reproducible"
-            and not self.non_reproducible_fields
-        ):
+        if self.reproducibility_status != "fully_reproducible" and not self.non_reproducible_fields:
             raise ReproducibilityManifestViolation(
                 "Partial or non-reproducible manifests must declare affected fields."
             )

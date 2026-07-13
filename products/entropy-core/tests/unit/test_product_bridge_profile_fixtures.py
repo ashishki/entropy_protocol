@@ -6,7 +6,11 @@ from pathlib import Path
 
 import pytest
 
-from entropy.artifacts import ProductBridgeProfileViolation, validate_artifact_file, validate_artifact_profile
+from entropy.artifacts import (
+    ProductBridgeProfileViolation,
+    validate_artifact_file,
+    validate_artifact_profile,
+)
 
 FIXTURES = Path(__file__).resolve().parents[1] / "fixtures" / "artifacts" / "profiles"
 
@@ -17,7 +21,10 @@ def test_trader_fixture_profile_behavior() -> None:
 
     assert valid_result.ok is True
     assert valid_result.artifact is not None
-    assert validate_artifact_profile(valid_result.artifact, "trader-risk-audit") is valid_result.artifact
+    assert (
+        validate_artifact_profile(valid_result.artifact, "trader-risk-audit")
+        is valid_result.artifact
+    )
     assert unsafe_result.ok is True
     assert unsafe_result.artifact is not None
     with pytest.raises(ProductBridgeProfileViolation, match="forbidden no-claim labels"):

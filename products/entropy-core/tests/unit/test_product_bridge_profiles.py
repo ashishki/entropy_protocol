@@ -16,7 +16,9 @@ from entropy.artifacts import (
     validate_artifact_profile,
 )
 
-VALID_ARTIFACT = Path(__file__).resolve().parents[1] / "fixtures" / "artifacts" / "valid_artifact.json"
+VALID_ARTIFACT = (
+    Path(__file__).resolve().parents[1] / "fixtures" / "artifacts" / "valid_artifact.json"
+)
 
 
 def test_known_profiles_exist() -> None:
@@ -48,9 +50,7 @@ def test_profiles_overlay_claim_boundaries() -> None:
     )
 
     assert validate_artifact_profile(trader_artifact, "trader-risk-audit") is trader_artifact
-    assert (
-        validate_artifact_profile(signal_artifact, "signal-analytics-sandbox") is signal_artifact
-    )
+    assert validate_artifact_profile(signal_artifact, "signal-analytics-sandbox") is signal_artifact
     assert tuple(ArtifactContractV1.model_fields) == base_fields
     assert "profile" not in ArtifactContractV1.model_fields
 

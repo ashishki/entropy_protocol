@@ -31,9 +31,7 @@ def test_caf_artifacts_require_no_claim_labels() -> None:
     with pytest.raises(ValidationError, match="CAF artifacts require no-claim labels"):
         caf_decision(
             no_claim_boundary=tuple(
-                label
-                for label in CAF_REQUIRED_NO_CLAIM_LABELS
-                if label != "not_live_allocation"
+                label for label in CAF_REQUIRED_NO_CLAIM_LABELS if label != "not_live_allocation"
             )
         )
 
