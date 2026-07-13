@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Private security reporting instructions
+    url: https://github.com/ashishki/entropy_protocol/security/policy
+    about: Use the private email path in the policy; do not disclose vulnerabilities publicly.
+  - name: Product ownership and CI routing
+    url: https://github.com/ashishki/entropy_protocol/blob/master/docs/CONTRIBUTION_ROUTING.md
+    about: Choose the owning product path and its active root workflow before reporting a defect.
