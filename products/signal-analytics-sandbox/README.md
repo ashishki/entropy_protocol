@@ -7,7 +7,7 @@ separate from Entropy Core and Trader Risk Audit.
 
 - Phase: 42 complete - Auto-Accept Decision Engine And Evaluation
 - Next task: none approved; buyer outreach remains blocked
-- Baseline: 432 passing tests, 0 skipped
+- Baseline: the full local suite must pass; CI is authoritative
 - Current priority: automate candidate validation with evidence bundles,
   independent validators, strict thresholds, and customer-facing policy gates
 
@@ -28,6 +28,7 @@ where supported, and limitations.
 7. `docs/AI_DEVELOPMENT_PLAN_RU.md`
 8. `docs/pilot/THREE_CHANNEL_V1_ROADMAP.md`
 9. `docs/legal_risk_memo.md`
+10. `docs/CI_EVIDENCE_BOUNDARY.md`
 
 ## Implemented Surface
 

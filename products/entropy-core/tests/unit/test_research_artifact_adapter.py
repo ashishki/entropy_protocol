@@ -33,7 +33,10 @@ def test_adapter_preserves_no_claim_boundaries() -> None:
     artifact = research_artifact_from_archive_packet(archive_packet())
     payload = artifact.to_artifact_contract().model_dump(mode="json")
 
-    assert artifact.no_claim_labels == ("archive_only_research", *FIRST_RESEARCH_PACKET_NO_CLAIM_LABELS)
+    assert artifact.no_claim_labels == (
+        "archive_only_research",
+        *FIRST_RESEARCH_PACKET_NO_CLAIM_LABELS,
+    )
     assert payload["no_claim_boundary"] == list(artifact.no_claim_labels)
     assert "not_holdout_unlock" in payload["no_claim_boundary"]
     assert "not_oos_performance" in payload["no_claim_boundary"]

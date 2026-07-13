@@ -230,7 +230,9 @@ def read_artifact_history(
 ) -> tuple[ArtifactRegistryEvent, ...]:
     """Return append-only registry events for one artifact in deterministic order."""
     show_artifact_record(artifact_id, registry_dir)
-    return tuple(event for event in _read_events(Path(registry_dir)) if event.artifact_id == artifact_id)
+    return tuple(
+        event for event in _read_events(Path(registry_dir)) if event.artifact_id == artifact_id
+    )
 
 
 def safe_registry_record_metadata(record: ArtifactRegistryRecord) -> dict[str, object]:

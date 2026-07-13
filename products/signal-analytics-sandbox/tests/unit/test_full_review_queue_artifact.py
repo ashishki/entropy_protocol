@@ -1,36 +1,42 @@
 from __future__ import annotations
 
 import json
+from collections import Counter
 from pathlib import Path
 from typing import Any
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
+CONTRACT_FIXTURE = (
+    PROJECT_ROOT / "tests/fixtures/review/synthetic_full_review_queue.json"
+)
+BOUNDARY_DOC = PROJECT_ROOT / "docs/CI_EVIDENCE_BOUNDARY.md"
 
 
 def _queue() -> dict[str, Any]:
-    return json.loads(
-        (PROJECT_ROOT / "docs/pilot/three_channel_FULL_REVIEW_QUEUE.json").read_text(
-            encoding="utf-8"
-        )
+    return json.loads(CONTRACT_FIXTURE.read_text(encoding="utf-8"))
+
+
+def test_synthetic_queue_contract_is_internally_consistent_and_blocked() -> None:
+    queue = _queue()
+    summary = queue["summary"]
+    decision_counts = Counter(row["current_decision"] for row in queue["rows"])
+
+    assert queue["status"] == "synthetic_contract_fixture_external_blocked"
+    assert summary["evidence_class"] == "synthetic_ci_contract"
+    assert summary["pilot_or_user_evidence"] is False
+    assert summary["external_delivery_approved"] is False
+    assert summary["queue_rows_total"] == len(queue["rows"])
+    assert summary["current_decision_counts"] == dict(decision_counts)
+    assert summary["pending_false_negative_rows"] == sum(
+        row["current_decision"] == "excluded_pending_false_negative"
+        for row in queue["rows"]
+    )
+    assert summary["provider_gap_rows"] == sum(
+        row["provider"] is None for row in queue["rows"]
     )
 
 
-def test_full_review_queue_covers_v1_claims_text_rows_and_media_blockers() -> None:
-    queue = _queue()
-    summary = queue["summary"]
-
-    assert queue["status"] == "internal_full_corpus_review_queue_external_blocked"
-    assert summary["external_delivery_approved"] is False
-    assert summary["queue_rows_total"] == len(queue["rows"])
-    assert summary["v1_included_claim_rows"] == 172
-    assert summary["v1_evaluable_claims"] == 170
-    assert summary["source_text_rows"] == 1534
-    assert summary["pending_false_negative_rows"] == 5
-    assert summary["media_blocked_rows"] == 4
-    assert summary["provider_gap_rows"] >= 200
-
-
-def test_full_review_queue_rows_have_required_review_fields() -> None:
+def test_synthetic_queue_rows_have_required_review_fields() -> None:
     queue = _queue()
     required_fields = set(queue["required_row_fields"])
 
@@ -40,15 +46,18 @@ def test_full_review_queue_rows_have_required_review_fields() -> None:
         assert row["external_delivery_eligible"] is False
 
 
-def test_full_review_queue_keeps_blockers_and_gate_boundary_explicit() -> None:
+def test_synthetic_queue_keeps_evidence_boundary_explicit() -> None:
     queue = _queue()
-    markdown = (
-        PROJECT_ROOT / "docs/pilot/three_channel_FULL_REVIEW_QUEUE.md"
-    ).read_text(encoding="utf-8")
+    boundary = " ".join(BOUNDARY_DOC.read_text(encoding="utf-8").split())
+    gitignore = (PROJECT_ROOT / ".gitignore").read_text(encoding="utf-8")
 
     decisions = queue["summary"]["current_decision_counts"]
-    assert decisions["excluded_pending_false_negative"] == 5
-    assert decisions["media_blocked"] == 4
-    assert decisions["included_primary_horizon_pending"] == 2
-    assert "External delivery remains blocked" in markdown
-    assert "three_channel_V1_EXTERNAL_READY_GATE.md" in markdown
+    assert decisions == {
+        "excluded_pending_false_negative": 1,
+        "included_primary_horizon_pending": 1,
+        "media_blocked": 1,
+    }
+    assert "not pilot or user evidence" in boundary
+    assert "does not validate historical full-corpus counts" in boundary
+    assert "external delivery remains blocked" in boundary
+    assert "docs/pilot/*FULL_REVIEW_QUEUE.*" in gitignore

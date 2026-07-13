@@ -37,7 +37,13 @@ def test_trader_profile_validation_applies_boundaries(tmp_path: Path) -> None:
 
     missing_result = runner.invoke(
         cli.app,
-        ["artifact", "validate", str(FIXTURES / "valid_artifact.json"), "--profile", "trader-risk-audit"],
+        [
+            "artifact",
+            "validate",
+            str(FIXTURES / "valid_artifact.json"),
+            "--profile",
+            "trader-risk-audit",
+        ],
     )
     assert missing_result.exit_code == 1
     missing_payload = json.loads(missing_result.stdout)

@@ -66,7 +66,7 @@ def test_confirmation_decision_review_updates_state() -> None:
     tasks = TASKS.read_text(encoding="utf-8")
     audit_index = AUDIT_INDEX.read_text(encoding="utf-8")
 
-    assert "Phase: 27" in prompt
+    assert "Phase: 31" in prompt
     assert "T62 Product Hypothesis Confirmation Decision Review completed" in prompt
     assert "product hypothesis status: unconfirmed_pending_future_validation" in prompt
     assert "Status:     done 2026-05-09" in _task_section(tasks, "T62")

@@ -32,7 +32,9 @@ def test_invalid_artifact_returns_deterministic_errors() -> None:
     assert first_result == second_result
 
     errors = [error.model_dump(mode="json") for error in first_result.errors]
-    assert errors == sorted(errors, key=lambda error: (error["path"], error["code"], error["message"]))
+    assert errors == sorted(
+        errors, key=lambda error: (error["path"], error["code"], error["message"])
+    )
     assert {
         "path": "$.external_delivery_approval_status",
         "code": "artifact.invalid_state",

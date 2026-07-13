@@ -19,15 +19,17 @@ from signal_sandbox.review import (
 )
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
+CONTRACT_FIXTURE = (
+    PROJECT_ROOT / "tests/fixtures/review/synthetic_full_review_queue.json"
+)
 
 
-def test_review_queue_loader_reads_full_queue_and_validates_required_fields() -> None:
-    queue = load_review_queue(
-        PROJECT_ROOT / "docs/pilot/three_channel_FULL_REVIEW_QUEUE.json"
-    )
+def test_review_queue_loader_reads_fixture_and_validates_required_fields() -> None:
+    queue = load_review_queue(CONTRACT_FIXTURE)
 
-    assert queue.artifact_id == "three_channel_full_review_queue"
+    assert queue.artifact_id == "synthetic_full_review_queue_contract_fixture"
     assert len(queue.rows) == queue.summary["queue_rows_total"]
+    assert queue.summary["pilot_or_user_evidence"] is False
     assert queue.required_row_fields == [
         "queue_id",
         "channel",

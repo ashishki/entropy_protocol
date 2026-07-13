@@ -153,7 +153,9 @@ def show_artifact(artifact_id: str) -> None:
     except ArtifactRegistryNotFound:
         _echo_artifact_error("artifact_registry.not_found", "Artifact was not found.")
 
-    typer.echo(json.dumps({"ok": True, "artifact": safe_registry_record_metadata(record)}, sort_keys=True))
+    typer.echo(
+        json.dumps({"ok": True, "artifact": safe_registry_record_metadata(record)}, sort_keys=True)
+    )
 
 
 @artifact_app.command("list")
@@ -176,7 +178,11 @@ def artifact_history(artifact_id: str) -> None:
 
     typer.echo(
         json.dumps(
-            {"ok": True, "artifact_id": artifact_id, "events": [event.model_dump(mode="json") for event in events]},
+            {
+                "ok": True,
+                "artifact_id": artifact_id,
+                "events": [event.model_dump(mode="json") for event in events],
+            },
             sort_keys=True,
         )
     )
@@ -230,7 +236,9 @@ def _artifact_registry_dir() -> Path:
 
 
 def _artifact_manifest_dir() -> Path:
-    return Path(os.getenv("ENTROPY_REPRODUCIBILITY_MANIFEST_DIR", "artifacts/reproducibility/manifests"))
+    return Path(
+        os.getenv("ENTROPY_REPRODUCIBILITY_MANIFEST_DIR", "artifacts/reproducibility/manifests")
+    )
 
 
 def _validate_artifact_file_for_profile(path: Path, profile: str) -> ArtifactValidationResult:
@@ -334,7 +342,11 @@ def governance_history(artifact_id: str) -> None:
     events = read_artifact_governance_history(artifact_id, _artifact_governance_dir())
     typer.echo(
         json.dumps(
-            {"ok": True, "artifact_id": artifact_id, "events": [event.model_dump(mode="json") for event in events]},
+            {
+                "ok": True,
+                "artifact_id": artifact_id,
+                "events": [event.model_dump(mode="json") for event in events],
+            },
             sort_keys=True,
         )
     )

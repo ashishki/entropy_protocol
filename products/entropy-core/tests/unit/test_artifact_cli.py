@@ -24,7 +24,9 @@ def test_artifact_validate_accepts_valid_artifact() -> None:
 
 
 def test_artifact_validate_rejects_invalid_artifact() -> None:
-    result = runner.invoke(cli.app, ["artifact", "validate", str(FIXTURES / "invalid_artifact.json")])
+    result = runner.invoke(
+        cli.app, ["artifact", "validate", str(FIXTURES / "invalid_artifact.json")]
+    )
 
     assert result.exit_code == 1
     payload = json.loads(result.stdout)

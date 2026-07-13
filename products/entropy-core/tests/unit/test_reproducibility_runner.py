@@ -38,7 +38,8 @@ def manifest_for_payload(
             ),
             "volatile_fields": volatile_fields,
             "accepted_nondeterminism": [
-                {"field_path": field, "reason": "declared volatile field"} for field in volatile_fields
+                {"field_path": field, "reason": "declared volatile field"}
+                for field in volatile_fields
             ],
             "reproducibility_status": reproducibility_status,
             "non_reproducible_fields": non_reproducible_fields,

@@ -14,6 +14,9 @@ from signal_sandbox.review import (
 )
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
+CONTRACT_FIXTURE = (
+    PROJECT_ROOT / "tests/fixtures/review/synthetic_full_review_queue.json"
+)
 
 
 def test_review_audit_artifact_lists_missing_review_blockers() -> None:
@@ -30,9 +33,7 @@ def test_review_audit_artifact_lists_missing_review_blockers() -> None:
 
 
 def test_review_audit_blocks_external_gate_when_coverage_is_incomplete() -> None:
-    queue = load_review_queue(
-        PROJECT_ROOT / "docs/pilot/three_channel_FULL_REVIEW_QUEUE.json"
-    )
+    queue = load_review_queue(CONTRACT_FIXTURE)
     audit = build_review_audit(queue, [])
 
     assert audit.external_gate_blocked is True
@@ -41,9 +42,7 @@ def test_review_audit_blocks_external_gate_when_coverage_is_incomplete() -> None
 
 
 def test_review_audit_tracks_accepted_decision_required_evidence() -> None:
-    queue = load_review_queue(
-        PROJECT_ROOT / "docs/pilot/three_channel_FULL_REVIEW_QUEUE.json"
-    )
+    queue = load_review_queue(CONTRACT_FIXTURE)
     decision = _decision(queue.rows[0].queue_id)
     audit = build_review_audit(queue, [decision])
     markdown = render_review_audit_markdown(queue, audit)

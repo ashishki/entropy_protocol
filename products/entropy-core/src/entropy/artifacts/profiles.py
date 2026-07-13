@@ -33,9 +33,13 @@ class ProductBridgeProfile(BaseModel):
 
     @model_validator(mode="after")
     def validate_profile_shape(self) -> "ProductBridgeProfile":
-        overlap = set(self.required_no_claim_boundaries).intersection(self.forbidden_no_claim_labels)
+        overlap = set(self.required_no_claim_boundaries).intersection(
+            self.forbidden_no_claim_labels
+        )
         if overlap:
-            raise ProductBridgeProfileViolation("Profile boundaries cannot be both required and forbidden.")
+            raise ProductBridgeProfileViolation(
+                "Profile boundaries cannot be both required and forbidden."
+            )
         return self
 
 
@@ -117,7 +121,9 @@ def validate_artifact_profile(
         )
 
     forbidden = tuple(
-        label for label in profile.forbidden_no_claim_labels if _normalize_boundary(label) in boundaries
+        label
+        for label in profile.forbidden_no_claim_labels
+        if _normalize_boundary(label) in boundaries
     )
     if forbidden:
         raise ProductBridgeProfileViolation(

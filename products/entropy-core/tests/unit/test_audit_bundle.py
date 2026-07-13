@@ -37,11 +37,14 @@ def test_audit_bundle_serializes_deterministically() -> None:
     duplicate = audit_bundle()
 
     assert bundle.to_deterministic_json() == duplicate.to_deterministic_json()
-    assert json.dumps(
-        bundle.model_dump(mode="json"),
-        sort_keys=True,
-        separators=(",", ":"),
-    ) == bundle.to_deterministic_json()
+    assert (
+        json.dumps(
+            bundle.model_dump(mode="json"),
+            sort_keys=True,
+            separators=(",", ":"),
+        )
+        == bundle.to_deterministic_json()
+    )
     assert bundle.bundle_hash().startswith("sha256:")
     assert bundle.bundle_hash() == duplicate.bundle_hash()
     assert bundle.content_hashes[0].sha256 == "sha256:artifact001"
@@ -127,7 +130,10 @@ def audit_bundle(**overrides: object) -> AuditBundle:
         "claim_boundary": base_claim_boundary(),
         "content_hashes": (
             {"ref": "artifacts/core/artifact-001.json", "sha256": "sha256:artifact001"},
-            {"ref": "docs/audit/generated/evidence/artifact-001.json", "sha256": "sha256:evidence001"},
+            {
+                "ref": "docs/audit/generated/evidence/artifact-001.json",
+                "sha256": "sha256:evidence001",
+            },
         ),
     }
     payload.update(overrides)

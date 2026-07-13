@@ -76,11 +76,13 @@ def test_local_replay_review_updates_state() -> None:
     tasks = TASKS.read_text(encoding="utf-8")
     audit_index = AUDIT_INDEX.read_text(encoding="utf-8")
 
-    assert "Phase: 27" in prompt
+    assert "Phase: 31" in prompt
     assert "T66-T68 remain pending but deferred" in prompt
     assert "Phase 14 replay work is complete through T65" in prompt
     assert "local_evidence_strengthened_not_confirmed" in prompt
-    assert "Status:     deferred 2026-05-11 artifact-support override" in _task_section(tasks, "T68")
+    assert "Status:     deferred 2026-05-11 artifact-support override" in _task_section(
+        tasks, "T68"
+    )
     assert "LOCAL-REPLAY-EXTENSION" in audit_index
     assert "`docs/audit/LOCAL_REPLAY_EXTENSION_REVIEW.md`" in audit_index
 

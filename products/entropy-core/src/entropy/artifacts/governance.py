@@ -180,7 +180,9 @@ def bind_approval_event_to_transition(
 ) -> ArtifactGovernanceTransition:
     """Validate an approval-bound transition against an explicit approval event."""
     if next_state not in APPROVAL_BOUND_ARTIFACT_STATES:
-        raise ArtifactGovernanceViolation("Approval binding is only valid for approval-bound states.")
+        raise ArtifactGovernanceViolation(
+            "Approval binding is only valid for approval-bound states."
+        )
     if approval_event.scope != "controlled_external_pilot":
         raise ArtifactGovernanceViolation(
             "External pilot approval requires controlled external pilot scope."
@@ -239,9 +241,7 @@ def read_artifact_governance_history(
 ) -> tuple[ArtifactGovernanceTransitionEvent, ...]:
     """Read append-only governance transition events for one artifact."""
     return tuple(
-        event
-        for event in _read_events(Path(governance_dir))
-        if event.artifact_id == artifact_id
+        event for event in _read_events(Path(governance_dir)) if event.artifact_id == artifact_id
     )
 
 
